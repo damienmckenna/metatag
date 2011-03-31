@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * Implements hook_schema().
+ */
+function metatag_schema() {
+//  $schema['metatag_config'] = array(
+//    'description' => 'Storage of meta tag configuration and defaults.',
+//    'fields' => array(
+//
+//    ),
+//  );
+
+  $schema['metatag'] = array(
+    'description' => 'Storage for all meta tag data associated with entities.',
+    'fields' => array(
+      'entity_type' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity type this data is attached to',
+      ),
+      'entity_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The entity id this data is attached to',
+      ),
+      'revision_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'description' => 'The entity revision id this data is attached to, or NULL if the entity type is not versioned',
+      ),
+      'language' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The language for this data item.',
+      ),
+    ),
+    'primary key' => array('entity_type', 'entity_id', 'language'),
+    'indexes' => array(
+      'entity_type' => array('entity_type'),
+      'entity_id' => array('entity_id'),
+      'revision_id' => array('revision_id'),
+      'language' => array('language'),
+    ),
+  );
+
+//  $schema['cache_metatag'] = drupal_get_schema_unprocessed('system', 'cache');
+//  $schema['cache_metatag']['description'] = t('Cache table for the generated meta tag output.');
+//
+  return $schema;
+}
