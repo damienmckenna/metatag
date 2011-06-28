@@ -51,7 +51,7 @@ function metatag_schema() {
     ),
     'primary key' => array('id'),
     'unique keys' => array(
-      'entity_type_bundle', array('entity_type', 'bundle')
+      'entity_type_bundle' => array('entity_type', 'bundle'),
     ),
   );
 
