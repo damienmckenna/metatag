@@ -31,6 +31,9 @@ abstract class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   }
 }
 
+/**
+ * Text-based meta tag controller.
+ */
 class DrupalTextMetaTag extends DrupalDefaultMetaTag {
   function __construct(array $info, array $data = NULL) {
     $this->info = $info;
@@ -48,10 +51,76 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
 
     $form['value'] += array(
       '#type' => 'textfield',
+      '#title' => $this->info['label'],
+      '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
+      '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
+      '#element_validate' => array('token_element_validate'),
+      '#token_types' => $options['token types'],
+    );
+
+    $form['tokens'] = array(
+      '#theme' => 'token_tree',
+      '#token_types' => $options['token types'],
+    );
+
+    return $form;
+  }
+
+  public function getValue(array $options = array()) {
+    $options += array(
+      'token data' => array(),
+    );
+
+    $value = token_replace($this->data['value'], $options['token data'], $options);
+    $value = trim(strip_tags($value));
+    return $value;
+  }
+
+  public function getElement(array $options = array()) {
+    $element = isset($this->info['element']) ? $this->info['element'] : array();
+
+    $element += array(
+      '#tag' => 'meta',
+      '#attributes' => array(),
+      '#id' => 'metatag_' . $this->info['name'],
+    );
+    $element['#attributes'] += array(
+      'name' => $this->info['name'],
+      'content' => $this->getValue($options),
+    );
+
+    // Add header information if desired.
+    if (!empty($this->info['header'])) {
+      $element['#attached']['drupal_add_http_header'][] = array($this->info['header'], $element['#attributes']['content']);
+    }
+
+    return array(
+      '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
+    );
+    return $element;
+  }
+}
+
+class DrupalOptionsMetaTag extends DrupalDefaultMetaTag {
+  function __construct(array $info, array $data = NULL) {
+    $this->info = $info;
+    if (isset($data)) {
+      $this->data = $data;
+    }
+  }
+
+  public function getForm(array $options = array()) {
+    $options += array(
+      'token types' => array(),
+    );
+
+    $form['value'] = isset($this->info['form']) ? $this->info['form'] : array();
+
+    $form['value'] += array(
       '#type' => $form_info['type'],
       '#title' => $this->info['label'],
       '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
-      '#default_value' => $this->data['value'],
+      '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
       '#element_validate' => array('token_element_validate'),
       '#token_types' => $options['token types'],
     );
@@ -92,6 +161,9 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
   }
 }
 
+/**
+ * Link type meta tag controller.
+ */
 class DrupalLinkMetaTag extends DrupalTextMetaTag {
   public function getElement(array $options = array()) {
     $element = isset($this->info['element']) ? $this->info['element'] : array();
@@ -119,11 +191,18 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
   }
 }
 
+/**
+ * Title meta tag controller.
+ *
+ * This extends DrupalTextMetaTag as we need to alter variables in
+ * template_preprocess_html() rather output a normal meta tag.
+ */
 class DrupalTitleMetaTag extends DrupalTextMetaTag {
   public function getElement(array $options = array()) {
-    // Generate an attachment to call drupal_set_title() since
     $element = array();
-    $element['#attached']['drupal_set_title'][] = array($this->getValue($options));
+    $value = check_plain($this->getValue($options));
+    $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_title', $value);
+    $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_array', array('title' => $value));
     return $element;
   }
 }

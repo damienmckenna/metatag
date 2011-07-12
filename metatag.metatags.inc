@@ -1,19 +1,26 @@
 <?php
 
-///**
-// * Implements hook_metatag_info().
-// */
-//function metatag_metatag_info() {
-//  $info['description'] = array(
-//    'label' => t('Description'),
-//    'settings' => array('max_length' => 255),
-//    'default_widget' => 'text_textfield',
-//    'default_formatter' => 'text_default',
-//  );
-//
-//  return $info;
-//
-//}
+/**
+ * Implements hook_metatag_context_info().
+ */
+function metatag_metatag_context_info() {
+  $info['global'] = array(
+    'label' => t('Global'),
+    'bundles' => array(
+      'frontpage' => array(
+        'label' => t('Front page'),
+      ),
+      '403' => array(
+        'label' => t('403 page not found'),
+      ),
+      '404' => array(
+        'label' => t('404 page not found'),
+      ),
+    ),
+  );
+
+  return $info;
+}
 
 /**
  * Implements hook_metatag_info().
@@ -38,7 +45,6 @@ function metatag_metatag_info() {
     'label' => t('Title'),
     'description' => '',
     'class' => 'DrupalTitleMetaTag',
-    'preprocess_html' => TRUE,
   );
   $info['generator'] = array(
     'label' => t('Generator'),
