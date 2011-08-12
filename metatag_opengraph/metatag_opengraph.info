@@ -1,0 +1,5 @@
+name = Open Graph meta tags
+description = Provides support for open graph meta tags.
+package = Meta tags
+core = 7.x
+dependencies[] = metatag
