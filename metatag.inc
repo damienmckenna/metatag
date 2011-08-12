@@ -58,11 +58,6 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       '#token_types' => $options['token types'],
     );
 
-    $form['tokens'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => $options['token types'],
-    );
-
     return $form;
   }
 

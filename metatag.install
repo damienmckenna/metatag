@@ -36,10 +36,17 @@ function metatag_schema() {
       ),
       'bundle' => array(
         'type' => 'varchar',
-        'length' => 32,
+        'length' => 128,
         'not null' => TRUE,
         'default' => '',
         'description' => 'The entity bundle this configuration is attached to.',
+      ),
+      'metatag' => array(
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The meta tag this configuration is attached to.',
       ),
       'data' => array(
         'type' => 'blob',
@@ -71,25 +78,15 @@ function metatag_schema() {
         'default' => 0,
         'description' => 'The entity id this data is attached to',
       ),
-      'revision_id' => array(
-        'type' => 'int',
-        'unsigned' => TRUE,
+      // @todo Enable revisionable meta tags.
+      'data' => array(
+        'type' => 'blob',
+        'size' => 'big',
         'not null' => TRUE,
-        'default' => 0,
-        'description' => 'The entity revision id this data is attached to.',
-      ),
-      'language' => array(
-        'type' => 'varchar',
-        'length' => 32,
-        'not null' => TRUE,
-        'default' => '',
-        'description' => 'The language for this data item.',
+        'serialize' => TRUE,
       ),
     ),
-    'primary key' => array('entity_type', 'entity_id', 'revision_id'),
-    'indexes' => array(
-      'language' => array('language'),
-    ),
+    'primary key' => array('entity_type', 'entity_id'),
   );
 
   $schema['cache_metatag'] = drupal_get_schema_unprocessed('system', 'cache');
