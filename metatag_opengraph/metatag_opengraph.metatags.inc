@@ -5,25 +5,10 @@
  * Metatag integration for the metatag_opengraph module.
  */
 
-///**
-// * Implements hook_metatag_info().
-// */
-//function metatag_metatag_info() {
-//  $info['description'] = array(
-//    'label' => t('Description'),
-//    'settings' => array('max_length' => 255),
-//    'default_widget' => 'text_textfield',
-//    'default_formatter' => 'text_default',
-//  );
-//
-//  return $info;
-//
-//}
-
 /**
  * Implements hook_metatag_info().
  */
-function metatag_opensearch_metatag_info() {
+function metatag_opengraph_metatag_info() {
   $info['og:title'] = array(
     'label' => t('Open Graph title'),
     'description' => t('The title of your object as it should appear within the graph, e.g., <em>The Rock</em>.'),

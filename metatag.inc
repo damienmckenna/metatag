@@ -118,7 +118,7 @@ class DrupalOptionsMetaTag extends DrupalDefaultMetaTag {
     $form['value'] = isset($this->info['form']) ? $this->info['form'] : array();
 
     $form['value'] += array(
-      '#type' => $form_info['type'],
+      '#type' => 'select',
       '#title' => $this->info['label'],
       '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
       '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
