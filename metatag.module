@@ -396,6 +396,7 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
     '#tree' => TRUE,
+    '#access' => user_access('edit meta tags'),
   );
 
   // Build the form for each metatag.
