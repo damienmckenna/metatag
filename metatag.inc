@@ -53,7 +53,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       '#type' => 'textfield',
       '#title' => $this->info['label'],
       '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
-      '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
+      '#default_value' => isset($this->data['value']) ? $this->data['value'] : (isset($this->info['default']) ? $this->info['default'] : ''),
       '#element_validate' => array('token_element_validate'),
       '#token_types' => $options['token types'],
     );
@@ -121,7 +121,7 @@ class DrupalOptionsMetaTag extends DrupalDefaultMetaTag {
       '#type' => 'select',
       '#title' => $this->info['label'],
       '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
-      '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
+      '#default_value' => isset($this->data['value']) ? $this->data['value'] : (isset($this->info['default']) ? $this->info['default'] : ''),
       '#element_validate' => array('token_element_validate'),
       '#token_types' => $options['token types'],
     );

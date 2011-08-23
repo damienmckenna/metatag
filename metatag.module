@@ -254,18 +254,30 @@ function metatag_field_attach_view_alter(&$output, $context) {
   }
 }
 
-function metatag_entity_supports_metatags($entity_type) {
-  $results = &drupal_static(__FUNCTION__);
+/**
+ * Implements hook_field_extra_fields().
+ */
+function metatag_field_extra_fields() {
+  $entity_types = metatag_entity_supports_metatags();
 
-  if (!isset($results)) {
-    $results = array();
+}
+
+function metatag_entity_supports_metatags($entity_type = NULL) {
+  $entity_types = &drupal_static(__FUNCTION__);
+
+  if (!isset($entity_types)) {
+    $entity_types = array();
     $info = entity_get_info();
     foreach (array_keys($info) as $type) {
-      $results[$type] = !empty($info[$type]['metatags']);
+      $entity_types[$type] = !empty($info[$type]['metatags']);
     }
   }
 
-  return isset($results[$entity_type]) ? $results[$entity_type] : FALSE;
+  if (isset($entity_type)) {
+    return isset($entity_types[$entity_type]) ? $entity_types[$entity_type] : FALSE;
+  }
+
+  return $entity_types;
 }
 
 /**
@@ -403,8 +415,29 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
   // @todo Group these metatags
   $options['token types'] = array(token_get_entity_mapping('entity', $entity_type));
   foreach ($metatags as $metatag => $metatag_info) {
+    // Ensure the meta tag has the proper context to be edited here.
+    if (isset($metatag_info['context'])) {
+      if (!in_array($entity_type, $metatag_info['context'])) {
+        continue;
+      }
+    }
+
     $metatag_instance = metatag_get_instance($metatag, isset($entity->metatags[$metatag]) ? $entity->metatags[$metatag] : array());
-    $form['metatags'][$metatag] = $metatag_instance->getForm($options);
+    $metatag_form = $metatag_instance->getForm($options);
+
+    if (!empty($metatag_info['group'])) {
+      $group = drupal_clean_css_identifier(drupal_strtolower($metatag_info['group']));
+      if (!isset($form['metatags'][$group])) {
+        $form['metatags'][$group] = array(
+          '#type' => 'fieldset',
+          '#title' => check_plain($metatag_info['group']),
+        );
+      }
+      $form['metatags'][$group][$metatag] = $metatag_form + array('#parents' => array('metatags', $metatag));
+    }
+    else {
+      $form['metatags'][$metatag] = $metatag_form;
+    }
   }
 
   // Show the list of available tokens.
@@ -465,7 +498,13 @@ function metatag_get_info($metatag = NULL) {
 
 function metatag_get_instance($metatag, array $data = array()) {
   $info = metatag_get_info($metatag);
-  return new $info['class']($info, $data);
+  $class = $info['class'];
+  if (class_exists($class)) {
+    return new $class($info, $data);
+  }
+  else {
+    trigger_error("FAIL TO LOAD CLASS $class for metatag $metatag.");
+  }
 }
 
 /**

@@ -19,6 +19,17 @@ function metatag_metatag_context_info() {
     ),
   );
 
+  // Add context information for entities.
+  $entity_types = entity_get_info();
+  foreach ($entity_types as $entity_type => $entity_info) {
+    if (metatag_entity_supports_metatags($entity_type)) {
+      $info[$entity_type] = array('label' => $entity_info['label']);
+      foreach ($entity_info['bundles'] as $bundle => $bundle_info) {
+        $info[$entity_type]['bundles'][$bundle] = array('label' => $bundle_info['label']);
+      }
+    }
+  }
+
   return $info;
 }
 
@@ -54,6 +65,7 @@ function metatag_metatag_info() {
       '#id' => 'system_meta_generator',
     ),
     'header' => 'X-Generator',
+    'context' => array('global'),
   );
   $info['copyright'] = array(
     'label' => t('Copyright'),
