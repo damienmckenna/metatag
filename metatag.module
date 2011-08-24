@@ -384,7 +384,7 @@ function metatag_field_attach_delete_bundle($entity_type, $bundle, $instances) {
  */
 function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
   $metatags = metatag_get_info();
-  if (empty($metatags)) {
+  if (empty($metatags) || !metatag_entity_supports_metatags($entity_type)) {
     return;
   }
 
