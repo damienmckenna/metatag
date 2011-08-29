@@ -60,6 +60,13 @@ function metatag_permission() {
 }
 
 /**
+ * Implements hook_flush_caches().
+ */
+function metatag_flush_caches() {
+  return array('cache_metatag');
+}
+
+/**
  * Load a metatag configuration record with all the defaults merged in.
  *
  * For example, given the configuration instance 'node:article', this function
