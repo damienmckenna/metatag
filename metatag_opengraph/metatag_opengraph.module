@@ -11,9 +11,13 @@ function metatag_opengraph_preprocess_html(&$variables) {
   }
 }
 
-function metatag_opengraph_metatag_api() {
-  dpm(__FUNCTION__);
-  return array('api' => 1);
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function metatag_opengraph_ctools_plugin_api($owner, $api) {
+  if ($owner == 'metatag' && $api == 'metatag') {
+    return array('version' => 1);
+  }
 }
 
 /*

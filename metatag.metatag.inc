@@ -1,6 +1,34 @@
 <?php
 
 /**
+ * Implements hook_metatag_config_default().
+ */
+function metatag_metatag_config_default() {
+  $configs = array();
+
+  $config = new stdClass();
+  $config->instance = 'node';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'description' => array('value' => '[node:summary]'),
+    'title' => array('value' => '[node:title]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
+  $config->instance = 'node:article';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'keywords' => array('value' => '[node:field_tags]'),
+  );
+  $configs[$config->instance] = $config;
+
+  return $configs;
+}
+
+/**
  * Implements hook_metatag_context_info().
  */
 function metatag_metatag_context_info() {

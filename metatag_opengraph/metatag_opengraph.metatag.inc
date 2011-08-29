@@ -5,40 +5,38 @@
  * Metatag integration for the metatag_opengraph module.
  */
 
-function metatag_opengraph_metatag_default_config() {
-  dpm(__FUNCTION__);
-}
-
 /**
- * Implements hook_metatag_default_config_alter().
+ * Implements hook_metatag_config_default_alter().
  */
-function metatag_opengraph_metatag_default_config_alter(&$configs) {
-  dpm($configs, __FUNCTION__);
-  /*if (isset($configs['global:default'])) {
-    $configs['global:default'] += array(
-      'og:type' => 'article',
-      'og:site_name' => '[site:name]',
-      'og:url' => '[current-page:url:unaliased]',
-    );
+function metatag_opengraph_metatag_config_default_alter(array &$configs) {
+  foreach ($configs as &$config) {
+    switch ($config->instance) {
+      case 'global':
+        $config->config += array(
+          'og:type' => array('value' => 'article'),
+          'og:site_name' => array('value' => '[site:name]'),
+          'og:url' => array('value' => '[current-page:url:unaliased]'),
+        );
+        break;
+      case 'node':
+        $config->config += array(
+          'og:title' => array('value' => '[node:title]'),
+          'og:description' => array('value' => '[node:summary]'),
+        );
+        break;
+      case 'taxonomy_term':
+        $config->config += array(
+          'og:title' => array('value' => '[term:name]'),
+          'og:description' => array('value' => '[term:description]'),
+        );
+        break;
+      case 'user':
+        $config->config += array(
+          'og:title' => array('value' => '[user:name]'),
+        );
+        break;
+    }
   }
-  if (isset($configs['node:default'])) {
-    $configs['node:default'] += array(
-      'og:title' => '[node:title]',
-      'og:description' => '[node:summary]',
-    );
-  }
-  if (isset($configs['taxonomy_term:default'])) {
-    $configs['taxonomy_term:default'] += array(
-      'og:title' => '[term:name]',
-      'og:description' => '[term:description]',
-    );
-  }
-  if (isset($configs['user:default'])) {
-    $configs['user:default'] += array(
-      'og:title' => '[user:name]',
-      'og:type' => '[]',
-    );
-  }*/
 }
 
 /**

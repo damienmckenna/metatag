@@ -6,6 +6,15 @@
  */
 
 /**
+ * Implements hook_ctools_plugin_api().
+ */
+function metatag_ctools_plugin_api($owner, $api) {
+  if ($owner == 'metatag' && $api == 'metatag') {
+    return array('version' => 1);
+  }
+}
+
+/**
  * Implements hook_hook_info().
  */
 function metatag_hook_info() {
@@ -24,8 +33,8 @@ function metatag_hook_info() {
     'metatag_update',
     'metatag_delete',
     'metatag_alter',
-    'metatag_default_config',
-    'metatag_default_config_alter',
+    'metatag_config_default',
+    'metatag_config_default_alter',
     'metatag_api',
   );
 
@@ -60,14 +69,13 @@ function metatag_config_load_with_defaults($instance) {
   $defaults = &drupal_static(__FUNCTION__, array());
 
   // Check to see if
-  if (!isset($defaults[$entity])) {
+  if (!isset($defaults[$instance])) {
     $cid = "metatag:config:{$instance}";
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $defaults[$instance] = $cache->data;
     }
     else {
       $defaults[$instance] = array();
-      $default = &$defaults[$instance];
 
       $instances = array();
       $segments = explode(':', $instance);
@@ -80,13 +88,13 @@ function metatag_config_load_with_defaults($instance) {
       }
 
       $configs = metatag_config_load_multiple($instances);
-      foreach ($instances as $instance) {
-        if (!empty($configs[$instance]->config)) {
-          $default += $configs[$instance]->config;
+      foreach ($instances as $key) {
+        if (!empty($configs[$key]->config)) {
+          $defaults[$instance] += $configs[$key]->config;
         }
       }
 
-      cache_set($cid, $default, 'cache_metatag');
+      cache_set($cid, $defaults[$instance], 'cache_metatag');
     }
   }
 
@@ -130,7 +138,7 @@ function metatag_config_save($config) {
   unset($config->is_new);
 
   // Clear any caches.
-  //metatag_metatag_config_cache_clear($type, $subtype);
+  metatag_config_cache_clear();
   //metatag_metatag_cache_clear($type);
 }
 
@@ -143,12 +151,12 @@ function metatag_config_delete($instance) {
     ->execute();
 
   // Clear any caches.
-  //metatag_metatag_config_cache_clear($type, $subtype);
+  metatag_config_cache_clear();
   //metatag_metatag_cache_clear($type);
 }
 
-function metatag_metatag_config_cache_clear($type, $subtype) {
-
+function metatag_config_cache_clear() {
+  cache_clear_all('config:', 'cache_metatag', TRUE);
 }
 
 function metatag_metatags_load($type, $id) {
@@ -283,8 +291,14 @@ function metatag_field_attach_delete_revision($entity_type, $entity) {
 function metatag_field_attach_view_alter(&$output, $context) {
   $entity_type = $context['entity_type'];
 
-  if (!empty($context['entity']->metatags) && metatag_entity_supports_metatags($entity_type) && $context['view_mode'] == 'full' && _metatag_entity_is_page($entity_type, $context['entity'])) {
+  if (metatag_entity_supports_metatags($entity_type) && $context['view_mode'] == 'full' && _metatag_entity_is_page($entity_type, $context['entity'])) {
     $entity = $context['entity'];
+
+    // Build the array of metatags with the defaults merged in.
+    $metatags = isset($entity->metatags) ? $entity->metatags : array();
+    list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+    $metatags += metatag_config_load_with_defaults("{$entity_type}:{$bundle}");
+
     // Build options for meta tag rendering. The context variable already
     // contains entity type, entity, view mode, language, etc.
     $options = $context;
@@ -293,7 +307,7 @@ function metatag_field_attach_view_alter(&$output, $context) {
     $options['language'] = $languages[$context['language']];
     $options['token data'][token_get_entity_mapping('entity', $entity_type)] = $context['entity'];
 
-    foreach ($entity->metatags as $metatag => $data) {
+    foreach ($metatags as $metatag => $data) {
       if ($metatag_instance = metatag_get_instance($metatag, $data)) {
         $output['metatags'][$metatag] = $metatag_instance->getElement($options);
       }

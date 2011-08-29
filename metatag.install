@@ -16,7 +16,7 @@ function metatag_schema() {
       'key name' => 'Instance',
       'primary key' => 'cid',
       'identifier' => 'config',
-      'default hook' => 'metatag_default_config',
+      'default hook' => 'metatag_config_default',
       'api' => array(
         'owner' => 'metatag',
         'api' => 'metatag',
