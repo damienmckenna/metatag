@@ -5,11 +5,16 @@
  * Metatag integration for the metatag_opengraph module.
  */
 
+function metatag_opengraph_metatag_default_config() {
+  dpm(__FUNCTION__);
+}
+
 /**
  * Implements hook_metatag_default_config_alter().
  */
 function metatag_opengraph_metatag_default_config_alter(&$configs) {
-  if (isset($configs['global:default'])) {
+  dpm($configs, __FUNCTION__);
+  /*if (isset($configs['global:default'])) {
     $configs['global:default'] += array(
       'og:type' => 'article',
       'og:site_name' => '[site:name]',
@@ -33,7 +38,7 @@ function metatag_opengraph_metatag_default_config_alter(&$configs) {
       'og:title' => '[user:name]',
       'og:type' => '[]',
     );
-  }
+  }*/
 }
 
 /**

@@ -26,7 +26,7 @@ function metatag_hook_info() {
     'metatag_alter',
   );
 
-  return array_fill_keys($hooks, array('group' => 'metatags'));
+  return array_fill_keys($hooks, array('group' => 'metatag'));
 }
 
 /**
