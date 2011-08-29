@@ -24,6 +24,9 @@ function metatag_hook_info() {
     'metatag_update',
     'metatag_delete',
     'metatag_alter',
+    'metatag_default_config',
+    'metatag_default_config_alter',
+    'metatag_api',
   );
 
   return array_fill_keys($hooks, array('group' => 'metatag'));
@@ -109,22 +112,22 @@ function metatag_config_load_multiple(array $instances) {
 /**
  * Save a metatag configuration record to the database.
  */
-function metatag_config_save($instance) {
-  $instance->is_new = empty($instance->cid);
+function metatag_config_save($config) {
+  $config->is_new = empty($config->cid);
 
   // Allow modules to alter the configuration before it is saved.
-  module_invoke_all('metatag_config_presave', $instance);
+  module_invoke_all('metatag_config_presave', $config);
 
-  if ($instance->is_new) {
-    drupal_write_record('metatag_config', $instance);
-    module_invoke_all('metatag_config_insert', $instance);
+  if ($config->is_new) {
+    drupal_write_record('metatag_config', $config);
+    module_invoke_all('metatag_config_insert', $config);
   }
   else {
-    drupal_write_record('metatag_config', $instance, array('cid'));
-    module_invoke_all('metatag_config_update', $instance);
+    drupal_write_record('metatag_config', $config, array('cid'));
+    module_invoke_all('metatag_config_update', $config);
   }
 
-  unset($instance->is_new);
+  unset($config->is_new);
 
   // Clear any caches.
   //metatag_metatag_config_cache_clear($type, $subtype);

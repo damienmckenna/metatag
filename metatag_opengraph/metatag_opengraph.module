@@ -11,6 +11,11 @@ function metatag_opengraph_preprocess_html(&$variables) {
   }
 }
 
+function metatag_opengraph_metatag_api() {
+  dpm(__FUNCTION__);
+  return array('api' => 1);
+}
+
 /*
 og:title = [node:title] / [user:name]
 og:type = article / profile
