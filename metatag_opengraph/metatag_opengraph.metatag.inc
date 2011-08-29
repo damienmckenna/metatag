@@ -57,7 +57,6 @@ function metatag_opengraph_metatag_info() {
     'form' => array(
       '#options' => _metatag_opengraph_type_options(),
     ),
-    'default' => 'article',
   );
   //if (module_exists('select_or_other')) {
   //  $info['og:type']['form']['#type'] = 'select_or_other';
@@ -73,14 +72,12 @@ function metatag_opengraph_metatag_info() {
     'description' => t('The canonical URL of your object that will be used as its permanent ID in the graph, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => t('Open Graph'),
-    'default' => '[current-page:url:unaliased]',
   );
   $info['og:site_name'] = array(
     'label' => t('Open Graph site name'),
     'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => t('Open Graph'),
-    'default' => '[site:name]',
     'context' => array('global'),
   );
   $info['og:description'] = array(

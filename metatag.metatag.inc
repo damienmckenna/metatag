@@ -7,6 +7,15 @@ function metatag_metatag_config_default() {
   $configs = array();
 
   $config = new stdClass();
+  $config->instance = 'global';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
   $config->instance = 'node';
   $config->api_version = 1;
   $config->disabled = FALSE;
