@@ -3,6 +3,10 @@
 /**
  * DO NOT USE THIS MODULE ON ANYTHING RESEMBLING A PRODUCTION SITE. IT IS NOT
  * FINISHED, THE APIS ARE NOT YET LOCKED, AND THIS DOESN'T ACTUALLY WORK YET.
+ *
+ * @todo Add revisionable support for metatag data.
+ * @todo Add multilingual support for metatag data - is this even needed?
+ *
  */
 
 /**
@@ -56,14 +60,14 @@ function metatag_permission() {
 }
 
 /**
- * Implements hook_menu().
- */
-function metatag_menu() {
-  //return $items;
-}
-
-/**
  * Load a metatag configuration record with all the defaults merged in.
+ *
+ * For example, given the configuration instance 'node:article', this function
+ * will load the configuration records for 'node:article', then 'node', and
+ * then finally 'global', with each attempt using an array merge.
+ *
+ * The levels of defaults is arranged by splitting the $instance variable by
+ * the colon character, and always using a 'global' instance at the end.
  */
 function metatag_config_load_with_defaults($instance) {
   $defaults = &drupal_static(__FUNCTION__, array());
@@ -156,8 +160,12 @@ function metatag_config_delete($instance) {
   //metatag_metatag_cache_clear($type);
 }
 
+/**
+ * Clear the metatag configuration cache.
+ */
 function metatag_config_cache_clear() {
   cache_clear_all('config:', 'cache_metatag', TRUE);
+  cache_clear_all('ctools_export', 'cache_metatag', TRUE);
 }
 
 function metatag_metatags_load($type, $id) {
@@ -297,8 +305,8 @@ function metatag_field_attach_view_alter(&$output, $context) {
 
     // Build the array of metatags with the defaults merged in.
     $metatags = isset($entity->metatags) ? $entity->metatags : array();
-    list(, , $bundle) = entity_extract_ids($entity_type, $entity);
-    $metatags += metatag_config_load_with_defaults("{$entity_type}:{$bundle}");
+    list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+    $instance = "{$entity_type}:{$bundle}";
 
     // Build options for meta tag rendering. The context variable already
     // contains entity type, entity, view mode, language, etc.
@@ -308,15 +316,137 @@ function metatag_field_attach_view_alter(&$output, $context) {
     $options['language'] = $languages[$context['language']];
     $options['token data'][token_get_entity_mapping('entity', $entity_type)] = $context['entity'];
 
-    foreach ($metatags as $metatag => $data) {
-      if ($metatag_instance = metatag_get_instance($metatag, $data)) {
-        $output['metatags'][$metatag] = $metatag_instance->getElement($options);
-      }
-    }
+    // Render the metatags.
+    $output['metatags'] = metatag_metatags_view($instance, $metatags, $options);
 
     // We have to add a '#field_type' property otherwise
     // rdf_field_attach_view_alter() freaks out.
     $output['metatags']['#field_type'] = NULL;
+  }
+}
+
+/**
+ * Build a renderable array of meta tag output.
+ *
+ * @param string $instance
+ *   The configuration instance key of the metatags to use, e.g. "node:article".
+ * @param array $metatags
+ *   An arary of metatag data.
+ * @param array $options
+ *   (optional) An array of options including the following keys and values:
+ *   - language: A language object.
+ *   - token data: An array of data to pass into token_replace() during
+ *                 meta tag value generation.
+ */
+function metatag_metatags_view($instance, array $metatags = array(), array $options = array()) {
+  $output = array();
+  $metatags += metatag_config_load_with_defaults($instance);
+
+  foreach ($metatags as $metatag => $data) {
+    if ($metatag_instance = metatag_get_instance($metatag, $data)) {
+      $output[$metatag] = $metatag_instance->getElement($options);
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Build a FAPI array for editing meta tags.
+ *
+ * @param array $form
+ *   The current FAPI array.
+ * @param string $instance
+ *   The configuration instance key of the metatags to use, e.g. "node:article".
+ * @param array $metatags
+ *   An arary of metatag data.
+ * @param array $options
+ *   (optional) An array of options including the following keys and values:
+ *   - token types: An array of token types to be passed to theme_token_tree().
+ */
+function metatag_metatags_form(array &$form, $instance, array $metatags = array(), array $options = array()) {
+  $metatag_info = metatag_get_info();
+  if (empty($metatag_info)) {
+    return;
+  }
+
+  $options += array(
+    'token types' => array(),
+  );
+
+  // Merge in the default meta tag configurations.
+  $defaults = metatag_config_load_with_defaults($instance);
+  $metatags += $defaults;
+
+  $form['metatags'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Meta tags'),
+    '#group' => 'additional_settings',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#tree' => TRUE,
+    '#access' => user_access('edit meta tags'),
+    '#metatag_defaults' => $defaults,
+  );
+
+  // Build the form for each metatag.
+  foreach ($metatag_info as $metatag => $metatag_info) {
+    // @todo Replace context matching with hook_metatag_access().
+    if (isset($options['context']) && isset($metatag_info['context'])) {
+      if (!in_array($options['context'], $metatag_info['context'])) {
+        continue;
+      }
+    }
+
+    $metatag_instance = metatag_get_instance($metatag, isset($metatags[$metatag]) ? $metatags[$metatag] : array());
+    if (empty($metatag_instance)) {
+      continue;
+    }
+
+    $metatag_form = $metatag_instance->getForm($options);
+
+    if (!empty($metatag_info['group'])) {
+      $group = drupal_clean_css_identifier(drupal_strtolower($metatag_info['group']));
+      if (!isset($form['metatags'][$group])) {
+        $form['metatags'][$group] = array(
+          '#type' => 'fieldset',
+          '#title' => check_plain($metatag_info['group']),
+        );
+      }
+      $form['metatags'][$group][$metatag] = $metatag_form + array('#parents' => array('metatags', $metatag));
+    }
+    else {
+      $form['metatags'][$metatag] = $metatag_form;
+    }
+  }
+
+  // Show the list of available tokens.
+  $form['metatags']['tokens'] = array(
+    '#theme' => 'token_tree',
+    '#token_types' => $options['token types'],
+  );
+
+  // Add a submit handler to compare the submitted values against the deafult
+  // values.
+  array_unshift($form['#submit'], 'metatag_metatags_form_submit');
+}
+
+/**
+ * Form submit handler; unset meta tag values that equal their default values.
+ */
+function metatag_metatags_form_submit($form, &$form_state) {
+  $defaults = $form['metatags']['#metatag_defaults'];
+  $values = &$form_state['values']['metatags'];
+
+  foreach ($values as $metatag => $data) {
+    if (isset($defaults[$metatag]['value']) && isset($data['value']) && $defaults[$metatag]['value'] == $data['value']) {
+      // Meta tag has a default, and it matches user-submitted value.
+      unset($values[$metatag]);
+    }
+    elseif (!isset($defaults[$metatag]) && !drupal_strlen($data['value'])) {
+      // Metatag does not have a default, and user did not submit a value.
+      unset($values[$metatag]);
+    }
   }
 }
 
@@ -462,59 +592,18 @@ function metatag_field_attach_delete_bundle($entity_type, $bundle) {
  * Implements hook_field_attach_form().
  */
 function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
-  $metatags = metatag_get_info();
-  if (empty($metatags) || !metatag_entity_supports_metatags($entity_type)) {
+  if (!metatag_entity_supports_metatags($entity_type)) {
     return;
   }
 
-  list($id, , $bundle) = entity_extract_ids($entity_type, $entity);
-  $form['metatags'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Meta tags'),
-    '#group' => 'additional_settings',
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-    '#tree' => TRUE,
-    '#access' => user_access('edit meta tags'),
-  );
+  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+  $instance = "{$entity_type}:{$bundle}";
 
-  $entity_metatags = isset($entity->metatags) ? $entity->metatags : array();
-  $entity_metatags += metatag_config_load_with_defaults("{$entity_type}:{$bundle}");
-
-  // Build the form for each metatag.
-  // @todo Group these metatags
+  $metatags = isset($entity->metatags) ? $entity->metatags : array();
   $options['token types'] = array(token_get_entity_mapping('entity', $entity_type));
-  foreach ($metatags as $metatag => $metatag_info) {
-    // Ensure the meta tag has the proper context to be edited here.
-    if (isset($metatag_info['context'])) {
-      if (!in_array($entity_type, $metatag_info['context'])) {
-        continue;
-      }
-    }
+  $options['context'] = $entity_type;
 
-    $metatag_instance = metatag_get_instance($metatag, isset($entity_metatags[$metatag]) ? $entity_metatags[$metatag] : array());
-    $metatag_form = $metatag_instance->getForm($options);
-
-    if (!empty($metatag_info['group'])) {
-      $group = drupal_clean_css_identifier(drupal_strtolower($metatag_info['group']));
-      if (!isset($form['metatags'][$group])) {
-        $form['metatags'][$group] = array(
-          '#type' => 'fieldset',
-          '#title' => check_plain($metatag_info['group']),
-        );
-      }
-      $form['metatags'][$group][$metatag] = $metatag_form + array('#parents' => array('metatags', $metatag));
-    }
-    else {
-      $form['metatags'][$metatag] = $metatag_form;
-    }
-  }
-
-  // Show the list of available tokens.
-  $form['metatags']['tokens'] = array(
-    '#theme' => 'token_tree',
-    '#token_types' => $options['token types'],
-  );
+  metatag_metatags_form($form, $instance, $metatags, $options);
 }
 
 /**

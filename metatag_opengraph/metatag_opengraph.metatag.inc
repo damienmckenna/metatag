@@ -15,7 +15,7 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
         $config->config += array(
           'og:type' => array('value' => 'article'),
           'og:site_name' => array('value' => '[site:name]'),
-          'og:url' => array('value' => '[current-page:url:unaliased]'),
+          'og:url' => array('value' => '[current-page:url]'),
         );
         break;
       case 'node':
