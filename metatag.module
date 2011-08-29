@@ -424,7 +424,8 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
     '#tree' => TRUE,
-    '#access' => user_access('edit meta tags'),
+    '#access' => user_access('edit meta tags') || user_access('administer meta tags'),
+    '#weight' => 10,
     '#metatag_defaults' => $defaults,
   );
 
@@ -493,8 +494,19 @@ function metatag_metatags_form_submit($form, &$form_state) {
  * Implements hook_field_extra_fields().
  */
 function metatag_field_extra_fields() {
-  $entity_types = metatag_entity_supports_metatags();
-
+  $extra = array();
+  foreach (entity_get_info() as $entity_type => $entity_info) {
+    if (metatag_entity_supports_metatags($entity_type)) {
+      foreach (array_keys($entity_info['bundles']) as $bundle) {
+        $extra[$entity_type][$bundle]['form']['metatags'] = array(
+          'label' => t('Meta tags'),
+          'description' => t('Meta tag module form elements.'),
+          'weight' => 10,
+        );
+      }
+    }
+  }
+  return $extra;
 }
 
 function metatag_entity_supports_metatags($entity_type = NULL) {
