@@ -51,49 +51,97 @@ function metatag_menu() {
 }
 
 /**
- * Given an entity and bundle, return all the enabled meta tags, default values
- * and data.
+ * Load a metatag configuration record with all the defaults merged in.
  */
-function metatag_load_metatag_entity_default($entity_type, $bundle) {
+function metatag_config_load_with_defaults($instance) {
   $defaults = &drupal_static(__FUNCTION__, array());
 
   // Check to see if
   if (!isset($defaults[$entity])) {
-    if ($cache = cache_get("metatag:config:{$entity_type}")) {
-      $defaults[$entity] = $cache->data;
+    $cid = "metatag:config:{$instance}";
+    if ($cache = cache_get($cid, 'cache_metatag')) {
+      $defaults[$instance] = $cache->data;
+    }
+    else {
+      $defaults[$instance] = array();
+      $default = &$defaults[$instance];
+
+      $instances = array();
+      $segments = explode(':', $instance);
+      while (count($segments) > 0) {
+        $instances[] = implode(':', $segments);
+        array_pop($segments);
+      }
+      if (end($instances) !== 'global') {
+        $instances[] = 'global';
+      }
+
+      $configs = metatag_config_load_multiple($instances);
+      foreach ($instances as $instance) {
+        if (!empty($configs[$instance]->config)) {
+          $default += $configs[$instance]->config;
+        }
+      }
+
+      cache_set($cid, $default, 'cache_metatag');
     }
   }
 
-  if (!isset($defaults[$entity][$bundle])) {
-    $config = db_query("SELECT name, value, data FROM {metatag_config} WHERE entity IN ('', :entity) AND bundle IN ('', :bundle) ORDER BY entity, bundle", array(':entity' => $entity, ':bundle' => $bundle))->fetchAllKeyed();
-    $defaults[$entity][$bundle] = $config;
-    cache_set("metatag:config:{$entity_type}", $defaults[$entity]);
+  return $defaults[$instance];
+}
+
+/**
+ * Load a metatag configuration record.
+ */
+function metatag_config_load($instance) {
+  $results = metatag_config_load_multiple(array($instance));
+  return !empty($results[$instance]) ? $results[$instance] : FALSE;
+}
+
+/**
+ * Load multiple metatag configuration records.
+ */
+function metatag_config_load_multiple(array $instances) {
+  ctools_include('export');
+  return ctools_export_load_object('metatag_config', 'names', $instances);
+}
+
+/**
+ * Save a metatag configuration record to the database.
+ */
+function metatag_config_save($instance) {
+  $instance->is_new = empty($instance->cid);
+
+  // Allow modules to alter the configuration before it is saved.
+  module_invoke_all('metatag_config_presave', $instance);
+
+  if ($instance->is_new) {
+    drupal_write_record('metatag_config', $instance);
+    module_invoke_all('metatag_config_insert', $instance);
+  }
+  else {
+    drupal_write_record('metatag_config', $instance, array('cid'));
+    module_invoke_all('metatag_config_update', $instance);
   }
 
-  return $defaults[$entity][$bundle];
-}
-
-function metatag_config_load($type, $subtype) {
-
-}
-
-function metatag_config_save($type, $subtype, $config) {
-
+  unset($instance->is_new);
 
   // Clear any caches.
-  metatag_metatag_config_cache_clear($type, $subtype);
-  metatag_metatag_cache_clear($type);
+  //metatag_metatag_config_cache_clear($type, $subtype);
+  //metatag_metatag_cache_clear($type);
 }
 
-function metatag_config_delete($type, $subtype) {
+/**
+ * Delete a metatag configuration record.
+ */
+function metatag_config_delete($instance) {
   db_delete('metatag_config')
-    ->condition('entity_type', $type)
-    ->condition('bundle', $subtype)
+    ->condition('instance', $instance)
     ->execute();
 
   // Clear any caches.
-  metatag_metatag_config_cache_clear($type, $subtype);
-  metatag_metatag_cache_clear($type);
+  //metatag_metatag_config_cache_clear($type, $subtype);
+  //metatag_metatag_cache_clear($type);
 }
 
 function metatag_metatag_config_cache_clear($type, $subtype) {
@@ -106,7 +154,7 @@ function metatag_metatags_load($type, $id) {
 }
 
 function metatag_metatags_load_multiple($type, array $ids) {
-  if (empty($ids)) {
+  if (empty($ids) || !db_table_exists('metatag')) {
     return array();
   }
   else {
@@ -387,8 +435,9 @@ function metatag_field_attach_rename_bundle($entity_type, $bundle_old, $bundle_n
 /**
  * Implements hook_field_attach_delete_bundle().
  */
-function metatag_field_attach_delete_bundle($entity_type, $bundle, $instances) {
-  metatag_metatag_config_delete($entity_type, $bundle);
+function metatag_field_attach_delete_bundle($entity_type, $bundle) {
+  $instance = $entity_type . ':' . $bundle;
+  metatag_metatag_config_delete($instance);
 }
 
 /**

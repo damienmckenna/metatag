@@ -1,54 +1,45 @@
 <?php
 
 /**
+ * @file
+ * Install, update, and uninstall functions for the metatag module.
+ */
+
+/**
  * Implements hook_schema().
  */
 function metatag_schema() {
   $schema['metatag_config'] = array(
     'description' => 'Storage of meta tag configuration and defaults.',
-    /*'export' => array(
-      'key' => 'name',
-      'keys' => array('entity', 'bundle'),
-      'key name' => 'Name',
-      'primary key' => 'id',
-      'identifier' => 'config', // Exports will be as $myobj
-      'default hook' => 'default_metatag_config',  // Function hook name.
+    'export' => array(
+      'key' => 'instance',
+      'key name' => 'Instance',
+      'primary key' => 'cid',
+      'identifier' => 'config',
+      'default hook' => 'metatag_default_config',
       'api' => array(
         'owner' => 'metatag',
-        'api' => 'default_metatag_config',  // Base name for api include files.
+        'api' => 'metatag',
         'minimum_version' => 1,
         'current_version' => 1,
       ),
-    ),*/
+      'default cache bin' => 'cache_metatag',
+    ),
     'fields' => array(
-      'id' => array(
+      'cid' => array(
         'type' => 'serial',
         'unsigned' => TRUE,
         'not null' => FALSE,
-        'description' => 'The primary identifier for a meta tag configuration set.',
+        'description' => 'The primary identifier for a metatag configuration set.',
       ),
-      'entity_type' => array(
+      'instance' => array(
         'type' => 'varchar',
-        'length' => 32,
+        'length' => 255,
         'not null' => TRUE,
         'default' => '',
-        'description' => 'The entity type this configuration is attached to.',
+        'description' => 'The machine-name of the configuration, typically entity-type:bundle.',
       ),
-      'bundle' => array(
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-        'default' => '',
-        'description' => 'The entity bundle this configuration is attached to.',
-      ),
-      'metatag' => array(
-        'type' => 'varchar',
-        'length' => 128,
-        'not null' => TRUE,
-        'default' => '',
-        'description' => 'The meta tag this configuration is attached to.',
-      ),
-      'data' => array(
+      'config' => array(
         'type' => 'blob',
         'size' => 'big',
         'not null' => TRUE,
@@ -56,9 +47,9 @@ function metatag_schema() {
         'description' => 'Serialized data containing the meta tag configuration.'
       ),
     ),
-    'primary key' => array('id'),
+    'primary key' => array('cid'),
     'unique keys' => array(
-      'entity_type_bundle' => array('entity_type', 'bundle'),
+      'instance' => array('instance'),
     ),
   );
 
