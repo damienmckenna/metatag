@@ -105,7 +105,7 @@ function metatag_config_load_with_defaults($instance) {
 
   // Check to see if
   if (!isset($defaults[$instance])) {
-    $cid = "metatag:config:{$instance}";
+    $cid = "config:{$instance}";
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $defaults[$instance] = $cache->data;
     }
@@ -276,12 +276,12 @@ function metatag_metatags_delete_multiple($type, array $ids) {
 
 function metatag_metatags_cache_clear($type, $id = NULL) {
   if (empty($id)) {
-    cache_clear_all("$type", 'cache_metatag', TRUE);
+    cache_clear_all("output:$type", 'cache_metatag', TRUE);
   }
   else {
     $ids = (array) $id;
     foreach ($ids as $id) {
-      cache_clear_all("$type:$id", 'cache_metatag', TRUE);
+      cache_clear_all("output:$type:$id", 'cache_metatag', TRUE);
     }
   }
 }
@@ -340,21 +340,28 @@ function metatag_field_attach_view_alter(&$output, $context) {
   if (metatag_entity_supports_metatags($entity_type) && $context['view_mode'] == 'full' && _metatag_entity_is_page($entity_type, $context['entity'])) {
     $entity = $context['entity'];
 
-    // Build the array of metatags with the defaults merged in.
-    $metatags = isset($entity->metatags) ? $entity->metatags : array();
     list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
-    $instance = "{$entity_type}:{$bundle}";
+    $cid = "output:{$entity_type}:{$entity_id}";
 
-    // Build options for meta tag rendering. The context variable already
-    // contains entity type, entity, view mode, language, etc.
-    $options = $context;
-    // Ensure we actually pass a language object rather than language code.
-    $languages = language_list();
-    $options['language'] = $languages[$context['language']];
-    $options['token data'][token_get_entity_mapping('entity', $entity_type)] = $context['entity'];
+    if ($cache = cache_get($cid, 'cache_metatag')) {
+      $output['metatags'] = $cache->data;
+    }
+    else {
+      $metatags = isset($entity->metatags) ? $entity->metatags : array();
+      $instance = "{$entity_type}:{$bundle}";
 
-    // Render the metatags.
-    $output['metatags'] = metatag_metatags_view($instance, $metatags, $options);
+      // Build options for meta tag rendering. The context variable already
+      // contains entity type, entity, view mode, language, etc.
+      $options = $context;
+      // Ensure we actually pass a language object rather than language code.
+      $languages = language_list();
+      $options['language'] = $languages[$context['language']];
+      $options['token data'][token_get_entity_mapping('entity', $entity_type)] = $context['entity'];
+
+      // Render the metatags and save to the cache.
+      $output['metatags'] = metatag_metatags_view($instance, $metatags, $options);
+      cache_set($cid, $output['metatags'], 'cache_metatag');
+    }
 
     // We have to add a '#field_type' property otherwise
     // rdf_field_attach_view_alter() freaks out.
@@ -378,6 +385,12 @@ function metatag_field_attach_view_alter(&$output, $context) {
 function metatag_metatags_view($instance, array $metatags = array(), array $options = array()) {
   $output = array();
   $metatags += metatag_config_load_with_defaults($instance);
+
+  // Convert language codes to a language object.
+  if (isset($options['language']) && is_string($options['language'])) {
+    $languages = language_list();
+    $options['language'] = isset($languages[$options['language']]) ? $languages[$options['language']] : NULL;
+  }
 
   foreach ($metatags as $metatag => $data) {
     if ($metatag_instance = metatag_get_instance($metatag, $data)) {
@@ -468,6 +481,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
 
   // Add a submit handler to compare the submitted values against the deafult
   // values.
+  $form += array('#submit' => array());
   array_unshift($form['#submit'], 'metatag_metatags_form_submit');
 }
 
