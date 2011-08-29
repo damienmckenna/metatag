@@ -7,14 +7,14 @@
 
 function theme_metatag($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('name', 'value'));
+  element_set_attributes($element, array('name', '#value' => 'content'));
   unset($element['#value']);
   return theme_html_tag($variables);
 }
 
 function theme_metatag_http_equiv($variables) {
   $element = &$variables['element'];
-  element_set_attributes($element, array('#name' => 'http-equiv', 'value'));
+  element_set_attributes($element, array('#name' => 'http-equiv', '#value' => 'content'));
   unset($element['#value']);
   return theme_html_tag($variables);
 }
