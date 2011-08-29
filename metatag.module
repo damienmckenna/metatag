@@ -10,6 +10,30 @@
  */
 
 /**
+ * Implements hook_theme().
+ */
+function metatag_theme() {
+  $info['metatag'] = array(
+    'render element' => 'element',
+    'file' => 'metatag.theme.inc',
+  );
+  $info['metatag_http_equiv'] = array(
+    'render element' => 'element',
+    'file' => 'metatag.theme.inc',
+  );
+  $info['metatag_link_rel'] = array(
+    'render element' => 'element',
+    'file' => 'metatag.theme.inc',
+  );
+  $info['metatag_link_rev'] = array(
+    'render element' => 'element',
+    'file' => 'metatag.theme.inc',
+  );
+
+  return $info;
+}
+
+/**
  * Implements hook_ctools_plugin_api().
  */
 function metatag_ctools_plugin_api($owner, $api) {
@@ -97,11 +121,12 @@ function metatag_config_load_with_defaults($instance) {
       if (end($instances) !== 'global') {
         $instances[] = 'global';
       }
+      reset($instances);
 
       $configs = metatag_config_load_multiple($instances);
       foreach ($instances as $key) {
         // Ignore disabled configurations.
-        if (!empty($configs[$key]->disabled)) {
+        if (!isset($configs[$key]) || !empty($configs[$key]->disabled)) {
           continue;
         }
 
@@ -359,6 +384,8 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
       $output[$metatag] = $metatag_instance->getElement($options);
     }
   }
+
+  drupal_alter('metatag_metatags_view', $output);
 
   return $output;
 }

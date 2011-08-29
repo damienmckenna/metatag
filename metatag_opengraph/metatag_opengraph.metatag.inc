@@ -48,14 +48,21 @@ function metatag_opengraph_metatag_info() {
     'description' => t('The title of your object as it should appear within the graph, e.g., <em>The Rock</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => t('Open Graph'),
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
   );
   $info['og:type'] = array(
     'label' => t('Open Graph type'),
     'description' => t('The type of your object, e.g., <em>movie</em>.'),
-    'class' => 'DrupalOptionsMetaTag',
+    'class' => 'DrupalTextMetaTag',
     'group' => t('Open Graph'),
     'form' => array(
+      '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
+    ),
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
     ),
   );
   //if (module_exists('select_or_other')) {
@@ -66,12 +73,18 @@ function metatag_opengraph_metatag_info() {
     'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. We support PNG, JPEG and GIF formats.'),
     'class' => 'DrupalTextMetaTag',
     'group' => t('Open Graph'),
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
   );
   $info['og:url'] = array(
     'label' => t('Open Graph URL'),
     'description' => t('The canonical URL of your object that will be used as its permanent ID in the graph, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => t('Open Graph'),
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
   );
   $info['og:site_name'] = array(
     'label' => t('Open Graph site name'),
@@ -79,18 +92,27 @@ function metatag_opengraph_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => t('Open Graph'),
     'context' => array('global'),
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
   );
   $info['og:description'] = array(
     'label' => t('Open Graph description'),
     'description' => t('A one to two sentence description of your page.'),
     'group' => t('Open Graph'),
     'class' => 'DrupalTextMetaTag',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
   );
   $info['og:latitude'] = array(
     'label' => t('Open Graph latitude'),
     'description' => t('The latitude of the page.'),
     'group' => t('Open Graph'),
     'class' => 'DrupalTextMetaTag',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
   );
 
   return $info;

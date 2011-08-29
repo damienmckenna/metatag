@@ -81,79 +81,11 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     }
 
     $element += array(
+      '#theme' => 'metatag',
       '#tag' => 'meta',
-      '#attributes' => array(),
       '#id' => 'metatag_' . $this->info['name'],
-    );
-    $element['#attributes'] += array(
-      'name' => $this->info['name'],
-      'content' => $value,
-    );
-
-    // Add header information if desired.
-    if (!empty($this->info['header'])) {
-      $element['#attached']['drupal_add_http_header'][] = array($this->info['header'], $value);
-    }
-
-    return array(
-      '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
-    );
-    return $element;
-  }
-}
-
-class DrupalOptionsMetaTag extends DrupalDefaultMetaTag {
-  function __construct(array $info, array $data = NULL) {
-    $this->info = $info;
-    if (isset($data)) {
-      $this->data = $data;
-    }
-  }
-
-  public function getForm(array $options = array()) {
-    $options += array(
-      'token types' => array(),
-    );
-
-    $form['value'] = isset($this->info['form']) ? $this->info['form'] : array();
-
-    $form['value'] += array(
-      '#type' => 'select',
-      '#title' => $this->info['label'],
-      '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
-      '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
-      '#element_validate' => array('token_element_validate'),
-      '#token_types' => $options['token types'],
-    );
-
-    return $form;
-  }
-
-  public function getValue(array $options = array()) {
-    $options += array(
-      'token data' => array(),
-      'clear' => TRUE,
-    );
-
-    return token_replace($this->data['value'], $options['token data'], $options);
-  }
-
-  public function getElement(array $options = array()) {
-    $element = isset($this->info['element']) ? $this->info['element'] : array();
-
-    $value = $this->getValue($options);
-    if (strlen($value) === 0) {
-      return array();
-    }
-
-    $element += array(
-      '#tag' => 'meta',
-      '#attributes' => array(),
-      '#id' => 'metatag_' . $this->info['name'],
-    );
-    $element['#attributes'] += array(
-      'name' => $this->info['name'],
-      'content' => $value,
+      '#name' => $this->info['name'],
+      '#value' => $value,
     );
 
     // Add header information if desired.
@@ -181,19 +113,16 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
     }
 
     $element += array(
-      '#type' => 'html_tag',
+      '#theme' => 'metatag_link_rel',
       '#tag' => 'link',
-      '#attributes' => array(),
       '#id' => 'metatag_' . $this->info['name'],
-    );
-    $element['#attributes'] += array(
-      'rel' => $this->info['name'],
-      'href' => $value,
+      '#name' => $this->info['name'],
+      '#value' => $value,
     );
 
     if (!isset($this->info['header']) || !empty($this->info['header'])) {
       // Also send the generator in the HTTP header.
-      $element['#attached']['drupal_add_http_header'][] = array('Link', '<' . check_plain($value) . '>;' . drupal_http_header_attributes(array_diff_key($element['#attributes'], array('href' => ''))), TRUE);
+      $element['#attached']['drupal_add_http_header'][] = array('Link', '<' . check_plain($value) . '>;' . drupal_http_header_attributes(array('rel' => $element['#name'])), TRUE);
     }
 
     return array(
