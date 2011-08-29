@@ -89,7 +89,8 @@ function metatag_config_load_with_defaults($instance) {
 
       $configs = metatag_config_load_multiple($instances);
       foreach ($instances as $key) {
-        if (!empty($configs[$key]->config)) {
+        // Ignore disabled configurations.
+        if (!empty($configs[$key]->disabled)) {
           $defaults[$instance] += $configs[$key]->config;
         }
       }
