@@ -1,0 +1,34 @@
+<?php
+
+class MetaTagsTestHelper extends DrupalWebTestCase {
+  function setUp(array $modules = array()) {
+    $modules[] = 'ctools';
+    $modules[] = 'token';
+    $modules[] = 'metatag';
+    $modules[] = 'metatag_test';
+    parent::setUp($modules);
+  }
+}
+
+class MetaTagsUnitTest extends MetaTagsTestHelper {
+  public static function getInfo() {
+    return array(
+      'name' => 'Meta tag unit tests',
+      'description' => 'Test basic meta tag functionality.',
+      'group' => 'Meta tags',
+    );
+  }
+
+  /**
+   * Test the metatag_config_load_with_defaults() function.
+   */
+  public function test_metatag_config_load_with_defaults() {
+    $defaults = metatag_config_load_with_defaults('test:foo');
+    $this->assertEqual($defaults, array(
+      'description' => array('value' => 'Test foo description'),
+      'title' => array('value' => 'Test altered title'),
+      'test:foo' => array('value' => 'foobar'),
+      'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
+    ));
+  }
+}

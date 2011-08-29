@@ -95,8 +95,11 @@ function metatag_config_load_with_defaults($instance) {
       foreach ($instances as $key) {
         // Ignore disabled configurations.
         if (!empty($configs[$key]->disabled)) {
-          $defaults[$instance] += $configs[$key]->config;
+          continue;
         }
+
+        // Add config to the defaults array.
+        $defaults[$instance] += $configs[$key]->config;
       }
 
       cache_set($cid, $defaults[$instance], 'cache_metatag');
@@ -166,6 +169,8 @@ function metatag_config_delete($instance) {
 function metatag_config_cache_clear() {
   cache_clear_all('config:', 'cache_metatag', TRUE);
   cache_clear_all('ctools_export', 'cache_metatag', TRUE);
+  drupal_static_reset('metatag_config_load_with_defaults');
+  //ctools_export_load_object_reset();
 }
 
 function metatag_metatags_load($type, $id) {

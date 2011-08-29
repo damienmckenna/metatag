@@ -1,0 +1,5 @@
+name = Meta Tag Test
+description = Testing module for metatag.module
+core = 7.x
+dependencies[] = metatag
+hidden = TRUE
