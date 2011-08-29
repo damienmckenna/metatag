@@ -32,7 +32,9 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
         break;
       case 'user':
         $config->config += array(
+          'og:type' => array('value' => 'profile'),
           'og:title' => array('value' => '[user:name]'),
+          'og:picture' => array('value' => '[user:picture:url]'),
         );
         break;
     }
@@ -141,6 +143,7 @@ function _metatag_opengraph_type_options() {
       'director' => t('Director'),
       'musician' => t('Musician'),
       'politician' => t('Politician'),
+      'profile' => t('Profile'),
       'public_figure' => t('Public figure'),
     ),
     t('Places') => array(
@@ -155,9 +158,9 @@ function _metatag_opengraph_type_options() {
       'drink' => t('Drink'),
       'food' => t('Food'),
       'game' => t('Game'),
+      'movie' => t('Movie'),
       'product' => t('Product'),
       'song' => t('Song'),
-      'movie' => t('Movie'),
       'tv_show' => t('TV show'),
     ),
     t('Websites') => array(
