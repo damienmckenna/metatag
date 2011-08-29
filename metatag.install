@@ -23,6 +23,7 @@ function metatag_schema() {
         'minimum_version' => 1,
         'current_version' => 1,
       ),
+      'cache defaults' => TRUE,
       'default cache bin' => 'cache_metatag',
     ),
     'fields' => array(
