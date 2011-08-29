@@ -11,6 +11,7 @@ function metatag_metatag_config_default() {
   $config->api_version = 1;
   $config->disabled = FALSE;
   $config->config = array(
+    'title' => array('value' => '[current-page:title] | [site:name]'),
     'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
   );
   $configs[$config->instance] = $config;
@@ -20,8 +21,8 @@ function metatag_metatag_config_default() {
   $config->api_version = 1;
   $config->disabled = FALSE;
   $config->config = array(
+    'title' => array('value' => '[node:title] | [site:name]'),
     'description' => array('value' => '[node:summary]'),
-    'title' => array('value' => '[node:title]'),
   );
   $configs[$config->instance] = $config;
 
@@ -31,6 +32,25 @@ function metatag_metatag_config_default() {
   $config->disabled = FALSE;
   $config->config = array(
     'keywords' => array('value' => '[node:field_tags]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
+  $config->instance = 'taxonomy_term';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'title' => array('value' => '[term:name] | [site:name]'),
+    'description' => array('value' => '[term:description]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
+  $config->instance = 'user';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'title' => array('value' => '[user:name] | [site:name]'),
   );
   $configs[$config->instance] = $config;
 

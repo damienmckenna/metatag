@@ -105,15 +105,6 @@ function metatag_opengraph_metatag_info() {
       '#theme' => 'metatag_opengraph',
     ),
   );
-  $info['og:latitude'] = array(
-    'label' => t('Open Graph latitude'),
-    'description' => t('The latitude of the page.'),
-    'group' => t('Open Graph'),
-    'class' => 'DrupalTextMetaTag',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
 
   return $info;
 }
