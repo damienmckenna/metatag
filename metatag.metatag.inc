@@ -100,7 +100,7 @@ function metatag_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'form' => array(
       '#type' => 'textarea',
-      '#rows' => 3,
+      '#rows' => 2,
       '#wysiwyg' => FALSE,
     ),
   );
