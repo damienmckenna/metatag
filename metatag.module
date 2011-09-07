@@ -421,13 +421,11 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     return;
   }
 
+  // Merge in the default options.
   $options += array(
     'token types' => array(),
+    'defaults' => metatag_config_load_with_defaults($instance),
   );
-
-  // Merge in the default meta tag configurations.
-  $defaults = metatag_config_load_with_defaults($instance);
-  $metatags += $defaults;
 
   $form['metatags'] = array(
     '#type' => 'fieldset',
@@ -438,8 +436,11 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#tree' => TRUE,
     '#access' => user_access('edit meta tags') || user_access('administer meta tags'),
     '#weight' => 10,
-    '#metatag_defaults' => $defaults,
+    '#metatag_defaults' => $options['defaults'],
   );
+
+  // Merge in the default meta tag configurations.
+  $metatags += $options['defaults'];
 
   // Build the form for each metatag.
   foreach ($metatag_info as $metatag => $metatag_info) {
@@ -490,17 +491,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
 function metatag_metatags_form_submit($form, &$form_state) {
   $defaults = $form['metatags']['#metatag_defaults'];
   $values = &$form_state['values']['metatags'];
-
-  foreach ($values as $metatag => $data) {
-    if (isset($defaults[$metatag]['value']) && isset($data['value']) && $defaults[$metatag]['value'] == $data['value']) {
-      // Meta tag has a default, and it matches user-submitted value.
-      unset($values[$metatag]);
-    }
-    elseif (!isset($defaults[$metatag]) && !drupal_strlen($data['value'])) {
-      // Metatag does not have a default, and user did not submit a value.
-      unset($values[$metatag]);
-    }
-  }
+  metatag_filter_values_from_defaults($values, $defaults);
 }
 
 /**
@@ -854,5 +845,21 @@ function metatag_get_context_info($type = NULL, $bundle = NULL) {
   }
   else {
     return $context_info;
+  }
+}
+
+/**
+ * Filter out meta tag values that equal the default values.
+ */
+function metatag_filter_values_from_defaults(array &$values, array $defaults) {
+  foreach ($values as $metatag => $data) {
+    if (isset($defaults[$metatag]['value']) && isset($data['value']) && $defaults[$metatag]['value'] == $data['value']) {
+      // Meta tag has a default, and it matches user-submitted value.
+      unset($values[$metatag]);
+    }
+    elseif (!isset($defaults[$metatag]) && !drupal_strlen($data['value'])) {
+      // Metatag does not have a default, and user did not submit a value.
+      unset($values[$metatag]);
+    }
   }
 }
