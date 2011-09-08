@@ -15,8 +15,8 @@ function metatag_ui_config_overview() {
   foreach ($configs as $config) {
     $row = array();
     $context = explode(':', $config->instance);
-    $row[] = $context[0];
-    $row[] = isset($context[1]) ? $context[1] : t('Default');
+    $row[] = $contexts[$context[0]]['label'];
+    $row[] = isset($context[1]) ? $contexts[$context[0]]['bundles'][$context[1]]['label'] : t('Default');
 
     $operations['edit'] = array(
       'title' => t('Edit'),
@@ -145,6 +145,11 @@ function metatag_ui_config_edit_form($form, &$form_state, $config) {
   $form['actions']['save'] = array(
     '#type' => 'submit',
     '#value' => t('Save'),
+  );
+  $form['actions']['cancel'] = array(
+    '#type' => 'link',
+    '#title' => t('Cancel'),
+    '#href' => isset($_GET['destination']) ? $_GET['destination'] : 'admin/config/search/metatags',
   );
 
   $form['#submit'][] = 'metatag_ui_config_edit_form_submit';
