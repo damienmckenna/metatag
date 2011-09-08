@@ -125,11 +125,13 @@ function metatag_metatag_info() {
     ),
     'header' => 'X-Generator',
     'context' => array('global'),
+    'group' => t('Advanced'),
   );
   $info['copyright'] = array(
     'label' => t('Copyright'),
     'description' => '',
     'class' => 'DrupalTextMetaTag',
+    'group' => t('Advanced'),
   );
 
   // Link tags.
@@ -137,11 +139,13 @@ function metatag_metatag_info() {
     'label' => t('Canonical URL'),
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
+    'group' => t('Advanced'),
   );
   $info['shortlink'] = array(
     'label' => t('Shortlink URL'),
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
+    'group' => t('Advanced'),
   );
 
   return $info;
