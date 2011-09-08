@@ -464,6 +464,8 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
         $form['metatags'][$group] = array(
           '#type' => 'fieldset',
           '#title' => check_plain($metatag_info['group']),
+          '#collapsible' => TRUE,
+          '#collapsed' => TRUE,
         );
       }
       $form['metatags'][$group][$metatag] = $metatag_form + array('#parents' => array('metatags', $metatag));
