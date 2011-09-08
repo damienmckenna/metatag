@@ -82,7 +82,9 @@ function metatag_metatag_context_info() {
     if (metatag_entity_supports_metatags($entity_type)) {
       $info[$entity_type] = array('label' => $entity_info['label']);
       foreach ($entity_info['bundles'] as $bundle => $bundle_info) {
-        $info[$entity_type]['bundles'][$bundle] = array('label' => $bundle_info['label']);
+        if (metatag_entity_supports_metatags($entity_type, $bundle)) {
+          $info[$entity_type]['bundles'][$bundle] = array('label' => $bundle_info['label']);
+        }
       }
     }
   }

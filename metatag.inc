@@ -122,6 +122,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
 
     if (!isset($this->info['header']) || !empty($this->info['header'])) {
       // Also send the generator in the HTTP header.
+      // @todo This does not support 'rev' or alternate link headers.
       $element['#attached']['drupal_add_http_header'][] = array('Link', '<' . check_plain($value) . '>;' . drupal_http_header_attributes(array('rel' => $element['#name'])), TRUE);
     }
 
