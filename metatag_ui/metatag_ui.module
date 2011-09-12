@@ -1,6 +1,15 @@
 <?php
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function metatag_ui_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && $plugin == 'export_ui') {
+    //return 'plugins/' . $plugin;
+  }
+}
+
+/**
  * Implements hook_menu().
  */
 function metatag_ui_menu() {
@@ -11,11 +20,7 @@ function metatag_ui_menu() {
     'access arguments' => array('administer meta tags'),
     'file' => 'metatag_ui.admin.inc',
   );
-  $items['admin/config/search/metatags/config'] = array(
-    'title' => 'Defaults',
-    'type' => MENU_DEFAULT_LOCAL_TASK,
-  );
-  $items['admin/config/search/metatags/config/add'] = array(
+  $items['admin/config/search/metatags/add'] = array(
     'title' => 'Add configuration',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_ui_config_add_form'),
@@ -23,18 +28,18 @@ function metatag_ui_menu() {
     'file' => 'metatag_ui.admin.inc',
     'type' => MENU_LOCAL_ACTION,
   );
-  $items['admin/config/search/metatags/config/%metatag_config'] = array(
+  $items['admin/config/search/metatags/%metatag_config'] = array(
     'title' => 'Edit configuration',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_ui_config_edit_form', 5),
     'access arguments' => array('administer meta tags'),
     'file' => 'metatag_ui.admin.inc',
   );
-  $items['admin/config/search/metatags/config/%metatag_config/edit'] = array(
+  $items['admin/config/search/metatags/%metatag_config/edit'] = array(
     'title' => 'Edit',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  //$items['admin/config/search/metatags/config/%metatags_config/delete'] = array(
+  //$items['admin/config/search/metatags/%metatags_config/delete'] = array(
   //  'title' => 'Delete',
   //  'page callback' => 'drupal_get_form',
   //  'page arguments' => array('metatag_ui_config_delete_form', 5),
@@ -42,7 +47,7 @@ function metatag_ui_menu() {
   //  'file' => 'metatag_ui.admin.inc',
   //  'type' => MENU_LOCAL_TASK,
   //);
-  //$items['admin/config/search/metatags/config/%metatags_config/export'] = array(
+  //$items['admin/config/search/metatags/%metatags_config/export'] = array(
   //  'title' => 'Export',
   //  'page callback' => 'drupal_get_form',
   //  'page arguments' => array('metatag_ui_config_export_form', 5),

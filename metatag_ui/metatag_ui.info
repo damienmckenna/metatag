@@ -3,3 +3,4 @@ description = User interface for the Meta tag API.
 package = Meta tags
 core = 7.x
 dependencies[] = metatag
+dependencies[] = ctools
