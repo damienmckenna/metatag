@@ -521,6 +521,10 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
   if (!isset($types)) {
     $types = array();
     foreach (entity_get_info() as $entity_type_key => $entity_info) {
+      if (!isset($entity_info['metatags'])) {
+        // By default allow entities that have fields and have paths.
+        $entity_info['metatags'] = !empty($entity_info['uri callback']) && !empty($entity_info['fieldable']);
+      }
       if (empty($entity_info['metatags'])) {
         $types[$entity_type_key] = FALSE;
         continue;
@@ -547,24 +551,18 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
  */
 function metatag_entity_info_alter(&$info) {
   $defaults['node'] = array(
-    'metatags' => TRUE,
     'path' => 'node/%node',
   );
   $defaults['taxonomy_term'] = array(
-    'metatags' => TRUE,
     'path' => 'taxonomy/term/%taxonomy_term',
   );
   if (module_exists('forum') && ($vid = variable_get('forum_nav_vocabulary', 0)) && $vocabulary = taxonomy_vocabulary_load($vid)) {
     $defaults['taxonomy_term']['bundles'][$vocabulary->machine_name]['path'] = 'forum/%taxonomy_term';
   }
   $defaults['user'] = array(
-    'metatags' => TRUE,
     'path' => 'user/%user',
   );
   $defaults['comment'] = array(
-    'metatags' => FALSE,
-  );
-  $defaults['file'] = array(
     'metatags' => FALSE,
   );
 
@@ -820,14 +818,6 @@ function metatag_get_context_info($type = NULL, $bundle = NULL) {
     }
     else {
       $context_info = module_invoke_all('metatag_context_info');
-      foreach (entity_get_info() as $entity_type => $entity_info) {
-        if (isset($entity_info['metatags']) && empty($entity_info['metatags'])) {
-          continue;
-        }
-        $context_info[$entity_type] = $entity_info;
-      }
-
-      // Let other modules alter the context info.
       drupal_alter('metatag_context_info', $context_info);
       cache_set($cid, $context_info);
     }
