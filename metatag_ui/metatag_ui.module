@@ -15,7 +15,7 @@ function metatag_ui_ctools_plugin_directory($module, $plugin) {
 function metatag_ui_menu() {
   $items['admin/config/search/metatags'] = array(
     'title' => 'Meta tags',
-    'descritpion' => 'Configure meta tag defaults.',
+    'description' => 'Configure meta tag defaults.',
     'page callback' => 'metatag_ui_config_overview',
     'access arguments' => array('administer meta tags'),
     'file' => 'metatag_ui.admin.inc',
@@ -39,22 +39,14 @@ function metatag_ui_menu() {
     'title' => 'Edit',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  //$items['admin/config/search/metatags/%metatags_config/delete'] = array(
-  //  'title' => 'Delete',
-  //  'page callback' => 'drupal_get_form',
-  //  'page arguments' => array('metatag_ui_config_delete_form', 5),
-  //  'access arguments' => array('administer meta tags'),
-  //  'file' => 'metatag_ui.admin.inc',
-  //  'type' => MENU_LOCAL_TASK,
-  //);
-  //$items['admin/config/search/metatags/%metatags_config/export'] = array(
-  //  'title' => 'Export',
-  //  'page callback' => 'drupal_get_form',
-  //  'page arguments' => array('metatag_ui_config_export_form', 5),
-  //  'access arguments' => array('administer meta tags'),
-  //  'file' => 'metatag_ui.admin.inc',
-  //  'type' => MENU_LOCAL_TASK,
-  //);
+  $items['admin/config/search/metatags/%metatags_config/export'] = array(
+    'title' => 'Export',
+    'page callback' => 'metatag_ui_config_export_form',
+    'page arguments' => array(5),
+    'access arguments' => array('administer meta tags'),
+    'file' => 'metatag_ui.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
 
   return $items;
 }

@@ -19,8 +19,12 @@ function metatag_ui_config_overview() {
     $row[] = isset($context[1]) ? $contexts[$context[0]]['bundles'][$context[1]]['label'] : t('Default');
 
     $operations['edit'] = array(
-      'title' => t('Edit'),
-      'href' => 'admin/config/search/metatags/config/' . $config->instance,
+      'title' => ($config->export_type & EXPORT_IN_DATABASE) ? t('Edit') : t('Override'),
+      'href' => 'admin/config/search/metatags/' . $config->instance,
+    );
+    $operations['export'] = array(
+      'title' => t('Export'),
+      'href' => 'admin/config/search/metatags/' . $config->instance . '/export',
     );
     $row[] = array(
       'data' => array(
@@ -167,4 +171,9 @@ function metatag_ui_config_edit_form_submit($form, &$form_state) {
 
   drupal_set_message(t('The metatag configuration has been saved.'));
   $form_state['redirect'] = 'admin/config/search/metatags';
+}
+
+function metatag_ui_config_export_form($config) {
+  ctools_include('export');
+  return drupal_get_form('ctools_export_form', ctools_export_crud_export('metatag_config', $config), t('Export'));
 }
