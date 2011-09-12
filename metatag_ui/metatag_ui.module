@@ -39,7 +39,7 @@ function metatag_ui_menu() {
     'title' => 'Edit',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-  $items['admin/config/search/metatags/%metatags_config/export'] = array(
+  $items['admin/config/search/metatags/%metatag_config/export'] = array(
     'title' => 'Export',
     'page callback' => 'metatag_ui_config_export_form',
     'page arguments' => array(5),
