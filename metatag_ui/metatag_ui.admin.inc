@@ -34,6 +34,7 @@ function metatag_ui_config_overview() {
   $contexts = metatag_get_context_info();
 
   $configs = ctools_export_crud_load_all('metatag_config');
+  ksort($configs);
   //uasort($configs, '_metatag_ui_config_sort');
 
   $rows = array();
@@ -43,10 +44,23 @@ function metatag_ui_config_overview() {
     $row[] = $contexts[$context[0]]['label'];
     $row[] = isset($context[1]) ? $contexts[$context[0]]['bundles'][$context[1]]['label'] : t('Default');
 
+    $operations = array();
     $operations['edit'] = array(
       'title' => ($config->export_type & EXPORT_IN_DATABASE) ? t('Edit') : t('Override'),
       'href' => 'admin/config/search/metatags/config/' . $config->instance,
     );
+    if (metatag_ui_config_access('revert', $config)) {
+      $operations['revert'] = array(
+        'title' => t('Revert'),
+        'href' => 'admin/config/search/metatags/config/' . $config->instance . '/revert',
+      );
+    }
+    if (metatag_ui_config_access('delete', $config)) {
+      $operations['delete'] = array(
+        'title' => t('Delete'),
+        'href' => 'admin/config/search/metatags/config/' . $config->instance . '/delete',
+      );
+    }
     $operations['export'] = array(
       'title' => t('Export'),
       'href' => 'admin/config/search/metatags/config/' . $config->instance . '/export',
@@ -102,6 +116,7 @@ function metatag_ui_config_add_form($form, &$form_state) {
   $form['instance'] = array(
     '#type' => 'select',
     '#title' => t('Instance'),
+    '#description' => t('Select the type of data to add a configuration.'),
     '#options' => $options,
     '#required' => TRUE,
   );
@@ -195,6 +210,28 @@ function metatag_ui_config_edit_form_submit($form, &$form_state) {
   metatag_config_save($config);
 
   drupal_set_message(t('The metatag configuration has been saved.'));
+  $form_state['redirect'] = 'admin/config/search/metatags';
+}
+
+function metatag_ui_config_delete_form($form, &$form_state, $config) {
+  $form['cid'] = array('#type' => 'value', '#value' => $config->cid);
+  $form['instance'] = array('#type' => 'value', '#value' => $config->instance);
+  $delete = metatag_ui_config_access('delete', $config);
+
+  return confirm_form(
+    $form,
+    $delete ? t('Are you sure you want to delete the configuration?') : t('Are you sure you want to revert the configuration?'),
+    'admin/config/search/metatags',
+    t('This action cannot be undone.')
+  );
+}
+
+function metatag_ui_config_delete_form_submit($form, &$form_state) {
+  $config = metatag_config_load($form_state['values']['instance']);
+  metatag_config_delete($config->instance);
+  $delete = metatag_ui_config_access('delete', $config);
+  $title = $delete ? t('The configuration has been deleted.') : t('The configuration has been reverted.');
+  drupal_set_message($title);
   $form_state['redirect'] = 'admin/config/search/metatags';
 }
 
