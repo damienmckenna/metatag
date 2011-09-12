@@ -635,13 +635,13 @@ function _metatag_entity_is_page($type, $entity) {
  * Implements hook_field_attach_rename_bundle().
  */
 function metatag_field_attach_rename_bundle($entity_type, $bundle_old, $bundle_new) {
-  db_update('metatag_config')
-    ->fields(array('bundle' => $bundle_new))
-    ->condition('entity', $entity_type)
-    ->condition('bundle', $bundle_old)
-    ->execute();
-
-  metatag_metatag_config_cache_clear($entity_type);
+  $instance_old = $entity_type . ':' . $bundle_old;
+  $instance_new = $entity_type . ':' . $bundle_new;
+  if ($config = metatag_config_load($instance)) {
+    $config->instance = $instance_new;
+    metatag_config_save($config);
+    metatag_config_delete($instance_old);
+  }
 }
 
 /**
@@ -649,7 +649,7 @@ function metatag_field_attach_rename_bundle($entity_type, $bundle_old, $bundle_n
  */
 function metatag_field_attach_delete_bundle($entity_type, $bundle) {
   $instance = $entity_type . ':' . $bundle;
-  metatag_metatag_config_delete($instance);
+  metatag_config_delete($instance);
 }
 
 /**
