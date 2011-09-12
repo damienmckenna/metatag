@@ -5,11 +5,36 @@
  * Administration page callbacks for the metatag_ui module.
  */
 
+function _metatag_ui_config_sort($a, $b) {
+  $return = NULL;
+  $a_contexts = explode(':', $a->instance);
+  $b_contexts = explode(':', $b->instance);
+  for ($i = 0; $i < max(count($a_contexts), count($b_contexts)); $i++) {
+    $a_context = isset($a_contexts[$i]) ? $a_contexts[$i] : '';
+    $b_context = isset($b_contexts[$i]) ? $b_contexts[$i] : '';
+    if ($a_context == $b_context) {
+      continue;
+    }
+    elseif ($a_context == 'global') {
+      $return = -1;
+    }
+    elseif ($a_context == '') {
+      $return = -1;
+    }
+    else {
+      $return = strcmp($a_context, $b_context);
+    }
+  }
+  return $return;
+}
+
 function metatag_ui_config_overview() {
   ctools_include('export');
 
   $contexts = metatag_get_context_info();
+
   $configs = ctools_export_crud_load_all('metatag_config');
+  //uasort($configs, '_metatag_ui_config_sort');
 
   $rows = array();
   foreach ($configs as $config) {
@@ -20,11 +45,11 @@ function metatag_ui_config_overview() {
 
     $operations['edit'] = array(
       'title' => ($config->export_type & EXPORT_IN_DATABASE) ? t('Edit') : t('Override'),
-      'href' => 'admin/config/search/metatags/' . $config->instance,
+      'href' => 'admin/config/search/metatags/config/' . $config->instance,
     );
     $operations['export'] = array(
       'title' => t('Export'),
-      'href' => 'admin/config/search/metatags/' . $config->instance . '/export',
+      'href' => 'admin/config/search/metatags/config/' . $config->instance . '/export',
     );
     $row[] = array(
       'data' => array(
