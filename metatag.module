@@ -827,12 +827,6 @@ function metatag_get_context_info($type = NULL, $bundle = NULL) {
         $context_info[$entity_type] = $entity_info;
       }
 
-      foreach (array_keys($context_info) as $context_key) {
-        $context_info[$context_key]['bundles']['all'] = array(
-          'label' => t('All'),
-        );
-      }
-
       // Let other modules alter the context info.
       drupal_alter('metatag_context_info', $context_info);
       cache_set($cid, $context_info);
