@@ -437,6 +437,14 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#access' => user_access('edit meta tags') || user_access('administer meta tags'),
     '#weight' => 10,
     '#metatag_defaults' => $options['defaults'],
+    '#attached' => array(
+      'js' => array(
+        drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js',
+      ),
+    ),
+    '#attributes' => array(
+      'class' => array('metatags-form'),
+    ),
   );
 
   // Merge in the default meta tag configurations.
@@ -456,7 +464,16 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
       continue;
     }
 
+    // Get the form element from the meta tag class.
     $metatag_form = $metatag_instance->getForm($options);
+
+    // Add a default value form element.
+    if (isset($options['defaults'][$metatag]['value'])) {
+      $metatag_form['default'] = array(
+        '#type' => 'hidden',
+        '#value' => $options['defaults'][$metatag]['value'],
+      );
+    }
 
     if (!empty($metatag_info['group'])) {
       $group = drupal_clean_css_identifier(drupal_strtolower($metatag_info['group']));
@@ -836,6 +853,8 @@ function metatag_get_context_info($type = NULL, $bundle = NULL) {
 
 /**
  * Filter out meta tag values that equal the default values.
+ *
+ * @todo Use information in $values[$metatag]['default'] rather than a $defaults parameter.
  */
 function metatag_filter_values_from_defaults(array &$values, array $defaults) {
   foreach ($values as $metatag => $data) {
@@ -846,6 +865,10 @@ function metatag_filter_values_from_defaults(array &$values, array $defaults) {
     elseif (!isset($defaults[$metatag]) && !drupal_strlen($data['value'])) {
       // Metatag does not have a default, and user did not submit a value.
       unset($values[$metatag]);
+    }
+    if (isset($values[$metatag]['default'])) {
+      // Unset the default hidden value.
+      unset($values[$metatag]['default']);
     }
   }
 }
