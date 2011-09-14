@@ -62,6 +62,7 @@ function metatag_opengraph_metatag_info() {
     'form' => array(
       '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
+      '#empty_option' => t('- None -'),
     ),
     'element' => array(
       '#theme' => 'metatag_opengraph',
