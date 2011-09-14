@@ -19,11 +19,11 @@ Drupal.behaviors.metatagFieldsetSummaries = {
         var label = $("label[for='" + $(this).attr('id') + "']").text();
         vals.push(Drupal.t('@label: @value', {
           '@label': label.trim(),
-          '@value': Drupal.truncate($(this).val(), 25) || Drupal.t('No value')
+          '@value': Drupal.truncate($(this).val(), 25) || Drupal.t('None')
         }));
       });
       if (vals.length === 0) {
-        return Drupal.t('Using default meta tags');
+        return Drupal.t('Using defaults');
       }
       else {
         return vals.join('<br />');
