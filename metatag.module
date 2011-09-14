@@ -402,6 +402,25 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
   return $output;
 }
 
+function metatag_metatags_values($instance, array $metatags = array(), array $options = array()) {
+  $values = array();
+  $metatags += metatag_config_load_with_defaults($instance);
+
+  // Convert language codes to a language object.
+  if (isset($options['language']) && is_string($options['language'])) {
+    $languages = language_list();
+    $options['language'] = isset($languages[$options['language']]) ? $languages[$options['language']] : NULL;
+  }
+
+  foreach ($metatags as $metatag => $data) {
+    if ($metatag_instance = metatag_get_instance($metatag, $data)) {
+      $values[$metatag] = $metatag_instance->getValue($options);
+    }
+  }
+
+  return array_filter($values, 'drupal_strlen');
+}
+
 /**
  * Build a FAPI array for editing meta tags.
  *
@@ -436,7 +455,6 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#tree' => TRUE,
     '#access' => user_access('edit meta tags') || user_access('administer meta tags'),
     '#weight' => 10,
-    '#metatag_defaults' => $options['defaults'],
     '#attached' => array(
       'js' => array(
         drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js',
@@ -445,6 +463,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#attributes' => array(
       'class' => array('metatags-form'),
     ),
+    '#metatag_defaults' => $options['defaults'],
   );
 
   // Merge in the default meta tag configurations.
@@ -856,13 +875,14 @@ function metatag_get_context_info($type = NULL, $bundle = NULL) {
  *
  * @todo Use information in $values[$metatag]['default'] rather than a $defaults parameter.
  */
-function metatag_filter_values_from_defaults(array &$values, array $defaults) {
+function metatag_filter_values_from_defaults(array &$values, array $defaults = array()) {
   foreach ($values as $metatag => $data) {
-    if (isset($defaults[$metatag]['value']) && isset($data['value']) && $defaults[$metatag]['value'] == $data['value']) {
+    $default = isset($data['default']) ? $data['default'] : (isset($defaults[$metatag]['value']) ? $defaults[$metatag]['value'] : NULL);
+    if (isset($default) && isset($data['value']) && $default == $data['value']) {
       // Meta tag has a default, and it matches user-submitted value.
       unset($values[$metatag]);
     }
-    elseif (!isset($defaults[$metatag]) && !drupal_strlen($data['value'])) {
+    elseif (!isset($default) && !drupal_strlen($data['value'])) {
       // Metatag does not have a default, and user did not submit a value.
       unset($values[$metatag]);
     }
