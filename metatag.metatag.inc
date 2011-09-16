@@ -61,37 +61,27 @@ function metatag_metatag_config_default() {
 }
 
 /**
- * Implements hook_metatag_context_info().
+ * Implements hook_metatag_config_instance_info().
  */
-function metatag_metatag_context_info() {
-  $info['global'] = array(
-    'label' => t('Global'),
-    'bundles' => array(
-      'frontpage' => array(
-        'label' => t('Front page'),
-      ),
-      // @todo The 403 and 404 meta tag contexts are disabled until they can be properly implemented.
-      //'403' => array(
-      //  'label' => t('403 page not found'),
-      //),
-      //'404' => array(
-      //  'label' => t('404 page not found'),
-      //),
-    ),
-  );
+function metatag_metatag_config_instance_info() {
+  $info['global']           = array('label' => t('Global'));
+  $info['global:frontpage'] = array('label' => t('Front page'));
+  // @todo The 403 and 404 meta tag contexts are disabled until they can be properly implemented.
+  //$info['global:403']       = array('label' => t('403 page not found'));
+  //$info['global:404']       = array('label' => t('404 page not found'));
 
-  // Add context information for entities.
+  // Add instance information for entities.
   $entity_types = entity_get_info();
   foreach ($entity_types as $entity_type => $entity_info) {
     if (metatag_entity_supports_metatags($entity_type)) {
       $info[$entity_type] = array('label' => $entity_info['label']);
       foreach ($entity_info['bundles'] as $bundle => $bundle_info) {
         if (count($entity_info['bundles'] == 1) && $bundle == $entity_type) {
-          // Skip the default bundles.
+          // Skip default bundles (entities that do not really have bundles).
           continue;
         }
         if (metatag_entity_supports_metatags($entity_type, $bundle)) {
-          $info[$entity_type]['bundles'][$bundle] = array('label' => $bundle_info['label']);
+          $info[$entity_type . ':' . $bundle] = array('label' => $bundle_info['label']);
         }
       }
     }

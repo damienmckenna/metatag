@@ -43,7 +43,8 @@ function metatag_ui_menu() {
     'type' => MENU_LOCAL_ACTION,
   );
   $items['admin/config/search/metatags/config/%metatag_config'] = array(
-    'title' => 'Edit configuration',
+    'title callback' => 'metatag_ui_config_title',
+    'title arguments' => array(5),
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_ui_config_edit_form', 5),
     'access arguments' => array('administer meta tags'),
@@ -83,6 +84,10 @@ function metatag_ui_menu() {
   );
 
   return $items;
+}
+
+function metatag_ui_config_title($config) {
+  return metatag_config_instance_label($config->instance);
 }
 
 function metatag_ui_config_access($op, $config = NULL) {

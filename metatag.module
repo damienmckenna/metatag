@@ -49,8 +49,8 @@ function metatag_hook_info() {
   $hooks = array(
     'metatag_info',
     'metatag_info_alter',
-    'metatag_context_info',
-    'metatag_context_info_alter',
+    'metatag_config_instance_info',
+    'metatag_config_instance_info_alter',
     'metatag_config_load',
     'metatag_config_presave',
     'metatag_config_insert',
@@ -111,18 +111,7 @@ function metatag_config_load_with_defaults($instance) {
     }
     else {
       $defaults[$instance] = array();
-
-      $instances = array();
-      $segments = explode(':', $instance);
-      while (count($segments) > 0) {
-        $instances[] = implode(':', $segments);
-        array_pop($segments);
-      }
-      if (end($instances) !== 'global') {
-        $instances[] = 'global';
-      }
-      reset($instances);
-
+      $instances = metatag_config_get_parent_instances($instance);
       $configs = metatag_config_load_multiple($instances);
       foreach ($instances as $key) {
         // Ignore disabled configurations.
@@ -853,39 +842,31 @@ function metatag_metatag_get_form($metatag, array $data = array(), array $option
   return $instance->getForm($options);
 }
 
-function metatag_get_context_info($type = NULL, $bundle = NULL) {
+function metatag_config_instance_info($instance = NULL) {
   global $language;
 
-  // Use the advanced drupal_static() pattern, since this is called very often.
-  static $drupal_static_fast;
-  if (!isset($drupal_static_fast)) {
-    $drupal_static_fast['metatag_context_info'] = &drupal_static(__FUNCTION__);
-  }
-  $context_info = &$drupal_static_fast['metatag_context_info'];
+  $info = &drupal_static(__FUNCTION__);
 
   // hook_metatag_info() includes translated strings, so each language is cached
   // separately.
-  $cid = 'metatag:info:context:' . $language->language;
+  $cid = 'metatag:config:instance:info:' . $language->language;
 
-  if (empty($context_info)) {
+  if (!isset($info)) {
     if ($cache = cache_get($cid)) {
-      $context_info = $cache->data;
+      $info = $cache->data;
     }
     else {
-      $context_info = module_invoke_all('metatag_context_info');
-      drupal_alter('metatag_context_info', $context_info);
-      cache_set($cid, $context_info);
+      $info = module_invoke_all('metatag_config_instance_info');
+      drupal_alter('metatag_config_instance_info', $info);
+      cache_set($cid, $info);
     }
   }
 
-  if (isset($type) && isset($bundle)) {
-    return isset($context_info[$type]['bundles'][$bundle]) ? $context_info[$type]['bundles'][$bundle] : NULL;
-  }
-  elseif (isset($type)) {
-    return isset($context_info[$type]) ? $context_info[$type] : NULL;
+  if (isset($instance)) {
+    return isset($info[$instance]) ? $info[$instance] : FALSE;
   }
   else {
-    return $context_info;
+    return $info;
   }
 }
 
@@ -910,4 +891,50 @@ function metatag_filter_values_from_defaults(array &$values, array $defaults = a
       unset($values[$metatag]['default']);
     }
   }
+}
+
+/**
+ * Return all the parents of a given configuration instance.
+ *
+ * @param $instance
+ *   A meta tag configuration instance.
+ *
+ * @return
+ *   An array of instances starting with the $instance parameter, with the end
+ *   of the array being the global instance.
+ */
+function metatag_config_get_parent_instances($instance, $include_global = FALSE) {
+  $parents = array();
+  $segments = explode(':', $instance);
+  while (count($segments) > 0) {
+    $parents[] = implode(':', $segments);
+    array_pop($segments);
+  }
+  if ($include_global && end($parents) !== 'global') {
+    $parents[] = 'global';
+  }
+  reset($parents);
+  return $parents;
+}
+
+/**
+ * Get the proper label of a configuration instance.
+ *
+ * @param $instance
+ *   A meta tag configuration instance.
+ */
+function metatag_config_instance_label($instance) {
+  $labels = &drupal_static(__FUNCTION__, array());
+
+  if (!isset($labels[$instance])) {
+    $context = metatag_config_instance_info($instance);
+    $labels[$instance] = isset($context['label']) ? $context['label'] : t('Unknown');
+    $parents = metatag_config_get_parent_instances($instance, FALSE);
+    array_shift($parents);
+    if (!empty($parents)) {
+      $labels[$instance] = metatag_config_instance_label(implode(':', $parents)) . ': ' . $labels[$instance];
+    }
+  }
+
+  return $labels[$instance];
 }

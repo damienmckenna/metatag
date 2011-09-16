@@ -31,8 +31,6 @@ function _metatag_ui_config_sort($a, $b) {
 function metatag_ui_config_overview() {
   ctools_include('export');
 
-  $contexts = metatag_get_context_info();
-
   $configs = ctools_export_crud_load_all('metatag_config');
   ksort($configs);
   //uasort($configs, '_metatag_ui_config_sort');
@@ -40,9 +38,7 @@ function metatag_ui_config_overview() {
   $rows = array();
   foreach ($configs as $config) {
     $row = array();
-    $context = explode(':', $config->instance);
-    $row[] = $contexts[$context[0]]['label'];
-    $row[] = isset($context[1]) ? $contexts[$context[0]]['bundles'][$context[1]]['label'] : t('Default');
+    $row[] = check_plain(metatag_config_instance_label($config->instance));
 
     $operations = array();
     $operations['edit'] = array(
@@ -79,8 +75,7 @@ function metatag_ui_config_overview() {
   $build['config_table'] = array(
     '#theme' => 'table',
     '#header' => array(
-      'type' => t('Type'),
-      'subtype' => t('Subtype'),
+      'type' => t('Context'),
       'operations' => t('Operations'),
     ),
     '#rows' => $rows,
@@ -90,34 +85,43 @@ function metatag_ui_config_overview() {
   return $build;
 }
 
-function metatag_ui_config_add_form($form, &$form_state) {
+/**
+ * Build an FAPI #options array for the instance select field.
+ */
+function _metatag_ui_config_instance_get_available_options() {
   $options = array();
-  $contexts = metatag_get_context_info();
+  $instances = metatag_config_instance_info();
 
-  foreach ($contexts as $context_key => $context) {
-    $group = $context['label'];
-    $options[$group] = array();
-    if (!metatag_config_load($context_key)) {
-      $options[$group][$context_key] = t('Default');
+  foreach ($instances as $instance => $instance_info) {
+    if (metatag_config_load($instance)) {
+      continue;
     }
-    if (!empty($context['bundles'])) {
-      foreach ($context['bundles'] as $bundle_key => $bundle) {
-        $instance = $context_key . ':' . $bundle_key;
-        if (!metatag_config_load($instance)) {
-          $options[$group][$instance] = $bundle['label'];
+    $parents = metatag_config_get_parent_instances($instance, FALSE);
+    array_shift($parents);
+    if (!empty($parents)) {
+      $parent = reset($parents);
+      $parent_label = isset($instances[$parent]['label']) ? $instances[$parent]['label'] : t('Unknown');
+      if (!isset($options[$parent_label])) {
+        $options[$parent_label] = array();
+        if (!metatag_config_load($parent)) {
+          $options[$parent_label][$parent] = t('All');
         }
       }
+      $options[$parent_label][$instance] = $instance_info['label'];
+      unset($options[$parent]);
     }
-    if (empty($options[$group])) {
-      unset($options[$group]);
+    else {
+      $options[$instance] = $instance['label'];
     }
   }
+}
 
+function metatag_ui_config_add_form($form, &$form_state) {
   $form['instance'] = array(
     '#type' => 'select',
     '#title' => t('Instance'),
     '#description' => t('Select the type of data to add a configuration.'),
-    '#options' => $options,
+    '#options' => _metatag_ui_config_instance_get_available_options(),
     '#required' => TRUE,
   );
   $form['config'] = array(
@@ -209,18 +213,23 @@ function metatag_ui_config_edit_form_submit($form, &$form_state) {
   unset($config->metatags);
   metatag_config_save($config);
 
-  drupal_set_message(t('The metatag configuration has been saved.'));
+  $label = metatag_config_instance_label($config->instance);
+  drupal_set_message(t('The meta tag defaults for @label have been saved.', array('@label' => $label)));
+
   $form_state['redirect'] = 'admin/config/search/metatags';
 }
 
 function metatag_ui_config_delete_form($form, &$form_state, $config) {
   $form['cid'] = array('#type' => 'value', '#value' => $config->cid);
   $form['instance'] = array('#type' => 'value', '#value' => $config->instance);
+
+  $label = metatag_config_instance_label($config->instance);
   $delete = metatag_ui_config_access('delete', $config);
+  $title = $delete ? t('Are you sure you want to delete the meta tag defaults for @label?', array('@label' => $label)) : t('Are you sure you want to revert the meta tag defaults for @label?', array('@label' => $label));
 
   return confirm_form(
     $form,
-    $delete ? t('Are you sure you want to delete the configuration?') : t('Are you sure you want to revert the configuration?'),
+    $title,
     'admin/config/search/metatags',
     t('This action cannot be undone.')
   );
@@ -229,9 +238,12 @@ function metatag_ui_config_delete_form($form, &$form_state, $config) {
 function metatag_ui_config_delete_form_submit($form, &$form_state) {
   $config = metatag_config_load($form_state['values']['instance']);
   metatag_config_delete($config->instance);
+
+  $label = metatag_config_instance_label($config->instance);
   $delete = metatag_ui_config_access('delete', $config);
-  $title = $delete ? t('The configuration has been deleted.') : t('The configuration has been reverted.');
+  $title = $delete ? t('The meta tag defaults for @label have been deleted.', array('@label' => $label)) : t('The meta tag defaults for @label have been reverted.', array('@label' => $label));
   drupal_set_message($title);
+
   $form_state['redirect'] = 'admin/config/search/metatags';
 }
 
