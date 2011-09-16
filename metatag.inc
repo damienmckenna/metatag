@@ -16,18 +16,55 @@ interface DrupalMetaTagInterface {
 
   //function processForm();
 
+  function getValue();
+
   function getElement();
 }
 
-abstract class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
-  private $info;
-  private $data = array('value' => '');
+class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
+  protected $info;
+  protected $data = array('value' => '');
 
   function __construct(array $info, array $data = NULL) {
     $this->info = $info;
     if (isset($data)) {
       $this->data = $data;
     }
+  }
+
+  public function getForm(array $options = array()) {
+    return array();
+  }
+
+  public function getValue(array $options = array()) {
+    return $this->data['value'];
+  }
+
+  public function getElement(array $options = array()) {
+    $element = isset($this->info['element']) ? $this->info['element'] : array();
+
+    $value = $this->getValue($options);
+    if (strlen($value) === 0) {
+      return array();
+    }
+
+    $element += array(
+      '#theme' => 'metatag',
+      '#tag' => 'meta',
+      '#id' => 'metatag_' . $this->info['name'],
+      '#name' => $this->info['name'],
+      '#value' => $value,
+    );
+
+    // Add header information if desired.
+    if (!empty($this->info['header'])) {
+      $element['#attached']['drupal_add_http_header'][] = array($this->info['header'], $value);
+    }
+
+    return array(
+      '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
+    );
+    return $element;
   }
 }
 
@@ -35,12 +72,6 @@ abstract class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
  * Text-based meta tag controller.
  */
 class DrupalTextMetaTag extends DrupalDefaultMetaTag {
-  function __construct(array $info, array $data = NULL) {
-    $this->info = $info;
-    if (isset($data)) {
-      $this->data = $data;
-    }
-  }
 
   public function getForm(array $options = array()) {
     $options += array(
@@ -70,33 +101,6 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     $value = token_replace($this->data['value'], $options['token data'], $options);
     $value = trim(strip_tags($value));
     return $value;
-  }
-
-  public function getElement(array $options = array()) {
-    $element = isset($this->info['element']) ? $this->info['element'] : array();
-
-    $value = $this->getValue($options);
-    if (strlen($value) === 0) {
-      return array();
-    }
-
-    $element += array(
-      '#theme' => 'metatag',
-      '#tag' => 'meta',
-      '#id' => 'metatag_' . $this->info['name'],
-      '#name' => $this->info['name'],
-      '#value' => $value,
-    );
-
-    // Add header information if desired.
-    if (!empty($this->info['header'])) {
-      $element['#attached']['drupal_add_http_header'][] = array($this->info['header'], $value);
-    }
-
-    return array(
-      '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
-    );
-    return $element;
   }
 }
 
@@ -148,3 +152,28 @@ class DrupalTitleMetaTag extends DrupalTextMetaTag {
     return $element;
   }
 }
+
+/**
+ * Multiple value meta tag controller.
+ */
+class DrupalListMetaTag extends DrupalDefaultMetaTag {
+  public function getForm(array $options = array()) {
+    $form['value'] = isset($this->info['form']) ? $this->info['form'] : array();
+
+    $form['value'] += array(
+      '#type' => 'checkboxes',
+      '#title' => $this->info['label'],
+      '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
+      '#default_value' => isset($this->data['value']) ? $this->data['value'] : array(),
+    );
+
+    return $form;
+  }
+
+  public function getValue(array $options = array()) {
+    $values = array_keys(array_filter($this->data['value']));
+    sort($values);
+    return implode(', ', $values);
+  }
+}
+

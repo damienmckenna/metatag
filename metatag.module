@@ -885,11 +885,11 @@ function metatag_get_context_info($type = NULL, $bundle = NULL) {
 function metatag_filter_values_from_defaults(array &$values, array $defaults = array()) {
   foreach ($values as $metatag => $data) {
     $default = isset($data['default']) ? $data['default'] : (isset($defaults[$metatag]['value']) ? $defaults[$metatag]['value'] : NULL);
-    if (isset($default) && isset($data['value']) && $default == $data['value']) {
+    if (isset($default) && isset($data['value']) && $default === $data['value']) {
       // Meta tag has a default, and it matches user-submitted value.
       unset($values[$metatag]);
     }
-    elseif (!isset($default) && !drupal_strlen($data['value'])) {
+    elseif (!isset($default) && (is_string($data['value']) && !drupal_strlen($data['value']) || (is_array($data['value']) && !array_filter($data['value'])))) {
       // Metatag does not have a default, and user did not submit a value.
       unset($values[$metatag]);
     }

@@ -120,6 +120,23 @@ function metatag_metatag_info() {
     'description' => '',
     'class' => 'DrupalTitleMetaTag',
   );
+
+  // More advanced meta tags.
+  $info['robots'] = array(
+    'label' => t('Robots'),
+    'description' => '',
+    'class' => 'DrupalListMetaTag',
+    'form' => array(
+      '#options' => array(
+        'noindex' => t('Prevent search engines from indexing this page.'),
+        'nofollow' => t('Prevent search engines from following links on this page.'),
+        'noarchive' => t('Prevent a cached copy of this page from being available in the search results.'),
+        'nosnippet' => t('Prevents a description from appearing below the page in the search results, as well as prevents caching of the page.'),
+        'noodp' => t('Blocks the <a href="@odp-link">Open Directory Project</a> description of the page from being used in the description that appears below the page in the search results.', array('@odp-url' => 'http://www.dmoz.org/')),
+      ),
+    ),
+    'group' => t('Advanced'),
+  );
   $info['generator'] = array(
     'label' => t('Generator'),
     'description' => '',

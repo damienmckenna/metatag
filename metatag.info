@@ -2,7 +2,8 @@ name = Meta tag API
 description = "Implement an API that other modules can use to add meta tags."
 package = Meta tags
 core = 7.x
-files[] = metatag.inc
-files[] = metatag.test
 dependencies[] = token
 dependencies[] = ctools
+
+files[] = metatag.inc
+files[] = metatag.test
