@@ -903,7 +903,7 @@ function metatag_filter_values_from_defaults(array &$values, array $defaults = a
  *   An array of instances starting with the $instance parameter, with the end
  *   of the array being the global instance.
  */
-function metatag_config_get_parent_instances($instance, $include_global = FALSE) {
+function metatag_config_get_parent_instances($instance, $include_global = TRUE) {
   $parents = array();
   $segments = explode(':', $instance);
   while (count($segments) > 0) {

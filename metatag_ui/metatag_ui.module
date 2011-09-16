@@ -55,6 +55,22 @@ function metatag_ui_menu() {
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   );
+  $items['admin/config/search/metatags/config/%metatag_config/enable'] = array(
+    'title' => 'Enable',
+    'page callback' => 'metatag_ui_config_enable',
+    'page arguments' => array(5),
+    'access callback' => 'metatag_ui_config_access',
+    'access arguments' => array('enable', 5),
+    'file' => 'metatag_ui.admin.inc',
+  );
+  $items['admin/config/search/metatags/config/%metatag_config/disable'] = array(
+    'title' => 'Disable',
+    'page callback' => 'metatag_ui_config_disable',
+    'page arguments' => array(5),
+    'access callback' => 'metatag_ui_config_access',
+    'access arguments' => array('disable', 5),
+    'file' => 'metatag_ui.admin.inc',
+  );
   $items['admin/config/search/metatags/config/%metatag_config/revert'] = array(
     'title' => 'Revert',
     'page callback' => 'drupal_get_form',
@@ -86,18 +102,33 @@ function metatag_ui_menu() {
   return $items;
 }
 
+/**
+ * Title callback for meta tag configuration instances.
+ */
 function metatag_ui_config_title($config) {
   return metatag_config_instance_label($config->instance);
 }
 
+/**
+ * Access callback for meta tag configuration instances.
+ */
 function metatag_ui_config_access($op, $config = NULL) {
   if (!user_access('administer meta tags')) {
     return FALSE;
   }
-  if ($op == 'delete') {
+
+  if ($op == 'enable') {
+    return !empty($config->disabled);
+  }
+  elseif ($op == 'disable') {
+    return empty($config->disabled);
+  }
+  elseif ($op == 'delete') {
     return ($config->export_type & EXPORT_IN_DATABASE) && !($config->export_type & EXPORT_IN_CODE);
   }
-  if ($op == 'revert') {
+  elseif ($op == 'revert') {
     return ($config->export_type & EXPORT_IN_DATABASE) && ($config->export_type & EXPORT_IN_CODE);
   }
+
+  return FALSE;
 }

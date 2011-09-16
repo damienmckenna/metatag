@@ -1,0 +1,62 @@
+table.metatag-config-overview tbody div.indent {
+  margin-left: 20px;
+}
+
+div.metatag-config-label {
+  /*font-weight: bold;*/
+  padding-left: 20px;
+}
+
+.metatag-config-label.collapsed {
+  background-image: url('arrow-right.png');
+  background-repeat: no-repeat;
+  background-position: center left;
+}
+
+.metatag-config-label.expanded {
+  background-image: url('arrow-down.png');
+  background-repeat: no-repeat;
+  background-position: center left;
+}
+
+div.metatag-config-details {
+  /*font-size: 95%;*/
+  color: #666;
+  margin-left: 20px;
+}
+
+div.metatag-config-details div.inheritance {
+  font-style: italic;
+}
+
+div.metatag-config-details table.metatag-value-summary {
+  border: none;
+  width: auto;
+  margin: 1em 0 1em 0;
+}
+
+div.metatag-config-details table.metatag-value-summary td {
+  padding: 0 0.5em 0 0;
+  color: #666;
+}
+
+div.metatag-config-details table.metatag-value-summary tr {
+  background-color: transparent;
+}
+
+div.metatag-config-details table.metatag-value-summary tr td:first-child {
+  font-weight: bold;
+  padding-right: 2em;
+}
+
+/*div.metatag-config-details ul {
+  margin-left: 2em;
+}
+
+div.metatag-config-details ul li {
+  line-height: 105%;
+}
+
+div.metatag-config-details > p {
+  margin: 0.25em 0;
+}*/

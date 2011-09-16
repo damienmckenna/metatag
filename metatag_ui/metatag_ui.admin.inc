@@ -28,8 +28,24 @@ function _metatag_ui_config_sort($a, $b) {
   return $return;
 }
 
+function _metatag_ui_config_overview_indent($text, $instance) {
+  $parents = metatag_config_get_parent_instances($instance);
+  array_shift($parents);
+
+  // Add indentation to the leading cell.
+  if (!empty($parents)) {
+    $prefix = array_fill(0, count($parents), '<div class="indent">');
+    $suffix = array_fill(0, count($parents), '</div>');
+    $text = implode('', $prefix) . $text . implode('', $suffix);
+  }
+
+  return $text;
+}
+
 function metatag_ui_config_overview() {
   ctools_include('export');
+
+  $metatags = metatag_get_info();
 
   $configs = ctools_export_crud_load_all('metatag_config');
   ksort($configs);
@@ -38,13 +54,82 @@ function metatag_ui_config_overview() {
   $rows = array();
   foreach ($configs as $config) {
     $row = array();
-    $row[] = check_plain(metatag_config_instance_label($config->instance));
+
+    $details = '<div class="metatag-config-label collapsed"><a href="#" class="toggle-details">' . check_plain(metatag_config_instance_label($config->instance)) . '</a></div>';
+    $details .= '<div class="metatag-config-details js-hide">';
+
+    $inherits = array();
+    $parents = metatag_config_get_parent_instances($config->instance);
+    array_shift($parents);
+    foreach (array_reverse($parents) as $parent) {
+      if (!isset($configs[$parent])) {
+        $rows[$parent] = array(
+          _metatag_ui_config_overview_indent('<div class="metatag-config-label">' . check_plain(metatag_config_instance_label($parent)) . '</div>', $parent),
+          '',
+        );
+      }
+      else {
+        $inherits[$parent] = metatag_config_instance_label($parent);
+        if (!empty($configs[$parent]->disabled)) {
+          $inherits[$parent] .= ' ' . t('(disabled)');
+        }
+      }
+    }
+
+    // Show how this config inherits from its parents.
+    if (!empty($inherits)) {
+      $details .= '<div class="inheritance"><p>' . t('Inherits meta tags from: @parents', array('@parents' => implode(', ', $inherits))) . '</p></div>';
+    }
+
+    // Add a summary of the configuration's defaults.
+    $summary = array();
+    foreach ($config->config as $metatag => $value) {
+      $summary[] = array(
+        'data' => array(
+          check_plain($metatags[$metatag]['label']) . ':',
+          check_plain($value['value']),
+        ),
+        //'no_striping' => TRUE,
+      );
+    }
+    $details .= theme('table', array(
+      'rows' => $summary,
+      'attributes' => array('class' => array('metatag-value-summary')),
+    ));
+
+    // Close the details div
+    $details .= '</div>';
+
+    // Add indentation to the leading cell based on how many parents the config has.
+    $details = _metatag_ui_config_overview_indent($details, $config->instance);
+
+    $row[] = array('data' => $details);
 
     $operations = array();
-    $operations['edit'] = array(
-      'title' => ($config->export_type & EXPORT_IN_DATABASE) ? t('Edit') : t('Override'),
-      'href' => 'admin/config/search/metatags/config/' . $config->instance,
-    );
+    if (metatag_ui_config_access('disable', $config)) {
+      $operations['edit'] = array(
+        'title' => ($config->export_type & EXPORT_IN_DATABASE) ? t('Edit') : t('Override'),
+        'href' => 'admin/config/search/metatags/config/' . $config->instance,
+      );
+    }
+    if (metatag_ui_config_access('enable', $config)) {
+      $operations['enable'] = array(
+        'title' => t('Enable'),
+        'href' => 'admin/config/search/metatags/config/' . $config->instance . '/enable',
+        'query' => array(
+          'token' => drupal_get_token('enable-' . $config->instance),
+        ) + drupal_get_destination(),
+      );
+    }
+    if (metatag_ui_config_access('disable', $config)) {
+      $operations['disable'] = array(
+        'title' => t('Disable'),
+        'href' => 'admin/config/search/metatags/config/' . $config->instance . '/disable',
+        'query' => array(
+          'token' => drupal_get_token('disable-' . $config->instance),
+        ) + drupal_get_destination(),
+      );
+    }
     if (metatag_ui_config_access('revert', $config)) {
       $operations['revert'] = array(
         'title' => t('Revert'),
@@ -75,11 +160,23 @@ function metatag_ui_config_overview() {
   $build['config_table'] = array(
     '#theme' => 'table',
     '#header' => array(
-      'type' => t('Context'),
+      'type' => t('Type'),
       'operations' => t('Operations'),
     ),
     '#rows' => $rows,
-    '#empty' => t('No configurations available yet.'),
+    '#empty' => t('No meta tag defaults available yet.'),
+    '#caption' => '<div class="js-show">' . t('Click the meta tag type to view a summary of its default meta tags.') . '</div>',
+    '#attributes' => array(
+      'class' => array('metatag-config-overview'),
+    ),
+    '#attached' => array(
+      'js' => array(
+        drupal_get_path('module', 'metatag_ui') . '/metatag_ui.admin.js',
+      ),
+      'css' => array(
+        drupal_get_path('module', 'metatag_ui') . '/metatag_ui.admin.css',
+      ),
+    ),
   );
 
   return $build;
@@ -114,13 +211,15 @@ function _metatag_ui_config_instance_get_available_options() {
       $options[$instance] = $instance['label'];
     }
   }
+
+  return $options;
 }
 
 function metatag_ui_config_add_form($form, &$form_state) {
   $form['instance'] = array(
     '#type' => 'select',
-    '#title' => t('Instance'),
-    '#description' => t('Select the type of data to add a configuration.'),
+    '#title' => t('Type'),
+    '#description' => t('Select the type of default meta tags you would like to add.'),
     '#options' => _metatag_ui_config_instance_get_available_options(),
     '#required' => TRUE,
   );
@@ -217,6 +316,24 @@ function metatag_ui_config_edit_form_submit($form, &$form_state) {
   drupal_set_message(t('The meta tag defaults for @label have been saved.', array('@label' => $label)));
 
   $form_state['redirect'] = 'admin/config/search/metatags';
+}
+
+function metatag_ui_config_enable($config) {
+  if (!isset($_GET['token']) || !drupal_valid_token($_GET['token'], 'enable-' . $config->instance)) {
+    return MENU_ACCESS_DENIED;
+  }
+
+  ctools_export_crud_enable('metatag_config', $config);
+  drupal_goto();
+}
+
+function metatag_ui_config_disable($config) {
+  if (!isset($_GET['token']) || !drupal_valid_token($_GET['token'], 'disable-' . $config->instance)) {
+    return MENU_ACCESS_DENIED;
+  }
+
+  ctools_export_crud_disable('metatag_config', $config);
+  drupal_goto();
 }
 
 function metatag_ui_config_delete_form($form, &$form_state, $config) {
