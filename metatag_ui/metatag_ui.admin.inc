@@ -55,6 +55,11 @@ function metatag_ui_config_overview() {
   foreach ($configs as $config) {
     $row = array();
 
+    // Style disabled configurations differently.
+    if (!empty($config->disabled)) {
+      $row['class'][] = 'disabled';
+    }
+
     $details = '<div class="metatag-config-label collapsed"><a href="#" class="toggle-details">' . check_plain(metatag_config_instance_label($config->instance)) . '</a></div>';
     $details .= '<div class="metatag-config-details js-hide">';
 
@@ -96,7 +101,8 @@ function metatag_ui_config_overview() {
       ));
     }
     else {
-      $details .= '<p>No overridden default meta tags</p>';
+      $details .= '<p class="warning">No overridden default meta tags</p>';
+      $row['class'][] = 'warning';
     }
 
     // Close the details div
@@ -105,7 +111,7 @@ function metatag_ui_config_overview() {
     // Add indentation to the leading cell based on how many parents the config has.
     $details = _metatag_ui_config_overview_indent($details, $config->instance);
 
-    $row[] = array('data' => $details);
+    $row['data']['details'] = $details;
 
     $operations = array();
     if (metatag_ui_config_access('disable', $config)) {
@@ -148,7 +154,7 @@ function metatag_ui_config_overview() {
       'title' => t('Export'),
       'href' => 'admin/config/search/metatags/config/' . $config->instance . '/export',
     );
-    $row[] = array(
+    $row['data']['operations'] = array(
       'data' => array(
         '#theme' => 'links',
         '#links' => $operations,
@@ -156,13 +162,7 @@ function metatag_ui_config_overview() {
       ),
     );
 
-    $rows[$config->instance] = array(
-      'data' => $row,
-    );
-
-    if (!empty($config->disabled)) {
-      $rows[$config->instance]['class'] = array('disabled');
-    }
+    $rows[$config->instance] = $row;
   }
 
   $build['config_table'] = array(
@@ -332,6 +332,9 @@ function metatag_ui_config_enable($config) {
   }
 
   ctools_export_crud_enable('metatag_config', $config);
+
+  $label = metatag_config_instance_label($config->instance);
+  drupal_set_message(t('The meta tag defaults for @label have been enabled.', array('@label' => $label)));
   drupal_goto();
 }
 
@@ -341,6 +344,9 @@ function metatag_ui_config_disable($config) {
   }
 
   ctools_export_crud_disable('metatag_config', $config);
+
+  $label = metatag_config_instance_label($config->instance);
+  drupal_set_message(t('The meta tag defaults for @label have been disabed.', array('@label' => $label)));
   drupal_goto();
 }
 
