@@ -35,7 +35,7 @@ table.metatag-config-overview tr.disabled > td:first-child a {
 }
 
 div.metatag-config-details {
-  color: #444;
+  color: #666;
   margin-left: 20px;
 }
 
@@ -55,7 +55,7 @@ div.metatag-config-details table.metatag-value-summary {
 
 div.metatag-config-details table.metatag-value-summary td {
   padding: 0 0.5em 0 0;
-  color: #444;
+  color: #666;
 }
 
 div.metatag-config-details table.metatag-value-summary tr,
