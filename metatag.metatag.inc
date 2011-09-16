@@ -106,7 +106,7 @@ function metatag_metatag_context_info() {
 function metatag_metatag_info() {
   $info['description'] = array(
     'label' => t('Description'),
-    'description' => t('The meta description tag allows you to influence the description of your page in the crawlers that support the tag.'),
+    'description' => t("A brief and concise summary of the page's content, preferrably 150 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
     'class' => 'DrupalTextMetaTag',
     'form' => array(
       '#type' => 'textarea',
@@ -116,19 +116,19 @@ function metatag_metatag_info() {
   );
   $info['keywords'] = array(
     'label' => t('Keywords'),
-    'description' => '',
+    'description' => t("A comma-separated list of keywords about the page. This meta tag is <strong>not</strong>supported by most search engines."),
     'class' => 'DrupalTextMetaTag',
   );
   $info['title'] = array(
     'label' => t('Title'),
-    'description' => '',
+    'description' => t("The text to display in the title bar of a visitor's web browser when they view this page. This meta tag may also be used as the title of the page when a visitor bookmarks or favorites this page."),
     'class' => 'DrupalTitleMetaTag',
   );
 
   // More advanced meta tags.
   $info['robots'] = array(
     'label' => t('Robots'),
-    'description' => '',
+    'description' => t("Provides search engines with specific directions for what to do when this page is indexed."),
     'class' => 'DrupalListMetaTag',
     'form' => array(
       '#options' => array(
@@ -143,7 +143,7 @@ function metatag_metatag_info() {
   );
   $info['generator'] = array(
     'label' => t('Generator'),
-    'description' => '',
+    'description' => t("Describes the name and version number of the software or publishing tool used to create the page."),
     'class' => 'DrupalTextMetaTag',
     'element' => array(
       '#id' => 'system_meta_generator',
@@ -154,7 +154,7 @@ function metatag_metatag_info() {
   );
   $info['copyright'] = array(
     'label' => t('Copyright'),
-    'description' => '',
+    'description' => t("Details a copyright, trademark, patent, or other information that pertains to intellectual property about this page. Note that this will not automatically protect your site's content or your intellectual property."),
     'class' => 'DrupalTextMetaTag',
     'group' => t('Advanced'),
   );
@@ -162,7 +162,7 @@ function metatag_metatag_info() {
   // Link tags.
   $info['canonical'] = array(
     'label' => t('Canonical URL'),
-    'description' => '',
+    'description' => t("Tells search engines where the preferred location or URL is for this page to help eliminate self-created duplicate content for search engines."),
     'class' => 'DrupalLinkMetaTag',
     'group' => t('Advanced'),
   );
