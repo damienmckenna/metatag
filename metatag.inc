@@ -22,6 +22,7 @@ interface DrupalMetaTagInterface {
 }
 
 class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
+  
   protected $info;
   protected $data = array('value' => '');
 
@@ -87,6 +88,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
       '#element_validate' => array('token_element_validate'),
       '#token_types' => $options['token types'],
+      '#maxlength' => 255,
     );
 
     return $form;
@@ -108,6 +110,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
  * Link type meta tag controller.
  */
 class DrupalLinkMetaTag extends DrupalTextMetaTag {
+
   public function getElement(array $options = array()) {
     $element = isset($this->info['element']) ? $this->info['element'] : array();
 
@@ -144,6 +147,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
  * template_preprocess_html() rather output a normal meta tag.
  */
 class DrupalTitleMetaTag extends DrupalTextMetaTag {
+
   public function getElement(array $options = array()) {
     $element = array();
     $value = check_plain($this->getValue($options));
@@ -157,6 +161,7 @@ class DrupalTitleMetaTag extends DrupalTextMetaTag {
  * Multiple value meta tag controller.
  */
 class DrupalListMetaTag extends DrupalDefaultMetaTag {
+
   public function getForm(array $options = array()) {
     $form['value'] = isset($this->info['form']) ? $this->info['form'] : array();
 
@@ -176,4 +181,3 @@ class DrupalListMetaTag extends DrupalDefaultMetaTag {
     return implode(', ', $values);
   }
 }
-
