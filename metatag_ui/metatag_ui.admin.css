@@ -18,6 +18,14 @@ div.metatag-config-label > a {
   background-position: center left;
 }
 
+table.metatag-config-overview tbody tr td:first-child {
+  width: 60%;
+}
+
+table.metatag-config-overview tbody tr td {
+  vertical-align: top;
+}
+
 table.metatag-config-overview tbody div.indent {
   margin-left: 20px;
 }
