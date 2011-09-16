@@ -216,7 +216,7 @@ function _metatag_ui_config_instance_get_available_options() {
       unset($options[$parent]);
     }
     else {
-      $options[$instance] = $instance['label'];
+      $options[$instance] = $instance_info['label'];
     }
   }
 
