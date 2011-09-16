@@ -18,11 +18,11 @@ div.metatag-config-label > a {
   background-position: center left;
 }
 
-table.metatag-config-overview tbody tr td:first-child {
+table.metatag-config-overview > tbody > tr > td:first-child {
   width: 60%;
 }
 
-table.metatag-config-overview tbody tr td {
+table.metatag-config-overview > tbody > tr > td {
   vertical-align: top;
 }
 
