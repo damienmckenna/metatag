@@ -424,8 +424,8 @@ function metatag_metatags_values($instance, array $metatags = array(), array $op
  *   - token types: An array of token types to be passed to theme_token_tree().
  */
 function metatag_metatags_form(array &$form, $instance, array $metatags = array(), array $options = array()) {
-  $metatag_info = metatag_get_info();
-  if (empty($metatag_info)) {
+  $info = metatag_get_info();
+  if (empty($info['tags'])) {
     return;
   }
 
@@ -466,7 +466,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   $metatags += $options['defaults'];
 
   // Build the form for each metatag.
-  foreach ($metatag_info as $metatag => $metatag_info) {
+  foreach ($info['tags'] as $metatag => $metatag_info) {
     // @todo Replace context matching with hook_metatag_access().
     if (isset($options['context']) && isset($metatag_info['context'])) {
       if (!in_array($options['context'], $metatag_info['context'])) {
@@ -491,16 +491,18 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     }
 
     if (!empty($metatag_info['group'])) {
-      $group = drupal_clean_css_identifier(drupal_strtolower($metatag_info['group']));
-      if (!isset($form['metatags'][$group])) {
-        $form['metatags'][$group] = array(
+      $group_key = $metatag_info['group'];
+      if (isset($info['groups'][$group_key]['label']) && !isset($form['metatags'][$group_key])) {
+        $group = $info['groups'][$group_key] + array('form' => array(), 'description' => NULL);
+        $form['metatags'][$group_key] = $group['form'] + array(
           '#type' => 'fieldset',
-          '#title' => check_plain($metatag_info['group']),
+          '#title' => check_plain($group['label']),
+          '#description' => filter_xss($group['description']),
           '#collapsible' => TRUE,
           '#collapsed' => TRUE,
         );
       }
-      $form['metatags'][$group][$metatag] = $metatag_form + array('#parents' => array('metatags', $metatag));
+      $form['metatags'][$group_key][$metatag] = $metatag_form + array('#parents' => array('metatags', $metatag));
     }
     else {
       $form['metatags'][$metatag] = $metatag_form;
@@ -511,6 +513,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   $form['metatags']['tokens'] = array(
     '#theme' => 'token_tree',
     '#token_types' => $options['token types'],
+    '#weight' => 100,
   );
 
   // Add a submit handler to compare the submitted values against the deafult
@@ -728,56 +731,60 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
  *   The meta tag name, e.g. description, for which the info shall be returned,
  *   or NULL to return an array with info about all meta tags.
  */
-function metatag_get_info($metatag = NULL) {
-  global $language;
-
+function metatag_get_info($type = NULL, $name = NULL) {
   // Use the advanced drupal_static() pattern, since this is called very often.
   static $drupal_static_fast;
   if (!isset($drupal_static_fast)) {
     $drupal_static_fast['metatag_info'] = &drupal_static(__FUNCTION__);
   }
-  $metatag_info = &$drupal_static_fast['metatag_info'];
+  $info = &$drupal_static_fast['metatag_info'];
 
-  // hook_metatag_info() includes translated strings, so each language is cached
-  // separately.
-  $cid = 'metatag:info:metatags:' . $language->language;
+  if (!isset($info)) {
+    // hook_metatag_info() includes translated strings, so each language is cached
+    // separately.
+    $cid = 'info:' . $GLOBALS['language']->language;
 
-  if (empty($metatag_info)) {
-    if ($cache = cache_get($cid)) {
-      $metatag_info = $cache->data;
+    if ($cache = cache_get($cid, 'cache_metatag')) {
+      $info = $cache->data;
     }
     else {
-      $metatag_info = module_invoke_all('metatag_info');
+      $info = module_invoke_all('metatag_info');
+      $info += array('tags' => array(), 'groups' => array());
+
       // Merge in default values.
-      foreach ($metatag_info as $name => $data) {
-        $metatag_info[$name] += array(
+      foreach ($info['tags'] as $key => $data) {
+        $info['tags'][$key] += array(
           // Merge in default values.
-          'name' => $name,
+          'name' => $key,
           'class' => 'DrupalTextMetaTag',
         );
       }
-      // Let other modules alter the entity info.
-      drupal_alter('metatag_info', $metatag_info);
-      cache_set($cid, $metatag_info);
+
+      // Let other modules alter the entity info and then cache it.
+      drupal_alter('metatag_info', $info);
+      cache_set($cid, $info, 'cache_metatag');
     }
   }
 
-  if (empty($metatag)) {
-    return $metatag_info;
+  if (isset($type) && isset($name)) {
+    return isset($info[$type][$name]) ? $info[$type][$name] : FALSE;
   }
-  elseif (isset($metatag_info[$metatag])) {
-    return $metatag_info[$metatag];
+  elseif (isset($type)) {
+    return isset($info[$type]) ? $info[$type] : array();
+  }
+  else {
+    return $info;
   }
 }
 
 function metatag_get_instance($metatag, array $data = array()) {
-  $info = metatag_get_info($metatag);
-  $class = $info['class'];
-  if (class_exists($class)) {
+  $info = metatag_get_info('tags', $metatag);
+  if (!empty($info['class']) && class_exists($info['class'])) {
+    $class = $info['class'];
     return new $class($info, $data);
   }
   else {
-    trigger_error("FAIL TO LOAD CLASS $class for metatag $metatag.");
+    trigger_error("Failed to load class $class for metatag $metatag.", E_USER_ERROR);
   }
 }
 
@@ -828,7 +835,7 @@ function metatag_preprocess_maintenance_page(&$variables) {
  */
 function metatag_html_head_alter(&$elements) {
   // Remove duplicate link tags if found.
-  $metatags = metatag_get_info();
+  $metatags = metatag_get_info('tags');
   foreach (array_keys($metatags) as $name) {
     if (!isset($elements['metatag_' . $name]) || $elements['metatag_' . $name]['#tag'] != 'link') {
       // Only check for link tags added by the metatags module.
@@ -858,13 +865,13 @@ function metatag_config_instance_info($instance = NULL) {
   $cid = 'metatag:config:instance:info:' . $language->language;
 
   if (!isset($info)) {
-    if ($cache = cache_get($cid)) {
+    if ($cache = cache_get($cid, 'cache_metatag')) {
       $info = $cache->data;
     }
     else {
       $info = module_invoke_all('metatag_config_instance_info');
       drupal_alter('metatag_config_instance_info', $info);
-      cache_set($cid, $info);
+      cache_set($cid, $info, 'cache_metatag');
     }
   }
 

@@ -45,7 +45,7 @@ function _metatag_ui_config_overview_indent($text, $instance) {
 function metatag_ui_config_overview() {
   ctools_include('export');
 
-  $metatags = metatag_get_info();
+  $metatags = metatag_get_info('tags');
 
   $configs = ctools_export_crud_load_all('metatag_config');
   ksort($configs);

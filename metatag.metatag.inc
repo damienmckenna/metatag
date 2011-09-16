@@ -94,7 +94,14 @@ function metatag_metatag_config_instance_info() {
  * Implements hook_metatag_info().
  */
 function metatag_metatag_info() {
-  $info['description'] = array(
+  $info['groups']['advanced'] = array(
+    'label' => t('Advanced'),
+    'form' => array(
+      '#weight' => 90,
+    ),
+  );
+
+  $info['tags']['description'] = array(
     'label' => t('Description'),
     'description' => t("A brief and concise summary of the page's content, preferrably 150 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
     'class' => 'DrupalTextMetaTag',
@@ -104,19 +111,19 @@ function metatag_metatag_info() {
       '#wysiwyg' => FALSE,
     ),
   );
-  $info['keywords'] = array(
+  $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
     'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines."),
     'class' => 'DrupalTextMetaTag',
   );
-  $info['title'] = array(
+  $info['tags']['title'] = array(
     'label' => t('Title'),
     'description' => t("The text to display in the title bar of a visitor's web browser when they view this page. This meta tag may also be used as the title of the page when a visitor bookmarks or favorites this page."),
     'class' => 'DrupalTitleMetaTag',
   );
 
   // More advanced meta tags.
-  $info['robots'] = array(
+  $info['tags']['robots'] = array(
     'label' => t('Robots'),
     'description' => t("Provides search engines with specific directions for what to do when this page is indexed."),
     'class' => 'DrupalListMetaTag',
@@ -129,9 +136,9 @@ function metatag_metatag_info() {
         'noodp' => t('Blocks the <a href="@odp-url">Open Directory Project</a> description of the page from being used in the description that appears below the page in the search results.', array('@odp-url' => 'http://www.dmoz.org/')),
       ),
     ),
-    'group' => t('Advanced'),
+    'group' => 'advanced',
   );
-  $info['generator'] = array(
+  $info['tags']['generator'] = array(
     'label' => t('Generator'),
     'description' => t("Describes the name and version number of the software or publishing tool used to create the page."),
     'class' => 'DrupalTextMetaTag',
@@ -140,27 +147,27 @@ function metatag_metatag_info() {
     ),
     'header' => 'X-Generator',
     'context' => array('global'),
-    'group' => t('Advanced'),
+    'group' => 'advanced',
   );
-  $info['copyright'] = array(
+  $info['tags']['copyright'] = array(
     'label' => t('Copyright'),
     'description' => t("Details a copyright, trademark, patent, or other information that pertains to intellectual property about this page. Note that this will not automatically protect your site's content or your intellectual property."),
     'class' => 'DrupalTextMetaTag',
-    'group' => t('Advanced'),
+    'group' => 'advanced',
   );
 
   // Link tags.
-  $info['canonical'] = array(
+  $info['tags']['canonical'] = array(
     'label' => t('Canonical URL'),
     'description' => t("Tells search engines where the preferred location or URL is for this page to help eliminate self-created duplicate content for search engines."),
     'class' => 'DrupalLinkMetaTag',
-    'group' => t('Advanced'),
+    'group' => 'advanced',
   );
-  $info['shortlink'] = array(
+  $info['tags']['shortlink'] = array(
     'label' => t('Shortlink URL'),
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
-    'group' => t('Advanced'),
+    'group' => 'advanced',
   );
 
   return $info;
