@@ -14,8 +14,16 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
       case 'global':
         $config->config += array(
           'og:type' => array('value' => 'article'),
+          'og:title' => array('value' => '[current-page:title]'),
           'og:site_name' => array('value' => '[site:name]'),
           'og:url' => array('value' => '[current-page:url]'),
+        );
+        break;
+      case 'global:frontpage':
+        $config->config += array(
+          'og:type' => array('value' => 'website'),
+          'og:title' => array('value' => '[site:name]'),
+          'og:url' => array('value' => '[site:url]'),
         );
         break;
       case 'node':

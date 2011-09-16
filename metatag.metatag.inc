@@ -17,6 +17,16 @@ function metatag_metatag_config_default() {
   $configs[$config->instance] = $config;
 
   $config = new stdClass();
+  $config->instance = 'global:frontpage';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'title' => array('value' => variable_get('site_slogan') ? '[site:name] | [site:slogan]' : '[site:name]'),
+    'canonical' => array('value' => '[site:url]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
   $config->instance = 'node';
   $config->api_version = 1;
   $config->disabled = FALSE;
@@ -35,15 +45,17 @@ function metatag_metatag_config_default() {
   );
   $configs[$config->instance] = $config;
 
-  $config = new stdClass();
-  $config->instance = 'taxonomy_term';
-  $config->api_version = 1;
-  $config->disabled = FALSE;
-  $config->config = array(
-    'title' => array('value' => '[term:name] | [site:name]'),
-    'description' => array('value' => '[term:description]'),
-  );
-  $configs[$config->instance] = $config;
+  if (module_exists('taxonomy')) {
+    $config = new stdClass();
+    $config->instance = 'taxonomy_term';
+    $config->api_version = 1;
+    $config->disabled = FALSE;
+    $config->config = array(
+      'title' => array('value' => '[term:name] | [site:name]'),
+      'description' => array('value' => '[term:description]'),
+    );
+    $configs[$config->instance] = $config;
+  }
 
   $config = new stdClass();
   $config->instance = 'user';
@@ -67,12 +79,13 @@ function metatag_metatag_context_info() {
       'frontpage' => array(
         'label' => t('Front page'),
       ),
-      '403' => array(
-        'label' => t('403 page not found'),
-      ),
-      '404' => array(
-        'label' => t('404 page not found'),
-      ),
+      // @todo The 403 and 404 meta tag contexts are disabled until they can be properly implemented.
+      //'403' => array(
+      //  'label' => t('403 page not found'),
+      //),
+      //'404' => array(
+      //  'label' => t('404 page not found'),
+      //),
     ),
   );
 

@@ -653,8 +653,20 @@ function metatag_load_entity_from_path($path) {
   return $result;
 }
 
-function metatag_page_alter(&$page) {
-
+/**
+ * Implements hook_page_build().
+ */
+function metatag_page_build(&$page) {
+  // Load the metatags render array in before any page content so that more
+  // more specific meta tags in the page content can override these meta tags.
+  $page['content'] = array('metatags' => array()) + $page['content'];
+  if (drupal_is_front_page()) {
+    $page['content']['metatags']['global:frontpage'] = metatag_metatags_view('global:frontpage', array());
+  }
+  elseif (!path_is_admin(current_path())) {
+    // Do not output the global metatags when on an administration path.
+    $page['content']['metatags']['global'] = metatag_metatags_view('global', array());
+  }
 }
 
 /**
