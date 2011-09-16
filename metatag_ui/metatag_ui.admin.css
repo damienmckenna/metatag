@@ -1,10 +1,9 @@
-table.metatag-config-overview tbody div.indent {
-  margin-left: 20px;
+div.metatag-config-label {
+  padding-left: 20px;
 }
 
-div.metatag-config-label {
-  /*font-weight: bold;*/
-  padding-left: 20px;
+div.metatag-config-label > a {
+  font-weight: bold;
 }
 
 .metatag-config-label.collapsed {
@@ -19,9 +18,17 @@ div.metatag-config-label {
   background-position: center left;
 }
 
+table.metatag-config-overview tbody div.indent {
+  margin-left: 20px;
+}
+
+table.metatag-config-overview tr.disabled > td:first-child a {
+  color: #999;
+}
+
 div.metatag-config-details {
   /*font-size: 95%;*/
-  color: #666;
+  color: #444;
   margin-left: 20px;
 }
 
@@ -37,11 +44,13 @@ div.metatag-config-details table.metatag-value-summary {
 
 div.metatag-config-details table.metatag-value-summary td {
   padding: 0 0.5em 0 0;
-  color: #666;
+  color: #444;
 }
 
-div.metatag-config-details table.metatag-value-summary tr {
+div.metatag-config-details table.metatag-value-summary tr,
+div.metatag-config-details table.metatag-value-summary tr td:last-child {
   background-color: transparent;
+  border: none;
 }
 
 div.metatag-config-details table.metatag-value-summary tr td:first-child {

@@ -154,7 +154,13 @@ function metatag_ui_config_overview() {
       ),
     );
 
-    $rows[$config->instance] = $row;
+    $rows[$config->instance] = array(
+      'data' => $row,
+    );
+
+    if (!empty($config->disabled)) {
+      $rows[$config->instance]['class'] = array('disabled');
+    }
   }
 
   $build['config_table'] = array(
@@ -165,7 +171,7 @@ function metatag_ui_config_overview() {
     ),
     '#rows' => $rows,
     '#empty' => t('No meta tag defaults available yet.'),
-    '#caption' => '<div class="js-show">' . t('Click the meta tag type to view a summary of its default meta tags.') . '</div>',
+    '#caption' => '<div class="js-show">' . t('To view a summary of the default meta tags and the inheritance, click on a meta tag type.') . '</div>',
     '#attributes' => array(
       'class' => array('metatag-config-overview'),
     ),
