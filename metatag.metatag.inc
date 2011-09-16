@@ -36,15 +36,6 @@ function metatag_metatag_config_default() {
   );
   $configs[$config->instance] = $config;
 
-  $config = new stdClass();
-  $config->instance = 'node:article';
-  $config->api_version = 1;
-  $config->disabled = FALSE;
-  $config->config = array(
-    'keywords' => array('value' => '[node:field_tags]'),
-  );
-  $configs[$config->instance] = $config;
-
   if (module_exists('taxonomy')) {
     $config = new stdClass();
     $config->instance = 'taxonomy_term';
