@@ -646,6 +646,12 @@ function metatag_load_entity_from_path($path) {
  * Implements hook_page_build().
  */
 function metatag_page_build(&$page) {
+  // For some reason with Overlay enabled we get an empty $page, so just fail
+  // this case.
+  if (!isset($page['content'])) {
+    return;
+  }
+
   // Load the metatags render array in before any page content so that more
   // more specific meta tags in the page content can override these meta tags.
   $page['content'] = array('metatags' => array()) + $page['content'];
