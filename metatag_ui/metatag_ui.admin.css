@@ -27,9 +27,12 @@ table.metatag-config-overview tr.disabled > td:first-child a {
 }
 
 div.metatag-config-details {
-  /*font-size: 95%;*/
   color: #444;
   margin-left: 20px;
+}
+
+div.metatag-config-details p {
+  margin: 0.75em 0;
 }
 
 div.metatag-config-details div.inheritance {
@@ -39,7 +42,7 @@ div.metatag-config-details div.inheritance {
 div.metatag-config-details table.metatag-value-summary {
   border: none;
   width: auto;
-  margin: 1em 0 1em 0;
+  margin: 0.75em 0;
 }
 
 div.metatag-config-details table.metatag-value-summary td {

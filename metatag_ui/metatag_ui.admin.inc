@@ -85,17 +85,19 @@ function metatag_ui_config_overview() {
     $summary = array();
     foreach ($config->config as $metatag => $value) {
       $summary[] = array(
-        'data' => array(
-          check_plain($metatags[$metatag]['label']) . ':',
-          check_plain($value['value']),
-        ),
-        //'no_striping' => TRUE,
+        check_plain($metatags[$metatag]['label']) . ':',
+        check_plain($value['value']),
       );
     }
-    $details .= theme('table', array(
-      'rows' => $summary,
-      'attributes' => array('class' => array('metatag-value-summary')),
-    ));
+    if (!empty($summary)) {
+      $details .= theme('table', array(
+        'rows' => $summary,
+        'attributes' => array('class' => array('metatag-value-summary')),
+      ));
+    }
+    else {
+      $details .= '<p>No overridden default meta tags</p>';
+    }
 
     // Close the details div
     $details .= '</div>';
