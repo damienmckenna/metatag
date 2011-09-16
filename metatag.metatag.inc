@@ -126,7 +126,7 @@ function metatag_metatag_info() {
         'nofollow' => t('Prevent search engines from following links on this page.'),
         'noarchive' => t('Prevent a cached copy of this page from being available in the search results.'),
         'nosnippet' => t('Prevents a description from appearing below the page in the search results, as well as prevents caching of the page.'),
-        'noodp' => t('Blocks the <a href="@odp-link">Open Directory Project</a> description of the page from being used in the description that appears below the page in the search results.', array('@odp-url' => 'http://www.dmoz.org/')),
+        'noodp' => t('Blocks the <a href="@odp-url">Open Directory Project</a> description of the page from being used in the description that appears below the page in the search results.', array('@odp-url' => 'http://www.dmoz.org/')),
       ),
     ),
     'group' => t('Advanced'),
