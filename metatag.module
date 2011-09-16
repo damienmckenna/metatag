@@ -449,7 +449,6 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   $form['metatags'] = array(
     '#type' => 'fieldset',
     '#title' => t('Meta tags'),
-    '#group' => 'additional_settings',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
     '#tree' => TRUE,
@@ -465,6 +464,14 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     ),
     '#metatag_defaults' => $options['defaults'],
   );
+
+  // Only support vertical tabs if there is a vertical tab element.
+  foreach (element_children($form) as $key) {
+    if (isset($form[$key]['#type']) && $form[$key]['#type'] == 'vertical_tabs') {
+      $form['metatags']['#group'] = $key;
+      break;
+    }
+  }
 
   // Merge in the default meta tag configurations.
   $metatags += $options['defaults'];
