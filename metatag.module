@@ -443,11 +443,6 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#tree' => TRUE,
     '#access' => user_access('edit meta tags') || user_access('administer meta tags'),
     '#weight' => 10,
-    '#attached' => array(
-      'js' => array(
-        drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js',
-      ),
-    ),
     '#attributes' => array(
       'class' => array('metatags-form'),
     ),
@@ -458,6 +453,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   foreach (element_children($form) as $key) {
     if (isset($form[$key]['#type']) && $form[$key]['#type'] == 'vertical_tabs') {
       $form['metatags']['#group'] = $key;
+      $form['metatags']['#attached']['js'][] = drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js';
       break;
     }
   }
