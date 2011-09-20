@@ -717,7 +717,27 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
   $options['token types'] = array(token_get_entity_mapping('entity', $entity_type));
   $options['context'] = $entity_type;
 
-  metatag_metatags_form($form, $instance, $metatags, $options);
+  // @todo Remove metatag_form_alter() when http://drupal.org/node/1284642 is fixed in core.
+  //metatag_metatags_form($form, $instance, $metatags, $options);
+
+  $form['#metatags'] = array(
+    'instance' => $instance,
+    'metatags' => $metatags,
+    'options' => $options,
+  );
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * @todo Remove this when http://drupal.org/node/1284642 is fixed in core.
+ */
+function metatag_form_alter(&$form, $form_state, $form_id) {
+  if (!empty($form['#metatags']) && !isset($form['metatags'])) {
+    extract($form['#metatags']);
+    metatag_metatags_form($form, $instance, $metatags, $options);
+    unset($form['#metatags']);
+  }
 }
 
 /**
