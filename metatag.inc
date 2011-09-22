@@ -22,7 +22,7 @@ interface DrupalMetaTagInterface {
 }
 
 class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
-  
+
   protected $info;
   protected $data = array('value' => '');
 
@@ -98,6 +98,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     $options += array(
       'token data' => array(),
       'clear' => TRUE,
+      'sanitize' => FALSE,
     );
 
     $value = token_replace($this->data['value'], $options['token data'], $options);
