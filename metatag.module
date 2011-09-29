@@ -343,7 +343,9 @@ function metatag_field_attach_view_alter(&$output, $context) {
       $options = $context;
       // Ensure we actually pass a language object rather than language code.
       $languages = language_list();
-      $options['language'] = $languages[$context['language']];
+      if (isset($context['language']) && isset($languages[$context['language']])) {
+        $options['language'] = $languages[$context['language']];
+      }
       $options['token data'][token_get_entity_mapping('entity', $entity_type)] = $context['entity'];
 
       // Render the metatags and save to the cache.
