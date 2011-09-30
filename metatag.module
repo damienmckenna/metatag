@@ -338,12 +338,18 @@ function metatag_field_attach_view_alter(&$output, $context) {
       // Build options for meta tag rendering. The context variable already
       // contains entity type, entity, view mode, language, etc.
       $options = $context;
+
       // Ensure we actually pass a language object rather than language code.
       $languages = language_list();
       if (isset($context['language']) && isset($languages[$context['language']])) {
         $options['language'] = $languages[$context['language']];
       }
-      $options['token data'][token_get_entity_mapping('entity', $entity_type)] = $context['entity'];
+
+      // Reload the entity object from cache as it may have been altered by Panels.
+      $token_type = token_get_entity_mapping('entity', $entity_type);
+      $entities = entity_load($entity_type, array($entity_id));
+      $options['token data'][$token_type] = $entities[$entity_id];
+      $options['entity'] = $entities[$entity_id];
 
       // Render the metatags and save to the cache.
       $output['metatags'] = metatag_metatags_view($instance, $metatags, $options);
