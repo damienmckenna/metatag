@@ -102,7 +102,8 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     );
 
     $value = token_replace($this->data['value'], $options['token data'], $options);
-    $value = trim(strip_tags($value));
+    $value = strip_tags(decode_entities($value));
+    $value = trim($value);
     return $value;
   }
 }
