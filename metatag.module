@@ -168,7 +168,6 @@ function metatag_config_save($config) {
 
   // Clear any caches.
   metatag_config_cache_clear();
-  //metatag_metatag_cache_clear($type);
 }
 
 /**
@@ -181,17 +180,15 @@ function metatag_config_delete($instance) {
 
   // Clear any caches.
   metatag_config_cache_clear();
-  //metatag_metatag_cache_clear($type);
 }
 
 /**
  * Clear the metatag configuration cache.
  */
 function metatag_config_cache_clear() {
-  cache_clear_all('config:', 'cache_metatag', TRUE);
-  cache_clear_all('ctools_export', 'cache_metatag', TRUE);
+  cache_clear_all('*', 'cache_metatag', TRUE);
   drupal_static_reset('metatag_config_load_with_defaults');
-  //ctools_export_load_object_reset();
+  ctools_export_load_object_reset('metatag_config');
 }
 
 function metatag_metatags_load($type, $id) {
