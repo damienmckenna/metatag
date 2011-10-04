@@ -811,6 +811,29 @@ function metatag_get_instance($metatag, array $data = array()) {
 }
 
 /**
+ * Return the string value of a meta tag.
+ *
+ * @param $metatag
+ *   The meta tag string.
+ * @param $data
+ *   The array of data for the meta tag class instance.
+ * @param $options
+ *   An optional array of additional options to pass to the getValue() method
+ *   of the meta tag class instance.
+ *   - raw: A boolean if TRUE will not perform token replacement.
+ *
+ * @return
+ *   A string value.
+ */
+function metatag_get_value($metatag, array $data, array $options = array()) {
+  $value = '';
+  if ($metatag_instance = metatag_get_instance($metatag, $data)) {
+    $value = $metatag_instance->getValue($options);
+  }
+  return $value;
+}
+
+/**
  * Set a variable to be altered in metatag_preprocess_html().
  *
  * @see metatag_get_preprocess_variables()

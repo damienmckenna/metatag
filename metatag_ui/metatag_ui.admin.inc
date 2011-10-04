@@ -88,10 +88,10 @@ function metatag_ui_config_overview() {
 
     // Add a summary of the configuration's defaults.
     $summary = array();
-    foreach ($config->config as $metatag => $value) {
+    foreach ($config->config as $metatag => $data) {
       $summary[] = array(
         check_plain($metatags[$metatag]['label']) . ':',
-        check_plain($value['value']),
+        check_plain(metatag_get_value($metatag, $data, array('raw' => TRUE))),
       );
     }
     if (!empty($summary)) {
