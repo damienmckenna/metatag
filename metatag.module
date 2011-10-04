@@ -692,7 +692,7 @@ function _metatag_entity_is_page($type, $entity) {
 function metatag_field_attach_rename_bundle($entity_type, $bundle_old, $bundle_new) {
   $instance_old = $entity_type . ':' . $bundle_old;
   $instance_new = $entity_type . ':' . $bundle_new;
-  if ($config = metatag_config_load($instance)) {
+  if ($config = metatag_config_load($instance_old)) {
     $config->instance = $instance_new;
     metatag_config_save($config);
     metatag_config_delete($instance_old);
