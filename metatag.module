@@ -893,6 +893,9 @@ function metatag_html_head_alter(&$elements) {
       }
     }
   }
+
+  // Remove the default generator meta tag.
+  unset($elements['system_meta_generator']);
 }
 
 function metatag_metatag_get_form($metatag, array $data = array(), array $options = array()) {
