@@ -166,6 +166,12 @@ function metatag_metatag_info() {
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
   );
+  $info['tags']['publisher'] = array(
+    'label' => t('Publisher URL'),
+    'description' => '',
+    'class' => 'DrupalLinkMetaTag',
+    'group' => 'advanced',
+  );
 
   return $info;
 }
