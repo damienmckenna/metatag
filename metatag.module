@@ -1,12 +1,8 @@
 <?php
 
 /**
- * DO NOT USE THIS MODULE ON ANYTHING RESEMBLING A PRODUCTION SITE. IT IS NOT
- * FINISHED, THE APIS ARE NOT YET LOCKED, AND THIS DOESN'T ACTUALLY WORK YET.
- *
  * @todo Add revisionable support for metatag data.
  * @todo Add multilingual support for metatag data - is this even needed?
- *
  */
 
 /**
