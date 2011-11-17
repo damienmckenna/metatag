@@ -86,3 +86,13 @@ function metatag_schema() {
 
   return $schema;
 }
+
+/**
+ * Disable the deprecated metatag_ui module which has been merged into metatag.
+ */
+function metatag_update_7000() {
+  if (module_exists('metatag_ui')) {
+    module_disable(array('metatag_ui'), FALSE);
+    drupal_uninstall_modules(array('metatag_ui'), FALSE);
+  }
+}

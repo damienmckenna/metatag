@@ -4,4 +4,4 @@ package = Meta tags
 core = 7.x
 dependencies[] = metatag
 dependencies[] = ctools
-configure = admin/config/search/metatags
+hidden = TRUE
