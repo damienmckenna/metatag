@@ -30,7 +30,7 @@ function metatag_schema() {
       'cid' => array(
         'type' => 'serial',
         'unsigned' => TRUE,
-        'not null' => FALSE,
+        'not null' => TRUE,
         'description' => 'The primary identifier for a metatag configuration set.',
       ),
       'instance' => array(
@@ -95,4 +95,17 @@ function metatag_update_7000() {
     module_disable(array('metatag_ui'), FALSE);
     drupal_uninstall_modules(array('metatag_ui'), FALSE);
   }
+}
+
+/**
+ * Fix the {metatag_config}.cid column cannot be NULL.
+ */
+function metatag_update_7001() {
+  $field = array(
+    'type' => 'serial',
+    'unsigned' => TRUE,
+    'not null' => TRUE,
+    'description' => 'The primary identifier for a metatag configuration set.',
+  );
+  db_change_field('metatag_config', 'cid', 'cid', $field);
 }
