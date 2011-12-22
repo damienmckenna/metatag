@@ -45,7 +45,8 @@ function metatag_schema() {
         'size' => 'big',
         'not null' => TRUE,
         'serialize' => TRUE,
-        'description' => 'Serialized data containing the meta tag configuration.'
+        'description' => 'Serialized data containing the meta tag configuration.',
+        'translatable' => TRUE,
       ),
     ),
     'primary key' => array('cid'),
