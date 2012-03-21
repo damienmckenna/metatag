@@ -18,7 +18,7 @@ Drupal.behaviors.metatagFieldsetSummaries = {
         }
         var label = $("label[for='" + $(this).attr('id') + "']").text();
         vals.push(Drupal.t('@label: @value', {
-          '@label': label.trim(),
+          '@label': $.trim(label),
           '@value': Drupal.truncate($(this).val(), 25) || Drupal.t('None')
         }));
       });
