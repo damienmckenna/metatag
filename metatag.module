@@ -405,8 +405,13 @@ function metatag_field_attach_view_alter(&$output, $context) {
   $entity = $context['entity'];
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
 
-  if (metatag_entity_supports_metatags($entity_type, $bundle) && $context['view_mode'] == 'full' && _metatag_entity_is_page($entity_type, $context['entity'])) {
-    $cid = "output:{$entity_type}:{$entity_id}";
+  if (metatag_entity_supports_metatags($entity_type, $bundle) && $context['view_mode'] == 'full' && _metatag_entity_is_page($entity_type, $entity)) {
+    $cid_parts = array(
+      //'view_mode' => $context['view_mode'],
+      'langcode' => $context['language'],
+      'url' => $GLOBALS['base_url'] . '/' . current_path(),
+    );
+    $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $output['metatags'] = $cache->data;
