@@ -309,15 +309,26 @@ function metatag_metatags_save($type, $id, $metatags) {
     $function($metatags, $type, $id);
   }
 
-  db_merge('metatag')
-    ->key(array(
-      'entity_type' => $type,
-      'entity_id' => $id,
-    ))
-    ->fields(array(
-      'data' => serialize($metatags),
-    ))
-    ->execute();
+  if (empty($metatags)) {
+    // If the data array is empty, there is no data to actually save, so
+    // just delete the record from the database.
+    db_delete('metatag')
+      ->condition('entity_type', $type)
+      ->condition('entity_id', $id)
+      ->execute();
+  }
+  else {
+    // Otherwise save the data for this entity.
+    db_merge('metatag')
+      ->key(array(
+        'entity_type' => $type,
+        'entity_id' => $id,
+      ))
+      ->fields(array(
+        'data' => serialize($metatags),
+      ))
+      ->execute();
+  }
 
   // Clear cached data.
   metatag_metatags_cache_clear($type, $id);
@@ -561,7 +572,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   foreach (element_children($form) as $key) {
     if (isset($form[$key]['#type']) && $form[$key]['#type'] == 'vertical_tabs') {
       $form['metatags']['#group'] = $key;
-      $form['metatags']['#attached']['js'][] = drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js';
+      $form['metatags']['#attached']['js']['vertical-tabs'] = drupal_get_path('module', 'metatag') . '/metatag.vertical-tabs.js';
       break;
     }
   }
