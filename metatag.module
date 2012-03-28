@@ -908,7 +908,7 @@ function metatag_get_instance($metatag, array $data = array()) {
     return new $class($info, $data);
   }
   else {
-    trigger_error("Failed to load class $class for metatag $metatag.", E_USER_ERROR);
+    trigger_error("Failed to load class {$info['class']} for metatag $metatag.", E_USER_ERROR);
   }
 }
 
