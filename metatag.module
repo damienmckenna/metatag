@@ -278,7 +278,7 @@ function metatag_metatags_load($type, $id) {
 
 function metatag_metatags_load_multiple($type, array $ids) {
   // Double check entity IDs are numeric thanks to Entity API module.
-  $ids = array_filter(array_keys($ids, 'is_numeric'));
+  $ids = array_filter($ids, 'is_numeric');
   if (empty($ids)) {
     return array();
   }
