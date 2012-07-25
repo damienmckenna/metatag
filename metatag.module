@@ -427,20 +427,20 @@ function metatag_field_attach_delete_revision($entity_type, $entity) {
 }
 
 /**
- * Implements hook_field_attach_view_alter().
+ * Implements hook_entity_view().
  */
-function metatag_field_attach_view_alter(&$output, $context) {
-  $entity_type = $context['entity_type'];
-  $entity = $context['entity'];
+function metatag_entity_view($entity, $type, $view_mode, $langcode) {
+  $entity_type = $type;
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
 
-  if (metatag_entity_supports_metatags($entity_type, $bundle) && $context['view_mode'] == 'full' && _metatag_entity_is_page($entity_type, $entity)) {
+  if (metatag_entity_supports_metatags($entity_type) && _metatag_entity_is_page($entity_type, $entity)) {
+
     $cid_parts = array(
-      //'view_mode' => $context['view_mode'],
-      'langcode' => $context['language'],
+      //'view_mode' => $view_mode,
+      'langcode' => $langcode,
       'url' => $GLOBALS['base_url'] . '/' . current_path(),
     );
-    $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
+     $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $output['metatags'] = $cache->data;
@@ -449,17 +449,20 @@ function metatag_field_attach_view_alter(&$output, $context) {
       $metatags = isset($entity->metatags) ? $entity->metatags : array();
       $instance = "{$entity_type}:{$bundle}";
 
-      // Build options for meta tag rendering. The context variable already
-      // contains entity type, entity, view mode, language, etc.
-      $options = $context;
+      // Build options for meta tag rendering.
+      $options = array(
+        'entity' => $entity,
+        'entity_type' => $entity_type,
+        'view_mode' => $view_mode,
+      );
 
       // Ensure we actually pass a language object rather than language code.
       $languages = language_list();
-      if (isset($context['language']) && isset($languages[$context['language']])) {
-        $options['language'] = $languages[$context['language']];
+      if (isset($langcode) && isset($languages[$langcode])) {
+        $options['language'] = $languages[$langcode];
       }
 
-      // Reload the entity object from cache as it may have been altered by Panels.
+      // Reload the entity object from cache as it may have been altered.
       $token_type = token_get_entity_mapping('entity', $entity_type);
       $entities = entity_load($entity_type, array($entity_id));
       $options['token data'][$token_type] = $entities[$entity_id];
@@ -470,9 +473,10 @@ function metatag_field_attach_view_alter(&$output, $context) {
       cache_set($cid, $output['metatags'], 'cache_metatag');
     }
 
-    // We have to add a '#field_type' property otherwise
-    // rdf_field_attach_view_alter() freaks out.
-    $output['metatags']['#field_type'] = NULL;
+    // We need to register the term's metatags, so we can later fetch them.
+    // @see metatag_page_build().
+    $metatags = &drupal_static('metatag_entity_view_' . $entity_type, array());
+    $metatags[] = $output['metatags'];
   }
 }
 
@@ -672,8 +676,8 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
     $types = array();
     foreach (entity_get_info() as $entity_type_key => $entity_info) {
       if (!isset($entity_info['metatags'])) {
-        // By default allow entities that have fields and have paths.
-        $entity_info['metatags'] = !empty($entity_info['uri callback']) && !empty($entity_info['fieldable']);
+        // By default allow entities that have fields or have paths.
+        $entity_info['metatags'] = !empty($entity_info['uri callback']) || !empty($entity_info['fieldable']);
       }
       if (empty($entity_info['metatags'])) {
         $types[$entity_type_key] = FALSE;
@@ -780,6 +784,15 @@ function metatag_page_build(&$page) {
     // Do not output the global metatags when on an administration path.
     $page['content']['metatags']['global'] = metatag_metatags_view('global', array());
   }
+
+  // If we are viewing a page overriden by Page manager module,
+  // we don't have $page['content']['metatags] in the renderable element.
+  if ($node_metatags = drupal_static('metatag_entity_view_node', array())) {
+    $page['content']['metatags']['node'] = $node_metatags;
+  }
+  if ($term_metatags = drupal_static('metatag_entity_view_taxonomy_term', array())) {
+    $page['content']['metatags']['taxonomy_term'] = $term_metatags;
+  }
 }
 
 /**
@@ -796,7 +809,12 @@ function metatag_page_build(&$page) {
  */
 function _metatag_entity_is_page($type, $entity) {
   $uri = entity_uri($type, $entity);
-  return (!empty($uri) && current_path() == $uri['path']);
+
+  if (!empty($uri) && (current_path() === $uri['path'])) {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 /**
