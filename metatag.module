@@ -440,7 +440,7 @@ function metatag_entity_view($entity, $type, $view_mode, $langcode) {
       'langcode' => $langcode,
       'url' => $GLOBALS['base_url'] . '/' . current_path(),
     );
-     $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
+    $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $output['metatags'] = $cache->data;
