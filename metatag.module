@@ -809,12 +809,7 @@ function metatag_page_build(&$page) {
  */
 function _metatag_entity_is_page($type, $entity) {
   $uri = entity_uri($type, $entity);
-
-  if (!empty($uri) && (current_path() === $uri['path'])) {
-    return TRUE;
-  }
-
-  return FALSE;
+  return !empty($uri['path']) && current_path() == $uri['path'];
 }
 
 /**
