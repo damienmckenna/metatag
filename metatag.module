@@ -565,7 +565,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#collapsed' => TRUE,
     '#tree' => TRUE,
     '#access' => user_access('edit meta tags') || user_access('administer meta tags'),
-    '#weight' => 10,
+    '#weight' => 40,
     '#attributes' => array(
       'class' => array('metatags-form'),
     ),
@@ -661,7 +661,7 @@ function metatag_field_extra_fields() {
         $extra[$entity_type][$bundle]['form']['metatags'] = array(
           'label' => t('Meta tags'),
           'description' => t('Meta tag module form elements.'),
-          'weight' => 10,
+          'weight' => 40,
         );
       }
     }
