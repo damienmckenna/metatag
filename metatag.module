@@ -434,7 +434,6 @@ function metatag_entity_view($entity, $type, $view_mode, $langcode) {
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
 
   if (metatag_entity_supports_metatags($entity_type) && _metatag_entity_is_page($entity_type, $entity)) {
-
     $cid_parts = array(
       //'view_mode' => $view_mode,
       'langcode' => $langcode,
@@ -443,7 +442,8 @@ function metatag_entity_view($entity, $type, $view_mode, $langcode) {
     $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
-      $output['metatags'] = $cache->data;
+      // kpr($entity->content);
+      $entity->content['metatags'] = $cache->data;
     }
     else {
       $metatags = isset($entity->metatags) ? $entity->metatags : array();
@@ -469,14 +469,14 @@ function metatag_entity_view($entity, $type, $view_mode, $langcode) {
       $options['entity'] = $entities[$entity_id];
 
       // Render the metatags and save to the cache.
-      $output['metatags'] = metatag_metatags_view($instance, $metatags, $options);
-      cache_set($cid, $output['metatags'], 'cache_metatag');
+      $entity->content['metatags'] = metatag_metatags_view($instance, $metatags, $options);
+      cache_set($cid, $entity->content['metatags'], 'cache_metatag');
     }
 
     // We need to register the term's metatags, so we can later fetch them.
     // @see metatag_page_build().
     $metatags = &drupal_static('metatag_entity_view_' . $entity_type, array());
-    $metatags[] = $output['metatags'];
+    $metatags[] = $entity->content['metatags'];
   }
 }
 
