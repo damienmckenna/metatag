@@ -179,18 +179,18 @@ function metatag_flush_caches() {
  * The levels of defaults is arranged by splitting the $instance variable by
  * the colon character, and always using a 'global' instance at the end.
  */
-function metatag_config_load_with_defaults($instance) {
+function metatag_config_load_with_defaults($instance, $include_global = TRUE) {
   $defaults = &drupal_static(__FUNCTION__, array());
 
-  // Check to see if
-  if (!isset($defaults[$instance])) {
-    $cid = "config:{$instance}";
+  // Statically cache defaults since they can include multiple levels.
+  $cid = "config:{$instance}" . ($include_global ? ':withglobal' : ':withoutglobal');
+  if (!isset($defaults[$cid])) {
     if ($cache = cache_get($cid, 'cache_metatag')) {
-      $defaults[$instance] = $cache->data;
+      $defaults[$cid] = $cache->data;
     }
     else {
-      $defaults[$instance] = array();
-      $instances = metatag_config_get_parent_instances($instance);
+      $defaults[$cid] = array();
+      $instances = metatag_config_get_parent_instances($instance, $include_global);
       $configs = metatag_config_load_multiple($instances);
       foreach ($instances as $key) {
         // Ignore disabled configurations.
@@ -199,14 +199,14 @@ function metatag_config_load_with_defaults($instance) {
         }
 
         // Add config to the defaults array.
-        $defaults[$instance] += $configs[$key]->config;
+        $defaults[$cid] += $configs[$key]->config;
       }
 
-      cache_set($cid, $defaults[$instance], 'cache_metatag');
+      cache_set($cid, $defaults[$cid], 'cache_metatag');
     }
   }
 
-  return $defaults[$instance];
+  return $defaults[$cid];
 }
 
 /**
