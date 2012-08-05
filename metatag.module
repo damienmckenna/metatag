@@ -484,8 +484,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
 
     // We need to register the term's metatags, so we can later fetch them.
     // @see metatag_page_build().
-    $metatags = &drupal_static('metatag_entity_view_' . $entity_type, array());
-    $metatags[] = $entity->content['metatags'];
+    metatag_page_set_metatags($instance, $entity->content['metatags']);
   }
 }
 
@@ -493,9 +492,10 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
  * Build a renderable array of meta tag output.
  *
  * @param string $instance
- *   The configuration instance key of the metatags to use, e.g. "node:article".
+ *   The configuration instance key of the meta tags to use, e.g.
+ *   "node:article".
  * @param array $metatags
- *   An arary of metatag data.
+ *   An arary of meta tag data.
  * @param array $options
  *   (optional) An array of options including the following keys and values:
  *   - language: A language object.
@@ -812,6 +812,27 @@ function metatag_load_entity_from_path($path) {
 }
 
 /**
+ * Add meta tags to be added later with metatag_page_build().
+ *
+ * @param string $instance
+ *   The configuration instance key of the meta tags, e.g. "node:article".
+ * @param array $metatags
+ *   An array of meta tags from metatag_metatags_view().
+ */
+function metatag_page_set_metatags($instance, $metatags) {
+  $page_metatags = &drupal_static(__FUNCTION__, array());
+  $page_metatags[$instance] = $metatags;
+}
+
+/**
+ * Retrieve the array of met tags to be added with metatag_page_build().
+ */
+function metatag_page_get_metatags() {
+  // @todo Add alter to this result?
+  return drupal_static('metatag_page_set_metatags', array());
+}
+
+/**
  * Implements hook_page_build().
  */
 function metatag_page_build(&$page) {
@@ -823,22 +844,14 @@ function metatag_page_build(&$page) {
 
   // Load the metatags render array in before any page content so that more
   // more specific meta tags in the page content can override these meta tags.
-  $page['content'] = array('metatags' => array()) + $page['content'];
+  $page['content'] = array('metatags' => metatag_page_get_metatags()) + $page['content'];
+
   if (drupal_is_front_page()) {
     $page['content']['metatags']['global:frontpage'] = metatag_metatags_view('global:frontpage', array());
   }
   elseif (!path_is_admin(current_path())) {
     // Do not output the global metatags when on an administration path.
     $page['content']['metatags']['global'] = metatag_metatags_view('global', array());
-  }
-
-  // If we are viewing a page overriden by Page manager module,
-  // we don't have $page['content']['metatags] in the renderable element.
-  if ($node_metatags = drupal_static('metatag_entity_view_node', array())) {
-    $page['content']['metatags']['node'] = $node_metatags;
-  }
-  if ($term_metatags = drupal_static('metatag_entity_view_taxonomy_term', array())) {
-    $page['content']['metatags']['taxonomy_term'] = $term_metatags;
   }
 }
 
