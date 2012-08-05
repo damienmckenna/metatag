@@ -642,6 +642,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     '#theme' => 'token_tree',
     '#token_types' => $options['token types'],
     '#weight' => 100,
+    '#dialog' => TRUE,
   );
 
   // Add a submit handler to compare the submitted values against the deafult
