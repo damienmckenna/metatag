@@ -267,6 +267,8 @@ function metatag_config_delete($instance) {
 function metatag_config_cache_clear() {
   cache_clear_all('*', 'cache_metatag', TRUE);
   drupal_static_reset('metatag_config_load_with_defaults');
+  drupal_static_reset('metatag_entity_has_metatags');
+  drpual_static_reset('metatag_entity_supports_metatags');
   ctools_include('export');
   ctools_export_load_object_reset('metatag_config');
 }
@@ -433,12 +435,17 @@ function metatag_field_attach_delete_revision($entity_type, $entity) {
 /**
  * Implements hook_entity_view().
  */
-function metatag_entity_view($entity, $type, $view_mode, $langcode) {
-  $entity_type = $type;
-  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
+  if (!metatag_entity_has_metatags($entity_type, $entity)) {
+    return;
+  }
 
-  if (metatag_entity_supports_metatags($entity_type) && _metatag_entity_is_page($entity_type, $entity)) {
+  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+  $instance = "{$entity_type}:{$bundle}";
+
+  if (_metatag_entity_is_page($entity_type, $entity)) {
     $cid_parts = array(
+      // @todo Why is this commented out?
       //'view_mode' => $view_mode,
       'langcode' => $langcode,
       'url' => $GLOBALS['base_url'] . '/' . current_path(),
@@ -450,7 +457,6 @@ function metatag_entity_view($entity, $type, $view_mode, $langcode) {
     }
     else {
       $metatags = isset($entity->metatags) ? $entity->metatags : array();
-      $instance = "{$entity_type}:{$bundle}";
 
       // Build options for meta tag rendering.
       $options = array(
@@ -672,6 +678,44 @@ function metatag_field_extra_fields() {
   return $extra;
 }
 
+/**
+ * Check if an individual entity has meta tags defined, or has defaults.
+ *
+ * @param string $entity_type
+ *   An entity type.
+ * @param object $entity
+ *   An entity object.
+ *
+ * @return boolean
+ *   TRUE or FALSE if the entity should have a form for or process meta tags.
+ */
+function metatag_entity_has_metatags($entity_type, $entity) {
+  // If an entity has custom meta tags assigned, then we should return TRUE.
+  if (!empty($entity->metatags)) {
+    return TRUE;
+  }
+
+  // Otherwise, check to see if there exists any enabed configuration for
+  // either the entity type, or bundle (even if the configuration is empty).
+  // If no configuration exists, then we should not be displaying the meta tag
+  // forms or processing meta tags on entity view.
+  $config_exists = &drupal_static(__FUNCTION__, array());
+  list( , , $bundle) = entity_extract_ids($entity_type, $entity);
+  $instance = "{$entity_type}:{$bundle}";
+  if (!isset($config_exists[$instance])) {
+    $config_exists[$instance] = NULL;
+    $instances = metatag_config_get_parent_instances($instance, FALSE);
+    $configs = metatag_config_load_multiple($instances);
+    foreach ($instances as $key) {
+      if (!empty($configs[$key]) && empty($configs[$key]->disabled)) {
+        $config_exists[$instance] = TRUE;
+      }
+    }
+  }
+
+  return isset($config_exists[$instance]);
+}
+
 function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
   $types = &drupal_static(__FUNCTION__);
 
@@ -840,12 +884,11 @@ function metatag_field_attach_delete_bundle($entity_type, $bundle) {
  * Implements hook_field_attach_form().
  */
 function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
-  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
-
-  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
+  if (!metatag_entity_has_metatags($entity_type, $entity)) {
     return;
   }
 
+  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
   $instance = "{$entity_type}:{$bundle}";
 
   $metatags = isset($entity->metatags) ? $entity->metatags : array();
