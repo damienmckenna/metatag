@@ -344,7 +344,7 @@ function metatag_metatags_delete($type, $id) {
 
 function metatag_metatags_delete_multiple($type, array $ids) {
   // Double check entity IDs are numeric thanks to Entity API module.
-  $ids = array_filter(array_keys($ids, 'is_numeric'));
+  $ids = array_filter($ids, 'is_numeric');
 
   if ($metatags = metatag_metatags_load_multiple($type, $ids)) {
     $transaction = db_transaction();
