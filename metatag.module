@@ -837,10 +837,9 @@ function metatag_page_get_metatags() {
  * Implements hook_page_build().
  */
 function metatag_page_build(&$page) {
-  // For some reason with Overlay enabled we get an empty $page, so just fail
-  // this case.
+  // Ensure that this array exists, otherwise several use cases will fail.
   if (!isset($page['content'])) {
-    return;
+    $page['content'] = array();
   }
 
   // Load the metatags render array in before any page content so that more
