@@ -103,7 +103,7 @@ function metatag_metatag_info() {
 
   $info['tags']['description'] = array(
     'label' => t('Description'),
-    'description' => t("A brief and concise summary of the page's content, preferrably 150 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
+    'description' => t("A brief and concise summary of the page's content, preferably 150 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
     'class' => 'DrupalTextMetaTag',
     'form' => array(
       '#type' => 'textarea',
@@ -111,6 +111,18 @@ function metatag_metatag_info() {
       '#wysiwyg' => FALSE,
     ),
   );
+
+  $info['tags']['abstract'] = array(
+    'label' => t('Abstract'),
+    'description' => t("A brief and concise summary of the page's content, preferably 150 characters or less. The abstract meta tag may be used by search engines for archiving purposes."),
+    'class' => 'DrupalTextMetaTag',
+    'form' => array(
+      '#type' => 'textarea',
+      '#rows' => 2,
+      '#wysiwyg' => FALSE,
+    ),
+  );
+
   $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
     'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines."),

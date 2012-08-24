@@ -26,6 +26,7 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
     $defaults = metatag_config_load_with_defaults('test:foo');
     $this->assertEqual($defaults, array(
       'description' => array('value' => 'Test foo description'),
+      'abstract' => array('value' => 'Test foo abstract'),
       'title' => array('value' => 'Test altered title'),
       'test:foo' => array('value' => 'foobar'),
       'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
