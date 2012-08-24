@@ -6,6 +6,18 @@
  */
 
 /**
+ * Implements hook_help().
+ */
+function metatag_help($path, $arg) {
+  if ($path == 'admin/config/search/metatags') {
+    return '<p>' . t('To view a summary of the default meta tags and the inheritance, click on a meta tag type.') . '</p>';
+  }
+  elseif ($path == 'admin/help#metatag') {
+    return '<p>' . t('The Meta tags module provides a options to let each page have customized meta data added to the "meta" tags in the HEAD section of the document.') . '</p>';
+  }
+}
+
+/**
  * Implements hook_theme().
  */
 function metatag_theme() {

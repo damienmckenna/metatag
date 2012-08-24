@@ -173,7 +173,6 @@ function metatag_config_overview() {
     ),
     '#rows' => $rows,
     '#empty' => t('No meta tag defaults available yet.'),
-    '#caption' => '<div class="js-show">' . t('To view a summary of the default meta tags and the inheritance, click on a meta tag type.') . '</div>',
     '#attributes' => array(
       'class' => array('metatag-config-overview'),
     ),
