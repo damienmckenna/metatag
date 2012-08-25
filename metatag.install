@@ -110,3 +110,15 @@ function metatag_update_7001() {
   );
   db_change_field('metatag_config', 'cid', 'cid', $field);
 }
+
+/**
+ * Disable the deprecated metatag_ui module which has been merged into metatag,
+ * again.
+ */
+function metatag_update_7002() {
+  if (module_exists('metatag_ui')) {
+    module_disable(array('metatag_ui'), FALSE);
+    drupal_uninstall_modules(array('metatag_ui'), FALSE);
+    drupal_set_message(t('The deprecated Metatag UI module has been disabled.'));
+  }
+}
