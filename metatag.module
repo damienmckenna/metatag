@@ -86,7 +86,7 @@ function metatag_permission() {
     'restrict access' => TRUE,
   );
   $permissions['edit meta tags'] = array(
-    'title' => t('Edit meta tags.'),
+    'title' => t('Edit meta tags on individual entity records (nodes, terms, users, etc).'),
   );
   return $permissions;
 }
