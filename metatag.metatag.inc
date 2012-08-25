@@ -168,6 +168,13 @@ function metatag_metatag_info() {
     'group' => 'advanced',
   );
 
+  $info['tags']['image_src'] = array(
+    'label' => t('Image'),
+    'description' => t("An image associated with this page, for use as a thumbnail in social networks and other services."),
+    'class' => 'DrupalLinkMetaTag',
+    'group' => 'advanced',
+  );
+
   // Link tags.
   $info['tags']['canonical'] = array(
     'label' => t('Canonical URL'),
