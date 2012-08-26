@@ -78,15 +78,17 @@ function metatag_hook_info() {
 }
 
 /**
- * Implements hook_permisson().
+ * Implements hook_permission().
  */
 function metatag_permission() {
   $permissions['administer meta tags'] = array(
     'title' => t('Administer meta tags.'),
     'restrict access' => TRUE,
+    'description' => t('Control the main settings pages and modify per-object meta tags.'),
   );
   $permissions['edit meta tags'] = array(
-    'title' => t('Edit meta tags on individual entity records (nodes, terms, users, etc).'),
+    'title' => t('Edit meta tags'),
+    'description' => t('Modify meta tags on individual entity records (nodes, terms, users, etc).'),
   );
   return $permissions;
 }
