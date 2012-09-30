@@ -62,6 +62,17 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Open Graph'),
   );
 
+  $info['tags']['og:site_name'] = array(
+    'label' => t('Open Graph site name'),
+    'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'context' => array('global'),
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
   $info['tags']['og:title'] = array(
     'label' => t('Open Graph title'),
     'description' => t('The title of your object as it should appear within the graph, e.g., <em>The Rock</em>.'),
@@ -71,6 +82,17 @@ function metatag_opengraph_metatag_info() {
       '#theme' => 'metatag_opengraph',
     ),
   );
+
+  $info['tags']['og:description'] = array(
+    'label' => t('Open Graph description'),
+    'description' => t('A one to two sentence description of your page.'),
+    'group' => 'open-graph',
+    'class' => 'DrupalTextMetaTag',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
   $info['tags']['og:type'] = array(
     'label' => t('Open Graph type'),
     'description' => t('The type of your object, e.g., <em>movie</em>.'),
@@ -85,9 +107,7 @@ function metatag_opengraph_metatag_info() {
       '#theme' => 'metatag_opengraph',
     ),
   );
-  //if (module_exists('select_or_other')) {
-  //  $info['tags']['og:type']['form']['#type'] = 'select_or_other';
-  //}
+
   $info['tags']['og:image'] = array(
     'label' => t('Open Graph image'),
     'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. We support PNG, JPEG and GIF formats.'),
@@ -97,30 +117,12 @@ function metatag_opengraph_metatag_info() {
       '#theme' => 'metatag_opengraph',
     ),
   );
+
   $info['tags']['og:url'] = array(
     'label' => t('Open Graph URL'),
     'description' => t('The canonical URL of your object that will be used as its permanent ID in the graph, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'open-graph',
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
-  $info['tags']['og:site_name'] = array(
-    'label' => t('Open Graph site name'),
-    'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
-    'class' => 'DrupalTextMetaTag',
-    'group' => 'open-graph',
-    'context' => array('global'),
-    'element' => array(
-      '#theme' => 'metatag_opengraph',
-    ),
-  );
-  $info['tags']['og:description'] = array(
-    'label' => t('Open Graph description'),
-    'description' => t('A one to two sentence description of your page.'),
-    'group' => 'open-graph',
-    'class' => 'DrupalTextMetaTag',
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
