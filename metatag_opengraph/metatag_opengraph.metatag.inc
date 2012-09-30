@@ -16,7 +16,7 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
           'og:type' => array('value' => 'article'),
           'og:title' => array('value' => '[current-page:title]'),
           'og:site_name' => array('value' => '[site:name]'),
-          'og:url' => array('value' => '[current-page:url]'),
+          'og:url' => array('value' => '[current-page:url:absolute]'),
         );
         break;
       case 'global:frontpage':

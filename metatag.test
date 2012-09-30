@@ -30,6 +30,8 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
       'title' => array('value' => 'Test altered title'),
       'test:foo' => array('value' => 'foobar'),
       'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
+      'canonical' => array('value' => '[current-page:url:absolute]'),
+      'shortlink' => array('value' => '[current-page:url:unaliased]'),
     ));
   }
 

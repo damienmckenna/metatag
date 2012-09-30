@@ -13,6 +13,8 @@ function metatag_metatag_config_default() {
   $config->config = array(
     'title' => array('value' => '[current-page:title] | [site:name]'),
     'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
+    'canonical' => array('value' => '[current-page:url:absolute]'),
+    'shortlink' => array('value' => '[current-page:url:unaliased]'),
   );
   $configs[$config->instance] = $config;
 
