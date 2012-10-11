@@ -476,6 +476,10 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
       'langcode' => $langcode,
       'url' => $GLOBALS['base_url'] . '/' . current_path(),
     );
+    // Allow each page in a sequence to have different values.
+    if (isset($_GET['page'])) {
+      $cid_parts['page'] = $_GET['page'];
+    }
     $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
