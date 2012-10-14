@@ -36,18 +36,17 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
   }
 
   public function testEntitySupport() {
-    $test_cases[0] = array('type' => 'node', 'expected' => TRUE);
     $test_cases[1] = array('type' => 'node', 'bundle' => 'article', 'expected' => TRUE);
     $test_cases[2] = array('type' => 'node', 'bundle' => 'page', 'expected' => TRUE);
     $test_cases[3] = array('type' => 'node', 'bundle' => 'invalid-bundle', 'expected' => FALSE);
     $test_cases[4] = array('type' => 'user', 'expected' => TRUE);
-    $test_cases[5] = array('type' => 'invalid-entity', 'expected' => FALSE);
     foreach ($test_cases as $test_case) {
       $test_case += array('bundle' => NULL);
-      $this->assertMetatagEntitySupportsMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
+      $this->assertMetatagEntityHasMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
     }
 
     variable_set('metatag_test_entity_info_disable', TRUE);
+    drupal_static_reset('metatag_entity_has_metatags');
     drupal_static_reset('metatag_entity_supports_metatags');
     entity_info_cache_clear();
 
@@ -55,19 +54,21 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
     $test_cases[4]['expected'] = FALSE;
     foreach ($test_cases as $test_case) {
       $test_case += array('bundle' => NULL);
-      $this->assertMetatagEntitySupportsMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
+      $this->assertMetatagEntityHasMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
     }
   }
 
-  function assertMetatagEntitySupportsMetatags($type, $bundle, $expected) {
+  function assertMetatagEntityHasMetatags($type, $bundle, $expected) {
+    $entity = entity_create_stub_entity($type, array(0, NULL, $bundle));
     return $this->assertEqual(
-      metatag_entity_supports_metatags($type, $bundle),
+      metatag_entity_has_metatags($type, $entity),
       $expected,
-      t("metatag_entity_supports_metatags(:type, :bundle) was :expected", array(
+      t("metatag_entity_has_metatags(:type, :entity) is :expected", array(
         ':type' => var_export($type, TRUE),
-        ':bundle' => var_export($bundle, TRUE),
+        ':entity' => var_export($entity, TRUE),
         ':expected' => var_export($expected, TRUE),
       ))
     );
   }
+
 }

@@ -734,6 +734,10 @@ function metatag_entity_has_metatags($entity_type, $entity) {
   // forms or processing meta tags on entity view.
   $config_exists = &drupal_static(__FUNCTION__, array());
   list( , , $bundle) = entity_extract_ids($entity_type, $entity);
+  // Do not pretend to have metatags when the bundle does not support them.
+  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
+    return FALSE;
+  }
   $instance = "{$entity_type}:{$bundle}";
   if (!isset($config_exists[$instance])) {
     $config_exists[$instance] = NULL;
