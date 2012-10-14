@@ -462,14 +462,16 @@ function metatag_taxonomy_term_view_alter(&$build, &$type) {
  * Implements hook_entity_view().
  */
 function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
-  if (!metatag_entity_has_metatags($entity_type, $entity)) {
-    return;
-  }
-
-  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
-  $instance = "{$entity_type}:{$bundle}";
-
+  // Only proceed if this entity object is the page being viewed.
   if (_metatag_entity_is_page($entity_type, $entity)) {
+    // If this entity object isn't allowed meta tags, skip it.
+    if (!metatag_entity_has_metatags($entity_type, $entity)) {
+      return;
+    }
+
+    list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+    $instance = "{$entity_type}:{$bundle}";
+
     $cid_parts = array(
       // @todo Why is this commented out?
       //'view_mode' => $view_mode,
