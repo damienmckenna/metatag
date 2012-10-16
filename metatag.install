@@ -89,6 +89,33 @@ function metatag_schema() {
 }
 
 /**
+ * Implements hook_install().
+ */
+// function metatag_install() {
+// }
+
+/**
+ * Implements hook_uninstall().
+ */
+function metatag_uninstall() {
+  // This variable is created via hook_enable.
+  variable_del('metatag_schema_installed');
+}
+
+/**
+ * Implements hook_enable().
+ */
+function metatag_enable() {
+  variable_set('metatag_schema_installed', TRUE);
+}
+
+/**
+ * Implements hook_disable().
+ */
+// function metatag_disable() {
+// }
+
+/**
  * Disable the deprecated metatag_ui module which has been merged into metatag.
  */
 function metatag_update_7000() {

@@ -301,12 +301,14 @@ function metatag_metatags_load_multiple($type, array $ids) {
 
   // Also need to check if the metatag table exists since this condition could
   // fire before the table has been installed yet.
-  $table_exists = &drupal_static(__FUNCTION__);
-  if (!isset($table_exists)) {
-    $table_exists = db_table_exists('metatag');
-  }
-  if (!$table_exists) {
-    return array();
+  if (!variable_get('metatag_schema_installed', FALSE)) {
+    if (db_table_exists('metatag')) {
+      variable_set('metatag_schema_installed', TRUE);
+    }
+    else {
+      watchdog('metatag', 'The system tried to load metatag data before the schema was fully loaded.', array(), WATCHDOG_WARNING);
+      return array();
+    }
   }
 
   $metatags = db_query("SELECT entity_id, data FROM {metatag} WHERE entity_type = :type AND entity_id IN (:ids)", array(
