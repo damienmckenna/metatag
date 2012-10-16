@@ -482,6 +482,9 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
     if (isset($_GET['page'])) {
       $cid_parts['page'] = $_GET['page'];
     }
+    // Allow other modules to alter the page parts, e.g. Domain Access.
+    drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
+
     $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
