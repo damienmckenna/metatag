@@ -81,17 +81,26 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
   // and not Metatag.
   $instance = "";
   $options = array();
+
   // Load the METATAG form.
   metatag_metatags_form($form, $instance, $context->reactions['metatag_context_reaction']['metatags'], $options);
 
   $form['paths'] = array(
     '#title' => 'Path',
-    '#description' => 'Set this metatag pat context when any of the paths above match the page path. Put each path on a separate line. You can use the <code>*</code> character (asterisk) as a wildcard and the <code>~</code> character (tilde) to exclude one or more paths. Use &lt;front&gt; for the site front page.',
+    '#description' => 'Set this metatag context when any of the paths above match the page path. Put each path on a separate line. You can use the <code>*</code> character (asterisk) as a wildcard and the <code>~</code> character (tilde) to exclude one or more paths. Use <code>&lt;front&gt;</code> for the site front page.',
     '#type' => 'textarea',
     '#default_value' => isset($context->conditions['path']['values']) ? html_entity_decode(implode('&#13;&#10;', $context->conditions['path']['values'])) : '',
     '#required' => 1,
     '#weight' => -100,
   );
+
+  $form['help'] = array(
+    '#prefix' => '<hr /><p><em>',
+    '#markup' => t('The <a href="@url" title="Edit the global default meta tags.">global defaults</a> are used.', array('@url' => url('admin/config/search/metatags/config/global'))),
+    '#suffix' => '</em></p>',
+    '#weight' => -99,
+  );
+
   // Show all tokens.
   $form['metatags']['tokens']['#token_types'] = 'all';
 

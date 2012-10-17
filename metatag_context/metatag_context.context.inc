@@ -18,6 +18,13 @@ class metatag_context_reaction extends context_reaction {
     }
     // No options currently available.
     $options = array();
+
+    $form['help'] = array(
+      '#prefix' => '<hr /><p><em>',
+      '#markup' => t('The <a href="@url" title="Edit the global default meta tags.">global defaults</a> are used.', array('@url' => url('admin/config/search/metatags/config/global'))),
+      '#suffix' => '</em></p>',
+    );
+
     // Load the form.
     metatag_metatags_form($form, $instance, $data['metatags'], $options);
 
