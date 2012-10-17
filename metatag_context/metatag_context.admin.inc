@@ -12,6 +12,8 @@ function metatag_context_context_overview() {
   $header = array(t('Name'), t('Paths'), t('Operations'));
   $rows = array();
 
+  $caption = t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a> and will override any other meta tags assigned elsewhere.', array('@url' => url('admin/config/search/metatags/config/global')));
+
   foreach ($contexts as $name => $context) {
     // Only show context items that are specifically selected to be "Shown on
     // metatag admin page".
@@ -27,7 +29,7 @@ function metatag_context_context_overview() {
       );
     }
   }
-  return theme('table', array('header' => $header, 'rows' => $rows));
+  return theme('table', array('header' => $header, 'rows' => $rows, 'caption' => $caption));
 }
 
 function metatag_context_config_add_form($form, &$form_state) {
@@ -114,7 +116,7 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
 
   $form['help'] = array(
     '#prefix' => '<hr /><p><em>',
-    '#markup' => t('The <a href="@url" title="Edit the global default meta tags.">global defaults</a> are used.', array('@url' => url('admin/config/search/metatags/config/global'))),
+    '#markup' => t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a> and will override any other meta tags assigned elsewhere.', array('@url' => url('admin/config/search/metatags/config/global'))),
     '#suffix' => '</em></p>',
     '#weight' => -99,
   );

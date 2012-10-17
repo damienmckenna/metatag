@@ -21,7 +21,7 @@ class metatag_context_reaction extends context_reaction {
 
     $form['help'] = array(
       '#prefix' => '<p><em>',
-      '#markup' => t('The <a href="@url" title="Edit the global default meta tags.">global defaults</a> are used.', array('@url' => url('admin/config/search/metatags/config/global'))),
+      '#markup' => t('Values assigned here inherit from the <a href="@url" title="Edit the global default meta tags.">global defaults</a> and will override any other meta tags assigned elsewhere.', array('@url' => url('admin/config/search/metatags/config/global'))),
       '#suffix' => '</em></p>',
     );
 
