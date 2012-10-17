@@ -45,16 +45,16 @@ function metatag_context_menu() {
  * Implements hook_context_plugins().
  */
 function metatag_context_context_plugins() {
-  $plugins = array();
-  $plugins['metatag_context_reaction'] = array(
-    'handler' => array(
-      'path' => drupal_get_path('module', 'metatag_context'),
-      'file' => 'metatag_context.context.inc',
-      'class' => 'metatag_context_reaction',
-      'parent' => 'context_reaction',
+  return array(
+    'metatag_context_reaction' => array(
+      'handler' => array(
+        'path' => drupal_get_path('module', 'metatag_context'),
+        'file' => 'metatag_context.context.inc',
+        'class' => 'metatag_context_reaction',
+        'parent' => 'context_reaction',
+      ),
     ),
   );
-  return $plugins;
 }
 
 /**
