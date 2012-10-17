@@ -173,12 +173,7 @@ function metatag_context_load_default_context() {
   );
   $context->reactions = array(
     'metatag_context_reaction' => array(
-      'metatags' => array(
-        'title' => array(
-          'value' => '[current-page:title] | [site:name]',
-          'default' => '[current-page:title] | [site:name]',
-        ),
-      ),
+      'metatags' => array(),
       'metatag_admin' => 1,
     ),
   );
