@@ -6,14 +6,13 @@
 
 class metatag_context_reaction extends context_reaction {
   function options_form($context) {
-    // Empty form to start with.
     $form = array();
+
     // Don't care about the instance name, the data is being managed by
     // Context and not Metatag.
     $instance = "";
     // Load the previously saved settings.
     $data = $this->fetch_from_context($context);
-    //print_r($data);
     if (!isset($data['metatags'])) {
       $data['metatags'] = array();
     }
@@ -27,21 +26,10 @@ class metatag_context_reaction extends context_reaction {
     unset($form['metatags']['#collapsed']);
     unset($form['metatags']['#collapsible']);
     unset($form['#submit']);
-    // Flatten the ['advanced'] part of the form because otherwise the context
-    // module will not pick up all values. Perhaps it can be done in a better
-    // way with #tree and #parents.
-    foreach($form['metatags']['advanced'] as $key => $value) {
-      if(substr($key, 0, 1) == '#') {
-        unset ($form['metatags']['advanced'][$key]);
-        continue;
-      }
-      $form['metatags'][$key] = $value;
-      unset($form['metatags'][$key]['#parents']);
-      unset($form['metatags']['advanced'][$key]);
-    }
+
     // Show all takens.
     $form['metatags']['tokens']['#token_types'] = 'all';
-    unset($form['metatags']['advanced']);
+
     $form['metatag_admin'] = array(
       '#type' => 'checkbox',
       '#title' => t('Show on metatag admin page.'),
