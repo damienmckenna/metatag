@@ -13,6 +13,8 @@ function metatag_context_context_overview() {
   $rows = array();
 
   foreach ($contexts as $name => $context) {
+    // Only show context items that are specifically selected to be "Shown on
+    // metatag admin page".
     if (isset($context->reactions['metatag_context_reaction']['metatag_admin']) &&  $context->reactions['metatag_context_reaction']['metatag_admin']) {
       $ops = array(
         l('Edit', 'admin/config/search/metatags/context/' . $context->name, array('query' => array('destination' => 'admin/config/search/metatags/context'))),
@@ -93,6 +95,22 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
     '#required' => 1,
     '#weight' => -100,
   );
+
+  // If other conditions are assigned, mention it.
+  $conditions = array_keys($context->conditions);
+  foreach ($conditions as $key => $condition) {
+    if ($condition == 'path') {
+      unset($conditions[$key]);
+    }
+  }
+  if (!empty($conditions)) {
+    $form['other_conditions'] = array(
+      '#prefix' => '<p><em>',
+      '#markup' => t('Other conditions have been assigned that must be controlled through the main Context settings page.'),
+      '#suffix' => '</em></p>',
+      '#weight' => -99.9,
+    );
+  }
 
   $form['help'] = array(
     '#prefix' => '<hr /><p><em>',
