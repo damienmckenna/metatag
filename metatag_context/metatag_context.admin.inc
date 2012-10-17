@@ -36,7 +36,7 @@ function metatag_context_config_add_form($form, &$form_state) {
     '#description' => 'The unique ID for this metatag path context rule. This must contain only lower case letters, numbers and underscores.',
     '#required' => 1,
     '#maxlength' => 255,
-    '#element_validate' => Array('metatag_context_edit_name_validate'),
+    '#element_validate' => array('metatag_context_edit_name_validate'),
   );
 
   $form['actions']['#type'] = 'actions';
@@ -74,6 +74,7 @@ function metatag_context_config_add_form_submit($form, &$form_state) {
 
 function metatag_context_config_edit_form($form, &$form_state, $context) {
   $form_state['metatag_context']['context'] = $context;
+
   // Empty form to start with.
   $form = array();
   // Don't care about the instance name, the data is being managed by Context
@@ -147,6 +148,7 @@ function metatag_context_delete_form($form, &$form_state, $context) {
     '#href' => isset($_GET['destination']) ? $_GET['destination'] : 'admin/config/search/metatags/context',
   );
   $form['#submit'][] = 'metatag_context_delete_form_submit';
+
   return $form;
 }
 
@@ -172,12 +174,6 @@ function metatag_context_load_default_context() {
   $context->reactions = array(
     'metatag_context_reaction' => array(
       'metatags' => array(
-        'description' => array(
-          'value' => '',
-        ),
-        'keywords' => array(
-          'value' => '',
-        ),
         'title' => array(
           'value' => '[current-page:title] | [site:name]',
           'default' => '[current-page:title] | [site:name]',
