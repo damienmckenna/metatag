@@ -128,6 +128,26 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
+  $info['tags']['fb:admins'] = array(
+    'label' => t('Facebook Admins'),
+    'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page. Most sites will only need to assign this on the global settings page.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
+  $info['tags']['fb:app_id'] = array(
+    'label' => t('Facebook Application ID'),
+    'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site. Most sites will only need to assign this on the global settings page.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
   return $info;
 }
 
