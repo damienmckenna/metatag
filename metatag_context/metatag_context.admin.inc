@@ -8,7 +8,7 @@
  * Provides administration overview page for metatags by path settings.
  */
 function metatag_context_context_overview() {
-  $contexts = context_enabled_contexts();
+  $contexts = context_enabled_contexts(TRUE);
   $header = array(t('Name'), t('Paths'), t('Operations'));
   $rows = array();
 
