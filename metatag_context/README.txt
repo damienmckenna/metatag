@@ -6,10 +6,15 @@ tags to be assigned to specific paths and other conditions.
 Configuration can controlled via the normal Context UI module or the new admin
 page available at: admin/config/search/metatags/context
 
-This module is based on the Context Metadata [2] module. The initial work was
-developed by Marcin Pajdzik [3] (sponsored by Dennis Publishing [4]).
+
+Credits
+------------------------------------------------------------------------------
+This module is based on the Context Metadata [2] module. The initial
+development was by Marcin Pajdzik [3] (sponsored by Dennis Publishing [4]).
 
 
+References
+------------------------------------------------------------------------------
 1: http://drupal.org/project/context
 2: http://drupal.org/project/context_metadata
 3: http://drupal.org/user/160555
