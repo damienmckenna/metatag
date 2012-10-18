@@ -21,7 +21,7 @@ The following tags are provided:
 * dcterms.type
 
 
-Credits / Contact
+Credits
 ------------------------------------------------------------------------------
 The initial development was by Marty2081 [3] (sponsored by Gemeentemuseum Den
 Haag. [4]), with contributions by many in the community [5].
