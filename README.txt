@@ -21,6 +21,9 @@ The primary features include:
   COPYRIGHT, GENERATOR, IMAGE_SRC, KEYWORDS, PUBLISHER, ROBOTS, SHORTLINK and
   the page's TITLE tag.
 
+* Per-path control over meta tags using the "Meta tags: Context" submodule
+  (requires the Context module).
+
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Meta tags: Dublin Core" submodule.
 

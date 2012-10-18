@@ -1,4 +1,4 @@
-name = Context Meta tags
+name = Meta tags: Context
 description = "Assigned Meta tags using Context definitions, allowing them to be assigned by path and other criteria."
 package = Meta tags
 core = 7.x
