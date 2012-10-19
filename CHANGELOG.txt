@@ -1,0 +1,6 @@
+Metatag-7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+Metatag-7.x-1.0-beta1, 2012-10-19
+---------------------------------
+First mostly-stable release.
