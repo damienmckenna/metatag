@@ -6,6 +6,7 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
   metatag_metatags_view().
 #1817984 by DamienMcKenna, alexweber: Documented
   hook_metatag_metatags_view_alter().
+#1818252 by DamienMcKenna: There was no caching on the front page's meta tags.
 
 
 Metatag-7.x-1.0-beta1, 2012-10-19

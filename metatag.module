@@ -888,8 +888,33 @@ function metatag_page_build(&$page) {
 
   // The front page has special consideration.
   if (drupal_is_front_page()) {
-    $page['content']['metatags']['global:frontpage'] = metatag_metatags_view('global:frontpage', array());
+    $instance = 'global:frontpage';
+    $cid_parts = array(
+      // @todo Why is this commented out?
+      //'view_mode' => $view_mode,
+      'langcode' => LANGUAGE_NONE,
+      'url' => '<front>',
+    );
+    // Allow each page in a sequence to have different values.
+    if (isset($_GET['page'])) {
+      $cid_parts['page'] = $_GET['page'];
+    }
+    // Allow other modules to alter the page parts, e.g. Domain Access.
+    drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
+    
+    $cid = "output:{$instance}:" . hash('sha256', serialize($cid_parts));
+    
+    if ($cache = cache_get($cid, 'cache_metatag')) {
+      $metatags = $cache->data;
+    }
+    else {
+      $metatags = metatag_metatags_view($instance, array());
+      cache_set($cid, $metatags, 'cache_metatag');
+    }
+    
+    $page['content']['metatags'][$instance] = $metatags;
   }
+
   // Load any meta tags assigned via metatag_page_set_metatags(). Note: this
   // must include the necessary defaults.
   else {
