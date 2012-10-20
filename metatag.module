@@ -555,7 +555,7 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
     }
   }
 
-  drupal_alter('metatag_metatags_view', $output);
+  drupal_alter('metatag_metatags_view', $output, $instance);
 
   return $output;
 }

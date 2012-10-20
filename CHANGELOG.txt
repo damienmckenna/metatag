@@ -2,6 +2,9 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #1817580 by DamienMcKenna: Removed code that was enabling debug mode on all
   Contexts.
+#1818240 by DamienMcKenna: Added $instance value to the drupal_alter() call in
+  metatag_metatags_view().
+
 
 Metatag-7.x-1.0-beta1, 2012-10-19
 ---------------------------------
