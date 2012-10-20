@@ -532,7 +532,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
  *   The configuration instance key of the meta tags to use, e.g.
  *   "node:article".
  * @param array $metatags
- *   An arary of meta tag data.
+ *   An array of meta tag data.
  * @param array $options
  *   (optional) An array of options including the following keys and values:
  *   - language: A language object.
@@ -587,7 +587,7 @@ function metatag_metatags_values($instance, array $metatags = array(), array $op
  * @param string $instance
  *   The configuration instance key of the metatags to use, e.g. "node:article".
  * @param array $metatags
- *   An arary of metatag data.
+ *   An array of metatag data.
  * @param array $options
  *   (optional) An array of options including the following keys and values:
  *   - token types: An array of token types to be passed to theme_token_tree().
