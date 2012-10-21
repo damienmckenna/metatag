@@ -13,6 +13,8 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
   hooks are triggered there's a comment to say what the hook is.
 #1818984 by DamienMcKenna: Add the $instance value to metatag_context's
   triggering of hook_metatag_metatags_view.
+#1819000 by DamienMcKenna: Don't load default meta tags if no active contexts
+  define meta tags.
 
 
 Metatag-7.x-1.0-beta1, 2012-10-19
