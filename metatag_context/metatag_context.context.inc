@@ -115,6 +115,8 @@ class metatag_context_reaction extends context_reaction {
         }
       }
 
+      // Allow the output meta tags to be modified using
+      // hook_metatag_metatags_view_alter().
       drupal_alter('metatag_metatags_view', $output);
     }
   }

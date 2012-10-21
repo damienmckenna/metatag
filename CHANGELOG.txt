@@ -9,6 +9,8 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
 #1818252 by DamienMcKenna: There was no caching on the front page's meta tags.
 #1818516 by DamienMcKenna: Incorrect variable check in metatag_page_build().
 #1818762 by DamienMcKenna: Updated hook_hook_info().
+#1466292 by DamienMcKenna: Listed hooks in metatag.api.php and everywhere the
+  hooks are triggered there's a comment to say what the hook is.
 
 
 Metatag-7.x-1.0-beta1, 2012-10-19

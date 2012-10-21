@@ -239,15 +239,22 @@ function metatag_config_load_multiple(array $instances) {
 function metatag_config_save($config) {
   $config->is_new = empty($config->cid);
 
-  // Allow modules to alter the configuration before it is saved.
+  // Allow modules to alter the configuration before it is saved using
+  // hook_metatag_config_presave().
   module_invoke_all('metatag_config_presave', $config);
 
   if ($config->is_new) {
     drupal_write_record('metatag_config', $config);
+
+    // Allow modules to act upon the record insertion using
+    // hook_metatag_config_insert().
     module_invoke_all('metatag_config_insert', $config);
   }
   else {
     drupal_write_record('metatag_config', $config, array('cid'));
+
+    // Allow modules to act upon the record update using
+    // hook_metatag_config_insert().
     module_invoke_all('metatag_config_update', $config);
   }
 
@@ -319,7 +326,8 @@ function metatag_metatags_save($type, $id, $metatags) {
     return;
   }
 
-  // Allow other modules to alter the metatags prior to saving.
+  // Allow other modules to alter the meta tags prior to saving using
+  // hook_metatag_presave().
   foreach (module_implements('metatag_presave') as $module) {
     $function = "{$module}_metatag_presave";
     $function($metatags, $type, $id);
@@ -361,7 +369,8 @@ function metatag_metatags_delete_multiple($type, array $ids) {
   if ($metatags = metatag_metatags_load_multiple($type, $ids)) {
     $transaction = db_transaction();
     try {
-      // Let other modules know about the metatags being deleted.
+      // Let other modules know about the records being deleted using
+      // hook_metatag_metatags_delete().
       module_invoke_all('metatag_metatags_delete', $type, $ids);
 
       db_delete('metatag')
@@ -478,7 +487,9 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
     if (isset($_GET['page'])) {
       $cid_parts['page'] = $_GET['page'];
     }
-    // Allow other modules to alter the page parts, e.g. Domain Access.
+
+    // Allow other modules to alter the page parts using
+    // hook_metatag_page_cache_cid_parts_alter().
     drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
 
     $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
@@ -549,6 +560,8 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
     }
   }
 
+  // Allow the output meta tags to be modified using
+  // hook_metatag_metatags_view_alter().
   drupal_alter('metatag_metatags_view', $output, $instance);
 
   return $output;
@@ -843,7 +856,10 @@ function metatag_load_entity_from_path($path) {
     }
   }
 
+  // Allow other modules to customize the data using
+  // hook_metatag_load_entity_from_path_alter().
   drupal_alter('metatag_load_entity_from_path', $path, $result);
+
   return $result;
 }
 
@@ -893,9 +909,11 @@ function metatag_page_build(&$page) {
     if (isset($_GET['page'])) {
       $cid_parts['page'] = $_GET['page'];
     }
-    // Allow other modules to alter the page parts, e.g. Domain Access.
+
+    // Allow other modules to customize the data using
+    // hook_metatag_page_cache_cid_parts_alter().
     drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
-    
+
     $cid = "output:{$instance}:" . hash('sha256', serialize($cid_parts));
     
     if ($cache = cache_get($cid, 'cache_metatag')) {
@@ -1016,6 +1034,8 @@ function metatag_get_info($type = NULL, $name = NULL) {
       $info = $cache->data;
     }
     else {
+      // Obtain all metatag specs defined in other modules using
+      // hook_metatag_info().
       $info = module_invoke_all('metatag_info');
       $info += array('tags' => array(), 'groups' => array());
 
@@ -1028,8 +1048,10 @@ function metatag_get_info($type = NULL, $name = NULL) {
         );
       }
 
-      // Let other modules alter the entity info and then cache it.
+      // Let other modules alter the entity info using
+      // hook_metatag_info_alter().
       drupal_alter('metatag_info', $info);
+
       cache_set($cid, $info, 'cache_metatag');
     }
   }
@@ -1160,8 +1182,14 @@ function metatag_config_instance_info($instance = NULL) {
       $info = $cache->data;
     }
     else {
+      // Allow modules to act upon the record insertion using
+      // hook_metatag_config_instance_info().
       $info = module_invoke_all('metatag_config_instance_info');
+
+      // Allow other modules to customize the data using
+      // hook_metatag_config_instance_info_alter().
       drupal_alter('metatag_config_instance_info', $info);
+
       cache_set($cid, $info, 'cache_metatag');
     }
   }
