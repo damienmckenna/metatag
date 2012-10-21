@@ -55,23 +55,17 @@ function metatag_ctools_plugin_api($owner, $api) {
  */
 function metatag_hook_info() {
   $hooks = array(
-    'metatag_info',
-    'metatag_info_alter',
+    'metatag_config_default',
+    'metatag_config_default_alter',
+    'metatag_config_delete',
+    'metatag_config_insert',
     'metatag_config_instance_info',
     'metatag_config_instance_info_alter',
     'metatag_config_load',
-    'metatag_config_presave',
-    'metatag_config_insert',
+    'metatag_config_load_presave',
     'metatag_config_update',
-    'metatag_config_delete',
-    'metatag_load',
-    'metatag_insert',
-    'metatag_update',
-    'metatag_delete',
-    'metatag_alter',
-    'metatag_config_default',
-    'metatag_config_default_alter',
-    'metatag_api',
+    'metatag_info',
+    'metatag_info_alter',
   );
 
   return array_fill_keys($hooks, array('group' => 'metatag'));
