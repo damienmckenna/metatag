@@ -882,7 +882,7 @@ function metatag_page_build(&$page) {
   if (!isset($page['content']) || !is_array($page['content'])) {
     $page['content'] = array();
   }
-  if (!isset($page['content']['metatags']) || !is_array($page['metatags'])) {
+  if (!isset($page['content']['metatags']) || !is_array($page['content']['metatags'])) {
     $page['content']['metatags'] = array();
   }
 
