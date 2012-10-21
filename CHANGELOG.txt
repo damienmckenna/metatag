@@ -11,6 +11,8 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
 #1818762 by DamienMcKenna: Updated hook_hook_info().
 #1466292 by DamienMcKenna: Listed hooks in metatag.api.php and everywhere the
   hooks are triggered there's a comment to say what the hook is.
+#1818984 by DamienMcKenna: Add the $instance value to metatag_context's
+  triggering of hook_metatag_metatags_view.
 
 
 Metatag-7.x-1.0-beta1, 2012-10-19

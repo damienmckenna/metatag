@@ -94,6 +94,7 @@ class metatag_context_reaction extends context_reaction {
       $output = array();
       $contexts = context_active_contexts();
       $options = array();
+      $instance_names = array();
 
       foreach ($contexts as $context) {
         if (!empty($context->reactions['metatag_context_reaction']['metatags'])) {
@@ -103,6 +104,9 @@ class metatag_context_reaction extends context_reaction {
               $metatags[$key] = $data;//t(check_plain($data['value']));
             }
           }
+
+          // Add this context to the list of instances.
+          $instance_names[] = $context->name;
         }
       }
 
@@ -115,9 +119,14 @@ class metatag_context_reaction extends context_reaction {
         }
       }
 
+      // Compile the identifier for this combination based on the context
+      // names.
+      asort($instance_names);
+      $instance = 'context:' . implode(',', $instance_names);
+
       // Allow the output meta tags to be modified using
       // hook_metatag_metatags_view_alter().
-      drupal_alter('metatag_metatags_view', $output);
+      drupal_alter('metatag_metatags_view', $output, $instance);
     }
   }
 }
