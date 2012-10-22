@@ -15,6 +15,7 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
   triggering of hook_metatag_metatags_view.
 #1819000 by DamienMcKenna: Don't load default meta tags if no active contexts
   define meta tags.
+#1819448 by DamienMcKenna: Error on admin page if any meta tags were disabled.
 
 
 Metatag-7.x-1.0-beta1, 2012-10-19

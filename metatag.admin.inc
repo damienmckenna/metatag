@@ -89,6 +89,10 @@ function metatag_config_overview() {
     // Add a summary of the configuration's defaults.
     $summary = array();
     foreach ($config->config as $metatag => $data) {
+      // Skip meta tags that were disabled.
+      if (empty($metatags[$metatag])) {
+        continue;
+      }
       $summary[] = array(
         check_plain($metatags[$metatag]['label']) . ':',
         check_plain(metatag_get_value($metatag, $data, array('raw' => TRUE))),
