@@ -16,6 +16,9 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
 #1819000 by DamienMcKenna: Don't load default meta tags if no active contexts
   define meta tags.
 #1819448 by DamienMcKenna: Error on admin page if any meta tags were disabled.
+#1818958 by DamienMcKenna: The $cid_parts array should contain all relevant
+  entity variables.
+#1820362 by DamienMcKenna: $cid_parts should use base_path() instead of '/'.
 
 
 Metatag-7.x-1.0-beta1, 2012-10-19
