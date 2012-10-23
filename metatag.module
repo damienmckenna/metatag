@@ -907,7 +907,7 @@ function metatag_page_build(&$page) {
     // These two parts are sufficient given that the homepage is unique.
     $cid_parts = array(
       'langcode' => LANGUAGE_NONE,
-      'url' => '<front>',
+      'url' => $GLOBALS['base_url'] . base_path() . '<front>',
     );
 
     // Allow each page in a sequence to have different values.
