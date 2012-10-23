@@ -484,7 +484,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
       'entity_id' => $entity_id,
       'view_mode' => $view_mode,
       'langcode' => $langcode,
-      'url' => $GLOBALS['base_url'] . '/' . current_path(),
+      'url' => $GLOBALS['base_url'] . base_path() . current_path(),
     );
 
     // Allow each page in a sequence to have different values.
