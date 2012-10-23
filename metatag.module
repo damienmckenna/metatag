@@ -477,12 +477,16 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
     list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
     $instance = "{$entity_type}:{$bundle}";
 
+    // All applicable pieces for this current page.
     $cid_parts = array(
-      // @todo Why is this commented out?
-      //'view_mode' => $view_mode,
+      'entity_type' => $entity_type,
+      'bundle' => $bundle,
+      'entity_id' => $entity_id,
+      'view_mode' => $view_mode,
       'langcode' => $langcode,
       'url' => $GLOBALS['base_url'] . '/' . current_path(),
     );
+
     // Allow each page in a sequence to have different values.
     if (isset($_GET['page'])) {
       $cid_parts['page'] = $_GET['page'];
@@ -899,12 +903,13 @@ function metatag_page_build(&$page) {
   // The front page has special consideration.
   if (drupal_is_front_page()) {
     $instance = 'global:frontpage';
+
+    // These two parts are sufficient given that the homepage is unique.
     $cid_parts = array(
-      // @todo Why is this commented out?
-      //'view_mode' => $view_mode,
       'langcode' => LANGUAGE_NONE,
       'url' => '<front>',
     );
+
     // Allow each page in a sequence to have different values.
     if (isset($_GET['page'])) {
       $cid_parts['page'] = $_GET['page'];
