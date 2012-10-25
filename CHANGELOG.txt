@@ -20,6 +20,7 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
   entity variables.
 #1820362 by DamienMcKenna: $cid_parts should use base_path() instead of '/'.
 #1820374 by DamienMcKenna: Front page $cid_parts did not include the full URL.
+#1822726 by DamienMcKenna: Ensure the CTools exportables system is loaded.
 
 
 Metatag-7.x-1.0-beta1, 2012-10-19

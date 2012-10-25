@@ -63,6 +63,9 @@ function metatag_context_edit_name_validate($element, &$form_state) {
     return;
   }
 
+  // Ensure the CTools exportables system is loaded.
+  ctools_include('export');
+
   // Check for name collision.
   if ($exists = ctools_export_crud_load('context', $element['#value'])) {
     form_error($element, t('A context with this name already exists. Please choose another name or delete the existing item before creating a new one.'));
