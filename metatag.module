@@ -1322,3 +1322,26 @@ function metatag_features_api() {
   );
   return $components;
 }
+
+/**
+ * Implements hook_views_pre_render().
+ */
+function metatag_views_post_render(&$view, &$output, &$cache) {
+  // Build a shortcut to the current display object.
+  $display = $view->display[$view->current_display];
+
+  // Only proceed if this view is a full page, don't process block or other
+  // Views display objects.
+  if ($display->display_plugin == 'page') {
+    // Check if this is an entity display page, if so trigger
+    // hook_entity_view().
+    foreach (entity_get_info() as $entity_name => $entity_type) {
+      // Entity paths will include an auto-loader that matches the entity's
+      // name, thus the path will be 'some/path/%entity_name'.
+      if (isset($entity_type['path']) && ($display->display_options['path'] . $entity_name) == $entity_type['path']) {
+        $entity = array_pop(entity_load($entity_name, $view->args));
+        metatag_entity_view($entity, $entity_name, 'full', NULL);
+      }
+    }
+  }
+}
