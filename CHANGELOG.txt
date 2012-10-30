@@ -1,5 +1,5 @@
-Metatag-7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.0-beta2, 2012-10-30
+---------------------------------
 #1817580 by DamienMcKenna: Removed code that was enabling debug mode on all
   Contexts.
 #1818240 by DamienMcKenna: Added $instance value to the drupal_alter() call in
@@ -26,6 +26,6 @@ Metatag-7.x-1.x-dev, xxxx-xx-xx
   metatag_entity_view() if the current Views page is an entity display page.
 
 
-Metatag-7.x-1.0-beta1, 2012-10-19
+Metatag 7.x-1.0-beta1, 2012-10-19
 ---------------------------------
 First mostly-stable release.
