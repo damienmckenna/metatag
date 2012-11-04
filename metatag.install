@@ -78,8 +78,15 @@ function metatag_schema() {
         'not null' => TRUE,
         'serialize' => TRUE,
       ),
+      'language' => array(
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The language of the tag.',
+      ),
     ),
-    'primary key' => array('entity_type', 'entity_id'),
+    'primary key' => array('entity_type', 'entity_id', 'language'),
   );
 
   $schema['cache_metatag'] = drupal_get_schema_unprocessed('system', 'cache');
@@ -147,5 +154,36 @@ function metatag_update_7002() {
     module_disable(array('metatag_ui'), FALSE);
     drupal_uninstall_modules(array('metatag_ui'), FALSE);
     drupal_set_message(t('The deprecated Metatag UI module has been disabled.'));
+  }
+}
+
+/**
+ * Add the {metatag}.language field.
+ */
+function metatag_update_7003() {
+  // Set the target table and field name.
+  $table_name = 'metatag';
+  $field_name = 'language';
+
+  // Don't add the new field if it already exists.
+  if (!db_field_exists($table_name, $field_name)) {
+    // Describe the new field.
+    $field_definition = array(
+      'type' => 'varchar',
+      'length' => 32,
+      'not null' => TRUE,
+      'default' => '',
+      'description' => 'The language of the tag',
+    );
+
+    // Add it and update the primary key.
+    db_add_field($table_name, $field_name, $field_definition);
+    db_drop_primary_key($table_name);
+    db_add_primary_key($table_name, array('entity_type', 'entity_id', 'language'));
+
+    // Set default values.
+    db_update($table_name)
+      ->fields(array($field_name => language_default('language')))
+      ->execute();
   }
 }

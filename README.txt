@@ -21,6 +21,8 @@ The primary features include:
   COPYRIGHT, GENERATOR, IMAGE_SRC, KEYWORDS, PUBLISHER, ROBOTS, SHORTLINK and
   the page's TITLE tag.
 
+* Multi-lingual support using the Entity Translation module.
+
 * Per-path control over meta tags using the "Meta tags: Context" submodule
   (requires the Context module).
 
