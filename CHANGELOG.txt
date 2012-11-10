@@ -1,6 +1,8 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #1688286 by colan, DamienMcKenna: Support for Entity Translation.
+#1835030 by DamienMcKenna: Documentation and hook_requirements note re Drupal
+  core v7.17.
 
 
 Metatag 7.x-1.0-beta2, 2012-10-30

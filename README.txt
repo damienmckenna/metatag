@@ -61,7 +61,8 @@ Configuration
 
 Known Issues
 ------------------------------------------------------------------------------
-
+* Versions of Drupal older than v7.17 were missing necessary functionality for
+  taxonomy term pages to work correctly.
 
 
 Related modules

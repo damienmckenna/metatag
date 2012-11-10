@@ -96,6 +96,45 @@ function metatag_schema() {
 }
 
 /**
+ * Implements hook_requirements().
+ */
+function metatag_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break during installation.
+  $t = get_t();
+
+  if ($phase == 'runtime') {
+    // Work out the release of D7 that is currently running.
+    list($major, $minor) = explode('.', VERSION);
+    // Strip off any suffixes on the version string, e.g. "17-dev".
+    if (strpos('-', $minor)) {
+      list($minor, $suffix) = explode('-', $minor);
+    }
+
+    // Releases of Drupal older than 7.17 did not trigger hook_entity_view on
+    // term pages, so recommend updating.
+    if ($minor < 17) {
+      $requirements['metatag'] = array(
+        'severity' => REQUIREMENT_WARNING,
+        'title' => 'Metatag',
+        'value' => $t('Upgrade Drupal core to v7.17 or newer'),
+        'description' => $t('Your older version of Drupal core is missing functionality necessary for taxonomy term pages to work correctly, it is strongly recommended to upgrade to the latest release.'),
+      );
+    }
+    else {
+      $requirements['metatag'] = array(
+        'severity' => REQUIREMENT_OK,
+        'title' => 'Metatag',
+        'value' => $t('Drupal core is compatible'),
+        'description' => $t('Older versions of Drupal core were missing functionality necessary for taxonomy term pages to work correctly, but this version <em>will</em> work correctly.'),
+      );
+    }
+  }
+
+  return $requirements;
+}
+
+/**
  * Implements hook_install().
  */
 // function metatag_install() {
