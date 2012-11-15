@@ -1519,3 +1519,30 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
     }
   }
 }
+
+/**
+ * Implements hook_ctools_render_alter().
+ *
+ * Temporary solution to load meta tags on entity pages that are driven by
+ * CTools display handlers.
+ */
+function metatag_ctools_render_alter(&$info, $page, $context) {
+  // Only proceed if this is a full page (don't process individual panes) and
+  // there's an 'admin path' for the current task.
+  if ($page && !empty($context['task']['admin path'])) {
+    // Check if this is an entity display page, if so trigger
+    // hook_entity_view().
+    foreach (entity_get_info() as $entity_name => $entity_type) {
+      // Entity paths will include an auto-loader that matches the entity's
+      // name, thus the path will be 'some/path/%entity_name'.
+      if (isset($entity_type['path']) && $context['task']['admin path'] == $entity_type['path']) {
+        // Only proceed if this entity type supports meta tags.
+        if (metatag_entity_supports_metatags($entity_name)) {
+          $entities = entity_load($entity_name, $context['args']);
+          $entity = array_pop($entities);
+          metatag_entity_view($entity, $entity_name, 'full', NULL);
+        }
+      }
+    }
+  }
+}
