@@ -6,6 +6,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1840402 by DamienMcKenna, paperdhc: Corrected use of array_pop().
 #1841404 by mh86: Don't attempt to load meta tags for unsupported entities, and
   don't support configuration-only entities.
+#1841564 by peximo: Correctly identify the content language being used on the
+  homepage.
 
 
 Metatag 7.x-1.0-beta2, 2012-10-30
