@@ -63,6 +63,8 @@ Known Issues
 ------------------------------------------------------------------------------
 * Versions of Drupal older than v7.17 were missing necessary functionality for
   taxonomy term pages to work correctly.
+* Using Metatag with values assigned for the page title and the Page Title
+  module simultaneously can cause conflicts and unexpected results.
 
 
 Related modules
