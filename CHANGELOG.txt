@@ -13,6 +13,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   unexpected results.
 #1363476 by DamienMcKenna: Workaround to trigger metatag_entity_view() if the
   current CTools (Panels, Panelizer, etc) page is an entity display page.
+#1842052 by DamienMcKenna: Don't process unsupported entities being displayed
+  via Views.
 
 
 Metatag 7.x-1.0-beta2, 2012-10-30

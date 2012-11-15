@@ -1512,9 +1512,12 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
       // Entity paths will include an auto-loader that matches the entity's
       // name, thus the path will be 'some/path/%entity_name'.
       if (isset($entity_type['path']) && ($display->display_options['path'] . $entity_name) == $entity_type['path']) {
-        $entities = entity_load($entity_name, $view->args);
-        $entity = array_pop($entities);
-        metatag_entity_view($entity, $entity_name, 'full', NULL);
+        // Only proceed if this entity type supports meta tags.
+        if (metatag_entity_supports_metatags($entity_name)) {
+          $entities = entity_load($entity_name, $view->args);
+          $entity = array_pop($entities);
+          metatag_entity_view($entity, $entity_name, 'full', NULL);
+        }
       }
     }
   }
