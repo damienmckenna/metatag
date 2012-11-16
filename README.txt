@@ -32,6 +32,9 @@ The primary features include:
 * The Open Graph Protocol meta tags, as used by Facebook, may be added by
   enabling the "Meta tags: Open Graph" submodule.
 
+* The Twitter Cards meta tags may be added by enabling the "Meta tags: Twitter
+  Cards" submodule.
+
 * An API allowing for additional meta tags to be added, beyond what is provided
   by this module - see metatag.api.php for full details.
 
