@@ -60,6 +60,9 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
 function metatag_opengraph_metatag_info() {
   $info['groups']['open-graph'] = array(
     'label' => t('Open Graph'),
+    'form' => array(
+      '#weight' => 50,
+    ),
   );
 
   $info['tags']['og:site_name'] = array(

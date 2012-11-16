@@ -64,7 +64,7 @@ function metatag_dc_metatag_info() {
     'label' => t('Dublin Core'),
     'description' => t('The Dublin Core Metadata Element Set, aka "Dublin Core meta tags", are a set of internationally standardized metadata tags used to describe content to make identification and classification of content easier; the standards are controlled by the <a href="http://dublincore.org/">Dublin Core Metadata Initiative (DCMI)</a>.'),
     'form' => array(
-      '#weight' => 95,
+      '#weight' => 70,
     ),
   );
   $info['tags']['dcterms.title'] = array(

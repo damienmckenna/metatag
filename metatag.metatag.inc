@@ -100,7 +100,7 @@ function metatag_metatag_info() {
   $info['groups']['advanced'] = array(
     'label' => t('Advanced'),
     'form' => array(
-      '#weight' => 90,
+      '#weight' => 100,
     ),
   );
 

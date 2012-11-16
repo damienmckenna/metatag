@@ -822,7 +822,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   $form['metatags']['tokens'] = array(
     '#theme' => 'token_tree',
     '#token_types' => $options['token types'],
-    '#weight' => 100,
+    '#weight' => 999,
     '#dialog' => TRUE,
   );
 
