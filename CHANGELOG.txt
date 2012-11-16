@@ -18,6 +18,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1664322 by nico059, kerasai, miechiel, idflood, DamienMcKenna, alexweber:
   Twitter Cards meta tags.
 #1842198 by DamienMcKenna: Move the 'advanced' fieldset under the others.
+#1840236 by weri, Marty2081: Only revert the requested feature, not all
+  features.
 
 
 Metatag 7.x-1.0-beta2, 2012-10-30
