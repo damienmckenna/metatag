@@ -53,18 +53,16 @@ function metatag_features_export_render($module_name, $data, $export = NULL) {
 function metatag_features_revert($module) {
   $function = "{$module}_metatag_export_default";
   $feature_conf = $function();
-  if ($default_config = features_get_default('metatag')) {
-    foreach (array_keys($default_config) as $config) {
-      if ($conf = metatag_config_load($config)) {
-        db_delete('metatag_config')->condition('instance', $config)->execute();
-      }
-      unset($feature_conf[$config]['cid']);
-      $object = new stdClass();
-      $object->cid = NULL;
-      $object->instance = $config;
-      $object->config = $feature_conf[$config]['config'];
-      metatag_config_save($object);
+  foreach (array_keys($feature_conf) as $config) {
+    if ($conf = metatag_config_load($config)) {
+      db_delete('metatag_config')->condition('instance', $config)->execute();
     }
+    unset($feature_conf[$config]['cid']);
+    $object = new stdClass();
+    $object->cid = NULL;
+    $object->instance = $config;
+    $object->config = $feature_conf[$config]['config'];
+    metatag_config_save($object);
   }
 }
 
