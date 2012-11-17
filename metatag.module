@@ -686,8 +686,17 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
       $translation = LANGUAGE_NONE;
     }
 
-    // Choose the derived translation (or nothing if it doesn't exist).
-    $metatags = isset($metatags[$translation]) ? $metatags[$translation] : array();
+    // Choose the derived translation, fail over to the language-agnostic
+    // values if applicable.
+    if (!empty($metatags[$translation])) {
+      $metatags = $metatags[$translation];
+    }
+    elseif (!empty($metatags[LANGUAGE_NONE])) {
+      $metatags = $metatags[LANGUAGE_NONE];
+    }
+    else {
+      $metatags = array();
+    }
   }
 
   // Add any default tags to the mix.

@@ -3,6 +3,10 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1842764 by DamienMcKenna: Work around problems in metatag_entity_load()
   stemming from an outdated database schema, leave a message suggesting the
   site admin run the database updates.
+#1842868 by DamienMcKenna: Changed metatag_update_7003 to automatically assign
+  the correct language per entity, added update_7004 to fix records updated in
+  beta3, fixed the language selection for loading meta tags so sites without
+  translation functionality continue to work correctly.
 
 
 Metatag 7.x-1.0-beta3, 2012-11-16

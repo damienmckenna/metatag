@@ -230,9 +230,102 @@ function metatag_update_7003() {
     db_drop_primary_key($table_name);
     db_add_primary_key($table_name, array('entity_type', 'entity_id', 'language'));
 
-    // Set default values.
-    db_update($table_name)
-      ->fields(array($field_name => language_default('language')))
+    // Get a list of all records with an empty 'language' value.
+    $result = db_select($table_name, 'm')
+      ->fields('m', array('entity_type', 'entity_id'))
+      ->condition('m.language', '')
       ->execute();
+
+    // Fix the saved values.
+    while ($record = $result->fetchObject()) {
+      $entities = entity_load($record->entity_type, array($record->entity_id));
+      if (!empty($entities)) {
+        $entity = array_pop($entities);
+        if (!empty($entity)) {
+          // If a language value is set on this entity, update the meta tag
+          // record to use that value.
+          if (isset($entity->language)) {
+            db_update($table_name)
+              ->fields(array($field_name => $entity->language))
+              ->condition('entity_type', $record->entity_type)
+              ->condition('entity_id', $record->entity_id)
+              ->execute();
+          }
+        }
+      }
+    }
+    drupal_set_message(t('Updated the "language" value for each meta tag record.'));
+
+    // Track that the data has been fixed for update 7004.
+    variable_set('metatag_update_7003_finished', TRUE);
+
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
+  }
+}
+
+/**
+ * Fix the language mistakes made in update 7003.
+ */
+function metatag_update_7004() {
+  // Skip this entirely if the language fixes from 7003 were already completed
+  // correctly.
+  if (variable_get('metatag_update_7003_finished', FALSE)) {
+    variable_del('metatag_update_7003_finished');
+    drupal_set_message(t('The language fixes for Metatag have already been taken care of.'));
+  }
+
+  // The language values were updated previously.
+  else {
+    // Set the target table and field name.
+    $table_name = 'metatag';
+    $field_name = 'language';
+
+    $result = db_select($table_name, 'm')
+      ->fields('m', array('entity_type', 'entity_id', 'language'))
+      ->condition('m.language', language_default('language'))
+      ->execute();
+
+    // Set default values.
+    while ($record = $result->fetchObject()) {
+      // Load the entity.
+      $entities = entity_load($record->entity_type, array($record->entity_id));
+      if (!empty($entities)) {
+        $entity = array_pop($entities);
+
+        // Make sure that the entity has a language set and that it isn't the
+        // same as the meta tag record's language.
+        if (!empty($entity) && isset($entity->language) && $entity->language != $record->language) {
+          // If the record has multiple values already, i.e. someone saved a
+          // new record because they thought the records were missing.
+          try {
+            db_update($table_name)
+              ->fields(array($field_name => $entity->language))
+              ->condition('entity_type', $record->entity_type)
+              ->condition('entity_id', $record->entity_id)
+              ->execute();
+          }
+          catch (Exception $e) {
+            // Delete the newer record.
+            db_delete($table_name)
+              ->condition($field_name, $entity->language)
+              ->condition('entity_type', $record->entity_type)
+              ->condition('entity_id', $record->entity_id)
+              ->execute();
+            // Update the old one again.
+            db_update($table_name)
+              ->fields(array($field_name => $entity->language))
+              ->condition('entity_type', $record->entity_type)
+              ->condition('entity_id', $record->entity_id)
+              ->execute();
+            drupal_set_message(t('The duplicate meta tag record for :type record #:id has been removed, leaving the previous record in place.', array(':type' => $record->entity_type, ':id' => $record->entity_id)));
+          }
+        }
+      }
+    }
+    drupal_set_message(t('Updated the "language" value for each meta tag record.'));
+
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
   }
 }
