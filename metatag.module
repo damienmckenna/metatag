@@ -495,10 +495,21 @@ function metatag_metatags_cache_clear($type, $id = NULL) {
  * Implements hook_entity_load().
  */
 function metatag_entity_load($entities, $type) {
-  if (metatag_entity_supports_metatags($type)) {
-    $metatags = metatag_metatags_load_multiple($type, array_keys($entities));
-    foreach ($entities as $id => $entity) {
-      $entities[$id]->metatags = isset($metatags[$id]) ? $metatags[$id] : array();
+  // Wrap this in a try-catch block to work around occasions when the schema
+  // hasn't been updated yet.
+  try {
+    if (metatag_entity_supports_metatags($type)) {
+      $metatags = metatag_metatags_load_multiple($type, array_keys($entities));
+      foreach ($entities as $id => $entity) {
+        $entities[$id]->metatags = isset($metatags[$id]) ? $metatags[$id] : array();
+      }
+    }
+  }
+  catch (Exception $e) {
+    watchdog('metatag', 'Error loading meta tag data, do the database updates need to be ran? do the <a href=":url:">database updates</a> need to be ran? The error occurred when loading record(s) :ids for the :type entity type. The error message was: :error', array(':ids' => implode(', ', array_keys($entities)), ':type' => $type, ':error' => $e->getMessage()), WATCHDOG_CRITICAL);
+    // Don't display the same message twice for Drush.
+    if (php_sapi_name() != 'cli') {
+      drupal_set_message(t('Error loading meta tag data, do the <a href=":url">database updates</a> need to be ran?', array('url' => url('update.php'))), 'error');
     }
   }
 }

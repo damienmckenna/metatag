@@ -1,5 +1,8 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1842764 by DamienMcKenna: Work around problems in metatag_entity_load()
+  stemming from an outdated database schema, leave a message suggesting the
+  site admin run the database updates.
 
 
 Metatag 7.x-1.0-beta3, 2012-11-16
