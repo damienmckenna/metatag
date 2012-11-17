@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.0-beta3, 2012-11-16
 ---------------------------------
 #1688286 by colan, DamienMcKenna: Support for Entity Translation.
