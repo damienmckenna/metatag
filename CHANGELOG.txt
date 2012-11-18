@@ -9,6 +9,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   translation functionality continue to work correctly.
 #1842868 by DamienMcKenna: Changed update 7003 again so it *only* adds the new
   field, changed update 7004 so it will update all records using Batch API.
+#1843676 by DamienMcKenna: Changed the hook_requirements message to an INFO
+  message if Page_Title is also installed, will freak people out less.
 
 
 Metatag 7.x-1.0-beta3, 2012-11-16
