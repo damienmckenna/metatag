@@ -229,103 +229,141 @@ function metatag_update_7003() {
     db_add_field($table_name, $field_name, $field_definition);
     db_drop_primary_key($table_name);
     db_add_primary_key($table_name, array('entity_type', 'entity_id', 'language'));
-
-    // Get a list of all records with an empty 'language' value.
-    $result = db_select($table_name, 'm')
-      ->fields('m', array('entity_type', 'entity_id'))
-      ->condition('m.language', '')
-      ->execute();
-
-    // Fix the saved values.
-    while ($record = $result->fetchObject()) {
-      $entities = entity_load($record->entity_type, array($record->entity_id));
-      if (!empty($entities)) {
-        $entity = array_pop($entities);
-        if (!empty($entity)) {
-          // If a language value is set on this entity, update the meta tag
-          // record to use that value.
-          if (isset($entity->language)) {
-            db_update($table_name)
-              ->fields(array($field_name => $entity->language))
-              ->condition('entity_type', $record->entity_type)
-              ->condition('entity_id', $record->entity_id)
-              ->execute();
-          }
-        }
-      }
-    }
-    drupal_set_message(t('Updated the "language" value for each meta tag record.'));
-
-    // Track that the data has been fixed for update 7004.
-    variable_set('metatag_update_7003_finished', TRUE);
-
-    // Clear all caches so the fixed data will be reloaded.
-    cache_clear_all('*', 'cache_metatag', TRUE);
   }
 }
 
 /**
- * Fix the language mistakes made in update 7003.
+ * Update all language values in the metatag table, will also resolve problems
+ * created during the release of beta3.
  */
-function metatag_update_7004() {
-  // Skip this entirely if the language fixes from 7003 were already completed
-  // correctly.
-  if (variable_get('metatag_update_7003_finished', FALSE)) {
-    variable_del('metatag_update_7003_finished');
-    drupal_set_message(t('The language fixes for Metatag have already been taken care of.'));
+function metatag_update_7004(&$sandbox) {
+  // Use the sandbox at your convenience to store the information needed
+  // to track progression between successive calls to the function.
+  if (!isset($sandbox['progress'])) {
+    // The count of records visited so far.
+    $sandbox['progress'] = 0;
+
+    // Because the {metatag} table uses multiple primary keys, there's no easy
+    // way to do this, so we're going to cache all record keys and manually
+    // step through them.
+    $records = db_select('metatag', 'm')
+      ->fields('m', array('entity_type', 'entity_id', 'language'))
+      ->orderBy('entity_type', 'ASC')
+      ->orderBy('entity_id', 'ASC')
+      ->execute();
+    $sandbox['records'] = array();
+    foreach ($records as $record) {
+      $sandbox['records'][] = $record;
+    }
+    // Total records that must be visited.
+    $sandbox['max'] = count($sandbox['records']);
+
+    // A place to store messages during the run.
+    $sandbox['messages'] = array();
+
+    // Last record processed.
+    $sandbox['current_record'] = -1;
   }
 
-  // The language values were updated previously.
-  else {
-    // Set the target table and field name.
-    $table_name = 'metatag';
-    $field_name = 'language';
+  // If there's no data, don't bother with the extra work.
+  if (empty($sandbox['max'])) {
+    return t('No records needed to be updated.');
+  }
 
-    $result = db_select($table_name, 'm')
-      ->fields('m', array('entity_type', 'entity_id', 'language'))
-      ->condition('m.language', language_default('language'))
-      ->execute();
+  // Proceed as normal.
+  else {
+    // Process records by groups of 10 (arbitrary value).
+    // When a group is processed, the batch update engine determines
+    // whether it should continue processing in the same request or provide
+    // progress feedback to the user and wait for the next request.
+    $limit = 10;
 
     // Set default values.
-    while ($record = $result->fetchObject()) {
+    for ($x = 0; $x < $limit; $x++) {
+      $sandbox['current_record']++;
+      if (empty($sandbox['records'][$sandbox['current_record']])) {
+        break;
+      }
+
+      // Shortcuts for later.
+      $entity_type = $sandbox['records'][$sandbox['current_record']]->entity_type;
+      $entity_id = $sandbox['records'][$sandbox['current_record']]->entity_id;
+      $language = $sandbox['records'][$sandbox['current_record']]->language;
+
       // Load the entity.
-      $entities = entity_load($record->entity_type, array($record->entity_id));
+      $entities = entity_load($entity_type, array($entity_id));
       if (!empty($entities)) {
         $entity = array_pop($entities);
 
         // Make sure that the entity has a language set and that it isn't the
         // same as the meta tag record's language.
-        if (!empty($entity) && isset($entity->language) && $entity->language != $record->language) {
+        if (!empty($entity)) {
           // If the record has multiple values already, i.e. someone saved a
           // new record because they thought the records were missing.
           try {
-            db_update($table_name)
-              ->fields(array($field_name => $entity->language))
-              ->condition('entity_type', $record->entity_type)
-              ->condition('entity_id', $record->entity_id)
-              ->execute();
+            // If there's a (non-empty) language value, use it.
+            if (!empty($entity->language)) {
+              // The language values are different.
+              if ($entity->language != $language) {
+                // Update the record with the entity's language value.
+                db_update('metatag')
+                  ->fields(array('language' => $entity->language))
+                  ->condition('entity_type', $entity_type)
+                  ->condition('entity_id', $entity_id)
+                  ->condition('language', $language)
+                  ->execute();
+              }
+              // The language values are the same.
+              else {
+                // Do nothing.
+              }
+            }
+            // There's no language value.
+            else {
+              // Assign the global 'no language' value.
+              db_update('metatag')
+                ->fields(array('language' => LANGUAGE_NONE))
+                ->condition('entity_type', $entity_type)
+                ->condition('entity_id', $entity_id)
+                ->condition('language', $language)
+                ->execute();
+            }
           }
           catch (Exception $e) {
             // Delete the newer record.
-            db_delete($table_name)
-              ->condition($field_name, $entity->language)
-              ->condition('entity_type', $record->entity_type)
-              ->condition('entity_id', $record->entity_id)
+            db_delete('metatag')
+              ->condition('language', $entity->language)
+              ->condition('entity_type', $entity_type)
+              ->condition('entity_id', $entity_id)
               ->execute();
             // Update the old one again.
-            db_update($table_name)
-              ->fields(array($field_name => $entity->language))
-              ->condition('entity_type', $record->entity_type)
-              ->condition('entity_id', $record->entity_id)
+            db_update('metatag')
+              ->fields(array('language' => $entity->language))
+              ->condition('entity_type', $entity_type)
+              ->condition('entity_id', $entity_id)
+              ->condition('language', $language)
               ->execute();
-            drupal_set_message(t('The duplicate meta tag record for :type record #:id has been removed, leaving the previous record in place.', array(':type' => $record->entity_type, ':id' => $record->entity_id)));
+            $sandbox['messages'][] = t('The duplicate record for :type record #:id has been removed, leaving the older record in place.', array(':type' => $entity_type, ':id' => $entity_id));
           }
         }
       }
-    }
-    drupal_set_message(t('Updated the "language" value for each meta tag record.'));
 
-    // Clear all caches so the fixed data will be reloaded.
-    cache_clear_all('*', 'cache_metatag', TRUE);
+      // Update our progress information.
+      $sandbox['progress']++;
+    }
+
+    // Set the "finished" status, to tell batch engine whether this function
+    // needs to run again. If you set a float, this will indicate the progress
+    // of the batch so the progress bar will update.
+    $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ? TRUE : ($sandbox['progress'] / $sandbox['max']);
+
+    if ($sandbox['#finished']) {
+      // Clear all caches so the fixed data will be reloaded.
+      cache_clear_all('*', 'cache_metatag', TRUE);
+
+      // hook_update_N() may optionally return a string which will be displayed
+      // to the user.
+      return t('%count records were updated.', array('%count' => $sandbox['progress']));
+    }
   }
 }
