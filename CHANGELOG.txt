@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1844638 by DamienMcKenna: Updated messages around update 7004.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

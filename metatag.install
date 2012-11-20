@@ -233,8 +233,9 @@ function metatag_update_7003() {
 }
 
 /**
- * Update all language values in the metatag table, will also resolve problems
- * created during the release of beta3.
+ * Update all records in the metatag table and assign each the correct language
+ * value, will also resolve problems created during the release of beta3. This
+ * might take a while, depending on how much data needs to be converted.
  */
 function metatag_update_7004(&$sandbox) {
   // Use the sandbox at your convenience to store the information needed
@@ -261,6 +262,9 @@ function metatag_update_7004(&$sandbox) {
     // A place to store messages during the run.
     $sandbox['messages'] = array();
 
+    // An initial record of the number of records to be upgraded.
+    watchdog('metatag', t('Update 7004: !count records to upgrade.', array('!count' => $sandbox['max'])), 'info');
+
     // Last record processed.
     $sandbox['current_record'] = -1;
   }
@@ -272,14 +276,21 @@ function metatag_update_7004(&$sandbox) {
 
   // Proceed as normal.
   else {
-    // Process records by groups of 10 (arbitrary value).
+    // Process records by groups of 50 (arbitrary value).
     // When a group is processed, the batch update engine determines
     // whether it should continue processing in the same request or provide
     // progress feedback to the user and wait for the next request.
-    $limit = 10;
+    $limit = 50;
+
+    // The for loop will run as normal when ran via update.php, but when ran
+    // via Drush it'll just run 'til it's finished.
+    $increment = 1;
+    if (php_sapi_name() == 'cli') {
+      $increment = 0;
+    }
 
     // Set default values.
-    for ($x = 0; $x < $limit; $x++) {
+    for ($x = 0; $x < $limit; $x += $increment) {
       $sandbox['current_record']++;
       if (empty($sandbox['records'][$sandbox['current_record']])) {
         break;
@@ -352,6 +363,11 @@ function metatag_update_7004(&$sandbox) {
       $sandbox['progress']++;
     }
 
+    // A per-iterationl message, only record if not running via Drush.
+    if (php_sapi_name() != 'cli') {
+      watchdog('metatag', t('Update 7004: !count records were updated.', array('!count' => $x)), 'info');
+    }
+
     // Set the "finished" status, to tell batch engine whether this function
     // needs to run again. If you set a float, this will indicate the progress
     // of the batch so the progress bar will update.
@@ -361,9 +377,12 @@ function metatag_update_7004(&$sandbox) {
       // Clear all caches so the fixed data will be reloaded.
       cache_clear_all('*', 'cache_metatag', TRUE);
 
+      // A final log of the number of records that were converted.
+      watchdog('metatag', t('Update 7004: !count records were updated in total.', array('!count' => $sandbox['progress'])));
+
       // hook_update_N() may optionally return a string which will be displayed
       // to the user.
-      return t('%count records were updated.', array('%count' => $sandbox['progress']));
+      return t('!count records were updated in total.', array('!count' => $sandbox['progress']));
     }
   }
 }
