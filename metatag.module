@@ -506,10 +506,10 @@ function metatag_entity_load($entities, $type) {
     }
   }
   catch (Exception $e) {
-    watchdog('metatag', 'Error loading meta tag data, do the database updates need to be ran? do the <a href=":url:">database updates</a> need to be ran? The error occurred when loading record(s) :ids for the :type entity type. The error message was: :error', array(':ids' => implode(', ', array_keys($entities)), ':type' => $type, ':error' => $e->getMessage()), WATCHDOG_CRITICAL);
+    watchdog('metatag', 'Error loading meta tag data, do the <a href="@update">database updates</a> need to be run? The error occurred when loading record(s) %ids for the %type entity type. The error message was: %error', array('@update' => base_path() . 'update.php', '%ids' => implode(', ', array_keys($entities)), '%type' => $type, '%error' => $e->getMessage()), WATCHDOG_CRITICAL);
     // Don't display the same message twice for Drush.
     if (php_sapi_name() != 'cli') {
-      drupal_set_message(t('Error loading meta tag data, do the <a href=":url">database updates</a> need to be ran?', array('url' => url('update.php'))), 'error');
+      drupal_set_message(t('Error loading meta tag data, do the <a href="@update">database updates</a> need to be run?', array('@update' => base_path() . 'update.php')), 'error');
     }
   }
 }
