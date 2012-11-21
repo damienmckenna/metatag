@@ -285,7 +285,7 @@ function metatag_update_7004(&$sandbox) {
     // The for loop will run as normal when ran via update.php, but when ran
     // via Drush it'll just run 'til it's finished.
     $increment = 1;
-    if (php_sapi_name() == 'cli') {
+    if (drupal_is_cli()) {
       $increment = 0;
     }
 
@@ -364,7 +364,7 @@ function metatag_update_7004(&$sandbox) {
     }
 
     // A per-iterationl message, only record if not running via Drush.
-    if (php_sapi_name() != 'cli') {
+    if (!drupal_is_cli()) {
       watchdog('metatag', 'Update 7004: !count records were updated.', array('!count' => $x), WATCHDOG_INFO);
     }
 

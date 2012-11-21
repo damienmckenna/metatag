@@ -5,6 +5,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1844764 by Devin Carlson, DamienMcKenna: Fix arg placeholders in t() calls.
 #1846516 by Staratel: Incorrect arguments for watchdog().
 #1846516 by DamienMcKenna: Further incorrect arguments for watchdog().
+#1844638 by DamienMcKenna: Correctly used drupal_is_cli() instead of just
+  php_sapi_name().
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
