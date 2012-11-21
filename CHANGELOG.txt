@@ -2,6 +2,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #1844638 by DamienMcKenna: Updated messages around update 7004.
 #1844764 by Devin Carlson, DamienMcKenna: Fix arg placeholders in t() calls.
+#1846516 by Staratel: Incorrect arguments for watchdog().
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
