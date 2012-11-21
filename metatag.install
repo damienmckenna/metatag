@@ -263,7 +263,7 @@ function metatag_update_7004(&$sandbox) {
     $sandbox['messages'] = array();
 
     // An initial record of the number of records to be upgraded.
-    watchdog('metatag', 'Update 7004: !count records to upgrade.', array('!count' => $sandbox['max']), 'info');
+    watchdog('metatag', 'Update 7004: !count records to upgrade.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
 
     // Last record processed.
     $sandbox['current_record'] = -1;
@@ -365,7 +365,7 @@ function metatag_update_7004(&$sandbox) {
 
     // A per-iterationl message, only record if not running via Drush.
     if (php_sapi_name() != 'cli') {
-      watchdog('metatag', 'Update 7004: !count records were updated.', array('!count' => $x), 'info');
+      watchdog('metatag', 'Update 7004: !count records were updated.', array('!count' => $x), WATCHDOG_INFO);
     }
 
     // Set the "finished" status, to tell batch engine whether this function
@@ -378,7 +378,7 @@ function metatag_update_7004(&$sandbox) {
       cache_clear_all('*', 'cache_metatag', TRUE);
 
       // A final log of the number of records that were converted.
-      watchdog('metatag', 'Update 7004: !count records were updated in total.', array('!count' => $sandbox['progress']), 'info');
+      watchdog('metatag', 'Update 7004: !count records were updated in total.', array('!count' => $sandbox['progress']), WATCHDOG_INFO);
 
       // hook_update_N() may optionally return a string which will be displayed
       // to the user.
