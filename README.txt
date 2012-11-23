@@ -72,12 +72,17 @@ Known Issues
 
 Related modules
 ------------------------------------------------------------------------------
-Some modules are available that extend Nodewords with additional functionality:
+Some modules are available that extend Metatag with additional functionality:
 
 * Domain Meta Tags
   http://drupal.org/project/domain_meta
   Integrates with the Domain Access module, so each site of a multi-domain
   install can separately control their meta tags.
+
+* Select or Other
+  http://drupal.org/project/select_or_other
+  Enhances the user experience of the metatag_opengraph submodule by allowing
+  the creation of custom Open Graph types.
 
 
 Credits / Contact

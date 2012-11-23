@@ -9,6 +9,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   php_sapi_name().
 #1846978 by edulterado: Corrected the theme function name used with the
   Twitter Cards submodule.
+#1307804 by juampy: Support for Select_or_Other for use with the OpenGraph
+  'type' field.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
