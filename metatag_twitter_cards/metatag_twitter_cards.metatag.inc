@@ -89,7 +89,7 @@ function metatag_twitter_cards_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
-      '#theme' => 'metatag_twittercard',
+      '#theme' => 'metatag_twitter_cards',
     ),
   );
   $info['tags']['twitter:url'] = array(
@@ -98,7 +98,7 @@ function metatag_twitter_cards_metatag_info() {
     'class' => 'DrupalLinkMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
-      '#theme' => 'metatag_twittercard',
+      '#theme' => 'metatag_twitter_cards',
     ),
   );
   $info['tags']['twitter:title'] = array(
@@ -107,7 +107,7 @@ function metatag_twitter_cards_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
-      '#theme' => 'metatag_twittercard',
+      '#theme' => 'metatag_twitter_cards',
     ),
   );
   $info['tags']['twitter:description'] = array(

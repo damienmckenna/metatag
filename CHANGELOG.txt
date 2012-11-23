@@ -7,6 +7,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1846516 by DamienMcKenna: Further incorrect arguments for watchdog().
 #1844638 by DamienMcKenna: Correctly used drupal_is_cli() instead of just
   php_sapi_name().
+#1846978 by edulterado: Corrected the theme function name used with the
+  Twitter Cards submodule.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
