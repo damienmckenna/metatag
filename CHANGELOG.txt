@@ -12,6 +12,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1307804 by juampy: Support for Select_or_Other for use with the OpenGraph
   'type' field.
 #1854522 by DamienMcKenna: Redundant return statements in the MetaTag classes.
+#1852600 by DamienMcKenna: Only use the first page argument in the Views and
+  Panels preprocessors if it is numerical.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

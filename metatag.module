@@ -1534,9 +1534,14 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
       if (isset($entity_type['path']) && ($display->display_options['path'] . $entity_name) == $entity_type['path']) {
         // Only proceed if this entity type supports meta tags.
         if (metatag_entity_supports_metatags($entity_name)) {
-          $entities = entity_load($entity_name, $view->args);
-          $entity = array_pop($entities);
-          metatag_entity_view($entity, $entity_name, 'full', NULL);
+          // There must be at least one argument and the first argument must be
+          // numerical.
+          if (!empty($args) && is_numeric($view->args[0])) {
+            // Only the first argument is used.
+            $entities = entity_load($entity_name, array($view->args[0]));
+            $entity = array_pop($entities);
+            metatag_entity_view($entity, $entity_name, 'full', NULL);
+          }
         }
       }
     }
@@ -1561,9 +1566,14 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
       if (isset($entity_type['path']) && $context['task']['admin path'] == $entity_type['path']) {
         // Only proceed if this entity type supports meta tags.
         if (metatag_entity_supports_metatags($entity_name)) {
-          $entities = entity_load($entity_name, $context['args']);
-          $entity = array_pop($entities);
-          metatag_entity_view($entity, $entity_name, 'full', NULL);
+          // There must be at least one argument and the first argument must be
+          // numerical.
+          if (!empty($context['args']) && is_numeric($context['args'][0])) {
+            // Only the first argument is used.
+            $entities = entity_load($entity_name, array($context['args'][0]));
+            $entity = array_pop($entities);
+            metatag_entity_view($entity, $entity_name, 'full', NULL);
+          }
         }
       }
     }
