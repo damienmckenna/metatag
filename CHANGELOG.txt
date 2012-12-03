@@ -25,6 +25,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1857360 by DamienMcKenna: Purge {metatag} records for nodes, taxonomy terms
   and users that were purged but where the APIs of older versions failed to
   remove them.
+#1857116 by DamienMcKenna: Purge {metatag} records for Profile2.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
