@@ -18,6 +18,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   have a path condition defined.
 #1846080 by DamienMcKenna: Only support entities that have the 'metatags'
   option specifically enabled.
+#1857116 by DamienMcKenna: Purge {metatag} records for a few known unsupported
+  entities that old versions would have saved.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

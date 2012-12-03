@@ -397,3 +397,31 @@ function metatag_update_7005() {
     ->condition('variables', serialize('info'))
     ->execute();
 }
+
+/**
+ * Remove metatag records that were added by old versions of the module for
+ * entities that don't actually support meta tags. A more complete version of
+ * this will be added later on after it's (hopefully) guaranteed that all
+ * modules have updated to the correct API usage.
+ */
+function metatag_update_7006() {
+  $types = array(
+    // Core.
+    'comment',
+    'menu_link',
+    'taxonomy_vocabulary',
+    // Some contrib entities.
+    'file',
+    'mailchimp_list',
+    'profile2_type',
+    'redirect',
+    'rules_config',
+    'wysiwyg_profile',
+  );
+  foreach ($types as $type) {
+    db_delete('metatag')
+      ->condition('entity_type', $type)
+      ->execute();
+    drupal_set_message(t('Removed all meta tags for the %type entity type that <em>may</em> have existed, it does not support meta tags.', array('%type' => $type)));
+  }
+}
