@@ -14,6 +14,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1854522 by DamienMcKenna: Redundant return statements in the MetaTag classes.
 #1852600 by DamienMcKenna: Only use the first page argument in the Views and
   Panels preprocessors if it is numerical.
+#1850014 by plopesc: Not all contexts that may be shown on the admin page will
+  have a path condition defined.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
