@@ -418,9 +418,47 @@ function metatag_update_7006() {
     'wysiwyg_profile',
   );
   foreach ($types as $type) {
-    db_delete('metatag')
+    $num_deleted = db_delete('metatag')
       ->condition('entity_type', $type)
       ->execute();
-    drupal_set_message(t('Removed all meta tags for the %type entity type that <em>may</em> have existed, it does not support meta tags.', array('%type' => $type)));
+    if ($num_deleted > 0) {
+      drupal_set_message(t('Removed @count meta tag record(s) for the @type entity type, it does not support meta tags.', array('@count' => $num_deleted, '@type' => $type)));
+    }
+  }
+}
+
+/**
+ * Remove metatag records for objects that have been deleted; older versions of
+ * Metatag may have failed to purge these.
+ */
+function metatag_update_7007() {
+  $result = db_query("DELETE m
+    FROM {metatag} m
+    LEFT OUTER JOIN {node} n
+    	ON m.entity_id=n.nid
+    WHERE m.entity_type='node'
+    	AND n.nid IS NULL");
+  if ($result->rowCount() > 0) {
+    drupal_set_message(t('Removed @count meta tag record(s) for nodes that had been purged.', array('@count' => $result->rowCount())));
+  }
+
+  $result = db_query("DELETE m
+    FROM {metatag} m
+    LEFT OUTER JOIN {users} u
+    	ON m.entity_id=u.uid
+    WHERE m.entity_type='user'
+    	AND u.uid IS NULL");
+  if ($result->rowCount() > 0) {
+    drupal_set_message(t('Removed @count meta tag record(s) for users that had been purged.', array('@count' => $result->rowCount())));
+  }
+
+  $result = db_query("DELETE m
+    FROM {metatag} m
+    LEFT OUTER JOIN {taxonomy_term_data} t
+    	ON m.entity_id=t.tid
+    WHERE m.entity_type='taxonomy_term'
+    	AND t.tid IS NULL");
+  if ($result->rowCount() > 0) {
+    drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $result->rowCount())));
   }
 }

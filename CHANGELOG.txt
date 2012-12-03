@@ -22,6 +22,9 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   entities that old versions would have saved.
 #1857116 by DamienMcKenna: Don't purge 'file' {metatag} records until #1857334
   is decided.
+#1857360 by DamienMcKenna: Purge {metatag} records for nodes, taxonomy terms
+  and users that were purged but where the APIs of older versions failed to
+  remove them.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
