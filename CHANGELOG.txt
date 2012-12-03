@@ -16,6 +16,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   Panels preprocessors if it is numerical.
 #1850014 by plopesc: Not all contexts that may be shown on the admin page will
   have a path condition defined.
+#1846080 by DamienMcKenna: Only support entities that have the 'metatags'
+  option specifically enabled.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

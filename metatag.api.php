@@ -5,6 +5,67 @@
  */
 
 /**
+ * To enable Metatag support in custom entities, add 'metatag' => TRUE to the
+ * entity definition in hook_entity_info(), e.g.:
+ * 
+ * /**
+ *  * Implements hook_entity_info().
+ *  *
+ *  * Taken from the Examples module.
+ *  * /
+ * function entity_example_entity_info() {
+ *   $info['entity_example_basic'] = array(
+ *     'label' => t('Example Basic Entity'),
+ *     'controller class' => 'EntityExampleBasicController',
+ *     'base table' => 'entity_example_basic',
+ *     'uri callback' => 'entity_example_basic_uri',
+ *     'fieldable' => TRUE,
+ *     'metatag' => TRUE,
+ *     'entity keys' => array(
+ *       'id' => 'basic_id' , // The 'id' (basic_id here) is the unique id.
+ *       'bundle' => 'bundle_type' // Bundle will be determined by the 'bundle_type' field
+ *     ),
+ *     'bundle keys' => array(
+ *       'bundle' => 'bundle_type',
+ *     ),
+ *     'static cache' => TRUE,
+ *     'bundles' => array(
+ *       'first_example_bundle' => array(
+ *         'label' => 'First example bundle',
+ *         'admin' => array(
+ *           'path' => 'admin/structure/entity_example_basic/manage',
+ *           'access arguments' => array('administer entity_example_basic entities'),
+ *         ),
+ *       ),
+ *     ),
+ *     'view modes' => array(
+ *       'tweaky' => array(
+ *         'label' => t('Tweaky'),
+ *         'custom settings' =>  FALSE,
+ *       ),
+ *     )
+ *   );
+ * 
+ *   return $info;
+ * }
+ *
+ * The definition of each bundle may be handled separately, thus support may be
+ * disabled for the entity as a whole but enabled for individual bundles. This
+ * is handled via the 'metatag' value on the bundle definition, e.g.:
+ *
+ *     'bundles' => array(
+ *       'first_example_bundle' => array(
+ *         'label' => 'First example bundle',
+ *         'metatag' => TRUE,
+ *         'admin' => array(
+ *           'path' => 'admin/structure/entity_example_basic/manage',
+ *           'access arguments' => array('administer entity_example_basic entities'),
+ *         ),
+ *       ),
+ *     ),
+ */
+
+/**
  * 
  */
 function hook_metatag_config_default() {

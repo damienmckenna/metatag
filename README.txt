@@ -62,6 +62,15 @@ Configuration
     the defaults be updated.
 
 
+Developers
+------------------------------------------------------------------------------
+Full API documentation is available in metatag.api.php.
+
+To enable Metatag support in custom entities, add 'metatag' => TRUE to either
+the entity or bundle definition in hook_entity_info(); see metatag.api.php for
+further details and example code.
+
+
 Known Issues
 ------------------------------------------------------------------------------
 * Versions of Drupal older than v7.17 were missing necessary functionality for

@@ -922,17 +922,19 @@ function metatag_entity_has_metatags($entity_type, $entity) {
   return isset($config_exists[$instance]);
 }
 
+/**
+ * Check whether the requested entity type (and bundle) support metatag.
+ *
+ * By default this will be FALSE, support has to be specifically enabled by
+ * assigning 'metatag' => TRUE within the hook_entity_info() definition for the
+ * entity.
+ */
 function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
   $types = &drupal_static(__FUNCTION__);
 
   if (!isset($types)) {
     $types = array();
     foreach (entity_get_info() as $entity_type_key => $entity_info) {
-      if (!isset($entity_info['metatags'])) {
-        // By default allow entities that have fields or have paths and are not
-        // configuration entities (Entity API setting).
-        $entity_info['metatags'] = (!empty($entity_info['uri callback']) || !empty($entity_info['fieldable'])) && empty($entity_info['configuration']);
-      }
       if (empty($entity_info['metatags'])) {
         $types[$entity_type_key] = FALSE;
         continue;
@@ -956,22 +958,24 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
 
 /**
  * Implements hook_entity_info_alter().
+ *
+ * Enables Metatag support for the core entities.
  */
 function metatag_entity_info_alter(&$info) {
   $defaults['node'] = array(
     'path' => 'node/%node',
+    'metatags' => TRUE,
   );
   $defaults['taxonomy_term'] = array(
     'path' => 'taxonomy/term/%taxonomy_term',
+    'metatags' => TRUE,
   );
   if (module_exists('forum') && ($vid = variable_get('forum_nav_vocabulary', 0)) && $vocabulary = taxonomy_vocabulary_load($vid)) {
     $defaults['taxonomy_term']['bundles'][$vocabulary->machine_name]['path'] = 'forum/%taxonomy_term';
   }
   $defaults['user'] = array(
     'path' => 'user/%user',
-  );
-  $defaults['comment'] = array(
-    'metatags' => FALSE,
+    'metatags' => TRUE,
   );
 
   foreach ($defaults as $key => $entity_defaults) {
