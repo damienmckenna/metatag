@@ -411,7 +411,6 @@ function metatag_update_7006() {
     'menu_link',
     'taxonomy_vocabulary',
     // Some contrib entities.
-    'file',
     'mailchimp_list',
     'profile2_type',
     'redirect',

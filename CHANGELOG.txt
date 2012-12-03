@@ -20,6 +20,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   option specifically enabled.
 #1857116 by DamienMcKenna: Purge {metatag} records for a few known unsupported
   entities that old versions would have saved.
+#1857116 by DamienMcKenna: Don't purge 'file' {metatag} records until #1857334
+  is decided.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
