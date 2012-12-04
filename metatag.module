@@ -1540,7 +1540,7 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
         if (metatag_entity_supports_metatags($entity_name)) {
           // There must be at least one argument and the first argument must be
           // numerical.
-          if (!empty($args) && is_numeric($view->args[0])) {
+          if (!empty($view->args) && is_numeric($view->args[0])) {
             // Only the first argument is used.
             $entities = entity_load($entity_name, array($view->args[0]));
             $entity = array_pop($entities);
