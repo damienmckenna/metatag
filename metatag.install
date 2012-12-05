@@ -32,6 +32,7 @@ function metatag_schema() {
         'unsigned' => TRUE,
         'not null' => TRUE,
         'description' => 'The primary identifier for a metatag configuration set.',
+        'no export' => TRUE,
       ),
       'instance' => array(
         'type' => 'varchar',
