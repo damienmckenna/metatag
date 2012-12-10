@@ -464,3 +464,14 @@ function metatag_update_7007() {
     drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $result->rowCount())));
   }
 }
+
+/**
+ * Remove metatag any empty records that may be hanging around from old
+ * releases.
+ */
+function metatag_update_7008() {
+  $result = db_query("DELETE FROM {metatag} WHERE data IS NULL or data = '' OR data = 'a:0:{}'");
+  if ($result->rowCount() > 0) {
+    drupal_set_message(t('Purged @count empty meta tag record(s).', array('@count' => $result->rowCount())));
+  }
+}

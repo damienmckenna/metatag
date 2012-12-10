@@ -28,6 +28,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1857116 by DamienMcKenna: Purge {metatag} records for Profile2.
 #1852600 by helmo: Typo in Views integration function.
 #1852022 by DamienMcKenna: Don't export the {metatag_config}.cid field.
+#1862570 by DamienMcKenna: Purge any empty values that may have been added by
+  very early releases.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
