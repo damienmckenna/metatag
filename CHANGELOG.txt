@@ -30,6 +30,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1852022 by DamienMcKenna: Don't export the {metatag_config}.cid field.
 #1862570 by DamienMcKenna: Purge any empty values that may have been added by
   very early releases.
+#1862570 by DamienMcKenna: Follow-up to correctly handle the serialized empty
+  array.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

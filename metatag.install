@@ -470,7 +470,7 @@ function metatag_update_7007() {
  * releases.
  */
 function metatag_update_7008() {
-  $result = db_query("DELETE FROM {metatag} WHERE data IS NULL or data = '' OR data = 'a:0:{}'");
+  $result = db_query("DELETE m FROM {metatag} m WHERE m.data IS NULL or m.data = '' OR m.data = :empty", array(':empty' => serialize(array())));
   if ($result->rowCount() > 0) {
     drupal_set_message(t('Purged @count empty meta tag record(s).', array('@count' => $result->rowCount())));
   }
