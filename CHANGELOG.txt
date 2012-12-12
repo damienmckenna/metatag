@@ -32,6 +32,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   very early releases.
 #1862570 by DamienMcKenna: Follow-up to correctly handle the serialized empty
   array.
+#1864340 by cdoyle, DamienMcKenna: Incorrect output for certain Twitter Card
+  tags.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

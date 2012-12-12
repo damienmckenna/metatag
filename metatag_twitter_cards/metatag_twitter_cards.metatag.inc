@@ -95,7 +95,7 @@ function metatag_twitter_cards_metatag_info() {
   $info['tags']['twitter:url'] = array(
     'label' => t('Page URL'),
     'description' => t('The permalink / canonical URL of the current page.'),
-    'class' => 'DrupalLinkMetaTag',
+    'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
@@ -122,7 +122,7 @@ function metatag_twitter_cards_metatag_info() {
   $info['tags']['twitter:image'] = array(
     'label' => t('Image URL'),
     'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.'),
-    'class' => 'DrupalLinkMetaTag',
+    'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
@@ -149,7 +149,7 @@ function metatag_twitter_cards_metatag_info() {
   $info['tags']['twitter:player'] = array(
     'label' => t('Media player URL'),
     'description' => t('The full URL for loading a media player. Required when using a <em>Media player</em> card.'),
-    'class' => 'DrupalLinkMetaTag',
+    'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
@@ -176,7 +176,7 @@ function metatag_twitter_cards_metatag_info() {
   $info['tags']['twitter:player:stream'] = array(
     'label' => t('MP4 media stream URL'),
     'description' => t('The full URL for an MP4 video (h.264) or audio (AAC) stream, takes precidence over the other media player field.'),
-    'class' => 'DrupalLinkMetaTag',
+    'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
