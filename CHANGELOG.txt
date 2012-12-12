@@ -34,6 +34,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   array.
 #1864340 by cdoyle, DamienMcKenna: Incorrect output for certain Twitter Card
   tags.
+#1865170 by DamienMcKenna: Fix metatag_requirements() return array when the
+  Page Title module is also installed.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
