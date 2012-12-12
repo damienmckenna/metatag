@@ -7,4 +7,5 @@ dependencies[] = ctools
 configure = admin/config/search/metatags
 
 files[] = metatag.inc
+files[] = metatag.migrate.inc
 files[] = metatag.test

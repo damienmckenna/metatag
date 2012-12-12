@@ -38,6 +38,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   Page Title module is also installed.
 #1722564 by DamienMcKenna: Provide a hook_requirements() message and README.txt
   note about a possible conflict with the Exclude Node Title module.
+#1284756 by damiankloip, sylus, alanburke, lancee: Migrate module integration.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
