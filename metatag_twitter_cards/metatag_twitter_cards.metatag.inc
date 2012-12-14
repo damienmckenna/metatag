@@ -83,9 +83,28 @@ function metatag_twitter_cards_metatag_info() {
       '#theme' => 'metatag_twitter_cards',
     ),
   );
+  $info['tags']['twitter:site:id'] = array(
+    'label' => t('Site\'s Twitter account ID'),
+    'description' => t('The numerical Twitter account ID for the website, which will be displayed in the Card\'s footer.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'twitter-cards',
+    'context' => array('global'),
+    'element' => array(
+      '#theme' => 'metatag_twitter_cards',
+    ),
+  );
   $info['tags']['twitter:creator'] = array(
     'label' => t('Creator\'s Twitter account'),
     'description' => t('The @username for the content creator / author for this page, including the @ symbol.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'twitter-cards',
+    'element' => array(
+      '#theme' => 'metatag_twitter_cards',
+    ),
+  );
+  $info['tags']['twitter:creator:id'] = array(
+    'label' => t('Creator\'s Twitter account ID'),
+    'description' => t('The numerical Twitter account ID for the content creator / author for this page.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'element' => array(
