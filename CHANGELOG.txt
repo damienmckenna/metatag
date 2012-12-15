@@ -42,6 +42,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1865228 by greggles, DamienMcKenna: Added the rel=author link meta tag.
 #1866122 by DamienMcKenna: Added the twitter:site:id and twitter:creator:id
   meta tags.
+#1866980 by makangus: Corrected metatag_features_revert().
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
