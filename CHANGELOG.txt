@@ -43,6 +43,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1866122 by DamienMcKenna: Added the twitter:site:id and twitter:creator:id
   meta tags.
 #1866980 by makangus: Corrected metatag_features_revert().
+#1862818 by DYdave, DamienMcKenna: Added documentation for
+  hook_metatag_config_default().
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
