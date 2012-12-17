@@ -209,5 +209,13 @@ function metatag_metatag_info() {
     'group' => 'advanced',
   );
 
+  $info['tags']['original-source'] = array(
+    'label' => t('Original Source'),
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'description' => "Used to indicate the URL that broke the story, and can link to either an internal URL or an external source. If the full URL is not known it is acceptable to use a partial URL or just the domain name.",
+  );
+
   return $info;
 }
