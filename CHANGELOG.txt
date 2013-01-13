@@ -46,6 +46,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1862818 by DYdave, DamienMcKenna: Added documentation for
   hook_metatag_config_default().
 #1778534 by DamienMcKenna: Added the original-source meta tag.
+#1886170 by DamienMcKenna: Typo in the API docs regarding enabling metatag
+  support in custom entities.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
