@@ -384,6 +384,15 @@ function metatag_metatags_save($type, $id, $metatags, $language) {
     return;
   }
 
+  // Certain modules, e.g. Workbench Moderation, will cause the data to be in
+  // an unsupported format; the problem needs to be resolved elsewhere so this
+  // can only be considered a temporary fix.
+  // TODO: Solve the core problem, which will probably entail something
+  // similar to http://drupal.org/node/1876034.
+  if (isset($metatags[$language])) {
+    $metatags = $metatags[$language];
+  }
+
   // Allow other modules to alter the meta tags prior to saving using
   // hook_metatag_presave().
   foreach (module_implements('metatag_presave') as $module) {
