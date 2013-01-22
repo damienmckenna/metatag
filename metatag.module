@@ -1465,12 +1465,20 @@ function metatag_config_instance_label($instance) {
   $labels = &drupal_static(__FUNCTION__, array());
 
   if (!isset($labels[$instance])) {
-    $context = metatag_config_instance_info($instance);
-    $labels[$instance] = isset($context['label']) ? $context['label'] : t('Unknown');
-    $parents = metatag_config_get_parent_instances($instance, FALSE);
-    array_shift($parents);
-    if (!empty($parents)) {
-      $labels[$instance] = metatag_config_instance_label(implode(':', $parents)) . ': ' . $labels[$instance];
+    $instance_parts = explode(':', $instance);
+    $instance_part = array_pop($instance_parts);
+    if ($context = metatag_config_instance_info($instance)) {
+      $labels[$instance] = $context['label'];
+    }
+    else {
+      $labels[$instance] = t('Unknown (@instance)', array('@instance' => $instance_part));
+    }
+    // Normally the following would use metatag_config_get_parent_instances()
+    // but since we already sliced the instance by separator and removed the
+    // last segment, putting the array back together gives us this instance's
+    // parent.
+    if (!empty($instance_parts)) {
+      $labels[$instance] = metatag_config_instance_label(implode(':', $instance_parts)) . ': ' . $labels[$instance];
     }
   }
 
