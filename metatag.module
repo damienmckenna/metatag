@@ -918,14 +918,8 @@ function metatag_entity_has_metatags($entity_type, $entity) {
   }
   $instance = "{$entity_type}:{$bundle}";
   if (!isset($config_exists[$instance])) {
-    $config_exists[$instance] = NULL;
-    $instances = metatag_config_get_parent_instances($instance, FALSE);
-    $configs = metatag_config_load_multiple($instances);
-    foreach ($instances as $key) {
-      if (!empty($configs[$key]) && empty($configs[$key]->disabled)) {
-        $config_exists[$instance] = TRUE;
-      }
-    }
+    // Check if the intstance or its parents (excluding global) are enabled.
+    $config_exists[$instance] = metatag_config_is_enabled($instance, TRUE, FALSE);
   }
 
   return isset($config_exists[$instance]);
@@ -1068,7 +1062,8 @@ function metatag_page_build(&$page) {
   }
 
   // The front page has special consideration.
-  if (drupal_is_front_page()) {
+  $instance = 'global:frontpage';
+  if (drupal_is_front_page() && metatag_config_is_enabled($instance)) {
     $instance = 'global:frontpage';
 
     // These two parts are sufficient given that the homepage is unique.
@@ -1087,7 +1082,7 @@ function metatag_page_build(&$page) {
     drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
 
     $cid = "output:{$instance}:" . hash('sha256', serialize($cid_parts));
-    
+
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $metatags = $cache->data;
     }
@@ -1095,7 +1090,7 @@ function metatag_page_build(&$page) {
       $metatags = metatag_metatags_view($instance, array());
       cache_set($cid, $metatags, 'cache_metatag');
     }
-    
+
     $page['content']['metatags'][$instance] = $metatags;
   }
 
@@ -1511,6 +1506,25 @@ function metatag_config_access($op, $config = NULL) {
   }
 
   return FALSE;
+}
+
+/**
+ * Checks if a metatag configuration record is enabled.
+ *
+ * @param string $instance
+ *   The configuration instance machine name.
+ *
+ * @return bool
+ *   TRUE if the configuration is enabled, or FALSE otherwise.
+ */
+function metatag_config_is_enabled($instance, $include_defaults = FALSE, $include_global = TRUE) {
+  if ($include_defaults) {
+    return (bool) metatag_config_load_with_defaults($instance, $include_global);
+  }
+  else {
+    $config = metatag_config_load($instance);
+    return !empty($config) && empty($config->disabled);
+  }
 }
 
 /**
