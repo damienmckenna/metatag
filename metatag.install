@@ -403,10 +403,12 @@ function metatag_update_7004(&$sandbox) {
  * page.
  */
 function metatag_update_7005() {
-  db_delete('watchdog')
-    ->condition('type', 'metatag')
-    ->condition('variables', serialize('info'))
-    ->execute();
+  if (db_table_exists('watchdog')) {
+    db_delete('watchdog')
+      ->condition('type', 'metatag')
+      ->condition('variables', serialize('info'))
+      ->execute();
+  }
 }
 
 /**
