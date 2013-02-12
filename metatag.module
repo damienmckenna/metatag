@@ -1360,7 +1360,6 @@ function metatag_html_head_alter(&$elements) {
     foreach (array_keys($elements) as $key) {
       if (strpos($key, 'drupal_add_html_head_link:' . $name . ':') === 0) {
         unset($elements[$key]);
-        break;
       }
     }
   }
