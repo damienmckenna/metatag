@@ -49,6 +49,16 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1886170 by DamienMcKenna: Typo in the API docs regarding enabling metatag
   support in custom entities.
 #1871020 by DamienMcKenna: Compatibility problem with Workbench_Moderation.
+#1773926 by Dave Reid: Fixed token validation fails on config edit if the
+  instance context is not an entity type.
+#1814736 by plach, Dave Reid: metatag_page_build() did not check if the
+  global:frontpage metatag configuration is disabled.
+#1871852: Fixed metatag_update_7005() did not check if the watchdog table
+  exists.
+#1891082 by bago, Dave Reid: Fixed metatag_config_instance_label() failed to
+  recurse properly.
+#1915284: Fixed metatag_html_head_alter() stopped removing duplicate tags too
+  soon. Fixed duplicate canonical links when global redirect is enabled.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
