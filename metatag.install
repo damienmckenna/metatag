@@ -112,9 +112,19 @@ function metatag_requirements($phase) {
       list($minor, $suffix) = explode('-', $minor);
     }
 
+    // Releases of Drupal older than 7.15 did not have entity_language(), which
+    // is now required.
+    if ($minor < 15) {
+      $requirements['metatag'] = array(
+        'severity' => REQUIREMENT_WARNING,
+        'title' => 'Metatag',
+        'value' => $t('Upgrade Drupal core to v7.15 or newer'),
+        'description' => $t("This older version of Drupal core is missing functionality necessary for the module's multilingual support, it must be upgraded to at least version 7.15."),
+      );
+    }
     // Releases of Drupal older than 7.17 did not trigger hook_entity_view on
     // term pages, so recommend updating.
-    if ($minor < 17) {
+    elseif ($minor < 17) {
       $requirements['metatag'] = array(
         'severity' => REQUIREMENT_WARNING,
         'title' => 'Metatag',
@@ -122,6 +132,7 @@ function metatag_requirements($phase) {
         'description' => $t('Your older version of Drupal core is missing functionality necessary for taxonomy term pages to work correctly, it is strongly recommended to upgrade to the latest release.'),
       );
     }
+    // Everything's OK.
     else {
       $requirements['metatag'] = array(
         'severity' => REQUIREMENT_OK,

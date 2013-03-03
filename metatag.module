@@ -4,11 +4,6 @@
  * @todo Add revisionable support for metatag data.
  */
 
-// Load the translation functionality when appropriate.
-if (module_exists('entity_translation')) {
-  include_once dirname(__FILE__) . '/metatag.entity_translation.inc';
-}
-
 /**
  * Implements hook_help().
  */
@@ -373,10 +368,9 @@ function metatag_metatags_load_multiple($type, array $ids) {
  *   The language of the translation set
  */
 function metatag_metatags_save($type, $id, $metatags, $language) {
-  // Use the default content language if the entity doesn't have language
-  // support.
+  // If no language assigned, use the has-no-language language.
   if (!$language) {
-    $language = $GLOBALS['language_content']->language;
+    $language = LANGUAGE_NONE;
   }
 
   // Check that $id is numeric because of Entity API and string IDs.
@@ -530,9 +524,8 @@ function metatag_entity_insert($entity, $entity_type) {
   if (isset($entity->metatags)) {
     list($id) = entity_extract_ids($entity_type, $entity);
 
-    // Determine the language as per http://drupal.org/node/1626346.
-    $language = function_exists('entity_language') ?
-      entity_language($entity_type, $entity) : $entity->language;
+    // Determine the entity's language.
+    $language = metatag_entity_get_language($entity_type, $entity);
 
     metatag_metatags_save($entity_type, $id, $entity->metatags, $language);
   }
@@ -542,19 +535,34 @@ function metatag_entity_insert($entity, $entity_type) {
  * Implements hook_entity_update().
  */
 function metatag_entity_update($entity, $entity_type) {
-  list($id) = entity_extract_ids($entity_type, $entity);
+  list($entity_id) = entity_extract_ids($entity_type, $entity);
 
   if (isset($entity->metatags)) {
+    // Determine the entity's language.
+    $new_language = metatag_entity_get_language($entity_type, $entity);
 
-    // Determine the language as per http://drupal.org/node/1626346.
-    $language = function_exists('entity_language') ?
-      entity_language($entity_type, $entity) : $entity->language;
+    // Determine the language for this entity object.
+    if (isset($entity->original)) {
+      $old_language = metatag_entity_get_language($entity_type, $entity->original);
 
-    metatag_metatags_save($entity_type, $id, $entity->metatags, $language);
+      // If the language has changed then remove the old one. When a new
+      // translation is being saved using Entity Translation both values will
+      // be the same, so this is safe to do.
+      if ($old_language != $new_language) {
+        db_delete('metatag')
+          ->condition('entity_type', $entity_type)
+          ->condition('entity_id', $entity_id)
+          ->condition('language', $old_language)
+          ->execute();
+      }
+    }
+
+    // Save the record.
+    metatag_metatags_save($entity_type, $entity_id, $entity->metatags, $new_language);
   }
   else {
     // Still ensure the meta tag output is cached.
-    metatag_metatags_cache_clear($entity_type, $id);
+    metatag_metatags_cache_clear($entity_type, $entity_id);
   }
 }
 
@@ -596,8 +604,30 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
       return;
     }
 
+    // Obbtain some details of the entity that are needed elsewhere.
     list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
     $instance = "{$entity_type}:{$bundle}";
+
+    // Determine the language this entity actually uses.
+    $entity_language = metatag_entity_get_language($entity_type, $entity);
+
+    // The requested language is different to the entity's language, look for
+    // a language elsewhere.
+    if ($entity_language != $langcode) {
+      // If no language was defined for the entity then use that for the 
+      if ($entity_language == LANGUAGE_NONE) {
+        $langcode = LANGUAGE_NONE;
+      }
+      else {
+        $enabled_languages = field_content_languages();
+        foreach (field_language($entity_type, $entity) as $field => $lang) {
+          // Only accept actual language values that are properly enabled.
+          if ($lang != LANGUAGE_NONE && in_array($lang, $enabled_languages)) {
+            $langcode = $lang;
+          }
+        }
+      }
+    }
 
     // All applicable pieces for this current page.
     $cid_parts = array(
@@ -618,12 +648,13 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
     // hook_metatag_page_cache_cid_parts_alter().
     drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
 
-    $cid = "output:{$entity_type}:{$entity_id}:" . hash('sha256', serialize($cid_parts));
+    $cid = "output:{$entity_type}:{$entity_id}:{$langcode}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
-      $entity->content['metatags'] = $cache->data;
+      $output = $cache->data;
     }
     else {
+      // Separate the meta tags.
       $metatags = isset($entity->metatags) ? $entity->metatags : array();
 
       // Build options for meta tag rendering.
@@ -635,7 +666,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
 
       // Ensure we actually pass a language object rather than language code.
       $languages = language_list();
-      if (isset($langcode) && isset($languages[$langcode])) {
+      if (isset($languages[$langcode])) {
         $options['language'] = $languages[$langcode];
       }
 
@@ -646,13 +677,13 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
       $options['entity'] = $entities[$entity_id];
 
       // Render the metatags and save to the cache.
-      $entity->content['metatags'] = metatag_metatags_view($instance, $metatags, $options);
-      cache_set($cid, $entity->content['metatags'], 'cache_metatag');
+      $output = metatag_metatags_view($instance, $metatags, $options);
+      cache_set($cid, $output, 'cache_metatag');
     }
 
     // We need to register the term's metatags, so we can later fetch them.
     // @see metatag_page_build().
-    metatag_page_set_metatags($instance, $entity->content['metatags']);
+    metatag_page_set_metatags($instance, $output);
   }
 }
 
@@ -681,25 +712,11 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
 
   // If there are any tags, determine the translation to display.
   if (!empty($metatags)) {
-    // Get the display language.
-    if (isset($options['language']->language)) {
-      // Use the passed-in option.
-      $translation = $options['language']->language;
+    // Get the display language; default to the entity's language.
+    if (isset($options['language']) && isset($options['language']->language) && isset($metatags[$options['language']->language])) {
+      $metatags = $metatags[$options['language']->language];
     }
-    elseif (isset($metatags[$GLOBALS['language_content']->language])) {
-      // We weren't given a language; use the global content one.
-      $translation = $GLOBALS['language_content']->language;
-    }
-    else {
-      // The language is not defined.
-      $translation = LANGUAGE_NONE;
-    }
-
-    // Choose the derived translation, fail over to the language-agnostic
-    // values if applicable.
-    if (!empty($metatags[$translation])) {
-      $metatags = $metatags[$translation];
-    }
+    // If no language requested, use the no-language value.
     elseif (!empty($metatags[LANGUAGE_NONE])) {
       $metatags = $metatags[LANGUAGE_NONE];
     }
@@ -1146,44 +1163,40 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
   if (!metatag_entity_has_metatags($entity_type, $entity)) {
     return;
   }
+  // Entity_Translation will trigger this hook again, skip it.
+  if (!empty($form_state['entity_translation']['is_translation'])) {
+    return;
+  }
 
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
   $instance = "{$entity_type}:{$bundle}";
 
   // Grab the meta tags for display in the form if there are any.
-  if (isset($entity->metatags)) {
+  if (!empty($entity->metatags)) {
+    // Identify the language to use with this entity.
+    $entity_language = metatag_entity_get_language($entity_type, $entity);
 
-    // Determine the entity language as per http://drupal.org/node/1626346.
-    $entity_language = function_exists('entity_language') ?
-      entity_language($entity_type, $entity) : $entity->language;
-
-    // Determine from where we should get the tags.
-    if (!(isset($entity->metatags[$langcode]) || isset($entity->metatags[$entity_language]))) {
-
-      // This is a preview so set the tags to the raw submission data.  No
-      // language has been set.
-      $metatags = $entity->metatags;
+    // If this is a new translation using Entity Translation, load the meta
+    // tags from the entity's original language.
+    if (module_exists('entity_translation') && empty($form['#entity_translation_source_form']) && ($handler = entity_translation_entity_form_get_handler($form, $form_state)) && isset($entity->metatags[$handler->getSourceLanguage()])) {
+      $metatags = $entity->metatags[$handler->getSourceLanguage()];
     }
+    // Determine from where we should get the tags.
     elseif (isset($entity->metatags[$langcode])) {
       // Set the tags to the translation set matching that of the form.
       $metatags = $entity->metatags[$langcode];
-
-      // For tags that aren't set in the current form language, fill them in
-      // with default data from the original translation, the entity language.
-      if (isset($entity->metatags[$entity_language])) {
-        foreach ($entity->metatags[$entity_language] as $tag_id => $tag_data) {
-          if (!isset($metatags[$tag_id])) {
-            $metatags[$tag_id] = $tag_data;
-          }
-        }
-      }
     }
     // There is no translation for this entity's tags in the current
     // language. Instead, display tags in the language of the entity, the
     // source language of translations. The will provide translators with the
     // original text to translate.
-    else {
+    elseif (isset($entity->metatags[$entity_language])) {
       $metatags = $entity->metatags[$entity_language];
+    }
+    // This is a preview so set the tags to the raw submission data.  No
+    // language has been set.
+    else {
+      $metatags = $entity->metatags;
     }
   }
   else {
@@ -1234,7 +1247,7 @@ function metatag_get_info($type = NULL, $name = NULL) {
   if (!isset($info)) {
     // hook_metatag_info() includes translated strings, so each language is cached
     // separately.
-    $cid = 'info:' . $GLOBALS['language']->language;
+    $cid = 'info:' . LANGUAGE_NONE;
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $info = $cache->data;
@@ -1535,6 +1548,34 @@ function metatag_config_is_enabled($instance, $include_defaults = FALSE, $includ
 }
 
 /**
+ * Wrapper around entity_language() to use LANGUAGE_NONE if the entity does not
+ * have a language assigned.
+ *
+ * @param $entity_type
+ *   An entity type's machine name.
+ * @param $entity
+ *   The entity to review;
+ *
+ * @return
+ *   A string indicating the language code to be used.
+ */
+function metatag_entity_get_language($entity_type, $entity) {
+  // Determine the entity's language.
+  $langcode = entity_language($entity_type, $entity);
+
+  // If no matching language was found, which will happen for e.g. terms and
+  // users, it is normally recommended to use the system default language.
+  // However, as the system default language can change, this could potentially
+  // cause data loss / confusion problems; as a result use the system "no
+  // language" value to avoid any potential problems.
+  if (empty($langcode)) {
+    $langcode = LANGUAGE_NONE;
+  }
+
+  return $langcode;
+}
+
+/**
  * Implements of hook_features_api().
  */
 function metatag_features_api() {
@@ -1612,4 +1653,19 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
       }
     }
   }
+}
+
+/**
+ * Implements hook_entity_translation_delete().
+ *
+ * Required for content translations being handled via Entity_Translation to
+ * remove the appropriate record when a translation is removed without the
+ * corresponding entity record also being removed.
+ */
+function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
+  // Get the entity's ID.
+  list($entity_id) = entity_extract_ids($entity_type, $entity);
+  
+  // Delete the translation.
+  metatag_metatags_delete($entity_type, $entity_id, $langcode);
 }

@@ -10,7 +10,7 @@ results. Additionally, using meta tags can help control the summary content
 that is used within social networks when visitors link to your site,
 particularly the Open Graph submodule for use with Facebook (see below).
 
-This version of the module only works with Drupal 7.x.
+This version of the module only works with Drupal 7.15 and newer.
 
 
 Features

@@ -2,8 +2,14 @@ name = Meta tags
 description = "Adds support and an API to implement meta tags."
 package = Meta tags
 core = 7.x
-dependencies[] = token
+
+# This requires Drupal 7.15 or newer.
+dependencies[] = system (>=7.15)
+
+# CTools and Token are also required.
 dependencies[] = ctools
+dependencies[] = token
+
 configure = admin/config/search/metatags
 
 files[] = metatag.inc

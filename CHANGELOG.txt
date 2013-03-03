@@ -59,6 +59,9 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   recurse properly.
 #1915284: Fixed metatag_html_head_alter() stopped removing duplicate tags too
   soon. Fixed duplicate canonical links when global redirect is enabled.
+#1845326 by DamienMcKenna, Peacog: Resolved language handling problems to
+  correctly identify the langcode to properly work with or without
+  Entity_Translation.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
