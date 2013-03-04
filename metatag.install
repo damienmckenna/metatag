@@ -429,7 +429,7 @@ function metatag_update_7005() {
  * modules have updated to the correct API usage.
  */
 function metatag_update_7006() {
-  $types = array(
+  $entity_types = array(
     // Core.
     'comment',
     'menu_link',
@@ -442,12 +442,12 @@ function metatag_update_7006() {
     'rules_config',
     'wysiwyg_profile',
   );
-  foreach ($types as $type) {
+  foreach ($entity_types as $entity_type) {
     $num_deleted = db_delete('metatag')
-      ->condition('entity_type', $type)
+      ->condition('entity_type', $entity_type)
       ->execute();
     if ($num_deleted > 0) {
-      drupal_set_message(t('Removed @count meta tag record(s) for the @type entity type, it does not support meta tags.', array('@count' => $num_deleted, '@type' => $type)));
+      drupal_set_message(t('Removed @count meta tag record(s) for the @type entity type, it does not support meta tags.', array('@count' => $num_deleted, '@type' => $entity_type)));
     }
   }
 }

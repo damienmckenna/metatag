@@ -58,13 +58,13 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
     }
   }
 
-  function assertMetatagEntityHasMetatags($type, $bundle, $expected) {
-    $entity = entity_create_stub_entity($type, array(0, NULL, $bundle));
+  function assertMetatagEntityHasMetatags($entity_type, $bundle, $expected) {
+    $entity = entity_create_stub_entity($entity_type, array(0, NULL, $bundle));
     return $this->assertEqual(
-      metatag_entity_has_metatags($type, $entity),
+      metatag_entity_has_metatags($entity_type, $entity),
       $expected,
       t("metatag_entity_has_metatags(:type, :entity) is :expected", array(
-        ':type' => var_export($type, TRUE),
+        ':type' => var_export($entity_type, TRUE),
         ':entity' => var_export($entity, TRUE),
         ':expected' => var_export($expected, TRUE),
       ))

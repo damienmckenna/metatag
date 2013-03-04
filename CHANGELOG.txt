@@ -62,6 +62,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1845326 by DamienMcKenna, Peacog: Resolved language handling problems to
   correctly identify the langcode to properly work with or without
   Entity_Translation.
+#1876042 by DamienMcKenna: Rename variables to use $entity_id instead of $id
+  and $entity_type instead of $type.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

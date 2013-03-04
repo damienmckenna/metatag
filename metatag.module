@@ -298,32 +298,32 @@ function metatag_config_cache_clear() {
 /**
  * Load an entity's tags.
  *
- * @param $type
+ * @param $entity_type
  *   The entity type to load
- * @param $id
+ * @param $entity_id
  *   The ID of the entity to load
  * @return
  *   An array of tag data keyed by language.
  */
-function metatag_metatags_load($type, $id) {
-  $metatags = metatag_metatags_load_multiple($type, array($id));
+function metatag_metatags_load($entity_type, $entity_id) {
+  $metatags = metatag_metatags_load_multiple($entity_type, array($entity_id));
   return !empty($metatags) ? reset($metatags) : array();
 }
 
 /**
  * Load tags for multiple entities.
  *
- * @param $type
+ * @param $entity_type
  *   The entity type to load
- * @param $ids
+ * @param $entity_ids
  *   The list of entity IDs
  * @return
  *   An array of tag data, keyed by ID.
  */
-function metatag_metatags_load_multiple($type, array $ids) {
+function metatag_metatags_load_multiple($entity_type, array $entity_ids) {
   // Double check entity IDs are numeric thanks to Entity API module.
-  $ids = array_filter($ids, 'is_numeric');
-  if (empty($ids)) {
+  $entity_ids = array_filter($entity_ids, 'is_numeric');
+  if (empty($entity_ids)) {
     return array();
   }
 
@@ -341,8 +341,8 @@ function metatag_metatags_load_multiple($type, array $ids) {
 
   // Get all translations of tag data for this entity.
   $result = db_query("SELECT entity_id, data, language FROM {metatag} WHERE (entity_type = :type) AND (entity_id IN (:ids))", array(
-    ':type' => $type,
-    ':ids' => $ids,
+    ':type' => $entity_type,
+    ':ids' => $entity_ids,
   ));
 
   // Marshal it into an array keyed by entity ID. Each value is an array of
@@ -358,23 +358,23 @@ function metatag_metatags_load_multiple($type, array $ids) {
 /**
  * Save an entity's tags.
  *
- * @param $type
+ * @param $entity_type
  *   The entity type to load
- * @param $id
+ * @param $entity_id
  *   The entity's ID
  * @param $metatags
  *   All of the tag information
  * @param $language
  *   The language of the translation set
  */
-function metatag_metatags_save($type, $id, $metatags, $language) {
+function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
   // If no language assigned, use the has-no-language language.
   if (!$language) {
     $language = LANGUAGE_NONE;
   }
 
-  // Check that $id is numeric because of Entity API and string IDs.
-  if (!is_numeric($id)) {
+  // Check that $entity_id is numeric because of Entity API and string IDs.
+  if (!is_numeric($entity_id)) {
     return;
   }
 
@@ -391,15 +391,15 @@ function metatag_metatags_save($type, $id, $metatags, $language) {
   // hook_metatag_presave().
   foreach (module_implements('metatag_presave') as $module) {
     $function = "{$module}_metatag_presave";
-    $function($metatags, $type, $id, $language);
+    $function($metatags, $entity_type, $entity_id, $language);
   }
 
   if (empty($metatags)) {
     // If the data array is empty, there is no data to actually save, so
     // just delete the record from the database.
     db_delete('metatag')
-      ->condition('entity_type', $type)
-      ->condition('entity_id', $id)
+      ->condition('entity_type', $entity_type)
+      ->condition('entity_id', $entity_id)
       ->condition('language', $language)
       ->execute();
   }
@@ -407,8 +407,8 @@ function metatag_metatags_save($type, $id, $metatags, $language) {
     // Otherwise save the data for this entity.
     db_merge('metatag')
       ->key(array(
-        'entity_type' => $type,
-        'entity_id' => $id,
+        'entity_type' => $entity_type,
+        'entity_id' => $entity_id,
         'language' => $language,
       ))
       ->fields(array(
@@ -418,50 +418,50 @@ function metatag_metatags_save($type, $id, $metatags, $language) {
   }
 
   // Clear cached data.
-  metatag_metatags_cache_clear($type, $id);
+  metatag_metatags_cache_clear($entity_type, $entity_id);
 }
 
 /**
  * Delete an entity's tags.
  *
- * @param $type
+ * @param $entity_type
  *   The entity type
- * @param $id
+ * @param $entity_id
  *   The entity's ID
  * @param $langcode
  *   The language ID of the entry to delete.  If left blank, all language
  *   entries for this entity will be deleted.
  */
-function metatag_metatags_delete($type, $id, $langcode = NULL) {
-  return metatag_metatags_delete_multiple($type, array($id), $langcode);
+function metatag_metatags_delete($entity_type, $entity_id, $langcode = NULL) {
+  return metatag_metatags_delete_multiple($entity_type, array($entity_id), $langcode);
 }
 
 /**
  * Delete multiple entities' tags.
  *
- * @param $type
+ * @param $entity_type
  *   The entity type
- * @param $ids
+ * @param $entity_ids
  *   The list of IDs
  * @param $langcode
  *   The language ID of the entities to delete.  If left blank, all language
  *   entries for the enities will be deleted.
  */
-function metatag_metatags_delete_multiple($type, array $ids, $langcode = NULL) {
+function metatag_metatags_delete_multiple($entity_type, array $entity_ids, $langcode = NULL) {
   // Double check entity IDs are numeric thanks to Entity API module.
-  $ids = array_filter($ids, 'is_numeric');
+  $entity_ids = array_filter($entity_ids, 'is_numeric');
 
-  if ($metatags = metatag_metatags_load_multiple($type, $ids)) {
+  if ($metatags = metatag_metatags_load_multiple($entity_type, $entity_ids)) {
     $transaction = db_transaction();
     try {
       // Let other modules know about the records being deleted using
       // hook_metatag_metatags_delete().
-      module_invoke_all('metatag_metatags_delete', $type, $ids, $langcode);
+      module_invoke_all('metatag_metatags_delete', $entity_type, $entity_ids, $langcode);
 
       // Set the entity to delete.
       $query = db_delete('metatag')
-        ->condition('entity_type', $type)
-        ->condition('entity_id', $ids, 'IN');
+        ->condition('entity_type', $entity_type)
+        ->condition('entity_id', $entity_ids, 'IN');
 
       // Specify a language if there is one.
       if ($langcode) {
@@ -472,7 +472,7 @@ function metatag_metatags_delete_multiple($type, array $ids, $langcode = NULL) {
       $query->execute();
 
       // Clear cached data.
-      metatag_metatags_cache_clear($type, $ids);
+      metatag_metatags_cache_clear($entity_type, $entity_ids);
     }
     catch (Exception $e) {
       $transaction->rollback();
@@ -482,14 +482,14 @@ function metatag_metatags_delete_multiple($type, array $ids, $langcode = NULL) {
   }
 }
 
-function metatag_metatags_cache_clear($type, $id = NULL) {
-  if (empty($id)) {
-    cache_clear_all("output:$type", 'cache_metatag', TRUE);
+function metatag_metatags_cache_clear($entity_type, $entity_id = NULL) {
+  if (empty($entity_id)) {
+    cache_clear_all("output:$entity_type", 'cache_metatag', TRUE);
   }
   else {
-    $ids = (array) $id;
-    foreach ($ids as $id) {
-      cache_clear_all("output:$type:$id", 'cache_metatag', TRUE);
+    $entity_ids = (array) $entity_id;
+    foreach ($entity_ids as $entity_id) {
+      cache_clear_all("output:$entity_type:$entity_id", 'cache_metatag', TRUE);
     }
   }
 }
@@ -497,19 +497,19 @@ function metatag_metatags_cache_clear($type, $id = NULL) {
 /**
  * Implements hook_entity_load().
  */
-function metatag_entity_load($entities, $type) {
+function metatag_entity_load($entities, $entity_type) {
   // Wrap this in a try-catch block to work around occasions when the schema
   // hasn't been updated yet.
   try {
-    if (metatag_entity_supports_metatags($type)) {
-      $metatags = metatag_metatags_load_multiple($type, array_keys($entities));
-      foreach ($entities as $id => $entity) {
-        $entities[$id]->metatags = isset($metatags[$id]) ? $metatags[$id] : array();
+    if (metatag_entity_supports_metatags($entity_type)) {
+      $metatags = metatag_metatags_load_multiple($entity_type, array_keys($entities));
+      foreach ($entities as $entity_id => $entity) {
+        $entities[$entity_id]->metatags = isset($metatags[$entity_id]) ? $metatags[$entity_id] : array();
       }
     }
   }
   catch (Exception $e) {
-    watchdog('metatag', 'Error loading meta tag data, do the <a href="@update">database updates</a> need to be run? The error occurred when loading record(s) %ids for the %type entity type. The error message was: %error', array('@update' => base_path() . 'update.php', '%ids' => implode(', ', array_keys($entities)), '%type' => $type, '%error' => $e->getMessage()), WATCHDOG_CRITICAL);
+    watchdog('metatag', 'Error loading meta tag data, do the <a href="@update">database updates</a> need to be run? The error occurred when loading record(s) %ids for the %type entity type. The error message was: %error', array('@update' => base_path() . 'update.php', '%ids' => implode(', ', array_keys($entities)), '%type' => $entity_type, '%error' => $e->getMessage()), WATCHDOG_CRITICAL);
     // Don't display the same message twice for Drush.
     if (php_sapi_name() != 'cli') {
       drupal_set_message(t('Error loading meta tag data, do the <a href="@update">database updates</a> need to be run?', array('@update' => base_path() . 'update.php')), 'error');
@@ -522,12 +522,12 @@ function metatag_entity_load($entities, $type) {
  */
 function metatag_entity_insert($entity, $entity_type) {
   if (isset($entity->metatags)) {
-    list($id) = entity_extract_ids($entity_type, $entity);
+    list($entity_id) = entity_extract_ids($entity_type, $entity);
 
     // Determine the entity's language.
     $language = metatag_entity_get_language($entity_type, $entity);
 
-    metatag_metatags_save($entity_type, $id, $entity->metatags, $language);
+    metatag_metatags_save($entity_type, $entity_id, $entity->metatags, $language);
   }
 }
 
@@ -570,8 +570,8 @@ function metatag_entity_update($entity, $entity_type) {
  * Implements hook_entity_delete().
  */
 function metatag_entity_delete($entity, $entity_type) {
-  list($id) = entity_extract_ids($entity_type, $entity);
-  metatag_metatags_delete($entity_type, $id);
+  list($entity_id) = entity_extract_ids($entity_type, $entity);
+  metatag_metatags_delete($entity_type, $entity_id);
 }
 
 /**
@@ -584,12 +584,12 @@ function metatag_field_attach_delete_revision($entity_type, $entity) {
 /**
  * Implements hook_taxonomy_term_view_alter().
  */
-function metatag_taxonomy_term_view_alter(&$build, &$type) {
+function metatag_taxonomy_term_view_alter(&$build, &$entity_type) {
   // This is only needed if hook_entity_view has not been added to core.
   // @see http://drupal.org/node/1067120
   if (isset($build['#term']) && !function_exists('taxonomy_term_view_multiple')) {
     $entity = taxonomy_term_load($build['#term']->tid);
-    metatag_entity_view($entity, $type, 'full', NULL);
+    metatag_entity_view($entity, $entity_type, 'full', NULL);
   }
 }
 
@@ -950,30 +950,30 @@ function metatag_entity_has_metatags($entity_type, $entity) {
  * entity.
  */
 function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
-  $types = &drupal_static(__FUNCTION__);
+  $entity_types = &drupal_static(__FUNCTION__);
 
-  if (!isset($types)) {
-    $types = array();
+  if (!isset($entity_types)) {
+    $entity_types = array();
     foreach (entity_get_info() as $entity_type_key => $entity_info) {
       if (empty($entity_info['metatags'])) {
-        $types[$entity_type_key] = FALSE;
+        $entity_types[$entity_type_key] = FALSE;
         continue;
       }
-      $types[$entity_type_key] = array();
+      $entity_types[$entity_type_key] = array();
       foreach ($entity_info['bundles'] as $bundle_key => $bundle_info) {
-        $types[$entity_type_key][$bundle_key] = !isset($bundle_info['metatags']) || !empty($bundle_info['metatags']);
+        $entity_types[$entity_type_key][$bundle_key] = !isset($bundle_info['metatags']) || !empty($bundle_info['metatags']);
       }
     }
   }
 
   if (isset($entity_type) && isset($bundle)) {
-    return isset($types[$entity_type][$bundle]) ? $types[$entity_type][$bundle] : FALSE;
+    return isset($entity_types[$entity_type][$bundle]) ? $entity_types[$entity_type][$bundle] : FALSE;
   }
   elseif (isset($entity_type)) {
-    return isset($types[$entity_type]) ? ($types[$entity_type] !== FALSE) : FALSE;
+    return isset($entity_types[$entity_type]) ? ($entity_types[$entity_type] !== FALSE) : FALSE;
   }
 
-  return $types;
+  return $entity_types;
 }
 
 /**
@@ -1121,7 +1121,7 @@ function metatag_page_build(&$page) {
 /**
  * Returns whether the current page is the page of the passed in entity.
  *
- * @param $type
+ * @param $entity_type
  *    The entity type; e.g. 'node' or 'user'.
  * @param $entity
  *    The entity object.
@@ -1130,8 +1130,8 @@ function metatag_page_build(&$page) {
  *   TRUE if the current page is the page of the specified entity, or FALSE
  *   otherwise.
  */
-function _metatag_entity_is_page($type, $entity) {
-  $uri = entity_uri($type, $entity);
+function _metatag_entity_is_page($entity_type, $entity) {
+  $uri = entity_uri($entity_type, $entity);
   return !empty($uri['path']) && current_path() == $uri['path'];
 }
 

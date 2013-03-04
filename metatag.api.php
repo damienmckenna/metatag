@@ -123,7 +123,7 @@ function hook_metatag_config_default_alter(&$config) {
 /**
  * 
  */
-function hook_metatag_config_delete($type, $ids) {
+function hook_metatag_config_delete($entity_type, $entity_ids) {
 }
 
 /**
@@ -215,5 +215,5 @@ function hook_metatag_page_cache_cid_parts_alter(&$cid_parts) {
 /**
  * 
  */
-function hook_metatag_presave(&$metatags, $type, $id) {
+function hook_metatag_presave(&$metatags, $entity_type, $entity_id) {
 }
