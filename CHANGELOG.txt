@@ -64,6 +64,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   Entity_Translation.
 #1876042 by DamienMcKenna: Rename variables to use $entity_id instead of $id
   and $entity_type instead of $type.
+#1859136 by splatio, DamienMcKenna, multpix: Feeds integration - allow meta tag
+  fields to be the target for data imported using the Feeds module.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
