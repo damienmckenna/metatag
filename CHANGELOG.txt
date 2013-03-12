@@ -67,6 +67,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1859136 by splatio, DamienMcKenna, multpix: Feeds integration - allow meta tag
   fields to be the target for data imported using the Feeds module.
 #1880302 by olli, DamienMcKenna: Resolve problems with Features integration.
+#1923030 by krlucas, DamienMcKenna: Only run metatag_entity_update() on
+  supported entities.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
