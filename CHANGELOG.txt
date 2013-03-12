@@ -69,6 +69,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1880302 by olli, DamienMcKenna: Resolve problems with Features integration.
 #1923030 by krlucas, DamienMcKenna: Only run metatag_entity_update() on
   supported entities.
+#1844638 by DamienMcKenna, mikeytown2: Remove unnecessary duplicate {metatag}
+  records, fix language values for all entities.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
