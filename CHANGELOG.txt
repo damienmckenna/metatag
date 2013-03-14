@@ -71,6 +71,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   supported entities.
 #1844638 by DamienMcKenna, mikeytown2: Remove unnecessary duplicate {metatag}
   records, fix language values for all entities.
+#1935084 by DamienMcKenna: Remove unnecessary items from metatag_hook_info()
+  that was causing problems with PHP 5.4.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

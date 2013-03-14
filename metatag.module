@@ -53,7 +53,7 @@ function metatag_ctools_plugin_api($owner, $api) {
  * Implements hook_hook_info().
  */
 function metatag_hook_info() {
-  $hooks_metatag = array(
+  $hooks = array(
     'metatag_config_default',
     'metatag_config_default_alter',
     'metatag_config_delete',
@@ -66,16 +66,8 @@ function metatag_hook_info() {
     'metatag_info',
     'metatag_info_alter',
   );
-  $hooks_metatag = array_fill_keys($hooks_metatag, array('group' => 'metatag'));
 
-  $hooks_entity_translation = array(
-    'entity_translation_insert',
-    'entity_translation_update',
-    'entity_translation_delete',
-  );
-  $hooks_entity_translation = array_fill_keys($hooks_entity_translation, array('group' => 'entity_translation'));
-
-  return $hooks_metatag + $hooks_entity_translation;
+  return array_fill_keys($hooks, array('group' => 'metatag'));
 }
 
 /**
