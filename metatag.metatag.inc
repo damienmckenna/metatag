@@ -158,6 +158,13 @@ function metatag_metatag_info() {
     'group' => 'advanced',
   );
 
+  $info['tags']['news_keywords'] = array(
+    'label' => t('Google News Keywords'),
+    'description' => t('A comma-separated list of keywords about the page. This meta tag is used as an indicator in <a href="@google_news">Google News</a>.', array('@google_news' => 'http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297')),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+  );
+
   $info['tags']['generator'] = array(
     'label' => t('Generator'),
     'description' => t("Describes the name and version number of the software or publishing tool used to create the page."),

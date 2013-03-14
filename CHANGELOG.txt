@@ -73,6 +73,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   records, fix language values for all entities.
 #1935084 by DamienMcKenna: Remove unnecessary items from metatag_hook_info()
   that was causing problems with PHP 5.4.
+#1791720 by kbasarab: Added the news_keywords meta tag.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
