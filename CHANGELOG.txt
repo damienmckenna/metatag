@@ -74,6 +74,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1935084 by DamienMcKenna: Remove unnecessary items from metatag_hook_info()
   that was causing problems with PHP 5.4.
 #1791720 by kbasarab: Added the news_keywords meta tag.
+#1934492 by juampy, DamienMcKenna: Added a page for reverting meta tags for
+  specific entity or bundle.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

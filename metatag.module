@@ -14,6 +14,10 @@ function metatag_help($path, $arg) {
   elseif ($path == 'admin/help#metatag') {
     return '<p>' . t('The Meta tags module provides a options to let each page have customized meta data added to the "meta" tags in the HEAD section of the document.') . '</p>';
   }
+  elseif ($path == 'admin/config/search/metatags/bulk-revert') {
+    return '<p>' . t('This form <strong>will wipe out</strong> all custom meta tags for the selected entities, reverting them to the default configuration assigned at the <a href="@url">Defaults tab</a>. For example, if the meta tags are changed for an article they will be removed if the "Node: Article" checkbox is selected.', array('@url' => url('admin/config/search/metatags'))) . '</p>';
+  }
+
 }
 
 /**
@@ -164,6 +168,15 @@ function metatag_menu() {
     'file' => 'metatag.admin.inc',
     'type' => MENU_LOCAL_TASK,
     'weight' => 10,
+  );
+  $items['admin/config/search/metatags/bulk-revert'] = array(
+    'title' => 'Bulk revert',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('metatag_bulk_revert_form'),
+    'access arguments' => array('administer meta tags'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 30,
+    'file' => 'metatag.admin.inc',
   );
 
   return $items;
