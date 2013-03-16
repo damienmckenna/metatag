@@ -86,6 +86,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   all pages, enabled by default.
 #1871798 by mstrelan: Clear the Context plugin cache when metatag_context is
   enabled so that the new plugin becomes available.
+#1932192 by DamienMcKenna: Only run metatag_entity_view() once.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
