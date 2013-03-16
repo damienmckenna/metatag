@@ -89,6 +89,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1932192 by DamienMcKenna: Only run metatag_entity_view() once.
 #1900434 by Dustin Currie, j0rd, DamienMcKenna: Added several new OpenGraph meta
   tags, including ones for videos, location and contact information.
+#1883118 by DamienMcKenna: Improve the help message on Metatag:Context's Path
+  field as neither relative nor absolute URLs will work.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
