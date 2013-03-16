@@ -1125,6 +1125,38 @@ function metatag_page_build(&$page) {
   else {
     $page['content']['metatags'] += metatag_page_get_metatags();
   }
+
+  // If no meta tags were loaded, and this is not an admin path, at least load
+  // the global defaults. This may be disabled, see README.txt for details.
+  if (empty($page['content']['metatags']) && variable_get('metatag_load_all_pages', TRUE) && !path_is_admin(current_path())) {
+    $instance = 'global';
+
+    // These two parts are sufficient given that the homepage is unique.
+    $cid_parts = array(
+      'langcode' => $GLOBALS['language_content']->language,
+      'url' => $GLOBALS['base_url'] . $_SERVER['REQUEST_URI'],
+    );
+
+    // Allow each page in a sequence to have different values.
+    if (isset($_GET['page'])) {
+      $cid_parts['page'] = $_GET['page'];
+    }
+
+    // Allow other modules to customize the data using
+    // hook_metatag_page_cache_cid_parts_alter().
+    drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
+
+    $cid = "output:{$instance}:" . hash('sha256', serialize($cid_parts));
+
+    if ($cache = cache_get($cid, 'cache_metatag')) {
+      $metatags = $cache->data;
+    }
+    else {
+      $metatags = metatag_metatags_view($instance, array());
+      cache_set($cid, $metatags, 'cache_metatag');
+    }
+    $page['content']['metatags'][$instance] = $metatags;
+  }
 }
 
 /**

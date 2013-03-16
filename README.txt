@@ -62,6 +62,19 @@ Configuration
     the defaults be updated.
 
 
+Fine Tuning
+------------------------------------------------------------------------------
+* By default Metatag will load the global default values for all pages that do
+  not have meta tags assigned via the normal entity display or via Metatag
+  Context. This may be disabled by setting the variable 'metatag_load_all_pages'
+  to FALSE through one of the following methods:
+  * Use Drush to set the value:
+    drush vset metatag_load_all_pages FALSE
+  * Hardcode the value in the site's settings.php file:
+    $conf['metatag_load_all_pages'] = FALSE;
+  To re-enable this option simply set the value to TRUE.
+
+
 Developers
 ------------------------------------------------------------------------------
 Full API documentation is available in metatag.api.php.
