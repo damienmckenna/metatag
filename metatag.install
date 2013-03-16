@@ -686,3 +686,38 @@ function _metatag_remove_dupes($entity_type) {
     return;
   }
 }
+
+/**
+ * Fix {metatag} records that may have been corrupted by #1871020.
+ */
+function metatag_update_7014() {
+  $records = db_query("SELECT *
+  FROM metatag m
+  WHERE
+       m.`data` LIKE :nolang
+    OR m.`data` LIKE :lang
+    OR m.`data` LIKE :und",
+    array(
+      ':nolang' => 'a:1:{s:0:"";a:%:{s:%;a:%:{%;}}}',
+      ':lang' => 'a:1:{s:2:"__";a:%:{s:%;a:%:{%;}}}',
+      ':und' => 'a:1:{s:3:"___";a:%:{s:%;a:%:{%;}}}',
+    ));
+
+  // Nothing to fix.
+  if ($records->rowCount() == 0) {
+    drupal_set_message(t('No corrupt records to fix, this is good news :-)'));
+  }
+
+  // Fix the faulty records.
+  else {
+    foreach ($records as $record) {
+      // Extract the data and get the first element of the array, this should be
+      // valid data.
+      $record->data = reset(unserialize($record->data));
+
+      // Update the record.
+      drupal_write_record('metatag', $record, array('entity_type', 'entity_id', 'language'));
+    }
+    drupal_set_message(t('Fixed @count corrupt meta tag record(s).', array('@count' => $records->rowCount())));
+  }
+}

@@ -80,6 +80,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   the $page['content'] variable.
 #1917902 by DamienMcKenna: Ensure strings returned from token replacement of
   text fields ([node:summary]) is passed through the appropriate text filters.
+#1919070 by DamienMcKenna: Fix any records that may have been corrupted by e.g.
+  #1871020.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
