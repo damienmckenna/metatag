@@ -71,8 +71,14 @@ the entity or bundle definition in hook_entity_info(); see metatag.api.php for
 further details and example code.
 
 
-Known Issues
+Troubleshooting / Known Issues
 ------------------------------------------------------------------------------
+* When using custom page template files, e.g. page--front.tpl.php, it is
+  important to ensure that the following code is present in the template file:
+    <?php render($page['content']); ?>
+  or
+    <?php render($page['content']['metatags']); ?>
+  Without one of these being present the meta tags will not be displayed.
 * Versions of Drupal older than v7.17 were missing necessary functionality for
   taxonomy term pages to work correctly.
 * Using Metatag with values assigned for the page title and the Page Title

@@ -76,6 +76,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1791720 by kbasarab: Added the news_keywords meta tag.
 #1934492 by juampy, DamienMcKenna: Added a page for reverting meta tags for
   specific entity or bundle.
+#1386320: Note a known issue of using custom template files that do not output
+  the $page['content'] variable.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
