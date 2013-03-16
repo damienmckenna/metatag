@@ -97,7 +97,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     $options += array(
       'token data' => array(),
       'clear' => TRUE,
-      'sanitize' => FALSE,
+      'sanitize' => TRUE,
       'raw' => FALSE,
     );
 
