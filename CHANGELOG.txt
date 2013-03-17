@@ -91,6 +91,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   tags, including ones for videos, location and contact information.
 #1883118 by DamienMcKenna: Improve the help message on Metatag:Context's Path
   field as neither relative nor absolute URLs will work.
+#1945114 by SergO, DamienMcKenna: A query from #1919070 was missing the
+  preproccess wrapper around the table name.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

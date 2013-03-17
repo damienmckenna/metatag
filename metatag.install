@@ -692,7 +692,7 @@ function _metatag_remove_dupes($entity_type) {
  */
 function metatag_update_7014() {
   $records = db_query("SELECT *
-  FROM metatag m
+  FROM {metatag} m
   WHERE
        m.`data` LIKE :nolang
     OR m.`data` LIKE :lang
