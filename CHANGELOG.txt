@@ -93,6 +93,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   field as neither relative nor absolute URLs will work.
 #1945114 by SergO, DamienMcKenna: A query from #1919070 was missing the
   preproccess wrapper around the table name.
+#1908586 by DamienMcKenna: Added a line to README.txt explaining how to
+  customize the tokens used to generate the meta tags.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

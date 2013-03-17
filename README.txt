@@ -61,6 +61,13 @@ Configuration
     values that are not overridden per object will automatically update should
     the defaults be updated.
 
+ 4. As the meta tags are output using Tokens, it may be necessary to customize
+    the token display for the site's entities (content types, vocabularies,
+    etc). To do this go to e.g. admin/structure/types/manage/article/display, in
+    the "Custom Display Settings" section ensure that "Tokens" is checked (save
+    the form if necessary), then to customize the tokens go to:
+    admin/structure/types/manage/article/display/token
+
 
 Fine Tuning
 ------------------------------------------------------------------------------
