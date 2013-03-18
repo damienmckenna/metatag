@@ -95,6 +95,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   preproccess wrapper around the table name.
 #1908586 by DamienMcKenna: Added a line to README.txt explaining how to
   customize the tokens used to generate the meta tags.
+#1350610 by DamienMcKenna: metatag_update_7001 needed to drop the primary key
+  before customizing it.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17

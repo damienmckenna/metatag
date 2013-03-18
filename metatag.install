@@ -204,16 +204,24 @@ function metatag_update_7000() {
 }
 
 /**
- * Fix the {metatag_config}.cid column cannot be NULL.
+ * Fix the "{metatag_config}.cid column cannot be NULL" error.
  */
 function metatag_update_7001() {
-  $field = array(
+  $table_name = 'metatag_config';
+  $field_name = 'cid';
+  $field_spec = array(
     'type' => 'serial',
     'unsigned' => TRUE,
     'not null' => TRUE,
     'description' => 'The primary identifier for a metatag configuration set.',
   );
-  db_change_field('metatag_config', 'cid', 'cid', $field);
+  $keys = array('primary key' => array($field_name));
+
+  // Before making any changes, drop the existing primary key.
+  db_drop_primary_key($table_name);
+
+  // Rejig the field, and turn on the primary key again.
+  db_change_field($table_name, $field_name, $field_name, $field_spec, $keys);
 }
 
 /**
@@ -239,7 +247,7 @@ function metatag_update_7003() {
   // Don't add the new field if it already exists.
   if (!db_field_exists($table_name, $field_name)) {
     // Describe the new field.
-    $field_definition = array(
+    $field_spec = array(
       'type' => 'varchar',
       'length' => 32,
       'not null' => TRUE,
@@ -248,7 +256,7 @@ function metatag_update_7003() {
     );
 
     // Add it and update the primary key.
-    db_add_field($table_name, $field_name, $field_definition);
+    db_add_field($table_name, $field_name, $field_spec);
     db_drop_primary_key($table_name);
     db_add_primary_key($table_name, array('entity_type', 'entity_id', 'language'));
   }
