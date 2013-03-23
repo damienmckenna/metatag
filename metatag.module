@@ -389,7 +389,14 @@ function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
   // TODO: Solve the core problem, which will probably entail something
   // similar to http://drupal.org/node/1876034.
   if (isset($metatags[$language])) {
-    $metatags = $metatags[$language];
+    // There are certain occasions when the old data and the new data are
+    // *both* added to the $metatags array, in this case throw away the language
+    // data.
+    $lang_data = $metatags[$language];
+    unset($metatags[$language]);
+    if (empty($metatags)) {
+      $metatags = $lang_data;
+    }
   }
 
   // Allow other modules to alter the meta tags prior to saving using
