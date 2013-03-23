@@ -608,13 +608,15 @@ function metatag_taxonomy_term_view_alter(&$build, &$entity_type) {
 function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
   // Only run this function once per page load.
   static $i_will_say_this_only_once = FALSE;
-  if ($i_will_say_this_only_once) {
-    return;
-  }
-  $i_will_say_this_only_once = TRUE;
 
   // Only proceed if this entity object is the page being viewed.
   if (_metatag_entity_is_page($entity_type, $entity)) {
+    // Only run this function once per page load.
+    if ($i_will_say_this_only_once) {
+      return;
+    }
+    $i_will_say_this_only_once = TRUE;
+
     // If this entity object isn't allowed meta tags, skip it.
     if (!metatag_entity_has_metatags($entity_type, $entity)) {
       return;

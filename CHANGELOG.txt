@@ -86,7 +86,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   all pages, enabled by default.
 #1871798 by mstrelan: Clear the Context plugin cache when metatag_context is
   enabled so that the new plugin becomes available.
-#1932192 by DamienMcKenna: Only run metatag_entity_view() once.
+#1932192 by DamienMcKenna: Only run metatag_entity_view() once per page view.
 #1900434 by Dustin Currie, j0rd, DamienMcKenna: Added several new OpenGraph meta
   tags, including ones for videos, location and contact information.
 #1883118 by DamienMcKenna: Improve the help message on Metatag:Context's Path
