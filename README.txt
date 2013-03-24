@@ -110,6 +110,8 @@ Troubleshooting / Known Issues
 * When customizing the meta tags for user pages, it is strongly recommended to
   not use the [current-user] tokens, these pertain to the person *viewing* the
   page and not e.g. the person who authored a page.
+* If images being displayed in image tags need to be resized to fit a specific
+  requirements, use the Imagecache Token module to customize the value.
 
 
 Related modules
@@ -125,6 +127,11 @@ Some modules are available that extend Metatag with additional functionality:
   http://drupal.org/project/select_or_other
   Enhances the user experience of the metatag_opengraph submodule by allowing
   the creation of custom Open Graph types.
+
+* Imagecache Token
+  http://drupal.org/project/imagecache_token
+  Provide tokens to load fields using an image style preset, for when meta tags
+  need to fix exact requirements.
 
 
 Credits / Contact
