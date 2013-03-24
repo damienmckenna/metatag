@@ -107,6 +107,9 @@ Troubleshooting / Known Issues
   empty on node pages, so using [current-page:title] will work around the
   issue. Note: it isn't possible to "fix" this as it's a by-product of what
   Exclude Node Title does - it removes the node title from display.
+* When customizing the meta tags for user pages, it is strongly recommended to
+  not use the [current-user] tokens, these pertain to the person *viewing* the
+  page and not e.g. the person who authored a page.
 
 
 Related modules

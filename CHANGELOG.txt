@@ -99,6 +99,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   before customizing it.
 #1859136 by DamienMcKenna: Fixed scenarios when updating an entity there are two
   copies of the data submitted, e.g. Feeds integration.
+#1308790 by DamienMcKenna: Document that [current-user] tokens should not be
+  used.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
