@@ -112,6 +112,13 @@ Troubleshooting / Known Issues
   page and not e.g. the person who authored a page.
 * If images being displayed in image tags need to be resized to fit a specific
   requirements, use the Imagecache Token module to customize the value.
+* Certain browser plugins, e.g. on Chrome, can cause the page title so be
+  displayed with additional doublequotes, e.g. instead of:
+    <title>The page title | My cool site</title>
+  it will show:
+    <title>"The page title | My cool site"</title>
+  The solution is to remove the browser plugin - the page's actual output is not
+  affected, it is just a problem in the browser.
 
 
 Related modules

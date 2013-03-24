@@ -103,6 +103,9 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   used.
 #1318294 by DamienMcKenna: Documented how to use Imagecache Token to resize
   images that are being used as tokens for meta tags.
+#1871534 by DamienMcKenna: Documented how some browser plugins can make the page
+  title appear to be wrapped with doublequotes though the output doesn't
+  actually show them.
 
 
 Metatag 7.x-1.0-beta4, 2012-11-17
