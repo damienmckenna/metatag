@@ -337,14 +337,17 @@ function metatag_update_7007() {
     drupal_set_message(t('Removed @count meta tag record(s) for users that had been purged.', array('@count' => $result->rowCount())));
   }
 
-  $result = db_query("DELETE m
-    FROM {metatag} m
-    LEFT OUTER JOIN {taxonomy_term_data} t
-    	ON m.entity_id=t.tid
-    WHERE m.entity_type='taxonomy_term'
-    	AND t.tid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $result->rowCount())));
+  // Only run this if the Taxonomy module is enabled.
+  if (module_exists('taxonomy')) {
+    $result = db_query("DELETE m
+      FROM {metatag} m
+      LEFT OUTER JOIN {taxonomy_term_data} t
+      	ON m.entity_id=t.tid
+      WHERE m.entity_type='taxonomy_term'
+      	AND t.tid IS NULL");
+    if ($result->rowCount() > 0) {
+      drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $result->rowCount())));
+    }
   }
 }
 
@@ -362,8 +365,10 @@ function metatag_update_7008() {
  * Fix {metatag} records for taxonomy terms.
  */
 function metatag_update_7009() {
-  // Remove duplicates.
-  _metatag_remove_dupes('taxonomy_term');
+  if (module_exists('taxonomy')) {
+    // Remove duplicates.
+    _metatag_remove_dupes('taxonomy_term');
+  }
 
   // The taxonomy term entity doesn't support a 'language' option, so reset it
   // to LANGUAGE_NONE.
