@@ -317,36 +317,66 @@ function metatag_update_7006() {
  * of Metatag may have failed to purge these.
  */
 function metatag_update_7007() {
-  $result = db_query("DELETE m
+  $nodes = db_query("SELECT m.entity_id
     FROM {metatag} m
     LEFT OUTER JOIN {node} n
     	ON m.entity_id=n.nid
     WHERE m.entity_type='node'
-    	AND n.nid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for nodes that had been purged.', array('@count' => $result->rowCount())));
+    	AND n.nid IS NULL")
+    ->fetchCol();
+  if (count($nodes) > 0) {
+    $deleted = db_delete('metatag')
+      ->condition('entity_type', 'node')
+      ->condition('entity_id', $nodes)
+      ->execute();
+    if ($deleted > 0) {
+      drupal_set_message(t('Removed @count meta tag record(s) for nodes that had been purged.', array('@count' => $deleted)));
+    }
+    else {
+      drupal_set_message(t('There were no meta tag records to purge for removed nodes. This is a good thing :)'));
+    }
   }
 
-  $result = db_query("DELETE m
+  $users = db_query("SELECT m.entity_id
     FROM {metatag} m
     LEFT OUTER JOIN {users} u
     	ON m.entity_id=u.uid
     WHERE m.entity_type='user'
-    	AND u.uid IS NULL");
-  if ($result->rowCount() > 0) {
-    drupal_set_message(t('Removed @count meta tag record(s) for users that had been purged.', array('@count' => $result->rowCount())));
+    	AND u.uid IS NULL")
+    ->fetchCol();
+  if (count($users) > 0) {
+    $deleted = db_delete('metatag')
+      ->condition('entity_type', 'user')
+      ->condition('entity_id', $users)
+      ->execute();
+    if ($deleted > 0) {
+      drupal_set_message(t('Removed @count meta tag record(s) for users that had been purged.', array('@count' => $deleted)));
+    }
+    else {
+      drupal_set_message(t('There were no meta tag records to purge for removed users. This is a good thing :)'));
+    }
   }
 
   // Only run this if the Taxonomy module is enabled.
   if (module_exists('taxonomy')) {
-    $result = db_query("DELETE m
+    $terms = db_query("SELECT m.entity_id
       FROM {metatag} m
       LEFT OUTER JOIN {taxonomy_term_data} t
       	ON m.entity_id=t.tid
       WHERE m.entity_type='taxonomy_term'
-      	AND t.tid IS NULL");
-    if ($result->rowCount() > 0) {
-      drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $result->rowCount())));
+      	AND t.tid IS NULL")
+      ->fetchCol();
+    if (count($terms) > 0) {
+      $deleted = db_delete('metatag')
+        ->condition('entity_type', 'taxonomy_term')
+        ->condition('entity_id', $terms)
+        ->execute();
+      if ($deleted > 0) {
+        drupal_set_message(t('Removed @count meta tag record(s) for taxonomy terms that had been purged.', array('@count' => $deleted)));
+      }
+      else {
+        drupal_set_message(t('There were no meta tag records to purge for removed taxonomy terms. This is a good thing :)'));
+      }
     }
   }
 }
@@ -355,7 +385,7 @@ function metatag_update_7007() {
  * Remove any empty records that may be hanging around from old releases.
  */
 function metatag_update_7008() {
-  $result = db_query("DELETE m FROM {metatag} m WHERE m.data IS NULL or m.data = '' OR m.data = :empty", array(':empty' => serialize(array())));
+  $result = db_query("DELETE FROM {metatag} m WHERE m.data IS NULL OR m.data = '' OR m.data = :empty", array(':empty' => serialize(array())));
   if ($result->rowCount() > 0) {
     drupal_set_message(t('Purged @count empty meta tag record(s).', array('@count' => $result->rowCount())));
   }
@@ -586,7 +616,7 @@ function _metatag_remove_dupes($entity_type) {
     WHERE
       m.entity_type = :type
     GROUP BY m.entity_id
-    HAVING the_count > 1", array(':type' => $entity_type));
+    HAVING count(m.language) > 1", array(':type' => $entity_type));
 
   if (!empty($dupe_records)) {
     foreach ($dupe_records as $record) {
@@ -707,9 +737,9 @@ function metatag_update_7014() {
   $records = db_query("SELECT *
   FROM {metatag} m
   WHERE
-       m.`data` LIKE :nolang
-    OR m.`data` LIKE :lang
-    OR m.`data` LIKE :und",
+       m.data LIKE :nolang
+    OR m.data LIKE :lang
+    OR m.data LIKE :und",
     array(
       ':nolang' => 'a:1:{s:0:"";a:%:{s:%;a:%:{%;}}}',
       ':lang' => 'a:1:{s:2:"__";a:%:{s:%;a:%:{%;}}}',

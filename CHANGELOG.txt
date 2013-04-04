@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1953724 by DamienMcKenna, wiifm, twistor: PostgreSQL compatibility for recent
+  updates.
 #1295524 by DamienMcKenna: Temporary fix for the [node:summary] token not
   working.
 #1952190 by DamienMcKenna: Only run queries involving taxonomy data if the
