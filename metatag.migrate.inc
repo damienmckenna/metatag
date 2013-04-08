@@ -9,7 +9,14 @@
  * Implements hook_migrate_api().
  */
 function metatag_migrate_api() {
-  return array('api' => 2);
+  $api = array(
+    'api' => 2,
+    'destination handlers' => array(
+      'MigrateMetatagHandler',
+    ),
+  );
+
+  return $api;
 }
 
 /**
@@ -18,7 +25,14 @@ function metatag_migrate_api() {
 class MigrateMetatagHandler extends MigrateDestinationHandler {
 
   public function __construct() {
-    $this->registerTypes(array('node', 'user', 'taxonomy_term'));
+    $types = array();
+    foreach (entity_get_info() as $entity_type => $entity_info) {
+      if (isset($entity_info['metatags']) && $entity_info['metatags']) {
+        $types[] = $entity_type;
+      }
+    }
+
+    $this->registerTypes($types);
   }
 
   /**

@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1284756 by dsdeiz: Update Migrate integration for compatibility with v2.5,
+  support additional entity types.
 #1953724 by DamienMcKenna, joshf, wiifm, twistor: PostgreSQL compatibility for
   recent updates.
 #1295524 by DamienMcKenna: Temporary fix for the [node:summary] token not
