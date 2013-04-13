@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1804356 by Dave Reid: Merged Dave's metatag_views module.
 #1909224 by DamienMcKenna: Fixed sloppy code in metatag_metatags_form_submit().
 #1969428 by DamienMcKenna: Changed the DC 'property' attribute to 'name'.
 #1284756 by dsdeiz: Update Migrate integration for compatibility with v2.5,

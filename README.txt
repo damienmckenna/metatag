@@ -26,6 +26,10 @@ The primary features include:
 * Per-path control over meta tags using the "Meta tags: Context" submodule
   (requires the Context module).
 
+* Integration with the Views module allowing meta tags to be controlled for
+  individual Views pages, with each display in the view able to have different
+  meta tags.
+
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Meta tags: Dublin Core" submodule.
 

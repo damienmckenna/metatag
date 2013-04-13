@@ -1,0 +1,9 @@
+name = Meta tags: Views
+description = Provides Meta tags integration within the Views interface.
+package = Meta tags
+core = 7.x
+
+dependencies[] = metatag
+dependencies[] = views
+
+files[] = metatag_views_plugin_display_extender_metatags.inc
