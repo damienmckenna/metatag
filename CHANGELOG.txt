@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1969428 by DamienMcKenna: Changed the DC 'property' attribute to 'name'.
 #1284756 by dsdeiz: Update Migrate integration for compatibility with v2.5,
   support additional entity types.
 #1953724 by DamienMcKenna, joshf, wiifm, twistor: PostgreSQL compatibility for
