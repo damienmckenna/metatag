@@ -907,7 +907,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
  * Form submit handler; unset meta tag values that equal their default values.
  */
 function metatag_metatags_form_submit($form, &$form_state) {
-  if (!empty($form_state['values']['metatags'])) {
+  if (!empty($form_state['values']['metatags']) && !empty($form['metatags']['#metatag_defaults'])) {
     metatag_filter_values_from_defaults($form_state['values']['metatags'], $form['metatags']['#metatag_defaults']);
   }
 }
