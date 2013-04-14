@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1961448 by DamienMcKenna: Disable the fb:app_id field if fb_social is present.
 #1282620 by idflood, evanbarter, mgifford, Lukas von Blarer, Peacog, zterry95,
   DamienMcKenna: Configuration translation through integration with the i18n
   module.
