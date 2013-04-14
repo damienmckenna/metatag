@@ -1,0 +1,9 @@
+name = Meta tags: Panels
+description = Provides Meta tags integration within the Panels interface.
+package = Meta tags
+core = 7.x
+
+dependencies[] = ctools
+dependencies[] = metatag
+dependencies[] = panels
+dependencies[] = token
