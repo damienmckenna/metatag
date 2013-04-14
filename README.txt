@@ -28,10 +28,10 @@ The primary features include:
 
 * Integration with the Views module allowing meta tags to be controlled for
   individual Views pages, with each display in the view able to have different
-  meta tags.
+  meta tags, by using the "Meta tags: Views" submodule.
 
 * Integration with the Panels module allowing meta tags to be controlled for
-  individual Panels pages.
+  individual Panels pages, by using the "Meta tags: Panels" submodule.
 
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Meta tags: Dublin Core" submodule.
