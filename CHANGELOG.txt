@@ -1,5 +1,8 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1282620 by idflood, evanbarter, mgifford, Lukas von Blarer, Peacog, zterry95,
+  DamienMcKenna: Configuration translation through integration with the i18n
+  module.
 #1498740 by devuo: Merged Diogo's metatag_panels module.
 #1804356 by Dave Reid: Merged Dave's metatag_views module.
 #1909224 by DamienMcKenna: Fixed sloppy code in metatag_metatags_form_submit().
