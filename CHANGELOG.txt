@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.0-beta6, 2013-04-14
 ---------------------------------
 #1961448 by DamienMcKenna: Disable the fb:app_id field if fb_social is present.
