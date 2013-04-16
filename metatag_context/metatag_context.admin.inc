@@ -163,7 +163,7 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
  */
 function metatag_context_config_edit_form_submit($form, &$form_state) {
   $context = $form_state['metatag_context']['context'];
-  $context->reactions['metatag_context_reaction']['metatags'] = array_merge($context->reactions['metatag_context_reaction']['metatags'], $form_state['values']['metatags']);
+  $context->reactions['metatag_context_reaction']['metatags'] = $form_state['values']['metatags'];
   $paths = explode("\n", str_replace("\r", "", $form_state['values']['paths']));
   $paths = array_combine($paths, $paths);
   $context->conditions['path']['values'] = $paths;

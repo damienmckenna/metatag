@@ -5,6 +5,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   installed.
 #1955898 by DamienMcKenna: Clicking 'cancel' when editing a per-path
   configuration would cause the config to be deleted.
+#1955894 by plopesc: It wasn't possible to remove values from the
+  Metatag:Context editor.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
