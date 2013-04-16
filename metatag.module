@@ -1753,7 +1753,7 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  *   An associative array of additional options. @see i18n_string_translate()
  */
 function metatag_translate($name, $string, $langcode = NULL, $update = FALSE) {
-  if (function_exists('i18n_string')) {
+  if (function_exists('i18n_string_translate')) {
     $options = array(
       'langcode' => $langcode,
       'update' => $update,
