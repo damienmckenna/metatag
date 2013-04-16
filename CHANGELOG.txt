@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1970946 by laura s: Twitter Cards no longer requires SSL.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
