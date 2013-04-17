@@ -24,7 +24,7 @@ function metatag_context_context_overview() {
       );
       $rows[] = array(
         $context->name,
-        isset($context->conditions['path']) ? implode(', ', $context->conditions['path']['values']) : t('No path condition.'),
+        isset($context->conditions['path']) ? htmlspecialchars(implode(', ', $context->conditions['path']['values'])) : t('No path condition.'),
         implode(' | ', $ops),
       );
     }

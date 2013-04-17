@@ -7,6 +7,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   configuration would cause the config to be deleted.
 #1955894 by plopesc: It wasn't possible to remove values from the
   Metatag:Context editor.
+#1972038 by DamienMcKenna: Context admin page didn't display the '<front>' path
+  correctly.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
