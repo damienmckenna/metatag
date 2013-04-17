@@ -3,10 +3,10 @@ description = "Adds support and an API to implement meta tags."
 package = Meta tags
 core = 7.x
 
-# This requires Drupal 7.15 or newer.
+; This requires Drupal 7.15 or newer.
 dependencies[] = system (>=7.15)
 
-# CTools and Token are also required.
+; CTools and Token are also required.
 dependencies[] = ctools
 dependencies[] = token
 

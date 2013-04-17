@@ -10,6 +10,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1972038 by DamienMcKenna: Context admin page didn't display the '<front>' path
   correctly.
 #1970064 by DamienMcKenna: Metatag:Context did not load the data correctly.
+#1970518 by John Morahan: Incorrect syntax in metatag.info.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
