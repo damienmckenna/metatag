@@ -11,6 +11,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   correctly.
 #1970064 by DamienMcKenna: Metatag:Context did not load the data correctly.
 #1970518 by John Morahan: Incorrect syntax in metatag.info.
+#1972932 by chrisjlee: Typo in hook_requirements.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
