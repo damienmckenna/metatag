@@ -47,6 +47,12 @@ The primary features include:
 * An API allowing for additional meta tags to be added, beyond what is provided
   by this module - see metatag.api.php for full details.
 
+* Support for the Migrate module for migrating data from another system - see
+  metatag.migrate.inc for full details.
+
+* Support for the Feeds module for importing data from external data sources or
+  file uploads.
+
 
 Configuration
 ------------------------------------------------------------------------------
