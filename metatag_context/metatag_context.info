@@ -4,3 +4,4 @@ package = Meta tags
 core = 7.x
 dependencies[] = context
 dependencies[] = metatag
+files[] = metatag_context.test

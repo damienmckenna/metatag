@@ -16,6 +16,7 @@ By DamienMcKenna: Removed trailing space in some files.
 #1951118 by DamienMcKenna: Display a runtime hook_requirements error message if
   the old metatag.entity_translation.inc file is still present.
 By DamienMcKenna: Removed some tabs that snook in.
+#1973254 by plopesc: Added functional tests for Metatag:Context.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
