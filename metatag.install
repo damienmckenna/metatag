@@ -332,9 +332,9 @@ function metatag_update_7007() {
   $nodes = db_query("SELECT m.entity_id
     FROM {metatag} m
     LEFT OUTER JOIN {node} n
-    	ON m.entity_id=n.nid
+      ON m.entity_id=n.nid
     WHERE m.entity_type='node'
-    	AND n.nid IS NULL")
+      AND n.nid IS NULL")
     ->fetchCol();
   if (count($nodes) > 0) {
     $deleted = db_delete('metatag')
@@ -352,9 +352,9 @@ function metatag_update_7007() {
   $users = db_query("SELECT m.entity_id
     FROM {metatag} m
     LEFT OUTER JOIN {users} u
-    	ON m.entity_id=u.uid
+      ON m.entity_id=u.uid
     WHERE m.entity_type='user'
-    	AND u.uid IS NULL")
+      AND u.uid IS NULL")
     ->fetchCol();
   if (count($users) > 0) {
     $deleted = db_delete('metatag')
@@ -374,9 +374,9 @@ function metatag_update_7007() {
     $terms = db_query("SELECT m.entity_id
       FROM {metatag} m
       LEFT OUTER JOIN {taxonomy_term_data} t
-      	ON m.entity_id=t.tid
+        ON m.entity_id=t.tid
       WHERE m.entity_type='taxonomy_term'
-      	AND t.tid IS NULL")
+        AND t.tid IS NULL")
       ->fetchCol();
     if (count($terms) > 0) {
       $deleted = db_delete('metatag')

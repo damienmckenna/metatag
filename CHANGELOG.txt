@@ -15,6 +15,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Removed trailing space in some files.
 #1951118 by DamienMcKenna: Display a runtime hook_requirements error message if
   the old metatag.entity_translation.inc file is still present.
+By DamienMcKenna: Removed some tabs that snook in.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
