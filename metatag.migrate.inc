@@ -65,7 +65,7 @@
 /**
  * Implements hook_migrate_api().
  */
-function example_migrate_api() {
+function metatag_migrate_api() {
   $api = array(
     'api' => 2,
     'destination handlers' => array(
