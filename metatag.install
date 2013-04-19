@@ -161,6 +161,18 @@ function metatag_requirements($phase) {
         'description' => $t('The Metatag module\'s default settings for content types (nodes) uses [node:title] for the page title. Unfortunately, Exclude Node Title hides this so the page title ends up blank. It is recommended to <a href="!config">change the "title" field\'s default value</a> to "[current-page:title]" instead of "[node:title]" for any content types affected by Exclude Node Title.', array('!config' => 'admin/config/search/metatags')),
       );
     }
+
+    // Add a note if the deprecated metatag.entity_translation.inc file still
+    // exists.
+    $filename = 'metatag.entity_translation.inc';
+    if (file_exists(dirname(__FILE__) . '/' . $filename)) {
+      $requirements['metatag_deprecated_et_file'] = array(
+        'severity' => REQUIREMENT_ERROR,
+        'title' => 'Metatag',
+        'value' => $t('Unwanted :filename file found', array(':filename' => $filename)),
+        'description' => $t("The :filename file was removed in v7.x-1.0-beta5 but it still exists in the site's Metatag module's directory and will cause problems. This file needs to be removed. The file's path in the Drupal directory structure is:<br /><code>!short_path</code><br />The file's full path is:<br /><code>!full_path</code>", array(':filename' => $filename, '!short_path' => drupal_get_path('module', 'metatag') . '/' . $filename, '!full_path' => dirname(__FILE__) . $filename)),
+      );
+    }
   }
 
   return $requirements;

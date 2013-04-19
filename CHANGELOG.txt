@@ -13,6 +13,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1970518 by John Morahan: Incorrect syntax in metatag.info.
 #1972932 by chrisjlee: Typo in hook_requirements.
 By DamienMcKenna: Removed trailing space in some files.
+#1951118 by DamienMcKenna: Display a runtime hook_requirements error message if
+  the old metatag.entity_translation.inc file is still present.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
