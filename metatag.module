@@ -254,7 +254,7 @@ function metatag_config_save($config) {
   // Allow modules to alter the configuration before it is saved using
   // hook_metatag_config_presave().
   module_invoke_all('metatag_config_presave', $config);
-  
+
   // Update the i18n string
   if (function_exists('i18n_string_update')) {
     $instance = $config->instance;
@@ -649,7 +649,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
     // The requested language is different to the entity's language, look for
     // a language elsewhere.
     if ($entity_language != $langcode) {
-      // If no language was defined for the entity then use that for the 
+      // No language was defined for the entity.
       if ($entity_language == LANGUAGE_NONE) {
         $langcode = LANGUAGE_NONE;
       }
@@ -762,9 +762,9 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
 
   // Add any default tags to the mix.
   $metatags += metatag_config_load_with_defaults($instance);
-  
+
   $options['instance'] = $instance;
-  
+
   foreach ($metatags as $metatag => $data) {
     if ($metatag_instance = metatag_get_instance($metatag, $data)) {
       $output[$metatag] = $metatag_instance->getElement($options);
@@ -1277,7 +1277,7 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
   $options['context'] = $entity_type;
   // Allow hook_metatag_token_types_alter() to modify the defined tokens.
   drupal_alter('metatag_token_types', $options);
-  
+
   // @todo Remove metatag_form_alter() when http://drupal.org/node/1284642 is fixed in core.
   //metatag_metatags_form($form, $instance, $metatags, $options);
 
@@ -1738,13 +1738,13 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
 function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
   // Get the entity's ID.
   list($entity_id) = entity_extract_ids($entity_type, $entity);
-  
+
   // Delete the translation.
   metatag_metatags_delete($entity_type, $entity_id, $langcode);
 }
 
 /**
- * Translates the metatag if i18n_string is enabled. 
+ * Translates the metatag if i18n_string is enabled.
  * @param $name
  *   Array or string concatenated with ':' that contains textgroup and string context
  * @param string $string
