@@ -1,6 +1,6 @@
 name = Metatag: Views
 description = Provides Metatag integration within the Views interface.
-package = Metatag
+package = SEO
 core = 7.x
 
 dependencies[] = metatag

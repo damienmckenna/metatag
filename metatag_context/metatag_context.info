@@ -1,6 +1,6 @@
 name = Metatag: Context
 description = "Assigned Metatag using Context definitions, allowing them to be assigned by path and other criteria."
-package = Metatag
+package = SEO
 core = 7.x
 dependencies[] = context
 dependencies[] = metatag

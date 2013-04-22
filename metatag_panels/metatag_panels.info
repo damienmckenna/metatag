@@ -1,6 +1,6 @@
 name = Metatag: Panels
 description = Provides Metatag integration within the Panels interface.
-package = Metatag
+package = SEO
 core = 7.x
 
 dependencies[] = ctools
