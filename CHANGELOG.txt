@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+By DamienMcKenna: Updated the README.txt's Credits section to match the project
+  page.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

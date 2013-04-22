@@ -166,10 +166,11 @@ Some modules are available that extend Metatag with additional functionality:
 
 Credits / Contact
 ------------------------------------------------------------------------------
-Currently maintained by Dave Reid [1] and Damien McKenna [2].
+Currently maintained by Damien McKenna [1] and Dave Reid [2]; all initial
+development was by Dave Reid.
 
-All initial development was sponsored by Acquia [3] and Palantir [4];
-continued development sponsored by Palantir and Mediacurrent [5].
+Ongoing development is sponsored by Mediacurrent [3] and Palantir.net [4]. All
+initial development was sponsored by Acquia [5] and Palantir.net.
 
 The best way to contact the authors is to submit an issue, be it a support
 request, a feature request or a bug report, in the project issue queue:
@@ -178,8 +179,8 @@ request, a feature request or a bug report, in the project issue queue:
 
 References
 ------------------------------------------------------------------------------
-1: http://drupal.org/user/53892
-2: http://drupal.org/user/108450
-3: http://www.acquia.com/
+1: http://drupal.org/user/108450
+2: http://drupal.org/user/53892
+3: http://www.mediacurrent.com/
 4: http://www.palantir.net/
-5: http://www.mediacurrent.com/
+5: http://www.acquia.com/
