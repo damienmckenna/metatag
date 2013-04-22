@@ -1,6 +1,6 @@
 name = Meta tag UI
 description = "DEPRECATED admin interface for the Meta tag API, this functionality has be merged into the main module."
-package = Meta tags
+package = Metatag
 core = 7.x
 dependencies[] = metatag
 dependencies[] = ctools

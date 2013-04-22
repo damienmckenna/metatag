@@ -77,7 +77,7 @@ function metatag_migrate_api() {
 }
 
 /**
- * Metatags destination handler.
+ * Metatag destination handler.
  */
 class MigrateMetatagHandler extends MigrateDestinationHandler {
 

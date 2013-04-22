@@ -1,8 +1,8 @@
-Meta tags: Panels
+Metatag: Panels
 -----------------
 This module adds support for meta tag configuration for Panels pages.
 
-Configuration is done within the "Meta tags" tab existant in the Page Manager
+Configuration is done within the "Metatag" tab existant in the Page Manager
 variant configuration page.
 
 

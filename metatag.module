@@ -12,7 +12,7 @@ function metatag_help($path, $arg) {
     return '<p>' . t('To view a summary of the default meta tags and the inheritance, click on a meta tag type.') . '</p>';
   }
   elseif ($path == 'admin/help#metatag') {
-    return '<p>' . t('The Meta tags module provides a options to let each page have customized meta data added to the "meta" tags in the HEAD section of the document.') . '</p>';
+    return '<p>' . t('The Metatag module provides a options to let each page have customized meta data added to the "meta" tags in the HEAD section of the document.') . '</p>';
   }
   elseif ($path == 'admin/config/search/metatags/bulk-revert') {
     return '<p>' . t('This form <strong>will wipe out</strong> all custom meta tags for the selected entities, reverting them to the default configuration assigned at the <a href="@url">Defaults tab</a>. For example, if the meta tags are changed for an article they will be removed if the "Node: Article" checkbox is selected.', array('@url' => url('admin/config/search/metatags'))) . '</p>';
@@ -95,8 +95,8 @@ function metatag_permission() {
  */
 function metatag_menu() {
   $items['admin/config/search/metatags'] = array(
-    'title' => 'Meta tags',
-    'description' => 'Configure meta tag defaults.',
+    'title' => 'Metatag',
+    'description' => 'Configure Metatag defaults.',
     'page callback' => 'metatag_config_overview',
     'access arguments' => array('administer meta tags'),
     'file' => 'metatag.admin.inc',
@@ -107,7 +107,7 @@ function metatag_menu() {
     'weight' => -10,
   );
   $items['admin/config/search/metatags/config/add'] = array(
-    'title' => 'Add a meta tag default',
+    'title' => 'Add a Metatag default',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_config_add_form'),
     'access arguments' => array('administer meta tags'),
@@ -1654,7 +1654,7 @@ function metatag_entity_get_language($entity_type, $entity) {
 function metatag_features_api() {
   $components = array(
     'metatag' => array(
-      'name' => t('Meta tags'),
+      'name' => t('Metatag'),
       'feature_source' => TRUE,
       'default_hook' => 'metatag_export_default',
       'default_file' => FEATURES_DEFAULTS_INCLUDED,

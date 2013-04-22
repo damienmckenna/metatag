@@ -1,8 +1,8 @@
-Meta tags: Views
+Metatag: Views
 ----------------
 This module adds support for meta tag configuration for Views pages.
 
-Configuration is done within the "Meta tags" section of the Page Settings in
+Configuration is done within the "Metatag" section of the Page Settings in
 the Views UI configuration page.
 
 

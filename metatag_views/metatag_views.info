@@ -1,6 +1,6 @@
-name = Meta tags: Views
-description = Provides Meta tags integration within the Views interface.
-package = Meta tags
+name = Metatag: Views
+description = Provides Metatag integration within the Views interface.
+package = Metatag
 core = 7.x
 
 dependencies[] = metatag

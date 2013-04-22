@@ -1,6 +1,6 @@
-name = Meta tags: Panels
-description = Provides Meta tags integration within the Panels interface.
-package = Meta tags
+name = Metatag: Panels
+description = Provides Metatag integration within the Panels interface.
+package = Metatag
 core = 7.x
 
 dependencies[] = ctools

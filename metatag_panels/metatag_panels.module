@@ -25,7 +25,7 @@ function metatag_panels_page_manager_variant_operations_alter(&$operations, $han
 }
 
 /**
- * Meta tags panels configuration form.
+ * Metatag panels configuration form.
  */
 function metatag_panels_form($form, $form_state) {
   $handler = $form_state['handler'];
@@ -44,7 +44,7 @@ function metatag_panels_form($form, $form_state) {
   // Allow the user to enable/disable meta tags for this panel.
   $form['settings']['metatags_enabled'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Enable Meta tags configuration.'),
+    '#title' => t('Enable Metatag configuration.'),
     '#default_value' => isset($handler->conf['metatag_panels']['enabled']) ? $handler->conf['metatag_panels']['enabled'] : FALSE,
   );
 
@@ -71,7 +71,7 @@ function metatag_panels_form($form, $form_state) {
 }
 
 /**
- * Submission handler for Meta tags panels configuration form.
+ * Submission handler for Metatag panels configuration form.
  */
 function metatag_panels_form_submit($form, $form_state) {
   $conf = array(
@@ -105,7 +105,7 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     $tokens[$task_context->keyword] = $task_context->data;
   }
 
-  // Build the Meta tags.
+  // Build the Metatag.
   $metatags = $handler->conf['metatag_panels']['metatags'];
   $metatags += metatag_config_load_with_defaults('');
 

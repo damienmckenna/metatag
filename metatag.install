@@ -230,7 +230,12 @@ function metatag_update_7001() {
   $keys = array('primary key' => array($field_name));
 
   // Before making any changes, drop the existing primary key.
-  db_drop_primary_key($table_name);
+  try {
+    db_drop_primary_key($table_name);
+  }
+  catch (Exception $e) {
+    drupal_set_message('Caught an exception: ', $e->getMessage());
+  }
 
   // Rejig the field, and turn on the primary key again.
   db_change_field($table_name, $field_name, $field_name, $field_spec, $keys);
@@ -296,7 +301,7 @@ function metatag_update_7005() {
 
 /**
  * Remove {metatag} records that were added by old versions of the module for
- * entities that don't actually support meta tags. A more complete version of
+ * entities that don't actually support Metatag. A more complete version of
  * this will be added later on after it's (hopefully) guaranteed that all
  * modules have updated to the correct API usage.
  */

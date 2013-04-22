@@ -1,5 +1,5 @@
-name = Meta tags: Twitter Cards
+name = Metatag: Twitter Cards
 description = "Provides support for Twitter's Card meta tags."
-package = Meta tags
+package = Metatag
 core = 7.x
 dependencies[] = metatag

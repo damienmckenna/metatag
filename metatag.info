@@ -1,6 +1,6 @@
-name = Meta tags
+name = Metatag
 description = "Adds support and an API to implement meta tags."
-package = Meta tags
+package = Metatag
 core = 7.x
 
 ; This requires Drupal 7.15 or newer.

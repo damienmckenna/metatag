@@ -1,6 +1,6 @@
-name = Meta tags: Context
-description = "Assigned Meta tags using Context definitions, allowing them to be assigned by path and other criteria."
-package = Meta tags
+name = Metatag: Context
+description = "Assigned Metatag using Context definitions, allowing them to be assigned by path and other criteria."
+package = Metatag
 core = 7.x
 dependencies[] = context
 dependencies[] = metatag

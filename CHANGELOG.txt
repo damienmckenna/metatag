@@ -19,6 +19,7 @@ By DamienMcKenna: Removed some tabs that snook in.
 #1973254 by plopesc: Added functional tests for Metatag:Context.
 #1284756 by dsdeiz: Add instructions to metatag.migrate.inc explaining how to
   use the Migrate integration.
+#1954106 by DamienMcKenna: Simplified the project's name to just 'Metatag'.
 
 
 Metatag 7.x-1.0-beta6, 2013-04-14
