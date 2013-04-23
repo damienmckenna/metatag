@@ -1649,7 +1649,7 @@ function metatag_entity_get_language($entity_type, $entity) {
 }
 
 /**
- * Implements of hook_features_api().
+ * Implements hook_features_api().
  */
 function metatag_features_api() {
   $components = array(
