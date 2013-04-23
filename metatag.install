@@ -229,7 +229,9 @@ function metatag_update_7001() {
   );
   $keys = array('primary key' => array($field_name));
 
-  // Before making any changes, drop the existing primary key.
+  // Before making any changes, drop the existing primary key. Unforunately
+  // there is no API way to check if a primary key exists, so if it doesn't
+  // exist the db_drop_primary_key() call will fail.
   try {
     db_drop_primary_key($table_name);
   }
