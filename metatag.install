@@ -181,8 +181,9 @@ function metatag_requirements($phase) {
 /**
  * Implements hook_install().
  */
-// function metatag_install() {
-// }
+function metatag_install() {
+  drupal_set_message(t("Thank you for installing the Metatag module. It is recommended to read the module's <a href=\"!url\" title=\"Read the Metatag module's documentation\">README.txt</a> file as there are some known issues that may afffect this site.", array('!url' => url(drupal_get_path('module', 'metatag') . '/README.txt'))));
+}
 
 /**
  * Implements hook_uninstall().
