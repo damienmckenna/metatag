@@ -1665,7 +1665,7 @@ function metatag_features_api() {
 }
 
 /**
- * Implements hook_views_pre_render().
+ * Implements hook_views_post_render().
  */
 function metatag_views_post_render(&$view, &$output, &$cache) {
   // Build a shortcut to the current display object.

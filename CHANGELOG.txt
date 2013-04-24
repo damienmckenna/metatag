@@ -5,6 +5,7 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
 #1978708 by DamienMcKenna: Added a note to the README.txt, hook_install and
   hook_requirements to mention that RDF can cause validation errors for the
   Open Graph meta tag output.
+#1977640 by dsdeiz: Fixed a comment typo.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
