@@ -142,6 +142,10 @@ Troubleshooting / Known Issues
     <title>"The page title | My cool site"</title>
   The solution is to remove the browser plugin - the page's actual output is not
   affected, it is just a problem in the browser.
+* The core RDF module is known to cause validation problems for Open Graph meta
+  tags output by the Metatag:OpenGraph module. Unless it is actually needed for
+  the site, it may be worthwhile to disable the RDF module to avoid any
+  possible problems for the Open Graph integration.
 
 
 Related modules
