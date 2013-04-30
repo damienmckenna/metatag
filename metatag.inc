@@ -19,6 +19,8 @@ interface DrupalMetaTagInterface {
   function getValue();
 
   function getElement();
+
+  function stripWhitespace($value);
 }
 
 class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
@@ -38,7 +40,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   }
 
   public function getValue(array $options = array()) {
-    return $this->data['value'];
+    return stripWhitespace($value);
   }
 
   public function getElement(array $options = array()) {
@@ -65,6 +67,23 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     return array(
       '#attached' => array('drupal_add_html_head' => array(array($element, $element['#id']))),
     );
+  }
+
+  /**
+   * Strip any unwanted whitespace from a meta tag value.
+   *
+   * @param $value string
+   *   The meta tag value to be stripped of whitespace.
+   *
+   * @return string
+   *   The meta tag value after it has been stripped of whitespace.
+   */
+  public function stripWhitespace($value) {
+    $value = str_replace(array("\r\n", "\n", "\r", "\t"), ' ', $value);
+    $value = str_replace('  ', ' ', $value);
+    $value = str_replace('  ', ' ', $value);
+    $value = trim($value);
+    return $value;
   }
 }
 
@@ -111,8 +130,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       $value = token_replace($value, $options['token data'], $options);
     }
     $value = strip_tags(decode_entities($value));
-    $value = trim($value);
-    return $value;
+    return $this->stripWhitespace($value);
   }
 }
 
@@ -187,6 +205,7 @@ class DrupalListMetaTag extends DrupalDefaultMetaTag {
   public function getValue(array $options = array()) {
     $values = array_keys(array_filter($this->data['value']));
     sort($values);
-    return implode(', ', $values);
+    $value = implode(', ', $values);
+    return $this->stripWhitespace($value);
   }
 }

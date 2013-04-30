@@ -8,6 +8,7 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
 #1977640 by dsdeiz: Fixed a comment typo.
 #1978730 by DamienMcKenna: Added an installation note to read the README.txt
   file.
+#1978568 by DamienMcKenna: Strip line breaks in all tag output.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
