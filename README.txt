@@ -103,6 +103,14 @@ Fine Tuning
   * Hardcode the value in the site's settings.php file:
     $conf['metatag_load_all_pages'] = FALSE;
   To re-enable this option simply set the value to TRUE.
+* By default users will be able to edit meta tags on forms based on the 'Edit
+  meta tags' permission. The 'metatag_extended_permissions' variable may be set
+  to TRUE to give each individual meta tag a separate permission. This allows
+  fine-tuning of the site's editorial control, and for rarely-used fields to be
+  hidden from most users. Note: The 'Edit meta tags' permission is still
+  required otherwise none of the meta tag fields will display at all. The
+  functionality may be disabled again by either removing the variable or
+  setting it to FALSE.
 
 
 Developers

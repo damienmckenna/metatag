@@ -79,7 +79,7 @@ function metatag_hook_info() {
  */
 function metatag_permission() {
   $permissions['administer meta tags'] = array(
-    'title' => t('Administer meta tags.'),
+    'title' => t('Administer meta tags'),
     'restrict access' => TRUE,
     'description' => t('Control the main settings pages and modify per-object meta tags.'),
   );
@@ -87,6 +87,19 @@ function metatag_permission() {
     'title' => t('Edit meta tags'),
     'description' => t('Modify meta tags on individual entity records (nodes, terms, users, etc).'),
   );
+
+  // Optional extended edit permissions.
+  if (variable_get('metatag_extended_permissions', FALSE)) {
+    $permissions['edit meta tags']['description'] .= '<br />' . t('<em>Extended Permissions</em> has been enabled. Roles have the :admin permission will see all meta tags on edit forms, otherwise the permissions below will control which meta tags are available and are needed in addition to <em>Edit meta tags</em>.', array(':admin' => t('Administer meta tags')));
+    $metatags = metatag_get_info();
+    foreach ($metatags['tags'] as $metatag_name => $metatag) {
+      $permissions['edit meta tag: ' . $metatag_name] = array(
+        'title' => t('Extended permission: Edit :tag meta tag', array(':tag' => $metatag['label'])),
+        'description' => t('Customize the :tag meta tag on individual forms.', array(':tag' => $metatag['label'])),
+      );
+    }
+  }
+
   return $permissions;
 }
 
@@ -883,6 +896,11 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
       );
     }
 
+    // Optional extended edit permissions.
+    if (variable_get('metatag_extended_permissions', FALSE)) {
+      $metatag_form['#access'] = user_access('edit meta tag: ' . $metatag) || user_access('administer meta tags');
+    }
+
     if (!empty($metatag_info['group'])) {
       $group_key = $metatag_info['group'];
       if (isset($info['groups'][$group_key]['label']) && !isset($form['metatags'][$group_key])) {
@@ -896,19 +914,32 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
         );
       }
       $form['metatags'][$group_key][$metatag] = $metatag_form + array('#parents' => array('metatags', $metatag));
+
+      // Hide the fieldset itself if there is not at least one of the meta tag
+      // fields visible.
+      if (variable_get('metatag_extended_permissions', FALSE)) {
+        $form['metatags'][$group_key]['#access'] = count(element_get_visible_children($form['metatags'][$group_key])) > 0;
+      }
     }
     else {
       $form['metatags'][$metatag] = $metatag_form;
     }
   }
 
-  // Show the list of available tokens.
-  $form['metatags']['tokens'] = array(
-    '#theme' => 'token_tree',
-    '#token_types' => $options['token types'],
-    '#weight' => 999,
-    '#dialog' => TRUE,
-  );
+  // Hide the fieldset itself if there is not at least one of the meta tag
+  // fields visible.
+  $form['metatags']['#access'] = count(element_get_visible_children($form['metatags'])) > 0;
+
+  // Show the list of available tokens, if the fieldset is to be displayed, no
+  // point in outputting anything if it won't be displayed.
+  if ($form['metatags']['#access']) {
+    $form['metatags']['tokens'] = array(
+      '#theme' => 'token_tree',
+      '#token_types' => $options['token types'],
+      '#weight' => 999,
+      '#dialog' => TRUE,
+    );
+  }
 
   // Add a submit handler to compare the submitted values against the deafult
   // values.

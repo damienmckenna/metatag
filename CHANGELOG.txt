@@ -9,6 +9,9 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
 #1978730 by DamienMcKenna: Added an installation note to read the README.txt
   file.
 #1978568 by DamienMcKenna: Strip line breaks in all tag output.
+#1961354 by DamienMcKenna, thesame: Optionally provide additional permissions
+  so that access to modify each meta tag can be controlled individually, see
+  README.txt for more details.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
