@@ -13,6 +13,8 @@ configurations are:
   * user_register - for anonymous users accessing the user registration page.
   * forum - for the main forum page from the Forum module. Topic pages are
     handled as regular nodes, sub-forum pages are handled as regular term pages.
+  * blog - for the main blog page. Note: it does not cover the per-user blog
+    pages too.
 
 
 Credits
