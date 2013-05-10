@@ -145,7 +145,7 @@ function metatag_context_context_default_contexts() {
   $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'user_login';
-  $context->description = 'A custom Metatag:Context definition for the user login page.';
+  $context->description = 'A default Metatag:Context definition for the user login page. This needs to be enabled and then it can be customized as needed.';
   $context->tag = 'Metatag';
   $context->conditions = array(
     'path' => array(
@@ -178,7 +178,7 @@ function metatag_context_context_default_contexts() {
   $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
   $context->name = 'user_register';
-  $context->description = 'A custom Metatag:Context definition for the user registration page.';
+  $context->description = 'A default Metatag:Context definition for the user registration page. This needs to be enabled and then it can be customized as needed.';
   $context->tag = 'Metatag';
   $context->conditions = array(
     'path' => array(
