@@ -11,6 +11,8 @@ from the Context UI admin page and then customized as necessary. The included
 configurations are:
   * user_login - for anonymous users accessing the user and user/login pages.
   * user_register - for anonymous users accessing the user registration page.
+  * forum - for the main forum page from the Forum module. Topic pages are
+    handled as regular nodes, sub-forum pages are handled as regular term pages.
 
 
 Credits

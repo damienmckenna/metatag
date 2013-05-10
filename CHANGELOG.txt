@@ -14,6 +14,8 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
   README.txt for more details.
 #1933678 by DamienMcKenna: Default Context configurations for the user login and
   registration pages.
+#1816856 by DamienMcKenna: Default Context configuration for the main forum
+  page.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
