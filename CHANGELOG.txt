@@ -19,6 +19,7 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
 #1292612 by DamienMcKenna: Default Context configuration for the main blog
   page.
 
+
 Metatag 7.x-1.0-beta7, 2013-04-22
 ---------------------------------
 #1970946 by laura s: Twitter Cards no longer requires SSL.
