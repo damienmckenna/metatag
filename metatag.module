@@ -900,6 +900,9 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     if (variable_get('metatag_extended_permissions', FALSE)) {
       $metatag_form['#access'] = user_access('edit meta tag: ' . $metatag) || user_access('administer meta tags');
     }
+    else {
+      $metatag_form['#access'] = $form['metatags']['#access'];
+    }
 
     if (!empty($metatag_info['group'])) {
       $group_key = $metatag_info['group'];
@@ -920,6 +923,9 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
       if (variable_get('metatag_extended_permissions', FALSE)) {
         $form['metatags'][$group_key]['#access'] = count(element_get_visible_children($form['metatags'][$group_key])) > 0;
       }
+      else {
+        $form['metatags'][$group_key]['#access'] = $form['metatags']['#access'];
+      }
     }
     else {
       $form['metatags'][$metatag] = $metatag_form;
@@ -927,8 +933,11 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   }
 
   // Hide the fieldset itself if there is not at least one of the meta tag
-  // fields visible.
-  $form['metatags']['#access'] = count(element_get_visible_children($form['metatags'])) > 0;
+  // fields visible; only bother checking this if the user had edit access in
+  // the first place.
+  if ($form['metatags']['#access'] && variable_get('metatag_extended_permissions', FALSE)) {
+    $form['metatags']['#access'] = count(element_get_visible_children($form['metatags'])) > 0;
+  }
 
   // Show the list of available tokens, if the fieldset is to be displayed, no
   // point in outputting anything if it won't be displayed.
