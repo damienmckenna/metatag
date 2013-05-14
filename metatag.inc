@@ -113,6 +113,10 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
   }
 
   public function getValue(array $options = array()) {
+    if (empty($options)) {
+      $options['instance'] = '';
+    }
+
     $name = "metatag:" . $options["instance"] . ":" . $this->info["name"];
 
     $options += array(
