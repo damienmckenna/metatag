@@ -20,6 +20,7 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
   page.
 #1988346 by DamienMcKenna: Form permissions were being overridden thus making
   the Metatag fieldset visible when it shouldn't have been.
+#1994352 by AmbikaFR: Two strings were not translatable.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
