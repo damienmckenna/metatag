@@ -1,12 +1,51 @@
 <?php
-
 /**
  * @file
- * Metatag support for Migrate.
+ * Migrate integration for the Metatag module.
  */
 
 /**
- * Basic usage of the Migrate integration.
+ * Implements hook_migrate_info().
+ */
+function metatag_migrate_migrate_api() {
+  $api = array(
+    'api' => 2,
+
+    'destination handlers' => array(
+      'MigrateMetatagHandler',
+    ),
+
+    'migrations' => array(
+      'NodewordsNode' => array(
+        'class_name' => 'NodewordsNodeMigration',
+        'group_name' => 'metatag',
+      ),
+      'NodewordsUser' => array(
+        'class_name' => 'NodewordsUserMigration',
+        'group_name' => 'metatag',
+      ),
+      'NodewordsTerm' => array(
+        'class_name' => 'NodewordsTermMigration',
+        'group_name' => 'metatag',
+      ),
+    ),
+
+    'groups' => array(
+      'metatag' => array(
+        'title' => t('Migrate data into Metatag'),
+      ),
+    ),
+
+    'destination handlers' => array(
+      'MigrateMetatagHandler',
+    ),
+  );
+
+  return $api;
+}
+
+/**
+ * Basic usage of the Migrate destination integration.
  *
  * This example assumes the custom module's name is "example_migrate".
  * 
@@ -61,20 +100,6 @@
  *   return $api;
  * }
  */
-
-/**
- * Implements hook_migrate_api().
- */
-function metatag_migrate_api() {
-  $api = array(
-    'api' => 2,
-    'destination handlers' => array(
-      'MigrateMetatagHandler',
-    ),
-  );
-
-  return $api;
-}
 
 /**
  * Metatag destination handler.

@@ -1,0 +1,15 @@
+name = Metatag:Migrate
+description = Functionality for importing data into the Migrate module from other modules.
+package = SEO
+core = 7.x
+
+; Metatag and Migrate are required.
+dependencies[] = metatag
+dependencies[] = migrate
+; (>=7.x-2.6)
+
+; Master file for Migrate integration.
+files[] = metatag_migrate.migrate.inc
+
+; Available migration tasks.
+files[] = nodewords.inc
