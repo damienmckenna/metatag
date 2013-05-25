@@ -18,27 +18,23 @@ function metatag_migrate_migrate_api() {
     'migrations' => array(
       'NodewordsNode' => array(
         'class_name' => 'NodewordsNodeMigration',
-        'group_name' => 'metatag',
+        // 'group_name' => 'metatag',
       ),
-      'NodewordsUser' => array(
-        'class_name' => 'NodewordsUserMigration',
-        'group_name' => 'metatag',
-      ),
-      'NodewordsTerm' => array(
-        'class_name' => 'NodewordsTermMigration',
-        'group_name' => 'metatag',
-      ),
+      // 'NodewordsUser' => array(
+      //   'class_name' => 'NodewordsUserMigration',
+      //   // 'group_name' => 'metatag',
+      // ),
+      // 'NodewordsTerm' => array(
+      //   'class_name' => 'NodewordsTermMigration',
+      //   // 'group_name' => 'metatag',
+      // ),
     ),
 
-    'groups' => array(
-      'metatag' => array(
-        'title' => t('Migrate data into Metatag'),
-      ),
-    ),
-
-    'destination handlers' => array(
-      'MigrateMetatagHandler',
-    ),
+    // 'groups' => array(
+    //   'metatag' => array(
+    //     'title' => t('Migrate data into Metatag'),
+    //   ),
+    // ),
   );
 
   return $api;

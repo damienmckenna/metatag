@@ -1,24 +1,35 @@
 <?php
-
 /**
  * @file
- * A basic example of using the Migrate module to import taxonomy, users, nodes,
- * and comments.
- *
- * The basic idea is
- * - The users in the source application are listed in the
- *   migrate_example_beer_account table and are transformed into Drupal users.
- * - Drupal "beer" nodes describe beers; The information to create the nodes
- *   comes from the migrate_example_beer_node table.
- * - Taxonomy terms for the beer nodes (ale, pilsner) come from the
- *   migrate_example_beer_topic table and they are applied to nodes using the
- *   source information in the migrate_example_beer_topic_node table.
- * - Comments to be attached to the beer nodes are described in the source
- *   migrate_example_beer_comment table.
- *
- * We will use the Migrate API to import and transform this data and turn it into
- * a working Drupal system.
+ * Custom integration for migrating from Nodewords.
  */
+
+// Nodewords defined many constants to make the codebase somewhat simpler.
+// These constants were used to differentiate between the different types of
+// meta tag records.
+define('NODEWORDS_TYPE_BLOG',       13);
+define('NODEWORDS_TYPE_DEFAULT',    1);
+define('NODEWORDS_TYPE_ERRORPAGE',  2);
+define('NODEWORDS_TYPE_FORUM',      12);
+define('NODEWORDS_TYPE_FRONTPAGE',  3);
+define('NODEWORDS_TYPE_NONE',       0);
+define('NODEWORDS_TYPE_NODE',       5);
+define('NODEWORDS_TYPE_OFFLINE',    11);
+define('NODEWORDS_TYPE_PAGE',       10);
+define('NODEWORDS_TYPE_PAGER',      4);
+define('NODEWORDS_TYPE_TERM',       6);
+define('NODEWORDS_TYPE_TRACKER',    7);
+define('NODEWORDS_TYPE_USER',       8);
+define('NODEWORDS_TYPE_VOCABULARY', 9);
+
+// These constants were used to control whether content was automatically
+// generated from node content.
+define('NODEWORDS_GENERATION_NEVER',       0);
+define('NODEWORDS_GENERATION_WHEN_EMPTY',  1);
+define('NODEWORDS_GENERATION_ALWAYS',      2);
+define('NODEWORDS_GENERATION_BODY',        1);
+define('NODEWORDS_GENERATION_TEASER',      2);
+define('NODEWORDS_GENERATION_TEASER_BODY', 3);
 
 /**
  * To define a migration process from a set of source data to a particular
@@ -42,8 +53,7 @@ abstract class NodewordsMigration extends Migration {
     // the particular migration, with their role and contact info. We default the
     // list in the shared class; it can be overridden for specific migrations.
     $this->team = array(
-      // new MigrateTeamMember('Liz Taster', 'ltaster@example.com', t('Product Owner')),
-      // new MigrateTeamMember('Larry Brewer', 'lbrewer@example.com', t('Implementor')),
+      new MigrateTeamMember('Damien McKenna', 'damien@mc-kenna.com', t('Module maintainer')),
     );
 
     // Individual mappings in a migration can be linked to a ticket or issue
@@ -59,38 +69,25 @@ abstract class NodewordsMigration extends Migration {
  * and creates Drupal nodes of type 'Beer' as destination.
  */
 class NodewordsNodeMigration extends NodewordsMigration {
-  public function __construct($arguments) {
-    parent::__construct($arguments);
-    $this->description = t('');
-
-    // Create a map object for tracking the relationships between source rows
-    // and their resulting Drupal objects. Usually, you'll use the MigrateSQLMap
-    // class, which uses database tables for tracking. Pass the machine name
-    // (BeerTerm) of this migration to use in generating map and message tables.
-    // And, pass schema definitions for the primary keys of the source and
-    // destination - we need to be explicit for our source, but the destination
-    // class knows its schema already.
-    $this->map = new MigrateSQLMap($this->machineName,
-      array(
-        'bid' => array(
-          'type' => 'int',
-          'not null' => TRUE,
-          'description' => 'Beer ID.',
-          'alias' => 'b',
-        )
-      ),
-      MigrateDestinationNode::getKeySchema()
-    );
+// class NodewordsNodeMigration extends Migration {
+  public function __construct() {
+    // parent::__construct($arguments);
+    parent::__construct(MigrateGroup::getInstance('Metatag'));
+    $this->description = t('Nodewords');
 
     // We have a more complicated query. The Migration class fundamentally
     // depends on taking a single source row and turning it into a single
     // Drupal object, so how do we deal with zero or more terms attached to
     // each node? One way (demonstrated for MySQL) is to pull them into a single
     // comma-separated list.
-    $query = db_select('nodewords', 'nw')
-             ->fields('nw', array('mtid', 'type', 'id', 'name', 'content'))
-             // This sort assures that parents are saved before children.
-             ->orderBy('type', 'ASC');
+    $query = db_select('nodewords', 'nw');
+    $query->addField('nw', 'mtid');
+    $query->addField('nw', 'type');
+    $query->addField('nw', 'id');
+    $query->addField('nw', 'name');
+    $query->addField('nw', 'content');
+    $query->condition('nw.type', NODEWORDS_TYPE_NODE);
+    $query->orderBy('nw.id');
 
     // By default, MigrateSourceSQL derives a count query from the main query -
     // but we can override it if we know a simpler way
@@ -103,12 +100,32 @@ class NodewordsNodeMigration extends NodewordsMigration {
     $this->source = new MigrateSourceSQL($query, array(), $count_query,
       array('cache_counts' => TRUE));
 
-    // Set up our destination - nodes of type migrate_example_beer
-    $this->destination = new MigrateDestinationNode('metatag');
+    // Set up our destination - nodes of type 
+    $this->destination = new MigrateDestinationNode('page');
+
+    // Create a map object for tracking the relationships between source rows
+    // and their resulting Drupal objects. Usually, you'll use the MigrateSQLMap
+    // class, which uses database tables for tracking. Pass the machine name
+    // (BeerTerm) of this migration to use in generating map and message tables.
+    // And, pass schema definitions for the primary keys of the source and
+    // destination - we need to be explicit for our source, but the destination
+    // class knows its schema already.
+    $this->map = new MigrateSQLMap($this->machineName,
+      array(
+        'mtid' => array(
+          'type' => 'int',
+          'not null' => TRUE,
+          'unsigned' => TRUE,
+          'description' => 'Nodewords meta tag ID.',
+          'alias' => 'nw',
+        )
+      ),
+      MigrateDestinationNode::getKeySchema()
+    );
 
     // Mapped fields
-    // $this->addFieldMapping('title', 'name')
-    //      ->description(t('Mapping beer name in source to node title'));
+    $this->addFieldMapping('data', 'name')
+      ->description(t('Something.'));
     // $this->addFieldMapping('sticky')
     //      ->description(t('Should we default this to 0 or 1?'))
     //      ->issueGroup(t('Client questions'))
@@ -132,15 +149,15 @@ class NodewordsNodeMigration extends NodewordsMigration {
     // find a corresponding uid for the aid, the owner will be the administrative
     // account.
     // $this->addFieldMapping('uid', 'aid')
-    //      ->sourceMigration('BeerUser')
-    //      ->defaultValue(1);
+    //   ->sourceMigration('BeerUser')
+    //   ->defaultValue(1);
 
     // This is a multi-value text field
     // $this->addFieldMapping('field_migrate_example_country', 'countries')
-    //      ->separator('|');
+    //   ->separator('|');
     // These are related terms, which by default will be looked up by name
     // $this->addFieldMapping('migrate_example_beer_styles', 'terms')
-    //      ->separator(',');
+    //   ->separator(',');
 
     // Some fields may have subfields such as text formats or summaries
     // (equivalent to teasers in previous Drupal versions).
@@ -153,7 +170,7 @@ class NodewordsNodeMigration extends NodewordsMigration {
     // $this->addFieldMapping('field_migrate_example_image', 'image');
     // Here we specify the directory containing the source files.
     // $this->addFieldMapping('field_migrate_example_image:source_dir')
-    //      ->defaultValue(drupal_get_path('module', 'migrate_example'));
+    //   ->defaultValue(drupal_get_path('module', 'migrate_example'));
     // And we map the alt and title values in the database to those on the
     // image.
     // $this->addFieldMapping('field_migrate_example_image:alt', 'image_alt');

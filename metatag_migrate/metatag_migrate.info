@@ -6,7 +6,7 @@ core = 7.x
 ; Metatag and Migrate are required.
 dependencies[] = metatag
 dependencies[] = migrate
-; (>=7.x-2.6)
+; (=7.x-2.5)
 
 ; Master file for Migrate integration.
 files[] = metatag_migrate.migrate.inc
