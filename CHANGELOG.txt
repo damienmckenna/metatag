@@ -26,6 +26,7 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
 #1994634 by DamienMcKenna: DrupalTextMetaTag::getValue fails if
   $options['instance'] element doesn't exist.
 #1994630 by DamienMcKenna: Cleanup/filter all meta tag output.
+By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

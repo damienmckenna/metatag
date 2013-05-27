@@ -1,9 +1,90 @@
 <?php
-
 /**
  * @file
  * Install, update, and uninstall functions for the metatag module.
  */
+
+/**
+ * Implements hook_requirements().
+ */
+function metatag_requirements($phase) {
+  $requirements = array();
+  // Ensure translations don't break during installation.
+  $t = get_t();
+
+  if ($phase == 'runtime') {
+    // Work out the release of D7 that is currently running.
+    list($major, $minor) = explode('.', VERSION);
+    // Strip off any suffixes on the version string, e.g. "17-dev".
+    if (strpos('-', $minor)) {
+      list($minor, $suffix) = explode('-', $minor);
+    }
+
+    // Releases of Drupal older than 7.15 did not have entity_language(), which
+    // is now required.
+    if ($minor < 15) {
+      $requirements['metatag'] = array(
+        'severity' => REQUIREMENT_WARNING,
+        'title' => 'Metatag',
+        'value' => $t('Upgrade Drupal core to v7.15 or newer'),
+        'description' => $t("This older version of Drupal core is missing functionality necessary for the module's multilingual support, it must be upgraded to at least version 7.15."),
+      );
+    }
+    // Releases of Drupal older than 7.17 did not trigger hook_entity_view on
+    // term pages, so recommend updating.
+    elseif ($minor < 17) {
+      $requirements['metatag'] = array(
+        'severity' => REQUIREMENT_WARNING,
+        'title' => 'Metatag',
+        'value' => $t('Upgrade Drupal core to v7.17 or newer'),
+        'description' => $t('Your older version of Drupal core is missing functionality necessary for taxonomy term pages to work correctly, it is strongly recommended to upgrade to the latest release.'),
+      );
+    }
+    // Everything's OK.
+    else {
+      $requirements['metatag'] = array(
+        'severity' => REQUIREMENT_OK,
+        'title' => 'Metatag',
+        'value' => $t('Drupal core is compatible'),
+        'description' => $t('Older versions of Drupal core were missing functionality necessary for taxonomy term pages to work correctly, but this version <em>will</em> work correctly.'),
+      );
+    }
+
+    // Add a note if Page Title is also installed.
+    if (module_exists('page_title')) {
+      $requirements['metatag_page_title'] = array(
+        'severity' => REQUIREMENT_INFO,
+        'title' => 'Metatag',
+        'value' => $t('Possible conflicts with Page Title module'),
+        'description' => $t('The Metatag module is able to customize page titles so running the Page Title module simultaneously can lead to complications.'),
+      );
+    }
+
+    // Add a note if Page Title is also installed.
+    if (module_exists('exclude_node_title')) {
+      $requirements['metatag_exclude_node_title'] = array(
+        'severity' => REQUIREMENT_INFO,
+        'title' => 'Metatag',
+        'value' => $t('Possible conflicts with Exclude Node Title module'),
+        'description' => $t('The Metatag module\'s default settings for content types (nodes) uses [node:title] for the page title. Unfortunately, Exclude Node Title hides this so the page title ends up blank. It is recommended to <a href="!config">change the "title" field\'s default value</a> to "[current-page:title]" instead of "[node:title]" for any content types affected by Exclude Node Title.', array('!config' => 'admin/config/search/metatags')),
+      );
+    }
+
+    // Add a note if the deprecated metatag.entity_translation.inc file still
+    // exists.
+    $filename = 'metatag.entity_translation.inc';
+    if (file_exists(dirname(__FILE__) . '/' . $filename)) {
+      $requirements['metatag_deprecated_et_file'] = array(
+        'severity' => REQUIREMENT_ERROR,
+        'title' => 'Metatag',
+        'value' => $t('Unwanted :filename file found', array(':filename' => $filename)),
+        'description' => $t("The :filename file was removed in v7.x-1.0-beta5 but it still exists in the site's Metatag module's directory and will cause problems. This file needs to be removed. The file's path in the Drupal directory structure is:<br /><code>!short_path</code><br />The file's full path is:<br /><code>!full_path</code>", array(':filename' => $filename, '!short_path' => drupal_get_path('module', 'metatag') . '/' . $filename, '!full_path' => dirname(__FILE__) . $filename)),
+      );
+    }
+  }
+
+  return $requirements;
+}
 
 /**
  * Implements hook_schema().
@@ -94,88 +175,6 @@ function metatag_schema() {
   $schema['cache_metatag']['description'] = t('Cache table for the generated meta tag output.');
 
   return $schema;
-}
-
-/**
- * Implements hook_requirements().
- */
-function metatag_requirements($phase) {
-  $requirements = array();
-  // Ensure translations don't break during installation.
-  $t = get_t();
-
-  if ($phase == 'runtime') {
-    // Work out the release of D7 that is currently running.
-    list($major, $minor) = explode('.', VERSION);
-    // Strip off any suffixes on the version string, e.g. "17-dev".
-    if (strpos('-', $minor)) {
-      list($minor, $suffix) = explode('-', $minor);
-    }
-
-    // Releases of Drupal older than 7.15 did not have entity_language(), which
-    // is now required.
-    if ($minor < 15) {
-      $requirements['metatag'] = array(
-        'severity' => REQUIREMENT_WARNING,
-        'title' => 'Metatag',
-        'value' => $t('Upgrade Drupal core to v7.15 or newer'),
-        'description' => $t("This older version of Drupal core is missing functionality necessary for the module's multilingual support, it must be upgraded to at least version 7.15."),
-      );
-    }
-    // Releases of Drupal older than 7.17 did not trigger hook_entity_view on
-    // term pages, so recommend updating.
-    elseif ($minor < 17) {
-      $requirements['metatag'] = array(
-        'severity' => REQUIREMENT_WARNING,
-        'title' => 'Metatag',
-        'value' => $t('Upgrade Drupal core to v7.17 or newer'),
-        'description' => $t('Your older version of Drupal core is missing functionality necessary for taxonomy term pages to work correctly, it is strongly recommended to upgrade to the latest release.'),
-      );
-    }
-    // Everything's OK.
-    else {
-      $requirements['metatag'] = array(
-        'severity' => REQUIREMENT_OK,
-        'title' => 'Metatag',
-        'value' => $t('Drupal core is compatible'),
-        'description' => $t('Older versions of Drupal core were missing functionality necessary for taxonomy term pages to work correctly, but this version <em>will</em> work correctly.'),
-      );
-    }
-
-    // Add a note if Page Title is also installed.
-    if (module_exists('page_title')) {
-      $requirements['metatag_page_title'] = array(
-        'severity' => REQUIREMENT_INFO,
-        'title' => 'Metatag',
-        'value' => $t('Possible conflicts with Page Title module'),
-        'description' => $t('The Metatag module is able to customize page titles so running the Page Title module simultaneously can lead to complications.'),
-      );
-    }
-
-    // Add a note if Page Title is also installed.
-    if (module_exists('exclude_node_title')) {
-      $requirements['metatag_exclude_node_title'] = array(
-        'severity' => REQUIREMENT_INFO,
-        'title' => 'Metatag',
-        'value' => $t('Possible conflicts with Exclude Node Title module'),
-        'description' => $t('The Metatag module\'s default settings for content types (nodes) uses [node:title] for the page title. Unfortunately, Exclude Node Title hides this so the page title ends up blank. It is recommended to <a href="!config">change the "title" field\'s default value</a> to "[current-page:title]" instead of "[node:title]" for any content types affected by Exclude Node Title.', array('!config' => 'admin/config/search/metatags')),
-      );
-    }
-
-    // Add a note if the deprecated metatag.entity_translation.inc file still
-    // exists.
-    $filename = 'metatag.entity_translation.inc';
-    if (file_exists(dirname(__FILE__) . '/' . $filename)) {
-      $requirements['metatag_deprecated_et_file'] = array(
-        'severity' => REQUIREMENT_ERROR,
-        'title' => 'Metatag',
-        'value' => $t('Unwanted :filename file found', array(':filename' => $filename)),
-        'description' => $t("The :filename file was removed in v7.x-1.0-beta5 but it still exists in the site's Metatag module's directory and will cause problems. This file needs to be removed. The file's path in the Drupal directory structure is:<br /><code>!short_path</code><br />The file's full path is:<br /><code>!full_path</code>", array(':filename' => $filename, '!short_path' => drupal_get_path('module', 'metatag') . '/' . $filename, '!full_path' => dirname(__FILE__) . $filename)),
-      );
-    }
-  }
-
-  return $requirements;
 }
 
 /**
