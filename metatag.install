@@ -81,6 +81,19 @@ function metatag_requirements($phase) {
         'description' => $t("The :filename file was removed in v7.x-1.0-beta5 but it still exists in the site's Metatag module's directory and will cause problems. This file needs to be removed. The file's path in the Drupal directory structure is:<br /><code>!short_path</code><br />The file's full path is:<br /><code>!full_path</code>", array(':filename' => $filename, '!short_path' => drupal_get_path('module', 'metatag') . '/' . $filename, '!full_path' => dirname(__FILE__) . $filename)),
       );
     }
+
+    // Check that Entity_Translation is current.
+    if (module_exists('entity_translation')) {
+      $rev = db_query("SELECT schema_version FROM {system} WHERE name = :module", array(':module' => 'entity_translation'))->fetchColumn();
+      if ($rev < 7004) {
+        $requirements['metatag_et_old'] = array(
+          'severity' => REQUIREMENT_ERROR,
+          'title' => 'Metatag',
+          'value' => $t('<a href="@url">Entity_Translation</a> is out of date and requires updating', array('@url' => 'http://drupal.org/project/entity_translation')),
+          'description' => $t('The Entity_Translation module is out of date and needs to be updated in order to be compatible with Metatag.'),
+        );
+      }
+    }
   }
 
   return $requirements;
