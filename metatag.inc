@@ -121,18 +121,15 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
   }
 
   public function getValue(array $options = array()) {
-    if (empty($options)) {
-      $options['instance'] = '';
-    }
-
-    $name = "metatag:" . $options["instance"] . ":" . $this->info["name"];
-
     $options += array(
+      'instance' => '',
       'token data' => array(),
       'clear' => TRUE,
       'sanitize' => TRUE,
       'raw' => FALSE,
     );
+
+    $name = "metatag:" . $options["instance"] . ":" . $this->info["name"];
 
     $value = metatag_translate($name, $this->data['value']);
     if (empty($options['raw'])) {
