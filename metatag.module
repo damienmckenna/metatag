@@ -397,7 +397,7 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids) {
  */
 function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
   // If no language assigned, use the has-no-language language.
-  if (!$language) {
+  if (empty($language)) {
     $language = LANGUAGE_NONE;
   }
 
@@ -560,9 +560,21 @@ function metatag_entity_insert($entity, $entity_type) {
     list($entity_id) = entity_extract_ids($entity_type, $entity);
 
     // Determine the entity's language.
-    $language = metatag_entity_get_language($entity_type, $entity);
+    $langcode = entity_language($entity_type, $entity);
 
-    metatag_metatags_save($entity_type, $entity_id, $entity->metatags, $language);
+    // Unfortunately due to how core works, the normal entity_language()
+    // function returns 'und' instead of the node's language during node
+    // creation.
+    if ((empty($langcode) || $langcode == LANGUAGE_NONE) && !empty($entity->language)) {
+      $langcode = $entity->language;
+    }
+
+    // If no language was still found, use the 'no language' value.
+    if (empty($langcode)) {
+      $langcode = LANGUAGE_NONE;
+    }
+
+    metatag_metatags_save($entity_type, $entity_id, $entity->metatags, $langcode);
   }
 }
 

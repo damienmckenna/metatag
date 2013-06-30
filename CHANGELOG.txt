@@ -29,6 +29,8 @@ By DamienMcKenna: Updated the README.txt's Credits section to match the project
 By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1982164 by DamienMcKenna: Added hook_requirements note to ensure that Entity
   Translation is up-to-date.
+#2020565 by DamienMcKenna: Save the correct language value on initial entity
+  creation.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
