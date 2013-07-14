@@ -38,6 +38,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   blank, but still allow "0" to be output when needed.
 #1999936 by DamienMcKenna: Fixed poor logic for checking if a valid language
   was available in metatag_metatags_values().
+#2024277 by DamienMcKenna: Follow-up to fix all meta tag output.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
