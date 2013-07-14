@@ -34,6 +34,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1876034 by DamienMcKenna: Updated a comment to indicate that there was a
   problem with Metatag itself when saving records via node_save(), not
   Workbench Moderation after all.
+#2024277 by greggles, DamienMcKenna: Don't output a mtea tag if the string is
+  blank, but still allow "0" to be output when needed.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

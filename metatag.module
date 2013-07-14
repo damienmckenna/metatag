@@ -787,7 +787,9 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
   $options['instance'] = $instance;
 
   foreach ($metatags as $metatag => $data) {
-    if ($metatag_instance = metatag_get_instance($metatag, $data)) {
+    if (isset($data->value)
+      && (!empty($data->value) || is_numeric($data->value))
+      && $metatag_instance = metatag_get_instance($metatag, $data)) {
       $output[$metatag] = $metatag_instance->getElement($options);
     }
   }
