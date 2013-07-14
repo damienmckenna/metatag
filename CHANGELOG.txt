@@ -39,6 +39,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1999936 by DamienMcKenna: Fixed poor logic for checking if a valid language
   was available in metatag_metatags_values().
 #2024277 by DamienMcKenna: Follow-up to fix all meta tag output.
+#1498764 by nick_schuch, DamienMcKenna: Added the Revisit-After meta tag.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

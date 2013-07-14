@@ -217,3 +217,46 @@ class DrupalListMetaTag extends DrupalDefaultMetaTag {
     return $this->tidyValue($value);
   }
 }
+
+/**
+ * Date interval meta tag controller.
+ */
+class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
+
+  public function getForm(array $options = array()) {
+    $form['value'] = array(
+      '#type' => 'textfield',
+      '#title' => t('@title interval', array('@title' => $this->info['label'])),
+      '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
+      '#element_validate' => array('element_validate_integer_positive'),
+      '#maxlength' => 4,
+      '#description' => isset($this->info['description']) ? $this->info['description'] : '',
+    );
+    $form['period'] = array(
+      '#type' => 'select',
+      '#title' => t('@title interval type', array('@title' => $this->info['label'])),
+      '#default_value' => isset($this->data['period']) ? $this->data['period'] : '',
+      '#options' => array(
+        '' => t('- none -'),
+        'day' => t('Day(s)'),
+        'week' => t('Week(s)'),
+        'month' => t('Month(s)'),
+        'year' => t('Year(s)'),
+      ),
+    );
+
+    return $form;
+  }
+
+  public function getValue(array $options = array()) {
+    $value = '';
+    if (!empty($this->data['value'])) {
+      $interval = intval($this->data['value']);
+      if (!empty($interval) && !empty($this->data['period'])) {
+        $period = $this->data['period'];
+        $value = format_plural($interval, '@count ' . $period, '@count ' . $period . 's');
+      }
+    }
+    return $value;
+  }
+}

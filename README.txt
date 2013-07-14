@@ -18,8 +18,8 @@ Features
 The primary features include:
 
 * The current supported basic meta tags are ABSTRACT, DESCRIPTION, CANONICAL,
-  COPYRIGHT, GENERATOR, IMAGE_SRC, KEYWORDS, PUBLISHER, ROBOTS, SHORTLINK and
-  the page's TITLE tag.
+  COPYRIGHT, GENERATOR, IMAGE_SRC, KEYWORDS, PUBLISHER, REVISIT-AFTER, ROBOTS,
+  SHORTLINK and the page's TITLE tag.
 
 * Multi-lingual support using the Entity Translation module.
 

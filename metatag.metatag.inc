@@ -224,5 +224,12 @@ function metatag_metatag_info() {
     'description' => t("Used to indicate the URL that broke the story, and can link to either an internal URL or an external source. If the full URL is not known it is acceptable to use a partial URL or just the domain name."),
   );
 
+   $info['tags']['revisit-after'] = array(
+     'label' => t('Revisit After'),
+     'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'http://drupal.org/project/xmlsitemap')),
+     'class' => 'DrupalDateIntervalMetaTag',
+     'group' => 'advanced',
+   );
+
   return $info;
 }
