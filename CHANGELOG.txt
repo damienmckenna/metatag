@@ -36,6 +36,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   Workbench Moderation after all.
 #2024277 by greggles, DamienMcKenna: Don't output a mtea tag if the string is
   blank, but still allow "0" to be output when needed.
+#1999936 by DamienMcKenna: Fixed poor logic for checking if a valid language
+  was available in metatag_metatags_values().
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

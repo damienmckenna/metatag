@@ -810,8 +810,8 @@ function metatag_metatags_values($instance, array $metatags = array(), array $op
   }
 
   // Generate output only if we have a valid language.
-  $language = $options['language'];
-  if (isset($language) && is_string($language) && isset($metatags[$language])) {
+  if (isset($options['language']) && is_string($options['language']) && isset($metatags[$options['language']])) {
+    $language = $options['language'];
 
     // Convert language codes to a language object.
     $languages = language_list();
