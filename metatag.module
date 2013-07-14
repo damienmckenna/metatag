@@ -406,11 +406,7 @@ function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
     return;
   }
 
-  // Certain modules, e.g. Workbench Moderation, will cause the data to be in
-  // an unsupported format; the problem needs to be resolved elsewhere so this
-  // can only be considered a temporary fix.
-  // TODO: Solve the core problem, which will probably entail something
-  // similar to http://drupal.org/node/1876034.
+  // Ensure the data saves during node_save().
   if (isset($metatags[$language])) {
     // There are certain occasions when the old data and the new data are
     // *both* added to the $metatags array, in this case throw away the language

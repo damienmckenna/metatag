@@ -31,6 +31,9 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   Translation is up-to-date.
 #2020565 by DamienMcKenna: Save the correct language value on initial entity
   creation.
+#1876034 by DamienMcKenna: Updated a comment to indicate that there was a
+  problem with Metatag itself when saving records via node_save(), not
+  Workbench Moderation after all.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
