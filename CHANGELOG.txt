@@ -40,6 +40,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   was available in metatag_metatags_values().
 #2024277 by DamienMcKenna: Follow-up to fix all meta tag output.
 #1498764 by nick_schuch, DamienMcKenna: Added the Revisit-After meta tag.
+#1671846 by benys, DamienMcKenna: Expose meta tags as tokens.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
