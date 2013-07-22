@@ -116,7 +116,15 @@ class MigrateMetatagHandler extends MigrateDestinationHandler {
     foreach ($elements['tags'] as $value) {
       $metatag_field = 'metatag_' . $value['name'];
       if (isset($entity->$metatag_field)) {
-        $entity->metatags[$value['name']]['value'] = $entity->$metatag_field;
+        // Support the expanded meta tag option.
+        if (is_array($entity->$metatag_field)) {
+          $entity->metatags[$value['name']]['item'] = $entity->$metatag_field;
+        }
+        // Normal meta tags.
+        else {
+          $entity->metatags[$value['name']]['value'] = $entity->$metatag_field;
+        }
+
         unset($entity->$metatag_field);
       }
     }

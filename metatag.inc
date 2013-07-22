@@ -143,6 +143,210 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
 }
 
 /**
+ * Extended meta tag controller for tags supporting the full attribute set.
+ */
+class DrupalExtendedMetaTag extends DrupalTextMetaTag {
+
+  /**
+   * Implements DrupalMetaTagInterface::getForm().
+   */
+  public function getForm(array $options = array()) {
+    // Ensure the 'token types' element is available.
+    $options += array(
+      'token types' => array(),
+    );
+
+    $form['item'] = array(
+      '#type' => 'fieldset',
+      '#title' => $this->info['label'],
+      '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
+      '#attributes' => array('class' => array('metatag-item', 'extended-metatag-item')),
+      // '#tree' => TRUE,
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['item']['value'] = isset($this->info['form']['value']) ? $this->info['form']['value'] : array();
+
+    // Check for old single value format.
+    if (!empty($this->data['value'])) {
+      $this->data['item']['value'] = $this->data['value'];
+    }
+
+    $form['item']['value'] += array(
+      '#type' => 'textfield',
+      '#title' => t('Value'),
+      '#description' => t('The actual value to be used on this field.'),
+      '#default_value' => isset($this->data['item']['value']) ? $this->data['item']['value'] : '',
+      '#attributes' => array('class' => array('extended-metatag-field')),
+      '#element_validate' => array('token_element_validate'),
+      '#token_types' => $options['token types'],
+      '#maxlength' => 1024,
+    );
+
+    $form['item']['scheme'] = isset($this->info['form']['scheme']) ? $this->info['form']['scheme'] : array();
+
+    $form['item']['scheme'] += array(
+      '#type' => 'textfield',
+      '#title' => t('Scheme'),
+      '#description' => t('Some metadata standards specify encoding schemes, though it is rarely used.'),
+      '#default_value' => isset($this->data['item']['scheme']) ? $this->data['item']['scheme'] : '',
+      '#attributes' => array('class' => array('extended-metatag-field', 'metatag-exclude')),
+      '#element_validate' => array('token_element_validate'),
+      '#token_types' => $options['token types'],
+    );
+
+    $form['item']['lang'] = isset($this->info['form']['lang']) ? $this->info['form']['lang'] : array();
+
+    $form['item']['lang'] += array(
+      '#type' => 'textfield',
+      '#title' => t('Language'),
+      '#description' => t("A language code that identifies a natural language spoken, written, or otherwise used for the communication of information."),
+      '#default_value' => isset($this->data['item']['lang']) ? $this->data['item']['lang'] : '',
+      '#attributes' => array('class' => array('extended-metatag-field', 'metatag-exclude')),
+      '#element_validate' => array('token_element_validate'),
+      '#token_types' => $options['token types'],
+    );
+
+    $form['item']['dir'] = isset($this->info['form']['dir']) ? $this->info['form']['dir'] : array();
+
+    $form['item']['dir'] += array(
+      '#type' => 'select',
+      '#title' => t('Text direction'),
+      '#description' => t("Specifies the base direction of directionally-neutral text."),
+      '#default_value' => isset($this->data['item']['dir']) ? $this->data['item']['dir'] : '',
+      '#options' => array(
+        FALSE => t('- none -'),
+        'ltr' => t('Left to right'),
+        'rtl' => t('Right to left'),
+      ),
+      '#attributes' => array('class' => array('extended-metatag-field', 'metatag-exclude')),
+    );
+
+    return $form;
+  }
+
+  /**
+   * Implements DrupalMetaTagInterface::getValue().
+   */
+  public function getValue(array $options = array()) {
+    $name = "metatag:" . $options["instance"] . ":" . $this->info["name"];
+
+    $options += array(
+      'token data' => array(),
+      'clear' => TRUE,
+      'sanitize' => TRUE,
+      'raw' => FALSE,
+    );
+
+    // Check for old single value format.
+    if (!empty($this->data['value'])) {
+      $this->data['item']['value'] = $this->data['value'];
+    }
+
+    if (!isset($this->data['item']['value'])) {
+      return NULL;
+    }
+
+    $value = metatag_translate($name, $this->data['item']['value']);
+    if (empty($options['raw'])) {
+      // Give other modules the opportunity to use hook_metatag_pattern_alter()
+      // to modify defined token patterns and values before replacement.
+      drupal_alter('metatag_pattern', $value, $options['token data']);
+      $value = token_replace($value, $options['token data'], $options);
+    }
+
+    $value = $this->tidyValue($value);
+
+    return $value;
+  }
+
+  /**
+   * Return the item attributes for the extended tag.
+   *
+   * @param array $options
+   *   (optional) An array of options.
+   *
+   * @return array
+   *   An array of values.
+   */
+  public function getAttributes(array $options = array()) {
+
+    $options += array(
+      'token data' => array(),
+      'clear' => TRUE,
+      'sanitize' => TRUE,
+      'raw' => FALSE,
+    );
+
+    $values = $this->data['item'];
+
+    unset($values['value']);
+
+    foreach ($values as $name => $value) {
+      if (empty($value)) {
+        unset($values[$name]);
+      }
+    }
+
+    if (isset($values['lang'])) {
+      $values['xml:lang'] = $values['lang'];
+    }
+
+    foreach ($values as $key => $value) {
+      if (empty($options['raw'])) {
+        $value = token_replace($value, $options['token data'], $options);
+      }
+
+      $values[$key] = $this->tidyValue($value);
+    }
+
+    return $values;
+  }
+
+  /**
+   * Implements DrupalMetaTagInterface::getElement().
+   */
+  public function getElement(array $options = array()) {
+
+    $element = isset($this->info['element']) ? $this->info['element'] : array();
+
+    $value = $this->getValue($options);
+    if (strlen($value) === 0) {
+      return array();
+    }
+
+    $element += array(
+      '#theme' => 'metatag',
+      '#tag' => 'meta',
+      '#id' => 'metatag_' . $this->info['name'],
+      '#name' => $this->info['name'],
+      '#value' => $value,
+      '#attributes' => $this->getAttributes($options),
+    );
+
+    // Add header information if desired.
+    if (!empty($this->info['header'])) {
+      $element['#attached']['drupal_add_http_header'][] = array(
+        $this->info['header'],
+        $value,
+      );
+    }
+
+    return array(
+      '#attached' => array(
+        'drupal_add_html_head' => array(
+          array(
+            $element,
+            $element['#id'],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
+/**
  * Link type meta tag controller.
  */
 class DrupalLinkMetaTag extends DrupalTextMetaTag {

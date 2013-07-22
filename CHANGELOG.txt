@@ -44,6 +44,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1830952 by DYdave, DamienMcKenna: Allow token types and patterns to be altered.
 #1859136 by plopesc, DamienMcKenna: Properly update meta tag records.
 #2045855 by czigor: Fix translation of meta tag info labels.
+#1970362 by xtfer, DamienMcKenna: Added new meta tag type for handling all of
+  the available <meta> tag attributes, updated Dublin Core tags to use them.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
