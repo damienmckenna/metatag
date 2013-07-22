@@ -1365,10 +1365,11 @@ function metatag_get_info($type = NULL, $name = NULL) {
   }
   $info = &$drupal_static_fast['metatag_info'];
 
+  global $language;
   if (!isset($info)) {
     // hook_metatag_info() includes translated strings, so each language is cached
     // separately.
-    $cid = 'info:' . LANGUAGE_NONE;
+    $cid = 'info:' . $language->language;
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $info = $cache->data;
