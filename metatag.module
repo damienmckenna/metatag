@@ -1,7 +1,7 @@
 <?php
-
 /**
- * @todo Add revisionable support for metatag data.
+ * @file
+ * Primary hook implementations for Metatag.
  */
 
 /**
@@ -348,7 +348,7 @@ function metatag_metatags_load($entity_type, $entity_id) {
  * @return
  *   An array of tag data, keyed by ID.
  */
-function metatag_metatags_load_multiple($entity_type, array $entity_ids) {
+function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $revision_ids) {
   // Double check entity IDs are numeric thanks to Entity API module.
   $entity_ids = array_filter($entity_ids, 'is_numeric');
   if (empty($entity_ids)) {
@@ -368,10 +368,11 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids) {
   }
 
   // Get all translations of tag data for this entity.
-  $result = db_query("SELECT entity_id, data, language FROM {metatag} WHERE (entity_type = :type) AND (entity_id IN (:ids))", array(
+  $result = db_query("SELECT entity_id, data, language FROM {metatag} WHERE (entity_type = :type) AND (entity_id IN (:ids)) AND (revision_id IN (:vids))", array(
     ':type' => $entity_type,
     ':ids' => $entity_ids,
-  ));
+    ':vids' => $revision_ids,
+    ));
 
   // Marshal it into an array keyed by entity ID. Each value is an array of
   // translations keyed by language code.
@@ -390,15 +391,17 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids) {
  *   The entity type to load
  * @param $entity_id
  *   The entity's ID
+ * @param $revision_id
+ *   The entity's VID.
  * @param $metatags
  *   All of the tag information
  * @param $language
  *   The language of the translation set
  */
-function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
+function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $langcode) {
   // If no language assigned, use the has-no-language language.
-  if (empty($language)) {
-    $language = LANGUAGE_NONE;
+  if (empty($langcode)) {
+    $langcode = LANGUAGE_NONE;
   }
 
   // Check that $entity_id is numeric because of Entity API and string IDs.
@@ -406,13 +409,18 @@ function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
     return;
   }
 
+  // If the vid was not passed in, use the entity_id.
+  if (empty($revision_id)) {
+    $revision_id = $entity_id;
+  }
+
   // Ensure the data saves during node_save().
-  if (isset($metatags[$language])) {
+  if (isset($metatags[$langcode])) {
     // There are certain occasions when the old data and the new data are
     // *both* added to the $metatags array, in this case throw away the language
     // data.
-    $lang_data = $metatags[$language];
-    unset($metatags[$language]);
+    $lang_data = $metatags[$langcode];
+    unset($metatags[$langcode]);
     if (empty($metatags)) {
       $metatags = $lang_data;
     }
@@ -422,7 +430,7 @@ function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
   // hook_metatag_presave().
   foreach (module_implements('metatag_presave') as $module) {
     $function = "{$module}_metatag_presave";
-    $function($metatags, $entity_type, $entity_id, $language);
+    $function($metatags, $entity_type, $entity_id, $revision_id, $langcode);
   }
 
   if (empty($metatags)) {
@@ -431,7 +439,7 @@ function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
     db_delete('metatag')
       ->condition('entity_type', $entity_type)
       ->condition('entity_id', $entity_id)
-      ->condition('language', $language)
+      ->condition('language', $langcode)
       ->execute();
   }
   else {
@@ -440,7 +448,8 @@ function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
       ->key(array(
         'entity_type' => $entity_type,
         'entity_id' => $entity_id,
-        'language' => $language,
+        'language' => $langcode,
+        'revision_id' => $revision_id,
       ))
       ->fields(array(
         'data' => serialize($metatags),
@@ -459,12 +468,14 @@ function metatag_metatags_save($entity_type, $entity_id, $metatags, $language) {
  *   The entity type
  * @param $entity_id
  *   The entity's ID
+ * @param $revision_id
+ *   The entity's VID.
  * @param $langcode
- *   The language ID of the entry to delete.  If left blank, all language
+ *   The language ID of the entry to delete. If left blank, all language
  *   entries for this entity will be deleted.
  */
-function metatag_metatags_delete($entity_type, $entity_id, $langcode = NULL) {
-  return metatag_metatags_delete_multiple($entity_type, array($entity_id), $langcode);
+function metatag_metatags_delete($entity_type, $entity_id, $revision_id = NULL, $langcode = NULL) {
+  return metatag_metatags_delete_multiple($entity_type, array($entity_id), array($revision_id), $langcode);
 }
 
 /**
@@ -474,28 +485,35 @@ function metatag_metatags_delete($entity_type, $entity_id, $langcode = NULL) {
  *   The entity type
  * @param $entity_ids
  *   The list of IDs
+ * @param $revision_id
+ *   An optional list of VIDs, if omitted all revisions will be deleted.
  * @param $langcode
- *   The language ID of the entities to delete.  If left blank, all language
+ *   The language ID of the entities to delete. If left blank, all language
  *   entries for the enities will be deleted.
  */
-function metatag_metatags_delete_multiple($entity_type, array $entity_ids, $langcode = NULL) {
+function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array $revision_ids, $langcode = NULL) {
   // Double check entity IDs are numeric thanks to Entity API module.
   $entity_ids = array_filter($entity_ids, 'is_numeric');
 
-  if ($metatags = metatag_metatags_load_multiple($entity_type, $entity_ids)) {
+  if ($metatags = metatag_metatags_load_multiple($entity_type, $entity_ids, $revision_ids)) {
     $transaction = db_transaction();
     try {
       // Let other modules know about the records being deleted using
       // hook_metatag_metatags_delete().
-      module_invoke_all('metatag_metatags_delete', $entity_type, $entity_ids, $langcode);
+      module_invoke_all('metatag_metatags_delete', $entity_type, $entity_ids, $revision_ids, $langcode);
 
       // Set the entity to delete.
       $query = db_delete('metatag')
         ->condition('entity_type', $entity_type)
         ->condition('entity_id', $entity_ids, 'IN');
 
+      // Optionally delete a specific revision.
+      if (!empty($revision_ids)) {
+        $query->condition('revision_id', $revision_ids, 'IN');
+      }
+
       // Specify a language if there is one.
-      if ($langcode) {
+      if (empty($langcode)) {
         $query->condition('language', $langcode);
       }
 
@@ -529,11 +547,21 @@ function metatag_metatags_cache_clear($entity_type, $entity_id = NULL) {
  * Implements hook_entity_load().
  */
 function metatag_entity_load($entities, $entity_type) {
+  // get the revision_ids
+  $revision_ids = array();
+  //since some entities do not have revisions, set the vid to the id
+  foreach ($entities as $key => $entity) {
+    list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+    if (!$revision_id) {
+      $revision_id = $entity_id;
+    }
+    $revision_ids[] = $revision_id;
+  }
   // Wrap this in a try-catch block to work around occasions when the schema
   // hasn't been updated yet.
   try {
     if (metatag_entity_supports_metatags($entity_type)) {
-      $metatags = metatag_metatags_load_multiple($entity_type, array_keys($entities));
+      $metatags = metatag_metatags_load_multiple($entity_type, array_keys($entities), $revision_ids);
       foreach ($entities as $entity_id => $entity) {
         $entities[$entity_id]->metatags = isset($metatags[$entity_id]) ? $metatags[$entity_id] : array();
       }
@@ -553,7 +581,7 @@ function metatag_entity_load($entities, $entity_type) {
  */
 function metatag_entity_insert($entity, $entity_type) {
   if (isset($entity->metatags)) {
-    list($entity_id) = entity_extract_ids($entity_type, $entity);
+    list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
 
     // Determine the entity's language.
     $langcode = entity_language($entity_type, $entity);
@@ -570,7 +598,7 @@ function metatag_entity_insert($entity, $entity_type) {
       $langcode = LANGUAGE_NONE;
     }
 
-    metatag_metatags_save($entity_type, $entity_id, $entity->metatags, $langcode);
+    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $langcode);
   }
 }
 
@@ -582,7 +610,7 @@ function metatag_entity_update($entity, $entity_type) {
     return;
   }
 
-  list($entity_id) = entity_extract_ids($entity_type, $entity);
+  list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
 
   if (isset($entity->metatags)) {
     // Determine the entity's language.
@@ -605,7 +633,7 @@ function metatag_entity_update($entity, $entity_type) {
     }
 
     // Save the record.
-    metatag_metatags_save($entity_type, $entity_id, $entity->metatags, $new_language);
+    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $new_language);
   }
   else {
     // Still ensure the meta tag output is cached.
@@ -625,7 +653,8 @@ function metatag_entity_delete($entity, $entity_type) {
  * Implements hook_field_attach_delete_revision().
  */
 function metatag_field_attach_delete_revision($entity_type, $entity) {
-  //list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+  list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+  metatag_metatags_delete($entity_type, $entity_id, $revision_id);
 }
 
 /**
@@ -704,7 +733,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode) {
     // hook_metatag_page_cache_cid_parts_alter().
     drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
 
-    $cid = "output:{$entity_type}:{$entity_id}:{$langcode}:" . hash('sha256', serialize($cid_parts));
+    $cid = "output:{$entity_type}:{$entity_id}:{$revision_id}:{$langcode}:" . hash('sha256', serialize($cid_parts));
 
     if ($cache = cache_get($cid, 'cache_metatag')) {
       $output = $cache->data;
@@ -1082,7 +1111,7 @@ function metatag_entity_info_alter(&$info) {
     'path' => 'taxonomy/term/%taxonomy_term',
     'metatags' => TRUE,
   );
-  if (module_exists('forum') && ($vid = variable_get('forum_nav_vocabulary', 0)) && $vocabulary = taxonomy_vocabulary_load($vid)) {
+  if (module_exists('forum') && ($revision_id = variable_get('forum_nav_vocabulary', 0)) && $vocabulary = taxonomy_vocabulary_load($revision_id)) {
     $defaults['taxonomy_term']['bundles'][$vocabulary->machine_name]['path'] = 'forum/%taxonomy_term';
   }
   $defaults['user'] = array(
@@ -1817,10 +1846,10 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
  */
 function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
   // Get the entity's ID.
-  list($entity_id) = entity_extract_ids($entity_type, $entity);
+  list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
 
   // Delete the translation.
-  metatag_metatags_delete($entity_type, $entity_id, $langcode);
+  metatag_metatags_delete($entity_type, $entity_id, $revision_id, $langcode);
 }
 
 /**

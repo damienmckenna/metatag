@@ -166,7 +166,13 @@ function metatag_schema() {
         'default' => 0,
         'description' => 'The entity id this data is attached to.',
       ),
-      // @todo Enable revisionable meta tags.
+      'revision_id' => array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => FALSE,
+        'default' => 0,
+        'description' => 'The entity vid this data is attached to'
+      ),
       'data' => array(
         'type' => 'blob',
         'size' => 'big',
@@ -181,7 +187,7 @@ function metatag_schema() {
         'description' => 'The language of the tag.',
       ),
     ),
-    'primary key' => array('entity_type', 'entity_id', 'language'),
+    'primary key' => array('entity_type', 'entity_id', 'revision_id', 'language'),
   );
 
   $schema['cache_metatag'] = drupal_get_schema_unprocessed('system', 'cache');
@@ -891,4 +897,20 @@ function metatag_update_7014() {
     }
     drupal_set_message(t('Fixed @count corrupt meta tag record(s).', array('@count' => $records->rowCount())));
   }
+}
+
+/**
+ * Add the revision_id from the entity into metatag schema, adjust the primary
+ * keys accordingly.
+ */
+function metatag_update_7015() {
+  // Add the new field.
+  db_add_field('metatag', 'revision_id', array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => 0, 'description' => 'The entity id revision_id this data is attached to'));
+
+  // Remove the existing primary key. This may take some work so it can be
+  // database agnostic, i.e. some databases will not like it.
+  db_drop_primary_key('metatag');
+
+  // Add the new primary key.
+  db_add_primary_key('metatag', array('entity_type', 'entity_id', 'revision_id', 'language'));
 }
