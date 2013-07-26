@@ -47,6 +47,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1970362 by xtfer, DamienMcKenna: Added new meta tag type for handling all of
   the available <meta> tag attributes, updated Dublin Core tags to use them.
 #1572474 by PieIsGood, Dan Reinders, DamienMcKenna: Entity revision support.
+#2051401 by cha0s: Remove errant dpm() left in from earlier testing.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

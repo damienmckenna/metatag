@@ -166,7 +166,6 @@ function metatag_token_generate_array($entity, $entity_type, $bundle) {
         $result[$metatag] = $metatag_instance->getValue($options);
       }
     }
-    dpm($result);
     return $result;
   }
 
