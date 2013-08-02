@@ -909,6 +909,9 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   // Merge in the default meta tag configurations.
   $metatags += $options['defaults'];
 
+  // This will be used later.
+  $group_metatag_access = array();
+
   // Build the form for each metatag.
   foreach ($info['tags'] as $metatag => $metatag_info) {
     // @todo Replace context matching with hook_metatag_access().
@@ -969,6 +972,9 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
       else {
         $form['metatags'][$group_key]['#access'] = $form['metatags']['#access'];
       }
+      // Structure the access parameter into this array, and make use of it
+      // later when we move on. Besides, this foreach is getting heavy.
+      $group_metatag_access[$group_key] = $form['metatags'][$group_key]['#access'];
     }
     else {
       $form['metatags'][$metatag] = $metatag_form;
@@ -982,15 +988,28 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     $form['metatags']['#access'] = count(element_get_visible_children($form['metatags'])) > 0;
   }
 
-  // Show the list of available tokens, if the fieldset is to be displayed, no
-  // point in outputting anything if it won't be displayed.
-  if ($form['metatags']['#access']) {
-    $form['metatags']['tokens'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => $options['token types'],
-      '#weight' => 999,
-      '#dialog' => TRUE,
-    );
+  // Check the #access of each group. If it passed, we display options for
+  // tokens. By this we update the #description of each group.
+  if ($form['metatags']['#access'] && !empty($group_metatag_access)) {
+    // Built the token list.
+    $token_listing_link = theme('token_tree', array('token_types' => $options['token types'], 'dialog' => TRUE));
+
+    // Add the token list to the top of the fieldset.
+    $form['metatags']['#description'] = $token_listing_link;
+
+    // Check if each meta tag group is being displayed.
+    foreach ($group_metatag_access as $group_key => $token_access) {
+      if ($token_access) {
+        // Update the description.
+        if (isset($form['metatags'][$group_key]['#description'])) {
+          $form['metatags'][$group_key]['#description'] .= '<br />';
+        }
+        else {
+          $form['metatags'][$group_key]['#description'] = '';
+        }
+        $form['metatags'][$group_key]['#description'] .= $token_listing_link;
+      }
+    }
   }
 
   // Add a submit handler to compare the submitted values against the deafult
