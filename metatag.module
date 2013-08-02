@@ -990,7 +990,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
 
   // Check the #access of each group. If it passed, we display options for
   // tokens. By this we update the #description of each group.
-  if ($form['metatags']['#access'] && !empty($group_metatag_access)) {
+  if ($form['metatags']['#access']) {
     // Built the token list.
     $token_listing_link = theme('token_tree', array('token_types' => $options['token types'], 'dialog' => TRUE));
 
@@ -998,16 +998,18 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     $form['metatags']['#description'] = $token_listing_link;
 
     // Check if each meta tag group is being displayed.
-    foreach ($group_metatag_access as $group_key => $token_access) {
-      if ($token_access) {
-        // Update the description.
-        if (isset($form['metatags'][$group_key]['#description'])) {
-          $form['metatags'][$group_key]['#description'] .= '<br />';
+    if (!empty($group_metatag_access)) {
+      foreach ($group_metatag_access as $group_key => $token_access) {
+        if ($token_access) {
+          // Update the description.
+          if (isset($form['metatags'][$group_key]['#description'])) {
+            $form['metatags'][$group_key]['#description'] .= '<br />';
+          }
+          else {
+            $form['metatags'][$group_key]['#description'] = '';
+          }
+          $form['metatags'][$group_key]['#description'] .= $token_listing_link;
         }
-        else {
-          $form['metatags'][$group_key]['#description'] = '';
-        }
-        $form['metatags'][$group_key]['#description'] .= $token_listing_link;
       }
     }
   }
