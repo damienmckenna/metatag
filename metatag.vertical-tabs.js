@@ -5,16 +5,8 @@ Drupal.behaviors.metatagFieldsetSummaries = {
   attach: function (context) {
     $('fieldset.metatags-form', context).drupalSetSummary(function (context) {
       var vals = [];
-      $("input[type='text'], select, textarea", context).not('.metatag-exclude').each(function() {
-        if ($(this).hasClass('extended-metatag-field')) {
-          var default_name = $(this).attr('name').replace(/\[item\]/, '').replace(/\[value\]/, '[default]');
-          var label = $(this).closest('.extended-metatag-item').find('a.fieldset-title').text().replace(/^Hide|Show/, '');
-        }
-        else {
-          var default_name = $(this).attr('name').replace(/\[value\]/, '[default]');
-          var label = $("label[for='" + $(this).attr('id') + "']").text();
-        }
-
+      $("input[type='text'], select, textarea", context).each(function() {
+        var default_name = $(this).attr('name').replace(/\[value\]/, '[default]');
         var default_value = $("input[type='hidden'][name='" + default_name + "']", context);
         if (default_value.length && default_value.val() == $(this).val()) {
           // Meta tag has a default value and form value matches default value.
@@ -24,6 +16,7 @@ Drupal.behaviors.metatagFieldsetSummaries = {
           // Meta tag has no default value and form value is empty.
           return true;
         }
+        var label = $("label[for='" + $(this).attr('id') + "']").text();
         vals.push(Drupal.t('@label: @value', {
           '@label': $.trim(label),
           '@value': Drupal.truncate($(this).val(), 25) || Drupal.t('None')
