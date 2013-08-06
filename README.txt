@@ -178,6 +178,10 @@ Some modules are available that extend Metatag with additional functionality:
   Provide tokens to load fields using an image style preset, for when meta tags
   need to fix exact requirements.
 
+* Node Form Panes
+  https://drupal.org/project/node_form_panes
+  Create custom node-edit forms and control the location of the Metatag fields.
+
 
 Credits / Contact
 ------------------------------------------------------------------------------

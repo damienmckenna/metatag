@@ -50,6 +50,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1985932 by kolier: Correct the taxonomy term token on Panels pages.
 #2033723 by som30ind, DamienMcKenna: Fixed occasional error saving array values,
   e.g. the ROBOTS tag.
+#1959830 by DamienMcKenna: Added a note to README.txt about Node Form Panes.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
