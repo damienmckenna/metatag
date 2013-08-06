@@ -197,6 +197,16 @@ class DrupalTitleMetaTag extends DrupalTextMetaTag {
  */
 class DrupalListMetaTag extends DrupalDefaultMetaTag {
 
+  function __construct(array $info, array $data = NULL) {
+    // Ensure that the $data['value] argument is an array.
+    if (empty($data['value'])) {
+      $data['value'] = array();
+    }
+    $data['value'] = (array) $data['value'];
+
+    parent::__construct($info, $data);
+  }
+
   public function getForm(array $options = array()) {
     $form['value'] = isset($this->info['form']) ? $this->info['form'] : array();
 
