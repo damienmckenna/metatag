@@ -38,7 +38,12 @@ function metatag_panels_form($form, $form_state) {
   $token_types = array();
 
   foreach ($contexts as $context) {
-    $token_types[] = $context->keyword;
+    if ($context->keyword == 'taxonomy_term') {
+      $token_types[] = 'term';
+    }
+    else {
+      $token_types[] = $context->keyword;
+    }
   }
 
   // Allow the user to enable/disable meta tags for this panel.

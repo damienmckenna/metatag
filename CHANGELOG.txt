@@ -47,7 +47,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1572474 by PieIsGood, Dan Reinders, DamienMcKenna: Entity revision support.
 #2051401 by cha0s: Remove errant dpm() left in from earlier testing.
 #2037677 by adnasa, DamienMcKenna, tsvenson: UX improvement for the token popup.
- 
+#1985932 by kolier: Correct the taxonomy term token on Panels pages.
+
 
 Metatag 7.x-1.0-beta7, 2013-04-22
 ---------------------------------
