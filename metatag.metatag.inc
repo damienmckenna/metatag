@@ -164,6 +164,13 @@ function metatag_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
   );
+  
+  $info['tags']['standout'] = array(
+    'label' => t('Google Standout'),
+    'description' => t("Highlight standout journalism on the web, especially for breaking news; used as an indicator in <a href=\"@google_news\">Google News</a>. Warning: Don't abuse it, to be used a maximum of 7 times per calendar week!", array('@google_news' => 'https://support.google.com/news/publisher/answer/191283?hl=en&ref_topic=2484650')),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+  );
 
   $info['tags']['generator'] = array(
     'label' => t('Generator'),
