@@ -171,7 +171,7 @@ function metatag_schema() {
         'unsigned' => TRUE,
         'not null' => FALSE,
         'default' => 0,
-        'description' => 'The entity vid this data is attached to'
+        'description' => 'The revision_id for the entity object this data is attached to.',
       ),
       'language' => array(
         'type' => 'varchar',
@@ -905,7 +905,13 @@ function metatag_update_7014() {
  */
 function metatag_update_7015() {
   // Add the new field.
-  db_add_field('metatag', 'revision_id', array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => 0, 'description' => 'The entity id revision_id this data is attached to'));
+  db_add_field('metatag', 'revision_id', array(
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => FALSE,
+      'default' => 0,
+      'description' => 'The revision_id for the entity object this data is attached to.',
+    ));
 
   // Remove the existing primary key. This may take some work so it can be
   // database agnostic, i.e. some databases will not like it.
@@ -913,4 +919,6 @@ function metatag_update_7015() {
 
   // Add the new primary key.
   db_add_primary_key('metatag', array('entity_type', 'entity_id', 'revision_id', 'language'));
+
+  drupal_set_message(t('Added the {metatag}.revision_id field.'));
 }
