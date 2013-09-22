@@ -169,9 +169,9 @@ function metatag_schema() {
       'revision_id' => array(
         'type' => 'int',
         'unsigned' => TRUE,
-        'not null' => FALSE,
+        'not null' => TRUE,
         'default' => 0,
-        'description' => 'The entity vid this data is attached to'
+        'description' => 'The revision_id for the entity object this data is attached to.'
       ),
       'language' => array(
         'type' => 'varchar',
@@ -904,8 +904,17 @@ function metatag_update_7014() {
  * keys accordingly.
  */
 function metatag_update_7015() {
+  // Tell update 7016 that it isn't needed.
+  variable_set('metatag_skip_update_7016', TRUE);
+
   // Add the new field.
-  db_add_field('metatag', 'revision_id', array('type' => 'int', 'unsigned' => TRUE, 'not null' => FALSE, 'default' => 0, 'description' => 'The entity id revision_id this data is attached to'));
+  db_add_field('metatag', 'revision_id', array(
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0,
+      'description' => 'The revision_id for the entity object this data is attached to.',
+    ));
 
   // Remove the existing primary key. This may take some work so it can be
   // database agnostic, i.e. some databases will not like it.
@@ -913,4 +922,42 @@ function metatag_update_7015() {
 
   // Add the new primary key.
   db_add_primary_key('metatag', array('entity_type', 'entity_id', 'revision_id', 'language'));
+
+  drupal_set_message(t('Added the {metatag}.revision_id field.'));
+}
+
+/**
+ * The {metatag}.revision_id field is required.
+ */
+function metatag_update_7016() {
+  if (!variable_get('metatag_skip_update_7016', FALSE)) {
+    // Let's add a temporary unique key so MySQL will let it go.
+    db_add_unique_key('metatag', 'temp_key', array('entity_type', 'entity_id', 'revision_id', 'language'));
+    
+    // Now remove the PK before changing a field from serial.
+    db_drop_primary_key('metatag');
+
+    // Change the field.
+    db_change_field('metatag', 'revision_id', 'revision_id', array(
+      'type' => 'int',
+      'unsigned' => TRUE,
+      'not null' => TRUE,
+      'default' => 0,
+      'description' => 'The revision_id for the entity object this data is attached to.',
+    ));
+
+    // Manually re-add the PK.
+    db_add_primary_key('metatag', array('entity_type', 'entity_id', 'revision_id', 'language'));
+
+    // Finally, remove the temporary unique key because it's no longer userful.
+    db_drop_unique_key('metatag', 'temp_key');
+
+    drupal_set_message(t('Fixed the {metatag}.revision_id field.'));
+  }
+  else {
+    drupal_set_message(t("Didn't need to fix the {metatag}.revision_id field; please disperse, nothing to see here."));
+  }
+
+  // Delete the temporary variable.
+  variable_del('metatag_skip_update_7016');
 }

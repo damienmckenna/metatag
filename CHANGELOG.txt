@@ -53,6 +53,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1959830 by DamienMcKenna: Added a note to README.txt about Node Form Panes.
 #2061511 by amanire: Verify view display 'path' option exists before using it.
 #1776836 by kobee, DamienMcKenna: Added the Standout meta tag.
+#2082539 by DamienMcKenna, hswong3i: Fixed the {metatag}.revision_id field.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
