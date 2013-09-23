@@ -513,7 +513,7 @@ function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array
       }
 
       // Specify a language if there is one.
-      if (empty($langcode)) {
+      if (!empty($langcode)) {
         $query->condition('language', $langcode);
       }
 

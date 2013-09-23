@@ -54,6 +54,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2061511 by amanire: Verify view display 'path' option exists before using it.
 #1776836 by kobee, DamienMcKenna: Added the Standout meta tag.
 #2095397 by DamienMcKenna: Allow method to skip skipping metatag_entity_view().
+#2095501 by DamienMcKenna: Logic mistake in metatag_metatags_delete_multiple()
+  meant records were never deleted.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
