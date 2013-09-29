@@ -57,6 +57,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2095501 by DamienMcKenna: Logic mistake in metatag_metatags_delete_multiple()
   meant records were never deleted.
 #2072087 by brunascle: Twitter Cards changed to use correct 'name' attribute.
+#2086037 by greggles: Only show schema warning messages to appropriate people.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
