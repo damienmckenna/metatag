@@ -255,6 +255,16 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
+  $info['tags']['og:locale'] = array(
+    'label' => t('Open Graph Locale'),
+    'description' => 'The locale these tags are marked up in. Of the format language_TERRITORY. Default is en_US.',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'open-graph',
+    'element' => array(
+      '#theme' => 'metatag_opengraph',
+    ),
+  );
+
   $info['tags']['og:video'] = array(
     'label' => t('Open Graph Video (URL)'),
     'description' => t('A URL to a video file that complements this object.'),

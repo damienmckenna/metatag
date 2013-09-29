@@ -58,6 +58,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   meant records were never deleted.
 #2072087 by brunascle: Twitter Cards changed to use correct 'name' attribute.
 #2086037 by greggles: Only show schema warning messages to appropriate people.
+#1311050 by pasive, DamienMcKenna: Added the og:locale meta tag.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
