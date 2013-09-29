@@ -56,6 +56,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2095397 by DamienMcKenna: Allow method to skip skipping metatag_entity_view().
 #2095501 by DamienMcKenna: Logic mistake in metatag_metatags_delete_multiple()
   meant records were never deleted.
+#2072087 by brunascle: Twitter Cards changed to use correct 'name' attribute.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
