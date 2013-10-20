@@ -61,6 +61,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1311050 by pasive, DamienMcKenna: Added the og:locale meta tag.
 #2082539 by DamienMcKenna, hswong3i: {metatag}.revision_id cannot be null.
 #2082539 by DamienMcKenna: Follow-up to make all revision_id values numeric.
+#1848338 by DamienMcKenna: Added a list of test scenarios that need to be added.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
