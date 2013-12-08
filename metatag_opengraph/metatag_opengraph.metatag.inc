@@ -325,7 +325,7 @@ function metatag_opengraph_metatag_info() {
       '#theme' => 'metatag_opengraph',
     ),
     'devel_generate' => array(
-      'type' => 'numberic',
+      'type' => 'integer',
     ),
   );
   $info['tags']['og:video:height'] = array(
@@ -337,7 +337,7 @@ function metatag_opengraph_metatag_info() {
       '#theme' => 'metatag_opengraph',
     ),
     'devel_generate' => array(
-      'type' => 'numberic',
+      'type' => 'integer',
     ),
   );
   $info['tags']['og:video:type'] = array(

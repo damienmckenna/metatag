@@ -83,7 +83,7 @@ function metatag_twitter_cards_metatag_info() {
       '#theme' => 'metatag_twitter_cards',
     ),
     'devel_generate' => array(
-      'type' => 'ampersand',
+      'type' => 'twitter',
     ),
   );
   $info['tags']['twitter:site:id'] = array(
@@ -108,7 +108,7 @@ function metatag_twitter_cards_metatag_info() {
       '#theme' => 'metatag_twitter_cards',
     ),
     'devel_generate' => array(
-      'type' => 'ampersand',
+      'type' => 'twitter',
     ),
   );
   $info['tags']['twitter:creator:id'] = array(

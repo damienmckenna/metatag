@@ -64,6 +64,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1848338 by DamienMcKenna: Added a list of test scenarios that need to be added.
 #2152043 by DamienMcKenna: Devel Generate integration via Metatag:Devel
   submodule.
+#2152043 by DamienMcKenna: Expanded Devel Generate integration to cover almost
+  all included meta tags.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
