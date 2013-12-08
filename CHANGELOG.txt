@@ -62,6 +62,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2082539 by DamienMcKenna, hswong3i: {metatag}.revision_id cannot be null.
 #2082539 by DamienMcKenna: Follow-up to make all revision_id values numeric.
 #1848338 by DamienMcKenna: Added a list of test scenarios that need to be added.
+#2152043 by DamienMcKenna: Devel Generate integration via Metatag:Devel
+  submodule.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
