@@ -1,0 +1,6 @@
+name = Metatag:Devel
+description = Provides development / debugging functionality for the Metatag module. Integrates with Devel Generate.
+package = Development
+core = 7.x
+tags[] = developer
+dependencies[] = metatag

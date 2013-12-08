@@ -81,6 +81,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'integer',
+    ),
   );
   if (module_exists('fb_social')) {
     $info['tags']['fb:app_id']['form']['#disabled'] = TRUE;
@@ -150,6 +153,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
   );
 
   $info['tags']['og:url'] = array(
@@ -159,6 +165,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'canonical',
     ),
   );
 
@@ -170,6 +179,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'float',
+    ),
   );
   $info['tags']['og:longitude'] = array(
     'label' => t('Open Graph Longitude'),
@@ -178,6 +190,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'float',
     ),
   );
 
@@ -235,6 +250,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'email',
+    ),
   );
   $info['tags']['og:phone_number'] = array(
     'label' => t('Open Graph Phone Number'),
@@ -244,6 +262,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'phone',
+    ),
   );
   $info['tags']['og:fax_number'] = array(
     'label' => t('Open Graph Fax Number'),
@@ -252,6 +273,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'phone',
     ),
   );
 
@@ -263,6 +287,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'maxlength' => 1,
+    ),
   );
 
   $info['tags']['og:video'] = array(
@@ -273,6 +300,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
   $info['tags']['og:video:secure_url'] = array(
     'label' => t('Open Graph Video Secure'),
@@ -281,6 +311,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'url',
     ),
   );
   $info['tags']['og:video:width'] = array(
@@ -291,6 +324,9 @@ function metatag_opengraph_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_opengraph',
     ),
+    'devel_generate' => array(
+      'type' => 'numberic',
+    ),
   );
   $info['tags']['og:video:height'] = array(
     'label' => t('Open Graph Video Height'),
@@ -299,6 +335,9 @@ function metatag_opengraph_metatag_info() {
     'group' => 'open-graph',
     'element' => array(
       '#theme' => 'metatag_opengraph',
+    ),
+    'devel_generate' => array(
+      'type' => 'numberic',
     ),
   );
   $info['tags']['og:video:type'] = array(

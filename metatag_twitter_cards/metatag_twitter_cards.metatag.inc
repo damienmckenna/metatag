@@ -82,6 +82,9 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
+    'devel_generate' => array(
+      'type' => 'ampersand',
+    ),
   );
   $info['tags']['twitter:site:id'] = array(
     'label' => t('Site\'s Twitter account ID'),
@@ -92,6 +95,9 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
+    'devel_generate' => array(
+      'type' => 'integer',
+    ),
   );
   $info['tags']['twitter:creator'] = array(
     'label' => t('Creator\'s Twitter account'),
@@ -100,6 +106,9 @@ function metatag_twitter_cards_metatag_info() {
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
+    ),
+    'devel_generate' => array(
+      'type' => 'ampersand',
     ),
   );
   $info['tags']['twitter:creator:id'] = array(
@@ -110,6 +119,9 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
+    'devel_generate' => array(
+      'type' => 'integer',
+    ),
   );
   $info['tags']['twitter:url'] = array(
     'label' => t('Page URL'),
@@ -118,6 +130,9 @@ function metatag_twitter_cards_metatag_info() {
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
+    ),
+    'devel_generate' => array(
+      'type' => 'canonical',
     ),
   );
   $info['tags']['twitter:title'] = array(
@@ -146,6 +161,9 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
   );
   $info['tags']['twitter:image:width'] = array(
     'label' => t('Image width'),
@@ -154,6 +172,9 @@ function metatag_twitter_cards_metatag_info() {
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
+    ),
+    'devel_generate' => array(
+      'type' => 'integer',
     ),
   );
   $info['tags']['twitter:image:height'] = array(
@@ -164,6 +185,9 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
+    'devel_generate' => array(
+      'type' => 'integer',
+    ),
   );
   $info['tags']['twitter:player'] = array(
     'label' => t('Media player URL'),
@@ -172,6 +196,9 @@ function metatag_twitter_cards_metatag_info() {
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
+    ),
+    'devel_generate' => array(
+      'type' => 'url',
     ),
   );
   $info['tags']['twitter:player:width'] = array(
@@ -182,6 +209,9 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
+    'devel_generate' => array(
+      'type' => 'integer',
+    ),
   );
   $info['tags']['twitter:player:height'] = array(
     'label' => t('Media player height'),
@@ -190,6 +220,9 @@ function metatag_twitter_cards_metatag_info() {
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
+    ),
+    'devel_generate' => array(
+      'type' => 'integer',
     ),
   );
   $info['tags']['twitter:player:stream'] = array(
@@ -200,6 +233,9 @@ function metatag_twitter_cards_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
   $info['tags']['twitter:player:stream:content_type'] = array(
     'label' => t('MP4 media stream MIME type'),
@@ -208,6 +244,9 @@ function metatag_twitter_cards_metatag_info() {
     'group' => 'twitter-cards',
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
+    ),
+    'devel_generate' => array(
+      'maxlength' => 1,
     ),
   );
   return $info;

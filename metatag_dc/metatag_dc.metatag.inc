@@ -130,6 +130,9 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
   );
   $info['tags']['dcterms.type'] = array(
     'label' => t('Dublin Core Type'),
@@ -144,6 +147,9 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'devel_generate' => array(
+      'maxlength' => 1,
+    ),
   );
   $info['tags']['dcterms.format'] = array(
     'label' => t('Dublin Core Format'),
@@ -152,6 +158,9 @@ function metatag_dc_metatag_info() {
     'group' => 'dublin-core',
     'element' => array(
       '#theme' => 'metatag_dc',
+    ),
+    'devel_generate' => array(
+      'maxlength' => 1,
     ),
   );
   $info['tags']['dcterms.identifier'] = array(
@@ -179,6 +188,9 @@ function metatag_dc_metatag_info() {
     'group' => 'dublin-core',
     'element' => array(
       '#theme' => 'metatag_dc',
+    ),
+    'devel_generate' => array(
+      'maxlength' => 1,
     ),
   );
   $info['tags']['dcterms.relation'] = array(

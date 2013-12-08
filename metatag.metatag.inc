@@ -193,6 +193,12 @@ function metatag_metatag_info() {
     'description' => t("An image associated with this page, for use as a thumbnail in social networks and other services."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
   );
 
   $info['tags']['canonical'] = array(
@@ -200,6 +206,9 @@ function metatag_metatag_info() {
     'description' => t("Tells search engines where the preferred location or URL is for this page to help eliminate self-created duplicate content for search engines."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'canonical',
+    ),
   );
 
   $info['tags']['shortlink'] = array(
@@ -207,6 +216,9 @@ function metatag_metatag_info() {
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'shortlink',
+    ),
   );
 
   $info['tags']['publisher'] = array(
@@ -214,6 +226,9 @@ function metatag_metatag_info() {
     'description' => '',
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
 
   $info['tags']['author'] = array(
@@ -221,6 +236,9 @@ function metatag_metatag_info() {
     'description' => t("Used by some search engines to confirm authorship of the content on a page. Should be either the full URL for the author's Google+ profile page or a local page with information about the author."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
 
   $info['tags']['original-source'] = array(
@@ -229,6 +247,9 @@ function metatag_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
     'description' => t("Used to indicate the URL that broke the story, and can link to either an internal URL or an external source. If the full URL is not known it is acceptable to use a partial URL or just the domain name."),
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
   );
 
    $info['tags']['revisit-after'] = array(
@@ -236,6 +257,9 @@ function metatag_metatag_info() {
      'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'http://drupal.org/project/xmlsitemap')),
      'class' => 'DrupalDateIntervalMetaTag',
      'group' => 'advanced',
+     'devel_generate' => array(
+       'type' => 'date',
+     ),
    );
 
   return $info;

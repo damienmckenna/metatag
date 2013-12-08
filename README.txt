@@ -56,6 +56,9 @@ The primary features include:
 * Support for the Feeds module for importing data from external data sources or
   file uploads.
 
+* Integrates with Devel_Generate, part of the Devel module, to automatically
+  generate meta tags for generated nodes, via the Metatag:Devel submodule.
+
 
 Configuration
 ------------------------------------------------------------------------------
