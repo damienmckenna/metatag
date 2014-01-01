@@ -969,3 +969,180 @@ function metatag_update_7017() {
   // Delete the temporary variable.
   variable_del('metatag_skip_update_7017');
 }
+
+/**
+ * Update the revision ID for each record. This may take some time.
+ */
+function metatag_update_7018(&$sandbox) {
+  // Process records in small groups.
+  // When a group is processed, the batch update engine determines whether it
+  // should continue processing in the same request or provide progress
+  // feedback to the user and wait for the next request.
+  $limit = 10;
+
+  // Use the sandbox at your convenience to store the information needed
+  // to track progression between successive calls to the function.
+  if (!isset($sandbox['progress'])) {
+    // The count of records visited so far.
+    $sandbox['progress'] = 0;
+
+    // Get a list of all records affected.
+    $sandbox['records'] = db_query("SELECT entity_type, entity_id, language
+      FROM {metatag}
+      WHERE revision_id = 0")
+      ->fetchAll();
+
+    // If there's no data, don't bother with the extra work.
+    if (empty($sandbox['records'])) {
+      watchdog('metatag', 'Update 7018: No {metatag} records needed to have the revision_id value fixed.', array(), WATCHDOG_INFO);
+      if (drupal_is_cli()) {
+        drupal_set_message(t('Update 7018: No {metatag} records needed to have the revision_id value fixed.'));
+      }
+      return t('No {metatag} records needed to have the revision_id value fixed.');
+    }
+
+    // Total records that must be visited.
+    $sandbox['max'] = count($sandbox['records']);
+
+    // A place to store messages during the run.
+    $sandbox['messages'] = array();
+
+    // An initial record of the number of records to be updated.
+    watchdog('metatag', 'Update 7018: !count records to update.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7018: !count records to update.', array('!count' => $sandbox['max'])));
+    }
+
+    // Last record processed.
+    $sandbox['current_record'] = -1;
+
+    // Because a lot of other processing happens on the first iteration, just do
+    // one.
+    $limit = 1;
+  }
+
+  // The for loop will run as normal when ran via update.php, but when ran via
+  // Drush it'll just run 'til it's finished.
+  $increment = 1;
+  if (drupal_is_cli()) {
+    $increment = 0;
+  }
+
+  // Work out which entities support languages and revisions.
+  $has_language = array();
+  $has_revisions = array();
+  foreach (entity_get_info() as $entity_type => $info) {
+    $has_language[$entity_type] = FALSE;
+    $has_revisions[$entity_type] = FALSE;
+    if (!empty($info['entity keys']['language'])) {
+      $has_language[$entity_type] = $info['entity keys']['language'];
+    }
+    if (!empty($info['entity keys']['revision'])) {
+      $has_revisions[$entity_type] = $info['entity keys']['revision'];
+    }
+  }
+
+  // Set default values.
+  for ($ctr = 0; $ctr < $limit; $ctr += $increment) {
+    $sandbox['current_record']++;
+    if (empty($sandbox['records'][$sandbox['current_record']])) {
+      break;
+    }
+
+    // Shortcuts for later.
+    $entity_type = $sandbox['records'][$sandbox['current_record']]->entity_type;
+    $entity_id = $sandbox['records'][$sandbox['current_record']]->entity_id;
+    // Make sure to load the correct language record.
+    $language = $sandbox['records'][$sandbox['current_record']]->language;
+    $conditions = array();
+    // Some entities don't include a language value.
+    if (!empty($has_language[$entity_type])) {
+      $conditions['language'] = $language;
+    }
+    $records = entity_load($entity_type, array($entity_id), $conditions);
+
+    // Fix this record.
+    if (!empty($records)) {
+      $entity = reset($records);
+
+      // Speed up the handling of entities that don't support revisions.
+      $revision_id = 0;
+      if (!empty($has_revisions[$entity_type])) {
+        list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+        $revision_id = intval($revision_id);
+      }
+
+      // Don't bother updating records if the revision_id is 0.
+      if (!empty($revision_id)) {
+        // Update the metatag record.
+        db_update('metatag')
+          ->fields(array('revision_id' => $revision_id))
+          ->condition('entity_type', $entity_type)
+          ->condition('entity_id', $entity_id)
+          ->condition('revision_id', 0)
+          ->condition('language', $language)
+          ->execute();
+
+        // Nodes can have multiple revisions, so create new {metatag} records
+        // for each of the other revisions.
+        if ($entity_type == 'node') {
+          $revisions = node_revision_list($entity);
+          if (count($revisions) > 1) {
+            $metatags = db_query("SELECT data
+                FROM {metatag}
+                WHERE entity_type = :entity_type
+                AND entity_id = :entity_id
+                AND language = :language",
+              array(
+                ':entity_type' => $entity_type,
+                ':entity_id' => $entity_id,
+                ':language' => $language,
+              ));
+            if (!empty($metatags) && isset($metatags->data) && !empty($metatags->data)) {
+              foreach ($revisions as $vid => $revision) {
+                if ($vid != $revision_id) {
+                  $node = node_load($entity_id, $vid);
+                  $record = new StdClass();
+                  $record->entity_type = 'node';
+                  $record->entity_id = $node->nid;
+                  $record->revision_id = $node->vid;
+                  $record->language = $node->language;
+                  $record->data = $metatags->data;
+                  drupal_write_record('metatag', $record);
+                }
+              }
+            }
+          }
+        }
+
+        // Other entity types.
+        else {
+          drupal_set_message(t('Metatag records for @type objects have not been checked for revisions.', array('@type' => $entity_type)), 'status', FALSE);
+        }
+      }
+    }
+
+    // Update our progress information.
+    $sandbox['progress']++;
+  }
+
+  // Set the "finished" status, to tell batch engine whether this function
+  // needs to run again. If you set a float, this will indicate the progress of
+  // the batch so the progress bar will update.
+  $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ? TRUE : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished']) {
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
+
+    // A final log of the number of records that were converted.
+    watchdog('metatag', 'Update 7018: !count records were updated in total.', array('!count' => $sandbox['progress']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7018: !count records were updated.', array('!count' => $sandbox['progress'])));
+    }
+
+    // hook_update_N() may optionally return a string which will be displayed
+    // to the user.
+    return t('Fixed the revision_id values for !count {metatag} records.', array('!count' => $sandbox['progress']));
+  }
+}

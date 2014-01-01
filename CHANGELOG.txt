@@ -66,6 +66,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   submodule.
 #2152043 by DamienMcKenna: Expanded Devel Generate integration to cover almost
   all included meta tags.
+#1572474 by DamienMcKenna, HyperGlide, jyee, Kristen Pol, sylus: Fixes for
+  revisions support.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

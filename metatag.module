@@ -348,7 +348,7 @@ function metatag_metatags_load($entity_type, $entity_id) {
  * @return
  *   An array of tag data, keyed by ID.
  */
-function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $revision_ids) {
+function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $revision_ids = array()) {
   // Double check entity IDs are numeric thanks to Entity API module.
   $entity_ids = array_filter($entity_ids, 'is_numeric');
   if (empty($entity_ids)) {
@@ -368,17 +368,20 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
   }
 
   // Get all translations of tag data for this entity.
-  $result = db_query("SELECT entity_id, data, language FROM {metatag} WHERE (entity_type = :type) AND (entity_id IN (:ids)) AND (revision_id IN (:vids))", array(
+  $result = db_query("SELECT entity_id, revision_id, language, data FROM {metatag} WHERE (entity_type = :type) AND (entity_id IN (:ids)) ORDER BY entity_id, revision_id", array(
     ':type' => $entity_type,
     ':ids' => $entity_ids,
-    ':vids' => $revision_ids,
     ));
 
   // Marshal it into an array keyed by entity ID. Each value is an array of
   // translations keyed by language code.
   $metatags = array();
   while ($record = $result->fetchObject()) {
-    $metatags[$record->entity_id][$record->language] = unserialize($record->data);
+    // If requested, verify that only the appropriate revision records are
+    // loaded.
+    if (empty($revision_ids) || in_array($record->revision_id, $revision_ids)) {
+      $metatags[$record->entity_id][$record->revision_id][$record->language] = unserialize($record->data);
+    }
   }
 
   return $metatags;
@@ -398,7 +401,7 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
  * @param $language
  *   The language of the translation set
  */
-function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $langcode) {
+function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $langcode, $old_vid = NULL) {
   // If no language assigned, use the has-no-language language.
   if (empty($langcode)) {
     $langcode = LANGUAGE_NONE;
@@ -409,9 +412,10 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
     return;
   }
 
-  // If the vid was not passed in, use the entity_id.
-  if (empty($revision_id)) {
-    $revision_id = $entity_id;
+  // The revision_id must be a numeric value; some entities use NULL for the
+  // revision so change that to a zero.
+  if (is_null($revision_id)) {
+    $revision_id = 0;
   }
 
   // Ensure the data saves during node_save().
@@ -433,16 +437,53 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
     $function($metatags, $entity_type, $entity_id, $revision_id, $langcode);
   }
 
+  // If the data array is empty, there is no data to actually save, so just
+  // delete the record from the database.
   if (empty($metatags)) {
-    // If the data array is empty, there is no data to actually save, so
-    // just delete the record from the database.
     db_delete('metatag')
       ->condition('entity_type', $entity_type)
       ->condition('entity_id', $entity_id)
       ->condition('language', $langcode)
       ->execute();
   }
+
+  // We need to ensure that when we have multiple languages enabled that those
+  // languages get the incremented revision_id as well so that they can be
+  // loaded properly.
   else {
+    if (isset($old_vid)) {
+      $languages = language_list('enabled');
+      foreach ($languages[1] as $lang) {
+        if ($lang->language != $langcode) {
+          // Get all translations of tag data for this entity.
+          $result = db_query("SELECT data FROM {metatag} WHERE (entity_type = :type) AND (entity_id = :id) AND (language = :lang) AND (revision_id = :revision)", array(
+            ':type' => $entity_type,
+            ':id' => $entity_id,
+            ':lang' => $lang->language,
+            ':revision' => $old_vid,
+          ));
+          $old_metatags = array();
+          while ($record = $result->fetchObject()) {
+            $old_metatags = unserialize($record->data);
+          }
+          // Save the record.
+          if (!empty($old_metatags)) {
+            db_merge('metatag')
+              ->key(array(
+                'entity_type' => $entity_type,
+                'entity_id' => $entity_id,
+                'language' => $lang->language,
+                'revision_id' => $revision_id,
+              ))
+              ->fields(array(
+                'data' => serialize($old_metatags),
+              ))
+              ->execute();
+          }
+        }
+      }
+    }
+
     // Otherwise save the data for this entity.
     db_merge('metatag')
       ->key(array(
@@ -475,7 +516,11 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
  *   entries for this entity will be deleted.
  */
 function metatag_metatags_delete($entity_type, $entity_id, $revision_id = NULL, $langcode = NULL) {
-  return metatag_metatags_delete_multiple($entity_type, array($entity_id), array($revision_id), $langcode);
+  $revision_ids = array();
+  if (!empty($revision_id)) {
+    $revision_ids[] = $revision_id;
+  }
+  return metatag_metatags_delete_multiple($entity_type, array($entity_id), $revision_ids, $langcode);
 }
 
 /**
@@ -491,7 +536,7 @@ function metatag_metatags_delete($entity_type, $entity_id, $revision_id = NULL, 
  *   The language ID of the entities to delete. If left blank, all language
  *   entries for the enities will be deleted.
  */
-function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array $revision_ids, $langcode = NULL) {
+function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array $revision_ids = array(), $langcode = NULL) {
   // Double check entity IDs are numeric thanks to Entity API module.
   $entity_ids = array_filter($entity_ids, 'is_numeric');
 
@@ -547,23 +592,27 @@ function metatag_metatags_cache_clear($entity_type, $entity_id = NULL) {
  * Implements hook_entity_load().
  */
 function metatag_entity_load($entities, $entity_type) {
-  // get the revision_ids
+  // Get the revision_ids.
   $revision_ids = array();
-  //since some entities do not have revisions, set the vid to the id
   foreach ($entities as $key => $entity) {
     list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
-    if (!$revision_id) {
-      $revision_id = $entity_id;
+    $revision_id = intval($revision_id);
+    if (!empty($revision_id)) {
+      $revision_ids[] = $revision_id;
     }
-    $revision_ids[] = $revision_id;
   }
+
   // Wrap this in a try-catch block to work around occasions when the schema
   // hasn't been updated yet.
   try {
     if (metatag_entity_supports_metatags($entity_type)) {
       $metatags = metatag_metatags_load_multiple($entity_type, array_keys($entities), $revision_ids);
-      foreach ($entities as $entity_id => $entity) {
-        $entities[$entity_id]->metatags = isset($metatags[$entity_id]) ? $metatags[$entity_id] : array();
+
+      // Assign the metatag records for the correct revision ID.
+      foreach ($entities as $entity_id => $records) {
+        list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+        $revision_id = intval($revision_id);
+        $entities[$entity_id]->metatags = isset($metatags[$entity_id][$revision_id]) ? $metatags[$entity_id][$revision_id] : array();
       }
     }
   }
@@ -586,6 +635,7 @@ function metatag_entity_load($entities, $entity_type) {
 function metatag_entity_insert($entity, $entity_type) {
   if (isset($entity->metatags)) {
     list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+    $revision_id = intval($revision_id);
 
     // Determine the entity's language.
     $langcode = entity_language($entity_type, $entity);
@@ -602,6 +652,11 @@ function metatag_entity_insert($entity, $entity_type) {
       $langcode = LANGUAGE_NONE;
     }
 
+    // Support for Metatag + Workbench Moderation.
+    if ($entity_type == 'node' && _metatag_isdefaultrevision($entity)) {
+      return;
+    }
+
     metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $langcode);
   }
 }
@@ -615,6 +670,7 @@ function metatag_entity_update($entity, $entity_type) {
   }
 
   list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+  $revision_id = intval($revision_id);
 
   if (isset($entity->metatags)) {
     // Determine the entity's language.
@@ -631,13 +687,20 @@ function metatag_entity_update($entity, $entity_type) {
         db_delete('metatag')
           ->condition('entity_type', $entity_type)
           ->condition('entity_id', $entity_id)
+          ->condition('revision_id', $revision_id)
           ->condition('language', $old_language)
           ->execute();
       }
     }
 
+    // Support for Metatag + Workbench Moderation.
+    if ($entity_type == 'node' && _metatag_isdefaultrevision($entity)) {
+      return;
+    }
+
     // Save the record.
-    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $new_language);
+    $old_vid = isset($entity->old_vid) ? $entity->old_vid : NULL;
+    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $new_language, $old_vid);
   }
   else {
     // Still ensure the meta tag output is cached.
@@ -658,6 +721,7 @@ function metatag_entity_delete($entity, $entity_type) {
  */
 function metatag_field_attach_delete_revision($entity_type, $entity) {
   list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+  $revision_id = intval($revision_id);
   metatag_metatags_delete($entity_type, $entity_id, $revision_id);
 }
 
@@ -701,6 +765,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
 
     // Obbtain some details of the entity that are needed elsewhere.
     list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+    $revision_id = intval($revision_id);
     $instance = "{$entity_type}:{$bundle}";
 
     // Determine the language this entity actually uses.
@@ -729,6 +794,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
       'entity_type' => $entity_type,
       'bundle' => $bundle,
       'entity_id' => $entity_id,
+      'revision_id' => $revision_id,
       'view_mode' => $view_mode,
       'langcode' => $langcode,
       'url' => $GLOBALS['base_url'] . base_path() . current_path(),
@@ -1311,7 +1377,22 @@ function metatag_page_build(&$page) {
  */
 function _metatag_entity_is_page($entity_type, $entity) {
   $uri = entity_uri($entity_type, $entity);
-  return !empty($uri['path']) && current_path() == $uri['path'];
+  $current_path = current_path();
+
+  // Support for Workbench Moderation.
+  if (module_exists('workbench_moderation') && workbench_moderation_node_type_moderated($entity->type) === TRUE) {
+    return !empty($uri['path']) && ($current_path == $uri['path'] || $current_path == $uri['path'] . '/draft');
+  }
+
+  // Support for core node revisions.
+  elseif (!empty($uri['path']) && strpos($current_path, $uri['path']) === 0 && strpos($current_path, '/revisions/') && strpos($current_path, '/view')) {
+    return TRUE;
+  }
+
+  // Any other page.
+  else {
+    return !empty($uri['path']) && $current_path == $uri['path'];
+  }
 }
 
 /**
@@ -1848,6 +1929,7 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
 function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
   // Get the entity's ID.
   list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+  $revision_id = intval($revision_id);
 
   // Delete the translation.
   metatag_metatags_delete($entity_type, $entity_id, $revision_id, $langcode);
@@ -1873,4 +1955,40 @@ function metatag_translate($name, $string, $langcode = NULL, $update = FALSE) {
   else {
     return $string;
   }
+}
+
+/**
+ * Checks if this entity is the default revision (published).
+ *
+ * @param object $entity
+ *   The entity object, e.g., $node.
+ *
+ * @return bool
+ *   TRUE if the entity is the default revision, FALSE otherwise.
+ */
+function _metatag_isdefaultrevision($entity) {
+  // D7 "Forward revisioning" is complex and causes a node_save() with the
+  // future node in node table. This fires hook_node_update() twice and cause
+  // abnormal behaviour in metatag.
+  //
+  // The steps taken by Workbench Moderation is to save the forward revision
+  // first and overwrite this with the live version in a shutdown function in
+  // a second step. This will confuse metatag. D7 has no generic property
+  // in the node object, if the node that is updated is the 'published' version
+  // or only a draft of a future version.
+  //
+  // This behaviour will change in D8 where $node->isDefaultRevision has been
+  // introduced. See below links for more details.
+  // - http://drupal.org/node/1879482
+  // - http://drupal.org/node/218755
+  // - http://drupal.org/node/1522154
+  //
+  // Every moderation module saving a forward revision needs to return FALSE.
+  // @todo: Refactor this workaround under D8.
+
+  // Workbench Moderation module.
+  if (module_exists('workbench_moderation') && workbench_moderation_node_type_moderated($entity->type) === TRUE) {
+    return !empty($entity->workbench_moderation['updating_live_revision']);
+  }
+  return FALSE;
 }
