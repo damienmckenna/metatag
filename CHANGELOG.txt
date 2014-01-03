@@ -68,6 +68,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   all included meta tags.
 #1572474 by DamienMcKenna, HyperGlide, jyee, Kristen Pol, sylus: Fixes for
   revisions support.
+#1876042 by DamienMcKenna: Rename variables to use $entity_id instead of $id
+  in metatag.admin.inc, $entity_type instead of $type in metatag.migrate.inc.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
