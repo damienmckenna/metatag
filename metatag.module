@@ -17,7 +17,6 @@ function metatag_help($path, $arg) {
   elseif ($path == 'admin/config/search/metatags/bulk-revert') {
     return '<p>' . t('This form <strong>will wipe out</strong> all custom meta tags for the selected entities, reverting them to the default configuration assigned at the <a href="@url">Defaults tab</a>. For example, if the meta tags are changed for an article they will be removed if the "Node: Article" checkbox is selected.', array('@url' => url('admin/config/search/metatags'))) . '</p>';
   }
-
 }
 
 /**
