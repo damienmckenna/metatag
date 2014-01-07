@@ -1146,3 +1146,20 @@ function metatag_update_7018(&$sandbox) {
     return t('Fixed the revision_id values for !count {metatag} records.', array('!count' => $sandbox['progress']));
   }
 }
+
+/**
+ * Clear the entity_cache bins.
+ */
+function metatag_update_7019() {
+  if (module_exists('entitycache')) {
+    foreach (drupal_get_schema() as $table_name => $spec) {
+      if (strpos($table_name, 'cache_entity_') === 0) {
+        cache_clear_all('*', $table_name, TRUE);
+        drupal_set_message("Cleared the @table cache bin", array('@table' => $table_name));
+      }
+    }
+  }
+  else {
+    drupal_set_message("The EntityCache module is not installed, nothing to do.");
+  }
+}
