@@ -1155,11 +1155,11 @@ function metatag_update_7019() {
     foreach (drupal_get_schema() as $table_name => $spec) {
       if (strpos($table_name, 'cache_entity_') === 0) {
         cache_clear_all('*', $table_name, TRUE);
-        drupal_set_message("Cleared the @table cache bin", array('@table' => $table_name));
+        drupal_set_message(t("Cleared the @table cache bin", array('@table' => $table_name)));
       }
     }
   }
   else {
-    drupal_set_message("The EntityCache module is not installed, nothing to do.");
+    drupal_set_message(t("The EntityCache module is not installed, nothing to do."));
   }
 }
