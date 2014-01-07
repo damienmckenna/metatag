@@ -1165,8 +1165,7 @@ function metatag_update_7019() {
 }
 
 /**
- * Clear the existing Metatag cache so all unwanted 403/404 paths can be
- * purged.
+ * Clear the Metatag cache.
  */
 function metatag_update_7020() {
   cache_clear_all('*', 'cache_metatag', TRUE);
