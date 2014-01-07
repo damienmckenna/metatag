@@ -1163,3 +1163,12 @@ function metatag_update_7019() {
     drupal_set_message(t("The EntityCache module is not installed, nothing to do."));
   }
 }
+
+/**
+ * Clear the existing Metatag cache so all unwanted 403/404 paths can be
+ * purged.
+ */
+function metatag_update_7020() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  return t('All Metatag caches cleared.');
+}

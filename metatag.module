@@ -217,7 +217,7 @@ function metatag_config_load_with_defaults($instance, $include_global = TRUE) {
   // Statically cache defaults since they can include multiple levels.
   $cid = "config:{$instance}" . ($include_global ? ':withglobal' : ':withoutglobal');
   if (!isset($defaults[$cid])) {
-    if ($cache = cache_get($cid, 'cache_metatag')) {
+    if ($cache = metatag_cache_get($cid)) {
       $defaults[$cid] = $cache->data;
     }
     else {
@@ -234,7 +234,7 @@ function metatag_config_load_with_defaults($instance, $include_global = TRUE) {
         $defaults[$cid] += $configs[$key]->config;
       }
 
-      cache_set($cid, $defaults[$cid], 'cache_metatag');
+      metatag_cache_set($cid, $defaults[$cid]);
     }
   }
 
@@ -575,12 +575,20 @@ function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array
   }
 }
 
-function metatag_metatags_cache_clear($entity_type, $entity_id = NULL) {
+/**
+ * Clear the cached records for a given entity type or entity ID.
+ *
+ * @param string $entity_type
+ *   The entity type to clear.
+ */
+function metatag_metatags_cache_clear($entity_type, $entity_ids = NULL) {
   if (empty($entity_id)) {
     cache_clear_all("output:$entity_type", 'cache_metatag', TRUE);
   }
   else {
-    $entity_ids = (array) $entity_id;
+    if (!array($entity_ids)) {
+      $entity_ids = array($entity_ids);
+    }
     foreach ($entity_ids as $entity_id) {
       cache_clear_all("output:$entity_type:$entity_id", 'cache_metatag', TRUE);
     }
@@ -762,7 +770,13 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
       return;
     }
 
-    // Obbtain some details of the entity that are needed elsewhere.
+    // CTools uses 'page_manager' view mode to indicate the full entity display
+    // page rather than 'full', so streamline the internal processes.
+    if ($view_mode == 'page_manager') {
+      $view_mode = 'full';
+    }
+
+    // Obtain some details of the entity that are needed elsewhere.
     list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
     $revision_id = intval($revision_id);
     $instance = "{$entity_type}:{$bundle}";
@@ -794,23 +808,12 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
       'bundle' => $bundle,
       'entity_id' => $entity_id,
       'revision_id' => $revision_id,
-      'view_mode' => $view_mode,
       'langcode' => $langcode,
-      'url' => $GLOBALS['base_url'] . base_path() . current_path(),
+      'view_mode' => $view_mode,
     );
+    $cid = metatag_cache_default_cid_parts($cid_parts);
 
-    // Allow each page in a sequence to have different values.
-    if (isset($_GET['page'])) {
-      $cid_parts['page'] = $_GET['page'];
-    }
-
-    // Allow other modules to alter the page parts using
-    // hook_metatag_page_cache_cid_parts_alter().
-    drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
-
-    $cid = "output:{$entity_type}:{$entity_id}:{$revision_id}:{$langcode}:" . hash('sha256', serialize($cid_parts));
-
-    if ($cache = cache_get($cid, 'cache_metatag')) {
+    if ($cache = metatag_cache_get($cid)) {
       $output = $cache->data;
     }
     else {
@@ -838,7 +841,7 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
 
       // Render the metatags and save to the cache.
       $output = metatag_metatags_view($instance, $metatags, $options);
-      cache_set($cid, $output, 'cache_metatag');
+      metatag_cache_set($cid, $output);
     }
 
     // We need to register the term's metatags, so we can later fetch them.
@@ -1293,31 +1296,18 @@ function metatag_page_build(&$page) {
   // The front page has special consideration.
   $instance = 'global:frontpage';
   if (drupal_is_front_page() && metatag_config_is_enabled($instance)) {
-    $instance = 'global:frontpage';
-
-    // These two parts are sufficient given that the homepage is unique.
+    // Generate the cache ID.
     $cid_parts = array(
-      'langcode' => $GLOBALS['language_content']->language,
-      'url' => $GLOBALS['base_url'] . base_path() . '<front>',
+      'instance' => $instance,
     );
+    $cid = metatag_cache_default_cid_parts($cid_parts);
 
-    // Allow each page in a sequence to have different values.
-    if (isset($_GET['page'])) {
-      $cid_parts['page'] = $_GET['page'];
-    }
-
-    // Allow other modules to customize the data using
-    // hook_metatag_page_cache_cid_parts_alter().
-    drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
-
-    $cid = "output:{$instance}:" . hash('sha256', serialize($cid_parts));
-
-    if ($cache = cache_get($cid, 'cache_metatag')) {
+    if ($cache = metatag_cache_get($cid)) {
       $metatags = $cache->data;
     }
     else {
       $metatags = metatag_metatags_view($instance, array());
-      cache_set($cid, $metatags, 'cache_metatag');
+      metatag_cache_set($cid, $metatags);
     }
 
     $page['content']['metatags'][$instance] = $metatags;
@@ -1334,29 +1324,19 @@ function metatag_page_build(&$page) {
   if (empty($page['content']['metatags']) && variable_get('metatag_load_all_pages', TRUE) && !path_is_admin(current_path())) {
     $instance = 'global';
 
-    // These two parts are sufficient given that the homepage is unique.
+    // Generate the cache ID.
     $cid_parts = array(
-      'langcode' => $GLOBALS['language_content']->language,
-      'url' => $GLOBALS['base_url'] . request_uri(),
+      'instance' => $instance,
+      'path' => request_path(),
     );
+    $cid = metatag_cache_default_cid_parts($cid_parts);
 
-    // Allow each page in a sequence to have different values.
-    if (isset($_GET['page'])) {
-      $cid_parts['page'] = $_GET['page'];
-    }
-
-    // Allow other modules to customize the data using
-    // hook_metatag_page_cache_cid_parts_alter().
-    drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
-
-    $cid = "output:{$instance}:" . hash('sha256', serialize($cid_parts));
-
-    if ($cache = cache_get($cid, 'cache_metatag')) {
+    if ($cache = metatag_cache_get($cid)) {
       $metatags = $cache->data;
     }
     else {
       $metatags = metatag_metatags_view($instance, array());
-      cache_set($cid, $metatags, 'cache_metatag');
+      metatag_cache_set($cid, $metatags);
     }
     $page['content']['metatags'][$instance] = $metatags;
   }
@@ -1511,7 +1491,7 @@ function metatag_get_info($type = NULL, $name = NULL) {
     // separately.
     $cid = 'info:' . $language->language;
 
-    if ($cache = cache_get($cid, 'cache_metatag')) {
+    if ($cache = metatag_cache_get($cid)) {
       $info = $cache->data;
     }
     else {
@@ -1533,7 +1513,7 @@ function metatag_get_info($type = NULL, $name = NULL) {
       // hook_metatag_info_alter().
       drupal_alter('metatag_info', $info);
 
-      cache_set($cid, $info, 'cache_metatag');
+      metatag_cache_set($cid, $info);
     }
   }
 
@@ -1659,7 +1639,7 @@ function metatag_config_instance_info($instance = NULL) {
   $cid = 'metatag:config:instance:info:' . $language->language;
 
   if (!isset($info)) {
-    if ($cache = cache_get($cid, 'cache_metatag')) {
+    if ($cache = metatag_cache_get($cid)) {
       $info = $cache->data;
     }
     else {
@@ -1671,7 +1651,7 @@ function metatag_config_instance_info($instance = NULL) {
       // hook_metatag_config_instance_info_alter().
       drupal_alter('metatag_config_instance_info', $info);
 
-      cache_set($cid, $info, 'cache_metatag');
+      metatag_cache_set($cid, $info);
     }
   }
 
@@ -1990,4 +1970,73 @@ function _metatag_isdefaultrevision($entity) {
     return !empty($entity->workbench_moderation['updating_live_revision']);
   }
   return FALSE;
+}
+
+/**
+ * Generate the cache ID to use with metatag_cache_get/metatag_cache_set calls.
+ *
+ * @param array $cid_parts
+ *   A list of values to be used.
+ *
+ * @return string
+ *   The cache ID string.
+ */
+function metatag_cache_default_cid_parts(array $cid_parts = array()) {
+  // The initial parts, control the order of the parts.
+  $cid_part_defaults = array(
+    'cache_type' => 'output',
+    'instance' => '',
+    'entity_type' => '',
+    'entity_id' => '',
+    'bundle' => '',
+    'langcode' => $GLOBALS['language_content']->language,
+    'revision_id' => '',
+    'view_mode' => '',
+    'status' => 200,
+    'protocol' => $GLOBALS['is_https'] ? 'https' : 'http',
+    'hostname' => $_SERVER['HTTP_HOST'],
+    'base_path' => base_path(),
+  );
+  $cid_parts = array_merge($cid_part_defaults, $cid_parts);
+
+  // Add the HTTP status code.
+  $headers = drupal_get_http_header();
+  if (isset($headers['status'])) {
+    $cid_parts['status'] = intval($headers['status']);
+  }
+
+  // Allow each page in a sequence to have different values.
+  if (isset($_GET['page'])) {
+    $cid_parts['page'] = $_GET['page'];
+  }
+
+  // Allow other modules to customize the data using
+  // hook_metatag_page_cache_cid_parts_alter().
+  drupal_alter('metatag_page_cache_cid_parts', $cid_parts);
+
+  // Remove empty parts.
+  $cid_parts = array_filter($cid_parts);
+
+  // Concatenate the cache ID parts, trim the results to 128 chars.
+  return substr(implode(':', $cid_parts), 0, 128);
+}
+
+/**
+ * Wrapper for cache_set.
+ *
+ * @see cache_set().
+ */
+function metatag_cache_set($cid, $data) {
+  // Cache the data for later.
+  return cache_set($cid, $data, 'cache_metatag');
+}
+
+/**
+ * Wrapper for cache_get.
+ *
+ * @see cache_get().
+ */
+function metatag_cache_get($cid) {
+  // Try to load the object.
+  return cache_get($cid, 'cache_metatag');
 }

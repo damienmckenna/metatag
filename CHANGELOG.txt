@@ -73,6 +73,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2157689/#2088299 by travelertt, iMiksu, DamienMcKenna: JS error broke
   CKEditor, etc.
 #2168343 by DamienMcKenna: Clear EntityCache bins.
+#2062379 by DamienMcKenna: Restructured caching.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
