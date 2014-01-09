@@ -75,6 +75,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2168343 by DamienMcKenna: Clear EntityCache bins.
 #2062379 by DamienMcKenna: Restructured caching.
 #2168939 by DamienMcKenna: Don't skip batch processing on updates ran via Drush.
+#2169547 by DamienMcKenna: Clarification on Workbench Moderation support.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

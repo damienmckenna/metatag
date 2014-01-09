@@ -59,6 +59,9 @@ The primary features include:
 * Integrates with Devel_Generate, part of the Devel module, to automatically
   generate meta tags for generated nodes, via the Metatag:Devel submodule.
 
+* Integrates with Workbench Moderation v1 allowing meta tags on nodes to be
+  managed through the workflow process.
+
 
 Configuration
 ------------------------------------------------------------------------------

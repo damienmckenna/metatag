@@ -94,6 +94,16 @@ function metatag_requirements($phase) {
         );
       }
     }
+
+    // Check for Workbench Moderation v2, which Metatag doesn't work with yet.
+    if (module_exists('workbench_moderation') && !function_exists('workbench_moderation_node_type_moderated')) {
+      $requirements['metatag_wm2'] = array(
+        'severity' => REQUIREMENT_ERROR,
+        'title' => 'Metatag',
+        'value' => $t('Incompatible with <a href="@url">Workbench Moderation</a> v2', array('@url' => 'http://drupal.org/project/workbench_moderation')),
+        'description' => $t('Metatag is not currently compatible with Entity_Translation v2.'),
+      );
+    }
   }
 
   return $requirements;
