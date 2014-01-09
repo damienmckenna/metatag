@@ -219,6 +219,8 @@ function metatag_install() {
 function metatag_uninstall() {
   // This variable is created via hook_enable.
   variable_del('metatag_schema_installed');
+  // Used to control whether 403/404 pages are cached.
+  variable_del('metatag_cache_error_pages');
 }
 
 /**
@@ -1172,6 +1174,15 @@ function metatag_update_7019() {
  * Clear the Metatag cache.
  */
 function metatag_update_7020() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  return t('All Metatag caches cleared.');
+}
+
+/**
+ * Clear the existing Metatag cache so all unwanted 403/404 paths can be
+ * purged.
+ */
+function metatag_update_7021() {
   cache_clear_all('*', 'cache_metatag', TRUE);
   return t('All Metatag caches cleared.');
 }

@@ -2027,6 +2027,17 @@ function metatag_cache_default_cid_parts(array $cid_parts = array()) {
  * @see cache_set().
  */
 function metatag_cache_set($cid, $data) {
+  // Optionally skip 403/404 error pages.
+  if (!variable_get('metatag_cache_error_pages', FALSE)) {
+    $headers = drupal_get_http_header();
+    if (isset($headers['status'])) {
+      $status = intval($headers['status']);
+      if ($status == 403 || $status == 404) {
+        return;
+      }
+    }
+  }
+
   // Cache the data for later.
   return cache_set($cid, $data, 'cache_metatag');
 }
@@ -2037,6 +2048,17 @@ function metatag_cache_set($cid, $data) {
  * @see cache_get().
  */
 function metatag_cache_get($cid) {
+  // Optionally skip 403/404 error pages.
+  if (!variable_get('metatag_cache_error_pages', FALSE)) {
+    $headers = drupal_get_http_header();
+    if (isset($headers['status'])) {
+      $status = intval($headers['status']);
+      if ($status == 403 || $status == 404) {
+        return;
+      }
+    }
+  }
+
   // Try to load the object.
   return cache_get($cid, 'cache_metatag');
 }
