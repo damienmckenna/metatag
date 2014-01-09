@@ -40,7 +40,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   }
 
   public function getValue(array $options = array()) {
-    return tidyValue($this->data['value']);
+    return $this->tidyValue($this->data['value']);
   }
 
   public function getElement(array $options = array()) {

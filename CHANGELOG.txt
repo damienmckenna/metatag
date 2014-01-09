@@ -82,6 +82,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   options.
 #2140463 by zhuber: Small misspelling in a comment.
 #1963678 by DC_Marc, gnuget, Albert Volkman: Additional Twitter Card meta tags.
+#2170363 by juampy: Incorrect data handling in DrupalDefaultMetaTag.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
