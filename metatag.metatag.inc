@@ -153,6 +153,8 @@ function metatag_metatag_info() {
         'nosnippet' => t('Prevents a description from appearing below the page in the search results, as well as prevents caching of the page.'),
         'noodp' => t('Blocks the <a href="@odp-url">Open Directory Project</a> description of the page from being used in the description that appears below the page in the search results.', array('@odp-url' => 'http://www.dmoz.org/')),
         'noydir' => t('Prevents Yahoo! from listing this page in the <a href="@ydir">Yahoo! Directory</a>.', array('@ydir' => 'http://dir.yahoo.com/')),
+        'noimageindex' => t('Prevent search engines from indexing images on this page.'),
+        'notranslate' => t('Prevent search engines from offering to translation this page in search results.'),
       ),
     ),
     'group' => 'advanced',
