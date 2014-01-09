@@ -1274,7 +1274,7 @@ function metatag_page_set_metatags($instance, $metatags) {
 }
 
 /**
- * Retrieve the array of met tags to be added with metatag_page_build().
+ * Retrieve the array of meta tags to be added with metatag_page_build().
  */
 function metatag_page_get_metatags() {
   // @todo Add alter to this result?
