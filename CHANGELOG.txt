@@ -81,6 +81,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1967856 by duozersk: Support for the noimageindex and notranslate robots tag
   options.
 #2140463 by zhuber: Small misspelling in a comment.
+#1963678 by DC_Marc, gnuget, Albert Volkman: Additional Twitter Card meta tags.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
