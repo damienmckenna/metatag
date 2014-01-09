@@ -368,7 +368,7 @@ function _metatag_opengraph_type_options() {
       'sport' => t('Sport'),
     ),
     t('Businesses') => array(
-      'bar' => t('Bar'),
+      'bar' => t('Bar', array('context' => 'an establishment')),
       'company' => t('Company'),
       'cafe' => t('Cafe'),
       'hotel' => t('Hotel'),

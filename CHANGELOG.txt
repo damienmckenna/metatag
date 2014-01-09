@@ -77,6 +77,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2168939 by DamienMcKenna: Don't skip batch processing on updates ran via Drush.
 #2169547 by DamienMcKenna: Clarification on Workbench Moderation support.
 #2090557 by Kristen Pol, DamienMcKenna: Don't cache tags on 403/404 error pages.
+#1848622 by DamienMcKenna: Translation helper for 'bar'.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
