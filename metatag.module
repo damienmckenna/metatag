@@ -1882,8 +1882,11 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
           if (!empty($view->args) && is_numeric($view->args[0])) {
             // Only the first argument is used.
             $entities = entity_load($entity_name, array($view->args[0]));
-            $entity = array_pop($entities);
-            metatag_entity_view($entity, $entity_name, 'full', NULL, TRUE);
+            // Only if the entity actually exists.
+            if (!empty($entities)) {
+              $entity = array_pop($entities);
+              metatag_entity_view($entity, $entity_name, 'full', NULL, TRUE);
+            }
           }
         }
       }
@@ -1914,8 +1917,11 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
           if (!empty($context['args']) && is_numeric($context['args'][0])) {
             // Only the first argument is used.
             $entities = entity_load($entity_name, array($context['args'][0]));
-            $entity = array_pop($entities);
-            metatag_entity_view($entity, $entity_name, 'full', NULL, TRUE);
+            // Only if the entity actually exists.
+            if (!empty($entities)) {
+              $entity = array_pop($entities);
+              metatag_entity_view($entity, $entity_name, 'full', NULL, TRUE);
+            }
           }
         }
       }

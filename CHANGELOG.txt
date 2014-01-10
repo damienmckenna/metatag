@@ -85,6 +85,9 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2170363 by juampy: Incorrect data handling in DrupalDefaultMetaTag.
 #1286270 by DamienMcKenna: Provide options for disabling meta tags on specific
   entity types or entity bundles, see README.txt for details.
+#2071649 by eelkeblok, DamienMcKenna: Verify the entity still exists when
+  loading meta tag data in metatag_ctools_render_alter() and
+  metatag_views_post_render().
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
