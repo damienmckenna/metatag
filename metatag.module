@@ -1218,6 +1218,31 @@ function metatag_entity_info_alter(&$info) {
       $info[$key] = drupal_array_merge_deep($entity_defaults, $info[$key]);
     }
   }
+
+  // Allow entities to be disabled by assigning a variable
+  // 'metatag_enable_{$entity_type}' or
+  // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
+  //
+  // // Disable metatags for file_entity.
+  // $conf['metatag_enable_file'] = FALSE;
+  // // Disable metatags for carousel nodes.
+  // $conf['metatag_enable_node__carousel'] = FALSE;
+  //
+  // @todo: Add a UI to control this.
+  foreach ($info as $entity_type => $entity_info) {
+    if (variable_get('metatag_enable_' . $entity_type, 'monkey') === FALSE) {
+      $info[$entity_type]['metatags'] = FALSE;
+    }
+    else {
+      if (isset($entity_info['bundles']) && !empty($entity_info['bundles'])) {
+        foreach ($entity_info['bundles'] as $bundle => $bundle_info) {
+          if (variable_get('metatag_enable_' . $entity_type . '__' . $bundle, 'monkey') === FALSE) {
+            $info[$entity_type]['bundles'][$bundle]['metatags'] = FALSE;
+          }
+        }
+      }
+    }
+  }
 }
 
 /**

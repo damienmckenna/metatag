@@ -130,6 +130,20 @@ Fine Tuning
     $conf['metatag_cache_error_pages'] = TRUE;
   To disable the caching simply set the value to FALSE or remove the
   settings.php line.
+* It's possible to disable Metatag integration for certain entity types or
+  bundles using variables. To disable an entity just assigning a variable
+  'metatag_enable_{$entity_type}' or 'metatag_enable_{$entity_type}__{$bundle}'
+  the value FALSE, e.g.:
+    // Disable metatags for file_entity.
+    $conf['metatag_enable_file'] = FALSE;
+    // Disable metatags for carousel nodes.
+    $conf['metatag_enable_node__carousel'] = FALSE;
+  To enable the entity and/or bundle simply set the value to TRUE or remove the
+  settings.php line. Note that the Metatag cache will need to be cleared after
+  changing these settings, specifically the 'info' records, e.g. 'info:en'; a
+  quick version of doing this is to clear the site caches using either Drush,
+  Admin Menu (flush all caches), or the "Clear all caches" buton on
+  admin/config/development/performance.
 
 
 Developers
