@@ -1154,7 +1154,7 @@ function metatag_entity_has_metatags($entity_type, $entity) {
     $config_exists[$instance] = metatag_config_is_enabled($instance, TRUE, FALSE);
   }
 
-  return isset($config_exists[$instance]);
+  return !empty($config_exists[$instance]);
 }
 
 /**

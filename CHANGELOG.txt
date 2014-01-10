@@ -88,6 +88,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2071649 by eelkeblok, DamienMcKenna: Verify the entity still exists when
   loading meta tag data in metatag_ctools_render_alter() and
   metatag_views_post_render().
+#2126157 by hefox: metatag_entity_has_metatags() returns TRUE for disabled
+  entities, not FALSE.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
