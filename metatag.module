@@ -401,8 +401,10 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
  *   The language of the translation set
  */
 function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $langcode, $old_vid = NULL) {
-  // If no language assigned, use the has-no-language language.
-  if (empty($langcode)) {
+  // If no language assigned, or the language doesn't exist, use the
+  // has-no-language language.
+  $languages = language_list();
+  if (empty($langcode) || !isset($languages[$langcode])) {
     $langcode = LANGUAGE_NONE;
   }
 

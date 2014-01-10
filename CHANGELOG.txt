@@ -90,6 +90,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   metatag_views_post_render().
 #2126157 by hefox: metatag_entity_has_metatags() returns TRUE for disabled
   entities, not FALSE.
+#2001178 by jantoine, DamienMcKenna: Verify the language exists before saving.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
