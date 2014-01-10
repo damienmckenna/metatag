@@ -91,6 +91,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2126157 by hefox: metatag_entity_has_metatags() returns TRUE for disabled
   entities, not FALSE.
 #2001178 by jantoine, DamienMcKenna: Verify the language exists before saving.
+#1864306 by hefox: Export the 'disabled' state via Features, thus allowing
+  disabled configurations to be exported too.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
