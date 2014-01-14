@@ -93,7 +93,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2001178 by jantoine, DamienMcKenna: Verify the language exists before saving.
 #1864306 by hefox: Export the 'disabled' state via Features, thus allowing
   disabled configurations to be exported too.
-#2172883 by Kristen Pol: Don't use $entity->type, use $entity_type.
+#2172883 by Kristen Pol, DamienMcKenna: Only use Workbench Moderation functions
+  on nodes.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
