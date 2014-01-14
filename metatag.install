@@ -260,9 +260,13 @@ function metatag_update_7001() {
   );
   $keys = array('primary key' => array($field_name));
 
-  // Before making any changes, drop the existing primary key. Unforunately
-  // there is no API way to check if a primary key exists, so if it doesn't
-  // exist the db_drop_primary_key() call will fail.
+  // Before making any changes, drop the existing primary key.
+  // Let's add a temporary unique key for cid so MySQL will let it go.
+  // Hint taken from https://drupal.org/node/2064305#comment-7753197.
+  db_add_unique_key($table_name, 'temp_key', array($field_name, 'instance'));
+
+  // Unforunately there is no API way to check if a primary key exists, so if
+  // it doesn't exist the db_drop_primary_key() call will fail.
   try {
     db_drop_primary_key($table_name);
   }
@@ -272,6 +276,9 @@ function metatag_update_7001() {
 
   // Rejig the field, and turn on the primary key again.
   db_change_field($table_name, $field_name, $field_name, $field_spec, $keys);
+
+  // Finally, remove the temporary unique key because it's no longer userful.
+  db_drop_unique_key($table_name, 'temp_key');
 }
 
 /**

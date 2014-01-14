@@ -95,6 +95,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   disabled configurations to be exported too.
 #2172883 by Kristen Pol, DamienMcKenna: Only use Workbench Moderation functions
   on nodes.
+#1975552 by pivica, DamienMcKenna: Fixed errors when changing {metatag} table's
+  primary keys.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
