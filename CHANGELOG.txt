@@ -97,6 +97,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   on nodes.
 #1975552 by pivica, DamienMcKenna: Fixed errors when changing {metatag} table's
   primary keys.
+#1864306 by DamienMcKenna: Follow-on to only export the $config->disabled
+  setting if it exists.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22
