@@ -100,7 +100,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #1864306 by DamienMcKenna: Follow-on to only export the $config->disabled
   setting if it exists.
 #2173271 by deetergp: Spelling and grammer fixes for README.txt.
-#2172433 by fabsor, DamienMcKenna: Ensure that update 7015 runs early enough yo
+#2172433 by fabsor, DamienMcKenna: Ensure that update 7015 runs early enough to
   avoid data corruption or errors during other updates.
 
 
