@@ -120,16 +120,6 @@ Fine Tuning
   required otherwise none of the meta tag fields will display at all. The
   functionality may be disabled again by either removing the variable or
   setting it to FALSE.
-* By default the meta tags on 403 and 404 pages will not be cached because it
-  can lead to Metatag's cache table getting rather full. This caching can be
-  enabled by setting the variable 'metatag_cache_error_pages' to TRUE through
-  one of the following methods:
-  * Use Drush to set the value:
-    drush vset metatag_cache_error_pages TRUE
-  * Hardcode the value in the site's settings.php file:
-    $conf['metatag_cache_error_pages'] = TRUE;
-  To disable the caching simply set the value to FALSE or remove the
-  settings.php line.
 * It's possible to disable Metatag integration for certain entity types or
   bundles using variables. To disable an entity just assigning a variable
   'metatag_enable_{$entity_type}' or 'metatag_enable_{$entity_type}__{$bundle}'

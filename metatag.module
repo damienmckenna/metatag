@@ -1320,9 +1320,12 @@ function metatag_page_build(&$page) {
     $page['content']['metatags'] = array();
   }
 
-  // The front page has special consideration.
+  // The front page has special consideration. Also, check if this is an error
+  // (403/404) page, those also require separate handling.
   $instance = 'global:frontpage';
-  if (drupal_is_front_page() && metatag_config_is_enabled($instance)) {
+  if ((drupal_is_front_page() && metatag_config_is_enabled($instance))
+    || ($instance = metatag_is_error_page())) {
+
     // Generate the cache ID.
     $cid_parts = array(
       'instance' => $instance,
@@ -2062,17 +2065,6 @@ function metatag_cache_default_cid_parts(array $cid_parts = array()) {
  * @see cache_set().
  */
 function metatag_cache_set($cid, $data) {
-  // Optionally skip 403/404 error pages.
-  if (!variable_get('metatag_cache_error_pages', FALSE)) {
-    $headers = drupal_get_http_header();
-    if (isset($headers['status'])) {
-      $status = intval($headers['status']);
-      if ($status == 403 || $status == 404) {
-        return;
-      }
-    }
-  }
-
   // Cache the data for later.
   return cache_set($cid, $data, 'cache_metatag');
 }
@@ -2083,17 +2075,27 @@ function metatag_cache_set($cid, $data) {
  * @see cache_get().
  */
 function metatag_cache_get($cid) {
-  // Optionally skip 403/404 error pages.
-  if (!variable_get('metatag_cache_error_pages', FALSE)) {
-    $headers = drupal_get_http_header();
-    if (isset($headers['status'])) {
-      $status = intval($headers['status']);
-      if ($status == 403 || $status == 404) {
-        return;
+  // Try to load the object.
+  return cache_get($cid, 'cache_metatag');
+}
+
+/**
+ * Determines if we are in an error page and return the appropriate instance.
+ *
+ * @return string
+ */
+function metatag_is_error_page() {
+  $known_errors = array(
+    'global:403' => '403 Forbidden',
+    'global:404' => '404 Not Found',
+  );
+  $headers = drupal_get_http_header();
+  if (isset($headers['status'])) {
+    foreach ($known_errors as $error => $status) {
+      if ($status == $headers['status']) {
+        return $error;
       }
     }
   }
-
-  // Try to load the object.
-  return cache_get($cid, 'cache_metatag');
+  return '';
 }

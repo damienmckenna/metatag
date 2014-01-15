@@ -25,6 +25,16 @@ function metatag_twitter_cards_metatag_config_default_alter(array &$configs) {
         );
         break;
 
+      // On error pages point everything to the homepage.
+      case 'global:403':
+      case 'global:404':
+        $config->config += array(
+          'twitter:description' => array('value' => ''),
+          'twitter:title' => array('value' => '[site:name]'),
+          'twitter:url' => array('value' => '[site:url]'),
+        );
+        break;
+
       case 'node':
         $config->config += array(
           'twitter:card' => array('value' => 'summary'),

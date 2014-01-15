@@ -25,6 +25,15 @@ function metatag_dc_metatag_config_default_alter(array &$configs) {
         );
         break;
 
+      // On error pages point everything to the homepage.
+      case 'global:403':
+      case 'global:404':
+        $config->config += array(
+          'dcterms.title' => array('value' => '[site:name]'),
+          'dcterms.identifier' => array('value' => '[site:url]'),
+        );
+        break;
+
       case 'node':
         $config->config += array(
           'dcterms.title' => array('value' => '[node:title]'),

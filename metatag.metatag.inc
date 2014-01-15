@@ -30,6 +30,28 @@ function metatag_metatag_config_default() {
   $configs[$config->instance] = $config;
 
   $config = new stdClass();
+  $config->instance = 'global:403';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'title' => array('value' => variable_get('site_slogan') ? '[site:name] | [site:slogan]' : '[site:name]'),
+    'canonical' => array('value' => '[site:url]'),
+    'shortlink' => array('value' => '[site:url]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
+  $config->instance = 'global:404';
+  $config->api_version = 1;
+  $config->disabled = FALSE;
+  $config->config = array(
+    'title' => array('value' => variable_get('site_slogan') ? '[site:name] | [site:slogan]' : '[site:name]'),
+    'canonical' => array('value' => '[site:url]'),
+    'shortlink' => array('value' => '[site:url]'),
+  );
+  $configs[$config->instance] = $config;
+
+  $config = new stdClass();
   $config->instance = 'node';
   $config->api_version = 1;
   $config->disabled = FALSE;
@@ -69,9 +91,8 @@ function metatag_metatag_config_default() {
 function metatag_metatag_config_instance_info() {
   $info['global']           = array('label' => t('Global'));
   $info['global:frontpage'] = array('label' => t('Front page'));
-  // @todo The 403 and 404 meta tag contexts are disabled until they can be properly implemented.
-  //$info['global:403']       = array('label' => t('403 page not found'));
-  //$info['global:404']       = array('label' => t('404 page not found'));
+  $info['global:403']       = array('label' => t('403 access denied'));
+  $info['global:404']       = array('label' => t('404 page not found'));
 
   // Add instance information for entities.
   $entity_types = entity_get_info();

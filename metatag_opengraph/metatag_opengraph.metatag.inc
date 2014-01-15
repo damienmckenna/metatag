@@ -18,6 +18,7 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
           'og:url' => array('value' => '[current-page:url:absolute]'),
         );
         break;
+
       case 'global:frontpage':
         $config->config += array(
           'og:type' => array('value' => 'website'),
@@ -25,18 +26,31 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
           'og:url' => array('value' => '[site:url]'),
         );
         break;
+
+      // On error pages point everything to the homepage.
+      case 'global:403':
+      case 'global:404':
+        $config->config += array(
+          'og:type' => array('value' => 'website'),
+          'og:title' => array('value' => '[site:name]'),
+          'og:url' => array('value' => '[site:url]'),
+        );
+        break;
+
       case 'node':
         $config->config += array(
           'og:title' => array('value' => '[node:title]'),
           'og:description' => array('value' => '[node:summary]'),
         );
         break;
+
       case 'taxonomy_term':
         $config->config += array(
           'og:title' => array('value' => '[term:name]'),
           'og:description' => array('value' => '[term:description]'),
         );
         break;
+
       case 'user':
         $config->config += array(
           'og:type' => array('value' => 'profile'),
