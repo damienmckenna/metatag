@@ -221,6 +221,8 @@ function metatag_uninstall() {
   variable_del('metatag_schema_installed');
   // Used to control whether 403/404 pages are cached.
   variable_del('metatag_cache_error_pages');
+  // Used to make meta tags display on admin pages.
+  variable_del('metatag_tag_admin_pages');
 
   // Temp variables, just in case they weren't removed already.
   variable_del('metatag_skip_update_7015');

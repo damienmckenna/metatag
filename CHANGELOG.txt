@@ -105,6 +105,8 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2156261 by plopesc, DamienMcKenna: Allow meta tags for 403/404 error pages to
   be configured, along with some reasonable defaults; removed previous option to
   control caching on these pages, the meta tags are now always cached.
+#2173863 by DamienMcKenna: Don't load meta tags on admin pages, provide setting
+  to override this.
 
 
 Metatag 7.x-1.0-beta7, 2013-04-22

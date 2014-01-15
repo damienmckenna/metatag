@@ -1312,6 +1312,12 @@ function metatag_page_get_metatags() {
  * Implements hook_page_build().
  */
 function metatag_page_build(&$page) {
+  // By default do not add meta tags to admin pages. To enable meta tags on
+  // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
+  if (path_is_admin(current_path()) && !variable_get('metatag_tag_admin_pages', FALSE)) {
+    return;
+  }
+
   // Ensure these arrays exist, otherwise several use cases will fail.
   if (!isset($page['content']) || !is_array($page['content'])) {
     $page['content'] = array();
@@ -1349,9 +1355,9 @@ function metatag_page_build(&$page) {
     $page['content']['metatags'] += metatag_page_get_metatags();
   }
 
-  // If no meta tags were loaded, and this is not an admin path, at least load
-  // the global defaults. This may be disabled, see README.txt for details.
-  if (empty($page['content']['metatags']) && variable_get('metatag_load_all_pages', TRUE) && !path_is_admin(current_path())) {
+  // If no meta tags were loaded at least load the global defaults. This may be
+  // disabled, see README.txt for details.
+  if (empty($page['content']['metatags']) && variable_get('metatag_load_all_pages', TRUE)) {
     $instance = 'global';
 
     // Generate the cache ID.

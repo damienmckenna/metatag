@@ -134,6 +134,15 @@ Fine Tuning
   quick version of doing this is to clear the site caches using either Drush,
   Admin Menu (flush all caches), or the "Clear all caches" button on
   admin/config/development/performance.
+* By default Metatag will not display meta tags on admin pages. To enable meta
+  tags on admin pages simply set the 'metatag_load_all_pages' variable to TRUE
+  through one of the following methods:
+  * Use Drush to set the value:
+    drush vset metatag_load_all_pages TRUE
+  * Hardcode the value in the site's settings.php file:
+    $conf['metatag_load_all_pages'] = TRUE;
+  To re-enable this option simply set the value to FALSE or delete the
+  settings.php line.
 
 
 Developers
