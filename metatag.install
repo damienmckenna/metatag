@@ -221,6 +221,10 @@ function metatag_uninstall() {
   variable_del('metatag_schema_installed');
   // Used to control whether 403/404 pages are cached.
   variable_del('metatag_cache_error_pages');
+
+  // Temp variables, just in case they weren't removed already.
+  variable_del('metatag_skip_update_7015');
+  variable_del('metatag_skip_update_7017');
 }
 
 /**
@@ -459,6 +463,9 @@ function metatag_update_7008() {
  */
 function metatag_update_7009() {
   if (module_exists('taxonomy')) {
+    // Fix the {metatag} table first.
+    metatag_update_7015();
+
     // Remove duplicates.
     _metatag_remove_dupes('taxonomy_term');
   }
@@ -475,6 +482,9 @@ function metatag_update_7009() {
  * Fix {metatag} records for users.
  */
 function metatag_update_7010() {
+  // Fix the {metatag} table first.
+  metatag_update_7015();
+
   // Remove duplicates.
   _metatag_remove_dupes('user');
 
@@ -489,6 +499,9 @@ function metatag_update_7010() {
  * Fix {metatag} records for nodes.
  */
 function metatag_update_7011(&$sandbox) {
+  // Fix the {metatag} table first.
+  metatag_update_7015();
+
   // Only proceed if Entity_Translation is not enabled as it allows each node
   // record to have multiple languages available.
   if (module_exists('entity_translation')) {
@@ -598,6 +611,9 @@ function metatag_update_7011(&$sandbox) {
  * Remove duplicate {metatag} records for non-core entities.
  */
 function metatag_update_7012() {
+  // Fix the {metatag} table first.
+  metatag_update_7015();
+
   if (module_exists('entity_translation')) {
     drupal_set_message(t("Entity Translation is enabled, duplicate meta tags will not be removed for custom entities, to avoid accidental dataloss."));
     return;
@@ -628,6 +644,9 @@ function metatag_update_7012() {
  * take a while, depending on how much data needs to be converted.
  */
 function metatag_update_7013(&$sandbox) {
+  // Fix the {metatag} table first.
+  metatag_update_7015();
+
   if (module_exists('entity_translation')) {
     drupal_set_message(t("Entity Translation is enabled, meta tags will not be updated for custom entities, to avoid accidental dataloss."));
     return;
@@ -919,26 +938,34 @@ function metatag_update_7014() {
  * keys accordingly.
  */
 function metatag_update_7015() {
-  // Tell update 7016 that it isn't needed.
-  variable_set('metatag_skip_update_7017', TRUE);
+  if (!variable_get('metatag_skip_update_7015', FALSE)) {
+    // Make sure this update script isn't executed more than once.
+    variable_set('metatag_skip_update_7015', TRUE);
 
-  // Add the new field.
-  db_add_field('metatag', 'revision_id', array(
-      'type' => 'int',
-      'unsigned' => TRUE,
-      'not null' => TRUE,
-      'default' => 0,
-      'description' => 'The revision_id for the entity object this data is attached to.',
-    ));
+    // Tell update 7017 that it isn't needed.
+    variable_set('metatag_skip_update_7017', TRUE);
 
-  // Remove the existing primary key. This may take some work so it can be
-  // database agnostic, i.e. some databases will not like it.
-  db_drop_primary_key('metatag');
+    // Add the new field.
+    db_add_field('metatag', 'revision_id', array(
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'The revision_id for the entity object this data is attached to.',
+      ));
 
-  // Add the new primary key.
-  db_add_primary_key('metatag', array('entity_type', 'entity_id', 'revision_id', 'language'));
+    // Remove the existing primary key. This may take some work so it can be
+    // database agnostic, i.e. some databases will not like it.
+    db_drop_primary_key('metatag');
 
-  drupal_set_message(t('Added the {metatag}.revision_id field.'));
+    // Add the new primary key.
+    db_add_primary_key('metatag', array('entity_type', 'entity_id', 'revision_id', 'language'));
+
+    drupal_set_message(t('Added the {metatag}.revision_id field.'));
+  }
+  else {
+    variable_del('metatag_skip_update_7015');
+  }
 }
 
 /**
@@ -1192,4 +1219,11 @@ function metatag_update_7020() {
 function metatag_update_7021() {
   cache_clear_all('*', 'cache_metatag', TRUE);
   return t('All Metatag caches cleared.');
+}
+
+/**
+ * A minor bit of tidy-up after update 7015.
+ */
+function metatag_update_7022() {
+  variable_del('metatag_skip_update_7015');
 }
