@@ -102,7 +102,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
 #2173271 by deetergp: Spelling and grammer fixes for README.txt.
 #2172433 by fabsor, DamienMcKenna: Ensure that update 7015 runs early enough to
   avoid data corruption or errors during other updates.
-#2156261 by plopsec, DamienMcKenna: Allow meta tags for 403/404 error pages to
+#2156261 by plopesc, DamienMcKenna: Allow meta tags for 403/404 error pages to
   be configured, along with some reasonable defaults; removed previous option to
   control caching on these pages, the meta tags are now always cached.
 
