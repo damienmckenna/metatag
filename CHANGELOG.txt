@@ -7,6 +7,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   for the page title instead of copying the homepage's.
 #2175843 by DamienMcKenna: It was possible to get to update 7016 without the
   revision_id field existing, so make sure it exists.
+#2081787 by attila.fekete: Don't let Metatag:Views overwrite the frontpage meta
+  tag config, matching how Metatag:Panels works.
 
 
 Metatag 7.x-1.0-beta8, 2014-01-15
