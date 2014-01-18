@@ -9,6 +9,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   revision_id field existing, so make sure it exists.
 #2081787 by attila.fekete: Don't let Metatag:Views overwrite the frontpage meta
   tag config, matching how Metatag:Panels works.
+#2176375 by DamienMcKenna: Added note to README.txt about the Textimage module's
+  compatibility with Metatag.
 
 
 Metatag 7.x-1.0-beta8, 2014-01-15
