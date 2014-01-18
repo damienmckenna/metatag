@@ -5,6 +5,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   record with revision_id 0 will be deleted.
 #2176351 by DamienMcKenna: 403 and 404 error pages will use the global default
   for the page title instead of copying the homepage's.
+#2175843 by DamienMcKenna: It was possible to get to update 7016 without the
+  revision_id field existing, so make sure it exists.
 
 
 Metatag 7.x-1.0-beta8, 2014-01-15

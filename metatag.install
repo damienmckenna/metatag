@@ -225,7 +225,6 @@ function metatag_uninstall() {
   variable_del('metatag_tag_admin_pages');
 
   // Temp variables, just in case they weren't removed already.
-  variable_del('metatag_skip_update_7015');
   variable_del('metatag_skip_update_7017');
 }
 
@@ -940,10 +939,7 @@ function metatag_update_7014() {
  * keys accordingly.
  */
 function metatag_update_7015() {
-  if (!variable_get('metatag_skip_update_7015', FALSE)) {
-    // Make sure this update script isn't executed more than once.
-    variable_set('metatag_skip_update_7015', TRUE);
-
+  if (!db_field_exists('metatag', 'revision_id')) {
     // Tell update 7017 that it isn't needed.
     variable_set('metatag_skip_update_7017', TRUE);
 
@@ -966,7 +962,7 @@ function metatag_update_7015() {
     drupal_set_message(t('Added the {metatag}.revision_id field.'));
   }
   else {
-    variable_del('metatag_skip_update_7015');
+    drupal_set_message(t('The {metatag}.revision_id field has already been added, nothing to do.'));
   }
 }
 
@@ -975,6 +971,11 @@ function metatag_update_7015() {
  * update 7017.
  */
 function metatag_update_7016() {
+  // It's possible that 7015 was not executed if the site had been updated to
+  // an early dev release, so make sure the revision_id field exists.
+  metatag_update_7015();
+
+  // Run the update.
   db_query("UPDATE {metatag} SET revision_id = 0 WHERE revision_id IS NULL");
 }
 
