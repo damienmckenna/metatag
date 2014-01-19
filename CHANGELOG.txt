@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.0-beta9, 2014-01-18
+---------------------------------
 #2174363 by DamienMcKenna: Changed update 7018 to avoid attempting to create
   duplicate records when updating; instead should there be a collision the
   record with revision_id 0 will be deleted.
