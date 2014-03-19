@@ -375,8 +375,8 @@ function metatag_update_7006() {
 }
 
 /**
- * Remove {metatag} records for objects that have been deleted; older versions
- * of Metatag may have failed to purge these.
+ * Remove {metatag} records for nodes, users and taxonomy terms that have been
+ * deleted; older versions of Metatag may have failed to purge these.
  */
 function metatag_update_7007() {
   $nodes = db_query("SELECT m.entity_id
