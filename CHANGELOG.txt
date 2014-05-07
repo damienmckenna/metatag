@@ -1,6 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 By DamienMcKenna: Small improvement to the comment on update 7007.
+#2196393 by generalconsensus, aprohl5: Typo in hook_install().
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
