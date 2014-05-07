@@ -619,7 +619,7 @@ function metatag_entity_load($entities, $entity_type) {
       $metatags = metatag_metatags_load_multiple($entity_type, array_keys($entities), $revision_ids);
 
       // Assign the metatag records for the correct revision ID.
-      foreach ($entities as $entity_id => $records) {
+      foreach ($entities as $entity_id => $entity) {
         list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
         $revision_id = intval($revision_id);
         $entities[$entity_id]->metatags = isset($metatags[$entity_id][$revision_id]) ? $metatags[$entity_id][$revision_id] : array();
