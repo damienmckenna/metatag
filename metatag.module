@@ -1933,7 +1933,8 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
             // Only if the entity actually exists.
             if (!empty($entities)) {
               $entity = array_pop($entities);
-              metatag_entity_view($entity, $entity_name, 'full', NULL, TRUE);
+              $langcode = entity_language($entity_name, $entity);
+              metatag_entity_view($entity, $entity_name, 'full', $langcode, TRUE);
             }
           }
         }
