@@ -444,6 +444,7 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
     db_delete('metatag')
       ->condition('entity_type', $entity_type)
       ->condition('entity_id', $entity_id)
+      ->condition('revision_id', $revision_id)
       ->condition('language', $langcode)
       ->execute();
   }
