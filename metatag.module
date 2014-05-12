@@ -1392,6 +1392,11 @@ function metatag_page_build(&$page) {
  *   otherwise.
  */
 function _metatag_entity_is_page($entity_type, $entity) {
+  // Exclude comment entities as this conflicts with comment_fragment.module.
+  if ($entity_type == 'comment') {
+    return;
+  }
+
   $uri = entity_uri($entity_type, $entity);
   $current_path = current_path();
 
