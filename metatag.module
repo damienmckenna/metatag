@@ -39,6 +39,10 @@ function metatag_theme() {
     'render element' => 'element',
     'file' => 'metatag.theme.inc',
   );
+  $info['metatag_property'] = array(
+    'render element' => 'element',
+    'file' => 'metatag.theme.inc',
+  );
 
   return $info;
 }
