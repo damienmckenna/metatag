@@ -62,6 +62,9 @@ The primary features include:
 * Integrates with Workbench Moderation v1 allowing meta tags on nodes to be
   managed through the workflow process.
 
+* The Transliteration module (see below) is highly recommended when using image
+  meta tags, e.g. og:image.
+
 
 Configuration
 ------------------------------------------------------------------------------
@@ -214,6 +217,12 @@ Some modules are available that extend Metatag with additional functionality:
 * Textimage
   https://drupal.org/project/textimage
   Supports using Textimage's custom tokens in meta tag fields.
+
+* Transliteration
+  https://drupal.org/project/transliteration
+  Tidies up filenames for uploaded files, e.g. can remove commas from filenames
+  that could confuse meta tags that would consider a comma a separator and lead
+  to broken meta tags.
 
 
 Credits / Contact

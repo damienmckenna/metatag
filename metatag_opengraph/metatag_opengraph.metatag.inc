@@ -142,6 +142,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:image'] = array(
     'label' => t('Open Graph image'),
     'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
+    'multiple' => TRUE,
     'devel_generate' => array(
       'type' => 'image',
     ),
@@ -150,6 +151,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:image:secure_url'] = array(
     'label' => t('Open Graph secure image'),
     'description' => t('A secure (HTTPS) image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
+    'multiple' => TRUE,
     'devel_generate' => array(
       'type' => 'image',
     ),

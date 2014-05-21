@@ -104,6 +104,17 @@ function metatag_requirements($phase) {
         'description' => $t('Metatag is not currently compatible with Entity_Translation v2.'),
       );
     }
+
+    // It's recommended to install the Transliteration module to clean up file
+    // paths for use with image meta tags.
+    if (!module_exists('transliteration')) {
+      $requirements['metatag_transliteration'] = array(
+        'severity' => REQUIREMENT_WARNING,
+        'title' => 'Metatag',
+        'value' => $t('The Transliteration module is not installed.'),
+        'description' => $t("It is highly recommended to install the <a href=\"@url\">Transliteration module</a> to clean up filenames of uploaded files that may be used with image meta tags.", array('@url' => 'https://drupal.org/project/transliteration')),
+      );
+    }
   }
 
   return $requirements;
