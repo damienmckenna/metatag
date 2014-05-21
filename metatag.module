@@ -585,11 +585,11 @@ function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array
  *   The entity type to clear.
  */
 function metatag_metatags_cache_clear($entity_type, $entity_ids = NULL) {
-  if (empty($entity_id)) {
+  if (empty($entity_ids)) {
     cache_clear_all("output:$entity_type", 'cache_metatag', TRUE);
   }
   else {
-    if (!array($entity_ids)) {
+    if (!is_array($entity_ids)) {
       $entity_ids = array($entity_ids);
     }
     foreach ($entity_ids as $entity_id) {

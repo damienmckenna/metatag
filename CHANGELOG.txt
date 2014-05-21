@@ -7,6 +7,7 @@ By DamienMcKenna: Small improvement to the comment on update 7007.
   using Panels.
 #2205675 by Romlam, greggles: Typo in variable name caused data to not load.
 #2265447 by opdavies: Ignore comment entities, conflict with comment_fragment.
+#2271685 by adee147: Typos in metatag_metatags_cache_clear().
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
