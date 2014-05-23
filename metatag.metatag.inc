@@ -80,6 +80,12 @@ function metatag_metatag_config_default() {
   );
   $configs[$config->instance] = $config;
 
+  // Before returning these, allow the bundled submodules to override them, thus
+  // extending the "real" defaults before they can then be altered by other
+  // modules.
+  // See hook_metatag_bundled_config_alter() in the API documentation.
+  drupal_alter('metatag_bundled_config', $configs);
+
   return $configs;
 }
 

@@ -5,9 +5,9 @@
  */
 
 /**
- * Implements hook_metatag_config_default_alter().
+ * Implements hook_metatag_bundled_config_alter().
  */
-function metatag_dc_metatag_config_default_alter(array &$configs) {
+function metatag_dc_metatag_bundled_config_alter(array &$configs) {
   foreach ($configs as &$config) {
     switch ($config->instance) {
       case 'global':

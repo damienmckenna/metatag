@@ -115,6 +115,21 @@ function hook_metatag_config_default() {
 }
 
 /**
+ * Internal hook for adding further configuration values in bundled submodules.
+ *
+ * The defaults provided by the main Metatag module need to be extended by the
+ * bundled submodules before they are presented to other modules for altering
+ * via hook_metatag_config_default_alter(), in case differences in module
+ * weights and loading priorities cause the submodules' settings to run after
+ * those of any custom modules.
+ *
+ * @see hook_metatag_config_default()
+ * @see hook_metatag_config_default_alter()
+ */
+function hook_metatag_bundled_config_alter(&$config) {
+}
+  
+/**
  * 
  */
 function hook_metatag_config_default_alter(&$config) {
