@@ -13,6 +13,7 @@ function metatag_dc_metatag_bundled_config_alter(array &$configs) {
       case 'global':
         $config->config += array(
           'dcterms.format' => array('value' => 'text/html'),
+          'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
           'dcterms.title' => array('value' => '[current-page:title]'),
           'dcterms.type' => array('value' => 'Text'),
         );
@@ -20,6 +21,7 @@ function metatag_dc_metatag_bundled_config_alter(array &$configs) {
 
       case 'global:frontpage':
         $config->config += array(
+          'dcterms.description' => array('value' => '[site:slogan]'),
           'dcterms.identifier' => array('value' => '[site:url]'),
           'dcterms.title' => array('value' => '[site:name]'),
         );
@@ -38,7 +40,7 @@ function metatag_dc_metatag_bundled_config_alter(array &$configs) {
         $config->config += array(
           'dcterms.creator' => array('value' => '[node:author]'),
           'dcterms.date' => array('value' => '[node:created:custom:Y-m-d\TH:iP]'),
-          'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
+          'dcterms.description' => array('value' => '[node:summary]'),
           'dcterms.language' => array('value' => '[node:language]'),
           'dcterms.title' => array('value' => '[node:title]'),
         );
@@ -47,7 +49,6 @@ function metatag_dc_metatag_bundled_config_alter(array &$configs) {
       case 'taxonomy_term':
         $config->config += array(
           'dcterms.description' => array('value' => '[term:description]'),
-          'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
           'dcterms.title' => array('value' => '[term:name]'),
         );
         break;
@@ -56,7 +57,6 @@ function metatag_dc_metatag_bundled_config_alter(array &$configs) {
         $config->config += array(
           'dcterms.creator' => array('value' => '[user:name]'),
           'dcterms.date' => array('value' => '[user:created:custom:Y-m-d\TH:iP]'),
-          'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
           'dcterms.title' => array('value' => '[user:name]'),
         );
         break;

@@ -20,8 +20,8 @@ function metatag_twitter_cards_metatag_bundled_config_alter(array &$configs) {
 
       case 'global:frontpage':
         $config->config += array(
-          'twitter:title' => array('value' => '[site:name]'),
           'twitter:description' => array('value' => '[site:slogan]'),
+          'twitter:title' => array('value' => '[site:name]'),
           'twitter:url' => array('value' => '[site:url]'),
         );
         break;
@@ -30,7 +30,6 @@ function metatag_twitter_cards_metatag_bundled_config_alter(array &$configs) {
       case 'global:403':
       case 'global:404':
         $config->config += array(
-          'twitter:description' => array('value' => ''),
           'twitter:title' => array('value' => '[site:name]'),
           'twitter:url' => array('value' => '[site:url]'),
         );

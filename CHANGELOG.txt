@@ -15,6 +15,7 @@ By DamienMcKenna: Small improvement to the comment on update 7007.
 #2273459 by DamienMcKenna: Improved Twitter Cards default values.
 #2273241 by DamienMcKenna: Use the new hook_metatag_bundled_config_alter() to
   load settings from submodules.
+#2273493 by DamienMcKenna: Improved Dublin Core default values.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
