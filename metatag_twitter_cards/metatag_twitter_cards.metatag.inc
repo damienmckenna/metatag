@@ -13,15 +13,16 @@ function metatag_twitter_cards_metatag_config_default_alter(array &$configs) {
       case 'global':
         $config->config += array(
           'twitter:card' => array('value' => 'summary'),
-          'twitter:description' => array('value' => '[site:slogan]'),
-          'twitter:title' => array('value' => '[site:name]'),
+          'twitter:title' => array('value' => '[current-page:title]'),
           'twitter:url' => array('value' => '[current-page:url:absolute]'),
         );
         break;
 
       case 'global:frontpage':
         $config->config += array(
-          'twitter:description' => array('value' => ''),
+          'twitter:title' => array('value' => '[site:name]'),
+          'twitter:description' => array('value' => '[site:slogan]'),
+          'twitter:url' => array('value' => '[site:url]'),
         );
         break;
 
@@ -37,7 +38,6 @@ function metatag_twitter_cards_metatag_config_default_alter(array &$configs) {
 
       case 'node':
         $config->config += array(
-          'twitter:card' => array('value' => 'summary'),
           'twitter:description' => array('value' => '[node:summary]'),
           'twitter:title' => array('value' => '[node:title]'),
         );
@@ -45,9 +45,20 @@ function metatag_twitter_cards_metatag_config_default_alter(array &$configs) {
 
       case 'taxonomy_term':
         $config->config += array(
-          'twitter:card' => array('value' => 'summary'),
-          'twitter:title'=> array('value' => '[term:name]'),
+          'twitter:description' => array('value' => '[term:description]'),
+          'twitter:title' => array('value' => '[term:name]'),
         );
+        break;
+
+      case 'user':
+        $config->config += array(
+          'twitter:title' => array('value' => '[user:name]'),
+        );
+        if (variable_get('user_pictures')) {
+          $config->config += array(
+            'twitter:image' => array('value' => '[user:picture:url]'),
+          );
+        }
         break;
     }
   }

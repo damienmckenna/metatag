@@ -12,17 +12,18 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
     switch ($config->instance) {
       case 'global':
         $config->config += array(
-          'og:type' => array('value' => 'article'),
-          'og:title' => array('value' => '[current-page:title]'),
           'og:site_name' => array('value' => '[site:name]'),
+          'og:title' => array('value' => '[current-page:title]'),
+          'og:type' => array('value' => 'article'),
           'og:url' => array('value' => '[current-page:url:absolute]'),
         );
         break;
 
       case 'global:frontpage':
         $config->config += array(
-          'og:type' => array('value' => 'website'),
+          'og:description' => array('value' => '[site:slogan]'),
           'og:title' => array('value' => '[site:name]'),
+          'og:type' => array('value' => 'website'),
           'og:url' => array('value' => '[site:url]'),
         );
         break;
@@ -31,37 +32,36 @@ function metatag_opengraph_metatag_config_default_alter(array &$configs) {
       case 'global:403':
       case 'global:404':
         $config->config += array(
-          'og:type' => array('value' => 'website'),
           'og:title' => array('value' => '[site:name]'),
+          'og:type' => array('value' => 'website'),
           'og:url' => array('value' => '[site:url]'),
         );
         break;
 
       case 'node':
         $config->config += array(
-          'og:title' => array('value' => '[node:title]'),
           'og:description' => array('value' => '[node:summary]'),
+          'og:title' => array('value' => '[node:title]'),
         );
         break;
 
       case 'taxonomy_term':
         $config->config += array(
-          'og:title' => array('value' => '[term:name]'),
           'og:description' => array('value' => '[term:description]'),
+          'og:title' => array('value' => '[term:name]'),
         );
         break;
 
       case 'user':
         $config->config += array(
-          'og:type' => array('value' => 'profile'),
           'og:title' => array('value' => '[user:name]'),
+          'og:type' => array('value' => 'profile'),
         );
         if (variable_get('user_pictures')) {
           $config->config += array(
             'og:image' => array('value' => '[user:picture:url]'),
           );
         }
-
         break;
     }
   }

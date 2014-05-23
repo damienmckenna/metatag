@@ -12,16 +12,16 @@ function metatag_dc_metatag_config_default_alter(array &$configs) {
     switch ($config->instance) {
       case 'global':
         $config->config += array(
+          'dcterms.format' => array('value' => 'text/html'),
           'dcterms.title' => array('value' => '[current-page:title]'),
           'dcterms.type' => array('value' => 'Text'),
-          'dcterms.format' => array('value' => 'text/html'),
         );
         break;
 
       case 'global:frontpage':
         $config->config += array(
-          'dcterms.title' => array('value' => '[site:name]'),
           'dcterms.identifier' => array('value' => '[site:url]'),
+          'dcterms.title' => array('value' => '[site:name]'),
         );
         break;
 
@@ -29,35 +29,35 @@ function metatag_dc_metatag_config_default_alter(array &$configs) {
       case 'global:403':
       case 'global:404':
         $config->config += array(
-          'dcterms.title' => array('value' => '[site:name]'),
           'dcterms.identifier' => array('value' => '[site:url]'),
+          'dcterms.title' => array('value' => '[site:name]'),
         );
         break;
 
       case 'node':
         $config->config += array(
-          'dcterms.title' => array('value' => '[node:title]'),
+          'dcterms.creator' => array('value' => '[node:author]'),
           'dcterms.date' => array('value' => '[node:created:custom:Y-m-d\TH:iP]'),
           'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
           'dcterms.language' => array('value' => '[node:language]'),
-          'dcterms.creator' => array('value' => '[node:author]'),
+          'dcterms.title' => array('value' => '[node:title]'),
         );
         break;
 
       case 'taxonomy_term':
         $config->config += array(
-          'dcterms.title' => array('value' => '[term:name]'),
-          'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
           'dcterms.description' => array('value' => '[term:description]'),
+          'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
+          'dcterms.title' => array('value' => '[term:name]'),
         );
         break;
 
       case 'user':
         $config->config += array(
-          'dcterms.title' => array('value' => '[user:name]'),
+          'dcterms.creator' => array('value' => '[user:name]'),
           'dcterms.date' => array('value' => '[user:created:custom:Y-m-d\TH:iP]'),
           'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
-          'dcterms.creator' => array('value' => '[user:name]'),
+          'dcterms.title' => array('value' => '[user:name]'),
         );
         break;
     }

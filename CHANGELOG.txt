@@ -12,6 +12,7 @@ By DamienMcKenna: Small improvement to the comment on update 7007.
   theme_metatag_property().
 #1282636 by DamienMckenna: Support meta tags that allow multiple values; first
   supported tags are og:image and og:image:secure_url.
+#2273459 by DamienMcKenna: Improved Twitter Cards default values.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
