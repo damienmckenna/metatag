@@ -17,6 +17,7 @@ By DamienMcKenna: Small improvement to the comment on update 7007.
   load settings from submodules.
 #2273493 by DamienMcKenna: Improved Dublin Core default values.
 #2274921 by DamienMcKenna: Token browser link missing on settings pages.
+#2277787 by eugene.ilyin: Missing translations in metatag_context.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
