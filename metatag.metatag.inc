@@ -223,9 +223,6 @@ function metatag_metatag_info() {
     'devel_generate' => array(
       'type' => 'image',
     ),
-    'devel_generate' => array(
-      'type' => 'image',
-    ),
   );
 
   $info['tags']['canonical'] = array(
