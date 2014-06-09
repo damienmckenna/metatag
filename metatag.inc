@@ -27,6 +27,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
 
   protected $info;
   protected $data = array('value' => '');
+  protected $weight = 0;
 
   function __construct(array $info, array $data = NULL) {
     $this->info = $info;
@@ -82,6 +83,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
           '#id' => 'metatag_' . $this->info['name'] . '_' . $ctr,
           '#name' => $this->info['name'],
           '#value' => $value,
+          '#weight' => $this->weight++,
         );
 
         // Add header information if desired.
@@ -196,6 +198,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
       '#id' => 'metatag_' . $this->info['name'],
       '#name' => $this->info['name'],
       '#value' => $value,
+      '#weight' => $this->weight++,
     );
 
     if (!isset($this->info['header']) || !empty($this->info['header'])) {
