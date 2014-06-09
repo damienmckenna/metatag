@@ -19,6 +19,8 @@ By DamienMcKenna: Small improvement to the comment on update 7007.
 #2274921 by DamienMcKenna: Token browser link missing on settings pages.
 #2277787 by eugene.ilyin: Missing translations in metatag_context.
 By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
+#2282903 by DamienMcKenna: Special handling for meta tags that need to output a
+  secure URL, replace 'http://' with 'https://'.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18

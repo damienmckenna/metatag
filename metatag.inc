@@ -70,6 +70,11 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
       foreach ($values as $ctr => $value) {
         $value = trim($value);
 
+        // Some meta tags must be output as secure URLs.
+        if (!empty($this->info['secure'])) {
+          $value = str_replace('http://', 'https://', $value);
+        }
+
         // Combine the base configuration for this meta tag with the value.
         $element = $base_element + array(
           '#theme' => 'metatag',

@@ -150,8 +150,9 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:image:secure_url'] = array(
     'label' => t('Open Graph secure image'),
-    'description' => t('A secure (HTTPS) image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
+    'description' => t('A secure (HTTPS) image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats. All "http://" URLs will automatically be converted to "https://".'),
     'multiple' => TRUE,
+    'secure' => TRUE,
     'devel_generate' => array(
       'type' => 'image',
     ),
@@ -222,15 +223,16 @@ function metatag_opengraph_metatag_info() {
   ) + $tag_info_defaults;
 
   $info['tags']['og:video'] = array(
-    'label' => t('Open Graph Video (URL)'),
+    'label' => t('Open Graph Video URL'),
     'description' => t('A URL to a video file that complements this object.'),
     'devel_generate' => array(
       'type' => 'url',
     ),
   ) + $tag_info_defaults;
   $info['tags']['og:video:secure_url'] = array(
-    'label' => t('Open Graph Video Secure'),
-    'description' => t('A URL to a video file that complements this object using the HTTPS protocol.'),
+    'label' => t('Open Graph Video Secure URL'),
+    'description' => t('A URL to a video file that complements this object using the HTTPS protocol. All "http://" URLs will automatically be converted to "https://".'),
+    'secure' => TRUE,
     'devel_generate' => array(
       'type' => 'url',
     ),
