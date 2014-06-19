@@ -23,6 +23,7 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
   secure URL, replace 'http://' with 'https://'.
 #2281833 by DamienMcKenna: Ensure multi-item values are output in a consistent
   order.
+#2275323 by drastik: Provide link to settings page in Metatag:Context module.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
