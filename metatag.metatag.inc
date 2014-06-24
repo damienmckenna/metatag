@@ -200,7 +200,7 @@ function metatag_metatag_info() {
     'group' => 'advanced',
     'weight' => ++$weight,
   );
-  
+
   $info['tags']['standout'] = array(
     'label' => t('Google Standout'),
     'description' => t("Highlight standout journalism on the web, especially for breaking news; used as an indicator in <a href=\"@google_news\">Google News</a>. Warning: Don't abuse it, to be used a maximum of 7 times per calendar week!", array('@google_news' => 'https://support.google.com/news/publisher/answer/191283?hl=en&ref_topic=2484650')),
@@ -302,6 +302,17 @@ function metatag_metatag_info() {
      'weight' => ++$weight,
      'devel_generate' => array(
        'type' => 'date',
+     ),
+   );
+
+   $info['tags']['content-language'] = array(
+     'label' => t('Content language'),
+     'description' => t("A deprecated meta tag for defining this page's two-letter language code(s)."),
+     'class' => 'DrupalTextMetaTag',
+     'group' => 'advanced',
+     'weight' => ++$weight,
+     'element' => array(
+       '#theme' => 'metatag_http_equiv',
      ),
    );
 
