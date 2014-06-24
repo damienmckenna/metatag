@@ -25,6 +25,7 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
   order.
 #2275323 by drastik: Provide link to settings page in Metatag:Context module.
 #1284810 by DamienMcKenna: Really recommend installing Imagecache Token.
+#1809356 by DamienMcKenna: Sort all meta tags.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18

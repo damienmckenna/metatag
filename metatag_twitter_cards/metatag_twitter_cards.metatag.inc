@@ -75,11 +75,15 @@ function metatag_twitter_cards_metatag_info() {
     ),
   );
 
+  // Twitter Cards meta tags stack after the Open Graph tags.
+  $weight = 40;
+
   $info['tags']['twitter:card'] = array(
     'label' => t('Twitter card type'),
     'description' => t('Notes: no other fields are required for a <em>Summary</em> card, a <em>Photo</em> card requires the \'image\' field, a <em>Media player</em> card requires the \'title\', \'description\', \'media player URL\', \'media player width\', \'media player height\' and \'image\' fields, a <em>Summary Card with Large Image</em> card requires the \'Summary\' field and the \'image\' field, a <em>Gallery Card</em> requires all the \'Gallery Image\' fields, an <em>App Card</em> requires the \'iPhone app ID\' field, the \'iPad app ID\' field and the \'Google Play app ID\' field, a <em>Product Card</em> requires the \'description\' field, the \'image\' field, the \'Label 1\' field, the \'Data 1\' field, the \'Label 2\' field and the \'Data 2\' field.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'form' => array(
       '#type' => 'select',
       '#options' => array(
@@ -103,6 +107,7 @@ function metatag_twitter_cards_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'context' => array('global'),
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -116,6 +121,7 @@ function metatag_twitter_cards_metatag_info() {
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'context' => array('global'),
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -128,6 +134,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The @username for the content creator / author for this page, including the @ symbol.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -140,6 +147,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The numerical Twitter account ID for the content creator / author for this page.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -152,6 +160,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The permalink / canonical URL of the current page.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -164,6 +173,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The page\'s title, which should be concise; it will be truncated at 70 characters by Twitter. This field is required unless this the \'type\' field is set to "photo".'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -173,6 +183,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('A description that concisely summarizes the content of the page, as appropriate for presentation within a Tweet. Do not re-use the title text as the description, or use this field to describe the general services provided by the website. The string will be truncated, by Twitter, at the word to 200 characters.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -182,6 +193,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -194,6 +206,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The width of the image being linked to, in pixels.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -206,6 +219,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The height of the image being linked to, in pixels.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -218,6 +232,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('A URL to the image representing the first photo in your gallery.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -227,6 +242,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('A URL to the image representing the second photo in your gallery.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -236,6 +252,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('A URL to the image representing the third photo in your gallery.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -245,6 +262,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('A URL to the image representing the fourth photo in your gallery.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -254,6 +272,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The full URL for loading a media player. Required when using a <em>Media player</em> card.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -266,6 +285,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The width of the media player iframe, in pixels. Required when using a <em>Media player</em> card.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -278,6 +298,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The height of the media player iframe, in pixels. Required when using a <em>Media player</em> card.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -290,6 +311,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The full URL for an MP4 video (h.264) or audio (AAC) stream, takes precidence over the other media player field.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -302,6 +324,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The MIME type for the media contained in the stream URL, as defined by <a href="!url">RFC 4337</a>.', array('!url' => 'http://tools.ietf.org/rfc/rfc4337.txt')),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),
@@ -314,6 +337,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("String value, should be the numeric representation of your iPhone app's ID in the App Store."),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -323,6 +347,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("String value, should be the numeric representation of your iPad app's ID in the App Store."),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -332,6 +357,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("String value, and should be the numeric representation of your app's ID in Google Play."),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -341,6 +367,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('Your iPhone app\'s custom URL scheme (you must include "://" after your scheme name).'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -350,6 +377,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('Your iPad app\'s custom URL scheme (you must include "://" after your scheme name).'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -359,6 +387,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('If your application is not available in the US App Store, you must set this value to the two-letter country code for the App Store that contains your application.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -368,6 +397,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('Your app\'s custom URL scheme.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -377,6 +407,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -386,6 +417,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -395,6 +427,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
@@ -404,6 +437,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
+    'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),

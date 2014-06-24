@@ -18,6 +18,8 @@ interface DrupalMetaTagInterface {
 
   function getValue();
 
+  function getWeight();
+
   function getElement();
 
   function tidyValue($value);
@@ -34,6 +36,23 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     if (isset($data)) {
       $this->data = $data;
     }
+  }
+
+  /**
+   * Calculate the weight or this meta tag.
+   *
+   * @return integer
+   */
+  public function getWeight() {
+    static $counter = 0;
+
+    // If no weight value is found, stack this meta tag at the end.
+    $weight = 100;
+    if (!empty($this->info['weight'])) {
+      $weight = $this->info['weight'];
+    }
+
+    return $weight + ($counter++ * 0.1);
   }
 
   public function getForm(array $options = array()) {
@@ -83,7 +102,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
           '#id' => 'metatag_' . $this->info['name'] . '_' . $ctr,
           '#name' => $this->info['name'],
           '#value' => $value,
-          '#weight' => $this->weight++,
+          '#weight' => $this->getWeight(),
         );
 
         // Add header information if desired.
@@ -198,7 +217,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
       '#id' => 'metatag_' . $this->info['name'],
       '#name' => $this->info['name'],
       '#value' => $value,
-      '#weight' => $this->weight++,
+      '#weight' => $this->getWeight(),
     );
 
     if (!isset($this->info['header']) || !empty($this->info['header'])) {

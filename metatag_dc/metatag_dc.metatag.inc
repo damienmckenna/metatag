@@ -76,6 +76,10 @@ function metatag_dc_metatag_info() {
       '#weight' => 70,
     ),
   );
+
+  // Dublin Core meta tags stack after the Twitter Cards tags.
+  $weight = 70;
+
   $info['tags']['dcterms.title'] = array(
     'label' => t('Dublin Core Title'),
     'description' => t('The name given to the resource.'),
@@ -85,6 +89,7 @@ function metatag_dc_metatag_info() {
       '#type' => 'term',
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.creator'] = array(
     'label' => t('Dublin Core Creator'),
@@ -94,6 +99,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.subject'] = array(
     'label' => t('Dublin Core Subject'),
@@ -103,6 +109,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.description'] = array(
     'label' => t('Dublin Core Description'),
@@ -112,6 +119,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.publisher'] = array(
     'label' => t('Dublin Core Publisher'),
@@ -121,6 +129,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.contributor'] = array(
     'label' => t('Dublin Core Contributor'),
@@ -130,6 +139,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.date'] = array(
     'label' => t('Dublin Core Date'),
@@ -139,6 +149,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'date',
     ),
@@ -156,6 +167,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.format'] = array(
     'label' => t('Dublin Core Format'),
@@ -168,6 +180,7 @@ function metatag_dc_metatag_info() {
     'devel_generate' => array(
       'maxlength' => 1,
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.identifier'] = array(
     'label' => t('Dublin Core Identifier'),
@@ -177,6 +190,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.source'] = array(
     'label' => t('Dublin Core Source'),
@@ -186,6 +200,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.language'] = array(
     'label' => t('Dublin Core Language'),
@@ -198,6 +213,7 @@ function metatag_dc_metatag_info() {
     'devel_generate' => array(
       'maxlength' => 1,
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.relation'] = array(
     'label' => t('Dublin Core Relation'),
@@ -207,6 +223,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.coverage'] = array(
     'label' => t('Dublin Core Coverage'),
@@ -216,6 +233,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
   $info['tags']['dcterms.rights'] = array(
     'label' => t('Dublin Core Rights'),
@@ -225,6 +243,7 @@ function metatag_dc_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_dc',
     ),
+    'weight' => ++$weight,
   );
 
   return $info;

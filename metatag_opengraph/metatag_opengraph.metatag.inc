@@ -88,13 +88,18 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
+  // Open Graph meta tags stack after the simple tags.
+  $weight = 20;
+
   $info['tags']['fb:admins'] = array(
     'label' => t('Facebook Admins'),
     'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page. Most sites will only need to assign this on the global settings page.'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
   $info['tags']['fb:app_id'] = array(
     'label' => t('Facebook Application ID'),
     'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site. Most sites will only need to assign this on the global settings page.'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
@@ -108,21 +113,25 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Open Graph site name'),
     'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
     'context' => array('global'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['og:title'] = array(
     'label' => t('Open Graph title'),
     'description' => t('The title of your object as it should appear within the graph, e.g., <em>The Rock</em>.'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['og:description'] = array(
     'label' => t('Open Graph description'),
     'description' => t('A one to two sentence description of your page.'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['og:type'] = array(
     'label' => t('Open Graph type'),
     'description' => t('The type of your object, e.g., <em>movie</em>.'),
+    'weight' => ++$weight,
     'form' => array(
       '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
@@ -143,6 +152,7 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Open Graph image'),
     'description' => t('An image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
     'multiple' => TRUE,
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'image',
     ),
@@ -153,6 +163,7 @@ function metatag_opengraph_metatag_info() {
     'description' => t('A secure (HTTPS) image URL which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats. All "http://" URLs will automatically be converted to "https://".'),
     'multiple' => TRUE,
     'secure' => TRUE,
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'image',
     ),
@@ -161,6 +172,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:url'] = array(
     'label' => t('Open Graph URL'),
     'description' => t('The canonical URL of your object that will be used as its permanent ID in the graph, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'canonical',
     ),
@@ -168,12 +180,14 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:latitude'] = array(
     'label' => t('Open Graph Latitude'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'float',
     ),
   ) + $tag_info_defaults;
   $info['tags']['og:longitude'] = array(
     'label' => t('Open Graph Longitude'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'float',
     ),
@@ -181,34 +195,42 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:street-address'] = array(
     'label' => t('Open Graph Street Address'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
   $info['tags']['og:locality'] = array(
     'label' => t('Open Graph Locality'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
   $info['tags']['og:region'] = array(
     'label' => t('Open Graph Region'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
   $info['tags']['og:postal-code'] = array(
     'label' => t('Open Graph Postal Code'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
   $info['tags']['og:country-name'] = array(
     'label' => t('Open Graph Country Name'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['og:email'] = array(
     'label' => t('Open Graph Email'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'email',
     ),
   ) + $tag_info_defaults;
   $info['tags']['og:phone_number'] = array(
     'label' => t('Open Graph Phone Number'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'phone',
     ),
   ) + $tag_info_defaults;
   $info['tags']['og:fax_number'] = array(
     'label' => t('Open Graph Fax Number'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'phone',
     ),
@@ -217,6 +239,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:locale'] = array(
     'label' => t('Open Graph Locale'),
     'description' => 'The locale these tags are marked up in. Of the format language_TERRITORY. Default is en_US.',
+    'weight' => ++$weight,
     'devel_generate' => array(
       'maxlength' => 1,
     ),
@@ -225,6 +248,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:video'] = array(
     'label' => t('Open Graph Video URL'),
     'description' => t('A URL to a video file that complements this object.'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'url',
     ),
@@ -233,6 +257,7 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Open Graph Video Secure URL'),
     'description' => t('A URL to a video file that complements this object using the HTTPS protocol. All "http://" URLs will automatically be converted to "https://".'),
     'secure' => TRUE,
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'url',
     ),
@@ -240,6 +265,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:video:width'] = array(
     'label' => t('Open Graph Video Width'),
     'description' => t('The width of the video.'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
@@ -247,6 +273,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:video:height'] = array(
     'label' => t('Open Graph Video Height'),
     'description' => t('The height of the video.'),
+    'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
@@ -254,6 +281,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:video:type'] = array(
     'label' => t('Open Graph Video Type'),
     'description' => t('The type of the video file.'),
+    'weight' => ++$weight,
     'form' => array(
       '#type' => 'select',
       '#options' => array(
