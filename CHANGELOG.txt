@@ -28,6 +28,8 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
 #1809356 by DamienMcKenna: Sort all meta tags.
 #2276361 by DamienMcKenna: Move Facebook meta tags into a separate submodule.
 #2185943 by fizk: Remove warnings about Exclude Node Title.
+#2266595 by hefox: Change watchdog() message to a warning not critical, to avoid
+  problems with Jenkins.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
