@@ -180,10 +180,6 @@ Troubleshooting / Known Issues
   taxonomy term pages to work correctly.
 * Using Metatag with values assigned for the page title and the Page Title
   module simultaneously can cause conflicts and unexpected results.
-* Using the Exclude Node Title module will cause the [node:title] token to be
-  empty on node pages, so using [current-page:title] will work around the
-  issue. Note: it isn't possible to "fix" this as it's a by-product of what
-  Exclude Node Title does - it removes the node title from display.
 * When customizing the meta tags for user pages, it is strongly recommended to
   not use the [current-user] tokens, these pertain to the person *viewing* the
   page and not e.g., the person who authored a page.
