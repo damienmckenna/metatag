@@ -88,8 +88,8 @@ function metatag_opengraph_metatag_info() {
     ),
   );
 
-  // Open Graph meta tags stack after the simple tags.
-  $weight = 20;
+  // Open Graph meta tags stack after the Facebook tags.
+  $weight = 25;
 
   $info['tags']['fb:admins'] = array(
     'label' => t('Facebook Admins'),

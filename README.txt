@@ -8,7 +8,8 @@ meta tags may help improve your site's & pages' ranking, thus may aid with
 achieving a more prominent display of your content within search engine
 results. Additionally, using meta tags can help control the summary content
 that is used within social networks when visitors link to your site,
-particularly the Open Graph submodule for use with Facebook (see below).
+particularly the Open Graph submodule for use with Facebook, LinkedIn, etc (see
+below).
 
 This version of the module only works with Drupal 7.15 and newer.
 
@@ -41,11 +42,17 @@ The primary features include:
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Metatag: Dublin Core" submodule.
 
-* The Open Graph Protocol meta tags, as used by Facebook, may be added by
-  enabling the "Metatag: Open Graph" submodule.
+* The Open Graph Protocol meta tags, as used by Facebook, LinkedIn and other
+  sites, may be added by enabling the "Metatag: Open Graph" submodule.
 
 * The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
+
+* Facebook's fb:app_id and fb:admins meta tags may be added by enabling the
+  "Metatag: Facebook" submodule. These are useful for sites which are using
+  Facebook widgets or are building custom integration with Facebook's APIs,
+  but they are not needed by most sites and have no bearing on the Open Graph
+  meta tags.
 
 * An API allowing for additional meta tags to be added, beyond what is provided
   by this module - see metatag.api.php for full details.
