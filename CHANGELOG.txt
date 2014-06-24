@@ -30,6 +30,7 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
 #2185943 by fizk: Remove warnings about Exclude Node Title.
 #2266595 by hefox: Change watchdog() message to a warning not critical, to avoid
   problems with Jenkins.
+#2193195 by 75th Trombone: Corrected a variable usage in README.txt.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
