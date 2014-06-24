@@ -62,8 +62,8 @@ The primary features include:
 * Integrates with Workbench Moderation v1 allowing meta tags on nodes to be
   managed through the workflow process.
 
-* The Transliteration module (see below) is highly recommended when using image
-  meta tags, e.g. og:image.
+* The Transliteration and Imagecache Token modules (see below) are highly
+  recommended when using image meta tags, e.g. og:image.
 
 
 Configuration
@@ -159,6 +159,10 @@ further details and example code.
 
 Troubleshooting / Known Issues
 ------------------------------------------------------------------------------
+* Image fields do not output very easily in meta tags, e.g. for og:image,
+  without use of the Imagecache Token module (see below). This also provides a
+  way of using an image style to resize the original images first, rather than
+  requiring visitors download multi-megabyte original images.
 * When using custom page template files, e.g., page--front.tpl.php, it is
   important to ensure that the following code is present in the template file:
     <?php render($page['content']); ?>
@@ -176,8 +180,6 @@ Troubleshooting / Known Issues
 * When customizing the meta tags for user pages, it is strongly recommended to
   not use the [current-user] tokens, these pertain to the person *viewing* the
   page and not e.g., the person who authored a page.
-* If images being displayed in image tags need to be resized to fit a specific
-  requirements, use the Imagecache Token module to customize the value.
 * Certain browser plugins, e.g., on Chrome, can cause the page title to be
   displayed with additional double quotes, e.g., instead of:
     <title>The page title | My cool site</title>
@@ -195,20 +197,26 @@ Related modules
 ------------------------------------------------------------------------------
 Some modules are available that extend Metatag with additional functionality:
 
+* Imagecache Token
+  https://www.drupal.org/project/imagecache_token
+  Provides additional tokens for image fields that can be used in e.g. the
+  og:image meta tag; ultimately makes it possible to actually use image meta
+  tags without writing custom code.
+
+* Transliteration
+  https://drupal.org/project/transliteration
+  Tidies up filenames for uploaded files, e.g. it can remove commas from
+  filenames that could otherwise break certain meta tags.
+
 * Domain Meta Tags
-  http://drupal.org/project/domain_meta
+  https://drupal.org/project/domain_meta
   Integrates with the Domain Access module, so each site of a multi-domain
   install can separately control their meta tags.
 
 * Select or Other
-  http://drupal.org/project/select_or_other
+  https://drupal.org/project/select_or_other
   Enhances the user experience of the metatag_opengraph submodule by allowing
   the creation of custom Open Graph types.
-
-* Imagecache Token
-  http://drupal.org/project/imagecache_token
-  Provide tokens to load fields using an image style preset, for when meta tags
-  need to fix exact requirements.
 
 * Node Form Panes
   https://drupal.org/project/node_form_panes
@@ -217,12 +225,6 @@ Some modules are available that extend Metatag with additional functionality:
 * Textimage
   https://drupal.org/project/textimage
   Supports using Textimage's custom tokens in meta tag fields.
-
-* Transliteration
-  https://drupal.org/project/transliteration
-  Tidies up filenames for uploaded files, e.g. can remove commas from filenames
-  that could confuse meta tags that would consider a comma a separator and lead
-  to broken meta tags.
 
 
 Credits / Contact
