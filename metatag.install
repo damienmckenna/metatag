@@ -1292,3 +1292,11 @@ function metatag_update_7021() {
 function metatag_update_7022() {
   variable_del('metatag_skip_update_7015');
 }
+
+/**
+ * Clear the Metatag cache because $cid_parts was changed.
+ */
+function metatag_update_7023() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  return t('All Metatag caches cleared.');
+}

@@ -809,7 +809,10 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
       'bundle' => $bundle,
       'entity_id' => $entity_id,
       'revision_id' => $revision_id,
+      // Cache separately based on the language of the passed-in entity and the
+      // overall active language of the page.
       'langcode' => $langcode,
+      'language_content' => $GLOBALS['language_content']->language,
       'view_mode' => $view_mode,
     );
     $cid = metatag_cache_default_cid_parts($cid_parts);
