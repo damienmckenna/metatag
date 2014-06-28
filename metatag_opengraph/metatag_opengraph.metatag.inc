@@ -91,24 +91,6 @@ function metatag_opengraph_metatag_info() {
   // Open Graph meta tags stack after the Facebook tags.
   $weight = 25;
 
-  $info['tags']['fb:admins'] = array(
-    'label' => t('Facebook Admins'),
-    'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page. Most sites will only need to assign this on the global settings page.'),
-    'weight' => ++$weight,
-  ) + $tag_info_defaults;
-  $info['tags']['fb:app_id'] = array(
-    'label' => t('Facebook Application ID'),
-    'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site. Most sites will only need to assign this on the global settings page.'),
-    'weight' => ++$weight,
-    'devel_generate' => array(
-      'type' => 'integer',
-    ),
-  ) + $tag_info_defaults;
-  if (module_exists('fb_social')) {
-    $info['tags']['fb:app_id']['form']['#disabled'] = TRUE;
-    $info['tags']['fb:app_id']['form']['#description'] = t('The FB_Social module will automatically output this meta tag, go to the <a href="!fb_social">FB_Social settings page</a> to customize it.', array('!fb_social' => url('admin/config/user-interface/fb_social')));
-  }
-
   $info['tags']['og:site_name'] = array(
     'label' => t('Open Graph site name'),
     'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
