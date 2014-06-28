@@ -424,7 +424,7 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
   }
 
   // Ensure the data saves during node_save().
-  if (isset($metatags[$langcode]) && count(array_diff_key($metatags, $languages)) > 0) {
+  if (isset($metatags[$langcode])) {
     // There are certain occasions when the old data and the new data are
     // *both* added to the $metatags array, in this case throw away the language
     // data.
@@ -442,37 +442,6 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
     $function($metatags, $entity_type, $entity_id, $revision_id, $langcode);
   }
 
-  // We need to ensure that when we have multiple languages enabled that those
-  // languages get the incremented revision_id as well so that they can be
-  // loaded properly.
-  if (isset($old_vid) && drupal_multilingual()) {
-    // Get all translations of tag data for this entity.
-    $results = db_query("SELECT language, data FROM {metatag} WHERE (entity_type = :type) AND (entity_id = :id) AND (revision_id = :revision) AND language != :langcode",
-      array(
-        ':type'     => $entity_type,
-        ':id'       => $entity_id,
-        ':revision' => $old_vid,
-        ':langcode' => $langcode
-      ))->fetchAllKeyed();
-    foreach ($results as $lang => $data) {
-      $old_metatags = unserialize($data);
-      // Save the record.
-      if (!empty($old_metatags)) {
-        db_merge('metatag')
-          ->key(array(
-            'entity_type' => $entity_type,
-            'entity_id'   => $entity_id,
-            'language'    => $lang,
-            'revision_id' => $revision_id,
-          ))
-          ->fields(array(
-            'data' => serialize($old_metatags),
-          ))
-          ->execute();
-      }
-    }
-  }
-
   // If the data array is empty, there is no data to actually save, so just
   // delete the record from the database.
   if (empty($metatags)) {
@@ -483,7 +452,44 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
       ->condition('language', $langcode)
       ->execute();
   }
+
+  // We need to ensure that when we have multiple languages enabled that those
+  // languages get the incremented revision_id as well so that they can be
+  // loaded properly.
   else {
+    if (isset($old_vid)) {
+      $languages = language_list('enabled');
+      foreach ($languages[1] as $lang) {
+        if ($lang->language != $langcode) {
+          // Get all translations of tag data for this entity.
+          $result = db_query("SELECT data FROM {metatag} WHERE (entity_type = :type) AND (entity_id = :id) AND (language = :lang) AND (revision_id = :revision)", array(
+            ':type' => $entity_type,
+            ':id' => $entity_id,
+            ':lang' => $lang->language,
+            ':revision' => $old_vid,
+          ));
+          $old_metatags = array();
+          while ($record = $result->fetchObject()) {
+            $old_metatags = unserialize($record->data);
+          }
+          // Save the record.
+          if (!empty($old_metatags)) {
+            db_merge('metatag')
+              ->key(array(
+                'entity_type' => $entity_type,
+                'entity_id' => $entity_id,
+                'language' => $lang->language,
+                'revision_id' => $revision_id,
+              ))
+              ->fields(array(
+                'data' => serialize($old_metatags),
+              ))
+              ->execute();
+          }
+        }
+      }
+    }
+
     // Otherwise save the data for this entity.
     db_merge('metatag')
       ->key(array(
