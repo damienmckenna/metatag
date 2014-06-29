@@ -36,6 +36,7 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
 #2285787 by SebCorbin: Entity Translation problems with revisions.
 #2025425 by moonray, David_Rothstein, hefox, DamienMckenna: Cache improvement
   to separate entity vs page language.
+#2186241 by nnevill.io1, DamienMcKenna: Revisions support for Panels.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18

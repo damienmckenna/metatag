@@ -1934,13 +1934,12 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
           // There must be at least one argument and the first argument must be
           // numerical.
           if (!empty($context['args']) && is_numeric($context['args'][0])) {
-            // Only the first argument is used.
-            $entities = entity_load($entity_type, array($context['args'][0]));
-            // Only if the entity actually exists.
-            if (!empty($entities)) {
-              $entity = array_pop($entities);
-              $langcode = entity_language($entity_type, $entity);
-              metatag_entity_view($entity, $entity_type, 'full', $langcode, TRUE);
+            // We need to pop entity from contexts array.
+            $first_context = array_pop($context['contexts']);
+            // Only if the context actually exists, which would be an entity.
+            if (!empty($first_context->data)) {
+              $langcode = entity_language($entity_type, $first_context->data);
+              metatag_entity_view($first_context->data, $entity_type, 'full', $langcode, TRUE);
             }
           }
         }
