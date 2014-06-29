@@ -1890,21 +1890,21 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
   if ($display->display_plugin == 'page' && isset($display->display_options['path'])) {
     // Check if this is an entity display page, if so trigger
     // hook_entity_view().
-    foreach (entity_get_info() as $entity_name => $entity_type) {
+    foreach (entity_get_info() as $entity_type => $entity_info) {
       // Entity paths will include an auto-loader that matches the entity's
       // name, thus the path will be 'some/path/%entity_name'.
-      if (isset($entity_type['path']) && ($display->display_options['path'] . $entity_name) == $entity_type['path']) {
+      if (isset($entity_info['path']) && ($display->display_options['path'] . $entity_type) == $entity_info['path']) {
         // Only proceed if this entity type supports meta tags.
-        if (metatag_entity_supports_metatags($entity_name)) {
+        if (metatag_entity_supports_metatags($entity_type)) {
           // There must be at least one argument and the first argument must be
           // numerical.
           if (!empty($view->args) && is_numeric($view->args[0])) {
             // Only the first argument is used.
-            $entities = entity_load($entity_name, array($view->args[0]));
+            $entities = entity_load($entity_type, array($view->args[0]));
             // Only if the entity actually exists.
             if (!empty($entities)) {
               $entity = array_pop($entities);
-              metatag_entity_view($entity, $entity_name, 'full', NULL, TRUE);
+              metatag_entity_view($entity, $entity_type, 'full', NULL, TRUE);
             }
           }
         }
@@ -1925,22 +1925,22 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
   if ($page && !empty($context['task']['admin path'])) {
     // Check if this is an entity display page, if so trigger
     // hook_entity_view().
-    foreach (entity_get_info() as $entity_name => $entity_type) {
+    foreach (entity_get_info() as $entity_type => $entity_info) {
       // Entity paths will include an auto-loader that matches the entity's
       // name, thus the path will be 'some/path/%entity_name'.
-      if (isset($entity_type['path']) && $context['task']['admin path'] == $entity_type['path']) {
+      if (isset($entity_info['path']) && $context['task']['admin path'] == $entity_info['path']) {
         // Only proceed if this entity type supports meta tags.
-        if (metatag_entity_supports_metatags($entity_name)) {
+        if (metatag_entity_supports_metatags($entity_type)) {
           // There must be at least one argument and the first argument must be
           // numerical.
           if (!empty($context['args']) && is_numeric($context['args'][0])) {
             // Only the first argument is used.
-            $entities = entity_load($entity_name, array($context['args'][0]));
+            $entities = entity_load($entity_type, array($context['args'][0]));
             // Only if the entity actually exists.
             if (!empty($entities)) {
               $entity = array_pop($entities);
-              $langcode = entity_language($entity_name, $entity);
-              metatag_entity_view($entity, $entity_name, 'full', $langcode, TRUE);
+              $langcode = entity_language($entity_type, $entity);
+              metatag_entity_view($entity, $entity_type, 'full', $langcode, TRUE);
             }
           }
         }
