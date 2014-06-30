@@ -37,6 +37,7 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
 #2025425 by moonray, David_Rothstein, hefox, DamienMckenna: Cache improvement
   to separate entity vs page language.
 #2186241 by nnevill.io1, DamienMcKenna: Revisions support for Panels.
+#2051407 by cha0s, DamienMcKenna: Language support for token integration.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
