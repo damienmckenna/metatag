@@ -371,20 +371,25 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
   }
 
   // Get all translations of tag data for this entity.
-  $result = db_query("SELECT entity_id, revision_id, language, data FROM {metatag} WHERE (entity_type = :type) AND (entity_id IN (:ids)) ORDER BY entity_id, revision_id", array(
-    ':type' => $entity_type,
-    ':ids' => $entity_ids,
-    ));
+  $query = db_select('metatag', 'm')
+    ->fields('m', array('entity_id', 'revision_id', 'language', 'data'))
+    ->condition('m.entity_type', $entity_type)
+    ->orderBy('entity_id')
+    ->orderBy('revision_id');
+  // Filter by revision_ids if they are available. If not, filter by entity_ids.
+  if (!empty($revision_ids)) {
+    $query->condition('m.revision_id', $revision_ids, 'IN');
+  }
+  else {
+    $query->condition('m.entity_id', $entity_ids, 'IN');
+  }
+  $result = $query->execute();
 
   // Marshal it into an array keyed by entity ID. Each value is an array of
   // translations keyed by language code.
   $metatags = array();
   while ($record = $result->fetchObject()) {
-    // If requested, verify that only the appropriate revision records are
-    // loaded.
-    if (empty($revision_ids) || in_array($record->revision_id, $revision_ids)) {
-      $metatags[$record->entity_id][$record->revision_id][$record->language] = unserialize($record->data);
-    }
+    $metatags[$record->entity_id][$record->revision_id][$record->language] = unserialize($record->data);
   }
 
   return $metatags;
