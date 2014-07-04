@@ -1210,17 +1210,24 @@ function metatag_entity_info_alter(&$info) {
     'path' => 'node/%node',
     'metatags' => TRUE,
   );
-  $defaults['taxonomy_term'] = array(
-    'path' => 'taxonomy/term/%taxonomy_term',
-    'metatags' => TRUE,
-  );
-  if (module_exists('forum') && ($revision_id = variable_get('forum_nav_vocabulary', 0)) && $vocabulary = taxonomy_vocabulary_load($revision_id)) {
-    $defaults['taxonomy_term']['bundles'][$vocabulary->machine_name]['path'] = 'forum/%taxonomy_term';
-  }
   $defaults['user'] = array(
     'path' => 'user/%user',
     'metatags' => TRUE,
   );
+  $defaults['taxonomy_term'] = array(
+    'path' => 'taxonomy/term/%taxonomy_term',
+    'metatags' => TRUE,
+  );
+
+  // Just running taxonomy_vocabulary_load() here would cause problems for
+  // EntityCache in certain circumstances, so instead the query is executed
+  // directly instead.
+  if (module_exists('forum') && ($vocab_id = variable_get('forum_nav_vocabulary', 0))) {
+    $vocab_name = db_query("SELECT machine_name FROM {taxonomy_vocabulary} WHERE vid = :vid", array(':vid' => $vocab_id))->fetchField();
+    if (!empty($vocab_name)) {
+      $defaults['taxonomy_term']['bundles'][$vocab_name]['path'] = 'forum/%taxonomy_term';
+    }
+  }
 
   foreach ($defaults as $key => $entity_defaults) {
     if (isset($info[$key])) {

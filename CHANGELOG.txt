@@ -40,6 +40,8 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
 #2051407 by cha0s, DamienMcKenna: Language support for token integration.
 #2183203 by mikeytown2, juampy, DamienMcKenna: Improved queries in
   metatag_metatags_load_multiple().
+#2227377 by DamienMcKenna: taxonomy_vocabulary_load() caused problems when
+  executed during hook_entity_info_alter().
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
