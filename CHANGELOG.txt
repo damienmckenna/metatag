@@ -42,6 +42,8 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
   metatag_metatags_load_multiple().
 #2227377 by DamienMcKenna: taxonomy_vocabulary_load() caused problems when
   executed during hook_entity_info_alter().
+#1995564 by DamienMcKenna, willieseabrook: Added a warning about a possible
+  conflict with the Admin Language module.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18

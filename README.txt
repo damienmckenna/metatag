@@ -194,6 +194,10 @@ Troubleshooting / Known Issues
   tags output by the Metatag:OpenGraph module. Unless it is actually needed for
   the site, it may be worthwhile to disable the RDF module to avoid any
   possible problems for the Open Graph integration.
+* If the Administration Language (admin_language) module is installed, it is
+  recommended to disable the "Force language neutral aliases" setting on the
+  Admin Language settings page, i.e. set the "admin_language_force_neutral"
+  variable to FALSE. Failing to do so can lead to data loss in Metatag.
 
 
 Related modules

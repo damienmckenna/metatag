@@ -116,6 +116,16 @@ function metatag_requirements($phase) {
         'description' => $t("It is highly recommended to install the <a href=\"@url\">Imagecache Token module</a> to make it easier to control image meta tags, e.g. og:image.", array('@url' => 'https://drupal.org/project/imagecache_token')),
       );
     }
+
+    // The Admin Language module can cause problems.
+    if (!module_exists('admin_language') && variable_get('admin_language_force_neutral', 0)) {
+      $requirements['metatag_admin_language'] = array(
+        'severity' => REQUIREMENT_WARNING,
+        'title' => 'Metatag',
+        'value' => $t('Conflict with Admin Language module.'),
+        'description' => $t("Using the \"@option\" with Metatag can lead to data loss, so it is recommended to <a href=\"@url\">disable that option</a>.", array('@option' => t('Force language neutral aliases'), '@url' => url('admin/config/regional/language/admin_language'))),
+      );
+    }
   }
 
   return $requirements;
