@@ -257,8 +257,46 @@ function metatag_config_load($instance) {
  * Load multiple metatag configuration records.
  */
 function metatag_config_load_multiple(array $instances) {
+  // Load the data.
   ctools_include('export');
-  return ctools_export_load_object('metatag_config', 'names', $instances);
+  $configs = ctools_export_load_object('metatag_config', 'names', $instances);
+
+  // "Fix" any records that might be using old values. Ideally these will be
+  // permanently fixed by being re-saved or re-exported.
+  foreach (metatag_config_get_replacements() as $old_tag => $new_tag) {
+    foreach ($configs as $config_name => $config) {
+      if (isset($config->config[$old_tag])) {
+        $config->config[$new_tag] = $config->config[$old_tag];
+        unset($config->config[$old_tag]);
+      }
+    }
+  }
+
+  return $configs;
+}
+
+/**
+ * Identify the meta tags that have been deprecated and replaced by others.
+ */
+function metatag_config_get_replacements() {
+  $replacements = &drupal_static(__FUNCTION__);
+
+  if (!isset($replacements)) {
+    $replacements = array();
+
+    foreach (metatag_get_info('tags') as $tag_name => $tag_info) {
+      if (!empty($tag_info['replaces'])) {
+        if (!is_array($tag_info['replaces'])) {
+          $tag_info['replaces'] = array($tag_info['replaces']);
+        }
+        foreach ($tag_info['replaces'] as $replaces) {
+          $replacements[$replaces] = $tag_name;
+        }
+      }
+    }
+  }
+
+  return $replacements;
 }
 
 /**
@@ -389,7 +427,18 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
   // translations keyed by language code.
   $metatags = array();
   while ($record = $result->fetchObject()) {
-    $metatags[$record->entity_id][$record->revision_id][$record->language] = unserialize($record->data);
+    $data = unserialize($record->data);
+
+    // "Fix" any records that might be using old values. Ideally these will be
+    // permanently fixed by being re-saved or re-exported.
+    foreach (metatag_config_get_replacements() as $old_tag => $new_tag) {
+      if (isset($data[$old_tag])) {
+        $data[$new_tag] = $data[$old_tag];
+        unset($data[$old_tag]);
+      }
+    }
+
+    $metatags[$record->entity_id][$record->revision_id][$record->language] = $data;
   }
 
   return $metatags;

@@ -44,6 +44,8 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
   executed during hook_entity_info_alter().
 #1995564 by DamienMcKenna, willieseabrook: Added a warning about a possible
   conflict with the Admin Language module.
+#2298337 by DamienMcKenna: Added an API option to indicate one meta tag replaces
+  another; updated API docs accordingly.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
