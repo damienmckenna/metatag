@@ -55,7 +55,7 @@ function metatag_twitter_cards_metatag_bundled_config_alter(array &$configs) {
         );
         if (variable_get('user_pictures')) {
           $config->config += array(
-            'twitter:image' => array('value' => '[user:picture:url]'),
+            'twitter:image:src' => array('value' => '[user:picture:url]'),
           );
         }
         break;
@@ -188,12 +188,15 @@ function metatag_twitter_cards_metatag_info() {
       '#theme' => 'metatag_twitter_cards',
     ),
   );
-  $info['tags']['twitter:image'] = array(
+  $info['tags']['twitter:image:src'] = array(
     'label' => t('Image URL'),
     'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'twitter-cards',
     'weight' => ++$weight,
+    'replaces' => array(
+      'twitter:image',
+    ),
     'element' => array(
       '#theme' => 'metatag_twitter_cards',
     ),

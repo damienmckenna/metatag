@@ -46,6 +46,8 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
   conflict with the Admin Language module.
 #2298337 by DamienMcKenna: Added an API option to indicate one meta tag replaces
   another; updated API docs accordingly.
+#2267501 by DamienMcKenna: Renamed the 'twitter:image' meta tag to the correct
+  'twitter:image:src'.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
