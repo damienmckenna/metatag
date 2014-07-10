@@ -10,7 +10,7 @@ By DamienMcKenna: Small improvement to the comment on update 7007.
 #2271685 by adee147: Typos in metatag_metatags_cache_clear().
 #2271811 by DamienMcKenna: Replaced theme_metatag_opengraph() with
   theme_metatag_property().
-#1282636 by DamienMckenna: Support meta tags that allow multiple values; first
+#1282636 by DamienMcKenna: Support meta tags that allow multiple values; first
   supported tags are og:image and og:image:secure_url.
 #2273459 by DamienMcKenna: Improved Twitter Cards default values.
 #2273241 by DamienMcKenna: Use the new hook_metatag_bundled_config_alter() to
@@ -34,7 +34,7 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
 #1338612 by Lasac, DamienMcKenna: Added the content-language meta tag.
 #2291993 by DamienMcKenna: Duplicate fb meta tags causes lots of errors.
 #2285787 by SebCorbin: Entity Translation problems with revisions.
-#2025425 by moonray, David_Rothstein, hefox, DamienMckenna: Cache improvement
+#2025425 by moonray, David_Rothstein, hefox, DamienMcKenna: Cache improvement
   to separate entity vs page language.
 #2186241 by nnevill.io1, DamienMcKenna: Revisions support for Panels.
 #2051407 by cha0s, DamienMcKenna: Language support for token integration.
