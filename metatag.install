@@ -248,6 +248,10 @@ function metatag_uninstall() {
 
   // Temp variables, just in case they weren't removed already.
   variable_del('metatag_skip_update_7017');
+
+  // Used to note that the schema for the main {metatag} table were sufficiently
+  // updated.
+  variable_del('metatag_has_revision_id');
 }
 
 /**
@@ -962,6 +966,10 @@ function metatag_update_7014() {
  */
 function metatag_update_7015() {
   if (!db_field_exists('metatag', 'revision_id')) {
+    // Leave a note for metatag_metatags_load_multiple() that the revision_id
+    // field has been added.
+    variable_set('metatag_has_revision_id', TRUE);
+
     // Tell update 7017 that it isn't needed.
     variable_set('metatag_skip_update_7017', TRUE);
 

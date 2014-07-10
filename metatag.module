@@ -408,6 +408,18 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
     }
   }
 
+  // Verify that the metatag.revision_id field has been added to the {metatag}
+  // table schema.
+  if (!variable_get('metatag_has_revision_id', FALSE)) {
+    if (db_field_exists('metatag', 'revision_id')) {
+      variable_set('metatag_has_revision_id', TRUE);
+    }
+    else {
+      watchdog('metatag', 'The database updates need to be ran.', array(), WATCHDOG_WARNING);
+      return array();
+    }
+  }
+
   // Get all translations of tag data for this entity.
   $query = db_select('metatag', 'm')
     ->fields('m', array('entity_id', 'revision_id', 'language', 'data'))

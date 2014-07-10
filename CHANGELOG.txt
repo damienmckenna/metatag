@@ -50,6 +50,8 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
   'twitter:image:src'.
 #2121437 by DamienMcKenna: Renamed the 'copyright' meta tag to the correct
   'rights' tag.
+#2177455 by DamienMcKenna: Avoid errors when updating from older releases due
+  to missing revision_id field.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
