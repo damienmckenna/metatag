@@ -52,6 +52,8 @@ By DamienMcKenna: Removed duplicate 'devel_generate' setting for 'image_src'.
   'rights' tag.
 #2177455 by DamienMcKenna: Avoid errors when updating from older releases due
   to missing revision_id field.
+#2178411 by DamienMcKenna, kporras07: Language not assigned correctly on CTools
+  -based pages.
 
 
 Metatag 7.x-1.0-beta9, 2014-01-18
