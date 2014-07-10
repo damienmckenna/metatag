@@ -219,12 +219,15 @@ function metatag_metatag_info() {
     'weight' => ++$weight,
   );
 
-  $info['tags']['copyright'] = array(
-    'label' => t('Copyright'),
+  $info['tags']['rights'] = array(
+    'label' => t('Rights'),
     'description' => t("Details a copyright, trademark, patent, or other information that pertains to intellectual property about this page. Note that this will not automatically protect your site's content or your intellectual property."),
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
+    'replaces' => array(
+      'copyright',
+    ),
   );
 
   $info['tags']['image_src'] = array(
