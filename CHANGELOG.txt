@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.0-rc1, 2014-07-12
 -------------------------------
 By DamienMcKenna: Small improvement to the comment on update 7007.
