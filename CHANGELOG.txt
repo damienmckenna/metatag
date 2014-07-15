@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#1904266 by mvwensen, DamienMcKenna: Added the dcterms.modified meta tag.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12
