@@ -131,6 +131,11 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
    *   The meta tag value after it has been tidied up.
    */
   public function tidyValue($value) {
+    // Specifically replace encoded spaces, because some WYSIWYG editors are
+    // silly. Do this before decoding the other HTML entities so that the output
+    // doesn't end up with a bunch of a-circumflex characters.
+    $value = str_replace('&nbsp;', ' ', $value);
+
     // Convert any HTML entities into regular characters.
     $value = decode_entities($value);
 
@@ -223,7 +228,7 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
     if (!isset($this->info['header']) || !empty($this->info['header'])) {
       // Also send the generator in the HTTP header.
       // @todo This does not support 'rev' or alternate link headers.
-      $element['#attached']['drupal_add_http_header'][] = array('Link', '<' . check_plain($value) . '>;' . drupal_http_header_attributes(array('rel' => $element['#name'])), TRUE);
+      $element['#attached']['drupal_add_http_header'][] = array('Link', '<' . $value . '>;' . drupal_http_header_attributes(array('rel' => $element['#name'])), TRUE);
     }
 
     return array(
@@ -242,7 +247,7 @@ class DrupalTitleMetaTag extends DrupalTextMetaTag {
 
   public function getElement(array $options = array()) {
     $element = array();
-    $value = check_plain($this->getValue($options));
+    $value = $this->getValue($options);
     $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_title', $value);
     $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_array', array('title' => $value));
     return $element;

@@ -1,6 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #1904266 by mvwensen, DamienMcKenna: Added the dcterms.modified meta tag.
+#2202031 by DamienMcKenna: Don't double-encode output, handle &nbsp; specially.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12
