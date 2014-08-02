@@ -841,92 +841,134 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
       $i_will_say_this_only_once = TRUE;
     }
 
-    // If this entity object isn't allowed meta tags, skip it.
-    if (!metatag_entity_has_metatags($entity_type, $entity)) {
-      return;
-    }
-
     // CTools uses 'page_manager' view mode to indicate the full entity display
     // page rather than 'full', so streamline the internal processes.
     if ($view_mode == 'page_manager') {
       $view_mode = 'full';
     }
 
-    // Obtain some details of the entity that are needed elsewhere.
-    list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
-    $revision_id = intval($revision_id);
-    $instance = "{$entity_type}:{$bundle}";
+    // Generate metatags output.
+    if ($output = metatag_generate_entity_metatags($entity, $entity_type, $langcode, $view_mode)) {
+      list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+      $instance = "{$entity_type}:{$bundle}";
+      // We need to register the term's metatags, so we can later fetch them.
+      // @see metatag_page_build().
+      metatag_page_set_metatags($instance, $output);
+    }
+  }
+}
 
-    // Determine the language this entity actually uses.
-    $entity_language = metatag_entity_get_language($entity_type, $entity);
+/**
+ * Generate the metatags for a given entity.
+ *
+ * @param object $entity
+ *   The entity object to generate the metatags for.
+ * @param string $entity_type
+ *   The entity type of the entity.
+ * @param string $langcode
+ *   The language code used for rendering the entity.
+ * @param string $view_mode
+ *   The view mode the entity is rendered in.
+ *
+ * @return array
+ *   A renderable array of metatags for the given entity.
+ */
+function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NULL, $view_mode = 'full') {
+  // If this entity object isn't allowed meta tags, don't continue.
+  if (!metatag_entity_has_metatags($entity_type, $entity)) {
+    return array();
+  }
 
-    // The requested language is different to the entity's language, look for
-    // a language elsewhere.
-    if ($entity_language != $langcode) {
-      // No language was defined for the entity.
-      if ($entity_language == LANGUAGE_NONE) {
-        $langcode = LANGUAGE_NONE;
-      }
-      else {
-        $enabled_languages = field_content_languages();
-        foreach (field_language($entity_type, $entity) as $field => $lang) {
-          // Only accept actual language values that are properly enabled.
-          if ($lang != LANGUAGE_NONE && in_array($lang, $enabled_languages)) {
-            $langcode = $lang;
-          }
+  // Obtain some details of the entity that are needed elsewhere.
+  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+  $revision_id = intval($revision_id);
+  $instance = "{$entity_type}:{$bundle}";
+
+  // Determine the language this entity actually uses.
+  $entity_language = metatag_entity_get_language($entity_type, $entity);
+
+  // The requested language is different to the entity's language, look for
+  // a language elsewhere.
+  if ($entity_language != $langcode) {
+    // No language was defined for the entity.
+    if ($entity_language == LANGUAGE_NONE) {
+      $langcode = LANGUAGE_NONE;
+    }
+    else {
+      $enabled_languages = field_content_languages();
+      foreach (field_language($entity_type, $entity) as $field => $lang) {
+        // Only accept actual language values that are properly enabled.
+        if ($lang != LANGUAGE_NONE && in_array($lang, $enabled_languages)) {
+          $langcode = $lang;
         }
       }
     }
+  }
 
-    // All applicable pieces for this current page.
-    $cid_parts = array(
+  // All applicable pieces for this current page.
+  $cid_parts = array(
+    'entity_type' => $entity_type,
+    'bundle' => $bundle,
+    'entity_id' => $entity_id,
+    'revision_id' => $revision_id,
+    // Cache separately based on the language of the passed-in entity and the
+    // overall active language of the page.
+    'langcode' => $langcode,
+    'language_content' => $GLOBALS['language_content']->language,
+    'view_mode' => $view_mode,
+  );
+  $cid = metatag_cache_default_cid_parts($cid_parts);
+
+  if ($cache = metatag_cache_get($cid)) {
+    $output = $cache->data;
+  }
+  else {
+    // Separate the meta tags.
+    $metatags = isset($entity->metatags) ? $entity->metatags : array();
+
+    // Build options for meta tag rendering.
+    $options = array(
+      'entity' => $entity,
       'entity_type' => $entity_type,
-      'bundle' => $bundle,
-      'entity_id' => $entity_id,
-      'revision_id' => $revision_id,
-      // Cache separately based on the language of the passed-in entity and the
-      // overall active language of the page.
-      'langcode' => $langcode,
-      'language_content' => $GLOBALS['language_content']->language,
       'view_mode' => $view_mode,
     );
-    $cid = metatag_cache_default_cid_parts($cid_parts);
-
-    if ($cache = metatag_cache_get($cid)) {
-      $output = $cache->data;
-    }
-    else {
-      // Separate the meta tags.
-      $metatags = isset($entity->metatags) ? $entity->metatags : array();
-
-      // Build options for meta tag rendering.
-      $options = array(
-        'entity' => $entity,
-        'entity_type' => $entity_type,
-        'view_mode' => $view_mode,
-      );
-
-      // Ensure we actually pass a language object rather than language code.
-      $languages = language_list();
-      if (isset($languages[$langcode])) {
-        $options['language'] = $languages[$langcode];
-      }
-
-      // Reload the entity object from cache as it may have been altered.
-      $token_type = token_get_entity_mapping('entity', $entity_type);
-      $entities = entity_load($entity_type, array($entity_id));
-      $options['token data'][$token_type] = $entities[$entity_id];
-      $options['entity'] = $entities[$entity_id];
-
-      // Render the metatags and save to the cache.
-      $output = metatag_metatags_view($instance, $metatags, $options);
-      metatag_cache_set($cid, $output);
+    // Ensure we actually pass a language object rather than language code.
+    $languages = language_list();
+    if (isset($languages[$langcode])) {
+      $options['language'] = $languages[$langcode];
     }
 
-    // We need to register the term's metatags, so we can later fetch them.
-    // @see metatag_page_build().
-    metatag_page_set_metatags($instance, $output);
+    // Reload the entity object from cache as it may have been altered.
+    $token_type = token_get_entity_mapping('entity', $entity_type);
+    $entities = entity_load($entity_type, array($entity_id));
+    $options['token data'][$token_type] = $entities[$entity_id];
+    $options['entity'] = $entities[$entity_id];
+
+    // Render the metatags and save to the cache.
+    $output = metatag_metatags_view($instance, $metatags, $options);
+    metatag_cache_set($cid, $output);
   }
+
+  return $output;
+}
+
+/**
+ * Generate the metatags for a given entity.
+ *
+ * @param object $entity_id
+ *   The entity id of the entity to generate the metatags for.
+ * @param string $entity_type
+ *   The entity type of the entity to generate the metatags for.
+ * @param string $langcode
+ *   The language code used for rendering the entity.
+ *
+ * @return array
+ *   A renderable array of metatags for the given entity.
+ */
+function metatags_get_entity_metatags($entity_id, $entity_type, $langcode = NULL) {
+  $entities = entity_load($entity_type, array($entity_id));
+  $entity = reset($entities);
+  return !empty($entity) ? metatag_generate_entity_metatags($entity, $entity_type, $langcode) : array();
 }
 
 /**

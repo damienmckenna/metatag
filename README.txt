@@ -168,6 +168,11 @@ To enable Metatag support in custom entities, add 'metatag' => TRUE to either
 the entity or bundle definition in hook_entity_info(); see metatag.api.php for
 further details and example code.
 
+The meta tags for a given entity object (node, etc) can be obtained as follows:
+  $metatags = metatags_get_entity_metatags($entity_id, $entity_type, $langcode);
+The result will be a nested array of meta tag structures ready for either output
+via drupal_render(), or examining to identify the actual text values.
+
 
 Troubleshooting / Known Issues
 ------------------------------------------------------------------------------
