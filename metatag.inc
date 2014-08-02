@@ -207,7 +207,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     if (empty($options['raw'])) {
       // Give other modules the opportunity to use hook_metatag_pattern_alter()
       // to modify defined token patterns and values before replacement.
-      drupal_alter('metatag_pattern', $value, $options['token data']);
+      drupal_alter('metatag_pattern', $value, $options['token data'], $this->info['name']);
       $value = token_replace($value, $options['token data'], $options);
     }
     return $this->tidyValue($value);

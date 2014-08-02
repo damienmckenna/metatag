@@ -9,6 +9,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   currently limited to hiding/showing fields, can be expanded later with
   validation logic. Initial implementation for some Open Graph and Twitter Cards
   meta tags.
+#2307523 by leewillis77, DamienMcKenna: Additional arguments for two
+  drupal_alter hooks.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12

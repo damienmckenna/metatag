@@ -281,8 +281,10 @@ function hook_metatag_load_entity_from_path_alter(&$path, $result) {
  * @param string $instance
  *   An identifier for the current page's page type, typically a combination
  *   of the entity name and bundle name, e.g. "node:story".
+ * @param array $options
+ *   All of the options used to generate the meta tags.
  */
-function hook_metatag_metatags_view_alter(&$output, $instance) {
+function hook_metatag_metatags_view_alter(&$output, $instance, $options) {
   if (isset($output['description']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
     $output['description']['#attached']['drupal_add_html_head'][0][0]['#value'] = 'O rly?';
   }
@@ -352,10 +354,12 @@ function hook_metatag_token_types_alter(&$options) {
  *   user object being the value. Some token types, like 'site', do not require
  *   any explicit information from $data and can be replaced even if it is
  *   empty.
+ * @param string $tag_name
+ *   The name of the meta tag being altered.
  *
  * @see DrupalTextMetaTag::getValue()
  */
-function hook_metatag_pattern_alter(&$pattern, &$types) {
+function hook_metatag_pattern_alter(&$pattern, &$types, $tag_name) {
   if (strpos($pattern, 'token_type1') !== FALSE) {
     $types['token_type1'] = "data to be used in hook_tokens for replacement";
   }
