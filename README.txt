@@ -11,7 +11,7 @@ that is used within social networks when visitors link to your site,
 particularly the Open Graph submodule for use with Facebook, LinkedIn, etc (see
 below).
 
-This version of the module only works with Drupal 7.15 and newer.
+This version of the module only works with Drupal 7.28 and newer.
 
 
 Features

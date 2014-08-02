@@ -14,6 +14,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2241083 by rooby: Refactored meta tag output generation using a new function,
   metatag_generate_entity_metatags(), allowing for the tags to be independently
   obtained for a given entity.
+#2262159 by DamienMcKenna: Bumped core requirement to 7.28, removed the
+  [node:summary] fix that's no longer needed.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12
