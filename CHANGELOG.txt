@@ -16,6 +16,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   obtained for a given entity.
 #2262159 by DamienMcKenna: Bumped core requirement to 7.28, removed the
   [node:summary] fix that's no longer needed.
+#2306449 by DamienMcKenna: Not having the Transliteration or Imagecache Token
+  modules installed no longer reports an error in hook_requirements().
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12

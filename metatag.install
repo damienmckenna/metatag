@@ -89,10 +89,10 @@ function metatag_requirements($phase) {
     // paths for use with image meta tags.
     if (!module_exists('transliteration')) {
       $requirements['metatag_transliteration'] = array(
-        'severity' => REQUIREMENT_WARNING,
+        'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
-        'value' => $t('The Transliteration module is not installed.'),
-        'description' => $t("It is highly recommended to install the <a href=\"@url\">Transliteration module</a> to clean up filenames of uploaded files that may be used with image meta tags.", array('@url' => 'https://drupal.org/project/transliteration')),
+        'value' => $t('The Transliteration module is recommended.'),
+        'description' => $t("It is recommended to install the <a href=\"@url\">Transliteration module</a> to clean up filenames of uploaded files that may be used with image meta tags.", array('@url' => 'https://drupal.org/project/transliteration')),
       );
     }
 
@@ -100,10 +100,10 @@ function metatag_requirements($phase) {
     // tokens easier to do.
     if (!module_exists('imagecache_token')) {
       $requirements['metatag_imagecache_token'] = array(
-        'severity' => REQUIREMENT_WARNING,
+        'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
-        'value' => $t('The Imagecache Token module is not installed.'),
-        'description' => $t("It is highly recommended to install the <a href=\"@url\">Imagecache Token module</a> to make it easier to control image meta tags, e.g. og:image.", array('@url' => 'https://drupal.org/project/imagecache_token')),
+        'value' => $t('The Imagecache Token module is recommended.'),
+        'description' => $t("It is recommended to install the <a href=\"@url\">Imagecache Token module</a> to make it easier to control image meta tags, e.g. og:image.", array('@url' => 'https://drupal.org/project/imagecache_token')),
       );
     }
 
