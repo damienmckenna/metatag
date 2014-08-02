@@ -1470,3 +1470,10 @@ function metatag_update_7027() {
     }
   }
 }
+
+/**
+ * Clear the menu cache so the new Advanced Settings page will be picked up.
+ */
+function metatag_update_7028() {
+  variable_set('menu_rebuild_needed', TRUE);
+}

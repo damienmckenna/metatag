@@ -72,6 +72,8 @@ The primary features include:
 * The Transliteration and Imagecache Token modules (see below) are highly
   recommended when using image meta tags, e.g. og:image.
 
+* Several advanced options may be controlled via the Advanced Settings page.
+
 
 Configuration
 ------------------------------------------------------------------------------
@@ -113,6 +115,9 @@ page" configuration will show up in the Translate Interface admin page
 
 Fine Tuning
 ------------------------------------------------------------------------------
+All of these may be controlled from the advanced settings page:
+admin/config/search/metatags/settings
+
 * By default Metatag will load the global default values for all pages that do
   not have meta tags assigned via the normal entity display or via Metatag
   Context. This may be disabled by setting the variable 'metatag_load_all_pages'

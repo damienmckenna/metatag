@@ -185,13 +185,22 @@ function metatag_menu() {
     'type' => MENU_LOCAL_TASK,
     'weight' => 10,
   );
+  $items['admin/config/search/metatags/settings'] = array(
+    'title' => 'Advanced settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('metatag_admin_settings_form'),
+    'access arguments' => array('administer meta tags'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 30,
+    'file' => 'metatag.admin.inc',
+  );
   $items['admin/config/search/metatags/bulk-revert'] = array(
     'title' => 'Bulk revert',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_bulk_revert_form'),
     'access arguments' => array('administer meta tags'),
     'type' => MENU_LOCAL_TASK,
-    'weight' => 30,
+    'weight' => 40,
     'file' => 'metatag.admin.inc',
   );
 
@@ -1252,9 +1261,31 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
   }
 
   if (isset($entity_type) && isset($bundle)) {
+    // Allow entities to be disabled by assigning a variable
+    // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
+    //
+    // // Disable metatags for carousel nodes.
+    // $conf['metatag_enable_node__carousel'] = FALSE;
+    //
+    // @see Advanced settings page.
+    if (variable_get('metatag_enable_' . $entity_type . '__' . $bundle, 'monkey') == FALSE) {
+      return FALSE;
+    }
+
     return isset($entity_types[$entity_type][$bundle]) ? $entity_types[$entity_type][$bundle] : FALSE;
   }
   elseif (isset($entity_type)) {
+    // Allow entities to be disabled by assigning a variable
+    // 'metatag_enable_{$entity_type}' the value FALSE, e.g.:
+    //
+    // // Disable metatags for file_entity.
+    // $conf['metatag_enable_file'] = FALSE;
+    //
+    // @see Advanced settings page.
+    if (variable_get('metatag_enable_' . $entity_type, 'monkey') == FALSE) {
+      return FALSE;
+    }
+
     return isset($entity_types[$entity_type]) ? ($entity_types[$entity_type] !== FALSE) : FALSE;
   }
 
@@ -1293,31 +1324,6 @@ function metatag_entity_info_alter(&$info) {
   foreach ($defaults as $key => $entity_defaults) {
     if (isset($info[$key])) {
       $info[$key] = drupal_array_merge_deep($entity_defaults, $info[$key]);
-    }
-  }
-
-  // Allow entities to be disabled by assigning a variable
-  // 'metatag_enable_{$entity_type}' or
-  // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
-  //
-  // // Disable metatags for file_entity.
-  // $conf['metatag_enable_file'] = FALSE;
-  // // Disable metatags for carousel nodes.
-  // $conf['metatag_enable_node__carousel'] = FALSE;
-  //
-  // @todo: Add a UI to control this.
-  foreach ($info as $entity_type => $entity_info) {
-    if (variable_get('metatag_enable_' . $entity_type, 'monkey') === FALSE) {
-      $info[$entity_type]['metatags'] = FALSE;
-    }
-    else {
-      if (isset($entity_info['bundles']) && !empty($entity_info['bundles'])) {
-        foreach ($entity_info['bundles'] as $bundle => $bundle_info) {
-          if (variable_get('metatag_enable_' . $entity_type . '__' . $bundle, 'monkey') === FALSE) {
-            $info[$entity_type]['bundles'][$bundle]['metatags'] = FALSE;
-          }
-        }
-      }
     }
   }
 }

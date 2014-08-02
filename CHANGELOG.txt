@@ -4,6 +4,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2202031 by DamienMcKenna: Don't double-encode output, handle &nbsp; specially.
 #2026343 by DamienMcKenna, skruf, valkum, wxman: Added many more Open Graph meta
   tags.
+#2164919 by DamienMcKenna: Added an Advanced Settings page.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12
