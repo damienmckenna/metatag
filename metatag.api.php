@@ -232,6 +232,19 @@ function hook_metatag_config_update($config) {
  *         'url' - A randomly generated URL on this site.
  *       'maxlength' - The maximum length / number of iterations of this value,
  *         defaults to 10.
+ *     'dependencies' - Optional nested array of values to indicate other meta
+ *       tags that must be present in order for this meta tag to be visible. See
+ *       The Open Graph and Twitter Cards submodules for example usage. Each
+ *       dependency must contain the following elements:
+ *       'dependency' - The name of the meta tag that is required.
+ *       'attribute' - The name of the other meta tag that is to be checked,
+ *         most meta tags use "value" as the attribute name.
+ *       'condition' - The state condition to be checked against, e.g. "filled"
+ *         to check text values, "checked" for a checkbox, "value" to compare
+ *         the raw selection; see https://api.drupal.org/drupal_process_states
+ *         for more details.
+ *       'value' - The field value to check the 'condition' against. see
+ *         https://api.drupal.org/drupal_process_states for further details.
  *   Groups:
  *     'label' - The name for this group.
  *     'description' - A detailed explanation of these meta tags.

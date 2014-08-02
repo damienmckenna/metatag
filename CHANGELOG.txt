@@ -5,6 +5,10 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2026343 by DamienMcKenna, skruf, valkum, wxman: Added many more Open Graph meta
   tags.
 #2164919 by DamienMcKenna: Added an Advanced Settings page.
+#2241083 by DamienMcKenna: API structure for definiting field dependencies;
+  currently limited to hiding/showing fields, can be expanded later with
+  validation logic. Initial implementation for some Open Graph and Twitter Cards
+  meta tags.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12

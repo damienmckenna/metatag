@@ -361,89 +361,119 @@ function metatag_opengraph_metatag_info() {
   ) + $tag_info_defaults;
 
   // For the "article" og:type.
+  $article_defaults = array(
+    'dependencies' => array(
+      array(
+        'dependency' => 'og:type',
+        'attribute' => 'value',
+        'condition' => 'value',
+        'value' => 'article',
+      ),
+    ),
+  );
   $info['tags']['article:author'] = array(
     'label' => t('Article author'),
     'description' => t("Links an article to an author's Facebook profile, should be either URLs to the author's profile page or their Facebook profile IDs."),
     'multiple' => TRUE,
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $article_defaults;
   $info['tags']['article:publisher'] = array(
     'label' => t('Article publisher'),
     'description' => t("Links an article to a publisher's Facebook page."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $article_defaults;
   $info['tags']['article:section'] = array(
     'label' => t('Article section'),
     'description' => t('The primary section of this website the content belongs to.'),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $article_defaults;
   $info['tags']['article:tag'] = array(
     'label' => t('Article tag(s)'),
     'description' => t('Appropriate keywords for this content.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $article_defaults;
   $info['tags']['article:published_time'] = array(
     'label' => t('Article publication date & time'),
     'description' => t("The date this content was published on, with an optional time value. Needs to be in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601</a> format."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $article_defaults;
   $info['tags']['article:modified_time'] = array(
     'label' => t('Article modification date & time'),
     'description' => t("The date this content was last modified, with an optional time value. Needs to be in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601</a> format."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $article_defaults;
   $info['tags']['article:expiration_time'] = array(
     'label' => t('Article expiration date & time'),
     'description' => t("The date this content will expire, with an optional time value. Needs to be in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601</a> format."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $article_defaults;
 
   // For the "book" og:type.
+  $book_defaults = array(
+    'dependencies' => array(
+      array(
+        'dependency' => 'og:type',
+        'attribute' => 'value',
+        'condition' => 'value',
+        'value' => 'book',
+      ),
+    ),
+  );
   $info['tags']['book:author'] = array(
     'label' => t("Book's author"),
     'description' => t("Links to the book's author's Facebook profile, should be either URLs to the author's profile page or their Facebook profile IDs."),
     'multiple' => TRUE,
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $book_defaults;
   $info['tags']['book:isbn'] = array(
     'label' => t("Book's ISBN"),
     'description' => t("The book's <a href=\"http://en.wikipedia.org/wiki/International_Standard_Book_Number\">International Standard Book Number</a>, which may be in one of several formats."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $book_defaults;
   $info['tags']['book:release_date'] = array(
     'label' => t('Book release date'),
     'description' => t("The date this content will expire, with an optional time value. Needs to be in <a href='http://en.wikipedia.org/wiki/ISO_8601'>ISO 8601</a> format."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $book_defaults;
   $info['tags']['book:tag'] = array(
     'label' => t('Book tags'),
     'description' => t('Appropriate keywords for this book.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $book_defaults;
 
   // For the "profile" og:type.
+  $profile_defaults = array(
+    'dependencies' => array(
+      array(
+        'dependency' => 'og:type',
+        'attribute' => 'value',
+        'condition' => 'value',
+        'value' => 'profile',
+      ),
+    ),
+  );
   $info['tags']['profile:first_name'] = array(
     'label' => t('First name'),
     'description' => t("The first name of the person who's Profile page this is."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $profile_defaults;
   $info['tags']['profile:last_name'] = array(
     'label' => t('Last name'),
     'description' => t("The person's last name."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $profile_defaults;
   $info['tags']['profile:username'] = array(
     'label' => t('Username'),
     'description' => t("A pseudonym / alias of this person."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $profile_defaults;
   $info['tags']['profile:gender'] = array(
     'label' => t('Gender'),
     'description' => t("Any of Facebook's gender values should be allowed, the initial two being 'male' and 'female'."),
     'weight' => ++$weight,
-  ) + $tag_info_defaults;
+  ) + $tag_info_defaults + $profile_defaults;
 
   return $info;
 }

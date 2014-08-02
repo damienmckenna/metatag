@@ -178,6 +178,17 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       $form['value']['#description'] .= ' ' . t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
     }
 
+    // Support for dependencies, using Form API's #states system.
+    // @see metatag.api.php.
+    // @see https://api.drupal.org/drupal_process_states
+    if (!empty($this->info['dependencies'])) {
+      foreach ($this->info['dependencies'] as $specs) {
+        $form['value']['#states']['visible'][':input[name="metatags[' . $specs['dependency'] . '][' . $specs['attribute'] . ']"]'] = array(
+          $specs['condition'] => $specs['value'],
+        );
+      }
+    }
+
     return $form;
   }
 
