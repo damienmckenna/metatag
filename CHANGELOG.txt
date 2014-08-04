@@ -19,6 +19,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2306449 by DamienMcKenna: Not having the Transliteration or Imagecache Token
   modules installed no longer reports an error in hook_requirements().
 #1328562 by andremolnar, Greg Boggs, DamienMcKenna: Improved form descriptions.
+#1918706 by theunraveler, DamienMcKenna, Zekvyrin, JeroeT: [current-page:title]
+  didn't work correctly on Panels pages.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12
