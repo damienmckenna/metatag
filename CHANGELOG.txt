@@ -18,6 +18,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   [node:summary] fix that's no longer needed.
 #2306449 by DamienMcKenna: Not having the Transliteration or Imagecache Token
   modules installed no longer reports an error in hook_requirements().
+#1328562 by andremolnar, Greg Boggs, DamienMcKenna: Improved form descriptions.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12

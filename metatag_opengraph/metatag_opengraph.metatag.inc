@@ -77,6 +77,7 @@ function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
 function metatag_opengraph_metatag_info() {
   $info['groups']['open-graph'] = array(
     'label' => t('Open Graph'),
+    'description' => t("The <a href=\"@ogp\">Open Graph meta tags</a> are used control how Facebook, LinkedIn an other social networking sites interpret the site's content.", array('@ogp' => 'http://ogp.me/')),
     'form' => array(
       '#weight' => 50,
     ),
@@ -97,14 +98,14 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:site_name'] = array(
     'label' => t('Site name'),
-    'description' => t('A human-readable name for your site, e.g., <em>IMDb</em>.'),
+    'description' => t('A human-readable name for the site, e.g., <em>IMDb</em>.'),
     'context' => array('global'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   $info['tags']['og:type'] = array(
     'label' => t('Content type'),
-    'description' => t('The type of your object, e.g., <em>movie</em>.'),
+    'description' => t('The type of the content, e.g., <em>movie</em>.'),
     'weight' => ++$weight,
     'form' => array(
       '#type' => 'select',
@@ -118,7 +119,7 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:url'] = array(
     'label' => t('Page URL'),
-    'description' => t('The canonical URL of your object that will be used as its permanent ID in the graph, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
+    'description' => t('Preferred page location or URL to help eliminate duplicate content for search engines, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'canonical',
@@ -136,7 +137,7 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:title'] = array(
     'label' => t('Content title'),
-    'description' => t('The title of your object as it should appear within the graph, e.g., <em>The Rock</em>.'),
+    'description' => t('The title of the content, e.g., <em>The Rock</em>.'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
@@ -161,7 +162,7 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:description'] = array(
     'label' => t('Content description'),
-    'description' => t('A one to two sentence description of your page.'),
+    'description' => t('A one to two sentence description of the content.'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
@@ -181,7 +182,7 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:image'] = array(
     'label' => t('Image URL'),
-    'description' => t('The URL of an image which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
+    'description' => t('The URL of an image which should represent the content. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
     'devel_generate' => array(
@@ -190,7 +191,7 @@ function metatag_opengraph_metatag_info() {
   ) + $tag_info_defaults;
   $info['tags']['og:image:secure_url'] = array(
     'label' => t('Secure image URL'),
-    'description' => t('The secure URL (HTTPS) of an image which should represent your object within the graph. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats. All "http://" URLs will automatically be converted to "https://".'),
+    'description' => t('The secure URL (HTTPS) of an image which should represent the content. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats. All "http://" URLs will automatically be converted to "https://".'),
     'multiple' => TRUE,
     'secure' => TRUE,
     'weight' => ++$weight,

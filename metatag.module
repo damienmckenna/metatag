@@ -1095,6 +1095,19 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     ),
     '#metatag_defaults' => $options['defaults'],
   );
+  // Show a different intro message for entity pages vs config pages.
+  if (isset($form['#entity'])) {
+    $form['metatags']['intro_text'] = array(
+      '#markup' => '<p>' . t('Configure the meta tags below. Tokens, e.g. "[node:summary]", automatically insert the corresponding information from that field or value, which helps to avoid redundant meta data and possible search engine penalization; see the "Browse available tokens" popup for more details.') . '</p>',
+      '#weight' => -10,
+    );
+  }
+  else {
+    $form['metatags']['intro_text'] = array(
+      '#markup' => '<p>' . t('Configure the meta tags below. Use tokens (see the "Browse available tokens" popup) to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).') . '</p>',
+      '#weight' => -10,
+    );
+  }
 
   // Only support vertical tabs if there is a vertical tab element.
   foreach (element_children($form) as $key) {
