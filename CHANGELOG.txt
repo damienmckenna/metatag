@@ -21,6 +21,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1328562 by andremolnar, Greg Boggs, DamienMcKenna: Improved form descriptions.
 #1918706 by theunraveler, DamienMcKenna, Zekvyrin, JeroenT: [current-page:title]
   didn't work correctly on Panels pages.
+#2153977 by paolomainardi, DamienMcKenna: Fix for translations of base entity
+  type configuration when there is no bundle configuration.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12

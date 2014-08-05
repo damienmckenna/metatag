@@ -882,7 +882,13 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
   // Obtain some details of the entity that are needed elsewhere.
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
   $revision_id = intval($revision_id);
+
+  // Check if a specific metatag config exists, otherwise just use the global
+  // one, stripping out the bundle.
   $instance = "{$entity_type}:{$bundle}";
+  if (!metatag_config_load_with_defaults($instance, FALSE)) {
+    $instance = "{$entity_type}";
+  }
 
   // Determine the language this entity actually uses.
   $entity_language = metatag_entity_get_language($entity_type, $entity);
