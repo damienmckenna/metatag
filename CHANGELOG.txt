@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2319389 by DamienMcKenna: Additional Open Graph meta tags, for videos.
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
