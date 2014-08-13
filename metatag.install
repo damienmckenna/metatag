@@ -199,6 +199,9 @@ function metatag_schema() {
         'serialize' => TRUE,
       ),
     ),
+    'indexes' => array(
+      'type_revision' => array('entity_type','revision_id'),
+    ),
     'primary key' => array('entity_type', 'entity_id', 'revision_id', 'language'),
   );
 
@@ -1456,4 +1459,12 @@ function metatag_update_7027() {
  */
 function metatag_update_7028() {
   variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * Add an index to the {metatag} table to speed up some queries.
+ */
+function metatag_update_7029() {
+  db_add_index('metatag', 'type_revision', array('entity_type', 'revision_id'));
+  drupal_set_message(t('Added an index to the main Metatag table that will hopefully improve performance a little.'));
 }

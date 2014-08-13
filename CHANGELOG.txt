@@ -3,6 +3,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2319389 by DamienMcKenna: Additional Open Graph meta tags, for videos.
 #2169575 by gvorbeck: Workbench Moderation v2 doesn't need any hackery, so
   removed the message in hook_requirements().
+#2140189 by ttkaminski, DamienMcKenna: Added an index to {metatag} table for the
+  'type' and 'revision_id' fields.
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
