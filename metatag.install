@@ -12,7 +12,48 @@ function metatag_requirements($phase) {
   // Ensure translations don't break during installation.
   $t = get_t();
 
-  if ($phase == 'runtime') {
+  if ($phase == 'install') {
+    // Handle scenarios where the site had the legacy "metatags" module
+    // installed but then had Metatag installed on top of it.
+    if (function_exists('db_table_exists') && function_exists('db_field_exists') && function_exists('db_query')) {
+      // Check if the primary table already exists.
+      if (db_table_exists('metatag')) {
+        // Check to see if all of the fields exist in the table. If one of the
+        // fields does not exist, proceed with the fix.
+        $fields = array(
+          'entity_type',
+          'entity_id',
+          'revision_id',
+          'language',
+          'data',
+        );
+        foreach ($fields as $field) {
+          // This field doesn't exist, so determine what to do.
+          if (!db_field_exists('metatag', $field)) {
+            // The table contains data, so rename it.
+            if (db_query("SELECT COUNT(*) FROM {metatag}")->fetchField() > 0) {
+              db_query("RENAME TABLE {metatag} TO {metatag}_legacy");
+              $message = 'An out-of-date version of the {metatag} table was discovered. As the table contained data it was renamed with a suffix of "_legacy". This will not prevent installation from continuing, but will need to be dealt with later. See <a href="https://www.drupal.org/node/1391554">https://www.drupal.org/node/1391554</a> for further details.';
+            }
+            // The table is empty, so delete it.
+            else {
+              db_query("DROP TABLE {metatag}");
+              $message = 'An out-of-date version of the {metatag} table was discovered. As the table was empty it was simply removed so that it could be recreated in the correct format. Installation may now proceed. See <a href="https://www.drupal.org/node/1391554">https://www.drupal.org/node/1391554</a> for further details.';
+            }
+            $requirements['metatag'] = array(
+              'severity' => REQUIREMENT_WARNING,
+              'title' => 'Metatag',
+              'value' => $t('Legacy data discovered.'),
+              'description' => $t($message),
+            );
+            drupal_set_message($t($message), 'warning');
+            break;
+          }
+        }
+      }
+    }
+  }
+  elseif ($phase == 'runtime') {
     // Work out the release of D7 that is currently running.
     list($major, $minor) = explode('.', VERSION);
     // Strip off any suffixes on the version string, e.g. "17-dev".
