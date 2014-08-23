@@ -7,6 +7,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   'type' and 'revision_id' fields.
 #1391554 by DamienMcKenna: Handle scenarios where the legacy "metatags" module
   had been installed.
+#2325459 by DamienMcKenna: Used JSHint to correct some minor JS bugs.
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
