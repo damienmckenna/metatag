@@ -869,11 +869,14 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
  *   The language code used for rendering the entity.
  * @param string $view_mode
  *   The view mode the entity is rendered in.
+ * @param bool $cached
+ *   TRUE if metatags can be loaded from and saved to the cache. FALSE if the
+ *   cache should be bypassed.
  *
  * @return array
  *   A renderable array of metatags for the given entity.
  */
-function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NULL, $view_mode = 'full') {
+function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NULL, $view_mode = 'full', $cached = TRUE) {
   // If this entity object isn't allowed meta tags, don't continue.
   if (!metatag_entity_has_metatags($entity_type, $entity)) {
     return array();
@@ -911,21 +914,24 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
     }
   }
 
-  // All applicable pieces for this current page.
-  $cid_parts = array(
-    'entity_type' => $entity_type,
-    'bundle' => $bundle,
-    'entity_id' => $entity_id,
-    'revision_id' => $revision_id,
-    // Cache separately based on the language of the passed-in entity and the
-    // overall active language of the page.
-    'langcode' => $langcode,
-    'language_content' => $GLOBALS['language_content']->language,
-    'view_mode' => $view_mode,
-  );
-  $cid = metatag_cache_default_cid_parts($cid_parts);
+  $cid = FALSE;
+  if ($cached) {
+    // All applicable pieces for this current page.
+    $cid_parts = array(
+      'entity_type' => $entity_type,
+      'bundle' => $bundle,
+      'entity_id' => $entity_id,
+      'revision_id' => $revision_id,
+      // Cache separately based on the language of the passed-in entity and the
+      // overall active language of the page.
+      'langcode' => $langcode,
+      'language_content' => $GLOBALS['language_content']->language,
+      'view_mode' => $view_mode,
+    );
+    $cid = metatag_cache_default_cid_parts($cid_parts);
+  }
 
-  if ($cache = metatag_cache_get($cid)) {
+  if ($cid && $cache = metatag_cache_get($cid)) {
     $output = $cache->data;
   }
   else {
@@ -952,7 +958,9 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
 
     // Render the metatags and save to the cache.
     $output = metatag_metatags_view($instance, $metatags, $options);
-    metatag_cache_set($cid, $output);
+    if ($cid) {
+      metatag_cache_set($cid, $output);
+    }
   }
 
   return $output;
