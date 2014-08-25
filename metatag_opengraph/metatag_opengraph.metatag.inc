@@ -182,7 +182,7 @@ function metatag_opengraph_metatag_info() {
 
   $info['tags']['og:image'] = array(
     'label' => t('Image URL'),
-    'description' => t('The URL of an image which should represent the content. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats.'),
+    'description' => t('The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
     'devel_generate' => array(
