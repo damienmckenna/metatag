@@ -809,18 +809,6 @@ function metatag_field_attach_delete_revision($entity_type, $entity) {
 }
 
 /**
- * Implements hook_taxonomy_term_view_alter().
- */
-function metatag_taxonomy_term_view_alter(&$build, &$entity_type) {
-  // This is only needed if hook_entity_view has not been added to core.
-  // @see http://drupal.org/node/1067120
-  if (isset($build['#term']) && !function_exists('taxonomy_term_view_multiple')) {
-    $entity = taxonomy_term_load($build['#term']->tid);
-    metatag_entity_view($entity, $entity_type, 'full', NULL, TRUE);
-  }
-}
-
-/**
  * Implements hook_entity_view().
  *
  * Provides additional argument to allow the display to be forced, to work

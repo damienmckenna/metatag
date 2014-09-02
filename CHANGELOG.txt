@@ -10,6 +10,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2325459 by DamienMcKenna: Used JSHint to correct some minor JS bugs.
 #2326197 by Dave Reid: metatag_generate_entity_metatags() cache can be bypassed.
 By DamienMcKenna: Updated the og:image size guidelines.
+By DamienMcKenna: Remove the redundant metatag_taxonomy_term_view_alter().
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
