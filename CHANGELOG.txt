@@ -15,6 +15,7 @@ By DamienMcKenna: Support Twitter Cards fieldset in Metatag:Context.
 #1778286 by alberto56: Removed the deprecated metatag_ui module.
 #2331677 by othermachines: Updates 7025 and 7027 attempted to update the wrong
   tables.
+#2330823 by othermachines: Remove the deprecated G+ Author meta tag.
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
