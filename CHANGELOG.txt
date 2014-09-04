@@ -12,7 +12,6 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Updated the og:image size guidelines.
 By DamienMcKenna: Remove the redundant metatag_taxonomy_term_view_alter().
 By DamienMcKenna: Support Twitter Cards fieldset in Metatag:Context.
-#1778286 by alberto56: Removed the deprecated metatag_ui module.
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
