@@ -1381,42 +1381,10 @@ function metatag_update_7024() {
 }
 
 /**
- * Rename the 'twitter:image' meta tag to 'twitter:image:src', part 2.
+ * Replaced by update 7030.
  */
 function metatag_update_7025() {
-  // Find all {metatag_config} records that contained an entry for the old meta
-  // tag.
-  $records = db_query("SELECT cid, config
-    FROM {metatag_config}
-    WHERE config LIKE '%twitter:image%'");
-  // This message will be returned if nothing needed to be updated.
-  $none_message = t('No Metatag configuration records needed to have the "twitter:image" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
-
-  // Loop over the values and correct them.
-  if ($records->rowCount() == 0) {
-    drupal_set_message($none_message);
-  }
-  else {
-    $keys = array('cid');
-
-    // Loop over the values and correct them.
-    $counter = 0;
-    foreach ($records as $record) {
-      $record->config = unserialize($record->config);
-      if (isset($record->config['twitter:image'])) {
-        $record->config['twitter:image:src'] = $record->config['twitter:image'];
-        unset($record->config['twitter:image']);
-        drupal_write_record('metatag', $record, $keys);
-        $counter++;
-      }
-    }
-    if ($counter == 0) {
-      drupal_set_message($none_message);
-    }
-    else {
-      drupal_set_message(t('Converted the "twitter:image" meta tag for @count configurations to the correct "twitter:image:src" meta tag.', array('@count' => $counter)));
-    }
-  }
+  // Do nothing.
 }
 
 /**
@@ -1457,9 +1425,70 @@ function metatag_update_7026() {
 }
 
 /**
- * Rename the 'copyright' meta tag to 'rights', part 2.
+ * Replaced by update 7031.
  */
 function metatag_update_7027() {
+  // Do nothing.
+}
+
+/**
+ * Clear the menu cache so the new Advanced Settings page will be picked up.
+ */
+function metatag_update_7028() {
+  variable_set('menu_rebuild_needed', TRUE);
+}
+
+/**
+ * Add an index to the {metatag} table to speed up some queries.
+ */
+function metatag_update_7029() {
+  db_add_index('metatag', 'type_revision', array('entity_type', 'revision_id'));
+  drupal_set_message(t('Added an index to the main Metatag table that will hopefully improve performance a little.'));
+}
+
+/**
+ * Rename the 'twitter:image' meta tag to 'twitter:image:src', part 2.
+ */
+function metatag_update_7030() {
+  // Find all {metatag_config} records that contained an entry for the old meta
+  // tag.
+  $records = db_query("SELECT cid, config
+    FROM {metatag_config}
+    WHERE config LIKE '%twitter:image%'");
+  // This message will be returned if nothing needed to be updated.
+  $none_message = t('No Metatag configuration records needed to have the "twitter:image" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
+
+  // Loop over the values and correct them.
+  if ($records->rowCount() == 0) {
+    drupal_set_message($none_message);
+  }
+  else {
+    $keys = array('cid');
+
+    // Loop over the values and correct them.
+    $counter = 0;
+    foreach ($records as $record) {
+      $record->config = unserialize($record->config);
+      if (isset($record->config['twitter:image'])) {
+        $record->config['twitter:image:src'] = $record->config['twitter:image'];
+        unset($record->config['twitter:image']);
+        drupal_write_record('metatag_config', $record, $keys);
+        $counter++;
+      }
+    }
+    if ($counter == 0) {
+      drupal_set_message($none_message);
+    }
+    else {
+      drupal_set_message(t('Converted the "twitter:image" meta tag for @count configurations to the correct "twitter:image:src" meta tag.', array('@count' => $counter)));
+    }
+  }
+}
+
+/**
+ * Rename the 'copyright' meta tag to 'rights', part 2.
+ */
+function metatag_update_7031() {
   // Find all {metatag_config} records that contained an entry for the old meta
   // tag.
   $records = db_query("SELECT cid, config
@@ -1482,7 +1511,7 @@ function metatag_update_7027() {
       if (isset($record->config['copyright'])) {
         $record->config['rights'] = $record->config['copyright'];
         unset($record->config['copyright']);
-        drupal_write_record('metatag', $record, $keys);
+        drupal_write_record('metatag_config', $record, $keys);
         $counter++;
       }
     }
@@ -1496,16 +1525,9 @@ function metatag_update_7027() {
 }
 
 /**
- * Clear the menu cache so the new Advanced Settings page will be picked up.
+ * Clear the Metatag cache.
  */
-function metatag_update_7028() {
-  variable_set('menu_rebuild_needed', TRUE);
-}
-
-/**
- * Add an index to the {metatag} table to speed up some queries.
- */
-function metatag_update_7029() {
-  db_add_index('metatag', 'type_revision', array('entity_type', 'revision_id'));
-  drupal_set_message(t('Added an index to the main Metatag table that will hopefully improve performance a little.'));
+function metatag_update_7032() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  return t('All Metatag caches cleared.');
 }
