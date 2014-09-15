@@ -20,7 +20,7 @@ function metatag_opengraph_preprocess_html(&$variables) {
   // Need an extra namespace for the "profile" tags.
   $variables['rdf_namespaces'] .= "\n  xmlns:profile=\"http://ogp.me/ns/profile#\"";
   // Need an extra namespace for the "video" tags.
-  $variables['rdf_namespaces'] .= "\n  xmlns:profile=\"http://ogp.me/ns/video#\"";
+  $variables['rdf_namespaces'] .= "\n  xmlns:video=\"http://ogp.me/ns/video#\"";
 }
 
 /**

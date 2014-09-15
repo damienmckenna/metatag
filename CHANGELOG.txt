@@ -18,6 +18,7 @@ By DamienMcKenna: Support Twitter Cards fieldset in Metatag:Context.
 #2330823 by othermachines: Remove the deprecated G+ Author meta tag.
 #2186155 by DamienMcKenna, grahamC, JeroenT: Resolved problems when saving an
   entity directly rather than via entity form.
+By DamienMcKenna: Corrected the namespace prefix for OG video meta tags.
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
