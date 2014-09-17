@@ -244,7 +244,9 @@ function metatag_config_load_with_defaults($instance, $include_global = TRUE) {
         }
 
         // Add config to the defaults array.
-        $defaults[$cid] += $configs[$key]->config;
+        if (!empty($configs[$key]->config)) {
+          $defaults[$cid] += $configs[$key]->config;
+        }
       }
 
       metatag_cache_set($cid, $defaults[$cid]);
@@ -526,46 +528,6 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
       $function($new_metatags, $entity_type, $entity_id, $revision_id, $langcode);
     }
 
-    // We need to ensure that when we have multiple languages enabled that those
-    // languages get the incremented revision_id as well so that they can be
-    // loaded properly.
-    if (isset($old_vid) && drupal_multilingual()) {
-      // Get all translations of tag data for this entity.
-      $results = db_query("SELECT language, data
-        FROM {metatag}
-        WHERE (entity_type = :type)
-        AND (entity_id = :id)
-        AND (revision_id = :revision)
-        AND (language != :langcode)",
-        array(
-          ':type'     => $entity_type,
-          ':id'       => $entity_id,
-          ':revision' => $old_vid,
-          ':langcode' => $langcode
-        ))->fetchAllKeyed();
-      foreach ($results as $lang => $data) {
-        // If the other records are not going to be saved during this submission
-        // then manually update them.
-        if (!isset($metatags[$lang])) {
-          $old_metatags = unserialize($data);
-          // Save the record.
-          if (!empty($old_metatags)) {
-            db_merge('metatag')
-              ->key(array(
-                'entity_type' => $entity_type,
-                'entity_id'   => $entity_id,
-                'language'    => $lang,
-                'revision_id' => $revision_id,
-              ))
-              ->fields(array(
-                'data' => serialize($old_metatags),
-              ))
-              ->execute();
-          }
-        }
-      }
-    }
-
     // If the data array is empty, there is no data to actually save, so just
     // delete the record from the database.
     if (empty($new_metatags)) {
@@ -782,24 +744,40 @@ function metatag_entity_update($entity, $entity_type) {
   $revision_id = intval($revision_id);
 
   if (isset($entity->metatags)) {
-    // Determine the entity's language.
+    // Determine the entity's new language. This will always be accurate as the
+    // language value will already have been updated by the time this function
+    // executes, and it will be loaded for the correct edit process.
     $new_language = metatag_entity_get_language($entity_type, $entity);
 
-    // Determine the language for this entity object.
-    if (isset($entity->original)) {
-      $old_language = metatag_entity_get_language($entity_type, $entity->original);
+    // If applicable, determine the entity's original language. This cannot be
+    // obtained via the normal API as that data will already have been updated,
+    // instead check to see if the entity has an old-fasioned 'language' value.
+    if (isset($entity->original) && isset($entity->language) && isset($entity->original->language)) {
+      $old_language = $entity->original->language;
 
-      // If the language has changed then remove the old one. When a new
-      // translation is being saved using Entity Translation both values will
-      // be the same, so this is safe to do.
-      if ($old_language != $new_language) {
-        // Delete the old language record.
-        db_delete('metatag')
-          ->condition('entity_type', $entity_type)
-          ->condition('entity_id', $entity_id)
-          ->condition('revision_id', $revision_id)
-          ->condition('language', $old_language)
-          ->execute();
+      // If the language has changed then additional checking needs to be done.
+      // Need to compare against the entity's raw language value as they will
+      // be different when updating a translated entity, versus an untranslated
+      // entity or a source entity for translation, and give a false positive.
+      if ($new_language == $entity->language && $new_language != $old_language) {
+        // If this entity is not translated, or if it is translated but the
+        // translation was previously created, then some language cleanup needs
+        // to be done.
+        if (!isset($entity->translation) || (isset($entity->translation) && !empty($entity->translation['created']))) {
+          // Delete the old language record. This will not affect old revisions.
+          db_delete('metatag')
+            ->condition('entity_type', $entity_type)
+            ->condition('entity_id', $entity_id)
+            ->condition('revision_id', $revision_id)
+            ->condition('language', $old_language)
+            ->execute();
+
+          // Swap out the metatag values for the two languages.
+          if (isset($entity->metatags[$old_language])) {
+            $entity->metatags[$new_language] = $entity->metatags[$old_language];
+            unset($entity->metatags[$old_language]);
+          }
+        }
       }
     }
 
@@ -1105,7 +1083,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
 
   // Work out the language code to use, default to NONE.
   $langcode = LANGUAGE_NONE;
-  if (isset($form['#entity_type']) && $form['#entity']) {
+  if (isset($form['#entity_type']) && isset($form['#entity'])) {
     $langcode = metatag_entity_get_language($form['#entity_type'], $form['#entity']);
   }
 
@@ -1279,6 +1257,19 @@ function metatag_metatags_form_submit($form, &$form_state) {
     if (!empty($entity_info[$form['#entity_type']]['translation']['locale'])) {
       // The language to use for this form.
       $langcode = $GLOBALS['language_content']->language;
+    }
+
+    // Need to load the entity's values for other languages, otherwise they will
+    // be incorrectly deleted later on.
+    if (isset($form['#entity']) && isset($form['#entity']->metatags)) {
+      $entity = $form['#entity'];
+      $metatags = $entity->metatags;
+      unset($metatags[$langcode]);
+      if (!empty($metatags)) {
+        foreach ($metatags as $lang => $values) {
+          $form_state['values']['metatags'][$lang] = $values;
+        }
+      }
     }
   }
 
