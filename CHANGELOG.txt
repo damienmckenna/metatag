@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.0, 2014-09-17
+---------------------------
 #2319389 by DamienMcKenna: Additional Open Graph meta tags, for videos.
 #2169575 by gvorbeck: Workbench Moderation v2 doesn't need any hackery, so
   removed the message in hook_requirements().
