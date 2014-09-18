@@ -4,6 +4,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   breaking installation profiles.
 #2340337 by DamienMcKenna: Config system updated for the new language-based
   data handling.
+#2330823 by DamienMcKenna: REVERT: Remove the deprecated G+ Author meta tag.
 
 
 Metatag 7.x-1.0, 2014-09-17
