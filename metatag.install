@@ -15,7 +15,7 @@ function metatag_requirements($phase) {
   if ($phase == 'install') {
     // Handle scenarios where the site had the legacy "metatags" module
     // installed but then had Metatag installed on top of it.
-    if (function_exists('db_table_exists') && function_exists('db_field_exists') && function_exists('db_query')) {
+    if (function_exists('db_table_exists') && function_exists('db_field_exists') && function_exists('db_query') && Database::isActiveConnection()) {
       // Check if the primary table already exists.
       if (db_table_exists('metatag')) {
         // Check to see if all of the fields exist in the table. If one of the

@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2340639 by agoradesign: Additional check needed in hook_requirements to avoid
+  breaking installation profiles.
 
 
 Metatag 7.x-1.0, 2014-09-17
