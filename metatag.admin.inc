@@ -309,8 +309,8 @@ function metatag_config_edit_form($form, &$form_state, $config) {
   $form['metatags']['#type'] = 'container';
 
   // Make the token browser available.
-  $form['metatags']['#prefix'] = $form['metatags']['#description'];
-  unset($form['metatags']['#description']);
+  $form['metatags']['#prefix'] = $form['metatags'][LANGUAGE_NONE]['#description'];
+  unset($form['metatags'][LANGUAGE_NONE]['#description']);
 
   $form['actions']['#type'] = 'actions';
   $form['actions']['save'] = array(
@@ -332,8 +332,8 @@ function metatag_config_edit_form_submit($form, &$form_state) {
   form_state_values_clean($form_state);
   $config = (object) $form_state['values'];
   // @todo Consider renaming the config field from 'config' to 'metatags'
-  $config->config = $config->metatags;
-  unset($config->metatags);
+  $config->config = $config->metatags[LANGUAGE_NONE];
+  unset($config->metatags[LANGUAGE_NONE]);
   metatag_config_save($config);
 
   $label = metatag_config_instance_label($config->instance);
