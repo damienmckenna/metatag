@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2343909 by DamienMcKenna: Unable to update meta tags on nodes that didn't
+  contain translations.
 
 
 Metatag 7.x-1.1, 2014-09-18
