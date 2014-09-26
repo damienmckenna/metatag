@@ -276,6 +276,10 @@ function metatag_uninstall() {
   // Used to note that the schema for the main {metatag} table were sufficiently
   // updated.
   variable_del('metatag_has_revision_id');
+
+  // Used to force an entity's default language values to be used if nothing
+  // else matched.
+  variable_del('metatag_entity_lang_default');
 }
 
 /**

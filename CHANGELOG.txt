@@ -2,6 +2,9 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2343909 by DamienMcKenna: Unable to update meta tags on nodes that didn't
   contain translations.
+#2185791 by DamienMcKenna: Improved logic for deciding which meta tag values
+  to use for the current language; new advanced option allows loading of the
+  entity's default language's values if nothing else matches.
 
 
 Metatag 7.x-1.1, 2014-09-18

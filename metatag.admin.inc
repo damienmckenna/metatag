@@ -580,6 +580,13 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_extended_permissions', FALSE),
   );
 
+  $form['advanced']['metatag_entity_lang_default'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Load entity default language values if none match'),
+    '#description' => t("On a site with multiple languages it is possible for an entity to not have meta tags for the current loaded language. In this scenario the default meta tags would normally be loaded. This option will cause any values for the entity's default language to be loaded instead."),
+    '#default_value' => variable_get('metatag_entity_lang_default', FALSE),
+  );
+
   $form['entities'] = array(
     '#type' => 'fieldset',
     '#title' => t('Master controls for all entities'),
@@ -638,4 +645,6 @@ function metatag_admin_settings_form() {
  */
 function metatag_admin_settings_form_submit() {
   cache_clear_all('entity_info:', 'cache', TRUE);
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  drupal_set_message(t('The Metatag cache has been cleared, so all meta tags can be reloaded.'));
 }
