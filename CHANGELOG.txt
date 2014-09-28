@@ -5,6 +5,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2185791 by DamienMcKenna: Improved logic for deciding which meta tag values
   to use for the current language; new advanced option allows loading of the
   entity's default language's values if nothing else matches.
+#2346159 by DamienMcKenna: Fixed tag dependencies, which were broken in 1.0.
 
 
 Metatag 7.x-1.1, 2014-09-18
