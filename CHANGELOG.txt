@@ -6,6 +6,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   to use for the current language; new advanced option allows loading of the
   entity's default language's values if nothing else matches.
 #2346159 by DamienMcKenna: Fixed tag dependencies, which were broken in 1.0.
+#2346153 by DamienMcKenna: Added Twitter app 'name' tags, misc improvements to
+  Twitter Cards code.
 
 
 Metatag 7.x-1.1, 2014-09-18
