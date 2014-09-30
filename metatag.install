@@ -279,7 +279,7 @@ function metatag_uninstall() {
 
   // Used to force an entity's default language values to be used if nothing
   // else matched.
-  variable_del('metatag_entity_lang_default');
+  variable_del('metatag_entity_no_lang_default');
 }
 
 /**

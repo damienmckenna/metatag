@@ -902,11 +902,12 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
     $langcode = LANGUAGE_NONE;
   }
 
-  // If the "Load entity default language values if none match values" option
-  // is enabled on the advanced settings page, there are no meta tags for the
-  // currently identified language, and there *are* meta tags defined for the
-  // entity's default language, use the default language instead.
-  elseif (empty($entity->metatags[$langcode]) && !empty($entity->metatags[$entity_language]) && variable_get('metatag_entity_lang_default', FALSE)) {
+  // If there are no meta tags for the currently identified language, and there
+  // *are* meta tags defined for the entity's default language, use the entity's
+  // default language's values, unless the "Don't load entity's default
+  // language values if no languages match" option is enabled on the advanced
+  // settings page.
+  elseif (empty($entity->metatags[$langcode]) && !empty($entity->metatags[$entity_language]) && !variable_get('metatag_entity_no_lang_default', FALSE)) {
     $langcode = $entity_language;
   }
 

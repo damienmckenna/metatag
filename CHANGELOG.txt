@@ -8,6 +8,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2346159 by DamienMcKenna: Fixed tag dependencies, which were broken in 1.0.
 #2346153 by DamienMcKenna: Added Twitter app 'name' tags, misc improvements to
   Twitter Cards code.
+#2185791 by DamienMcKenna: Changed the no-values-to-load entity language default
+  logic so that the default language values will be loaded unless disabled.
 
 
 Metatag 7.x-1.1, 2014-09-18

@@ -158,12 +158,13 @@ admin/config/search/metatags/settings
     $conf['metatag_tag_admin_pages'] = TRUE;
   To re-enable this option simply set the value to FALSE or delete the
   settings.php line.
-* Normally, when loading an entity with multiple languages for a specific
-  language, it will only use meta tag values saved for that language - if there
-  are no values for the requested language the page will use the configured
-  defaults. By enabling the "Load entity default language values if none match"
-  option on the Advanced Settings page, it will instead check if the entity has
-  values assigned for the entity's default language and use any which are found.
+* When loading an entity with multiple languages for a specific language the
+  meta tag values saved for that language will be used if they exist, otherwise
+  values assigned to the entity's default language will be used. This
+  may be disabled using the enabling the "Don't load entity's default language
+  values if no languages match" option on the Advanced Settings page, which will
+  cause default values to be used should there not be any values assigned for
+  the current requested language.
 
 
 Developers

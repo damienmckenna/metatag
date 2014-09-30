@@ -580,11 +580,11 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_extended_permissions', FALSE),
   );
 
-  $form['advanced']['metatag_entity_lang_default'] = array(
+  $form['advanced']['metatag_entity_no_lang_default'] = array(
     '#type' => 'checkbox',
-    '#title' => t('Load entity default language values if none match'),
-    '#description' => t("On a site with multiple languages it is possible for an entity to not have meta tags for the current loaded language. In this scenario the default meta tags would normally be loaded. This option will cause any values for the entity's default language to be loaded instead."),
-    '#default_value' => variable_get('metatag_entity_lang_default', FALSE),
+    '#title' => t("Don't load entity's default language values if no languages match"),
+    '#description' => t("On a site with multiple languages it is possible for an entity to not have meta tags for the current loaded language. By default the meta tags for an entity's default language value will be used in this scenario, with the canonical URL pointing to the default language's URL. This option may be disabled, i.e. to only load meta tags for languages that specifically have them assigned, otherwise using defaults."),
+    '#default_value' => variable_get('metatag_entity_no_lang_default', FALSE),
   );
 
   $form['entities'] = array(
