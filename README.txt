@@ -118,6 +118,13 @@ Fine Tuning
 All of these may be controlled from the advanced settings page:
 admin/config/search/metatags/settings
 
+* It is possible to "disable" the meta tags provided by Drupal core, i.e.
+  "generator", "canonical URL" and "shortlink", though it may not be completely
+  obvious. Metatag takes over the display of these tags, thus any changes made
+  to them in Metatag will supercede Drupal's normal output. To hide a tag, all
+  that is necessary is to clear the default value for that tag, e.g. on the
+  global settings for nodes, which will result in the tag not being output for
+  those pages.
 * By default Metatag will load the global default values for all pages that do
   not have meta tags assigned via the normal entity display or via Metatag
   Context. This may be disabled by setting the variable 'metatag_load_all_pages'

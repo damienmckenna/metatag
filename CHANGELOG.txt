@@ -10,6 +10,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   Twitter Cards code.
 #2185791 by DamienMcKenna: Changed the no-values-to-load entity language default
   logic so that the default language values will be loaded unless disabled.
+#1304038 by DamienMcKenna: Indicate in the README.txt how to disable output for
+  the three meta tags output by Drupal core by default.
 
 
 Metatag 7.x-1.1, 2014-09-18
