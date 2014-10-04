@@ -1,0 +1,8 @@
+name = Metatag: Google+
+description = "Provides support for Google+ 'itemscope' meta tags."
+package = SEO
+core = 7.x
+
+dependencies[] = metatag
+
+files[] = metatag_google_plus.inc

@@ -48,6 +48,9 @@ The primary features include:
 * The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
 
+* Certain meta tags used by Google+ may be added by enabling the "Metatag:
+  Google+" submodule.
+
 * Facebook's fb:app_id and fb:admins meta tags may be added by enabling the
   "Metatag: Facebook" submodule. These are useful for sites which are using
   Facebook widgets or are building custom integration with Facebook's APIs,
