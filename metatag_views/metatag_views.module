@@ -26,9 +26,12 @@ function metatag_views_ctools_plugin_api($owner, $api) {
  */
 function metatag_views_views_preview_info_alter(&$rows, $view) {
   if (metatag_views_views_display_has_metatags($view->display_handler)) {
-    $instance = 'view:' . $view->name;
     $metatags = $view->display_handler->get_option('metatags');
-    $metatags = !empty($metatags) ? $metatags : array();
+    // If meta tags were found but they're not nested for the language, fix it.
+    // This leaves some possibility for future versions to support translation.
+    if (!empty($metatags) && !isset($metatags[LANGUAGE_NONE])) {
+      $metatags = array(LANGUAGE_NONE => $metatags);
+    }
 
     // Set the page title to be the previewed views title before fetching meta
     // tag values.
@@ -37,6 +40,7 @@ function metatag_views_views_preview_info_alter(&$rows, $view) {
       drupal_set_title($view_title);
     }
 
+    $instance = 'view:' . $view->name;
     $options['token data']['view'] = $view;
     $values = metatag_metatags_values($instance, $metatags, $options);
     foreach ($values as $metatag => $value) {
@@ -58,6 +62,7 @@ function metatag_views_views_preview_info_alter(&$rows, $view) {
  */
 function metatag_views_page_alter(&$page) {
   $view = views_get_page_view();
+
   // Check if Views metatags are enabled.
   if (!empty($view) && metatag_config_is_enabled('view')) {
     // The following is taken from views_get_page_view().
@@ -72,38 +77,19 @@ function metatag_views_page_alter(&$page) {
     }
 
     // Load the meta tags for this view.
-    if (metatag_views_views_display_has_metatags($view->display_handler)) {
-      $saved_metatags = $view->display_handler->get_option('metatags');
-      $metatags = array();
-      if (!empty($saved_metatags)) {
-        $metatags[LANGUAGE_NONE] = $saved_metatags;
-      }
-
-      // Build options for meta tag rendering.
-      $instance = 'view:' . $view->name;
-      $options = array();
-      $options['token data']['view'] = $view;
-
-      // Add the metatags.
-      $page['content']['metatags'][$instance] = metatag_metatags_view($instance, $metatags, $options);
+    $metatags = $view->display_handler->get_option('metatags');
+    // If meta tags were found but they're not nested for the language, fix it.
+    // This leaves some possibility for future versions to support translation.
+    if (!empty($metatags) && !isset($metatags[LANGUAGE_NONE])) {
+      $metatags = array(LANGUAGE_NONE => $metatags);
     }
-  }
-}
 
-/**
- * Determine whether the requested view display has meta tags saved.
- *
- * @param $display views_plugin_display
- *   The view display plugin that will be checked.
- *
- * @return
- *   Simple boolean to indicate whether there are meta tags saved.
- */
-function metatag_views_views_display_has_metatags(views_plugin_display $display) {
-  if (method_exists($display, 'has_metatags')) {
-    return $display->has_metatags();
-  }
-  else {
-    return $display->has_path() && $display->uses_breadcrumb();
+    // Build options for meta tag rendering.
+    $instance = 'view:' . $view->name;
+    $options = array();
+    $options['token data']['view'] = $view;
+
+    // Add the metatags.
+    $page['content']['metatags'][$instance] = metatag_metatags_view($instance, $metatags, $options);
   }
 }

@@ -13,6 +13,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1304038 by DamienMcKenna: Indicate in the README.txt how to disable output for
   the three meta tags output by Drupal core by default.
 #2350129 by DamienMcKenna: Added a Drush command for clearing Metatag's caches.
+#2341795 by DamienMcKenna: Updated Metatag:Views to be compatible with the new
+  form data structure in 1.0.
 
 
 Metatag 7.x-1.1, 2014-09-18
