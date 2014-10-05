@@ -25,36 +25,40 @@ function metatag_views_ctools_plugin_api($owner, $api) {
  * Implements hook_view_preview_info_alter().
  */
 function metatag_views_views_preview_info_alter(&$rows, $view) {
-  if (metatag_views_views_display_has_metatags($view->display_handler)) {
-    $metatags = $view->display_handler->get_option('metatags');
-    // If meta tags were found but they're not nested for the language, fix it.
-    // This leaves some possibility for future versions to support translation.
-    if (!empty($metatags) && !isset($metatags[LANGUAGE_NONE])) {
-      $metatags = array(LANGUAGE_NONE => $metatags);
-    }
+  $metatags = $view->display_handler->get_option('metatags');
+  if (!is_array($metatags) || empty($metatags)) {
+    return;
+  }
 
-    // Set the page title to be the previewed views title before fetching meta
-    // tag values.
-    $title = drupal_set_title();
-    if ($view_title = $view->get_title()) {
-      drupal_set_title($view_title);
-    }
+  // If meta tags were found but they're not nested for the language, fix it.
+  // This leaves some possibility for future versions to support translation.
+  if (!empty($metatags) && !isset($metatags[LANGUAGE_NONE])) {
+    $metatags = array(LANGUAGE_NONE => $metatags);
+  }
 
-    $instance = 'view:' . $view->name;
-    $options['token data']['view'] = $view;
-    $values = metatag_metatags_values($instance, $metatags, $options);
-    foreach ($values as $metatag => $value) {
-      $metatag_info = metatag_get_info('tags', $metatag);
-      $values[$metatag] = check_plain($metatag_info['label']) . ': ' . check_plain($value);
-    }
+  // Set the page title to be the previewed views title before fetching meta
+  // tag values.
+  $title = drupal_set_title();
+  if ($view_title = $view->get_title()) {
+    drupal_set_title($view_title);
+  }
+
+  $instance = 'view:' . $view->name;
+  $options['token data']['view'] = $view;
+  $values = metatag_metatags_values($instance, $metatags, $options);
+  foreach ($values as $metatag => $value) {
+    $metatag_info = metatag_get_info('tags', $metatag);
+    $values[$metatag] = check_plain($metatag_info['label']) . ': ' . check_plain($value);
+  }
+  if (!empty($values)) {
     $rows['query'][] = array(
       '<strong>' . t('Meta tags') . '</strong>',
       implode('<br />', $values),
     );
-
-    // Restore the page title.
-    drupal_set_title($title);
   }
+
+  // Restore the page title.
+  drupal_set_title($title);
 }
 
 /**
