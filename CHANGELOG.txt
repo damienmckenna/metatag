@@ -17,6 +17,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   form data structure in 1.0.
 #2292043 by eric.chenchao, DamienMcKenna: Added Google+ 'itemprop' meta tags.
 #2341795 by DamienMcKenna: Fixed Views previews.
+#2289139 by maijs, DamienMcKenna: Allow each Views display to have different
+  meta tag values.
 
 
 Metatag 7.x-1.1, 2014-09-18

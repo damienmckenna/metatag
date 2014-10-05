@@ -6,6 +6,15 @@
 
 class metatag_views_plugin_display_extender_metatags extends views_plugin_display_extender {
 
+  function init(&$view, &$display) {
+    $display->options['defaults']['metatags'] = array();
+    parent::init($view, $display);
+  }
+
+  function defaultable_sections(&$sections, $section = NULL) {
+    $sections['metatags'] = array('metatags');
+  }
+
   protected function has_metatags() {
     $metatags = $this->display->get_option('metatags');
     return !empty($metatags);
