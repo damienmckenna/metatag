@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2350967 by das-peter, DamienMcKenna: Fatal error occurred loading any View that
+  did not have meta tags assigned.
 
 
 Metatag 7.x-1.2, 2014-10-04
