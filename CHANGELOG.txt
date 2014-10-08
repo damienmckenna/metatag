@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.3, 2014-10-07
+---------------------------
 #2350967 by das-peter, DamienMcKenna: Fatal error occurred loading any View that
   did not have meta tags assigned.
 #2344877 by DamienMcKenna, Mau Palantír, libelle2000: Fixed Panels integration.
