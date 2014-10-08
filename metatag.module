@@ -379,11 +379,12 @@ function metatag_config_cache_clear() {
  * Load an entity's tags.
  *
  * @param $entity_type
- *   The entity type to load
+ *   The entity type to load.
  * @param $entity_id
- *   The ID of the entity to load
+ *   The ID of the entity to load.
+ *
  * @return
- *   An array of tag data keyed by language.
+ *   An array of tag data keyed by revision ID and language.
  */
 function metatag_metatags_load($entity_type, $entity_id) {
   $metatags = metatag_metatags_load_multiple($entity_type, array($entity_id));
@@ -394,11 +395,12 @@ function metatag_metatags_load($entity_type, $entity_id) {
  * Load tags for multiple entities.
  *
  * @param $entity_type
- *   The entity type to load
+ *   The entity type to load.
  * @param $entity_ids
- *   The list of entity IDs
+ *   The list of entity IDs.
+ *
  * @return
- *   An array of tag data, keyed by ID.
+ *   An array of tag data, keyed by entity ID, revision ID and language.
  */
 function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $revision_ids = array()) {
   // Double check entity IDs are numeric thanks to Entity API module.
