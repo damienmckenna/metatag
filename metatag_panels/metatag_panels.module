@@ -99,7 +99,18 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     return;
   }
 
+  // This leaves some possibility for future versions to support translation.
   $metatags = $handler->conf['metatag_panels']['metatags'];
+  if (!is_array($metatags) || empty($metatags)) {
+    $metatags = array();
+  }
+
+  // If meta tags were found but they're not nested for the language, fix it.
+  // This leaves some possibility for future versions to support translation.
+  if (!empty($metatags) && !isset($metatags[LANGUAGE_NONE])) {
+    $metatags = array(LANGUAGE_NONE => $metatags);
+  }
+
   $metatags += metatag_config_load_with_defaults('');
 
   if (empty($metatags)) {
