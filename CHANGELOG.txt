@@ -4,6 +4,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   did not have meta tags assigned.
 #2344877 by DamienMcKenna, Mau Palantír, libelle2000: Fixed Panels integration.
 By DamienMcKenna: metatag_metatags_load()'s documentation was incorrect.
+#2347193 by DamienMcKenna: Updated Feeds integration to be compatible with the
+  new data structures in 1.0, and revision_id problems.
 
 
 Metatag 7.x-1.2, 2014-10-04
