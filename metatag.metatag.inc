@@ -297,27 +297,27 @@ function metatag_metatag_info() {
     ),
   );
 
-   $info['tags']['revisit-after'] = array(
-     'label' => t('Revisit After'),
-     'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'http://drupal.org/project/xmlsitemap')),
-     'class' => 'DrupalDateIntervalMetaTag',
-     'group' => 'advanced',
-     'weight' => ++$weight,
-     'devel_generate' => array(
-       'type' => 'date',
-     ),
-   );
+  $info['tags']['revisit-after'] = array(
+    'label' => t('Revisit After'),
+    'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'http://drupal.org/project/xmlsitemap')),
+    'class' => 'DrupalDateIntervalMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
+  );
 
-   $info['tags']['content-language'] = array(
-     'label' => t('Content language'),
-     'description' => t("A deprecated meta tag for defining this page's two-letter language code(s)."),
-     'class' => 'DrupalTextMetaTag',
-     'group' => 'advanced',
-     'weight' => ++$weight,
-     'element' => array(
-       '#theme' => 'metatag_http_equiv',
-     ),
-   );
+  $info['tags']['content-language'] = array(
+    'label' => t('Content language'),
+    'description' => t("A deprecated meta tag for defining this page's two-letter language code(s)."),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'element' => array(
+      '#theme' => 'metatag_http_equiv',
+    ),
+  );
 
   return $info;
 }
