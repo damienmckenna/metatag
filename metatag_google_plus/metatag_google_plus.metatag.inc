@@ -35,6 +35,7 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
         $config->config += array(
           'itemprop:description' => array('value' => '[node:summary]'),
           'itemprop:name' => array('value' => '[node:title]'),
+          'itemtype' => array('value' => 'Article'),
         );
         break;
 
@@ -48,6 +49,7 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
       case 'user':
         $config->config += array(
           'itemprop:name' => array('value' => '[user:name]'),
+          'itemtype' => array('value' => 'Person'),
         );
         if (variable_get('user_pictures')) {
           $config->config += array(
