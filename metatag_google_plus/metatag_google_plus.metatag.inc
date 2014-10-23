@@ -18,7 +18,8 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
 
       case 'global:frontpage':
         $config->config += array(
-          'itemprop:name' => array('value' => '[current-page:title]'),
+          'itemprop:name' => array('value' => '[site:name]'),
+          'itemprop:description' => array('value' => '[site:slogan]'),
         );
         break;
 
@@ -26,14 +27,14 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
       case 'global:403':
       case 'global:404':
         $config->config += array(
-          'itemprop:name' => array('value' => '[current-page:title]'),
+          'itemprop:name' => array('value' => '[site:name]'),
         );
         break;
 
       case 'node':
         $config->config += array(
           'itemprop:description' => array('value' => '[node:summary]'),
-          'itemprop:name' => array('value' => '[current-page:title]'),
+          'itemprop:name' => array('value' => '[node:title]'),
         );
         break;
 
