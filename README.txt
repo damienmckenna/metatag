@@ -57,6 +57,10 @@ The primary features include:
   but they are not needed by most sites and have no bearing on the Open Graph
   meta tags.
 
+* Site verfication meta tags can be added, e.g. as used by the Google search
+  engine to confirm ownership of the site; see the "Metatag: Verification"
+  submodule.
+
 * An API allowing for additional meta tags to be added, beyond what is provided
   by this module - see metatag.api.php for full details.
 
