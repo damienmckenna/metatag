@@ -191,7 +191,7 @@ function metatag_metatag_info() {
         'noodp' => t('Blocks the !opendirectory description from appearing in search results.', array('!opendirectory' => l('Open Directory Project', 'http://www.dmoz.org/'))),
         'noydir' => t('Prevents Yahoo! from listing this page in the <a href="@ydir">Yahoo! Directory</a>.', array('@ydir' => 'http://dir.yahoo.com/')),
         'noimageindex' => t('Prevent search engines from indexing images on this page.'),
-        'notranslate' => t('Prevent search engines from offering to translation this page in search results.'),
+        'notranslate' => t('Prevent search engines from offering to translation of this page in search results.'),
       ),
     ),
   );

@@ -11,6 +11,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2362893 by ipo4ka704: Don't assume the first Panels context is an object.
 #2363591 by DamienMcKenna: Added a default for the 'image' meta tag on user
   entity pages.
+#1967856 by duozersk: Fixed a minor mistake in the previous commit.
 
 
 Metatag 7.x-1.4, 2014-10-09
