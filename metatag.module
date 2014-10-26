@@ -2123,7 +2123,7 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
             // We need to pop entity from contexts array.
             $first_context = array_pop($context['contexts']);
             // Only if the context actually exists, which would be an entity.
-            if (!empty($first_context->data)) {
+            if (!empty($first_context->data) && is_object($first_context->data)) {
               $langcode = $GLOBALS['language_content']->language;
               metatag_entity_view($first_context->data, $entity_type, 'full', $langcode, TRUE);
             }

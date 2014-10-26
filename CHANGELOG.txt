@@ -8,6 +8,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2358131 by DamienMcKenna: Support for the Pinterest verification meta tag.
 #1848338 by larowlan, DamienMcKenna: Added more tests, especially one for
   checking the editorial process on a node.
+#2362893 by ipo4ka704: Don't assume the first Panels context is an object.
 
 
 Metatag 7.x-1.4, 2014-10-09
