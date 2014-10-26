@@ -10,10 +10,118 @@ class MetaTagsTestHelper extends DrupalWebTestCase {
   }
 }
 
+class MetaTagsNodeUITest extends MetaTagsTestHelper {
+  /**
+   * Admin user.
+   *
+   * @var \StdClass
+   */
+  protected $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Metatag tests for nodes',
+      'description' => 'Test Metatag edit functionality for nodes.',
+      'group' => 'Metatag',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  function setUp(array $modules = array()) {
+    $modules = array(
+      'metatag_dc',
+      'metatag_facebook',
+      'metatag_google_plus',
+      'metatag_opengraph',
+      'metatag_twitter_cards',
+    );
+    parent::setUp($modules);
+  }
+
+  /**
+   * Tests filtering of values using metatag_filter_values_from_defaults().
+   */
+  public function testMetatagFilterValuesFromDefaults() {
+    // Create a content type.
+    $this->drupalCreateContentType(array(
+      'type' => 'metatag_test',
+      'name' => 'Test',
+    ));
+
+    // Create an admin-level user.
+    $this->adminUser = $this->drupalCreateUser(array(
+      'administer meta tags',
+      'edit meta tags',
+      'create metatag_test content',
+      'delete any metatag_test content',
+      'edit any metatag_test content',
+    ));
+    $this->drupalLogin($this->adminUser);
+
+    // Assign default values for the new content type.
+    $this->drupalGet('admin/config/search/metatags/config/add');
+    $this->drupalPost(NULL, array(
+      'instance' => 'node:metatag_test',
+    ), t('Add and configure'));
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.title][value]' => '[node:title]',
+      'metatags[und][dcterms.creator][value]' => '[node:author]',
+      'metatags[und][dcterms.date][value]' => '[node:created:custom:Y-m-d\TH:iP]',
+      'metatags[und][dcterms.format][value]' => 'text/html',
+      'metatags[und][dcterms.identifier][value]' => '[current-page:url:absolute]',
+      'metatags[und][dcterms.language][value]' => '[node:language]',
+    ), t('Save'));
+
+    // Create a test node.
+    $this->drupalGet('node/add/metatag-test');
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.title][value]' => '[node:title] ponies',
+      'title' => 'Who likes magic',
+    ), t('Save'));
+
+    // Verify that the node saved correctly.
+    $xpath = $this->xpath("//h1");
+    $t_args = array('@type' => 'Test', '%title' => 'Who likes magic');
+    $this->assertText(strip_tags(t('@type %title has been created.', $t_args)));
+    // This doesn't work for some reason, it seems the HTML is stripped off
+    // during output so the %title's standard Drupal wrappers don't match.
+    // $this->assertText(t('@type %title has been created.', $t_args));
+
+    // Verify the node data saved correctly.
+    $matches = array();
+    if (preg_match('@node/(\d+)$@', $this->getUrl(), $matches)) {
+      $nid = end($matches);
+      $node = node_load($nid);
+      // Only the non-default values are stored.
+      $expected = array(
+        'und' => array(
+          'dcterms.title' => array(
+            'value' => '[node:title] ponies',
+          ),
+        ),
+      );
+      $this->assertEqual($expected, $node->metatags);
+    }
+    else {
+      $this->fail(t('Could not determine node ID for created node.'));
+    }
+
+    // Verify the title is using the custom default for this content type.
+    $xpath = $this->xpath("//meta[@name='dcterms.title']");
+    $this->assertEqual(count($xpath), 1);
+    $this->assertEqual($xpath[0]['content'], "Who likes magic ponies");
+  }
+}
+
 class MetaTagsUnitTest extends MetaTagsTestHelper {
   public static function getInfo() {
     return array(
-      'name' => 'Meta tag unit tests',
+      'name' => 'Metatag unit tests',
       'description' => 'Test basic meta tag functionality.',
       'group' => 'Metatag',
     );
@@ -25,13 +133,31 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
   public function testConfigLoadDefaults() {
     $defaults = metatag_config_load_with_defaults('test:foo');
     $this->assertEqual($defaults, array(
+      // Basic meta tags.
+      'title' => array('value' => 'Test altered title'),
       'description' => array('value' => 'Test foo description'),
       'abstract' => array('value' => 'Test foo abstract'),
-      'title' => array('value' => 'Test altered title'),
-      'test:foo' => array('value' => 'foobar'),
+      // 'keywords' => array('value' => ''),
+
+      // Advanced meta tags.
+      // 'robots' => array('value' => ''),
+      // 'news_keywords' => array('value' => ''),
+      // 'standout' => array('value' => ''),
+      // 'robots' => array('value' => ''),
+      // 'standout' => array('value' => ''),
       'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
+      // 'standout' => array('value' => ''),
+      // 'image_src' => array('value' => ''),
       'canonical' => array('value' => '[current-page:url:absolute]'),
       'shortlink' => array('value' => '[current-page:url:unaliased]'),
+      // 'publisher' => array('value' => ''),
+      // 'author' => array('value' => ''),
+      // 'original-source' => array('value' => ''),
+      // 'revisit-after' => array('value' => ''),
+      // 'content-language' => array('value' => ''),
+
+      // Fake meta tag.
+      'test:foo' => array('value' => 'foobar'),
     ));
   }
 
@@ -40,6 +166,8 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
     $test_cases[2] = array('type' => 'node', 'bundle' => 'page', 'expected' => TRUE);
     $test_cases[3] = array('type' => 'node', 'bundle' => 'invalid-bundle', 'expected' => FALSE);
     $test_cases[4] = array('type' => 'user', 'expected' => TRUE);
+    $test_cases[5] = array('type' => 'taxonomy_term', 'bundle' => 'tags', 'expected' => TRUE);
+    $test_cases[6] = array('type' => 'taxonomy_term', 'bundle' => 'invalid-bundle', 'expected' => FALSE);
     foreach ($test_cases as $test_case) {
       $test_case += array('bundle' => NULL);
       $this->assertMetatagEntityHasMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
@@ -52,6 +180,7 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
 
     $test_cases[2]['expected'] = FALSE;
     $test_cases[4]['expected'] = FALSE;
+    $test_cases[6]['expected'] = FALSE;
     foreach ($test_cases as $test_case) {
       $test_case += array('bundle' => NULL);
       $this->assertMetatagEntityHasMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);

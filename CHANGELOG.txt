@@ -6,6 +6,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2358137 by DamienMcKenna: Added a submodule for managing site verification
   meta tags, the first of which is for Google.
 #2358131 by DamienMcKenna: Support for the Pinterest verification meta tag.
+#1848338 by larowlan, DamienMcKenna: Added more tests, especially one for
+  checking the editorial process on a node.
 
 
 Metatag 7.x-1.4, 2014-10-09
