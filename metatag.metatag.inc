@@ -78,6 +78,9 @@ function metatag_metatag_config_default() {
   $config->config = array(
     'title' => array('value' => '[user:name] | [site:name]'),
   );
+  if (variable_get('user_pictures')) {
+    $config->config['image'] = array('value' => '[user:picture:url]');
+  }
   $configs[$config->instance] = $config;
 
   // Before returning these, allow the bundled submodules to override them, thus
