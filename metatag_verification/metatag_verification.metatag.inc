@@ -32,5 +32,11 @@ function metatag_verification_metatag_info() {
     'weight' => ++$weight,
   ) + $defaults;
 
+  $info['tags']['p:domain_verify'] = array(
+    'label' => t('Pinterest'),
+    'description' => t('A string provided by <a href="@pinterest">Pinterest</a>, full details are available from the <a href="@verify_url">Pinterest online help</a>.', array('@pinterest' => 'https://www.pinterest.com/', '@verify_url' => 'https://help.pinterest.com/en/articles/verify-your-website')),
+    'weight' => ++$weight,
+  ) + $defaults;
+
   return $info;
 }

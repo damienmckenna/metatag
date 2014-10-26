@@ -5,6 +5,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2362639 by DamienMcKenna: Added itemtype default values for Google+ meta tags.
 #2358137 by DamienMcKenna: Added a submodule for managing site verification
   meta tags, the first of which is for Google.
+#2358131 by DamienMcKenna: Support for the Pinterest verification meta tag.
 
 
 Metatag 7.x-1.4, 2014-10-09
