@@ -104,7 +104,6 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     return;
   }
 
-  // This leaves some possibility for future versions to support translation.
   $metatags = $handler->conf['metatag_panels']['metatags'];
   if (!is_array($metatags) || empty($metatags)) {
     $metatags = array();
