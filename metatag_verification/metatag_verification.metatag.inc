@@ -37,6 +37,12 @@ function metatag_verification_metatag_info() {
     'description' => t('A string provided by <a href="@pinterest">Pinterest</a>, full details are available from the <a href="@verify_url">Pinterest online help</a>.', array('@pinterest' => 'https://www.pinterest.com/', '@verify_url' => 'https://help.pinterest.com/en/articles/verify-your-website')),
     'weight' => ++$weight,
   ) + $defaults;
-
+  
+  $info['tags']['msvalidate.01'] = array(
+    'label' => t('Bing'),
+    'description' => t('A string provided by <a href="@bing">Bing</a>, full details are available from the <a href="@verify_url">Bing online help</a>.', array('@bing' => 'http://www.bing.com/', '@verify_url' => 'http://www.bing.com/webmaster/help/how-to-verify-ownership-of-your-site-afcfefc6')),
+    'weight' => ++$weight,
+  ) + $defaults;
+  
   return $info;
 }
