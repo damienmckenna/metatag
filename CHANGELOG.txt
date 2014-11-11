@@ -14,7 +14,6 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1967856 by duozersk: Fixed a minor mistake in the previous commit.
 #2370943 by Simon George: Removed redundant comment.
 #2373189 by nmillin: Added support for the Bing verification code.
-#2358139 by nmillin: Added support for the Yandex verification code.
 
 
 Metatag 7.x-1.4, 2014-10-09
