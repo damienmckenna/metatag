@@ -64,6 +64,8 @@ function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
         if (variable_get('user_pictures')) {
           $config->config += array(
             'og:image' => array('value' => '[user:picture:url]'),
+            // For now keep the old default.
+            // 'og:image:url' => array('value' => '[user:picture:url]'),
           );
         }
         break;
@@ -181,8 +183,17 @@ function metatag_opengraph_metatag_info() {
   ) + $og_defaults;
 
   $info['tags']['og:image'] = array(
+    'label' => t('Image'),
+    'description' => t('The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats. Should not be used if og:image:url is used.'),
+    'multiple' => TRUE,
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'image',
+    ),
+  ) + $og_defaults;
+  $info['tags']['og:image:url'] = array(
     'label' => t('Image URL'),
-    'description' => t('The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats.'),
+    'description' => t('A alternative version of og:image and has exactly the same requirements; only one needs to be used.'),
     'multiple' => TRUE,
     'weight' => ++$weight,
     'devel_generate' => array(
