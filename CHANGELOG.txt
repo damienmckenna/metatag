@@ -17,6 +17,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2358139 by nmillin: Added support for the Yandex verification code.
 #2378127 by DamienMcKenna: Support for rel="alternate" hreflang="x" link tag.
 #2376915 by jenlampton, DamienMcKenna: Added the og:image:url meta tag.
+#1978708 by DamienMcKenna, scor: Updated warning about compatibility with the
+  RDF module in Drupal core before 7.33.
 
 
 Metatag 7.x-1.4, 2014-10-09

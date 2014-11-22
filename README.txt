@@ -221,10 +221,9 @@ Troubleshooting / Known Issues
     <title>"The page title | My cool site"</title>
   The solution is to remove the browser plugin - the page's actual output is not
   affected, it is just a problem in the browser.
-* The core RDF module is known to cause validation problems for Open Graph meta
-  tags output by the Metatag:OpenGraph module. Unless it is actually needed for
-  the site, it may be worthwhile to disable the RDF module to avoid any
-  possible problems for the Open Graph integration.
+* Drupal core versions before v7.33 had a bug which caused validation problems
+  in the Open Graph output if the RDF module was also enabled. The solution is
+  to update to core v7.33 or newer.
 * If the Administration Language (admin_language) module is installed, it is
   recommended to disable the "Force language neutral aliases" setting on the
   Admin Language settings page, i.e. set the "admin_language_force_neutral"
