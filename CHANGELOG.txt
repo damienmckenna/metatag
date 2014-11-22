@@ -15,6 +15,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2370943 by Simon George: Removed redundant comment.
 #2373189 by nmillin: Added support for the Bing verification code.
 #2358139 by nmillin: Added support for the Yandex verification code.
+#2378127 by DamienMcKenna: Support for rel="alternate" hreflang="x" link tag.
 
 
 Metatag 7.x-1.4, 2014-10-09

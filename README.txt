@@ -246,6 +246,11 @@ Some modules are available that extend Metatag with additional functionality:
   Tidies up filenames for uploaded files, e.g. it can remove commas from
   filenames that could otherwise break certain meta tags.
 
+* Alternative hreflang
+  https://www.drupal.org/project/hreflang
+  Output <link rel="alternate" hreflang="x" href="http://" /> meta tags for
+  each language available on the site.
+
 * Domain Meta Tags
   https://drupal.org/project/domain_meta
   Integrates with the Domain Access module, so each site of a multi-domain
