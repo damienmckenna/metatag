@@ -19,6 +19,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2376915 by jenlampton, DamienMcKenna: Added the og:image:url meta tag.
 #1978708 by DamienMcKenna, scor: Updated warning about compatibility with the
   RDF module in Drupal core before 7.33.
+#2385265 by mikemiles86: Correctly flatten Metatag form fieldsets in Context
+  integration.
 
 
 Metatag 7.x-1.4, 2014-10-09
