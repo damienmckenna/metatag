@@ -21,6 +21,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   RDF module in Drupal core before 7.33.
 #2385265 by mikemiles86: Correctly flatten Metatag form fieldsets in Context
   integration.
+#2370439 by potop, DamienMcKenna: Work around hook_entity_load() problems by
+  loading entity info in metatag_entity_supports_metatags() on demand.
 
 
 Metatag 7.x-1.4, 2014-10-09

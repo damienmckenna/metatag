@@ -658,20 +658,21 @@ function metatag_metatags_cache_clear($entity_type, $entity_ids = NULL) {
  * Implements hook_entity_load().
  */
 function metatag_entity_load($entities, $entity_type) {
-  // Get the revision_ids.
-  $revision_ids = array();
-  foreach ($entities as $key => $entity) {
-    list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
-    $revision_id = intval($revision_id);
-    if (!empty($revision_id)) {
-      $revision_ids[] = $revision_id;
-    }
-  }
-
   // Wrap this in a try-catch block to work around occasions when the schema
   // hasn't been updated yet.
   try {
     if (metatag_entity_supports_metatags($entity_type)) {
+      // Get the revision_ids.
+      $revision_ids = array();
+      foreach ($entities as $key => $entity) {
+        list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+        $revision_id = intval($revision_id);
+        if (!empty($revision_id)) {
+          $revision_ids[] = $revision_id;
+        }
+      }
+
+      // Load all meta tags for these entities.
       $metatags = metatag_metatags_load_multiple($entity_type, array_keys($entities), $revision_ids);
 
       // Assign the metatag records for the correct revision ID.
@@ -1355,45 +1356,54 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
 
   if (!isset($entity_types)) {
     $entity_types = array();
-    foreach (entity_get_info() as $entity_type_key => $entity_info) {
+  }
+
+  // Everything else depends upon a specific entity type being checked.
+  if (isset($entity_type)) {
+    if (!isset($entity_types[$entity_type])) {
+      $entity_info = entity_get_info($entity_type);
       if (empty($entity_info['metatags'])) {
-        $entity_types[$entity_type_key] = FALSE;
-        continue;
+        $entity_types[$entity_type] = FALSE;
       }
-      $entity_types[$entity_type_key] = array();
-      foreach ($entity_info['bundles'] as $bundle_key => $bundle_info) {
-        $entity_types[$entity_type_key][$bundle_key] = !isset($bundle_info['metatags']) || !empty($bundle_info['metatags']);
+      else {
+        $entity_types[$entity_type] = array();
+        foreach ($entity_info['bundles'] as $bundle_key => $bundle_info) {
+          $entity_types[$entity_type][$bundle_key] = !isset($bundle_info['metatags']) || !empty($bundle_info['metatags']);
+        }
       }
     }
-  }
 
-  if (isset($entity_type) && isset($bundle)) {
-    // Allow entities to be disabled by assigning a variable
-    // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
-    //
-    // // Disable metatags for carousel nodes.
-    // $conf['metatag_enable_node__carousel'] = FALSE;
-    //
-    // @see Advanced settings page.
-    if (variable_get('metatag_enable_' . $entity_type . '__' . $bundle, 'monkey') == FALSE) {
-      return FALSE;
+    // If a specific entity bundle is being compared, check it first.
+    if (isset($bundle)) {
+      // Allow entities to be disabled by assigning a variable
+      // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
+      //
+      // // Disable metatags for carousel nodes.
+      // $conf['metatag_enable_node__carousel'] = FALSE;
+      //
+      // @see Advanced settings page.
+      if (variable_get('metatag_enable_' . $entity_type . '__' . $bundle, 'monkey') == FALSE) {
+        return FALSE;
+      }
+
+      return isset($entity_types[$entity_type][$bundle]) ? $entity_types[$entity_type][$bundle] : FALSE;
     }
 
-    return isset($entity_types[$entity_type][$bundle]) ? $entity_types[$entity_type][$bundle] : FALSE;
-  }
-  elseif (isset($entity_type)) {
-    // Allow entities to be disabled by assigning a variable
-    // 'metatag_enable_{$entity_type}' the value FALSE, e.g.:
-    //
-    // // Disable metatags for file_entity.
-    // $conf['metatag_enable_file'] = FALSE;
-    //
-    // @see Advanced settings page.
-    if (variable_get('metatag_enable_' . $entity_type, 'monkey') == FALSE) {
-      return FALSE;
-    }
+    // Otherwise check the entity type itself.
+    else {
+      // Allow entities to be disabled by assigning a variable
+      // 'metatag_enable_{$entity_type}' the value FALSE, e.g.:
+      //
+      // // Disable metatags for file_entity.
+      // $conf['metatag_enable_file'] = FALSE;
+      //
+      // @see Advanced settings page.
+      if (variable_get('metatag_enable_' . $entity_type, 'monkey') == FALSE) {
+        return FALSE;
+      }
 
-    return isset($entity_types[$entity_type]) ? ($entity_types[$entity_type] !== FALSE) : FALSE;
+      return isset($entity_types[$entity_type]) ? ($entity_types[$entity_type] !== FALSE) : FALSE;
+    }
   }
 
   return $entity_types;
