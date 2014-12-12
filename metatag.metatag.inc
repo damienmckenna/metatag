@@ -300,6 +300,28 @@ function metatag_metatag_info() {
     ),
   );
 
+  $info['tags']['prev'] = array(
+    'label' => t('Previous page URL'),
+    'description' => t('Used for paginated content. Meet Google recommendations to <a href="@google_pagination">indicate paginated content</a> by providing URL with rel="prev" link.', array('@google_pagination' => 'https://support.google.com/webmasters/answer/1663744')),
+    'class' => 'DrupalLinkMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
+  );
+
+  $info['tags']['next'] = array(
+    'label' => t('Next page URL'),
+    'description' => t('Used for paginated content. Meet Google recommendations to <a href="@google_pagination">indicate paginated content</a> by providing URL with rel="next" link.', array('@google_pagination' => 'https://support.google.com/webmasters/answer/1663744')),
+    'class' => 'DrupalLinkMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
+  );
+
   $info['tags']['revisit-after'] = array(
     'label' => t('Revisit After'),
     'description' => t('Tell search engines when to index the page again. Very few search engines support this tag, it is more useful to use an <a href="@xmlsitemap">XML Sitemap</a> file.', array('@xmlsitemap' => 'http://drupal.org/project/xmlsitemap')),
