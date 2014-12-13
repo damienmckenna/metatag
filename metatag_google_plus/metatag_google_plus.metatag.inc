@@ -113,6 +113,7 @@ function metatag_google_plus_metatag_info() {
     $info['tags']['itemtype']['form']['#multiple'] = FALSE;
     $info['tags']['itemtype']['form']['#other_unknown_defaults'] = 'other';
     $info['tags']['itemtype']['form']['#select_type'] = 'select';
+    $info['tags']['itemtype']['form']['#element_validate'] = array('select_or_other_element_validate');
   }
 
   $info['tags']['itemprop:name'] = array(

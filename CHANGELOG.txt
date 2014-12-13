@@ -24,6 +24,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2370439 by potop, DamienMcKenna: Work around hook_entity_load() problems by
   loading entity info in metatag_entity_supports_metatags() on demand.
 #1868460 by preshetin: Added the rel=prev and rel=next meta tags.
+#2388339 by das-peter: Fix select_or_other integration for Metatag:GooglePlus,
+  add the missing element_validator.
 
 
 Metatag 7.x-1.4, 2014-10-09
