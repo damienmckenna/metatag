@@ -23,7 +23,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   integration.
 #2370439 by potop, DamienMcKenna: Work around hook_entity_load() problems by
   loading entity info in metatag_entity_supports_metatags() on demand.
-#1868460 by preshetin: Added the 'prev' and 'next' meta tags.
+#1868460 by preshetin: Added the rel=prev and rel=next meta tags.
 
 
 Metatag 7.x-1.4, 2014-10-09
