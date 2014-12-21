@@ -26,6 +26,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1868460 by preshetin: Added the rel=prev and rel=next meta tags.
 #2388339 by das-peter: Fix select_or_other integration for Metatag:GooglePlus,
   add the missing element_validator.
+#2391975 by Spleshka: Support scenarios where the entity is possibly blank or
+  has no entity_id assigned yet, e.g. Profile2 pages.
 
 
 Metatag 7.x-1.4, 2014-10-09
