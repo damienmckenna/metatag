@@ -29,6 +29,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2391975 by Spleshka: Support scenarios where the entity is possibly blank or
   has no entity_id assigned yet, e.g. Profile2 pages.
 #2400241 by greggles: Typo in description of robots-notranslate option.
+#2400529 by greggles: Add support for OG product price:amount, price:currency.
 
 
 Metatag 7.x-1.4, 2014-10-09

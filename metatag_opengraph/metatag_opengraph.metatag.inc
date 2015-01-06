@@ -311,6 +311,18 @@ function metatag_opengraph_metatag_info() {
     ),
   ) + $og_defaults;
 
+  // For "product" og:type.
+  $info['tags']['product:price:amount'] = array(
+    'label' => t('Price'),
+    'description' => t("For products, the numeric price with decimal point, without currency indicator. Values below 0.01 may not be supported by clients."),
+    'weight' => ++$weight,
+  ) + $og_defaults;
+  $info['tags']['product:price:currency'] = array(
+    'label' => t('Currency'),
+    'description' => t("For products, the currency for the price (if any)."),
+    'weight' => ++$weight,
+  ) + $og_defaults;
+
   // For the "article" og:type.
   $article_defaults = array(
     'dependencies' => array(
