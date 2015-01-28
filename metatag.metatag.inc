@@ -188,7 +188,7 @@ function metatag_metatag_info() {
         'nofollow' => t('Prevents search engines from following links on this page.'),
         'noarchive' => t('Prevents cached copies of this page from appearing in search results.'),
         'nosnippet' => t('Prevents descriptions from appearing in search results, and prevents page caching.'),
-        'noodp' => t('Blocks the !opendirectory description from appearing in search results.', array('!opendirectory' => l('Open Directory Project', 'http://www.dmoz.org/'))),
+        'noodp' => t('Blocks the <a href="!opendirectory">Open Directory Project</a> description from appearing in search results.', array('!opendirectory' => 'http://www.dmoz.org/')),
         'noydir' => t('Prevents Yahoo! from listing this page in the <a href="@ydir">Yahoo! Directory</a>.', array('@ydir' => 'http://dir.yahoo.com/')),
         'noimageindex' => t('Prevent search engines from indexing images on this page.'),
         'notranslate' => t('Prevent search engines from offering to translate this page in search results.'),
