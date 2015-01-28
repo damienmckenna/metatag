@@ -35,6 +35,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2415025 by DamienMcKenna: l() in metatag_metatag_info() creates recursion bug.
 #2411477 by betz, DamienMcKenna: $form[#entity] doesn't work for all entities.
 #2411549 by maijs: Language is lost during migration.
+#2198669 by D2ev: Using metatag tokens can easily cause an infinite loop.
 
 
 Metatag 7.x-1.4, 2014-10-09
