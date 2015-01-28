@@ -1098,8 +1098,14 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
 
   // Work out the language code to use, default to NONE.
   $langcode = LANGUAGE_NONE;
-  if (isset($form['#entity_type']) && isset($form['#entity'])) {
-    $langcode = metatag_entity_get_language($form['#entity_type'], $form['#entity']);
+  if (isset($form['#entity_type'])) {
+    $entity_info = entity_get_info($form['#entity_type']);
+    if (isset($entity_info['token type'])) {
+      $entity_key = '#' . $entity_info['token type'];
+      if (isset($form[$entity_key])) {
+        $langcode = metatag_entity_get_language($form['#entity_type'], $form[$entity_key]);
+      }
+    }
   }
 
   // Merge in the default options.
