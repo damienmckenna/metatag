@@ -34,6 +34,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   field_multiple_types module to control how many items are output.
 #2415025 by DamienMcKenna: l() in metatag_metatag_info() creates recursion bug.
 #2411477 by betz, DamienMcKenna: $form[#entity] doesn't work for all entities.
+#2411549 by maijs: Language is lost during migration.
+
 
 Metatag 7.x-1.4, 2014-10-09
 ---------------------------
