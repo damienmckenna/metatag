@@ -30,6 +30,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   has no entity_id assigned yet, e.g. Profile2 pages.
 #2400241 by greggles: Typo in description of robots-notranslate option.
 #2400529 by greggles: Add support for OG product price:amount, price:currency.
+#2411607 by liberatr, DamienMcKenna: README.txt note about using the
+  field_multiple_types module to control how many items are output.
 
 
 Metatag 7.x-1.4, 2014-10-09

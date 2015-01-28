@@ -268,6 +268,12 @@ Some modules are available that extend Metatag with additional functionality:
   https://drupal.org/project/textimage
   Supports using Textimage's custom tokens in meta tag fields.
 
+* Field Multiple Limit
+  https://drupal.org/project/field_multiple_limit
+  Allows control over how many items are output in a multi-item field, useful
+  with meta tags that only allow for one item but which are assigned from fields
+  which accept multiple items, e.g. og:audio and og:video.
+
 
 Credits / Contact
 ------------------------------------------------------------------------------
