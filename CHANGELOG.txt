@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.5-beta1, 2015-02-02
 ---------------------------------
 #2362639 by DamienMcKenna: Improved defaults for Google+ meta tags.
