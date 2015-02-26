@@ -234,6 +234,12 @@ Related modules
 ------------------------------------------------------------------------------
 Some modules are available that extend Metatag with additional functionality:
 
+* Image URL Formatter
+  https://www.drupal.org/project/image_url_formatter
+  Provides a formatter for file and image fields to output the raw URL, and
+  optionally pass it through an image style. Useful for getting an image
+  field's token to output correctly for use in a meta tag.
+
 * Imagecache Token
   https://www.drupal.org/project/imagecache_token
   Provides additional tokens for image fields that can be used in e.g. the

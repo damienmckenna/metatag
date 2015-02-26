@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2442183 by DamienMcKenna, jwilson: Mention the Image URL Formatter module in
+  the README.txt file.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
