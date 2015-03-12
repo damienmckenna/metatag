@@ -5,6 +5,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2451231 by DamienMcKenna: Fixed the Devel:Generate integration.
 By DamienMcKenna: Rearranged og:type select_or_other integration code to be
   after the og:type tag definition.
+By DamienMcKenna: Removed duplicate description for video:writer meta tag.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

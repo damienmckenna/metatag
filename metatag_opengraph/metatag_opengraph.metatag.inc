@@ -530,7 +530,6 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['video:writer'] = array(
     'label' => t('Scriptwriter(s)'),
     'description' => t('Links to the Facebook profiles for scriptwriter(s) for the video.'),
-    'description' => t("Scriptwriters from the video."),
     'multiple' => TRUE,
     'weight' => ++$weight,
   ) + $og_defaults + $video_defaults;
