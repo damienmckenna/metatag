@@ -119,15 +119,6 @@ function metatag_opengraph_metatag_info() {
     ),
   ) + $og_defaults;
 
-  $info['tags']['og:url'] = array(
-    'label' => t('Page URL'),
-    'description' => t('Preferred page location or URL to help eliminate duplicate content for search engines, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
-    'weight' => ++$weight,
-    'devel_generate' => array(
-      'type' => 'canonical',
-    ),
-  ) + $og_defaults;
-
   if (module_exists('select_or_other')) {
     // Enhance the og:type field to support custom types.
     $info['tags']['og:type']['form']['#type'] = 'select_or_other';
@@ -136,6 +127,15 @@ function metatag_opengraph_metatag_info() {
     $info['tags']['og:type']['form']['#theme'] = 'select_or_other';
     $info['tags']['og:type']['form']['#element_validate'] = array('select_or_other_element_validate');
   }
+
+  $info['tags']['og:url'] = array(
+    'label' => t('Page URL'),
+    'description' => t('Preferred page location or URL to help eliminate duplicate content for search engines, e.g., <em>http://www.imdb.com/title/tt0117500/</em>.'),
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'canonical',
+    ),
+  ) + $og_defaults;
 
   $info['tags']['og:title'] = array(
     'label' => t('Content title'),

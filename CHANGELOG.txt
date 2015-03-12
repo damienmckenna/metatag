@@ -3,6 +3,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2442183 by DamienMcKenna, jwilson: Mention the Image URL Formatter module in
   the README.txt file.
 #2451231 by DamienMcKenna: Fixed the Devel:Generate integration.
+By DamienMcKenna: Rearranged og:type select_or_other integration code to be
+  after the og:type tag definition.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
