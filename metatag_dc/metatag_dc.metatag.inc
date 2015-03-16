@@ -191,11 +191,6 @@ function metatag_dc_metatag_info() {
     'description' => t('Information about rights held in and over the resource. Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights.'),
     'weight' => ++$weight,
   ) + $defaults;
-  $info['tags']['dcterms.rights'] = array(
-    'label' => t('Rights'),
-    'description' => t('Information about rights held in and over the resource. Typically, rights information includes a statement about various property rights associated with the resource, including intellectual property rights.'),
-    'weight' => ++$weight,
-  ) + $defaults;
 
   // Additional tags.
   $defaults = array(
