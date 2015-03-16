@@ -241,6 +241,9 @@ function metatag_dc_metatag_info() {
     'label' => t('Date Available'),
     'description' => t('Date (often a range) that the resource became or will become available.'),
     'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
   ) + $defaults;
   $info['tags']['dcterms.bibliographicCitation'] = array(
     'label' => t('Bibliographic Citation'),
@@ -256,21 +259,33 @@ function metatag_dc_metatag_info() {
     'label' => t('Date Created'),
     'description' => t('Date of creation of the resource.'),
     'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
   ) + $defaults;
   $info['tags']['dcterms.dateAccepted'] = array(
     'label' => t('Date Accepted'),
     'description' => t('Date of acceptance of the resource.'),
     'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
   ) + $defaults;
   $info['tags']['dcterms.dateCopyrighted'] = array(
     'label' => t('Date Copyrighted'),
     'description' => t('Date of copyright.'),
     'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
   ) + $defaults;
   $info['tags']['dcterms.dateSubmitted'] = array(
     'label' => t('Date Submitted'),
     'description' => t('Date of submission of the resource.'),
     'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'date',
+    ),
   ) + $defaults;
   $info['tags']['dcterms.educationLevel'] = array(
     'label' => t('Audience Education Level'),
