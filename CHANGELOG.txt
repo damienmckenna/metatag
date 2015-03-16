@@ -7,6 +7,7 @@ By DamienMcKenna: Rearranged og:type select_or_other integration code to be
   after the og:type tag definition.
 By DamienMcKenna: Removed duplicate description for video:writer meta tag.
 By DamienMcKenna: Standardized structure of all theme functions.
+#2452985 by DamienMcKenna: Added 39 additional Dublin Core meta tags.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

@@ -69,7 +69,7 @@ function metatag_google_plus_metatag_info() {
     'label' => t('Google+'),
     'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Google+</a>.', array('!url' => 'https://plus.google.com/')),
     'form' => array(
-      '#weight' => 70,
+      '#weight' => 80,
     ),
   );
 
