@@ -283,6 +283,9 @@ function metatag_uninstall() {
 
   // Controls which page region is used to trigger output of the meta tags.
   variable_del('metatag_page_region');
+
+  // Optionally disable the default configurations.
+  variable_del('metatag_load_defaults');
 }
 
 /**

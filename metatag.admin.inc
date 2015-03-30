@@ -587,6 +587,13 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_entity_no_lang_default', FALSE),
   );
 
+  $form['advanced']['metatag_load_defaults'] = array(
+    '#type' => 'checkbox',
+    '#title' => t("Load the module's default configurations"),
+    '#description' => t("Control whether the module's default configuration is used. This will not affect configurations exported via Features."),
+    '#default_value' => variable_get('metatag_load_defaults', TRUE),
+  );
+
   $form['advanced']['metatag_page_region'] = array(
     '#type' => 'select',
     '#title' => t("Page region to use"),

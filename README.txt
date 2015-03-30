@@ -179,6 +179,11 @@ admin/config/search/metatags/settings
   values if no languages match" option on the Advanced Settings page, which will
   cause default values to be used should there not be any values assigned for
   the current requested language.
+* When using Features to export Metatag configurations, it is suggested to
+  override all of the default configurations and then disable the default
+  configurations via the advanced settings page; doing so will avoid potential
+  conflicts of the same configurations being loaded by both the Metatag module
+  and the new Features-based modules.
 
 
 Developers

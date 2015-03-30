@@ -12,6 +12,8 @@ By DamienMcKenna: Removed duplicate dcterms.rights tag.
 By DamienMcKenna: Updated new 'date' dcterms tags to use 'date' generator.
 #2460791 by DamienMcKenna: Allow the page region used to trigger output to be
   changed; see the advanced settings page for details.
+#2462117 by DamienMcKenna: Allow the included default configurations to be
+  disabled.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

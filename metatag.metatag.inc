@@ -4,6 +4,11 @@
  * Implements hook_metatag_config_default().
  */
 function metatag_metatag_config_default() {
+  // Optionally skip loading the defaults.
+  if (!variable_get('metatag_load_defaults', TRUE)) {
+    return;
+  }
+
   $configs = array();
 
   $config = new stdClass();
