@@ -587,6 +587,14 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_entity_no_lang_default', FALSE),
   );
 
+  $form['advanced']['metatag_page_region'] = array(
+    '#type' => 'select',
+    '#title' => t("Page region to use"),
+    '#description' => t("By default Metatag uses the 'Content' region to trigger output of the meta tags. Some themes do not have this region, so it can be necessary to pick another."),
+    '#options' => system_region_list(variable_get('theme_default', 'bartik')),
+    '#default_value' => variable_get('metatag_page_region', 'content'),
+  );
+
   $form['entities'] = array(
     '#type' => 'fieldset',
     '#title' => t('Master controls for all entities'),

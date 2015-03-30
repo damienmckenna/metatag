@@ -280,6 +280,9 @@ function metatag_uninstall() {
   // Used to force an entity's default language values to be used if nothing
   // else matched.
   variable_del('metatag_entity_no_lang_default');
+
+  // Controls which page region is used to trigger output of the meta tags.
+  variable_del('metatag_page_region');
 }
 
 /**

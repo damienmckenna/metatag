@@ -10,6 +10,8 @@ By DamienMcKenna: Standardized structure of all theme functions.
 #2452985 by DamienMcKenna: Added 39 additional Dublin Core meta tags.
 By DamienMcKenna: Removed duplicate dcterms.rights tag.
 By DamienMcKenna: Updated new 'date' dcterms tags to use 'date' generator.
+#2460791 by DamienMcKenna: Allow the page region used to trigger output to be
+  changed; see the advanced settings page for details.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

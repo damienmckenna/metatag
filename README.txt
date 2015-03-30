@@ -207,6 +207,10 @@ Troubleshooting / Known Issues
   or
     <?php render($page['content']['metatags']); ?>
   Without one of these being present the meta tags will not be displayed.
+* An alternative method to fixing the missing-tags problem is to change the page
+  region used to output the meta tags. The region used may be controlled from
+  the settings page, it is recommended to test different options to identify the
+  one that works best for a specific site.
 * Versions of Drupal older than v7.17 were missing necessary functionality for
   taxonomy term pages to work correctly.
 * Using Metatag with values assigned for the page title and the Page Title

@@ -1529,12 +1529,15 @@ function metatag_page_build(&$page) {
     return;
   }
 
+  // The page region can be changed.
+  $region = variable_get('metatag_page_region', 'content');
+
   // Ensure these arrays exist, otherwise several use cases will fail.
-  if (!isset($page['content']) || !is_array($page['content'])) {
-    $page['content'] = array();
+  if (!isset($page[$region]) || !is_array($page[$region])) {
+    $page[$region] = array();
   }
-  if (!isset($page['content']['metatags']) || !is_array($page['content']['metatags'])) {
-    $page['content']['metatags'] = array();
+  if (!isset($page[$region]['metatags']) || !is_array($page[$region]['metatags'])) {
+    $page[$region]['metatags'] = array();
   }
 
   // The front page has special consideration. Also, check if this is an error
@@ -1557,18 +1560,18 @@ function metatag_page_build(&$page) {
       metatag_cache_set($cid, $metatags);
     }
 
-    $page['content']['metatags'][$instance] = $metatags;
+    $page[$region]['metatags'][$instance] = $metatags;
   }
 
   // Load any meta tags assigned via metatag_page_set_metatags(). Note: this
   // must include the necessary defaults.
   else {
-    $page['content']['metatags'] += metatag_page_get_metatags();
+    $page[$region]['metatags'] += metatag_page_get_metatags();
   }
 
   // If no meta tags were loaded at least load the global defaults. This may be
   // disabled, see README.txt for details.
-  if (empty($page['content']['metatags']) && variable_get('metatag_load_all_pages', TRUE)) {
+  if (empty($page[$region]['metatags']) && variable_get('metatag_load_all_pages', TRUE)) {
     $instance = 'global';
 
     // Generate the cache ID.
@@ -1585,7 +1588,7 @@ function metatag_page_build(&$page) {
       $metatags = metatag_metatags_view($instance, array());
       metatag_cache_set($cid, $metatags);
     }
-    $page['content']['metatags'][$instance] = $metatags;
+    $page[$region]['metatags'][$instance] = $metatags;
   }
 }
 
