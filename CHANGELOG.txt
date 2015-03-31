@@ -16,6 +16,8 @@ By DamienMcKenna: Updated new 'date' dcterms tags to use 'date' generator.
   disabled.
 #2454499 by Dmitriy.trt: metatag_config_is_enabled() returned FALSE for empty
   config, when checked with defaults.
+#2407477 by greggles: Provide support for Twitter app tags without having to use
+  an "app" type.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
