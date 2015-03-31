@@ -2038,7 +2038,18 @@ function metatag_config_access($op, $config = NULL) {
  */
 function metatag_config_is_enabled($instance, $include_defaults = FALSE, $include_global = TRUE) {
   if ($include_defaults) {
-    return (bool) metatag_config_load_with_defaults($instance, $include_global);
+    $instances = metatag_config_get_parent_instances($instance, $include_global);
+    $configs = metatag_config_load_multiple($instances);
+
+    // Check if one of the configs is enabled.
+    foreach ($configs as $config) {
+      if (empty($config->disabled)) {
+        return TRUE;
+      }
+    }
+
+    // No enabled configs found.
+    return FALSE;
   }
   else {
     $config = metatag_config_load($instance);
