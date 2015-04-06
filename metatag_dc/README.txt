@@ -1,6 +1,7 @@
 Metatag: Dublin Core
 --------------------
-This module adds the fifteen Dublin Core Metadata Element Set [1] to the available meta tags, as defined by the Dublin Core Metadata Institute [2]; it
+This module adds the fifteen Dublin Core Metadata Element Set [1] to the
+available meta tags, as defined by the Dublin Core Metadata Institute [2]; it
 also adds forty tags which may be useful for certain sites.
 
 The following tags are provided:

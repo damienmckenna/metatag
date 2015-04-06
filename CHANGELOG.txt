@@ -19,6 +19,7 @@ By DamienMcKenna: Updated new 'date' dcterms tags to use 'date' generator.
 #2407477 by greggles: Provide support for Twitter app tags without having to use
   an "app" type.
 By DamienMcKenna: Fixed a small mistake in output of metatag_update_7011().
+#2429091 by deviantintegral, DamienMcKenna: Add support for applinks.org tags.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
