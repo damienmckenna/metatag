@@ -664,7 +664,7 @@ function metatag_update_7011(&$sandbox) {
 
     // hook_update_N() may optionally return a string which will be displayed
     // to the user.
-    return t('Fixed the Metatag language values for @count nodes.', array('!count' => $sandbox['progress']));
+    return t('Fixed the Metatag language values for @count nodes.', array('@count' => $sandbox['progress']));
   }
 }
 
