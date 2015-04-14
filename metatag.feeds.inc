@@ -32,10 +32,12 @@ function metatag_feeds_set_target($source, $entity, $target, $value) {
   // Strip the prefix that was added above.
   $name = str_replace('meta_', '', $target);
 
+  // Identify the type of entity being imported.
+  $entity_type = $entity->feeds_item->entity_type;
+
   // Check for any existing data that may not have been loaded already.
   if (!isset($entity->metatags) && !empty($entity->feeds_item->entity_id) && is_numeric($entity->feeds_item->entity_id)) {
     $entity->metatags = array();
-    $entity_type = $entity->feeds_item->entity_type;
     $entity_id = $entity->feeds_item->entity_id;
 
     // Load the existing entity.
