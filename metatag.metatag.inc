@@ -173,7 +173,7 @@ function metatag_metatag_info() {
 
   $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
-    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines."),
+    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines anymore."),
     'class' => 'DrupalTextMetaTag',
     'weight' => ++$weight,
   );

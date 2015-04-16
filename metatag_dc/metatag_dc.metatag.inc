@@ -72,7 +72,7 @@ function metatag_dc_metatag_bundled_config_alter(array &$configs) {
 function metatag_dc_metatag_info() {
   $info['groups']['dublin-core'] = array(
     'label' => t('Dublin Core Basic Tags'),
-    'description' => t('The Dublin Core Metadata Element Set, aka "Dublin Core meta tags", are a set of internationally standardized metadata tags used to describe content to make identification and classification of content easier; the standards are controlled by the <a href="http://dublincore.org/">Dublin Core Metadata Initiative (DCMI)</a>.'),
+    'description' => t('The Dublin Core Metadata Element Set, aka "Dublin Core meta tags", are a set of internationally standardized metadata tags used to describe content to make identification and classification of content easier; the standards are controlled by the <a href="@url">Dublin Core Metadata Initiative (DCMI)</a>.', array('@url' => 'http://dublincore.org/')),
     'form' => array(
       '#weight' => 70,
     ),

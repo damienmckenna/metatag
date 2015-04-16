@@ -79,7 +79,7 @@ function metatag_opengraph_metatag_bundled_config_alter(array &$configs) {
 function metatag_opengraph_metatag_info() {
   $info['groups']['open-graph'] = array(
     'label' => t('Open Graph'),
-    'description' => t("The <a href=\"@ogp\">Open Graph meta tags</a> are used control how Facebook, Pinterest, LinkedIn an other social networking sites interpret the site's content.", array('@ogp' => 'http://ogp.me/')),
+    'description' => t("The <a href=\"@ogp\">Open Graph meta tags</a> are used control how Facebook, Pinterest, LinkedIn and other social networking sites interpret the site's content.", array('@ogp' => 'http://ogp.me/')),
     'form' => array(
       '#weight' => 50,
     ),
