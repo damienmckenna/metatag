@@ -21,6 +21,8 @@ By DamienMcKenna: Updated new 'date' dcterms tags to use 'date' generator.
 By DamienMcKenna: Fixed a small mistake in output of metatag_update_7011().
 #2429091 by deviantintegral, DamienMcKenna: Add support for applinks.org tags.
 #2417155 by dobe: Feeds import fails because of placement of entity_type.
+By DamienMcKenna: Minor text improvements per D8 branch.
+By DamienMcKenna: Clarified compatibility with Workbench Moderation.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

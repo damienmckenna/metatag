@@ -27,7 +27,7 @@ The primary features include:
 * Translation support using the Internationalization (i18n) module.
 
 * Full support for entity revisions and workflows based upon revision editing,
-  e.g., Revisioning module.
+  including compatibility with the Revisioning and Workbench Moderation modules.
 
 * Per-path control over meta tags using the "Metatag: Context" submodule
   (requires the Context module).
