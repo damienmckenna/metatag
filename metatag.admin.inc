@@ -475,7 +475,7 @@ function metatag_bulk_revert_batch_operation($entity_type, $bundle, &$context) {
   if ($entity_type != 'user') {
     /**
      * Entities which do not define a bundle such as User fail returning no results.
-     * @see http://drupal.org/node/1054168#comment-5266208
+     * @see https://www.drupal.org/node/1054168#comment-5266208
      */
     $query->entityCondition('bundle', $bundle);
   }

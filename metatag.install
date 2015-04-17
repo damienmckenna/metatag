@@ -110,7 +110,7 @@ function metatag_requirements($phase) {
         $requirements['metatag_et_old'] = array(
           'severity' => REQUIREMENT_ERROR,
           'title' => 'Metatag',
-          'value' => $t('<a href="@url">Entity_Translation</a> is out of date and requires updating', array('@url' => 'http://drupal.org/project/entity_translation')),
+          'value' => $t('<a href="@url">Entity_Translation</a> is out of date and requires updating', array('@url' => 'https://www.drupal.org/project/entity_translation')),
           'description' => $t('The Entity_Translation module is out of date and needs to be updated in order to be compatible with Metatag.'),
         );
       }

@@ -298,18 +298,19 @@ Credits / Contact
 Currently maintained by Damien McKenna [1] and Dave Reid [2]; all initial
 development was by Dave Reid.
 
-Ongoing development is sponsored by Mediacurrent [3] and Palantir.net [4]. All
-initial development was sponsored by Acquia [5] and Palantir.net.
+Ongoing development is sponsored by Mediacurrent [3] and Lullabot [4]. All
+initial development was sponsored by Acquia [5] and Palantir.net [6].
 
 The best way to contact the authors is to submit an issue, be it a support
 request, a feature request or a bug report, in the project issue queue:
-  http://drupal.org/project/issues/metatag
+  https://www.drupal.org/project/issues/metatag
 
 
 References
 ------------------------------------------------------------------------------
-1: http://drupal.org/user/108450
-2: http://drupal.org/user/53892
+1: https://www.drupal.org/u/damienmckenna
+2: https://www.drupal.org/u/dave-reid
 3: http://www.mediacurrent.com/
-4: http://www.palantir.net/
+4: http://www.lullabot.com/
 5: http://www.acquia.com/
+6: http://www.palantir.net/

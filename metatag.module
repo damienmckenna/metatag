@@ -1703,7 +1703,7 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
   // Allow hook_metatag_token_types_alter() to modify the defined tokens.
   drupal_alter('metatag_token_types', $options);
 
-  // @todo Remove metatag_form_alter() when http://drupal.org/node/1284642 is fixed in core.
+  // @todo Remove metatag_form_alter() when https://www.drupal.org/node/1284642 is fixed in core.
   //metatag_metatags_form($form, $instance, $metatags, $options);
 
   $form['#metatags'] = array(
@@ -1716,7 +1716,7 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
 /**
  * Implements hook_form_alter().
  *
- * @todo Remove this when http://drupal.org/node/1284642 is fixed in core.
+ * @todo Remove this when https://www.drupal.org/node/1284642 is fixed in core.
  */
 function metatag_form_alter(&$form, $form_state, $form_id) {
   if (!empty($form['#metatags']) && !isset($form['metatags'])) {
@@ -2231,9 +2231,9 @@ function _metatag_isdefaultrevision($entity) {
   //
   // This behaviour will change in D8 where $node->isDefaultRevision has been
   // introduced. See below links for more details.
-  // - http://drupal.org/node/1879482
-  // - http://drupal.org/node/218755
-  // - http://drupal.org/node/1522154
+  // - https://www.drupal.org/node/1879482
+  // - https://www.drupal.org/node/218755
+  // - https://www.drupal.org/node/1522154
   //
   // Every moderation module saving a forward revision needs to return FALSE.
   // @todo: Refactor this workaround under D8.

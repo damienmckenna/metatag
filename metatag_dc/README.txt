@@ -74,6 +74,6 @@ References
 ------------------------------------------------------------------------------
 1: http://dublincore.org/documents/dces/
 2: http://www.dublincore.org/
-3: http://drupal.org/user/960720
+3: https://www.drupal.org/u/marty2081
 4: http://www.gemeentemuseum.nl/
-5: http://drupal.org/node/1491616
+5: https://www.drupal.org/node/1491616
