@@ -134,7 +134,7 @@ function metatag_app_links_metatag_info() {
   ) + $defaults;
 
   $info['tags']['al:windows_universal:url'] = array(
-    'label' => t('AWindows Universal App URL scheme'),
+    'label' => t('Windows Universal App URL scheme'),
     'description' => t('A custom scheme for the Windows Universal app. <strong>This attribute is required by the App Links specification.</strong>'),
   ) + $defaults;
 
