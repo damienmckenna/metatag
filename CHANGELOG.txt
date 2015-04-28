@@ -24,6 +24,7 @@ By DamienMcKenna: Fixed a small mistake in output of metatag_update_7011().
 By DamienMcKenna: Minor text improvements per D8 branch.
 By DamienMcKenna: Clarified compatibility with Workbench Moderation.
 #2473459 by DamienMcKenna: Updated all links to d.o.
+#2479325 by DamienMcKenna: Require Token 1.6.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
