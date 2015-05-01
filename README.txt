@@ -101,13 +101,16 @@ Configuration
     assigned specifically for the front page:
       admin/config/search/metatags
 
- 3. Each supported entity object (nodes, terms, users) will have a set of meta
+ 3. In order to provide a specific configuration per entity bundle (content
+    type, vocabulary, etc), click "Add a Metatag default".
+
+ 4. Each supported entity object (nodes, terms, users) will have a set of meta
     tag fields available for customization on their respective edit page, these
     will inherit their values from the defaults assigned in #2 above. Any
     values that are not overridden per object will automatically update should
     the defaults be updated.
 
- 4. As the meta tags are output using Tokens, it may be necessary to customize
+ 5. As the meta tags are output using Tokens, it may be necessary to customize
     the token display for the site's entities (content types, vocabularies,
     etc). To do this go to e.g., admin/structure/types/manage/article/display,
     in the "Custom Display Settings" section ensure that "Tokens" is checked
