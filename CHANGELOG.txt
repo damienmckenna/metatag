@@ -28,6 +28,7 @@ By DamienMcKenna: Clarified compatibility with Workbench Moderation.
 #1491562 by jonathan_hunt, knalstaaf: Add instructions to README.txt explaining
   how to configure meta tags for entity bundles.
 #2449425 by DamienMcKenna: Refactored select_or_other usage, API addition.
+#2487179 by DamienMcKenna: Allow longer cache IDs to reduce conflicts.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

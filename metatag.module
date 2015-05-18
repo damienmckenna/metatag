@@ -2291,8 +2291,8 @@ function metatag_cache_default_cid_parts(array $cid_parts = array()) {
   // Remove empty parts.
   $cid_parts = array_filter($cid_parts);
 
-  // Concatenate the cache ID parts, trim the results to 128 chars.
-  return substr(implode(':', $cid_parts), 0, 128);
+  // Concatenate the cache ID parts, trim the results to 255 chars.
+  return substr(implode(':', $cid_parts), 0, 255);
 }
 
 /**
