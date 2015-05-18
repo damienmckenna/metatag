@@ -184,6 +184,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       $form['value']['#other'] = t('Other (please type a value)');
       $form['value']['#multiple'] = FALSE;
       $form['value']['#other_unknown_defaults'] = 'other';
+      $form['value']['#other_delimiter'] = FALSE;
       $form['value']['#theme'] = 'select_or_other';
       $form['value']['#select_type'] = 'select';
       $form['value']['#element_validate'] = array('select_or_other_element_validate');
