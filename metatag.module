@@ -1860,19 +1860,17 @@ function metatag_preprocess_maintenance_page(&$variables) {
 
 /**
  * Implements hook_html_head_alter().
+ *
+ * Removes tags added by core that are now handled by metatag.
  */
 function metatag_html_head_alter(&$elements) {
-  // Remove duplicate link tags if found.
   $metatags = metatag_get_info('tags');
-  foreach (array_keys($metatags) as $name) {
-    if (!isset($elements['metatag_' . $name]) || $elements['metatag_' . $name]['#tag'] != 'link') {
-      // Only check for link tags added by the metatags module.
-      continue;
-    }
-    foreach (array_keys($elements) as $key) {
-      if (strpos($key, 'drupal_add_html_head_link:' . $name . ':') === 0) {
-        unset($elements[$key]);
-      }
+
+  // Find matching tags added via drupal_add_html_head_link().
+  foreach (array_keys($elements) as $key) {
+    list($prefix, $name) = explode(':', $key, 3) + array('', '');
+    if ($prefix === 'drupal_add_html_head_link' && isset($metatags[$name])) {
+      unset($elements[$key]);
     }
   }
 
