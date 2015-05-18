@@ -215,6 +215,11 @@ function hook_metatag_config_update($config) {
  *       one meta tag can replace several others, only one of the possible
  *       values will be used, the others will be silently purged upon the next
  *       configuration/object save.
+ *     'multiple' - If set to TRUE the output will be comma-separated and output
+ *       as multiple tags.
+ *     'select_or_other' - If set to TRUE, form[#type] is set to 'select' and
+ *       the "select_or_other" module is available, that module will be used to
+ *       provide a text field to manually insert another option.
  *     'form' - Optional items to be passed directly to the form; uses standard
  *       Form API values.
  *     'devel_generate' - Optional values to be passed to the Devel Generate

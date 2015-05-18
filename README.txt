@@ -278,8 +278,8 @@ Some modules are available that extend Metatag with additional functionality:
 
 * Select or Other
   https://drupal.org/project/select_or_other
-  Enhances the user experience of the metatag_opengraph submodule by allowing
-  the creation of custom Open Graph types.
+  Enhances the user experience of the metatag_google_plus and metatag_opengraph
+  submodules by allowing the creation of custom itemtype and og:types values.
 
 * Node Form Panes
   https://drupal.org/project/node_form_panes

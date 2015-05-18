@@ -109,6 +109,7 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Content type'),
     'description' => t('The type of the content, e.g., <em>movie</em>.'),
     'weight' => ++$weight,
+    'select_or_other' => TRUE,
     'form' => array(
       '#type' => 'select',
       '#options' => _metatag_opengraph_type_options(),
@@ -118,15 +119,6 @@ function metatag_opengraph_metatag_info() {
       'type' => 'select',
     ),
   ) + $og_defaults;
-
-  if (module_exists('select_or_other')) {
-    // Enhance the og:type field to support custom types.
-    $info['tags']['og:type']['form']['#type'] = 'select_or_other';
-    $info['tags']['og:type']['form']['#other'] = t('Other (please type a value)');
-    $info['tags']['og:type']['form']['#other_unknown_defaults'] = 'other';
-    $info['tags']['og:type']['form']['#theme'] = 'select_or_other';
-    $info['tags']['og:type']['form']['#element_validate'] = array('select_or_other_element_validate');
-  }
 
   $info['tags']['og:url'] = array(
     'label' => t('Page URL'),

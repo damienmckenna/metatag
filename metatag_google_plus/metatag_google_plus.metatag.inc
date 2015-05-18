@@ -90,6 +90,7 @@ function metatag_google_plus_metatag_info() {
     'description' => t('Schema type. <a href="!url">More schema info</a>. If your page type does not exist in options above, please install <a href="!url2">select_or_other</a> module to enter page type manually.', array('!url' => 'http://schema.org/docs/schemas.html', '!url2' => 'https://drupal.org/project/select_or_other')),
     'class' => 'DrupalSchemaMetaTag',
     'weight' => ++$weight,
+    'select_or_other' => TRUE,
     'form' => array(
       '#type' => 'select',
       '#options' => array(
@@ -106,15 +107,6 @@ function metatag_google_plus_metatag_info() {
       '#empty_option' => t('- None -'),
     ),
   ) + $defaults;
-
-  if (module_exists('select_or_other')) {
-    $info['tags']['itemtype']['form']['#type'] = 'select_or_other';
-    $info['tags']['itemtype']['form']['#other'] = 'Other (please type a value)';
-    $info['tags']['itemtype']['form']['#multiple'] = FALSE;
-    $info['tags']['itemtype']['form']['#other_unknown_defaults'] = 'other';
-    $info['tags']['itemtype']['form']['#select_type'] = 'select';
-    $info['tags']['itemtype']['form']['#element_validate'] = array('select_or_other_element_validate');
-  }
 
   $info['tags']['itemprop:name'] = array(
     'label' => t('Title'),
