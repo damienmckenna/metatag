@@ -33,6 +33,7 @@ By DamienMcKenna: Clarified compatibility with Workbench Moderation.
   values than there are og:image values, it can lead to Facebook validation
   errors.
 #2474427 by DamienMcKenna: Added an advanced option to disable the output cache.
+#2432517 by DamienMcKenna: Check all CTools contexts, not just the first one.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

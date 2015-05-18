@@ -2158,11 +2158,16 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
           // numerical.
           if (!empty($context['args']) && is_numeric($context['args'][0])) {
             // We need to pop entity from contexts array.
-            $first_context = array_pop($context['contexts']);
-            // Only if the context actually exists, which would be an entity.
-            if (!empty($first_context->data) && is_object($first_context->data)) {
-              $langcode = $GLOBALS['language_content']->language;
-              metatag_entity_view($first_context->data, $entity_type, 'full', $langcode, TRUE);
+            foreach ($context['contexts'] as $context_argument) {
+              // Only proceed if the context is an entity.
+              if (is_array($context_argument->type) && in_array($entity_type, $context_argument->type)) {
+                // Only if the context actually exists, which should be an
+                // entity.
+                if (!empty($context_argument->data)) {
+                  $langcode = $GLOBALS['language_content']->language;
+                  metatag_entity_view($context_argument->data, $entity_type, 'full', $langcode, TRUE);
+                }
+              }
             }
           }
         }
