@@ -190,6 +190,13 @@ admin/config/search/metatags/settings
   configurations via the advanced settings page; doing so will avoid potential
   conflicts of the same configurations being loaded by both the Metatag module
   and the new Features-based modules.
+* By default all meta tag output for individual entities will be cached in a
+  separate cache table. This may be disabled by unchecking the "Cache meta tag
+  output" option on the Advanced Settings page, which will cause all meta tags
+  for entities to be generated uniquely for each page load. Note: the
+  entity configuration and output for other types of pages will still be
+  cached, but this can stop the {cache_metatag} table from growing out of
+  control in some scenarios.
 
 
 Developers

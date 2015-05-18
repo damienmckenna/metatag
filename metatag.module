@@ -921,7 +921,7 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
   }
 
   $cid = FALSE;
-  if ($cached) {
+  if ($cached && variable_get('metatag_cache_output', TRUE)) {
     // All applicable pieces for this current page.
     $cid_parts = array(
       'entity_type' => $entity_type,

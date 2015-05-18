@@ -286,6 +286,9 @@ function metatag_uninstall() {
 
   // Optionally disable the default configurations.
   variable_del('metatag_load_defaults');
+
+  // Optionally disables the output cache.
+  variable_del('metatag_cache_output');
 }
 
 /**

@@ -32,6 +32,7 @@ By DamienMcKenna: Clarified compatibility with Workbench Moderation.
 #2473107 by DamienMcKenna: Added a warning about having more og:image:type
   values than there are og:image values, it can lead to Facebook validation
   errors.
+#2474427 by DamienMcKenna: Added an advanced option to disable the output cache.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

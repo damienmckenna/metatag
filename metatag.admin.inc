@@ -594,6 +594,13 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_load_defaults', TRUE),
   );
 
+  $form['advanced']['metatag_cache_output'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Cache meta tag output'),
+    '#description' => t('Disabling this will cause all meta tag output to be generated uniquely for each page load. Currently only affects entities. Note: the entity configuration and output for other types of pages will still be cached, but this can stop the {cache_metatag} table from growing out of control in some scenarios.'),
+    '#default_value' => variable_get('metatag_cache_output', TRUE),
+  );
+
   $form['advanced']['metatag_page_region'] = array(
     '#type' => 'select',
     '#title' => t("Page region to use"),
