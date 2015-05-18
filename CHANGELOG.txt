@@ -29,6 +29,9 @@ By DamienMcKenna: Clarified compatibility with Workbench Moderation.
   how to configure meta tags for entity bundles.
 #2449425 by DamienMcKenna: Refactored select_or_other usage, API addition.
 #2487179 by DamienMcKenna: Allow longer cache IDs to reduce conflicts.
+#2473107 by DamienMcKenna: Added a warning about having more og:image:type
+  values than there are og:image values, it can lead to Facebook validation
+  errors.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
