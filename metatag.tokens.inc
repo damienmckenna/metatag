@@ -17,7 +17,7 @@ function metatag_token_info() {
 
   $metatag_info = metatag_get_info();
 
-  foreach($metatag_info['tags'] as $value) {
+  foreach ($metatag_info['tags'] as $value) {
     $info['tokens']['metatag'][$value['name']] = array(
       'name' => $value['label'],
       'description' => $value['description']
@@ -136,7 +136,7 @@ function _metatag_token_process_metatag($metatags, $token_type) {
     // Explode all metatag token in field.
     $data_tokens = token_scan($data['value']);
     if (isset($data_tokens[$token_type])) {
-      foreach($data_tokens[$token_type] as $key => $value) {
+      foreach ($data_tokens[$token_type] as $key => $value) {
         $metatag_parts = explode(':', $key);
         // Check entity metatag token. Like [<entity_token_type>:metatag:<xyz>].
         if ($metatag_parts[0] == 'metatag') {
@@ -181,7 +181,7 @@ function metatag_token_entitymetatagtoken_replace($metatags, $token, $token_type
   // Check field has tokens.
   if (isset($data_tokens[$token_type])) {
     // Go through each token in field and find entity metatag tokens.
-    foreach($data_tokens[$token_type] as $key => $value) {
+    foreach ($data_tokens[$token_type] as $key => $value) {
       $metatag_parts = explode(':', $key);
       if ($metatag_parts[0] == 'metatag' && !in_array($value, $search_tokens)) {
         // Entity metatag field value.
