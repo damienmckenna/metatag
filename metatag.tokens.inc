@@ -141,10 +141,16 @@ function _metatag_token_process_metatag($metatags, $token_type) {
         // Check entity metatag token. Like [<entity_token_type>:metatag:<xyz>].
         if ($metatag_parts[0] == 'metatag') {
           $entity_field = implode(':', array_slice($metatag_parts, 1));
-          // Entity metatag field may contain other entity metatag token
-          // that need to be replaced too.
-          $replaced_value = metatag_token_entitymetatagtoken_replace($metatags, $metatags[$entity_field]['value'], $token_type);
-          $metatags[$metatag]['value'] = str_replace($value, $replaced_value, $metatags[$metatag]['value']);
+          // If a value is not set here it will trigger an infinite loop.
+          $metatags[$metatag]['value'] = '';
+
+          // If the meta tag was defined then try parsing it.
+          if (!empty($metatags[$entity_field]['value'])) {
+            // Entity metatag field may contain other entity metatag token
+            // that need to be replaced too.
+            $replaced_value = metatag_token_entitymetatagtoken_replace($metatags, $metatags[$entity_field]['value'], $token_type);
+            $metatags[$metatag]['value'] = str_replace($value, $replaced_value, $metatags[$metatag]['value']);
+          }
         }
       }
     }

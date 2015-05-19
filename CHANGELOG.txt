@@ -38,6 +38,7 @@ By DamienMcKenna: Clarified compatibility with Workbench Moderation.
 #2449425 by DamienMcKenna: Follow-up for select_or_other bug.
 #2415983 by ciss, DamienMcKenna: Core elements not removed when no metatag
   substitute provided.
+#2490846 by DamienMcKenna: Using [metatag] tokens failed if the value was empty.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
