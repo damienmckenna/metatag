@@ -41,6 +41,7 @@ By DamienMcKenna: Clarified compatibility with Workbench Moderation.
 #2490846 by DamienMcKenna: Using [metatag] tokens failed if the value was empty.
 #2466629 by DamienMcKenna, rupertj: Ensure entity is an object before checking
   its language code.
+#2081717 by DamienMcKenna: Added Admin Menu item for flush the Metatag caches.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

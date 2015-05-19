@@ -82,6 +82,9 @@ The primary features include:
 * The Transliteration and Imagecache Token modules (see below) are highly
   recommended when using image meta tags, e.g. og:image.
 
+* Adds an extra item to the "Flush all caches" menu for the Admin Menu module,
+  allowing for a quick way to clear the Metatag module's custom caches.
+
 * Several advanced options may be controlled via the Advanced Settings page.
 
 

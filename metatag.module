@@ -2338,3 +2338,14 @@ function metatag_is_error_page() {
   }
   return '';
 }
+
+/**
+ * Implements hook_admin_menu_cache_info().
+ */
+function metatag_admin_menu_cache_info() {
+  $caches['metatag'] = array(
+    'title' => t('Metatag'),
+    'callback' => 'metatag_config_cache_clear',
+  );
+  return $caches;
+}
