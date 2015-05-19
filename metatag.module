@@ -2062,14 +2062,14 @@ function metatag_config_is_enabled($instance, $include_defaults = FALSE, $includ
  * @param $entity_type
  *   An entity type's machine name.
  * @param $entity
- *   The entity to review;
+ *   The entity to review; will be typecast to an object if an array is passed.
  *
  * @return
  *   A string indicating the language code to be used.
  */
 function metatag_entity_get_language($entity_type, $entity) {
-  // Determine the entity's language.
-  $langcode = entity_language($entity_type, $entity);
+  // Determine the entity's language, af
+  $langcode = entity_language($entity_type, (object) $entity);
 
   // If no matching language was found, which will happen for e.g. terms and
   // users, it is normally recommended to use the system default language.
