@@ -59,6 +59,6 @@ function theme_metatag_google_plus($variables) {
  */
 function metatag_google_plus_preprocess_html(&$variables) {
   if (isset($variables['itemtype']) && !function_exists('zen_preprocess_html')) {
-    $variables['rdf_namespaces'] .= "\n  itemscope itemtype= \"http://schema.org/{$variables['itemtype']}\"";
+    $variables['rdf_namespaces'] .= "\n  itemscope itemtype=\"http://schema.org/{$variables['itemtype']}\"";
   }
 }
