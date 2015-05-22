@@ -352,5 +352,37 @@ function metatag_metatag_info() {
     ),
   );
 
+  $info['tags']['geo.position'] = array(
+    'label' => t('Geo position'),
+    'description' => t('Geo-spatial information in "latitude;longitude" format, e.g. "50.167958;-97.133185"; <a href="http://en.wikipedia.org/wiki/Geotagging#HTML_pages">see Wikipedia for details</a>.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['geo.placename'] = array(
+    'label' => t('Geo place name'),
+    'description' => t("A location's formal name."),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['geo.region'] = array(
+    'label' => t('Geo region'),
+    'description' => t("A location's two-letter international country code, with an optional two-letter region, e.g. \"US-NH\" for New Hampshire in the USA."),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
+  $info['tags']['icbm'] = array(
+    'label' => t('ICBM'),
+    'description' => t('Geo-spatial information in "latitude, longitude" format, e.g. "50.167958, -97.133185"; <a href="http://en.wikipedia.org/wiki/ICBM">see Wikipedia for details</a>.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+  );
+
   return $info;
 }
