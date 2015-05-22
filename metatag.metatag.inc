@@ -266,6 +266,9 @@ function metatag_metatag_info() {
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
+    'replaces' => array(
+      'shorturl',
+    ),
     'devel_generate' => array(
       'type' => 'shortlink',
     ),
