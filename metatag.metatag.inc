@@ -237,6 +237,26 @@ function metatag_metatag_info() {
     'weight' => ++$weight,
   );
 
+  $info['tags']['referrer'] = array(
+    'label' => t('Referrer policy'),
+    'description' => t('Indicate to search engines and other page scrapers whether or not links should be followed. See <a href="http://w3c.github.io/webappsec/specs/referrer-policy/">the W3C specifications</a> for further details.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'select_or_other' => TRUE,
+    'form' => array(
+      '#type' => 'select',
+      '#options' => array(
+        'no-referrer' => t('No Referrer'),
+        'origin' => t('Origin'),
+        'no-referrer-when-downgrade' => t('No Referrer When Downgrade'),
+        'origin-when-cross-origin' => t('Origin When Cross-Origin'),
+        'unsafe-url' => t('Unsafe URL'),
+      ),
+      '#empty_option' => t('- None -'),
+    ),
+    'weight' => ++$weight,
+  );
+
   $info['tags']['generator'] = array(
     'label' => t('Generator'),
     'description' => t("Describes the name and version number of the software or publishing tool used to create the page."),
