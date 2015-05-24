@@ -242,9 +242,12 @@ function metatag_opengraph_metatag_info() {
     ),
   ) + $og_defaults;
 
-  $info['tags']['og:street-address'] = array(
+  $info['tags']['og:street_address'] = array(
     'label' => t('Street address'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:street-address',
+    ),
   ) + $og_defaults;
   $info['tags']['og:locality'] = array(
     'label' => t('Locality'),
@@ -254,13 +257,19 @@ function metatag_opengraph_metatag_info() {
     'label' => t('Region'),
     'weight' => ++$weight,
   ) + $og_defaults;
-  $info['tags']['og:postal-code'] = array(
+  $info['tags']['og:postal_code'] = array(
     'label' => t('Postal/ZIP code'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:postal-code',
+    ),
   ) + $og_defaults;
-  $info['tags']['og:country-name'] = array(
+  $info['tags']['og:country_name'] = array(
     'label' => t('Country name'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:country-name',
+    ),
   ) + $og_defaults;
 
   $info['tags']['og:email'] = array(
