@@ -46,6 +46,7 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
 #2493711 by akoe, DamienMcKenna: Added geo.position, geo.placename, geo.region
   and icbm meta tags.
 #2493395 by das-peter: Google+ itemtype meta tag malformatted.
+#1915926 by DamienMcKenna: Allow multiple fb:admins values.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
