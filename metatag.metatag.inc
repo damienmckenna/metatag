@@ -217,6 +217,26 @@ function metatag_metatag_info() {
     'weight' => ++$weight,
   );
 
+  $info['tags']['rating'] = array(
+    'label' => t('Content rating'),
+    'description' => t('Used to indicate the intended audience for the content.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'select_or_other' => TRUE,
+    'form' => array(
+      '#type' => 'select',
+      '#options' => array(
+        'general' => t('General'),
+        'mature' => t("Mature"),
+        'restricted' => t("Restricted"),
+        '14 years' => t("14 years or Older"),
+        'safe for kids' => t("Safe for kids"),
+      ),
+      '#empty_option' => t('- None -'),
+    ),
+    'weight' => ++$weight,
+  );
+
   $info['tags']['generator'] = array(
     'label' => t('Generator'),
     'description' => t("Describes the name and version number of the software or publishing tool used to create the page."),

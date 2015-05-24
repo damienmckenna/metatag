@@ -49,6 +49,7 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
 #1915926 by DamienMcKenna: Allow multiple fb:admins values.
 #2494271 by DamienMcKenna: og:street_address, og:postal_code, og:country_name
   are incorrect.
+#1498762 by DamienMcKenna: Added the Rating meta tag.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
