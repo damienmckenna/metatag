@@ -64,6 +64,9 @@ The primary features include:
   engine to confirm ownership of the site; see the "Metatag: Verification"
   submodule.
 
+* The MobileOptimized, HandheldFriendly, viewport and cleartype meta tags are
+  available via the Metatag: Mobile submodule.
+
 * An API allowing for additional meta tags to be added, beyond what is provided
   by this module - see metatag.api.php for full details.
 

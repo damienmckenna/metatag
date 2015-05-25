@@ -51,6 +51,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   are incorrect.
 #1498762 by DamienMcKenna: Added the Rating meta tag.
 #2451271 by DamienMcKenna: Added the Referrer meta tag.
+#1285946 by DamienMcKenna: Added metatag_mobile submodule with a few mobile
+  -related meta tags.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
