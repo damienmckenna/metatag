@@ -23,10 +23,16 @@ function metatag_feeds_processor_targets_alter(&$targets, $entity_type, $bundle)
 /**
  * Callback function to set value of a metatag tag.
  */
-function metatag_feeds_set_target($source, $entity, $target, $value) {
+function metatag_feeds_set_target($source, $entity, $target, $values) {
   // Don't do anything if we weren't given any data.
-  if (empty($value)) {
+  if (empty($values)) {
     return;
+  }
+
+  // The Feed API was changed so that the $values are passed as an array rather
+  // than a single value. For backwards compatibility, support both.
+  if (!is_array($values)) {
+    $values = array($values);
   }
 
   // Strip the prefix that was added above.
@@ -61,5 +67,5 @@ function metatag_feeds_set_target($source, $entity, $target, $value) {
 
   // Assign the value.
   $langcode = metatag_entity_get_language($entity_type, $entity);
-  $entity->metatags[$langcode][$name]['value'] = $value;
+  $entity->metatags[$langcode][$name]['value'] = $values[0];
 }

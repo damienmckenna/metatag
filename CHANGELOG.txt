@@ -53,6 +53,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
 #2451271 by DamienMcKenna: Added the Referrer meta tag.
 #1285946 by DamienMcKenna: Added metatag_mobile submodule with a few mobile
   -related meta tags.
+#2475147 by MatthewHager, DamienMcKenna: Fixed Feeds integration after its API
+  changed.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
