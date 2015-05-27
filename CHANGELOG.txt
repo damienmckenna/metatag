@@ -57,6 +57,7 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   changed.
 #2070821 by DamienMcKenna, pounard: Major re-architecture to how supported
   entities are handled.
+#2495877 by DamienMcKenna: Added a Context global config instance.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
