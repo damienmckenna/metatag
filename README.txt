@@ -90,6 +90,9 @@ The primary features include:
 
 * Several advanced options may be controlled via the Settings page.
 
+* An import script is provided in the Metatag:Importer submodule for D6 sites
+  that used Nodewords and need to migrate the data.
+
 
 Configuration
 ------------------------------------------------------------------------------

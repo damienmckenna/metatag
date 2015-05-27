@@ -59,6 +59,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   entities are handled.
 #2495877 by DamienMcKenna: Added a Context global config instance.
 #2495875 by DamienMcKenna: Added a Panels global config instance.
+#1281138 by jantoine, DamienMcKenna, drupalninja99, stuart.crouch, subhojit777,
+  KarlShea: Metatag:Importer submodule for importing data from Nodewords (D6).
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
