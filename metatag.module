@@ -186,7 +186,7 @@ function metatag_menu() {
     'weight' => 10,
   );
   $items['admin/config/search/metatags/settings'] = array(
-    'title' => 'Advanced settings',
+    'title' => 'Settings',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_admin_settings_form'),
     'access arguments' => array('administer meta tags'),
@@ -369,7 +369,6 @@ function metatag_config_delete($instance) {
 function metatag_config_cache_clear() {
   cache_clear_all('*', 'cache_metatag', TRUE);
   drupal_static_reset('metatag_config_load_with_defaults');
-  drupal_static_reset('metatag_entity_has_metatags');
   drupal_static_reset('metatag_entity_supports_metatags');
   ctools_include('export');
   ctools_export_load_object_reset('metatag_config');
@@ -664,22 +663,41 @@ function metatag_entity_load($entities, $entity_type) {
     if (metatag_entity_supports_metatags($entity_type)) {
       // Get the revision_ids.
       $revision_ids = array();
+
+      // Track the entity IDs for values to load.
+      $entity_ids = array();
+
+      // Some entities don't support revisions.
+      $supports_revisions = TRUE;
+
+      // Extract the revision ID and verify the entity's bundle is supported.
       foreach ($entities as $key => $entity) {
-        list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
-        $revision_id = intval($revision_id);
-        if (!empty($revision_id)) {
-          $revision_ids[] = $revision_id;
+        list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+
+        // Verify that each entity bundle supports Metatag.
+        if (metatag_entity_supports_metatags($entity_type, $bundle)) {
+          $entity_ids[] = $entity_id;
+
+          if (!empty($revision_id)) {
+            $revision_ids[] = $revision_id;
+          }
         }
       }
 
-      // Load all meta tags for these entities.
-      $metatags = metatag_metatags_load_multiple($entity_type, array_keys($entities), $revision_ids);
+      // Only proceed if either there were revision IDs identified, or the
+      // entity doesn't support revisions anyway.
+      if (!empty($entity_ids)) {
+        // Load all meta tags for these entities.
+        $metatags = metatag_metatags_load_multiple($entity_type, $entity_ids, $revision_ids);
 
-      // Assign the metatag records for the correct revision ID.
-      foreach ($entities as $entity_id => $entity) {
-        list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
-        $revision_id = intval($revision_id);
-        $entities[$entity_id]->metatags = isset($metatags[$entity_id][$revision_id]) ? $metatags[$entity_id][$revision_id] : array();
+        // Assign the metatag records for the correct revision ID.
+        if (!empty($metatags)) {
+          foreach ($entities as $entity_id => $entity) {
+            list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+            $revision_id = intval($revision_id);
+            $entities[$entity_id]->metatags = isset($metatags[$entity_id][$revision_id]) ? $metatags[$entity_id][$revision_id] : array();
+          }
+        }
       }
     }
   }
@@ -701,7 +719,13 @@ function metatag_entity_load($entities, $entity_type) {
  */
 function metatag_entity_insert($entity, $entity_type) {
   if (isset($entity->metatags)) {
-    list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
+    list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+
+    // Verify that this entity type / bundle is supported.
+    if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
+      return;
+    }
+
     $revision_id = intval($revision_id);
 
     // Determine the entity's language.
@@ -739,11 +763,13 @@ function metatag_entity_insert($entity, $entity_type) {
  * Implements hook_entity_update().
  */
 function metatag_entity_update($entity, $entity_type) {
-  if (!metatag_entity_supports_metatags($entity_type)) {
+  list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+
+  // If this entity object isn't allowed meta tags, don't continue.
+  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
     return;
   }
 
-  list($entity_id, $revision_id) = entity_extract_ids($entity_type, $entity);
   $revision_id = intval($revision_id);
 
   if (isset($entity->metatags)) {
@@ -873,13 +899,14 @@ function metatag_entity_view($entity, $entity_type, $view_mode, $langcode, $forc
  *   A renderable array of metatags for the given entity.
  */
 function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NULL, $view_mode = 'full', $cached = TRUE) {
-  // If this entity object isn't allowed meta tags, don't continue.
-  if (!metatag_entity_has_metatags($entity_type, $entity)) {
-    return array();
-  }
-
   // Obtain some details of the entity that are needed elsewhere.
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+
+  // If this entity object isn't allowed meta tags, don't continue.
+  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
+    return;
+  }
+
   $revision_id = intval($revision_id);
 
   // Check if a specific metatag config exists, otherwise just use the global
@@ -1322,140 +1349,117 @@ function metatag_field_extra_fields() {
 }
 
 /**
- * Check if an individual entity has meta tags defined, or has defaults.
- *
- * @param string $entity_type
- *   An entity type.
- * @param object $entity
- *   An entity object.
- *
- * @return boolean
- *   TRUE or FALSE if the entity should have a form for or process meta tags.
- */
-function metatag_entity_has_metatags($entity_type, $entity) {
-  // If an entity has custom meta tags assigned, then we should return TRUE.
-  if (!empty($entity->metatags)) {
-    return TRUE;
-  }
-
-  // Otherwise, check to see if there exists any enabed configuration for
-  // either the entity type, or bundle (even if the configuration is empty).
-  // If no configuration exists, then we should not be displaying the meta tag
-  // forms or processing meta tags on entity view.
-  $config_exists = &drupal_static(__FUNCTION__, array());
-  list( , , $bundle) = entity_extract_ids($entity_type, $entity);
-  // Do not pretend to have metatags when the bundle does not support them.
-  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
-    return FALSE;
-  }
-  $instance = "{$entity_type}:{$bundle}";
-  if (!isset($config_exists[$instance])) {
-    // Check if the intstance or its parents (excluding global) are enabled.
-    $config_exists[$instance] = metatag_config_is_enabled($instance, TRUE, FALSE);
-  }
-
-  return !empty($config_exists[$instance]);
-}
-
-/**
  * Check whether the requested entity type (and bundle) support metatag.
  *
- * By default this will be FALSE, support has to be specifically enabled by
- * assigning 'metatag' => TRUE within the hook_entity_info() definition for the
- * entity.
+ * Support may be specifically enabled by assigning 'metatag' => TRUE or
+ * 'metatags' = TRUE within the hook_entity_info() definition for the entity,
+ * or it may be controlled via the Settings form.
  */
 function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
   $entity_types = &drupal_static(__FUNCTION__);
 
+  // Identify which entities & bundles are supported the first time the
+  // function is called.
   if (!isset($entity_types)) {
-    $entity_types = array();
-  }
+    foreach (entity_get_info() as $entity_name => $entity_info) {
+      // Verify that this entity type is suitable.
+      $entity_types[$entity_name] = metatag_entity_type_is_suitable($entity_name, $entity_info);
 
-  // Everything else depends upon a specific entity type being checked.
-  if (isset($entity_type)) {
-    if (!isset($entity_types[$entity_type])) {
-      $entity_info = entity_get_info($entity_type);
-      if (empty($entity_info['metatags'])) {
-        $entity_types[$entity_type] = FALSE;
-      }
-      else {
-        $entity_types[$entity_type] = array();
-        foreach ($entity_info['bundles'] as $bundle_key => $bundle_info) {
-          $entity_types[$entity_type][$bundle_key] = !isset($bundle_info['metatags']) || !empty($bundle_info['metatags']);
+      // The entity type technically supports entities.
+      if (!empty($entity_types[$entity_name])) {
+        // Entiy types are enabled by default.
+        // Allow entities to be disabled by assigning a variable
+        // 'metatag_enable_{$entity_type}' the value FALSE, e.g.:
+        //
+        // // Disable metatags for file_entity.
+        // $conf['metatag_enable_file'] = FALSE;
+        //
+        // @see Settings page.
+        if (variable_get('metatag_enable_' . $entity_name, 'monkey') == FALSE) {
+          $entity_types[$entity_name] = FALSE;
+        }
+
+        // Check each bundle.
+        else {
+          $entity_types[$entity_name] = array();
+          foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+            // Allow bundles to be disabled by assigning a variable
+            // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
+            //
+            // // Disable metatags for carousel nodes.
+            // $conf['metatag_enable_node__carousel'] = FALSE;
+            //
+            // @see Settings page.
+            if (variable_get('metatag_enable_' . $entity_name . '__' . $bundle_name, 'monkey') == FALSE) {
+              $entity_types[$entity_name][$bundle_name] = FALSE;
+            }
+            else {
+              $entity_types[$entity_name][$bundle_name] = TRUE;
+            }
+          }
         }
       }
     }
-
-    // If a specific entity bundle is being compared, check it first.
-    if (isset($bundle)) {
-      // Allow entities to be disabled by assigning a variable
-      // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
-      //
-      // // Disable metatags for carousel nodes.
-      // $conf['metatag_enable_node__carousel'] = FALSE;
-      //
-      // @see Advanced settings page.
-      if (variable_get('metatag_enable_' . $entity_type . '__' . $bundle, 'monkey') == FALSE) {
-        return FALSE;
-      }
-
-      return isset($entity_types[$entity_type][$bundle]) ? $entity_types[$entity_type][$bundle] : FALSE;
-    }
-
-    // Otherwise check the entity type itself.
-    else {
-      // Allow entities to be disabled by assigning a variable
-      // 'metatag_enable_{$entity_type}' the value FALSE, e.g.:
-      //
-      // // Disable metatags for file_entity.
-      // $conf['metatag_enable_file'] = FALSE;
-      //
-      // @see Advanced settings page.
-      if (variable_get('metatag_enable_' . $entity_type, 'monkey') == FALSE) {
-        return FALSE;
-      }
-
-      return isset($entity_types[$entity_type]) ? ($entity_types[$entity_type] !== FALSE) : FALSE;
-    }
   }
 
+  // It was requested to check a specific entity.
+  if (isset($entity_type)) {
+    // It was also requested to check a specific bundle for this entity.
+    if (isset($bundle)) {
+      $supported = !empty($entity_types[$entity_type][$bundle]);
+    }
+
+    // Check the entity.
+    else {
+      $supported = !empty($entity_types[$entity_type]);
+    }
+
+    return $supported;
+  }
+
+  // If nothing specific was requested, return the complete list of supported
+  // entities & bundles.
   return $entity_types;
 }
 
 /**
- * Implements hook_entity_info_alter().
+ * Enable support for a specific entity type.
  *
- * Enables Metatag support for the core entities.
+ * @param string $entity_type
+ * @param string $bundle
  */
-function metatag_entity_info_alter(&$info) {
-  $defaults['node'] = array(
-    'path' => 'node/%node',
-    'metatags' => TRUE,
-  );
-  $defaults['user'] = array(
-    'path' => 'user/%user',
-    'metatags' => TRUE,
-  );
-  $defaults['taxonomy_term'] = array(
-    'path' => 'taxonomy/term/%taxonomy_term',
-    'metatags' => TRUE,
-  );
-
-  // Just running taxonomy_vocabulary_load() here would cause problems for
-  // EntityCache in certain circumstances, so instead the query is executed
-  // directly instead.
-  if (module_exists('forum') && ($vocab_id = variable_get('forum_nav_vocabulary', 0))) {
-    $vocab_name = db_query("SELECT machine_name FROM {taxonomy_vocabulary} WHERE vid = :vid", array(':vid' => $vocab_id))->fetchField();
-    if (!empty($vocab_name)) {
-      $defaults['taxonomy_term']['bundles'][$vocab_name]['path'] = 'forum/%taxonomy_term';
-    }
+function metatag_entity_type_enable($entity_type, $bundle = NULL) {
+  // The bundle was defined.
+  if (isset($bundle)) {
+    variable_set('metatag_enable_' . $entity_type . '__' . $bundle, TRUE);
+  }
+  // The bundle was not defined.
+  else {
+    variable_set('metatag_enable_' . $entity_type, TRUE);
   }
 
-  foreach ($defaults as $key => $entity_defaults) {
-    if (isset($info[$key])) {
-      $info[$key] = drupal_array_merge_deep($entity_defaults, $info[$key]);
-    }
+  // Clear the static cache so that the entity type / bundle will work.
+  drupal_static_reset('metatag_entity_supports_metatags');
+}
+
+/**
+ * Disable support for a specific entity type.
+ *
+ * @param string $entity_type
+ * @param string $bundle
+ */
+function metatag_entity_type_disable($entity_type, $bundle = NULL) {
+  // The bundle was defined.
+  if (isset($bundle)) {
+    variable_set('metatag_enable_' . $entity_type . '__' . $bundle, FALSE);
   }
+  // The bundle was not defined.
+  else {
+    variable_set('metatag_enable_' . $entity_type, FALSE);
+  }
+
+  // Clear the static cache so that the entity type / bundle will work.
+  drupal_static_reset('metatag_entity_supports_metatags');
 }
 
 /**
@@ -1655,15 +1659,17 @@ function metatag_field_attach_delete_bundle($entity_type, $bundle) {
  * Implements hook_field_attach_form().
  */
 function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
-  if (!metatag_entity_has_metatags($entity_type, $entity)) {
-    return;
-  }
   // Entity_Translation will trigger this hook again, skip it.
   if (!empty($form_state['entity_translation']['is_translation'])) {
     return;
   }
 
   list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+
+  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
+    return;
+  }
+
   $instance = "{$entity_type}:{$bundle}";
 
   // Grab the meta tags for display in the form if there are any.
@@ -2348,4 +2354,36 @@ function metatag_admin_menu_cache_info() {
     'callback' => 'metatag_config_cache_clear',
   );
   return $caches;
+}
+
+/**
+ * Identify whether an entity type is technically capable of having meta tags.
+ *
+ * In order to be capable of having meta tags, an entity type must have view
+ * modes and may not be a configuration entity.
+ *
+ * @param string $entity_type
+ * @param array $entity_info
+ *
+ * @return bool
+ */
+function metatag_entity_type_is_suitable($entity_type, $entity_info = array()) {
+  $suitable = TRUE;
+
+  // If the entity info was not passed along, load it.
+  if (empty($entity_info)) {
+    $entity_info = entity_get_info($entity_type);
+  }
+
+  // Configuration entities may not have meta tags.
+  if (isset($entity_info['configuration']) && $entity_info['configuration'] == TRUE) {
+    $suitable = FALSE;
+  }
+
+  // There must be view modes.
+  elseif (empty($entity_info['view modes'])) {
+    $suitable = FALSE;
+  }
+
+  return $suitable;
 }

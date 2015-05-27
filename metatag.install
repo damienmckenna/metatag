@@ -257,6 +257,59 @@ function metatag_schema() {
  */
 function metatag_install() {
   drupal_set_message(t("Thank you for installing the Metatag module. It is recommended to read the module's <a href=\"!url\" title=\"Read the Metatag module's documentation\">README.txt</a> file as there are some known issues that may affect this site.", array('!url' => url(drupal_get_path('module', 'metatag') . '/README.txt'))));
+
+  // Enable reasonable defaults.
+
+  // Verify that this function exists, it's needed.
+  if (function_exists('entity_info')) {
+    foreach (entity_info() as $entity_type => $entity_info) {
+      $variable_name = 'metatag_enable_' . $entity_type;
+
+      // Configuration entities are skipped.
+      if (isset($entity_info['configuration']) && $entity_info['configuration'] == TRUE) {
+        continue;
+      }
+
+      // Entities without view modes are skipped.
+      elseif (empty($entity_info['view modes'])) {
+        continue;
+      }
+
+      // Disable some entities automatically.
+      elseif (in_array($entity_type, array('comment', 'file', 'fieldable_panels_pane'))) {
+        variable_set($variable_name, FALSE);
+      }
+
+      // Anything else can be enabled.
+      else {
+        // Verify the variable wasn't defined before.
+        if (variable_get($variable_name, 'monkey') != 'monkey') {
+          variable_set($variable_name, TRUE);
+        }
+        foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+          $variable_name = 'metatag_enable_' . $entity_type . '__' . $bundle_name;
+          if (variable_get($variable_name, 'monkey') != 'monkey') {
+            variable_set($variable_name, TRUE);
+          }
+        }
+      }
+    }
+  }
+  // If entity_info() isn't available then this is probably a simpletest, so
+  // preload some variables.
+  else {
+    // Disable Metatag support for some entities that don't usually need it.
+    variable_set('metatag_enable_comment', FALSE);
+    variable_set('metatag_enable_fieldable_panels_pane', FALSE);
+    variable_set('metatag_enable_file', FALSE);
+
+    // Enable Metatag support for entity types that usally expect it.
+    variable_set('metatag_enable_node', TRUE);
+    variable_set('metatag_enable_taxonomy_term', TRUE);
+    variable_set('metatag_enable_user', TRUE);
+  }
+
+  drupal_set_message(t('It may be worth verifying on the <a href="@url">Settings page</a> which types of content on the site should allow meta tags.', array('@url' => url('admin/config/search/metatags/settings'))));
 }
 
 /**
@@ -289,6 +342,16 @@ function metatag_uninstall() {
 
   // Optionally disables the output cache.
   variable_del('metatag_cache_output');
+
+  // Remove all possible 'enable' variables.
+  foreach (entity_info() as $entity_type => $entity_info) {
+    variable_del('metatag_enable_' . $entity_type);
+    if (!empty($entity_info['bundles'])) {
+      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+        variable_del('metatag_enable_' . $entity_type . '__' . $bundle_name);
+      }
+    }
+  }
 }
 
 /**
@@ -1445,7 +1508,7 @@ function metatag_update_7027() {
 }
 
 /**
- * Clear the menu cache so the new Advanced Settings page will be picked up.
+ * Clear the menu cache so the new Settings page will be picked up.
  */
 function metatag_update_7028() {
   variable_set('menu_rebuild_needed', TRUE);
@@ -1557,4 +1620,82 @@ function metatag_update_7033() {
 function metatag_update_7034() {
 }
 function metatag_update_7035() {
+}
+
+/**
+ * Update variables to indicate which entities should be supported.
+ */
+function metatag_update_7036() {
+  foreach (entity_info() as $entity_type => $entity_info) {
+    $variable_name = 'metatag_enable_' . $entity_type;
+
+    // Configuration entities are skipped.
+    if (isset($entity_info['configuration']) && $entity_info['configuration'] == TRUE) {
+      continue;
+    }
+
+    // Entities without view modes are skipped.
+    elseif (empty($entity_info['view modes'])) {
+      continue;
+    }
+
+    // Basic core entities or "normal" entities that have been enabled via the
+    // API.
+    elseif (in_array($entity_type, array('node', 'taxonomy_term', 'user')) ||
+      !empty($entity_info['metatag']) || !empty($entity_info['metatags'])) {
+      // Check if the entity type has been enabled or disabled previously; if
+      // the variable equals a junk value then it was not previously set,
+      // therefore we'll set a default.
+      if (variable_get($variable_name, 'monkey') == 'monkey') {
+        // By default these entity types are enabled.
+        variable_set($variable_name, TRUE);
+        // Check each entity bundle.
+        if (!empty($entity_info['bundles'])) {
+          foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+            $variable_name = 'metatag_enable_' . $entity_type . '__' . $bundle_name;
+            // Check if the bundle has been enabled or disabled previously; if
+            // the variable equals a junk value then it was not previously set,
+            // therefore we'll set a default.
+            if (variable_get($variable_name, 'monkey') == 'monkey') {
+              if (!empty($bundle_info['metatag']) || !empty($bundle_info['metatags'])) {
+                variable_set($variable_name, TRUE);
+              }
+              else {
+                variable_set($variable_name, FALSE);
+              }
+            }
+            // This variable was set before.
+            else {
+              // Do nothing.
+            }
+          }
+        }
+      }
+      // This variable was set before.
+      else {
+        // Do nothing.
+      }
+    }
+
+    // Disable this entity type.
+    else {
+      variable_set($variable_name, FALSE);
+    }
+  }
+
+  // Clear the caches.
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  drupal_static_reset('metatag_config_load_with_defaults');
+  drupal_static_reset('metatag_entity_supports_metatags');
+  ctools_include('export');
+  ctools_export_load_object_reset('metatag_config');
+
+  drupal_set_message(t('The way that Metatag tracks which entity types are compatible has changed. Please review the <a href="@url">Settings page</a> to ensure that all of the entity types are enabled correctly.', array('@url' => 'admin/config/search/metatags/settings')));
+}
+
+/**
+ * Clear the menu cache so the renamed Settings page will be picked up.
+ */
+function metatag_update_7037() {
+  variable_set('menu_rebuild_needed', TRUE);
 }

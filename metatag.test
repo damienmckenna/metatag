@@ -53,6 +53,9 @@ class MetaTagsNodeUITest extends MetaTagsTestHelper {
       'name' => 'Test',
     ));
 
+    // Enable meta tags for this new content type.
+    metatag_entity_type_enable('node', 'metatag_test');
+
     // Create an admin-level user.
     $this->adminUser = $this->drupalCreateUser(array(
       'administer meta tags',
@@ -87,16 +90,18 @@ class MetaTagsNodeUITest extends MetaTagsTestHelper {
     // Verify that the node saved correctly.
     $xpath = $this->xpath("//h1");
     $t_args = array('@type' => 'Test', '%title' => 'Who likes magic');
-    $this->assertText(strip_tags(t('@type %title has been created.', $t_args)));
     // This doesn't work for some reason, it seems the HTML is stripped off
     // during output so the %title's standard Drupal wrappers don't match.
     // $this->assertText(t('@type %title has been created.', $t_args));
+    // .. so this has to be done instead.
+    $this->assertText(strip_tags(t('@type %title has been created.', $t_args)));
 
     // Verify the node data saved correctly.
     $matches = array();
     if (preg_match('@node/(\d+)$@', $this->getUrl(), $matches)) {
       $nid = end($matches);
       $node = node_load($nid);
+
       // Only the non-default values are stored.
       $expected = array(
         'und' => array(
@@ -170,31 +175,33 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
     $test_cases[6] = array('type' => 'taxonomy_term', 'bundle' => 'invalid-bundle', 'expected' => FALSE);
     foreach ($test_cases as $test_case) {
       $test_case += array('bundle' => NULL);
-      $this->assertMetatagEntityHasMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
+      $this->assertMetatagEntitySupportsMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
     }
 
-    variable_set('metatag_test_entity_info_disable', TRUE);
-    drupal_static_reset('metatag_entity_has_metatags');
-    drupal_static_reset('metatag_entity_supports_metatags');
-    entity_info_cache_clear();
+    // variable_set('metatag_test_entity_info_disable', TRUE);
+    // Enable meta tags for this new content type.
+    metatag_entity_type_disable('node', 'page');
+    metatag_entity_type_disable('user');
+    // drupal_static_reset('metatag_entity_supports_metatags');
+    // entity_info_cache_clear();
 
     $test_cases[2]['expected'] = FALSE;
     $test_cases[4]['expected'] = FALSE;
     $test_cases[6]['expected'] = FALSE;
     foreach ($test_cases as $test_case) {
       $test_case += array('bundle' => NULL);
-      $this->assertMetatagEntityHasMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
+      $this->assertMetatagEntitySupportsMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
     }
   }
 
-  function assertMetatagEntityHasMetatags($entity_type, $bundle, $expected) {
+  function assertMetatagEntitySupportsMetatags($entity_type, $bundle, $expected) {
     $entity = entity_create_stub_entity($entity_type, array(0, NULL, $bundle));
     return $this->assertEqual(
-      metatag_entity_has_metatags($entity_type, $entity),
+      metatag_entity_supports_metatags($entity_type, $bundle),
       $expected,
-      t("metatag_entity_has_metatags(:type, :entity) is :expected", array(
+      t("metatag_entity_supports_metatags(:type, :bundle) is :expected", array(
         ':type' => var_export($entity_type, TRUE),
-        ':entity' => var_export($entity, TRUE),
+        ':bundle' => var_export($bundle, TRUE),
         ':expected' => var_export($expected, TRUE),
       ))
     );

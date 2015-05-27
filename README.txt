@@ -88,7 +88,7 @@ The primary features include:
 * Adds an extra item to the "Flush all caches" menu for the Admin Menu module,
   allowing for a quick way to clear the Metatag module's custom caches.
 
-* Several advanced options may be controlled via the Advanced Settings page.
+* Several advanced options may be controlled via the Settings page.
 
 
 Configuration
@@ -107,16 +107,20 @@ Configuration
     assigned specifically for the front page:
       admin/config/search/metatags
 
- 3. In order to provide a specific configuration per entity bundle (content
+ 3. The list of supported entity types (nodes, taxonomy terms, etc) and bundles
+    (content types, vocabularies, etc) may be controlled from the Settings page:
+      admin/config/search/metatags/settings
+
+ 4. In order to provide a specific configuration per entity bundle (content
     type, vocabulary, etc), click "Add a Metatag default".
 
- 4. Each supported entity object (nodes, terms, users) will have a set of meta
+ 5. Each supported entity object (nodes, terms, users) will have a set of meta
     tag fields available for customization on their respective edit page, these
     will inherit their values from the defaults assigned in #2 above. Any
     values that are not overridden per object will automatically update should
     the defaults be updated.
 
- 5. As the meta tags are output using Tokens, it may be necessary to customize
+ 6. As the meta tags are output using Tokens, it may be necessary to customize
     the token display for the site's entities (content types, vocabularies,
     etc). To do this go to e.g., admin/structure/types/manage/article/display,
     in the "Custom Display Settings" section ensure that "Tokens" is checked
@@ -161,20 +165,24 @@ admin/config/search/metatags/settings
   required otherwise none of the meta tag fields will display at all. The
   functionality may be disabled again by either removing the variable or
   setting it to FALSE.
-* It's possible to disable Metatag integration for certain entity types or
-  bundles using variables. To disable an entity just assigning a variable
-  'metatag_enable_{$entity_type}' or 'metatag_enable_{$entity_type}__{$bundle}'
-  the value FALSE, e.g.:
-    // Disable metatags for file_entity.
+* Each entity type (nodes, terms, users, etc) & bundle (content types,
+  vocabularies, etc) may have its Metatag integration enabled & disabled from
+  the Settings page.
+  These UI options correspond to variables. To enable an entity or bundle just
+  assign a variable 'metatag_enable_{$entity_type}' or
+  'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
+    // Disable metatags for files (file_entity module).
     $conf['metatag_enable_file'] = FALSE;
-    // Disable metatags for carousel nodes.
+    // Disable metatags for carousel nodes, but leave it enabled for all other
+    // content types.
     $conf['metatag_enable_node__carousel'] = FALSE;
   To enable the entity and/or bundle simply set the value to TRUE or remove the
   settings.php line. Note that the Metatag cache will need to be cleared after
   changing these settings, specifically the 'info' records, e.g., 'info:en'; a
   quick version of doing this is to clear the site caches using either Drush,
-  Admin Menu (flush all caches), or the "Clear all caches" button on
-  admin/config/development/performance.
+  Admin Menu (flush all caches -> Metatag), or the "Clear all caches" button on
+  admin/config/development/performance. Changing these from the Settings page
+  automatically clears the cache.
 * By default Metatag will not display meta tags on admin pages. To enable meta
   tags on admin pages simply set the 'metatag_tag_admin_pages' variable to TRUE
   through one of the following methods:
@@ -188,9 +196,9 @@ admin/config/search/metatags/settings
   meta tag values saved for that language will be used if they exist, otherwise
   values assigned to the entity's default language will be used. This
   may be disabled using the enabling the "Don't load entity's default language
-  values if no languages match" option on the Advanced Settings page, which will
-  cause default values to be used should there not be any values assigned for
-  the current requested language.
+  values if no languages match" option on the Settings page, which will cause
+  default values to be used should there not be any values assigned for the
+  current requested language.
 * When using Features to export Metatag configurations, it is suggested to
   override all of the default configurations and then disable the default
   configurations via the advanced settings page; doing so will avoid potential
@@ -198,20 +206,20 @@ admin/config/search/metatags/settings
   and the new Features-based modules.
 * By default all meta tag output for individual entities will be cached in a
   separate cache table. This may be disabled by unchecking the "Cache meta tag
-  output" option on the Advanced Settings page, which will cause all meta tags
-  for entities to be generated uniquely for each page load. Note: the
-  entity configuration and output for other types of pages will still be
-  cached, but this can stop the {cache_metatag} table from growing out of
-  control in some scenarios.
+  output" option on the Settings page, which will cause all meta tags for
+  entities to be generated uniquely for each page load. Note: the entity
+  configuration and output for other types of pages will still be cached, but
+  this can stop the {cache_metatag} table from growing out of control in some
+  scenarios.
 
 
 Developers
 ------------------------------------------------------------------------------
 Full API documentation is available in metatag.api.php.
 
-To enable Metatag support in custom entities, add 'metatag' => TRUE to either
-the entity or bundle definition in hook_entity_info(); see metatag.api.php for
-further details and example code.
+It is not necessary to control Metatag via the entity API, any entity that has
+view modes defined and is not a configuration entity is automatically suitable
+for use.
 
 The meta tags for a given entity object (node, etc) can be obtained as follows:
   $metatags = metatags_get_entity_metatags($entity_id, $entity_type, $langcode);
