@@ -55,6 +55,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   -related meta tags.
 #2475147 by MatthewHager, DamienMcKenna: Fixed Feeds integration after its API
   changed.
+#2070821 by DamienMcKenna, pounard: Major re-architecture to how supported
+  entities are handled.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
@@ -168,8 +170,7 @@ By DamienMcKenna: Support Twitter Cards fieldset in Metatag:Context.
   entity directly rather than via entity form.
 By DamienMcKenna: Corrected the namespace prefix for OG video meta tags.
 #2186155 by DamienMcKenna: Follow-up to fix a number of scenarios.
-#2070821 by DamienMcKenna, pounard: Major re-architecture to how supported
-  entities are handled.
+
 
 
 Metatag 7.x-1.0-rc2, 2014-08-05
