@@ -65,6 +65,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   saved or deleted.
 #2496487 by DamienMcKenna: The function is called entity_get_info(), not
   entity_info().
+#2103321 by mistermoper, DamienMcKenna: Added 24 more Open Graph meta tags for
+  managing product information.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
