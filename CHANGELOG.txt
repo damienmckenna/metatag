@@ -63,6 +63,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   KarlShea: Metatag:Importer submodule for importing data from Nodewords (D6).
 #2376921 by DamienMcKenna: Trigger an entity cache clear when meta tags are
   saved or deleted.
+#2496487 by DamienMcKenna: The function is called entity_get_info(), not
+  entity_info().
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

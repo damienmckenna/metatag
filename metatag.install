@@ -262,7 +262,7 @@ function metatag_install() {
 
   // Verify that this function exists, it's needed.
   if (function_exists('entity_info')) {
-    foreach (entity_info() as $entity_type => $entity_info) {
+    foreach (entity_get_info() as $entity_type => $entity_info) {
       $variable_name = 'metatag_enable_' . $entity_type;
 
       // Configuration entities are skipped.
@@ -295,7 +295,7 @@ function metatag_install() {
       }
     }
   }
-  // If entity_info() isn't available then this is probably a simpletest, so
+  // If entity_get_info() isn't available then this is probably a simpletest, so
   // preload some variables.
   else {
     // Disable Metatag support for some entities that don't usually need it.
@@ -344,7 +344,7 @@ function metatag_uninstall() {
   variable_del('metatag_cache_output');
 
   // Remove all possible 'enable' variables.
-  foreach (entity_info() as $entity_type => $entity_info) {
+  foreach (entity_get_info() as $entity_type => $entity_info) {
     variable_del('metatag_enable_' . $entity_type);
     if (!empty($entity_info['bundles'])) {
       foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
@@ -1626,7 +1626,7 @@ function metatag_update_7035() {
  * Update variables to indicate which entities should be supported.
  */
 function metatag_update_7036() {
-  foreach (entity_info() as $entity_type => $entity_info) {
+  foreach (entity_get_info() as $entity_type => $entity_info) {
     $variable_name = 'metatag_enable_' . $entity_type;
 
     // Configuration entities are skipped.
