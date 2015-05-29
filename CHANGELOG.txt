@@ -67,6 +67,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   entity_info().
 #2103321 by mistermoper, DamienMcKenna: Added 24 more Open Graph meta tags for
   managing product information.
+#2085747 by DamienMcKenna: Added twelve favicon varieties to a new submodule,
+  Metatag: Favicons.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
