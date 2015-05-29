@@ -75,6 +75,8 @@ By DamienMcKenna: Removed message from metatag_opengraph_install() warning about
   output.
 #2156653 by mitsuroseba, undertext, asgorobets, DamienMcKenna: Added a custom
   pane for adding the meta tags fieldset to a node form customized via Panels.
+#2496487 by DamienMcKenna: Follow-up on previous commit, remove unneeded
+  function_exists() call.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02

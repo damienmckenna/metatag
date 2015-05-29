@@ -259,54 +259,37 @@ function metatag_install() {
   drupal_set_message(t("Thank you for installing the Metatag module. It is recommended to read the module's <a href=\"!url\" title=\"Read the Metatag module's documentation\">README.txt</a> file as there are some known issues that may affect this site.", array('!url' => url(drupal_get_path('module', 'metatag') . '/README.txt'))));
 
   // Enable reasonable defaults.
+  foreach (entity_get_info() as $entity_type => $entity_info) {
+    $variable_name = 'metatag_enable_' . $entity_type;
 
-  // Verify that this function exists, it's needed.
-  if (function_exists('entity_info')) {
-    foreach (entity_get_info() as $entity_type => $entity_info) {
-      $variable_name = 'metatag_enable_' . $entity_type;
+    // Configuration entities are skipped.
+    if (isset($entity_info['configuration']) && $entity_info['configuration'] == TRUE) {
+      continue;
+    }
 
-      // Configuration entities are skipped.
-      if (isset($entity_info['configuration']) && $entity_info['configuration'] == TRUE) {
-        continue;
+    // Entities without view modes are skipped.
+    elseif (empty($entity_info['view modes'])) {
+      continue;
+    }
+
+    // Disable some entities automatically.
+    elseif (in_array($entity_type, array('comment', 'file', 'fieldable_panels_pane'))) {
+      variable_set($variable_name, FALSE);
+    }
+
+    // Anything else can be enabled.
+    else {
+      // Verify the variable wasn't defined before.
+      if (variable_get($variable_name, 'monkey') != 'monkey') {
+        variable_set($variable_name, TRUE);
       }
-
-      // Entities without view modes are skipped.
-      elseif (empty($entity_info['view modes'])) {
-        continue;
-      }
-
-      // Disable some entities automatically.
-      elseif (in_array($entity_type, array('comment', 'file', 'fieldable_panels_pane'))) {
-        variable_set($variable_name, FALSE);
-      }
-
-      // Anything else can be enabled.
-      else {
-        // Verify the variable wasn't defined before.
+      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+        $variable_name = 'metatag_enable_' . $entity_type . '__' . $bundle_name;
         if (variable_get($variable_name, 'monkey') != 'monkey') {
           variable_set($variable_name, TRUE);
         }
-        foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
-          $variable_name = 'metatag_enable_' . $entity_type . '__' . $bundle_name;
-          if (variable_get($variable_name, 'monkey') != 'monkey') {
-            variable_set($variable_name, TRUE);
-          }
-        }
       }
     }
-  }
-  // If entity_get_info() isn't available then this is probably a simpletest, so
-  // preload some variables.
-  else {
-    // Disable Metatag support for some entities that don't usually need it.
-    variable_set('metatag_enable_comment', FALSE);
-    variable_set('metatag_enable_fieldable_panels_pane', FALSE);
-    variable_set('metatag_enable_file', FALSE);
-
-    // Enable Metatag support for entity types that usally expect it.
-    variable_set('metatag_enable_node', TRUE);
-    variable_set('metatag_enable_taxonomy_term', TRUE);
-    variable_set('metatag_enable_user', TRUE);
   }
 
   drupal_set_message(t('It may be worth verifying on the <a href="@url">Settings page</a> which types of content on the site should allow meta tags.', array('@url' => url('admin/config/search/metatags/settings'))));
