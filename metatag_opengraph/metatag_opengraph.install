@@ -36,16 +36,6 @@ function metatag_opengraph_requirements($phase) {
 }
 
 /**
- * Implements hook_install().
- */
-function metatag_opengraph_install() {
-  // Display a warning about possible conflicts with the RDF module.
-  if (module_exists('rdf')) {
-    drupal_set_message(t('The core RDF module is known to cause validation problems for Open Graph meta tags. Unless it is actually needed for the site, it may be worthwhile to disable the RDF module to avoid any possible problems for the Open Graph integration.'));
-  }
-}
-
-/**
  * Implementations of hook_update_N().
  */
 

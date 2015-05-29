@@ -69,6 +69,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   managing product information.
 #2085747 by DamienMcKenna: Added twelve favicon varieties to a new submodule,
   Metatag: Favicons.
+By DamienMcKenna: Removed message from metatag_opengraph_install() warning about
+  compatibility with the RDF module, which is no longer applicable.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
