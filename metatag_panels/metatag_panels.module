@@ -128,6 +128,13 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
     return;
   }
 
+  // Substitute Panels context variables.
+  foreach ($metatags as $metatag => &$data) {
+    if (is_string($data['value']) && strpos($data['value'], '%') !== FALSE) {
+      $data['value'] = ctools_context_keyword_substitute($data['value'], array(), $context['handler']->conf['display']->context);
+    }
+  }
+
   // Get the contexts that exist within this panel.
   ctools_include('context-task-handler');
   $task_object = ctools_context_handler_get_task_object($context['task'], $context['subtask'], $context['handler']);

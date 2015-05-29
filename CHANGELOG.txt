@@ -71,6 +71,8 @@ By DamienMcKenna: Noted that the 'shortlink' meta tag replaces 'shorturl'.
   Metatag: Favicons.
 By DamienMcKenna: Removed message from metatag_opengraph_install() warning about
   compatibility with the RDF module, which is no longer applicable.
+#2408211 by infinet, MatthewHager: Context substitution added to Metatag: Panels
+  output.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
