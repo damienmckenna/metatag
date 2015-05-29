@@ -57,6 +57,15 @@ function metatag_ctools_plugin_api($owner, $api) {
 }
 
 /**
+ * Implements hook_ctools_plugin_directory().
+ */
+function metatag_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' && $plugin_type == 'content_types') {
+    return "plugins/$plugin_type";
+  }
+}
+
+/**
  * Implements hook_hook_info().
  */
 function metatag_hook_info() {

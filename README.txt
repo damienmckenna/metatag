@@ -91,6 +91,11 @@ The primary features include:
 * Adds an extra item to the "Flush all caches" menu for the Admin Menu module,
   allowing for a quick way to clear the Metatag module's custom caches.
 
+* A custom pane, called "Node form meta tags", is available for adding the meta
+  tags fieldset when the node_edit page is customized using Panels; the
+  Metatag: Panels submodule does not need to be enabled in order for this to
+  work.
+
 * Several advanced options may be controlled via the Settings page.
 
 * An import script is provided in the Metatag:Importer submodule for D6 sites
