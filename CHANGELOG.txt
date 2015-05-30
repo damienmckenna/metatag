@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.5, 2015-05-29
 ---------------------------
 #2442183 by DamienMcKenna, jwilson: Mention the Image URL Formatter module in
