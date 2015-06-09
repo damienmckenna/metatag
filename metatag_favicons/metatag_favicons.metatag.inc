@@ -27,6 +27,18 @@ function metatag_favicons_metatag_info() {
     'context' => array('global'),
   );
 
+  $info['tags']['icon_any'] = array(
+    'label' => t('Icon: SVG'),
+    'description' => t('Either an absolute or a relative URL to a scalable vector graphic (SVG) file.'),
+    'weight' => ++$weight,
+    'element' => array(
+      '#rel' => 'icon',
+      '#sizes' => 'any',
+      '#theme' => 'metatag_favicon',
+      '#mask' => 'mask',
+    ),
+  ) + $favicon_defaults;
+
   $info['tags']['icon_16x16'] = array(
     'label' => t('Icon: 16px x 16px'),
     'description' => t('Either an absolute or a relative URL to a PNG image that is 16px wide by 16px high.'),

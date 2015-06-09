@@ -36,6 +36,7 @@ function theme_metatag_favicon($variables) {
     '#rel' => 'rel',
     '#value' => 'href',
     '#sizes' => 'sizes',
+    '#mask' => 'mask',
   );
   element_set_attributes($element, $args);
   unset($element['#value']);
