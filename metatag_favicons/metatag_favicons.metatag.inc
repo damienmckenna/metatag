@@ -29,7 +29,7 @@ function metatag_favicons_metatag_info() {
 
   $info['tags']['icon_any'] = array(
     'label' => t('Icon: SVG'),
-    'description' => t('Either an absolute or a relative URL to a scalable vector graphic (SVG) file.'),
+    'description' => t('Either an absolute or a relative URL to a grayscale scalable vector graphic (SVG) file. To color the icon, use the "theme color" meta tag under "Mobile & UI Adjustments".'),
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'icon',

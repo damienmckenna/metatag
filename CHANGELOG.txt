@@ -5,6 +5,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2499865 by DamienMcKenna: Improvements to entity selection, all sites will now
   automatically start off supporting news, terms and users.
 #2503097 by DamienMcKenna: Added the theme-color meta tag.
+#2503089 by jdanthinne, DamienMcKenna: Improved wording of the SVG favicon
+  description.
 
 
 Metatag 7.x-1.5, 2015-05-29
