@@ -64,8 +64,8 @@ The primary features include:
   engine to confirm ownership of the site; see the "Metatag: Verification"
   submodule.
 
-* The MobileOptimized, HandheldFriendly, viewport and cleartype meta tags are
-  available via the Metatag: Mobile submodule.
+* The MobileOptimized, HandheldFriendly, viewport, cleartype and theme-color
+  meta tags are available via the Metatag: Mobile & UI Adjustments submodule.
 
 * A variety of favicon sizes and styles can be added to the global configuration
   using the Metatag: Favicons submodule.

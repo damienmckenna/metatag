@@ -1,4 +1,4 @@
-name = Metatag: Mobile
+name = "Metatag: Mobile & UI Adjustments"
 description = "Provides support for meta tags used to control the mobile browser experience."
 package = SEO
 core = 7.x
