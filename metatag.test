@@ -1,16 +1,23 @@
 <?php
 
-class MetaTagsTestHelper extends DrupalWebTestCase {
+class MetatagTestHelper extends DrupalWebTestCase {
   function setUp(array $modules = array()) {
+    // Make sure these modules are enabled so that we can use their entity
+    // types later.
+    $modules[] = 'node';
+    $modules[] = 'taxonomy';
+
+    // Requirements.
     $modules[] = 'ctools';
     $modules[] = 'token';
+
     $modules[] = 'metatag';
     $modules[] = 'metatag_test';
     parent::setUp($modules);
   }
 }
 
-class MetaTagsNodeUITest extends MetaTagsTestHelper {
+class MetatagNodeUITest extends MetatagTestHelper {
   /**
    * Admin user.
    *
@@ -123,7 +130,7 @@ class MetaTagsNodeUITest extends MetaTagsTestHelper {
   }
 }
 
-class MetaTagsUnitTest extends MetaTagsTestHelper {
+class MetatagUnitTest extends MetatagTestHelper {
   public static function getInfo() {
     return array(
       'name' => 'Metatag unit tests',
@@ -178,12 +185,9 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
       $this->assertMetatagEntitySupportsMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
     }
 
-    // variable_set('metatag_test_entity_info_disable', TRUE);
     // Enable meta tags for this new content type.
     metatag_entity_type_disable('node', 'page');
     metatag_entity_type_disable('user');
-    // drupal_static_reset('metatag_entity_supports_metatags');
-    // entity_info_cache_clear();
 
     $test_cases[2]['expected'] = FALSE;
     $test_cases[4]['expected'] = FALSE;
@@ -192,6 +196,7 @@ class MetaTagsUnitTest extends MetaTagsTestHelper {
       $test_case += array('bundle' => NULL);
       $this->assertMetatagEntitySupportsMetatags($test_case['type'], $test_case['bundle'], $test_case['expected']);
     }
+    // die();
   }
 
   function assertMetatagEntitySupportsMetatags($entity_type, $bundle, $expected) {

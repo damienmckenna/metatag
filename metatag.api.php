@@ -314,3 +314,28 @@ function hook_metatag_pattern_alter(&$pattern, &$types, $tag_name) {
     $pattern = str_replace('[token_type3]', '', $pattern);
   }
 }
+
+/**
+ * Allow modules to override whether entity types are enabled for use.
+ *
+ * By default the system only support entities that are not configuration
+ * entities, have multiple view modes (excluding those created by the ical,
+ * diff and token modules), are fieldable, and are not one of the following:
+ * - field_collection_item (from the Field Collection module)
+ * - paragraphs_item (from the Paragraphs module)
+ *
+ * @param bool $suitable
+ *   Whether or not the entity type is enabled for use with Metatag.
+ * @param string $entity_type
+ *   The machine name of the entity type.
+ * @param array $entity_info
+ *   The full specifications for this entity type, as returned by
+ *   entity_get_info().
+ */
+function hook_metatag_entity_type_is_supported_alter(&$suitable, $entity_type, $entity_info) {
+  // Enable Metatag support for a custom entity that might otherwise be
+  // ignored, e.g. it doesn't allow fields.
+  if ($entity_type == 'my_entity') {
+    $suitable = TRUE;
+  }
+}

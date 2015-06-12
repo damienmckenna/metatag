@@ -1366,9 +1366,11 @@ function metatag_field_extra_fields() {
 /**
  * Check whether the requested entity type (and bundle) support metatag.
  *
- * Support may be specifically enabled by assigning 'metatag' => TRUE or
- * 'metatags' = TRUE within the hook_entity_info() definition for the entity,
- * or it may be controlled via the Settings form.
+ * By default the entities are disabled, only certain entities will have been
+ * enabled during installation. If an entity type is enabled it is assumed that
+ * the entity bundles will also be enabled by default.
+ *
+ * @see metatag_entity_type_is_suitable().
  */
 function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
   $entity_types = &drupal_static(__FUNCTION__);
@@ -1390,7 +1392,7 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
         // $conf['metatag_enable_file'] = FALSE;
         //
         // @see Settings page.
-        if (variable_get('metatag_enable_' . $entity_name, 'monkey') == FALSE) {
+        if (variable_get('metatag_enable_' . $entity_name, FALSE) == FALSE) {
           $entity_types[$entity_name] = FALSE;
         }
 
@@ -1405,7 +1407,7 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
             // $conf['metatag_enable_node__carousel'] = FALSE;
             //
             // @see Settings page.
-            if (variable_get('metatag_enable_' . $entity_name . '__' . $bundle_name, 'monkey') == FALSE) {
+            if (variable_get('metatag_enable_' . $entity_name . '__' . $bundle_name, TRUE) == FALSE) {
               $entity_types[$entity_name][$bundle_name] = FALSE;
             }
             else {
@@ -1448,10 +1450,10 @@ function metatag_entity_type_enable($entity_type, $bundle = NULL) {
   if (isset($bundle)) {
     variable_set('metatag_enable_' . $entity_type . '__' . $bundle, TRUE);
   }
-  // The bundle was not defined.
-  else {
-    variable_set('metatag_enable_' . $entity_type, TRUE);
-  }
+
+  // Always enable the entity type, because otherwise there's no point in
+  // enabling the bundle.
+  variable_set('metatag_enable_' . $entity_type, TRUE);
 
   // Clear the static cache so that the entity type / bundle will work.
   drupal_static_reset('metatag_entity_supports_metatags');
@@ -2375,7 +2377,7 @@ function metatag_admin_menu_cache_info() {
  * Identify whether an entity type is technically capable of having meta tags.
  *
  * In order to be capable of having meta tags, an entity type must have view
- * modes and may not be a configuration entity.
+ * modes, must be fieldable, and may not be a configuration entity.
  *
  * @param string $entity_type
  * @param array $entity_info
@@ -2395,10 +2397,86 @@ function metatag_entity_type_is_suitable($entity_type, $entity_info = array()) {
     $suitable = FALSE;
   }
 
-  // There must be view modes.
-  elseif (empty($entity_info['view modes'])) {
+  // Entities must have bundles.
+  elseif (empty($entity_info['bundles'])) {
     $suitable = FALSE;
   }
 
+  // The entity type must be fieldable.
+  elseif (empty($entity_info['fieldable'])) {
+    $suitable = FALSE;
+  }
+
+  else {
+    // Ignore some view modes that are automatically added by certain modules.
+    unset($entity_info['view modes']['ical']);
+    unset($entity_info['view modes']['diff_standard']);
+    unset($entity_info['view modes']['token']);
+
+    // There must be view modes.
+    if (empty($entity_info['view modes'])) {
+      $suitable = FALSE;
+    }
+
+    else {
+      // Specifically disable some entity types.
+      $excluded = array(
+        // Field Collection module.
+        'field_collection_item',
+        // Paragraphs module.
+        'paragraphs_item',
+      );
+      if (in_array($entity_type, $excluded)) {
+        $suitable = FALSE;
+      }
+    }
+  }
+
+  // Trigger hook_metatag_entity_type_is_supported_alter() to allow other
+  // modules to either enable or disable certain entity types.
+  drupal_alter('metatag_entity_type_is_supported', $suitable, $entity_type, $entity_info);
+
   return $suitable;
+}
+
+/**
+ * Implements hook_node_type_insert().
+ *
+ * When a content type is created, enable it for use with Metatag.
+ */
+function metatag_node_type_insert($info) {
+  if (metatag_entity_supports_metatags('node')) {
+    metatag_entity_type_enable('node', $info->type);
+    drupal_set_message(t('Metatag support has been enabled for the @label content type.', array('@label' => $info->name)));
+  }
+}
+
+/**
+ * Implements hook_node_type_delete().
+ *
+ * When a content type is deleted, remove the corresponding Metatag variable.
+ */
+function metatag_node_type_delete($info) {
+  variable_del('metatag_enable_node__' . $info->type);
+}
+
+/**
+ * Implements hook_taxonomy_vocabulary_insert().
+ *
+ * When a vocabulary is created, enable it for use with Metatag.
+ */
+function metatag_taxonomy_vocabulary_insert($vocabulary) {
+  if (metatag_entity_supports_metatags('taxonomy_term')) {
+    metatag_entity_type_enable('taxonomy_term', $vocabulary->machine_name);
+    drupal_set_message(t('Metatag support has been enabled for the @label vocabulary.', array('@label' => $vocabulary->name)));
+  }
+}
+
+/**
+ * Implements hook_taxonomy_vocabulary_delete().
+ *
+ * When a vocabulary is deleted, remove the corresponding Metatag variable.
+ */
+function metatag_taxonomy_vocabulary_delete($info) {
+  variable_del('metatag_enable_taxonomy_term__' . $info->machine_name);
 }

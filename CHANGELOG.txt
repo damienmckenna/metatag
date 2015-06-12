@@ -2,6 +2,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2503089 by DamienMcKenna: Added support for the "any" favicon, used for SVG
   files in Safari 9.
+#2499865 by DamienMcKenna: Improvements to entity selection, all sites will now
+  automatically start off supporting news, terms and users.
 
 
 Metatag 7.x-1.5, 2015-05-29
