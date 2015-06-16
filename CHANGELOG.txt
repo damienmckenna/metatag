@@ -9,6 +9,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   description.
 #2499737 by DamienMcKenna: Moved the Dublin Core Additional Tags meta tags into
   a new submodule, metatag_dc_advanced.
+#2499739 by DamienMcKenna: Moved the Open Graph Products meta tags into a new
+  submodule, metatag_opengraph_products.
 
 
 Metatag 7.x-1.5, 2015-05-29

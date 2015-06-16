@@ -48,6 +48,9 @@ The primary features include:
 * The Open Graph Protocol meta tags, as used by Facebook, Pinterest, LinkedIn
   and other sites, may be added by enabling the "Metatag: Open Graph" submodule.
 
+* Twenty six additional Open Graph Protocol meta tags are provided for
+  describing products in the "Metatag: Open Graph Products" submodule.
+
 * The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
 
