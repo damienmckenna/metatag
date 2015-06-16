@@ -27,6 +27,8 @@ function metatag_opengraph_products_metatag_info() {
     ),
   );
 
+  $weight = 50;
+
   $info['tags']['product:price:amount'] = array(
     'label' => t('Price'),
     'description' => t("The numeric price with decimal point, without currency indicator. Values below 0.01 may not be supported by clients."),
