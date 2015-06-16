@@ -11,6 +11,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   a new submodule, metatag_dc_advanced.
 #2499739 by DamienMcKenna: Moved the Open Graph Products meta tags into a new
   submodule, metatag_opengraph_products.
+#2498173 by DamienMcKenna: Clarified the touch icon meta tags available by
+  adding separate primary vs precomposed tags.
 
 
 Metatag 7.x-1.5, 2015-05-29
