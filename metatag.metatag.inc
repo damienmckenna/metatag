@@ -284,6 +284,7 @@ function metatag_metatag_info() {
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
+    'image' => TRUE,
     'devel_generate' => array(
       'type' => 'image',
     ),

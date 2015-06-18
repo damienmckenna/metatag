@@ -16,6 +16,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2499739 by DamienMcKenna: Follow-up to fix a missing variable.
 #2507025 by DamienMcKenna: Fixed Panels/Panelizer support for entities after
   changes in 1.5.
+#2505051 by DamienMcKenna: Automatically check for image URLs in image meta
+  tags; added a new 'image' attribute to meta tag specifications.
 
 
 Metatag 7.x-1.5, 2015-05-29

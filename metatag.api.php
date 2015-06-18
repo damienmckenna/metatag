@@ -156,6 +156,10 @@ function hook_metatag_config_update($config) {
  *       configuration/object save.
  *     'multiple' - If set to TRUE the output will be comma-separated and output
  *       as multiple tags.
+ *     'image' - If set to TRUE some additional effort will be added to attempt
+ *       extracting image URLs from the value. Currently limited to matching
+ *       the default output of core image theming, i.e. the following string:
+ *         src="[URL]" width=
  *     'select_or_other' - If set to TRUE, form[#type] is set to 'select' and
  *       the "select_or_other" module is available, that module will be used to
  *       provide a text field to manually insert another option.

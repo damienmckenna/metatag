@@ -29,6 +29,8 @@ The primary features include:
 * Full support for entity revisions and workflows based upon revision editing,
   including compatibility with the Revisioning and Workbench Moderation modules.
 
+* Automatically extracts URLs from image fields, no need for extra modules.
+
 * Per-path control over meta tags using the "Metatag: Context" submodule
   (requires the Context module).
 
@@ -91,8 +93,8 @@ The primary features include:
 * Integrates with Workbench Moderation (both v1 and v2) allowing meta tags on
   nodes to be managed through the workflow process.
 
-* The Transliteration and Imagecache Token modules (see below) are highly
-  recommended when using image meta tags, e.g. og:image.
+* The Transliteration module (see below) is highly recommended when using image
+  meta tags, e.g. og:image, to ensure that filenames are HTML-safe.
 
 * Adds an extra item to the "Flush all caches" menu for the Admin Menu module,
   allowing for a quick way to clear the Metatag module's custom caches.
@@ -246,10 +248,6 @@ via drupal_render(), or examining to identify the actual text values.
 
 Troubleshooting / Known Issues
 ------------------------------------------------------------------------------
-* Image fields do not output very easily in meta tags, e.g. for og:image,
-  without use of the Imagecache Token module (see below). This also provides a
-  way of using an image style to resize the original images first, rather than
-  requiring visitors download multi-megabyte original images.
 * When using custom page template files, e.g., page--front.tpl.php, it is
   important to ensure that the following code is present in the template file:
     <?php render($page['content']); ?>
@@ -286,18 +284,6 @@ Troubleshooting / Known Issues
 Related modules
 ------------------------------------------------------------------------------
 Some modules are available that extend Metatag with additional functionality:
-
-* Image URL Formatter
-  https://www.drupal.org/project/image_url_formatter
-  Provides a formatter for file and image fields to output the raw URL, and
-  optionally pass it through an image style. Useful for getting an image
-  field's token to output correctly for use in a meta tag.
-
-* Imagecache Token
-  https://www.drupal.org/project/imagecache_token
-  Provides additional tokens for image fields that can be used in e.g. the
-  og:image meta tag; ultimately makes it possible to actually use image meta
-  tags without writing custom code.
 
 * Transliteration
   https://drupal.org/project/transliteration
