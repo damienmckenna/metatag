@@ -67,58 +67,58 @@ function hook_metatag_config_default() {
  */
 function hook_metatag_bundled_config_alter(&$config) {
 }
-  
+
 /**
- * 
+ *
  */
 function hook_metatag_config_default_alter(&$config) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_delete($entity_type, $entity_ids, $revision_ids, $langcode) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_insert($config) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_instance_info() {
   return array();
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_instance_info_alter(&$info) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_load() {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_load_presave() {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_presave($config) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_config_update($config) {
 }
@@ -207,15 +207,9 @@ function hook_metatag_info() {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_info_alter(&$info) {
-}
-
-/**
- * 
- */
-function hook_metatag_load_entity_from_path_alter(&$path, $result) {
 }
 
 /**
@@ -239,13 +233,13 @@ function hook_metatag_metatags_view_alter(&$output, $instance, $options) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_page_cache_cid_parts_alter(&$cid_parts) {
 }
 
 /**
- * 
+ *
  */
 function hook_metatag_presave(&$metatags, $entity_type, $entity_id, $revision_id, $langcode) {
 }

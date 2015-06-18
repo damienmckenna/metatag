@@ -18,6 +18,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   changes in 1.5.
 #2505051 by DamienMcKenna: Automatically check for image URLs in image meta
   tags; added a new 'image' attribute to meta tag specifications.
+#2504561 by hanoii: Remove unused metatag_load_entity_from_path() function and
+  corresponding hook.
 
 
 Metatag 7.x-1.5, 2015-05-29

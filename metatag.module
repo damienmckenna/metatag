@@ -1480,46 +1480,6 @@ function metatag_entity_type_disable($entity_type, $bundle = NULL) {
 }
 
 /**
- * Given a path determine if it is an entity default path.
- *
- * @param $path
- *   The internal path. The id of the entity should be in the string as '[id]'.
- * @return
- *   An array with the entity type and the loaded entity object.
- */
-function metatag_load_entity_from_path($path) {
-  $entity_paths = &drupal_static(__FUNCTION__);
-  $result = FALSE;
-
-  if (!isset($entity_paths)) {
-    $entity_paths = array();
-    foreach (entity_get_info() as $entity_type => $entity_info) {
-      if (isset($entity_info['default path'])) {
-        $default_path = $entity_info['default path'];
-        $default_path = preg_quote($default_path, '/');
-        $default_path = str_replace('\[id\]', '(\d+)', $default_path);
-        $entity_paths[$entity_type] = $default_path;
-      }
-    }
-  }
-
-  foreach ($entity_paths as $entity_type => $default_path) {
-    if (preg_match("/^{$default_path}$/", $path, $matches)) {
-      if ($entity = entity_load($entity_type, array($matches[1]))) {
-        $result = array('entity_type' => $entity_type, 'entity' => reset($entity));
-      }
-      break;
-    }
-  }
-
-  // Allow other modules to customize the data using
-  // hook_metatag_load_entity_from_path_alter().
-  drupal_alter('metatag_load_entity_from_path', $path, $result);
-
-  return $result;
-}
-
-/**
  * Add meta tags to be added later with metatag_page_build().
  *
  * @param string $instance
