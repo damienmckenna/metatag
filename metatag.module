@@ -2167,29 +2167,23 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
   // Only proceed if this is a full page (don't process individual panes) and
   // there's an 'admin path' for the current task.
   if ($page && !empty($context['task']['admin path'])) {
-    // Check if this is an entity display page, if so trigger
-    // hook_entity_view().
-    foreach (entity_get_info() as $entity_type => $entity_info) {
-      // Entity paths will include an auto-loader that matches the entity's
-      // name, thus the path will be 'some/path/%entity_name'.
-      if (isset($entity_info['path']) && $context['task']['admin path'] == $entity_info['path']) {
-        // Only proceed if this entity type supports meta tags.
-        if (metatag_entity_supports_metatags($entity_type)) {
-          // There must be at least one argument and the first argument must be
-          // numerical.
-          if (!empty($context['args']) && is_numeric($context['args'][0])) {
-            // We need to pop entity from contexts array.
-            foreach ($context['contexts'] as $context_argument) {
-              // Only proceed if the context is an entity.
-              if (is_array($context_argument->type) && in_array($entity_type, $context_argument->type)) {
-                // Only if the context actually exists, which should be an
-                // entity.
-                if (!empty($context_argument->data)) {
-                  $langcode = $GLOBALS['language_content']->language;
-                  metatag_entity_view($context_argument->data, $entity_type, 'full', $langcode, TRUE);
-                }
-              }
-            }
+    // Loop over each context.
+    foreach ($context['contexts'] as $context_argument) {
+      if (is_array($context_argument->type) && !empty($context_argument->data)) {
+        if (in_array('entity', $context_argument->type)) {
+          $entity = $context_argument->data;
+          $entity_type = str_replace('entity:', '', $context_argument->plugin);
+
+          // Verify this is an appropriate entity.
+          $entity_info = entity_get_info($entity_type);
+          if (!empty($entity_info) && _metatag_entity_is_page($entity_type, $entity)) {
+            // Load the meta tags for this entity.
+            global $language;
+            metatag_entity_view($entity, $entity_type, 'full', $language->language, TRUE);
+
+            // Don't bother looping over any more contexts, an entity has been
+            // found.
+            break;
           }
         }
       }

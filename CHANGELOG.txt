@@ -14,6 +14,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2498173 by DamienMcKenna: Clarified the touch icon meta tags available by
   adding separate primary vs precomposed tags.
 #2499739 by DamienMcKenna: Follow-up to fix a missing variable.
+#2507025 by DamienMcKenna: Fixed Panels/Panelizer support for entities after
+  changes in 1.5.
 
 
 Metatag 7.x-1.5, 2015-05-29
