@@ -20,6 +20,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   tags; added a new 'image' attribute to meta tag specifications.
 #2504561 by hanoii: Remove unused metatag_load_entity_from_path() function and
   corresponding hook.
+#2222711 by hanoii, DamienMcKenna, andyg5000: Fixed Views support for entities
+  after API changes in 1.5.
 
 
 Metatag 7.x-1.5, 2015-05-29

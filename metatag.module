@@ -2084,37 +2084,114 @@ function metatag_features_api() {
 
 /**
  * Implements hook_views_post_render().
+ *
+ * Try loading meta tags from a Views page display.
  */
 function metatag_views_post_render(&$view, &$output, &$cache) {
   // Build a shortcut to the current display object.
   $display = $view->display[$view->current_display];
 
-  // Only proceed if this view is a full page, don't process block or other
-  // Views display objects.
-  if ($display->display_plugin == 'page' && isset($display->display_options['path'])) {
-    // Check if this is an entity display page, if so trigger
-    // hook_entity_view().
-    foreach (entity_get_info() as $entity_type => $entity_info) {
-      // Entity paths will include an auto-loader that matches the entity's
-      // name, thus the path will be 'some/path/%entity_name'.
-      if (isset($entity_info['path']) && ($display->display_options['path'] . $entity_type) == $entity_info['path']) {
-        // Only proceed if this entity type supports meta tags.
-        if (metatag_entity_supports_metatags($entity_type)) {
-          // There must be at least one argument and the first argument must be
-          // numerical.
-          if (!empty($view->args) && is_numeric($view->args[0])) {
-            // Only the first argument is used.
-            $entities = entity_load($entity_type, array($view->args[0]));
-            // Only if the entity actually exists.
-            if (!empty($entities)) {
-              $entity = array_pop($entities);
-              metatag_entity_view($entity, $entity_type, 'full', NULL, TRUE);
-            }
+  // Only proceed if this view is a full page and has a valid path, don't
+  // process block or other Views display objects.
+  if ($display->display_plugin == 'page' && !empty($display->display_options['path'])) {
+    // All paths must have a placeholder.
+    $placeholder_pos = strpos($display->display_options['path'], '%');
+    if ($placeholder_pos !== FALSE) {
+      // The first argument must be a numeric entity ID.
+      if (!empty($view->args) && is_numeric($view->args[0])) {
+        // The first argument should be an entity ID.
+        $id = $view->args[0];
+
+        // Try to work out what entity type this is.
+        $entity_type = '';
+
+        // Taxonomy terms are the most commonly used item, so check that first.
+        if ($display->display_options['path'] == 'taxonomy/term/%' || $display->display_options['path'] == 'taxonomy/term/%/%') {
+          $entity_type = 'taxonomy_term';
+        }
+        // Node pages.
+        elseif ($display->display_options['path'] == 'node/%') {
+          $entity_type = 'node';
+        }
+        // User pages.
+        elseif ($display->display_options['path'] == 'user/%') {
+          $entity_type = 'user';
+        }
+        // Check for other types of entities.
+        else {
+          $entity_type = metatag_check_if_current_path_is_entity($id);
+        }
+
+        // If an entity type was identified, try loading the entity.
+        if (!empty($entity_type)) {
+          // Try loading the requested entity.
+          $entities = entity_load($entity_type, array($id));
+          if (!empty($entities)) {
+            $entity = array_pop($entities);
+
+            // Trigger our hook_entity_view().
+            metatag_entity_view($entity, $entity_type, 'full', NULL, TRUE);
           }
         }
       }
     }
   }
+}
+
+/**
+ * Check if the current path belongs to an entity type.
+ *
+ * @param int $id
+ *   The id of the entity for the current page, as taken from the URL via an
+ *   intermediary, e.g. a Views page argument.
+ *
+ * @return bool
+ */
+function metatag_check_if_current_path_is_entity($id) {
+  $entity_type_found = FALSE;
+
+  // Get the current system path.
+  $current_path = current_path();
+
+  // Loop over each entity type, create a "mock" entity object and then
+  // try generating its URL from the "uri callback" that each entity
+  // type is supposed to have; once a matching URI path is identified,
+  // proceed trying to load the entity and its meta tags.
+  foreach (entity_get_info() as $entity_type => $entity_info) {
+    // Only bother looking for entities with a callback for generating
+    // the entity's URI.
+    if (isset($entity_info['uri callback'])) {
+      $uri_callback = $entity_info['uri callback'];
+      // Only proceed if the URI callback function exists.
+      if (function_exists($uri_callback)) {
+        // Work out what attribute in the entity's class should be the
+        // primary ID, this will be used by the URI callback to generate
+        // a URI path.
+        $key = $entity_info['entity keys']['id'];
+
+        // Create a temporary object so we can try to fake out the URI
+        // callback. This uses the MetatagEntityMock class (see below)
+        // which provides a method that some entities require in order
+        // for the URI callback to work.
+        $temp_entity = new MetatagEntityMock();
+        $temp_entity->$key = $id;
+
+        // Try calling the URI callback function, throwing away any
+        // error messages as they won't be relevant.
+        $uri = @$uri_callback($temp_entity);
+
+        // If this temporary entity's path is the same as the current
+        // path, this is the entity type to use.
+        if (!empty($uri) && !empty($uri['path']) && $current_path == $uri['path']) {
+          $entity_type_found = $entity_type;
+          // No need to continue checking other entity types.
+          break;
+        }
+      }
+    }
+  }
+
+  return $entity_type_found;
 }
 
 /**

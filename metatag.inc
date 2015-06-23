@@ -383,3 +383,18 @@ class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
     return $value;
   }
 }
+
+/**
+ * Mock class to for metatag_entity_info_path() to prevent WSOD calling
+ * entity::uri().
+ *
+ * @see metatag_check_if_current_path_is_entity().
+ */
+class MetatagEntityMock extends stdClass {
+  /**
+   * Some entity types will WSOD if this method is not available.
+   */
+  public function uri() {
+    return '';
+  }
+}
