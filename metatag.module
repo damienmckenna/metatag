@@ -2511,3 +2511,12 @@ function metatag_taxonomy_vocabulary_insert($vocabulary) {
 function metatag_taxonomy_vocabulary_delete($info) {
   variable_del('metatag_enable_taxonomy_term__' . $info->machine_name);
 }
+
+/**
+ * Implements hook_workbench_moderation_transition().
+ *
+ * Clear a node's caches when its Workbench Moderation state is changed.
+ */
+function metatag_workbench_moderation_transition($node, $previous_state, $new_state) {
+  metatag_metatags_cache_clear('node', array($node->nid));
+}
