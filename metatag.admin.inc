@@ -310,8 +310,8 @@ function metatag_config_edit_form($form, &$form_state, $config) {
   $form['metatags']['#type'] = 'container';
 
   // Make the token browser available.
-  $form['metatags']['#prefix'] = $form['metatags'][LANGUAGE_NONE]['#description'];
-  unset($form['metatags'][LANGUAGE_NONE]['#description']);
+  $form['metatags']['#prefix'] = $form['metatags']['#description'];
+  unset($form['metatags']['#description']);
 
   $form['actions']['#type'] = 'actions';
   $form['actions']['save'] = array(

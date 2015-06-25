@@ -1184,13 +1184,13 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   );
   // Show a different intro message for entity pages vs config pages.
   if (isset($form['#entity'])) {
-    $form['metatags'][$langcode]['intro_text'] = array(
+    $form['metatags']['intro_text'] = array(
       '#markup' => '<p>' . t('Configure the meta tags below. Tokens, e.g. "[node:summary]", automatically insert the corresponding information from that field or value, which helps to avoid redundant meta data and possible search engine penalization; see the "Browse available tokens" popup for more details.') . '</p>',
       '#weight' => -10,
     );
   }
   else {
-    $form['metatags'][$langcode]['intro_text'] = array(
+    $form['metatags']['intro_text'] = array(
       '#markup' => '<p>' . t('Configure the meta tags below. Use tokens (see the "Browse available tokens" popup) to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).') . '</p>',
       '#weight' => -10,
     );
@@ -1289,7 +1289,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     $token_listing_link = theme('token_tree', array('token_types' => $options['token types'], 'dialog' => TRUE));
 
     // Add the token list to the top of the fieldset.
-    $form['metatags'][$langcode]['#description'] = $token_listing_link;
+    $form['metatags']['#description'] = $token_listing_link;
 
     // Check if each meta tag group is being displayed.
     if (!empty($group_metatag_access)) {

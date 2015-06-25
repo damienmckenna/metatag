@@ -27,6 +27,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2449425 by DamienMcKenna: Only process string values for token replacement.
 #2265453 by zd123, DamienMcKenna: CTools keyword substitution for Panels
   integration.
+#2512284 by DamienMcKenna: Missing token browser link on main Metatag fieldset.
 
 
 Metatag 7.x-1.5, 2015-05-29
