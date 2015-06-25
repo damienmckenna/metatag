@@ -25,6 +25,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2467587 by DamienMcKenna: Clear the Metatag cache when a node's state is
   changed via Workbench Moderation.
 #2449425 by DamienMcKenna: Only process string values for token replacement.
+#2265453 by zd123, DamienMcKenna: CTools keyword substitution for Panels
+  integration.
 
 
 Metatag 7.x-1.5, 2015-05-29
