@@ -29,6 +29,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   integration.
 #2512284 by DamienMcKenna: Missing token browser link on main Metatag fieldset.
 #2513890 by DamienMcKenna: Added tests for taxonomy term integration.
+#1404270 by JStanton, DamienMcKenna: Added the Refresh meta tag.
 
 
 Metatag 7.x-1.5, 2015-05-29

@@ -425,5 +425,15 @@ function metatag_metatag_info() {
     'weight' => ++$weight,
   );
 
+  $info['tags']['refresh'] = array(
+    'label' => t('Refresh'),
+    'description' => t('The number of seconds to wait before refreshing the page. May also force redirect to another page using the format "5; url=http://example.com/", which would be triggered after five seconds.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'element' => array(
+      '#theme' => 'metatag_http_equiv',
+    ),
+  );
+
   return $info;
 }
