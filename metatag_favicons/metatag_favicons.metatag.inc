@@ -5,6 +5,16 @@
  */
 
 /**
+ * Implements hook_metatag_bundled_config_alter().
+ */
+function metatag_favicons_metatag_bundled_config_alter(&$config) {
+  $favicon = metatag_favicons_get_theme_favicon();
+  if (!empty($favicon)) {
+    $config['global']->config['shortcut icon'] = array('value' => $favicon);
+  }
+}
+
+/**
  * Implements hook_metatag_info().
  */
 function metatag_favicons_metatag_info() {
@@ -26,6 +36,16 @@ function metatag_favicons_metatag_info() {
     'group' => 'favicons',
     'context' => array('global'),
   );
+
+  $info['tags']['shortcut icon'] = array(
+      'label' => t('Default shortcut icon'),
+      'description' => t('The traditional favicon, must be either a GIF, ICO, JPG/JPEG or PNG image.'),
+      'weight' => ++$weight,
+      'element' => array(
+        '#rel' => 'shortcut icon',
+        '#theme' => 'metatag_shortcut_icon',
+      ),
+  ) + $favicon_defaults;
 
   $info['tags']['icon_any'] = array(
     'label' => t('Icon: SVG'),
