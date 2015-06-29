@@ -28,6 +28,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2265453 by zd123, DamienMcKenna: CTools keyword substitution for Panels
   integration.
 #2512284 by DamienMcKenna: Missing token browser link on main Metatag fieldset.
+#2513890 by DamienMcKenna: Added tests for taxonomy term integration.
 
 
 Metatag 7.x-1.5, 2015-05-29
