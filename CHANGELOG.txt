@@ -34,6 +34,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2514852 by rrfegade: Spelling mistakes in README.txt files.
 #2514878 by DamienMcKenna: Ignore admin pages on Views/CTools-driven entity
   pages.
+#2514812 by david_garcia: Fix Views integration for ECK entities.
 
 
 Metatag 7.x-1.5, 2015-05-29
