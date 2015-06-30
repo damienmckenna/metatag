@@ -595,21 +595,25 @@ function metatag_metatags_delete($entity_type, $entity_id, $revision_id = NULL, 
 /**
  * Delete multiple entities' tags.
  *
- * @param $entity_type
- *   The entity type
- * @param $entity_ids
- *   The list of IDs
- * @param $revision_id
- *   An optional list of VIDs, if omitted all revisions will be deleted.
+ * @param string $entity_type
+ *   The entity type.
+ * @param array $entity_ids
+ *   The list of IDs.
+ * @param array $revision_ids
+ *   An optional list of revision IDs; if omitted all revisions will be deleted.
  * @param $langcode
  *   The language ID of the entities to delete. If left blank, all language
  *   entries for the enities will be deleted.
+ *
+ * @return boolean
+ *   If any problems were encountered will return FALSE, otherwise TRUE.
  */
 function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array $revision_ids = array(), $langcode = NULL) {
-  // Double check entity IDs are numeric thanks to Entity API module.
+  // Double check entity IDs and revision IDs are numeric.
   $entity_ids = array_filter($entity_ids, 'is_numeric');
+  $revision_ids = array_filter($revision_ids, 'is_numeric');
 
-  if ($metatags = metatag_metatags_load_multiple($entity_type, $entity_ids, $revision_ids)) {
+  if (!empty($entity_ids) || !empty($revision_ids)) {
     $transaction = db_transaction();
     try {
       // Let other modules know about the records being deleted using
@@ -618,15 +622,18 @@ function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array
 
       // Set the entity to delete.
       $query = db_delete('metatag')
-        ->condition('entity_type', $entity_type)
-        ->condition('entity_id', $entity_ids, 'IN');
+        ->condition('entity_type', $entity_type);
 
-      // Optionally delete a specific revision.
+      // If revision IDs were specified then just use those in the query.
       if (!empty($revision_ids)) {
         $query->condition('revision_id', $revision_ids, 'IN');
       }
+      // No revision IDs were specified, so work from the entity IDs.
+      else {
+        $query->condition('entity_id', $entity_ids, 'IN');
+      }
 
-      // Specify a language if there is one.
+      // Limit to a language if one was specified.
       if (!empty($langcode)) {
         $query->condition('language', $langcode);
       }
@@ -639,6 +646,8 @@ function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array
 
       // Clear the caches for these entities.
       entity_get_controller($entity_type)->resetCache($entity_ids);
+
+      return TRUE;
     }
     catch (Exception $e) {
       $transaction->rollback();
@@ -646,6 +655,11 @@ function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array
       throw $e;
     }
   }
+  else {
+    watchdog('metatag', 'No entity IDs or revision IDs were submitted to metatag_metatags_delete_multiple().');
+  }
+
+  return FALSE;
 }
 
 /**

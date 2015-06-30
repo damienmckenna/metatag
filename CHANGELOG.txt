@@ -35,6 +35,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2514878 by DamienMcKenna: Ignore admin pages on Views/CTools-driven entity
   pages.
 #2514812 by david_garcia: Fix Views integration for ECK entities.
+#2514572 by DamienMcKenna: Don't check if records exist when deleting them,
+  just run the deletion query.
 
 
 Metatag 7.x-1.5, 2015-05-29
