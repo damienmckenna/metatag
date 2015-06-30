@@ -69,7 +69,7 @@ The primary features include:
 * The App Links meta tags may be added by enabling the Metatag: App Links
   submodule.
 
-* Site verfication meta tags can be added, e.g. as used by the Google search
+* Site verification meta tags can be added, e.g. as used by the Google search
   engine to confirm ownership of the site; see the "Metatag: Verification"
   submodule.
 

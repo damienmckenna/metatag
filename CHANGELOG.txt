@@ -31,6 +31,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2513890 by DamienMcKenna: Added tests for taxonomy term integration.
 #1404270 by JStanton, DamienMcKenna: Added the Refresh meta tag.
 #2384673 by etroid, DamienMcKenna: Added the shortcut icon meta tag.
+#2514852 by rrfegade: Spelling mistakes in README.txt files.
 
 
 Metatag 7.x-1.5, 2015-05-29
@@ -430,7 +431,7 @@ By DamienMcKenna: Moved hook_requirements to the top of metatag.install.
   primary keys.
 #1864306 by DamienMcKenna: Follow-on to only export the $config->disabled
   setting if it exists.
-#2173271 by deetergp: Spelling and grammer fixes for README.txt.
+#2173271 by deetergp: Spelling and grammar fixes for README.txt.
 #2172433 by fabsor, DamienMcKenna: Ensure that update 7015 runs early enough to
   avoid data corruption or errors during other updates.
 #2156261 by plopesc, DamienMcKenna: Allow meta tags for 403/404 error pages to
