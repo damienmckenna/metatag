@@ -2088,6 +2088,12 @@ function metatag_features_api() {
  * Try loading meta tags from a Views page display.
  */
 function metatag_views_post_render(&$view, &$output, &$cache) {
+  // By default do not add meta tags to admin pages. To enable meta tags on
+  // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
+  if (path_is_admin(current_path()) && !variable_get('metatag_tag_admin_pages', FALSE)) {
+    return;
+  }
+
   // Build a shortcut to the current display object.
   $display = $view->display[$view->current_display];
 
@@ -2201,6 +2207,12 @@ function metatag_check_if_current_path_is_entity($id) {
  * CTools display handlers.
  */
 function metatag_ctools_render_alter(&$info, $page, $context) {
+  // By default do not add meta tags to admin pages. To enable meta tags on
+  // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
+  if (path_is_admin(current_path()) && !variable_get('metatag_tag_admin_pages', FALSE)) {
+    return;
+  }
+
   // Only proceed if this is a full page (don't process individual panes) and
   // there's an 'admin path' for the current task.
   if ($page && !empty($context['task']['admin path'])) {
