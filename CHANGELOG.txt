@@ -1,6 +1,8 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2537738 by deepak_zyxware: Incorrect path to fb_social settings page.
+#2535178 by DamienMcKenna: 'multiple' option on Viewport causes problems with
+  the meta tag's intended values.
 
 
 Metatag 7.x-1.6, 2015-06-30
