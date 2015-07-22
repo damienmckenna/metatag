@@ -3,6 +3,9 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2537738 by deepak_zyxware: Incorrect path to fb_social settings page.
 #2535178 by DamienMcKenna: 'multiple' option on Viewport causes problems with
   the meta tag's intended values.
+#2524460 by DamienMcKenna, adriancotter, gbirch, jrb: Remove custom wrangling
+  for Views-based custom entity displays, added new hook to allow other modules
+  to customize as needed (hook_metatag_views_post_render_get_entity).
 
 
 Metatag 7.x-1.6, 2015-06-30
