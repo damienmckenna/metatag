@@ -1006,18 +1006,18 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
       'entity_type' => $entity_type,
       'view_mode' => $view_mode,
     );
+
     // Ensure we actually pass a language object rather than language code.
     $languages = language_list();
     if (isset($languages[$langcode])) {
       $options['language'] = $languages[$langcode];
     }
 
-    // Reload the entity object from cache as it may have been altered.
+    // Include token replacement data. Don't reload the entity object as doing
+    // so would conflict with content editorial workflows.
     if (!empty($entity_id)) {
       $token_type = token_get_entity_mapping('entity', $entity_type);
-      $entities = entity_load($entity_type, array($entity_id));
-      $options['token data'][$token_type] = $entities[$entity_id];
-      $options['entity'] = $entities[$entity_id];
+      $options['token data'][$token_type] = $entity;
     }
 
     // Render the metatags and save to the cache.

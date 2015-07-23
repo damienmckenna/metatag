@@ -6,6 +6,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2524460 by DamienMcKenna, adriancotter, gbirch, jrb: Remove custom wrangling
   for Views-based custom entity displays, added new hook to allow other modules
   to customize as needed (hook_metatag_views_post_render_get_entity).
+#2199533 by Adrian Richardson, DamienMcKenna, mairi: Don't reload entities when
+  processing tokens, it causes problems with content workflows.
 
 
 Metatag 7.x-1.6, 2015-06-30
