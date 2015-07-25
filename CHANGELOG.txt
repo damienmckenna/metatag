@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.7, 2015-07-24
 ---------------------------
 #2537738 by deepak_zyxware: Incorrect path to fb_social settings page.
