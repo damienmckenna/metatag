@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2546636 by DamienMcKenna: Fixes to the custom Panels pane for editing tags.
 
 
 Metatag 7.x-1.7, 2015-07-24
