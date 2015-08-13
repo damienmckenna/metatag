@@ -1,6 +1,8 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2546636 by DamienMcKenna: Fixes to the custom Panels pane for editing tags.
+#2113501 by DamienMcKenna: Shortened i18n translation context to just
+  "metatag:METATAGNAME" to make translations easier.
 
 
 Metatag 7.x-1.7, 2015-07-24

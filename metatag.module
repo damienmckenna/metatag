@@ -329,7 +329,7 @@ function metatag_config_save($config) {
   // hook_metatag_config_presave().
   module_invoke_all('metatag_config_presave', $config);
 
-  // Update the i18n string
+  // Update the i18n string.
   if (function_exists('i18n_string_update')) {
     $instance = $config->instance;
 
@@ -2228,20 +2228,28 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
 
 /**
  * Translates the metatag if i18n_string is enabled.
- * @param $name
- *   Array or string concatenated with ':' that contains textgroup and string context
+ *
  * @param string $string
- *   String in default language or array of strings to be translated
+ *   String in default language or array of strings to be translated.
+ * @param $context
+ *   Array or string concatenated with ':' that contains textgroup and string
+ *   context.
  * @param $options
- *   An associative array of additional options. @see i18n_string_translate()
+ *   An associative array of additional options.
+ *
+ * @return string
+ *   The translated string if i18n_string is enabled, otherwise just returns the
+ *   original string.
+ *
+ * @see i18n_string_translate()
  */
-function metatag_translate($name, $string, $langcode = NULL, $update = FALSE) {
+function metatag_translate($string, $context, $langcode = NULL, $update = FALSE) {
   if (function_exists('i18n_string_translate')) {
     $options = array(
       'langcode' => $langcode,
       'update' => $update,
     );
-    return i18n_string_translate($name, $string, $options);
+    return i18n_string_translate($context, $string, $options);
   }
   else {
     return $string;
