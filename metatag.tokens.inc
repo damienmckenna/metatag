@@ -18,25 +18,31 @@ function metatag_token_info() {
   $metatag_info = metatag_get_info();
 
   foreach ($metatag_info['tags'] as $value) {
+    if (isset($value['group'], $metatag_info['groups'][$value['group']], $metatag_info['groups'][$value['group']]['label'])) {
+      $label = t($metatag_info['groups'][$value['group']]['label']) . ': ' . t($value['label']);
+    }
+    else {
+      $label = t('Basic tags') . ': ' . t($value['label']);
+    }
     $info['tokens']['metatag'][$value['name']] = array(
-      'name' => $value['label'],
-      'description' => $value['description']
+      'name' => $label,
+      'description' => t($value['description']),
     );
   }
 
   if (module_exists('taxonomy')) {
     $info['tokens']['term']['metatag'] = array(
-      'name' => t('Metatag.'),
-      'description' => t('Metatag.'),
-      'type' => 'metatag'
+      'name' => t('Meta tags'),
+      'description' => t('Meta tags for this taxonomy term.'),
+      'type' => 'metatag',
     );
   }
 
   if (module_exists('node')) {
     $info['tokens']['node']['metatag'] = array(
-      'name' => t('Metatag.'),
-      'description' => t('Metatag.'),
-      'type' => 'metatag'
+      'name' => t('Meta tags'),
+      'description' => t('Meta tags for this node.'),
+      'type' => 'metatag',
     );
   }
 

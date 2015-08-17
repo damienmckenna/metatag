@@ -4,6 +4,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2113501 by DamienMcKenna: Shortened i18n translation context to just
   "metatag:METATAGNAME" to make translations easier.
 #2552829 by DamienMcKenna: Move the basic meta tags to a group.
+#2552827 by DamienMcKenna: Group meta tag tokens so they're less confusing.
 
 
 Metatag 7.x-1.7, 2015-07-24
