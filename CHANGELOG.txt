@@ -5,6 +5,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   "metatag:METATAGNAME" to make translations easier.
 #2552829 by DamienMcKenna: Move the basic meta tags to a group.
 #2552827 by DamienMcKenna: Group meta tag tokens so they're less confusing.
+#2552849 by DamienMcKenna: Meta tag tokens for user entities.
 
 
 Metatag 7.x-1.7, 2015-07-24

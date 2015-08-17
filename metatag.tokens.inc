@@ -46,6 +46,14 @@ function metatag_token_info() {
     );
   }
 
+  if (module_exists('user')) {
+    $info['tokens']['user']['metatag'] = array(
+      'name' => t('Meta tags'),
+      'description' => t('Meta tags for this user.'),
+      'type' => 'metatag',
+    );
+  }
+
   return $info;
 }
 
@@ -83,6 +91,16 @@ function metatag_tokens($type, $tokens, array $data = array(), array $options = 
 
     if ($metatag_tokens = token_find_with_prefix($tokens, 'metatag')) {
       $result = metatag_token_generate_array($node, 'node', $node->type);
+      $replacements += token_generate('metatag', $metatag_tokens, array('metatag' => $result), $options);
+    }
+  }
+
+  // User tokens.
+  if ($type == 'user' && !empty($data['user'])) {
+    $account = $data['user'];
+
+    if ($metatag_tokens = token_find_with_prefix($tokens, 'metatag')) {
+      $result = metatag_token_generate_array($account, 'user', 'user');
       $replacements += token_generate('metatag', $metatag_tokens, array('metatag' => $result), $options);
     }
   }
