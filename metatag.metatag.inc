@@ -130,10 +130,17 @@ function metatag_metatag_config_instance_info() {
  * Implements hook_metatag_info().
  */
 function metatag_metatag_info() {
-  $info['groups']['advanced'] = array(
-    'label' => t('Advanced'),
+  $info['groups']['basic'] = array(
+    'label' => t('Basic tags'),
     'form' => array(
-      '#weight' => 100,
+      '#weight' => 1,
+      '#collapsed' => FALSE,
+    ),
+  );
+  $info['groups']['advanced'] = array(
+    'label' => t('Advanced tags'),
+    'form' => array(
+      '#weight' => 2,
     ),
   );
 
@@ -144,6 +151,7 @@ function metatag_metatag_info() {
     'label' => t('Page title'),
     'description' => t("The text to display in the title bar of a visitor's web browser when they view this page. This meta tag may also be used as the title of the page when a visitor bookmarks or favorites this page."),
     'class' => 'DrupalTitleMetaTag',
+    'group' => 'basic',
     'weight' => ++$weight,
   );
 
@@ -151,6 +159,7 @@ function metatag_metatag_info() {
     'label' => t('Description'),
     'description' => t("A brief and concise summary of the page's content, preferably 150 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
     'class' => 'DrupalTextMetaTag',
+    'group' => 'basic',
     'weight' => ++$weight,
     'form' => array(
       '#type' => 'textarea',
@@ -163,6 +172,7 @@ function metatag_metatag_info() {
     'label' => t('Abstract'),
     'description' => t("A brief and concise summary of the page's content, preferably 150 characters or less. The abstract meta tag may be used by search engines for archiving purposes."),
     'class' => 'DrupalTextMetaTag',
+    'group' => 'basic',
     'weight' => ++$weight,
     'form' => array(
       '#type' => 'textarea',
@@ -175,6 +185,7 @@ function metatag_metatag_info() {
     'label' => t('Keywords'),
     'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines anymore."),
     'class' => 'DrupalTextMetaTag',
+    'group' => 'basic',
     'weight' => ++$weight,
   );
 

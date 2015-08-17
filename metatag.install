@@ -1736,3 +1736,12 @@ function metatag_update_7038() {
     }
   }
 }
+
+/**
+ * Reload some meta tag caches.
+ */
+function metatag_update_7039() {
+  foreach (language_list() as $langcode => $language) {
+    cache_clear_all('info:' . $langcode, 'cache_metatag');
+  }
+}

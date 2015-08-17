@@ -1299,14 +1299,11 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   // Check the #access of each group. If it passed, we display options for
   // tokens. By this we update the #description of each group.
   if ($form['metatags']['#access']) {
-    // Built the token list.
-    $token_listing_link = theme('token_tree', array('token_types' => $options['token types'], 'dialog' => TRUE));
-
-    // Add the token list to the top of the fieldset.
-    $form['metatags']['#description'] = $token_listing_link;
-
     // Check if each meta tag group is being displayed.
     if (!empty($group_metatag_access)) {
+      // Built the token browser link.
+      $token_listing_link = theme('token_tree', array('token_types' => $options['token types'], 'dialog' => TRUE));
+
       foreach ($group_metatag_access as $group_key => $token_access) {
         if ($token_access) {
           // Update the description.
@@ -1316,6 +1313,8 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
           else {
             $form['metatags'][$langcode][$group_key]['#description'] = '';
           }
+
+          // Add the token browser popup link.
           $form['metatags'][$langcode][$group_key]['#description'] .= $token_listing_link;
         }
       }
