@@ -2230,9 +2230,8 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  *
  * @param string $string
  *   String in default language or array of strings to be translated.
- * @param $context
- *   Array or string concatenated with ':' that contains textgroup and string
- *   context.
+ * @param string $tag_name
+ *   The internal name of the meta tag being translated.
  * @param $options
  *   An associative array of additional options.
  *
@@ -2242,16 +2241,77 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  *
  * @see i18n_string_translate()
  */
-function metatag_translate($string, $context, $langcode = NULL, $update = FALSE) {
+function metatag_translate($string, $tag_name, $langcode = NULL, $update = FALSE) {
   if (function_exists('i18n_string_translate')) {
     $options = array(
-      'langcode' => $langcode,
       'update' => $update,
     );
-    return i18n_string_translate($context, $string, $options);
+
+    // If the langcode was passed in, add it to the options passed to i18n.
+    if (!empty($langcode)) {
+      $options['langcode'] = $langcode;
+    }
+
+    // The 'name' is split up by i18n_string into two components - the textgroup
+    // is the first item, the others are joined together with a ':' separator
+    // to make the context. In order to have the contexts show with "metatag" as
+    // the first part of the context, it has to be added twice to the name.
+    $name = array(
+      'metatag',
+      'metatag',
+      $tag_name,
+    );
+
+    // Return the string that's translated through the i18n_string system.
+    return i18n_string_translate($name, $string, $options);
   }
+
+  // If the i18n_string module isn't enabled then just pass back the string
+  // as-is.
   else {
     return $string;
+  }
+}
+
+/**
+ * Translate a set of metatags to the current language.
+ *
+ * @param array $metatags
+ *   List of meta tags to be translated.
+ */
+function metatag_translate_metatags(&$metatags) {
+  global $language;
+
+  if (!empty($metatags[LANGUAGE_NONE])) {
+    $translated_metatags = array();
+    foreach ($metatags[LANGUAGE_NONE] as $key => $data) {
+      if (!empty($data['value']) && is_string($data['value'])) {
+        $translated_metatags[$key] = array(
+          'value' => metatag_translate($data['value'], $key),
+        );
+      }
+    }
+    $metatags[$language->language] = $translated_metatags;
+  }
+}
+
+/**
+ * Update the translated definitions of meta tags.
+ *
+ * @param array $metatags
+ *   List of meta tags to have their translations updated.
+ */
+function metatag_update_translations(&$metatags) {
+  global $language;
+
+  // Update the i18n string.
+  if (function_exists('i18n_string_update')) {
+    foreach ($metatags as $key => $data) {
+      if (!empty($data['value']) && is_string($data['value'])) {
+        // Add 'metatag' twice so that it's also added to the string context.
+        i18n_string_update("metatag:metatag:{$key}", $data['value']);
+      }
+    }
   }
 }
 

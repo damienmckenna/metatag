@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Meta tag integration for the metatag_views module.
+ * Metatag integration for the metatag_views module.
  */
 
 /**

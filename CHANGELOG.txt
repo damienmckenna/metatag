@@ -6,6 +6,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2552829 by DamienMcKenna: Move the basic meta tags to a group.
 #2552827 by DamienMcKenna: Group meta tag tokens so they're less confusing.
 #2552849 by DamienMcKenna: Meta tag tokens for user entities.
+#1986032 by DamienMcKenna, izus, yang_yi_cn, Placinta, maijs, Tharna, stijndmd:
+  Improved i18n compatibility for the Views, Panels and Context submodules.
 
 
 Metatag 7.x-1.7, 2015-07-24

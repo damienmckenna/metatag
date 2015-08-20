@@ -221,7 +221,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
 
     // Translate the meta tag value prior to the tokens being replace, this
     // allows for different tokens to be inserted for each locale/language.
-    $value = metatag_translate($this->data['value'], "metatag:" . $this->info["name"]);
+    $value = metatag_translate($this->data['value'], $this->info['name']);
 
     if (empty($options['raw'])) {
       // Give other modules the opportunity to use hook_metatag_pattern_alter()

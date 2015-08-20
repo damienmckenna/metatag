@@ -112,9 +112,14 @@ class metatag_context_reaction extends context_reaction {
           if (isset($metadata_array[LANGUAGE_NONE])) {
             $metadata_array = $metadata_array[LANGUAGE_NONE];
           }
-          foreach ($metadata_array as $key => $data) {
-            if (!empty($data['value'])) {
-              $metatags[$key] = $data;//t(check_plain($data['value']));
+
+          // Translate all of the meta tags using i18n.
+          metatag_translate_metatags($metadata_array);
+
+          // Add the meta tags to the output.
+          foreach ($metadata_array as $langcode => $tags) {
+            foreach ($tags as $name => $value) {
+              $metatags[$langcode][$name] = $value;
             }
           }
 

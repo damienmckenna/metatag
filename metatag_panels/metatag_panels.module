@@ -115,6 +115,9 @@ function metatag_panels_form_submit($form, $form_state) {
     'metatags' => $form_state['values']['metatags'][LANGUAGE_NONE],
   );
 
+  // Update the i18n strings.
+  metatag_update_translations($conf['metatags']);
+
   $form_state['handler']->conf['metatag_panels'] = $conf;
 }
 
@@ -140,6 +143,9 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
   if (!empty($metatags) && !isset($metatags[LANGUAGE_NONE])) {
     $metatags = array(LANGUAGE_NONE => $metatags);
   }
+
+  // Translate all of the meta tags using i18n.
+  metatag_translate_metatags($metatags);
 
   // Append global defaults.
   $all_metatags = array();

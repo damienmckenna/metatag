@@ -66,6 +66,11 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
       }
 
       $this->display->set_option('metatags', $metatags);
+
+      if (!empty($metatags[LANGUAGE_NONE]) && $this->definition['enabled'] && function_exists('i18n_string_update')) {
+        // Update the i18n strings.
+        metatag_update_translations($metatags[LANGUAGE_NONE]);
+      }
     }
   }
 

@@ -69,6 +69,8 @@ function metatag_views_page_alter(&$page) {
 
   // Check if Views metatags are enabled.
   if (!empty($view) && metatag_config_is_enabled('view')) {
+    global $language;
+
     // The following is taken from views_get_page_view().
     // If a module is still putting in the display like we used to, catch that.
     if (is_subclass_of($view, 'views_plugin_display')) {
@@ -78,6 +80,14 @@ function metatag_views_page_alter(&$page) {
     // Prevent Views settings from overwriting global:frontpage.
     if (drupal_is_front_page() && metatag_config_is_enabled('global:frontpage')) {
       return;
+    }
+
+    // Include only view name by default.
+    $instance = 'view:' . $view->name;
+
+    // Include display name if option is overridden.
+    if (!$view->display_handler->is_defaulted('metatags')) {
+      $instance = 'view:' . $view->name . ':' . $view->current_display;
     }
 
     // Load the meta tags for this view.
@@ -92,10 +102,13 @@ function metatag_views_page_alter(&$page) {
       $metatags = array(LANGUAGE_NONE => $metatags);
     }
 
+    // Translate all of the meta tags using i18n.
+    metatag_translate_metatags($metatags);
+
     // Build options for meta tag rendering.
-    $instance = 'view:' . $view->name;
     $options = array();
     $options['token data']['view'] = $view;
+    $options['language'] = $language->language;
 
     // The page region can be changed.
     $region = variable_get('metatag_page_region', 'content');
