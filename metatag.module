@@ -1324,7 +1324,12 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
   // Add a submit handler to compare the submitted values against the deafult
   // values.
   $form += array('#submit' => array());
-  array_unshift($form['#submit'], 'metatag_metatags_form_submit');
+  if (module_exists('commerce') && $form['#entity_type'] == 'commerce_product') {
+    $form['actions']['submit']['#submit'][] = 'commerce_product_metatag_metatags_form_submit';
+  }
+  else {
+    array_unshift($form['#submit'], 'metatag_metatags_form_submit');
+  }
 }
 
 /**
@@ -1355,6 +1360,42 @@ function metatag_metatags_form_submit($form, &$form_state) {
       }
     }
   }
+}
+
+/**
+ * Form API submission callback for Commerce product.
+ *
+ * Unset meta tag values that equal their default values, and load any
+ * additional meta tag values for other languages so that they can be properly
+ * saved later on.
+ *
+ * @see metatag_metatags_save()
+ */
+function commerce_product_metatag_metatags_form_submit($form, &$form_state){
+  $prod_id = $form_state['commerce_product']->product_id;
+  $rev_id = $form_state['commerce_product']->revision_uid;
+  $metatags = array();
+  $langcode1 = $form_state['commerce_product']->language;
+  $rev_id = $form_state['commerce_product']->revision_id;
+  if (!empty($form_state['values']['metatags'])) {
+    // Unset meta tag values that equal their default values.
+    foreach ($form_state['values']['metatags'] as $langcode => $values) {
+      if (!empty($form['metatags'][$langcode]['#metatag_defaults'])) {
+        metatag_filter_values_from_defaults($form_state['values']['metatags'][$langcode], $form['metatags'][$langcode]['#metatag_defaults']);
+      }
+    }
+    // Need to load the entity's values for other languages, otherwise they will
+    // be incorrectly deleted later on.
+    if (isset($form['#entity']) && !empty($form['#entity']->metatags)) {
+      foreach ($form['#entity']->metatags as $langcode => $values) {
+        if (!isset($form_state['values']['metatags'][$langcode])) {
+          $form_state['values']['metatags'][$langcode] = $values;
+        }
+      }
+    }
+  }
+  $metatags[$langcode] = $form_state['values']['metatags'][$langcode];
+  metatag_metatags_save('commerce_product', $prod_id, $rev_id, $metatags, $langcode1, $old_vid = NULL);
 }
 
 /**
