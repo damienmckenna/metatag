@@ -251,7 +251,15 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       }
     }
 
-    return $this->tidyValue($value);
+    $value = $this->tidyValue($value);
+
+    // Optionally translate the strings after they've been processed for tokens
+    // and images.
+    if (variable_get('metatag_translate_final_values', FALSE)) {
+      $value = metatag_translate($value, $this->info['name']);
+    }
+
+    return $value;
   }
 }
 

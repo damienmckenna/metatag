@@ -359,6 +359,9 @@ function metatag_uninstall() {
   // Optionally disables the output cache.
   variable_del('metatag_cache_output');
 
+  // Optionally translate all output strings.
+  variable_del('metatag_translate_final_values');
+
   // Remove all possible 'enable' variables.
   foreach (entity_get_info() as $entity_type => $entity_info) {
     variable_del('metatag_enable_' . $entity_type);

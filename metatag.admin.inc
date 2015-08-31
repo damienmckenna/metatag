@@ -649,6 +649,15 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_cache_output', TRUE),
   );
 
+  if (module_exists('i18n_string')) {
+    $form['advanced']['metatag_translate_final_values'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Translate final meta tag output'),
+      '#description' => t('By default the string meta tags are made available for translation before tokens are processed, the idea being that the tokens will probably have already been translated because they come from content that is translated elsewhere. This allows for an optional second-stage translation for sites that want to translate the final output too.'),
+      '#default_value' => variable_get('metatag_translate_final_values', FALSE),
+    );
+  }
+
   $form['advanced']['metatag_page_region'] = array(
     '#type' => 'select',
     '#title' => t("Page region to use"),
