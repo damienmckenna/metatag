@@ -10,6 +10,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   Improved i18n compatibility for the Views, Panels and Context submodules.
 #2518690 by manikaprasanth: Added support for editing Commerce product entities.
 #2550001 by DamienMcKenna: Renamed twitter:image:src back to twitter:image. LOL.
+#2559359 by labboy0276: Errors if the Views integration can't find the expected
+  display object.
 
 
 Metatag 7.x-1.7, 2015-07-24

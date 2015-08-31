@@ -2148,6 +2148,11 @@ function metatag_views_post_render(&$view, &$output, &$cache) {
     return;
   }
 
+  // If display is not set for some reason, get out to prevent PHP notices.
+  if (!isset($view->display[$view->current_display])) {
+    return;
+  }
+
   // Build a shortcut to the current display object.
   $display = $view->display[$view->current_display];
 
