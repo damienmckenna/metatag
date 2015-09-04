@@ -14,6 +14,9 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   display object.
 #2560649 by DamienMcKenna: Added optional second-stage translation for meta tag
   output.
+#2556741 by DamienMcKenna: Fixed robots handling on Nodewords importer; moved
+  Nodewords importer into a separate file to keep the Importer module more
+  general.
 
 
 Metatag 7.x-1.7, 2015-07-24
