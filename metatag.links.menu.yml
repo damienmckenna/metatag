@@ -1,0 +1,5 @@
+metatag.settings:
+  title: 'Metatag settings'
+  description: 'Advanced settings for Metatag.'
+  route_name: metatag.settings
+  parent: system.admin_config_search

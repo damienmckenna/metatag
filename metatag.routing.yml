@@ -1,0 +1,10 @@
+# Custom menu paths for the Metatag module.
+
+# Primary settings page.
+metatag.settings:
+  path: 'admin/config/search/metatag'
+  defaults:
+    _title: 'Metatag settings'
+    _form: '\Drupal\metatag\Form\MetatagSettingsForm'
+  requirements:
+    _permission: 'administer meta tags'

@@ -1,0 +1,6 @@
+# The 'edit meta tags' permission is no longer relevant, due to our use of the Field API.
+
+'administer meta tags':
+  title: Administer meta tags
+  description: Control the main settings pages and modify per-object meta tags.
+  'restrict access': TRUE
