@@ -108,7 +108,7 @@ function metatag_preprocess_html(&$variables) {
         // It's safe to access the value directly because it was already
         // processed in MetatagManager::generateElements().
         $variables['head_title_array'] = array();
-        $variables['head_title'] = $attachment[0]['#attributes']['content'];
+        $variables['head_title']['title'] = $attachment[0]['#attributes']['content'];
         // Original:
         // $variables['head_title_array']['title'] = $attachment[0]['#attributes']['content'];
         // $variables['head_title'] = implode(' | ', $variables['head_title_array']);
