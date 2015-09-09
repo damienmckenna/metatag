@@ -54,6 +54,14 @@ function metatag_token_info() {
     );
   }
 
+  // A custom pager.
+  $pager = variable_get('metatag_pager_string', 'Page PAGER | ');
+  $page = str_replace('PAGER', 12, $pager);
+  $info['tokens']['current-page']['pager'] = array(
+    'name' => t('Custom pager'),
+    'description' => t('A custom pager (from the Metatag module). Currently set to "@pager" which would be output as e.g. "@page".', array('@pager' => $pager, '@page' => $page)),
+  );
+
   return $info;
 }
 
@@ -102,6 +110,24 @@ function metatag_tokens($type, $tokens, array $data = array(), array $options = 
     if ($metatag_tokens = token_find_with_prefix($tokens, 'metatag')) {
       $result = metatag_token_generate_array($account, 'user', 'user');
       $replacements += token_generate('metatag', $metatag_tokens, array('metatag' => $result), $options);
+    }
+  }
+
+  // Custom pager.
+  if ($type == 'current-page') {
+    foreach ($tokens as $name => $original) {
+      switch ($name) {
+        case 'pager':
+          if (isset($_GET['page']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
+            $page = intval($_GET['page']) + 1;
+            if ($page > 1) {
+              $pager = variable_get('metatag_pager_string', 'Page PAGER | ');
+              $pager = str_replace('PAGER', $page, $pager);
+              $replacements[$original] = $pager;
+            }
+          }
+          break;
+      }
     }
   }
 

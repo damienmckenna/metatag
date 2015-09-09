@@ -17,6 +17,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2556741 by DamienMcKenna: Fixed robots handling on Nodewords importer; moved
   Nodewords importer into a separate file to keep the Importer module more
   general.
+#1809652 by DamienMcKenna: Added a new [current-page:pager] token for inserting
+  a pager into meta tags.
 
 
 Metatag 7.x-1.7, 2015-07-24

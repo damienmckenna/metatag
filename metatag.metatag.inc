@@ -16,7 +16,7 @@ function metatag_metatag_config_default() {
   $config->api_version = 1;
   $config->disabled = FALSE;
   $config->config = array(
-    'title' => array('value' => '[current-page:title] | [site:name]'),
+    'title' => array('value' => '[current-page:title] | [current-page:pager][site:name]'),
     'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
     'canonical' => array('value' => '[current-page:url:absolute]'),
     'shortlink' => array('value' => '[current-page:url:unaliased]'),
@@ -28,7 +28,7 @@ function metatag_metatag_config_default() {
   $config->api_version = 1;
   $config->disabled = FALSE;
   $config->config = array(
-    'title' => array('value' => variable_get('site_slogan') ? '[site:name] | [site:slogan]' : '[site:name]'),
+    'title' => array('value' => variable_get('site_slogan') ? '[site:name] | [current-page:pager][site:slogan]' : '[site:name] | [current-page:pager]'),
     'canonical' => array('value' => '[site:url]'),
     'shortlink' => array('value' => '[site:url]'),
   );
@@ -70,7 +70,7 @@ function metatag_metatag_config_default() {
     $config->api_version = 1;
     $config->disabled = FALSE;
     $config->config = array(
-      'title' => array('value' => '[term:name] | [site:name]'),
+      'title' => array('value' => '[term:name] | [current-page:pager][site:name]'),
       'description' => array('value' => '[term:description]'),
     );
     $configs[$config->instance] = $config;
