@@ -59,7 +59,7 @@ function metatag_metatag_config_default() {
   $config->api_version = 1;
   $config->disabled = FALSE;
   $config->config = array(
-    'title' => array('value' => '[node:title] | [site:name]'),
+    'title' => array('value' => '[node:title] | [current-page:pager][site:name]'),
     'description' => array('value' => '[node:summary]'),
   );
   $configs[$config->instance] = $config;
