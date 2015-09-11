@@ -20,6 +20,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1809652 by DamienMcKenna: Added a new [current-page:pager] token for inserting
   a pager into meta tags.
 #1809652 by DamienMcKenna: Update default node title to insert the pager.
+#2518690 by DamienMcKenna: Improvements to Commerce Product handling.
 
 
 Metatag 7.x-1.7, 2015-07-24
