@@ -99,6 +99,17 @@ function metatag_mobile_metatag_info() {
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
+  $info['tags']['ios-app-link-alternative'] = array(
+    'label' => t('iOS app link alternative'),
+    'description' => t('A custom string for deeplinking to an iOS mobile app. Should be in the format "itunes_id/scheme/host_path", e.g. 123456/example/hello-screen". The "ios-app://" prefix will be included automatically.'),
+    'class' => 'DrupalLinkMetaTag',
+    'weight' => ++$weight,
+    'element' => array(
+      '#theme' => 'metatag_mobile_ios_app',
+    ),
+    'header' => FALSE,
+  ) + $tag_info_defaults;
+
   // Default values for each meta tag.
   $tag_info_defaults = array(
     'description' => '',

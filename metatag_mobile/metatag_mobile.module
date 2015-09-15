@@ -20,12 +20,15 @@ function metatag_mobile_theme() {
   $info['metatag_mobile_android_app'] = array(
     'render element' => 'element',
   );
+  $info['metatag_mobile_ios_app'] = array(
+    'render element' => 'element',
+  );
 
   return $info;
 }
 
 /**
- * Theme callback for an Google+ meta tag.
+ * Theme callback for an Android app link meta tag.
  *
  * The format is:
  * <link rel="alternate" href="android-app://com.example.Example/sitesection/sitepage/thispage" />
@@ -34,6 +37,20 @@ function theme_metatag_mobile_android_app($variables) {
   // Pass everything through to the normal 'link' tag theme.
   $variables['element']['#name'] = 'alternative';
   $variables['element']['#value'] = 'android-app://' . $variables['element']['#value'];
+
+  return theme('metatag_link_rel', $variables);
+}
+
+/**
+ * Theme callback for an Android app link meta tag.
+ *
+ * The format is:
+ * <link rel="alternate" href="ios-app://123456/example/hello-screen" />
+ */
+function theme_metatag_mobile_ios_app($variables) {
+  // Pass everything through to the normal 'link' tag theme.
+  $variables['element']['#name'] = 'alternative';
+  $variables['element']['#value'] = 'ios-app://' . $variables['element']['#value'];
 
   return theme('metatag_link_rel', $variables);
 }

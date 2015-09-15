@@ -24,6 +24,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2568499 by DamienMcKenna: Added new Apple-specific meta tags to the Mobile
   submodule.
 #2568463 by DamienMcKenna: Added the android-app deeplink meta tag.
+#2569093 by DamienMcKenna: Added the ios-app deeplink meta tag.
 
 
 Metatag 7.x-1.7, 2015-07-24
