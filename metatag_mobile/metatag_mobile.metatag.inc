@@ -22,6 +22,13 @@ function metatag_mobile_metatag_info() {
       '#weight' => 81,
     ),
   );
+  $info['groups']['android_mobile'] = array(
+    'label' => t('Android Mobile'),
+    'description' => t("Custom meta tags used by the Android OS, browser, etc."),
+    'form' => array(
+      '#weight' => 82,
+    ),
+  );
 
   $weight = 80;
 
@@ -90,6 +97,24 @@ function metatag_mobile_metatag_info() {
     'label' => t('Format detection'),
     'description' => t('If set to "telephone=no" the page will not be checked for phone numbers, which would be presented .'),
     'weight' => ++$weight,
+  ) + $tag_info_defaults;
+
+  // Default values for each meta tag.
+  $tag_info_defaults = array(
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'android_mobile',
+  );
+
+  $info['tags']['android-app-link-alternative'] = array(
+    'label' => t('Android app link alternative'),
+    'description' => t('A custom string for deeplinking to an Android mobile app. Should be in the format "package_name/host_path", e.g. "com.example.android/example/hello-screen". The "android-app://" prefix will be included automatically.'),
+    'class' => 'DrupalLinkMetaTag',
+    'weight' => ++$weight,
+    'element' => array(
+      '#theme' => 'metatag_mobile_android_app',
+    ),
+    'header' => FALSE,
   ) + $tag_info_defaults;
 
   return $info;

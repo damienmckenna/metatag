@@ -13,6 +13,31 @@ function metatag_mobile_ctools_plugin_api($owner, $api) {
   }
 }
 
+/**
+ * Implements hook_theme().
+ */
+function metatag_mobile_theme() {
+  $info['metatag_mobile_android_app'] = array(
+    'render element' => 'element',
+  );
+
+  return $info;
+}
+
+/**
+ * Theme callback for an Google+ meta tag.
+ *
+ * The format is:
+ * <link rel="alternate" href="android-app://com.example.Example/sitesection/sitepage/thispage" />
+ */
+function theme_metatag_mobile_android_app($variables) {
+  // Pass everything through to the normal 'link' tag theme.
+  $variables['element']['#name'] = 'alternative';
+  $variables['element']['#value'] = 'android-app://' . $variables['element']['#value'];
+
+  return theme('metatag_link_rel', $variables);
+}
+
 /*
 * theme-color
 * MobileOptimized
@@ -22,4 +47,5 @@ function metatag_mobile_ctools_plugin_api($owner, $api) {
 * apple-mobile-web-app-capable
 * apple-mobile-web-app-status-bar-style
 * format-detection
+* android-app
 */
