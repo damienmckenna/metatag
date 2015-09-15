@@ -14,6 +14,12 @@ function metatag_mobile_ctools_plugin_api($owner, $api) {
 }
 
 /*
-fb:admins
-fb:app_id
+* theme-color
+* MobileOptimized
+* HandheldFriendly
+* viewport
+* cleartype
+* apple-mobile-web-app-capable
+* apple-mobile-web-app-status-bar-style
+* format-detection
 */

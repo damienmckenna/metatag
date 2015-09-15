@@ -21,6 +21,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   a pager into meta tags.
 #1809652 by DamienMcKenna: Update default node title to insert the pager.
 #2518690 by DamienMcKenna: Improvements to Commerce Product handling.
+#2568499 by DamienMcKenna: Added new Apple-specific meta tags to the Mobile
+  submodule.
 
 
 Metatag 7.x-1.7, 2015-07-24

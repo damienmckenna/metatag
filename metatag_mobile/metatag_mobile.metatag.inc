@@ -15,6 +15,13 @@ function metatag_mobile_metatag_info() {
       '#weight' => 80,
     ),
   );
+  $info['groups']['apple_mobile'] = array(
+    'label' => t('Apple & iOS'),
+    'description' => t("Custom meta tags used by Apple's software, iOS, Safari, etc."),
+    'form' => array(
+      '#weight' => 81,
+    ),
+  );
 
   $weight = 80;
 
@@ -58,6 +65,31 @@ function metatag_mobile_metatag_info() {
     'element' => array(
       '#theme' => 'metatag_http_equiv',
     ),
+  ) + $tag_info_defaults;
+
+  // Default values for each meta tag.
+  $tag_info_defaults = array(
+    'description' => '',
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'apple_mobile',
+  );
+
+  $info['tags']['apple-mobile-web-app-capable'] = array(
+    'label' => t('Web app capable?'),
+    'description' => t('If set to "yes", the application will runn in full-screen mode; the default behavior is to use Safari to display web content.'),
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
+
+  $info['tags']['apple-mobile-web-app-status-bar-style'] = array(
+    'label' => t('Status bar color'),
+    'description' => t('Requires the "Web app capable" meta tag to be set to "yes". May be set to "default", "black", or "black-translucent".'),
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
+
+  $info['tags']['format-detection'] = array(
+    'label' => t('Format detection'),
+    'description' => t('If set to "telephone=no" the page will not be checked for phone numbers, which would be presented .'),
+    'weight' => ++$weight,
   ) + $tag_info_defaults;
 
   return $info;
