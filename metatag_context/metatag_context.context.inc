@@ -139,9 +139,16 @@ class metatag_context_reaction extends context_reaction {
         $instance = 'context:' . implode(',', $instance_names);
         $options['instance'] = $instance;
 
+        // Don't output meta tags that only contain the pager.
+        $current_pager = metatag_get_current_pager();
+
         foreach ($metatags as $metatag => $data) {
           if ($metatag_instance = metatag_get_instance($metatag, $data)) {
-            $output[$metatag] = $metatag_instance->getElement($options);
+            $tag_output = $metatag_instance->getElement($options);
+            // Don't output the pager if that's all there is.
+            if ($tag_output != $current_pager) {
+              $output[$metatag] = $tag_output;
+            }
           }
         }
 

@@ -118,13 +118,9 @@ function metatag_tokens($type, $tokens, array $data = array(), array $options = 
     foreach ($tokens as $name => $original) {
       switch ($name) {
         case 'pager':
-          if (isset($_GET['page']) && !empty($_GET['page']) && is_numeric($_GET['page'])) {
-            $page = intval($_GET['page']) + 1;
-            if ($page > 1) {
-              $pager = variable_get('metatag_pager_string', 'Page PAGER | ');
-              $pager = str_replace('PAGER', $page, $pager);
-              $replacements[$original] = $pager;
-            }
+          $pager = metatag_get_current_pager();
+          if (!empty($pager)) {
+            $replacements[$original] = $pager;
           }
           break;
       }
