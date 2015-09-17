@@ -132,7 +132,7 @@ function _metatag_importer_import(array $types = array()) {
       array('_metatag_importer_migrate', array($types)),
     ),
     'finished' => '_metatag_importer_finished',
-    'file' => drupal_get_path('module', 'metatag_importer') . '/metatag_importer.admin.inc',
+    'file' => drupal_get_path('module', 'metatag_importer') . '/metatag_importer.nodewords.inc',
   );
   batch_set($batch);
 
