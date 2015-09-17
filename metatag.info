@@ -18,4 +18,10 @@ configure = admin/config/search/metatags
 
 files[] = metatag.inc
 files[] = metatag.migrate.inc
-files[] = metatag.test
+
+; Tests.
+files[] = tests/metatag.helper.test
+files[] = tests/metatag.unit.test
+files[] = tests/metatag.node.test
+files[] = tests/metatag.term.test
+files[] = tests/metatag.user.test

@@ -1,0 +1,100 @@
+<?php
+/**
+ * @file
+ * Tests for the Metatag module.
+ */
+
+class MetatagUserTest extends MetatagTestHelper {
+  /**
+   * Admin user.
+   *
+   * @var \StdClass
+   */
+  protected $adminUser;
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Metatag UI tests for users',
+      'description' => 'Test Metatag edit functionality for users.',
+      'group' => 'Metatag',
+    );
+  }
+
+  /**
+   * Tests creation of a standard entity.
+   */
+  public function testEntityCreationWorkflow() {
+    // Create an admin user and log them in.
+    $this->adminUser = $this->createAdminUser();
+    $this->drupalLogin($this->adminUser);
+
+    // Assign default values for the new vocabulary.
+
+    // Load the page for overriding the User configuration.
+    $this->drupalGet('admin/config/search/metatags/config/user');
+
+    // Verify the page loaded correct.
+    $this->assertResponse(200);
+    // @todo Update this to extract the H1 tag.
+    $this->assertText(strip_tags('User'));
+
+    // Submit the form with some values.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.subject][value]' => '[user:name]',
+    ), t('Save'));
+
+    // Verify the page loaded correct.
+    $this->assertText(strip_tags(t('The meta tag defaults for @label have been saved.', array('@label' => 'User'))));
+
+    // Load the user's edit form.
+    $this->drupalGet('user/' . $this->adminUser->uid . '/edit');
+
+    // Verify the page loaded and didn't give a 404 error.
+    $this->assertResponse(200);
+
+    // Verify the page loaded correctly.
+    // @todo Update this to extract the H1 tag.
+    // $this->assertText(strip_tags(t('Create @name', array('@name' => $vocabulary->name))));
+
+    // Verify that it's possible to submit values to the form.
+    $this->drupalPost(NULL, array(
+      'metatags[und][dcterms.subject][value]' => '[user:name] ponies',
+    ), t('Save'));
+
+    // Verify that the node saved correctly.
+    $t_args = array('%name' => $this->adminUser->name);
+
+    // This doesn't work for some reason, it seems the HTML is stripped off
+    // during output so the %name's standard Drupal wrappers don't match.
+    // $this->assertText(t('The changes have been saved.'));
+    // .. so this has to be done instead.
+    $this->assertText(strip_tags(t('The changes have been saved.')));
+
+    // Manually load the admin account.
+    $account = user_load($this->adminUser->uid);
+
+    // Only the non-default values are stored.
+    $expected = array(
+      'und' => array(
+        'dcterms.subject' => array(
+          'value' => '[user:name] ponies',
+        ),
+      ),
+    );
+    $this->assertEqual($expected, $account->metatags);
+
+    // Load the user's profile page.
+    $this->drupalGet('user/' . $this->adminUser->uid);
+
+    // Verify the page loaded and didn't give a 404 error.
+    $this->assertResponse(200);
+
+    // Verify the title is using the custom default for this vocabulary.
+    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
+    $this->assertEqual($xpath[0]['content'], $this->adminUser->name . " ponies");
+  }
+}

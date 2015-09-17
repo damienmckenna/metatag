@@ -28,6 +28,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2568955 by DamienMcKenna: Don't output meta tags that only contain a pager.
 #2556741 by DamienMcKenna: BatchAPI call wasn't updated after the Nodewords
   importer file was renamed.
+#2514916 by DamienMcKenna: Split up the tests file, moved them into the tests
+  directory, added new tests for node revisions.
 
 
 Metatag 7.x-1.7, 2015-07-24

@@ -1,0 +1,321 @@
+<?php
+/**
+ * @file
+ * Tests for the Metatag module.
+ */
+
+class MetatagTestHelper extends DrupalWebTestCase {
+  function setUp(array $modules = array()) {
+    // Make sure these modules are enabled so that we can use their entity
+    // types later.
+    $modules[] = 'node';
+    $modules[] = 'taxonomy';
+
+    // Requirements.
+    $modules[] = 'ctools';
+    $modules[] = 'token';
+
+    // Metatag modules.
+    $modules[] = 'metatag';
+    $modules[] = 'metatag_test';
+    $modules[] = 'metatag_dc';
+    $modules[] = 'metatag_facebook';
+    $modules[] = 'metatag_google_plus';
+    $modules[] = 'metatag_opengraph';
+    $modules[] = 'metatag_twitter_cards';
+
+    parent::setUp($modules);
+  }
+
+  /**
+   * Create a content type for the tests.
+   */
+  function createContentType($machine_name, $label) {
+    // Create a content type.
+    $content_type = $this->drupalCreateContentType(array(
+      'type' => $machine_name,
+      'name' => $label,
+    ));
+
+    // Enable meta tags for this new content type.
+    metatag_entity_type_enable('node', $machine_name);
+
+    return $content_type;
+  }
+
+  /**
+   * Create an admin user for the tests.
+   *
+   * @param array $extra_permissions
+   *   An array of permission strings to be added to the user.
+   *
+   * @return object
+   *   A user object.
+   */
+  function createAdminUser($extra_permissions = array()) {
+    // Basic permissions for the module.
+    $permissions = array(
+      'administer meta tags',
+      'edit meta tags',
+    );
+
+    // Reset the static variable used to identify permissions, otherwise it's
+    // possible the permissions check in drupalCreateUser will fail.
+    $this->checkPermissions(array(), TRUE);
+    cache_clear_all();
+
+    return $this->drupalCreateUser(array_merge($permissions, $extra_permissions));
+  }
+
+  /**
+   * Create a normal user for the tests.
+   *
+   * @param array $extra_permissions
+   *   An array of permission strings to be added to the user.
+   *
+   * @return object
+   *   A user object.
+   */
+  function createUser($extra_permissions) {
+    // Basic permissions for the module.
+    $permissions = array(
+      'edit meta tags',
+    );
+
+    // Reset the static variable used to identify permissions, otherwise it's
+    // possible the permissions check in drupalCreateUser will fail.
+    $this->checkPermissions(array(), TRUE);
+    cache_clear_all();
+
+    return $this->drupalCreateUser(array_merge($permissions, $extra_permissions));
+  }
+
+  /**
+   * Returns a new vocabulary with random properties.
+   *
+   * @param $vocab_name
+   *   If empty a random string will be used.
+   * @param $content_type
+   *   Any content types listed will have a Taxonomy Term reference field added
+   *   that points to the new vocabulary.
+   *
+   * @return object
+   *   A vocabulary object.
+   */
+  function createVocabulary($vocab_name = NULL, $content_type = 'article') {
+    if (empty($vocab_name)) {
+      $vocab_name = $this->randomName();
+    }
+
+    // Create a vocabulary.
+    $vocabulary = new stdClass();
+    $vocabulary->name = $vocab_name;
+    $vocabulary->description = $vocab_name;
+    $vocabulary->machine_name = drupal_strtolower($vocab_name);
+    $vocabulary->help = '';
+    $vocabulary->nodes = array($content_type => $content_type);
+    $vocabulary->weight = mt_rand(0, 10);
+    taxonomy_vocabulary_save($vocabulary);
+
+    // Enable meta tags for this new vocabulary.
+    metatag_entity_type_enable('taxonomy_term', $vocab_name);
+
+    return $vocabulary;
+  }
+
+  /**
+   * Returns a new taxonomy term in a specific vocabulary.
+   *
+   * @param object $vocabulary
+   *   The vocabulary to add the term to.
+   * @param string $term_name
+   *   The name to use for the new vocabulary. If none is provided one will be
+   *   generated randomly.
+   *
+   * @return object
+   *   A taxonomy term object.
+   */
+  function createTerm($vocabulary, $term_name = NULL) {
+    if (empty($term_name)) {
+      $term_name = $this->randomName();
+    }
+
+    // Create an object to save.
+    $term = new stdClass();
+    $term->name = $term_name;
+    $term->description = $term_name;
+    // Use the first available text format.
+    $term->format = db_query_range('SELECT format FROM {filter_format}', 0, 1)->fetchField();
+    $term->vid = $vocabulary->vid;
+
+    // Save the term.
+    taxonomy_term_save($term);
+
+    return $term;
+  }
+}
+
+
+// TODO: Test each meta tag.
+// TODO: Scenarios.
+//
+// 1. Node
+// * No language assignment.
+// * First save.
+//
+// 2. Node
+// * No language assignment.
+// * Edit existing revision.
+//
+// 3. Node
+// * No language assignment.
+// * Create new revision.
+// * Publish new revision.
+//
+// 4. Node
+// * No language assignment.
+// * Create new revision.
+// * Delete new revision.
+//
+// 5. Node + Translation
+// * No language assignment
+// * Change language assignment.
+//   * Edit existing revision.
+//
+// 6. Node + Translation
+// * No language assignment
+// * Change language assignment.
+//   * Create new revision.
+// * Publish new revision.
+//
+// 7. Node + Translation
+// * No language assignment
+// * Change language assignment.
+//   * Create new revision.
+// * Delete new revision.
+//
+// 8. Node + Translation
+// * Initial language assignment
+//
+// 9. Node + Translation
+// * Initial language assignment
+// * Create new revision.
+// * Publish new revision.
+//
+// 10. Node + Translation
+// * Initial language assignment
+// * Create new revision.
+// * Delete new revision.
+//
+// 11. Node + Translation
+// * Initial language assignment
+// * Change language assignment.
+//   * Create new revision.
+// * Publish new revision.
+//
+// 12. Node + Translation
+// * Initial language assignment
+// * Change language assignment.
+//   * Create new revision.
+// * Delete new revision.
+//
+// 13. Node + Translation
+// * Initial language assignment
+// * Create translated node.
+//
+// 14. Node + Translation
+// * Initial language assignment
+// * Create new revision.
+// * Publish new revision.
+// * Create translated node.
+//
+// 15. Node + Translation
+// * Initial language assignment
+// * Create new revision.
+// * Publish new revision.
+// * Create translated node.
+// * Delete translated node.
+//
+// 16. Node + Translation
+// * Initial language assignment
+// * Create translated node.
+// * Delete original node.
+//
+// 17. Node + Translation
+// * Initial language assignment
+// * Create new revision.
+// * Publish new revision.
+// * Create translated node.
+// * Delete original node.
+//
+// 18. Node + entity_translation
+// * Initial language assignment
+// * Create translated node.
+//
+// 19. Node + entity_translation
+// * Initial language assignment
+// * Create translated node.
+// * Delete original.
+//
+// 20. Node + entity_translation
+// * Initial language assignment
+// * Create translated node.
+// * Create new revision.
+// * Publish new revision.
+//
+// 21. Node + entity_translation
+// * Initial language assignment
+// * Create translated node.
+// * Create new revision.
+// * Publish new revision.
+// * Delete new revision.
+//
+// 22. Node + entity_translation
+// * Initial language assignment
+// * Create translated node.
+// * Create new revision.
+// * Publish new revision.
+// * Delete original.
+//
+// 23. Node + entity_translation
+// * Initial language assignment
+// * Create translated node.
+// * Create new revision.
+// * Publish new revision.
+// * Delete original.
+//
+// 24. Node + entity_translation
+// * Initial language assignment
+// * Create new revision.
+// * Publish new revision.
+// * Create translated node.
+//
+// 25. Node + entity_translation
+// * Initial language assignment
+// * Create new revision.
+// * Publish new revision.
+// * Create translated node.
+// * Delete new revision.
+//
+//
+// 30. Node + i18n
+//
+//
+// 50. Term
+// * Create term.
+//
+// 51. Term
+// * Create term.
+// * Change values.
+//
+//
+// 60. User
+// * Create user.
+//
+// 61. User
+// * Create user.
+// * Change values.
+//
+//
+// 70. Custom path
+// * Defaults loaded.
