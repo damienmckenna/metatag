@@ -30,6 +30,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   importer file was renamed.
 #2514916 by DamienMcKenna: Split up the tests file, moved them into the tests
   directory, added new tests for node revisions.
+#2567621 by hass: Allow the custom pager to be translated using the i18n
+  Variable module.
 
 
 Metatag 7.x-1.7, 2015-07-24

@@ -161,6 +161,9 @@ All default configurations may be translated using the Internationalization
 page" configuration will show up in the Translate Interface admin page
 (admin/config/regional/translate/translate) and may be customized per language.
 
+Additionally, the custom pager may be translated using the Variable Translation
+submodule.
+
 
 Fine Tuning
 ------------------------------------------------------------------------------
