@@ -2627,3 +2627,30 @@ function metatag_taxonomy_vocabulary_delete($info) {
 function metatag_workbench_moderation_transition($node, $previous_state, $new_state) {
   metatag_metatags_cache_clear('node', array($node->nid));
 }
+
+/**
+ * sort callback for sorting by metatag instance string values.
+ */
+function _metatag_config_instance_sort($a, $b) {
+  $a_contexts = explode(':', $a);
+  $b_contexts = explode(':', $b);
+
+  // Global config always comes first.
+  if ($a_contexts[0] == 'global' && $b_contexts[0] != 'global') {
+    return -1;
+  }
+  elseif ($b_contexts[0] == 'global' && $a_contexts[0] != 'global') {
+    return 1;
+  }
+
+  for ($i = 0; $i < max(count($a_contexts), count($b_contexts)); $i++) {
+    $a_context = isset($a_contexts[$i]) ? $a_contexts[$i] : '';
+    $b_context = isset($b_contexts[$i]) ? $b_contexts[$i] : '';
+    if ($a_context == $b_context) {
+      continue;
+    }
+    else {
+      return strcmp($a_context, $b_context);
+    }
+  }
+}

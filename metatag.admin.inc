@@ -5,29 +5,6 @@
  * Administration page callbacks for the metatag module.
  */
 
-function _metatag_config_sort($a, $b) {
-  $return = NULL;
-  $a_contexts = explode(':', $a->instance);
-  $b_contexts = explode(':', $b->instance);
-  for ($i = 0; $i < max(count($a_contexts), count($b_contexts)); $i++) {
-    $a_context = isset($a_contexts[$i]) ? $a_contexts[$i] : '';
-    $b_context = isset($b_contexts[$i]) ? $b_contexts[$i] : '';
-    if ($a_context == $b_context) {
-      continue;
-    }
-    elseif ($a_context == 'global') {
-      $return = -1;
-    }
-    elseif ($a_context == '') {
-      $return = -1;
-    }
-    else {
-      $return = strcmp($a_context, $b_context);
-    }
-  }
-  return $return;
-}
-
 function _metatag_config_overview_indent($text, $instance) {
   $parents = metatag_config_get_parent_instances($instance);
   array_shift($parents);
@@ -48,8 +25,7 @@ function metatag_config_overview() {
   $metatags = metatag_get_info('tags');
 
   $configs = ctools_export_crud_load_all('metatag_config');
-  ksort($configs);
-  //uasort($configs, '_metatag_config_sort');
+  uksort($configs, '_metatag_config_instance_sort');
 
   $rows = array();
   foreach ($configs as $config) {
