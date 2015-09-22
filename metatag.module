@@ -2557,6 +2557,8 @@ function metatag_entity_type_is_suitable($entity_type, $entity_info = array()) {
     else {
       // Specifically disable some entity types.
       $excluded = array(
+        // Comment module.
+        'comment',
         // Field Collection module.
         'field_collection_item',
         // Paragraphs module.
