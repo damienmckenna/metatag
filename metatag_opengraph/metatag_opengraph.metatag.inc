@@ -464,10 +464,13 @@ function metatag_opengraph_metatag_info() {
   //     ),
   //   ),
   // );
-  $info['tags']['og:video'] = array(
+  $info['tags']['og:video:url'] = array(
     'label' => t('Video URL'),
     'description' => t('The URL to a video file that complements this object.'),
     'weight' => ++$weight,
+    'replaces' => array(
+      'og:video',
+    ),
     'devel_generate' => array(
       'type' => 'url',
     ),

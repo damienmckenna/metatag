@@ -54,7 +54,8 @@ og:email
 og:phone_number
 og:fax_number
 
-og:video
+og:video:url
+og:video:secure_url
 og:video:height
 og:video:width
 og:video:type
