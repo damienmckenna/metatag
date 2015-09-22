@@ -35,6 +35,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2572371 by Dave Reid: Remove support for comments.
 #2567677 by Perignon, DamienMcKenna: og:video meta tag renamed.
 #2556741 by DamienMcKenna: Follow-up to fix imported robots meta tags.
+#2556741 by DamienMcKenna: Updated the final commit message to show the correct
+  count.
 
 
 Metatag 7.x-1.7, 2015-07-24
