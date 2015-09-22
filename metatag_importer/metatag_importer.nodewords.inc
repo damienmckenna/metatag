@@ -493,9 +493,13 @@ function _metatag_importer_convert_data($name, $value) {
         if (empty($robot_data)) {
           $value = FALSE;
         }
-        // Return any data that's remaining.
+
+        // Return any data that's remaining. The data must be stored in an
+        // array with a single item named 'value'.
         else {
-          $value = $robot_data;
+          $value = array(
+            'value' => $robot_data,
+          );
         }
       }
       break;

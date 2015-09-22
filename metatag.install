@@ -1751,3 +1751,127 @@ function metatag_update_7039() {
     cache_clear_all('info:' . $langcode, 'cache_metatag');
   }
 }
+
+/**
+ * Fix robots meta tags that might have been broken when they were imported
+ * from Nodewords.
+ */
+function metatag_update_7040(&$sandbox) {
+  // Process records by groups of 10 (arbitrary value).
+  // When a group is processed, the batch update engine determines whether it
+  // should continue processing in the same request or provide progress
+  // feedback to the user and wait for the next request.
+  $limit = 10;
+  // When ran through Drush it's Ok to process a larger number of objects at a
+  // time.
+  if (drupal_is_cli()) {
+    $limit = 100;
+  }
+
+  // Use the sandbox at your convenience to store the information needed
+  // to track progression between successive calls to the function.
+  if (!isset($sandbox['progress'])) {
+    // The count of records visited so far.
+    $sandbox['progress'] = 0;
+
+    // Update Node values.
+    $nodes = db_query("SELECT * FROM {metatag} m WHERE m.data LIKE '%robots%'");
+    $sandbox['records'] = array();
+    foreach ($nodes as $record) {
+      $sandbox['records'][] = $record;
+    }
+
+    // If there's no data, don't bother with the extra work.
+    if (empty($sandbox['records'])) {
+      watchdog('metatag', 'Update 7040: No robots meta tags need to be fixed.', array(), WATCHDOG_INFO);
+      if (drupal_is_cli()) {
+        drupal_set_message(t('Update 7040: No robots meta tags need to be fixed.'));
+      }
+      return t('No robots meta tags need to be fixed.');
+    }
+
+    // Total records that must be visited.
+    $sandbox['max'] = count($sandbox['records']);
+
+    // A place to store messages during the run.
+    $sandbox['messages'] = array();
+
+    // An initial record of the number of records to be updated.
+    watchdog('metatag', 'Update 7040: !count records to examine.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7040: !count records to examine.', array('!count' => $sandbox['max'])));
+    }
+
+    // Last record processed.
+    $sandbox['current_record'] = -1;
+
+    // Log how many records are fixed.
+    $sandbox['fixed'] = 0;
+
+    // Because a lot of other processing happens on the first iteration, just do
+    // one.
+    $limit = 1;
+  }
+
+  // Set default values.
+  for ($ctr = 0; $ctr < $limit; $ctr++) {
+    $sandbox['current_record']++;
+    if (empty($sandbox['records'][$sandbox['current_record']])) {
+      break;
+    }
+
+    // Shortcuts for later.
+    $record = $sandbox['records'][$sandbox['current_record']];
+
+    // Extract the record.
+    $record->data = unserialize($record->data);
+
+    // See if the record needs to be fixed.
+    if (!empty($record->data['robots']) && empty($record->data['robots']['value'])) {
+      // Fix the record.
+      $robots = $record->data['robots'];
+      $record->data['robots'] = array(
+        'value' => $robots,
+      );
+
+      // Update the database.
+      db_update('metatag')
+        ->fields(array('data' => serialize($record->data)))
+        ->condition('entity_type', $record->entity_type)
+        ->condition('entity_id', $record->entity_id)
+        ->condition('revision_id', $record->revision_id)
+        ->condition('language', $record->language)
+        ->execute();
+
+      // Clear the cache for this entity.
+      entity_get_controller($entity_type)->resetCache(array($entity_id));
+
+      // Update our progress information.
+      $sandbox['fixed']++;
+    }
+
+    // Update our progress information.
+    $sandbox['progress']++;
+  }
+
+  // Set the "finished" status, to tell batch engine whether this function
+  // needs to run again. If you set a float, this will indicate the progress of
+  // the batch so the progress bar will update.
+  $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ? TRUE : ($sandbox['progress'] / $sandbox['max']);
+
+  // Only display a status message if process finished.
+  if ($sandbox['#finished'] === TRUE) {
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
+
+    // A final log of the number of records that were converted.
+    watchdog('metatag', 'Update 7040: !count records were fixed.', array('!count' => $sandbox['progress']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7040: !count records were fixed.', array('!count' => $sandbox['progress'])));
+    }
+
+    // hook_update_N() may optionally return a string which will be displayed
+    // to the user.
+    return t('Fixed the Metatag language values for @count nodes.', array('@count' => $sandbox['progress']));
+  }
+}
