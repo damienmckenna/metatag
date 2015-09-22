@@ -127,6 +127,17 @@ function metatag_requirements($phase) {
       );
     }
 
+    // It's recommended to install the Imagecache Token module to make image
+    // tokens easier to do.
+    if (!module_exists('imagecache_token')) {
+      $requirements['metatag_imagecache_token'] = array(
+        'severity' => REQUIREMENT_INFO,
+        'title' => 'Metatag',
+        'value' => $t('The Imagecache Token module is recommended.'),
+        'description' => $t("It is recommended to install the <a href=\"@url\">Imagecache Token module</a> to make it easier to control image meta tags, e.g. og:image. See the Metatag module's README.txt for details.", array('@url' => 'https://drupal.org/project/imagecache_token')),
+      );
+    }
+
     // The Admin Language module can cause problems.
     if (!module_exists('admin_language') && variable_get('admin_language_force_neutral', 0)) {
       $requirements['metatag_admin_language'] = array(

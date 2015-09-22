@@ -315,6 +315,8 @@ Metatag 7.x-1.0-rc2, 2014-08-05
   didn't work correctly on Panels pages.
 #2153977 by paolomainardi, DamienMcKenna: Fix for translations of base entity
   type configuration when there is no bundle configuration.
+#2572891 by DamienMcKenna: Removed most 'fine tuning' items from the README.txt
+  file, added notes again about using Imagecache_Token to improve images.
 
 
 Metatag 7.x-1.0-rc1, 2014-07-12
