@@ -23,7 +23,7 @@ function metatag_mobile_metatag_info() {
     ),
   );
   $info['groups']['android_mobile'] = array(
-    'label' => t('Android Mobile'),
+    'label' => t('Android'),
     'description' => t("Custom meta tags used by the Android OS, browser, etc."),
     'form' => array(
       '#weight' => 82,
@@ -83,7 +83,7 @@ function metatag_mobile_metatag_info() {
 
   $info['tags']['apple-mobile-web-app-capable'] = array(
     'label' => t('Web app capable?'),
-    'description' => t('If set to "yes", the application will runn in full-screen mode; the default behavior is to use Safari to display web content.'),
+    'description' => t('If set to "yes", the application will run in full-screen mode; the default behavior is to use Safari to display web content.'),
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 
@@ -126,6 +126,16 @@ function metatag_mobile_metatag_info() {
       '#theme' => 'metatag_mobile_android_app',
     ),
     'header' => FALSE,
+  ) + $tag_info_defaults;
+
+  $info['tags']['android-manifest'] = array(
+    'label' => t('Manifest'),
+    'description' => t('A URL to a manifest.json file that describes the application. The <a href="https://developer.chrome.com/multidevice/android/installtohomescreen">JSON-based manifest</a> provides developers with a centralized place to put metadata associated with a web application.'),
+    'class' => 'DrupalLinkMetaTag',
+    'weight' => ++$weight,
+    'element' => array(
+      '#name' => 'manifest',
+    ),
   ) + $tag_info_defaults;
 
   return $info;

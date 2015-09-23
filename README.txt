@@ -79,8 +79,9 @@ The primary features include:
 
 * The Metatag: Mobile & UI Adjustments submodule adds the MobileOptimized,
   HandheldFriendly, viewport, cleartype, theme-color, format-detection,
-  apple-mobile-web-app-capable, apple-mobile-web-app-status-bar-style, and the
-  android-app and ios-app alternative link meta tags.
+  apple-mobile-web-app-capable, apple-mobile-web-app-status-bar-style, the
+  android-app and ios-app alternative link meta tags, and the Android manifest
+  tag.
 
 * A variety of favicon sizes and styles can be added to the global configuration
   using the Metatag: Favicons submodule.

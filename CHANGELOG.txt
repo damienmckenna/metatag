@@ -54,6 +54,7 @@ Metatag 7.x-1.7, 2015-07-24
   script to convert data from the Page Title module.
 #2572291 by Dave Reid: Always display config items in the correct order - global
   items first, then sorted alphabetically.
+#2498213 by makangus: Added the Android manifest meta tag.
 
 
 Metatag 7.x-1.6, 2015-06-30
