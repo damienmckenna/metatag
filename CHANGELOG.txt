@@ -52,6 +52,8 @@ Metatag 7.x-1.7, 2015-07-24
 #2513892 by DamienMcKenna: Tests for user objects.
 #1658970 by DamienMcKenna, stefan.r, subhojit777, HyperGlide, jenlampton: Drush
   script to convert data from the Page Title module.
+#2572291 by Dave Reid: Always display config items in the correct order - global
+  items first, then sorted alphabetically.
 
 
 Metatag 7.x-1.6, 2015-06-30
