@@ -10,11 +10,11 @@ namespace Drupal\metatag\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Drupal\AppConsole\Command\GeneratorCommand;
-use Drupal\AppConsole\Command\Helper\ServicesTrait;
-use Drupal\AppConsole\Command\Helper\ModuleTrait;
-use Drupal\AppConsole\Command\Helper\FormTrait;
-use Drupal\AppConsole\Command\Helper\ConfirmationTrait;
+use Drupal\Console\Command\GeneratorCommand;
+use Drupal\Console\Command\ServicesTrait;
+use Drupal\Console\Command\ModuleTrait;
+use Drupal\Console\Command\FormTrait;
+use Drupal\Console\Command\ConfirmationTrait;
 use Drupal\metatag\Generator\MetatagTagGenerator;
 
 /**
@@ -78,19 +78,17 @@ class GenerateTagCommand extends GeneratorCommand {
     $module = $input->getOption('module');
     $name = $input->getOption('name');
     $label = $input->getOption('label');
+    $description = $input->getOption('description');
     $plugin_id = $input->getOption('plugin-id');
     $class_name = $input->getOption('class-name');
     $group = $input->getOption('group');
     $weight = $input->getOption('weight');
 
-    // @see use Drupal\AppConsole\Command\Helper\ServicesTrait::buildServices
-    $build_services = $this->buildServices($services);
-
     $this
       ->getGenerator()
-      ->generate($module, $name, $label, $plugin_id, $class_name, $group, $weight);
+      ->generate($module, $name, $label, $description, $plugin_id, $class_name, $group, $weight);
 
-    $this->getHelper('chain')->addCommand('cache:rebuild', ['--cache' => 'discovery']);
+    $this->getHelper('chain')->addCommand('cache:rebuild', ['cache' => 'discovery']);
   }
 
   /**

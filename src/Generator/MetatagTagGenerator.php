@@ -6,7 +6,7 @@
 
 namespace Drupal\metatag\Generator;
 
-use Drupal\AppConsole\Generator\Generator;
+use Drupal\Console\Generator\Generator;
 
 class MetatagTagGenerator extends Generator {
   /**
@@ -33,9 +33,8 @@ class MetatagTagGenerator extends Generator {
     ];
 
     $this->renderFile(
-      // $this->getModulePath('metatag') . '/templates/tag.php.twig',
       'tag.php.twig',
-      $this->getPluginPath($module, 'metatag/Tag') . '/' . $class_name . '.php',
+      $this->getSite()->getPluginPath($module, 'metatag/Tag') . '/' . $class_name . '.php',
       $parameters
     );
   }
