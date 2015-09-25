@@ -1855,7 +1855,7 @@ function metatag_update_7040(&$sandbox) {
         ->execute();
 
       // Clear the cache for this entity.
-      entity_get_controller($entity_type)->resetCache(array($entity_id));
+      entity_get_controller($record->entity_type)->resetCache(array($record->entity_id));
 
       // Update our progress information.
       $sandbox['fixed']++;
@@ -1883,6 +1883,6 @@ function metatag_update_7040(&$sandbox) {
 
     // hook_update_N() may optionally return a string which will be displayed
     // to the user.
-    return t('Fixed the Metatag language values for @count nodes.', array('@count' => $sandbox['fixed']));
+    return t('Fixed the Metatag robots values for @count nodes.', array('@count' => $sandbox['fixed']));
   }
 }
