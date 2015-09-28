@@ -49,11 +49,15 @@ class MetatagManager {
     $fields = $this->getFields($entity);
 
     foreach ($fields as $field_name => $field_info) {
-      $tags = $this->getFieldTags($entity, $field_name);
+      debug($field_name);
+      debug($field_info);
+      $defaults = get_class_methods($field_info);//->getDefaultValueLiteral();
+      debug($defaults);
+      // $tags = $this->getFieldTags($entity, $field_name);
 
       // No data found for this entity? Use the field's default values.
-      if (empty($tags) && !empty($field_info->default_value[0]['value'])) {
-        $tags = unserialize($field_info->default_value[0]['value']);
+      if (empty($tags)) {
+        // $tags = unserialize($field_info->default_value[0]['value']);
       }
     }
 

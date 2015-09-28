@@ -70,4 +70,10 @@ class MetatagFieldItem extends FieldItemBase {
     return $value === NULL || $value === '';
   }
 
+  /**
+   *
+   */
+  public function getFieldDefaults() {
+    return $this->getDefaultValue();
+  }
 }

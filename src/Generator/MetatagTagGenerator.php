@@ -6,19 +6,21 @@
 
 namespace Drupal\metatag\Generator;
 
-use Drupal\AppConsole\Generator\Generator;
+use Drupal\Console\Generator\Generator;
 
 class MetatagTagGenerator extends Generator {
+
   /**
-   * Generator Plugin Block
-   * @param $module
-   * @param $name
-   * @param $label
-   * @param $description
-   * @param $plugin_id
-   * @param $class_name
-   * @param $group
-   * @param $weight
+   * Generator plugin.
+   *
+   * @param string $module
+   * @param string $name
+   * @param string $label
+   * @param string $description
+   * @param string $plugin_id
+   * @param string $class_name
+   * @param string $group
+   * @param string $weight
    */
   public function generate($module, $name, $label, $description, $plugin_id, $class_name, $group, $weight) {
     $parameters = [
@@ -33,10 +35,10 @@ class MetatagTagGenerator extends Generator {
     ];
 
     $this->renderFile(
-      // $this->getModulePath('metatag') . '/templates/tag.php.twig',
       'tag.php.twig',
-      $this->getPluginPath($module, 'metatag/Tag') . '/' . $class_name . '.php',
+      $this->getSite()->getPluginPath($module, 'metatag/Tag') . '/' . $class_name . '.php',
       $parameters
     );
   }
+
 }
