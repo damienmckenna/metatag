@@ -42,6 +42,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2498213 by makangus: Added the Android manifest meta tag.
 #2573869 by DamienMcKenna: Fixed variable bug in update 7040.
 #2579871 by DamienMcKenna: Added more test dependencies.
+#2579201 by lesonunique, DamienMcKenna: Missing 'secure' option on
+  og:audio:secure_url.
 
 
 Metatag 7.x-1.7, 2015-07-24

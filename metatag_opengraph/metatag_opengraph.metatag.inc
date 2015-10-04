@@ -408,6 +408,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:audio:secure_url'] = array(
     'label' => t('Audio secure URL'),
     'description' => t('The secure URL to an audio file that complements this object. All "http://" URLs will automatically be converted to "https://".'),
+    'secure' => TRUE,
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'url',

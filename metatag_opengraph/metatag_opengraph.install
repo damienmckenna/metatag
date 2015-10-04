@@ -148,3 +148,11 @@ function metatag_opengraph_update_7105() {
   cache_clear_all('*', 'cache_metatag', TRUE);
   return t('All Metatag caches cleared.');
 }
+
+/**
+ * Clear the Metatag cache to pick up changes to og:audio:secure_url.
+ */
+function metatag_opengraph_update_7106() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  return t('All Metatag caches cleared.');
+}
