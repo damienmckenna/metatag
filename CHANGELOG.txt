@@ -45,6 +45,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2579201 by lesonunique, DamienMcKenna: Missing 'secure' option on
   og:audio:secure_url.
 #2580623 by marcvangend: Incorrect check for admin_language.
+#2580523 by DamienMcKenna: Add a note to hook_requirements if hreflang module
+  is not installed and there are multiple locales enabled on the site.
 
 
 Metatag 7.x-1.7, 2015-07-24
