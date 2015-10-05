@@ -44,6 +44,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2579871 by DamienMcKenna: Added more test dependencies.
 #2579201 by lesonunique, DamienMcKenna: Missing 'secure' option on
   og:audio:secure_url.
+#2580623 by marcvangend: Incorrect check for admin_language.
 
 
 Metatag 7.x-1.7, 2015-07-24

@@ -139,7 +139,7 @@ function metatag_requirements($phase) {
     }
 
     // The Admin Language module can cause problems.
-    if (!module_exists('admin_language') && variable_get('admin_language_force_neutral', 0)) {
+    if (module_exists('admin_language') && variable_get('admin_language_force_neutral', 0)) {
       $requirements['metatag_admin_language'] = array(
         'severity' => REQUIREMENT_WARNING,
         'title' => 'Metatag',
