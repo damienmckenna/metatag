@@ -170,10 +170,12 @@ function metatag_get_tags_from_route() {
     $entity = $route_match->getParameter($entity_type);
 
     // Get the manager service to do all the work.
-    $manager = \Drupal::service('metatag.manager');
+    if ($entity instanceof ContentEntityInterface) {
+      $manager = \Drupal::service('metatag.manager');
 
-    // Assemble the attachments array from all the metatag plugins.
-    $metatags = $manager->attachmentsFromEntity($entity);
+      // Assemble the attachments array from all the metatag plugins.
+      $metatags = $manager->attachmentsFromEntity($entity);
+    }
   }
 
   return $metatags;
