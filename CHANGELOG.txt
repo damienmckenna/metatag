@@ -3,3 +3,4 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 Initial port by Damien McKenna and Michelle Cox.
 #2563663 by kikoalonsob: Don't convert the title to a string.
 #2563621 by jmolivas: Fixed DrupalConsole integration.
+#2579865 by afi13: Fixed definition of MetatagEmptyFormatter::viewElements().
