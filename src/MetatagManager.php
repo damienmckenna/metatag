@@ -8,6 +8,7 @@
 namespace Drupal\metatag;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use \Drupal\field\Entity\FieldConfig;
 
 /**
  * Class MetatagManager.
@@ -46,18 +47,22 @@ class MetatagManager {
    */
   public function attachmentsFromEntity(ContentEntityInterface $entity) {
     $tags = array();
+
     $fields = $this->getFields($entity);
 
+    /* @var FieldConfig $field_info */
     foreach ($fields as $field_name => $field_info) {
-      debug($field_name);
-      debug($field_info);
-      $defaults = get_class_methods($field_info);//->getDefaultValueLiteral();
-      debug($defaults);
-      // $tags = $this->getFieldTags($entity, $field_name);
+      // Get the tags from the field's defaults.
+      $field_default_tags_value = $field_info->getDefaultValueLiteral();
+      $field_default_tags = unserialize($field_default_tags_value[0]['value']);
 
-      // No data found for this entity? Use the field's default values.
-      if (empty($tags)) {
-        // $tags = unserialize($field_info->default_value[0]['value']);
+      // Get the tags from this field.
+      $field_tags = $this->getFieldTags($entity, $field_name);
+
+      // Go through all the available tags. If the field has a value set for it,
+      // use that. Otherwise, use the value from the default settings.
+      foreach ($field_default_tags as $key => $value) {
+        $tags[$key] = empty($field_tags[$key]) ? $field_default_tags[$key] : $field_tags[$key];
       }
     }
 
@@ -65,7 +70,6 @@ class MetatagManager {
 
     return $attachments;
   }
-
 
   public function groupDefinitions() {
     return $this->groupPluginManager->getDefinitions();
