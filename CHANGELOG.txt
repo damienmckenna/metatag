@@ -9,3 +9,4 @@ Initial port by Damien McKenna and Michelle Cox.
 #2569043 by Michelle: Field defaults weren't loading (core API change).
 #2579295 by Michelle: Fixed the field cardinality limitation.
 #2563667 by Michelle: Follow-up to add missing namespace.
+#2584835 by DamienMcKenna: Fixed double-HTML encoding of the page title.
