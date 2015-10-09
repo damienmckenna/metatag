@@ -27,19 +27,17 @@ tags", about your website and web pages.') . '</p>';
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter() for 'field_storage_config_edit_form'.
  */
-function metatag_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  // Disable the cardinality option on the field storage settings form for
-  // metatag fields.
-  if ($form_id == 'field_ui_field_storage_edit_form') {
-    if ($form['#field']->getType() == 'metatag') {
-      $form['field_storage']['cardinality_container']['#prefix'] = t("Metatag fields must be singular.");
-      $form['field_storage']['cardinality_container']['#disabled'] = TRUE;
-      $form['field_storage']['cardinality_container']['cardinality']['#disabled'] = TRUE;
-      $form['field_storage']['cardinality_container']['cardinality_number']['#disabled'] = TRUE;
-      unset($form['field_storage']['cardinality_container']['cardinality_number']['#states']);
-    }
+function metatag_form_field_storage_config_edit_form_alter(&$form, FormStateInterface $form_state) {
+  if ($form_state->getFormObject()->getEntity()->getType() == 'metatag') {
+    // Disable the cardinality option on the field storage settings form for
+    // metatag fields.
+    $form['cardinality_container']['#prefix'] = t("Metatag fields must be singular.");
+    $form['cardinality_container']['#disabled'] = TRUE;
+    $form['cardinality_container']['cardinality']['#disabled'] = TRUE;
+    $form['cardinality_container']['cardinality_number']['#disabled'] = TRUE;
+    unset($form['cardinality_container']['cardinality_number']['#states']);
   }
 }
 

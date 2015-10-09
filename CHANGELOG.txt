@@ -7,3 +7,4 @@ Initial port by Damien McKenna and Michelle Cox.
 #2563667 by vicnic: MetatagManager should only be used for objects implementing
   ContentEntityInterface.
 #2569043 by Michelle: Field defaults weren't loading (core API change).
+#2579295 by Michelle: Fixed the field cardinality limitation.
