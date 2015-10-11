@@ -25,6 +25,7 @@ files[] = tests/metatag.unit.test
 files[] = tests/metatag.node.test
 files[] = tests/metatag.term.test
 files[] = tests/metatag.user.test
+files[] = tests/metatag.panels.test
 files[] = tests/metatag.views.test
 
 ; This is required for testing image handling.

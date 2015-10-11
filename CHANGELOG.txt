@@ -49,6 +49,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   is not installed and there are multiple locales enabled on the site.
 #2587369 by DamienMcKenna: Added two placeholder files for storing tests for the
   Views integration.
+#2587371 by DamienMcKenna: Added two placeholder files for storing tests for the
+  Panels integration.
 
 
 Metatag 7.x-1.7, 2015-07-24

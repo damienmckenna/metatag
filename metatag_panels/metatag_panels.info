@@ -7,3 +7,6 @@ dependencies[] = ctools
 dependencies[] = metatag
 dependencies[] = panels
 dependencies[] = token
+
+; Tests.
+files[] = tests/metatag_panels.test
