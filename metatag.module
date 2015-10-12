@@ -1414,13 +1414,15 @@ function metatag_commerce_product_form_submit($form, &$form_state) {
 function metatag_field_extra_fields() {
   $extra = array();
   foreach (entity_get_info() as $entity_type => $entity_info) {
-    foreach (array_keys($entity_info['bundles']) as $bundle) {
-      if (metatag_entity_supports_metatags($entity_type, $bundle)) {
-        $extra[$entity_type][$bundle]['form']['metatags'] = array(
-          'label' => t('Meta tags'),
-          'description' => t('Meta tag module form elements.'),
-          'weight' => 40,
-        );
+    if (!empty($entity_info['bundles'])) {
+      foreach (array_keys($entity_info['bundles']) as $bundle) {
+        if (metatag_entity_supports_metatags($entity_type, $bundle)) {
+          $extra[$entity_type][$bundle]['form']['metatags'] = array(
+            'label' => t('Meta tags'),
+            'description' => t('Meta tag module form elements.'),
+            'weight' => 40,
+          );
+        }
       }
     }
   }
