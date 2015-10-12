@@ -492,16 +492,34 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
  *   The language of the translation set
  */
 function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $langcode, $old_vid = NULL) {
+  // Check that $entity_id is numeric because of Entity API and string IDs.
+  if (!is_numeric($entity_id)) {
+    return;
+  }
+
+  // Don't do anything if the entity type is not supported.
+  if (!metatag_entity_supports_metatags($entity_type)) {
+    return;
+  }
+
+  // Verify that the entity can be loaded.
+  $entity = entity_load($entity_type, array($entity_id));
+  if (empty($entity)) {
+    return;
+  }
+  $entity = reset($entity);
+  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
+
+  // Don't do anything if the entity bundle is not supported.
+  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
+    return;
+  }
+
   // If no language assigned, or the language doesn't exist, use the
   // has-no-language language.
   $languages = language_list();
   if (empty($langcode) || !isset($languages[$langcode])) {
     $langcode = LANGUAGE_NONE;
-  }
-
-  // Check that $entity_id is numeric because of Entity API and string IDs.
-  if (!is_numeric($entity_id)) {
-    return;
   }
 
   // The revision_id must be a numeric value; some entities use NULL for the
@@ -510,11 +528,12 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
     $revision_id = 0;
   }
 
-  // Handle scenarios where the metatags are completely empty.
+  // Handle scenarios where the metatags are completely empty, this will have
+  // the effect of erasing the meta tags for those this entity.
   if (empty($metatags)) {
     $metatags = array();
     // Add an empty array record for each language.
-    $languages = db_query("SELECT language, ''
+    $languages = db_query("SELECT language
         FROM {metatag}
         WHERE (entity_type = :type)
         AND (entity_id = :id)
@@ -523,8 +542,8 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
         ':type'     => $entity_type,
         ':id'       => $entity_id,
         ':revision' => $revision_id,
-      ))->fetchAllKeyed();
-    foreach ($languages as $oldlang => $empty) {
+      ))->fetchCol();
+    foreach ($languages as $oldlang) {
       $metatags[$oldlang] = array();
     }
   }

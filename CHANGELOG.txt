@@ -53,6 +53,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   Panels integration.
 #2376857 by DamienMcKenna: Work around entity definitions that don't have a
   'bundles' attribute.
+#2455777 by DamienMcKenna: Don't try to save any {metatag} records if the entity
+  or bundle is not supported.
 
 
 Metatag 7.x-1.7, 2015-07-24
