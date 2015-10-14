@@ -10,3 +10,4 @@ Initial port by Damien McKenna and Michelle Cox.
 #2579295 by Michelle: Fixed the field cardinality limitation.
 #2563667 by Michelle: Follow-up to add missing namespace.
 #2584835 by DamienMcKenna: Fixed double-HTML encoding of the page title.
+#2563637 by larowlan: Added some initial tests for the field type.

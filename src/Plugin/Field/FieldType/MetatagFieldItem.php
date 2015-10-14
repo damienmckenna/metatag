@@ -45,15 +45,6 @@ class MetatagFieldItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultStorageSettings() {
-    return array(
-      'max_length' => 255,
-    ) + parent::defaultStorageSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['value'] = DataDefinition::create('string')
       ->setLabel(t('Metatag'))
