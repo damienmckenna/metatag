@@ -83,6 +83,8 @@ The primary features include:
   android-app and ios-app alternative link meta tags, and the Android manifest
   tag.
 
+* The hreflang meta tags are available via the Metatag:hreflang submodule.
+
 * A variety of favicon sizes and styles can be added to the global configuration
   using the Metatag: Favicons submodule.
 
@@ -269,8 +271,10 @@ Some modules are available that extend Metatag with additional functionality:
 
 * Alternative hreflang
   https://www.drupal.org/project/hreflang
-  Output <link rel="alternate" hreflang="x" href="http://" /> meta tags for
-  each language available on the site.
+  An alternative to the Metatag:hreflang module. Automatically outputs
+  <link rel="alternate" hreflang="x" href="http://" /> meta tags on every page
+  for each language/locale available on the site. Also does not provide any way
+  of overriding the values or setting the x-default value.
 
 * Domain Meta Tags
   https://drupal.org/project/domain_meta
