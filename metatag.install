@@ -1283,6 +1283,13 @@ function metatag_update_7018(&$sandbox) {
     }
     $records = entity_load($entity_type, array($entity_id), $conditions);
 
+    // Try to fallback to default language if no record was found. This may
+    // happen when using entity_translation as the parent entity table only
+    // contains one record.
+    if (!empty($conditions) && empty($records)) {
+      $records = entity_load($entity_type, array($entity_id));
+    }
+
     // Fix this record.
     if (!empty($records)) {
       $entity = reset($records);
@@ -1897,4 +1904,12 @@ function metatag_update_7040(&$sandbox) {
     // to the user.
     return t('Fixed the Metatag robots values for @count nodes.', array('@count' => $sandbox['fixed']));
   }
+}
+
+/**
+ * Rerun update 7018 that was fixed to run correctly when using Entity
+ * Translation. This may take some time.
+ */
+function metatag_update_7041(&$sandbox) {
+  metatag_update_7018($sandbox);
 }

@@ -61,6 +61,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1957358 by pjonckiere, DamienMcKenna: Add tests to ensure that the meta tag
   string encoding works correctly.
 By DamienMcKenna: Some commit messages were in the wrong place.
+#2603458 by Frando: Fixed update 7018 for sites using Entity Translation, and
+  re-run it.
 
 
 Metatag 7.x-1.7, 2015-07-24
