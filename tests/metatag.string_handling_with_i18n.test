@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Contains the tests for Metatag's string handling.
+ */
+
+/**
+ * Tests the Metatag string handling.
+ */
+class MetatagStringHandlingWithI18nTest extends MetatagStringHandlingTest {
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Metatag string tests w i18n',
+      'description' => "Tests Metatag's string handling when i18n is enabled.",
+      'group' => 'Metatag',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  function setUp(array $modules = array()) {
+    parent::setUp(array('i18n', 'i18n_string'));
+
+    $content_type = 'page';
+
+    // Create an admin user and log them in.
+    $perms = array(
+      // Needed for the content type.
+      'create ' . $content_type . ' content',
+      'delete any ' . $content_type . ' content',
+      'edit any ' . $content_type . ' content',
+
+      // This permission is required in order to create new revisions.
+      'administer nodes',
+    );
+    $this->adminUser = $this->createAdminUser($perms);
+    $this->drupalLogin($this->adminUser);
+  }
+
+}

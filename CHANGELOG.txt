@@ -195,6 +195,8 @@ By DamienMcKenna: Removed message from metatag_opengraph_install() warning about
 #2597301 by DamienMcKenna: New submodule for handling the hreflang meta tag.
 #2603058 by FluxSauce: Fixed problem loading migrate.inc file if Migrate is not
   enabled.
+#1957358 by pjonckiere, DamienMcKenna: Add tests to ensure that the meta tag
+  string encoding works correctly.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
