@@ -197,6 +197,8 @@ By DamienMcKenna: Removed message from metatag_opengraph_install() warning about
   enabled.
 #1957358 by pjonckiere, DamienMcKenna: Add tests to ensure that the meta tag
   string encoding works correctly.
+#2603458 by Frando: Fixed update 7018 for sites using Entity Translation, and
+  re-run it.
 
 
 Metatag 7.x-1.5-beta1, 2015-02-02
