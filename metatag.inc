@@ -232,23 +232,26 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
 
     // Special handling for images.
     if (!empty($this->info['image'])) {
-      // If this contains embedded image tags, extract the image URLs.
-      if (strip_tags($value) != $value) {
-        if (!empty($this->info['multiple'])) {
-          $values = explode(',', $value);
-        }
-        else {
-          $values = array($value);
-        }
-        foreach ($values as $key => $val) {
+      if (!empty($this->info['multiple'])) {
+        $values = explode(',', $value);
+      }
+      else {
+        $values = array($value);
+      }
+      foreach ($values as $key => &$image_value) {
+        // If this contains embedded image tags, extract the image URLs.
+        if (strip_tags($image_value) != $image_value) {
           $matches = array();
           preg_match('/src="([^"]*)"/', $val, $matches);
           if (!empty($matches[1])) {
-            $values[$key] = $matches[1];
+            $image_value = $matches[1];
           }
         }
-        $value = implode(',', $values);
+        if (strpos($image_value, 'public://') === 0) {
+          $image_value = file_create_url($image_value);
+        }
       }
+      $value = implode(',', $values);
     }
 
     $value = $this->tidyValue($value);

@@ -63,6 +63,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Some commit messages were in the wrong place.
 #2603458 by Frando: Fixed update 7018 for sites using Entity Translation, and
   re-run it.
+#1355788 by DamienMcKenna: Allow use of 'public://' file scheme for images.
 
 
 Metatag 7.x-1.7, 2015-07-24
