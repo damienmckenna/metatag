@@ -67,6 +67,8 @@ By DamienMcKenna: Some commit messages were in the wrong place.
 #2550001 by Dave Reid: Blank out metatag_update_7024() and metatag_update_7030()
   because the 'twitter:image:src' meta tag was renamed back to 'twitter:image'
   so these updates don't need to ever run.
+#1957358 by DamienMcKenna: Added tests to confirm that HTML entities work
+  correctly in the page title.
 
 
 Metatag 7.x-1.7, 2015-07-24

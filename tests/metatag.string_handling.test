@@ -49,93 +49,85 @@ class MetatagStringHandlingTest extends MetatagTestHelper {
   }
 
   /**
-   * Tests that a metatag with single quote is not double escaped.
+   * Tests that a meta tag with single quote is not double escaped.
    */
   function testSingleQuote() {
-    $string_original = "bla'bleblu";
-    $string_encoded = htmlentities($string_original, ENT_QUOTES);
-    $edit = array(
-      'metatags[und][description][value]' => $string_original,
-    );
-    $this->drupalPost('admin/config/search/metatags/config/node', $edit, 'Save');
-
-    $result = db_select('metatag_config', 'mc')
-      ->fields('mc', array('config'))
-      ->condition('mc.instance', 'node')
-      ->execute()
-      ->fetchAssoc();
-
-    $config = unserialize($result['config']);
-    $this->assertNotEqual($string_encoded, $config['description']['value'], 'The description was escaped properly on the database.');
-    $this->assertEqual($string_original, $config['description']['value'], 'The description was escaped properly on the database.');
-
-    // Create a node and check how the meta tag is displayed.
-    $node = $this->drupalCreateNode();
-    $this->drupalGet('node/' . $node->nid);
-
-    // The raw output should include
-    $this->assertRaw($string_encoded, 'Confirmed the node has the correctly encoded meta tag string.');
-    $this->assertNoRaw($string_original, 'Confirmed the node does not have an incorrectly encoded meta tag string.');
+    $this->_testAString("bla'bleblu");
   }
 
   /**
-   * Tests that a metatag with single quote is not double escaped.
+   * Tests that a meta tag with a double quote is not double escaped.
    */
   function testDoubleQuote() {
-    $string_original = 'bla"bleblu';
-    $string_encoded = htmlentities($string_original, ENT_QUOTES);
-    $edit = array(
-      'metatags[und][description][value]' => $string_original,
-    );
-    $this->drupalPost('admin/config/search/metatags/config/node', $edit, 'Save');
+    $this->_testAString('bla"bleblu');
+  }
 
-    $result = db_select('metatag_config', 'mc')
-      ->fields('mc', array('config'))
-      ->condition('mc.instance', 'node')
-      ->execute()
-      ->fetchAssoc();
-
-    $config = unserialize($result['config']);
-    $this->assertNotEqual($string_encoded, $config['description']['value'], 'The description was escaped properly on the database.');
-    $this->assertEqual($string_original, $config['description']['value'], 'The description was escaped properly on the database.');
-
-    // Create a node and check how the meta tag is displayed.
-    $node = $this->drupalCreateNode();
-    $this->drupalGet('node/' . $node->nid);
-
-    // The raw output should include
-    $this->assertRaw($string_encoded, 'Confirmed the node has the correctly encoded meta tag string.');
-    $this->assertNoRaw($string_original, 'Confirmed the node does not have an incorrectly encoded meta tag string.');
+  /**
+   * Tests that a meta tag with an ampersand is not double escaped.
+   */
+  function testAmpersand() {
+    $this->_testAString("blable&blu");
   }
 
   /**
    * Tests that a metatag with single quote is not double escaped.
    */
-  function testAmpersand() {
-    $string_original = "blable&blu";
-    $string_encoded = htmlentities($string_original, ENT_QUOTES);
+  function _testAString($string) {
+    // The original strings.
+    $title_original = 'Title: ' . $string;
+    $desc_original = 'Description: ' . $string;
+    // The strings after they're encoded, but quotes will not be encoded.
+    $title_encoded = htmlentities($title_original, ENT_QUOTES);
+    $desc_encoded = htmlentities($desc_original, ENT_QUOTES);
+    // The strings double-encoded, to make sure the tags aren't broken.
+    $title_encodeded = htmlentities($title_encoded, ENT_QUOTES);
+    $desc_encodeded = htmlentities($desc_encoded, ENT_QUOTES);
+
+    // Save the main node configuration form to assign the values above.
     $edit = array(
-      'metatags[und][description][value]' => $string_original,
+      'metatags[und][title][value]' => $title_original,
+      'metatags[und][description][value]' => $desc_original,
     );
     $this->drupalPost('admin/config/search/metatags/config/node', $edit, 'Save');
 
+    // Load the configuration object.
     $result = db_select('metatag_config', 'mc')
       ->fields('mc', array('config'))
       ->condition('mc.instance', 'node')
       ->execute()
       ->fetchAssoc();
 
+    // Unserialize the configuration.
     $config = unserialize($result['config']);
-    $this->assertNotEqual($string_encoded, $config['description']['value'], 'The description was escaped properly on the database.');
-    $this->assertEqual($string_original, $config['description']['value'], 'The description was escaped properly on the database.');
+
+    // Make sure the title is stored correctly.
+    $this->assertEqual($title_original, $config['title']['value'], 'The title tag was stored in its original format.');
+    $this->assertNotEqual($title_encoded, $config['title']['value'], 'The title tag was not stored in an encoded format.');
+    $this->assertNotEqual($title_encodeded, $config['title']['value'], 'The title tag was not stored in a double-encoded format.');
+
+    // Make sure the description tag is stored correctly.
+    $this->assertEqual($desc_original, $config['description']['value'], 'The description tag was stored in its original format.');
+    $this->assertNotEqual($desc_encoded, $config['description']['value'], 'The description tag was not stored in an encoded format.');
+    $this->assertNotEqual($desc_encodeded, $config['description']['value'], 'The description tag was not stored in a double-encoded format.');
 
     // Create a node and check how the meta tag is displayed.
     $node = $this->drupalCreateNode();
     $this->drupalGet('node/' . $node->nid);
 
-    // The raw output should include
-    $this->assertRaw($string_encoded, 'Confirmed the node has the correctly encoded meta tag string.');
-    $this->assertNoRaw($string_original, 'Confirmed the node does not have an incorrectly encoded meta tag string.');
+    // The page title should be displayed in its original format.
+    $this->assertTitle($title_original, 'Confirmed the node title tag shows up in its original form.');
+    // The page title should not be HTML encoded.
+    $this->assertNoTitle($title_encoded, 'Confirmed the node title tag is not encoded.');
+    // The page title definitely should not be double- HTML encoded.
+    $this->assertNoTitle($title_encodeded, 'Confirmed the node title tag is not double-encoded.');
+
+    // Normal meta tags should be encoded properly.
+    $this->assertRaw($desc_encoded, 'Confirmed the node "description" meta tag string was encoded properly.');
+    // Normal meta tags with HTML entities should be displayed in their original
+    // format.
+    $this->assertNoRaw($desc_original, 'Confirmed the node "description" meta tag string does not show in its original form.');
+    // Normal meta tags should not be double-encoded.
+    $this->assertNoRaw($desc_encodeded, 'Confirmed the node "description" meta tag string was not double-encoded.');
   }
 
 }

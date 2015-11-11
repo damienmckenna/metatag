@@ -308,6 +308,9 @@ class DrupalLinkMetaTag extends DrupalTextMetaTag {
  */
 class DrupalTitleMetaTag extends DrupalTextMetaTag {
 
+  /**
+   *
+   */
   public function getElement(array $options = array()) {
     $element = array();
     $value = $this->getValue($options);
