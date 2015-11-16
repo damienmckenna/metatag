@@ -14,3 +14,5 @@ Initial port by Damien McKenna and Michelle Cox.
 #2596753 by Michelle: Don't encode apostrophes in the page title.
 #2576695 by Andrej Galuf, larowlan, DamienMcKenna: Double slashes in URLs were
   being replaced.
+#2603548 by DuaelFr: Clear our the head_title array to avoid the site name being
+  added a second time.

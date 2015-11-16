@@ -106,6 +106,9 @@ function metatag_preprocess_html(&$variables) {
         // It's safe to access the value directly because it was already
         // processed in MetatagManager::generateElements().
         $variables['head_title_array'] = array();
+        // Empty head_title to avoid the site name and slogan to be appended to
+        // the meta title.
+        $variables['head_title'] = array();
         $variables['head_title']['title'] = html_entity_decode($attachment[0]['#attributes']['content'], ENT_QUOTES);
         // Original:
         // $variables['head_title_array']['title'] = $attachment[0]['#attributes']['content'];
