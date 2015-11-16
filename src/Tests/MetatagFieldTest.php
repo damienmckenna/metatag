@@ -109,8 +109,8 @@ class MetatagFieldTest extends WebTestBase {
     // @todo Uncomment in https://www.drupal.org/node/2581351.
     // $this->assertEqual((string) $elements[0]['content'], "Green monkey dishwasher", 'Default keywords applied');
 
-    // @todo Uncomment in https://www.drupal.org/node/2576695.
-    // $this->doTestUrlMetatags();
+    // Verify that the URLs aren't being broken.
+    $this->doTestUrlMetatags();
   }
 
   /**
@@ -162,6 +162,7 @@ class MetatagFieldTest extends WebTestBase {
    * Tests metatags with urls work.
    */
   protected function doTestUrlMetatags() {
+    $this->drupalGet('entity_test/add');
     $edit = [
       'name[0][value]' => 'UrlTags',
       'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
