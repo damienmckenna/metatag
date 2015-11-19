@@ -18,3 +18,4 @@ Initial port by Damien McKenna and Michelle Cox.
   added a second time.
 #2617192 by larowlan: Fixed tests due to a core API change.
 #2609138 by rakesh.gectcr: Removed unnecessary 'use' statements.
+#2593149 by larowlan: Inject dependencies into MetatagManager.

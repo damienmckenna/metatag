@@ -8,6 +8,7 @@
 namespace Drupal\metatag;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Logger\LoggerChannelFactory;
 use \Drupal\field\Entity\FieldConfig;
 
 /**
@@ -23,6 +24,13 @@ class MetatagManager {
   protected $tokenService;
 
   /**
+   * Metatag logging channel.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
+   */
+  protected $logger;
+
+  /**
    * Constructor for MetatagManager.
    *
    * @param MetatagGroupPluginManager $groupPluginManager
@@ -31,10 +39,12 @@ class MetatagManager {
    */
   public function __construct(MetatagGroupPluginManager $groupPluginManager,
                               MetatagTagPluginManager $tagPluginManager,
-                              MetatagToken $token) {
+                              MetatagToken $token,
+                              LoggerChannelFactory $channelFactory) {
     $this->groupPluginManager = $groupPluginManager;
     $this->tagPluginManager = $tagPluginManager;
     $this->tokenService = $token;
+    $this->logger = $channelFactory->get('metatag');
   }
 
   /**
@@ -153,7 +163,7 @@ class MetatagManager {
       if (!isset($groups[$tag_group])) {
         // If the tag is claiming a group that has no matching plugin, log an
         // error and force it to the basic group.
-        \Drupal::logger('metatag')->error("Undefined group '%group' on tag '%tag'", array('%group' => $tag_group, '%tag' => $tag_id));
+        $this->logger->error("Undefined group '%group' on tag '%tag'", array('%group' => $tag_group, '%tag' => $tag_id));
         $tag['group'] = 'basic';
         $tag_group = 'basic';
       }
@@ -186,8 +196,7 @@ class MetatagManager {
     );
 
     // Add the token browser.
-    $element['token_tree'] = \Drupal::service('metatag.token')->tokenBrowser();
-
+    $element['token_tree'] = $this->tokenService->tokenBrowser();
     $groups_and_tags = $this->sortedGroupsWithTags();
 
     $first = TRUE;
