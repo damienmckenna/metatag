@@ -19,3 +19,4 @@ Initial port by Damien McKenna and Michelle Cox.
 #2617192 by larowlan: Fixed tests due to a core API change.
 #2609138 by rakesh.gectcr: Removed unnecessary 'use' statements.
 #2593149 by larowlan: Inject dependencies into MetatagManager.
+#2593153 by larowlan: Inject dependencies into MetatagToken.

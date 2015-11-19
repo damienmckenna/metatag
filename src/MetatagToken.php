@@ -6,12 +6,40 @@
  */
 
 namespace Drupal\metatag;
+use Drupal\Core\Extension\ModuleHandlerInterface;
+use Drupal\Core\Utility\Token;
 
 /**
  * Token handling service. Uses core token service or contributed Token.
  */
 class MetatagToken {
 
+  /**
+   * Module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected $moduleHandler;
+
+  /**
+   * Token service.
+   * 
+   * @var \Drupal\Core\Utility\Token
+   */
+  protected $coreToken;
+
+  /**
+   * Constructs a new MetatagToken object.
+   *
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
+   *   Module handler service.
+   * @param \Drupal\Core\Utility\Token $token
+   *   Token service.
+   */
+  public function __construct(ModuleHandlerInterface $module_handler, Token $token) {
+    $this->coreToken = $token;
+    $this->moduleHandler = $module_handler;
+  }
   /**
    * Gatekeeper function to direct to either the core or contributed Token.
    *
@@ -21,7 +49,7 @@ class MetatagToken {
    * @return mixed|string $string
    */
   public function tokenReplace($string, $data, $settings = array()){
-    if (\Drupal::moduleHandler()->moduleExists('token')) {
+    if ($this->moduleHandler->moduleExists('token')) {
       return $this->contribReplace($string, $data, $settings);
     }
     else {
@@ -36,7 +64,7 @@ class MetatagToken {
    */
   public function tokenBrowser() {
     // @TODO: Make these optionally return rendered HTML instead of an an array.
-    if (\Drupal::moduleHandler()->moduleExists('token')) {
+    if ($this->moduleHandler->moduleExists('token')) {
       return $this->contribBrowser();
     }
     else {
@@ -55,12 +83,12 @@ class MetatagToken {
   private function coreReplace($string, $data, $settings = array()) {
     // @TODO: Remove this temp code.
     // This is just here as a way to see all available tokens in debugger.
-    $tokens = \Drupal::token()->getInfo();
+    $tokens = $this->coreToken->getInfo();
 
     $options = array('clear' => TRUE);
 
     // Replace tokens with core Token service.
-    $replaced = \Drupal::token()->replace($string, $data, $options);
+    $replaced = $this->coreToken->replace($string, $data, $options);
 
     // Ensure that there are no double-slash sequences due to empty token values.
     $replaced = preg_replace('/(?<!:)\/+\//', '/', $replaced);
