@@ -25,4 +25,5 @@ Initial port by Damien McKenna and Michelle Cox.
 #2581351 by Michelle, larowlan, DamienMcKenna: Don't save default values to the
   field, allow them to inherit from the default field settings.
 By DamienMcKenna: Updates to the README.txt file.
-#2572469 by rakesh.gectcr, DamienMcKenna: Added a composer.json file.
+#2572469 by rakesh.gectcr, DamienMcKenna, jaxxed, timmillwood: Added a
+  composer.json file.
