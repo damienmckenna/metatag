@@ -84,6 +84,7 @@ class MetatagFieldTest extends WebTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, t('Save settings'));
     $this->assertRaw(t('Saved %name configuration', ['%name' => 'Metatag']));
+    $this->container->get('entity.manager')->clearCachedFieldDefinitions();
 
     // Test the fields values/widget.
     $this->drupalGet('entity_test/add');
