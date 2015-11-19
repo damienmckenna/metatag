@@ -6,8 +6,6 @@
 
 namespace Drupal\metatag\Plugin\metatag\Group;
 
-use Drupal\metatag\Plugin\metatag\Group\GroupBase;
-
 /**
  * The TwitterCards group.
  *

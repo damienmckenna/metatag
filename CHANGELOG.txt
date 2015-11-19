@@ -17,3 +17,4 @@ Initial port by Damien McKenna and Michelle Cox.
 #2603548 by DuaelFr: Clear our the head_title array to avoid the site name being
   added a second time.
 #2617192 by larowlan: Fixed tests due to a core API change.
+#2609138 by rakesh.gectcr: Removed unnecessary 'use' statements.
