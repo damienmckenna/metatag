@@ -4,7 +4,7 @@ Initial port by Damien McKenna and Michelle Cox.
 #2563663 by kikoalonsob: Don't convert the title to a string.
 #2563621 by jmolivas: Fixed DrupalConsole integration.
 #2579865 by afi13: Fixed definition of MetatagEmptyFormatter::viewElements().
-#2563667 by vicnic: MetatagManager should only be used for objects implementing
+#2563667 by vincic: MetatagManager should only be used for objects implementing
   ContentEntityInterface.
 #2569043 by Michelle: Field defaults weren't loading (core API change).
 #2579295 by Michelle: Fixed the field cardinality limitation.
