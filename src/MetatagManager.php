@@ -67,7 +67,7 @@ class MetatagManager implements MetatagManagerInterface {
       // Go through all the available tags. If the field has a value set for it,
       // use that. Otherwise, use the value from the default settings.
       foreach ($field_default_tags as $key => $value) {
-        $tags[$key] = empty($field_tags[$key]) ? $field_default_tags[$key] : $field_tags[$key];
+        $tags[$key] = isset($field_tags[$key]) ? $field_tags[$key] : $field_default_tags[$key];
       }
     }
 
@@ -208,7 +208,7 @@ class MetatagManager implements MetatagManagerInterface {
             $tag = $this->tagPluginManager->createInstance($tag_id);
 
             // Set the value to the stored value, if any.
-            $tag_value = isset($values[$tag_id]) ? $values[$tag_id] : '';
+            $tag_value = isset($values[$tag_id]) ? $values[$tag_id] : NULL;
             $tag->setValue($tag_value);
 
             // Create the bit of form for this tag.

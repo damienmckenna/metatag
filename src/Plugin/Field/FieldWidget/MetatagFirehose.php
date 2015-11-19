@@ -10,6 +10,9 @@ use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\metatag\MetatagManager;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Advanced widget for metatag field.
@@ -22,35 +25,60 @@ use Drupal\Core\Field\FieldDefinitionInterface;
  *   }
  * )
  */
-class MetatagFirehose extends WidgetBase {
+class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterface {
 
   /**
    * Instance of MetatagManager service.
    */
   protected $metatagManager;
 
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $plugin_id,
+      $plugin_definition,
+      $configuration['field_definition'],
+      $configuration['settings'],
+      $configuration['third_party_settings'],
+      $container->get('metatag.manager')
+    );
+  }
 
   /**
    * {@inheritdoc}
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, MetatagManager $manager) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
-
-    $this->metatagManager = \Drupal::service('metatag.manager');
+    $this->metatagManager = $manager;
   }
-
 
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-
     $item = $items[$delta];
 
     // Retrieve the values for each metatag from the serialized array.
     $values = array();
     if (!empty($item->value)) {
       $values = unserialize($item->value);
+    }
+    if (!empty($element['#field_parents']) && reset($element['#field_parents']) === 'default_value_input') {
+      // We are on the default-values form, there won't be any default values
+      // if the field has just been added - so we can return the form without
+      // processing default values.
+      return $this->metatagManager->form($values, $element);
+    }
+
+    // Fill in the default values for any tags that don't have stored values.
+    $field_default_tags_value = $this->fieldDefinition->getDefaultValueLiteral();
+    $field_default_tags = unserialize($field_default_tags_value[0]['value']);
+    foreach ($field_default_tags as $tag_id => $tag_value) {
+      if (!isset($values[$tag_id]) && !empty($tag_value)) {
+        $values[$tag_id] = $tag_value;
+      }
     }
 
     // Create the form element.

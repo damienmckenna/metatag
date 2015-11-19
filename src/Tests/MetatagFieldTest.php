@@ -107,8 +107,7 @@ class MetatagFieldTest extends WebTestBase {
     $this->drupalGet('entity_test/' . $default_entity->id());
     $elements = $this->cssSelect('meta[name=keywords]');
     $this->assertTrue(count($elements) === 1, 'Found keywords metatag from defaults');
-    // @todo Uncomment in https://www.drupal.org/node/2581351.
-    // $this->assertEqual((string) $elements[0]['content'], "Green monkey dishwasher", 'Default keywords applied');
+    $this->assertEqual((string) $elements[0]['content'], "Green monkey dishwasher", 'Default keywords applied');
 
     // Verify that the URLs aren't being broken.
     $this->doTestUrlMetatags();

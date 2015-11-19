@@ -22,3 +22,5 @@ Initial port by Damien McKenna and Michelle Cox.
 #2593153 by larowlan: Inject dependencies into MetatagToken.
 #2593141 by larowlan: Add a MetatagManagerInterface to avoid type-hinting
   concrete implementation.
+#2581351 by Michelle, larowlan, DamienMcKenna: Don't save default values to the
+  field, allow them to inherit from the default field settings.
