@@ -27,3 +27,4 @@ Initial port by Damien McKenna and Michelle Cox.
 By DamienMcKenna: Updates to the README.txt file.
 #2572469 by rakesh.gectcr, DamienMcKenna, jaxxed, timmillwood: Added a
   composer.json file.
+By DamienMcKenna: Added a LICENSE.txt to enforce the license on git mirrors.
