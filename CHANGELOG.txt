@@ -20,3 +20,5 @@ Initial port by Damien McKenna and Michelle Cox.
 #2609138 by rakesh.gectcr: Removed unnecessary 'use' statements.
 #2593149 by larowlan: Inject dependencies into MetatagManager.
 #2593153 by larowlan: Inject dependencies into MetatagToken.
+#2593141 by larowlan: Add a MetatagManagerInterface to avoid type-hinting
+  concrete implementation.

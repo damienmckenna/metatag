@@ -16,7 +16,7 @@ use \Drupal\field\Entity\FieldConfig;
  *
  * @package Drupal\metatag
  */
-class MetatagManager {
+class MetatagManager implements MetatagManagerInterface {
 
   protected $groupPluginManager;
   protected $tagPluginManager;
@@ -48,12 +48,7 @@ class MetatagManager {
   }
 
   /**
-   * Converts the metatags on an entity to a formatted array suitable to
-   * use as attachments in hook_page_attachments().
-   *
-   * @param ContentEntityInterface $entity
-   *
-   * @return array
+   * {@inheritdoc}
    */
   public function attachmentsFromEntity(ContentEntityInterface $entity) {
     $tags = array();
@@ -81,18 +76,28 @@ class MetatagManager {
     return $attachments;
   }
 
-  public function groupDefinitions() {
+  /**
+   * Gets the group plugin definitions.
+   *
+   * @return array
+   *   Group definitions
+   */
+  protected function groupDefinitions() {
     return $this->groupPluginManager->getDefinitions();
   }
 
-  public function tagDefinitions() {
+  /**
+   * Gets the tag plugin definitions.
+   *
+   * @return array
+   *   Tag definitions
+   */
+  protected function tagDefinitions() {
     return $this->tagPluginManager->getDefinitions();
   }
 
   /**
-   * Returns an array of group plugin information sorted by weight.
-   *
-   * @return array
+   * {@inheritdoc}
    */
   public function sortedGroups() {
     $metatag_groups = $this->groupDefinitions();
@@ -119,9 +124,7 @@ class MetatagManager {
   }
 
   /**
-   * Returns an array of tag plugin information sorted by group then weight.
-   *
-   * @return array
+   * {@inheritdoc}
    */
   public function sortedTags() {
     $metatag_tags = $this->tagDefinitions();
@@ -149,9 +152,7 @@ class MetatagManager {
   }
 
   /**
-   * Returns a weighted array of groups containing their weighted tags.
-   *
-   * @return array
+   * {@inheritdoc}
    */
   public function sortedGroupsWithTags() {
     $groups = $this->sortedGroups();
@@ -175,18 +176,7 @@ class MetatagManager {
   }
 
   /**
-   * Builds the form element for a Metatag field.
-   *
-   * If a list of either groups or tags are passed in, those will be used to
-   * limit the groups/tags on the form. If nothing is passed in, all groups
-   * and tags will be used.
-   *
-   * @param array $values
-   * @param array $element
-   * @param array $included_groups
-   * @param array $included_tags
-   *
-   * @return array
+   * {@inheritdoc}
    */
   public function form(array $values, array $element, array $included_groups = NULL, array $included_tags = NULL) {
 
