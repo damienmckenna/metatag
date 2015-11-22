@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.0-beta1, 2015-11-19
 ---------------------------------
 Initial port by Damien McKenna and Michelle Cox.
