@@ -1,5 +1,7 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2572469 by Berdir, platinum1, rakesh.gectcr, DamienMcKenna: Fixed the
+  composer.json file.
 
 
 Metatag 8.x-1.0-beta1, 2015-11-19

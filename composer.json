@@ -5,14 +5,14 @@
   "license": "GPL-2.0+",
   "keywords": ["php", "seo"],
   "homepage": "https://www.drupal.org/project/metatag",
-  "minimum-stability": "dev",
   "authors": [
     {
-      "name": "Damien McKenna"
-    },
-    {
-      "name": "Dave Reid"
-    },
+      "name": "See contributors",
+      "homepage": "https://www.drupal.org/node/640498/committers",
+      "role": "Developer"
+    }
   ],
-  "require": { }
+  "support": {
+    "issues": "http://drupal.org/project/issues/metatag"
+  }
 }
