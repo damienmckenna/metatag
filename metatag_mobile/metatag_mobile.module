@@ -42,7 +42,7 @@ function theme_metatag_mobile_android_app($variables) {
 }
 
 /**
- * Theme callback for an Android app link meta tag.
+ * Theme callback for an iOS app link meta tag.
  *
  * The format is:
  * <link rel="alternate" href="ios-app://123456/example/hello-screen" />
