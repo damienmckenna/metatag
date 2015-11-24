@@ -8,6 +8,12 @@
  * Implements hook_token_info().
  */
 function metatag_hreflang_token_info() {
+  // This only makes sense if either the Translation or Entity Translation
+  // modules are enabled.
+  if (!(module_exists('translation') || module_exists('entity_translation'))) {
+    return;
+  }
+
   $info = array();
 
   $languages = language_list('enabled');

@@ -10,6 +10,12 @@
  * This provides recommended defaults that should be sufficient for most sites.
  */
 function metatag_hreflang_metatag_bundled_config_alter(array &$configs) {
+  // This only makes sense if either the Translation or Entity Translation
+  // modules are enabled.
+  if (!(module_exists('translation') || module_exists('entity_translation'))) {
+    return;
+  }
+
   foreach ($configs as &$config) {
     switch ($config->instance) {
       case 'node':

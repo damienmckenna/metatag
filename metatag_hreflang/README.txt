@@ -14,9 +14,12 @@ node's translations, and assigns these as the defaults for the meta tags. As
 such, this module may not need additional configuration once it is enabled, but
 it's always worth confirming the output is as expected.
 
+This module works best when the Translation or Entity Translation modules are
+enabled and configured.
+
 
 Configuration
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
  1. By default if the hreflang="x-default" meta tag matches one of the
     hreflang="LANGCODE" meta tags that hreflang="LANGCODE" meta tag will be
     removed. It is possible to change this so that the meta tag is not removed
