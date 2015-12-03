@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A one to two sentence description of the content."),
  *   name = "og:description",
  *   group = "open_graph",
- *   weight = 6
+ *   weight = 6,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class OgDescription extends MetaPropertyBase {

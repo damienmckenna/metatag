@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A comma-separated list of Facebook Platform Application IDs applicable for this site."),
  *   name = "fb:app_id",
  *   group = "facebook",
- *   weight = 2
+ *   weight = 2,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class FbAppId extends MetaPropertyBase {

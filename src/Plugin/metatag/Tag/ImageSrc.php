@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("An image associated with this page, for use as a thumbnail in social networks and other services."),
  *   name = "image_src",
  *   group = "advanced",
- *   weight = 4
+ *   weight = 4,
+ *   image = TRUE,
+ *   multiple = FALSE
  * )
  */
 class ImageSrc extends MetaNameBase {

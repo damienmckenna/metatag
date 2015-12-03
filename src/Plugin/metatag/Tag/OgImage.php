@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("The URL of an image which should represent the content. For best results use an image that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Supports PNG, JPEG and GIF formats. Should not be used if og:image:url is used."),
  *   name = "og:image",
  *   group = "open_graph",
- *   weight = 9
+ *   weight = 9,
+ *   image = TRUE,
+ *   multiple = TRUE
  * )
  */
 class OgImage extends MetaPropertyBase {

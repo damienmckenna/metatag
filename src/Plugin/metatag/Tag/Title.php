@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("The text to display in the title bar of a visitor's web browser when they view this page. This meta tag may also be used as the title of the page when a visitor bookmarks or favorites this page. It is common to append '[site:name]' to the end of this, so the site's name is automatically added."),
  *   name = "title",
  *   group = "basic",
- *   weight = -1
+ *   weight = -1,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class Title extends MetaNameBase {

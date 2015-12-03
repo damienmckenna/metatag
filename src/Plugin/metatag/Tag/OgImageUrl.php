@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A alternative version of og:image and has exactly the same requirements; only one needs to be used."),
  *   name = "og:image:url",
  *   group = "open_graph",
- *   weight = 10
+ *   weight = 10,
+ *   image = TRUE,
+ *   multiple = TRUE
  * )
  */
 class OgImageUrl extends MetaPropertyBase {

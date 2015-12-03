@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("Preferred page location or URL to help eliminate duplicate content for search engines."),
  *   name = "canonical",
  *   group = "advanced",
- *   weight = 1
+ *   weight = 1,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class CanonicalUrl extends LinkRelBase {

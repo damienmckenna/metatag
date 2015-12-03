@@ -54,6 +54,20 @@ abstract class MetaNameBase extends PluginBase {
   protected $group;
 
   /**
+   * True if an image URL needs to be parsed out.
+   *
+   * @var boolean
+   */
+  protected $image;
+
+  /**
+   * True if more than one is allowed.
+   *
+   * @var boolean
+   */
+  protected $multiple;
+
+  /**
    * The value of the metatag in this instance.
    *
    * @var mixed
@@ -74,6 +88,8 @@ abstract class MetaNameBase extends PluginBase {
     $this->description = $plugin_definition['description'];
     $this->group = $plugin_definition['group'];
     $this->weight = $plugin_definition['weight'];
+    $this->image = $plugin_definition['image'];
+    $this->multiple = $plugin_definition['multiple'];
   }
 
   public function id() {
@@ -93,6 +109,12 @@ abstract class MetaNameBase extends PluginBase {
   }
   public function weight() {
     return $this->weight;
+  }
+  public function image() {
+    return $this->image;
+  }
+  public function multiple() {
+    return $this->multiple;
   }
 
   /**
@@ -117,6 +139,16 @@ abstract class MetaNameBase extends PluginBase {
       '#element_validate' => array(array(get_class($this), 'validateTag')),
     );
 
+    // Optional handling for items that allow multiple values.
+    if (!empty($this->multiple)) {
+      $form['#description'] .= ' ' . t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
+    }
+
+    // Optional handling for images.
+    if (!empty($this->image)) {
+      $form['#description'] .= ' ' . t('This will be able to extract the URL from an image field.');
+    }
+
     return $form;
   }
 
@@ -134,11 +166,14 @@ abstract class MetaNameBase extends PluginBase {
       $element = '';
     }
     else {
+      // Parse out the image URL, if needed.
+      $value = $this->parseImageURL();
+
       $element = array(
         '#tag' => 'meta',
         '#attributes' => array(
           'name' => $this->name,
-          'content' => $this->value(),
+          'content' => $value,
         )
       );
     }
@@ -156,6 +191,32 @@ abstract class MetaNameBase extends PluginBase {
    */
   public static function validateTag(array &$element, FormStateInterface $form_state) {
     //@TODO: If there is some common validation, put it here. Otherwise, make it abstract?
+  }
+
+  protected function parseImageURL() {
+    $value = $this->value();
+
+    // If this contains embedded image tags, extract the image URLs.
+    if ($this->image()) {
+      if (strip_tags($value) != $value) {
+        if ($this->multiple()) {
+          $values = explode(',', $value);
+        }
+        else {
+          $values = array($value);
+        }
+        foreach ($values as $key => $val) {
+          $matches = array();
+          preg_match('/src="([^"]*)"/', $val, $matches);
+          if (!empty($matches[1])) {
+            $values[$key] = $matches[1];
+          }
+        }
+        $value = implode(',', $values);
+      }
+    }
+
+    return $value;
   }
   
 }

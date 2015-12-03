@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A deprecated meta tag for defining this page's two-letter language code(s)."),
  *   name = "content-language",
  *   group = "advanced",
- *   weight = 1
+ *   weight = 1,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class ContentLanguage extends MetaHttpEquivBase {

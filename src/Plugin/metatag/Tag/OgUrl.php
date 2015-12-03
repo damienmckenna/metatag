@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("Preferred page location or URL to help eliminate duplicate content for search engines, e.g., <em>http://www.imdb.com/title/tt0117500/</em>."),
  *   name = "og:url",
  *   group = "open_graph",
- *   weight = 3
+ *   weight = 3,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class OgUrl extends MetaPropertyBase {

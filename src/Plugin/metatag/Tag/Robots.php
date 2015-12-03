@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("Provides search engines with specific directions for what to do when this page is indexed."),
  *   name = "robots",
  *   group = "advanced",
- *   weight = 1
+ *   weight = 1,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class Robots extends MetaNameBase {

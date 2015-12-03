@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines anymore."),
  *   name = "keywords",
  *   group = "basic",
- *   weight = 4
+ *   weight = 4,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class Keywords extends MetaNameBase {

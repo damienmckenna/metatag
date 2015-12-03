@@ -24,11 +24,14 @@ abstract class MetaPropertyBase extends MetaNameBase {
       $element = '';
     }
     else {
+      // Parse out the image URL, if needed.
+      $value = $this->parseImageURL();
+
       $element = array(
         '#tag' => 'meta',
         '#attributes' => array(
           'property' => $this->name,
-          'content' => $this->value(),
+          'content' => $value,
         )
       );
     }

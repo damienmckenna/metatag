@@ -62,4 +62,18 @@ class MetatagTag extends Plugin {
    */
   public $weight;
 
+  /**
+   * True if an image URL needs to be parsed out.
+   *
+   * @var boolean
+   */
+  public $image;
+
+  /**
+   * True if more than one is allowed.
+   *
+   * @var boolean
+   */
+  public $multiple;
+
 }

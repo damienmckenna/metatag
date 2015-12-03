@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page."),
  *   name = "fb:admins",
  *   group = "facebook",
- *   weight = 1
+ *   weight = 1,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class FbAdmins extends MetaPropertyBase {

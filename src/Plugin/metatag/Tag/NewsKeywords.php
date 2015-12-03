@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A comma-separated list of keywords about the page. This meta tag is used as an indicator in <a href='google_news'>Google News</a>.", google_news="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297"),
  *   name = "news_keywords",
  *   group = "advanced",
- *   weight = 2
+ *   weight = 2,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class NewsKeywords extends MetaNameBase {

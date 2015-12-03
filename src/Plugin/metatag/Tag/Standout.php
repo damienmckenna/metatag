@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("Highlight standout journalism on the web, especially for breaking news; used as an indicator in <a href='google_news'>Google News</a>. Warning: Don't abuse it, to be used a maximum of 7 times per calendar week!", google_news="http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297"),
  *   name = "standout",
  *   group = "advanced",
- *   weight = 3
+ *   weight = 3,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class Standout extends MetaNameBase {

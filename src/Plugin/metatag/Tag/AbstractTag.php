@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A brief and concise summary of the page's content, preferably 150 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
  *   name = "abstract",
  *   group = "basic",
- *   weight = 3
+ *   weight = 3,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class AbstractTag extends MetaNameBase {

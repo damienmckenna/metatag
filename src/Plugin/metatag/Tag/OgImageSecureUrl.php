@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("The secure URL (HTTPS) of an image which should represent the content. The image must be at least 50px by 50px and have a maximum aspect ratio of 3:1. Supports PNG, JPEG and GIF formats. All 'http://' URLs will automatically be converted to 'https://'."),
  *   name = "og:image:secure_url",
  *   group = "open_graph",
- *   weight = 11
+ *   weight = 11,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class OgImageSecureUrl extends MetaPropertyBase {

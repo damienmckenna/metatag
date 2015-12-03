@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("A human-readable name for the site, e.g., <em>IMDb</em>."),
  *   name = "og:site_name",
  *   group = "open_graph",
- *   weight = 1
+ *   weight = 1,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class OgSiteName extends MetaPropertyBase {

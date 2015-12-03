@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("Details about intellectual property, such as copyright or trademarks; does not automatically protect the site's content or intellectual property."),
  *   name = "rights",
  *   group = "advanced",
- *   weight = 5
+ *   weight = 5,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class Rights extends MetaNameBase {

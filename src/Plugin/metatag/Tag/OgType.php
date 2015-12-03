@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("The type of the content, e.g., <em>movie</em>."),
  *   name = "og:type",
  *   group = "open_graph",
- *   weight = 2
+ *   weight = 2,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class OgType extends MetaPropertyBase {

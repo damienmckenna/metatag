@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("The title of the content, e.g., <em>The Rock</em>."),
  *   name = "og:title",
  *   group = "open_graph",
- *   weight = 4
+ *   weight = 4,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class OgTitle extends MetaPropertyBase {

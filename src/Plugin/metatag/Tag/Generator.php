@@ -19,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("Describes the name and version number of the software or publishing tool used to create the page."),
  *   name = "generator",
  *   group = "advanced",
- *   weight = 4
+ *   weight = 4,
+ *   image = FALSE,
+ *   multiple = FALSE
  * )
  */
 class Generator extends LinkRelBase {

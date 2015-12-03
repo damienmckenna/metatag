@@ -1,5 +1,6 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2613654 by Michelle, DamienMcKenna: Automatically parse fields for images.
 
 
 Metatag 8.x-1.0-beta2, 2015-11-23
