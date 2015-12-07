@@ -214,8 +214,11 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     $options += array(
       'instance' => '',
       'token data' => array(),
+      // Remove any remaining token after the string is parsed.
       'clear' => TRUE,
-      'sanitize' => TRUE,
+      // This is safe to do because the strings will be processed by the normal
+      // theming system prior to output as an actual HTML tag.
+      'sanitize' => FALSE,
       'raw' => FALSE,
     );
 

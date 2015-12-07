@@ -72,6 +72,7 @@ By DamienMcKenna: Some commit messages were in the wrong place.
 #2619438 by DamienMcKenna: Improve documentation on the mobile subtheme.
 #2597301 by DamienMcKenna: Only use the new locale-URL tokens when translations
   modules are enabled.
+#2180031 by DamienMcKenna: Fixed double-encoding of tokens.
 
 
 Metatag 7.x-1.7, 2015-07-24
