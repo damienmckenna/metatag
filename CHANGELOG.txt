@@ -1,5 +1,5 @@
-Metatag 8.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 8.x-1.0-beta3, 2015-12-08
+---------------------------------
 #2613654 by Michelle, DamienMcKenna: Automatically parse fields for images.
 #2563639 by juampynr, DamienMcKenna: Global configurations system.
 
