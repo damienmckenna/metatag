@@ -23,7 +23,7 @@ class MetatagToken {
 
   /**
    * Token service.
-   * 
+   *
    * @var \Drupal\Core\Utility\Token
    */
   protected $coreToken;
@@ -40,6 +40,7 @@ class MetatagToken {
     $this->coreToken = $token;
     $this->moduleHandler = $module_handler;
   }
+
   /**
    * Gatekeeper function to direct to either the core or contributed Token.
    *
@@ -60,16 +61,32 @@ class MetatagToken {
   /**
    * Gatekeeper function to direct to either the core or contributed Token.
    *
-   * @return mixed
+   * @return array
+   *   If token module is installed, a popup browser plus a help text. If not
+   *   only the help text.
    */
   public function tokenBrowser() {
-    // @TODO: Make these optionally return rendered HTML instead of an an array.
+    $form = array();
+    $token_tree_hint = '';
     if ($this->moduleHandler->moduleExists('token')) {
-      return $this->contribBrowser();
+      // Add the token popup to the top of the fieldset.
+      $form['tokens'] = array(
+        '#theme' => 'token_tree',
+        '#token_types' => 'all',
+        '#global_types' => TRUE,
+        '#click_insert' => TRUE,
+        '#show_restricted' => FALSE,
+        '#recursion_limit' => 3,
+        '#dialog' => TRUE,
+      );
+      $token_tree_hint = '(see the "Browse available tokens" popup)';
     }
-    else {
-      return $this->coreBrowser();
-    }
+
+    $form['intro_text'] = array(
+      '#markup' => '<p>' . t('Configure the meta tags below. Use tokens @token_tree_hint to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).', array('@token_tree_hint' => $token_tree_hint)) . '</p>',
+    );
+
+    return $form;
   }
 
   /**
@@ -109,19 +126,6 @@ class MetatagToken {
     // For now, just redirect to the core replacement to avoid breaking sites
     // where Token is installed.
     return $this->coreReplace($string, $data, $settings);
-  }
-
-  private function coreBrowser() {
-    // @TODO: Make a browser like contrib provides using core.
-    return array();
-  }
-
-  private function contribBrowser() {
-    return array(
-      '#type' => '#markup',
-      '#theme' => 'token_tree_link',
-      '#weight' => -5,
-    );
   }
 
 }

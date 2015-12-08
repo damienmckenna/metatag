@@ -128,13 +128,13 @@ abstract class MetaNameBase extends PluginBase {
   /**
    * Generate a form element for this meta tag.
    */
-  public function form(array $element) {
+  public function form(array $element = array()) {
     $form = array(
       '#type' => 'textfield',
       '#title' => $this->label(),
       '#default_value' => $this->value(),
       '#maxlength' => 255,
-      '#required' => $element['#required'],
+      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#description' => $this->description(),
       '#element_validate' => array(array(get_class($this), 'validateTag')),
     );
@@ -152,7 +152,7 @@ abstract class MetaNameBase extends PluginBase {
     return $form;
   }
 
-  protected function value() {
+  public function value() {
     return $this->value;
   }
 
@@ -218,5 +218,5 @@ abstract class MetaNameBase extends PluginBase {
 
     return $value;
   }
-  
+
 }

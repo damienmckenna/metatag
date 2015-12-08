@@ -6,6 +6,13 @@
  */
 
 /**
+ * Implements hook_install().
+ */
+function metatag_install() {
+  drupal_set_message(t("To adjust global defaults, go to admin/structure/metatag_defaults. If you need to set metatags for a specific entity, edit it's bundle and add the Metatag field."));
+}
+
+/**
  * Remove tags in field storage that match default or are empty.
  */
 function metatag_update_8101() {
@@ -201,5 +208,100 @@ function metatag_update_8102(&$sandbox) {
   }
   else {
     return (string) t("There were no overridden Metatag records.");
+  }
+}
+
+/**
+ * Move field defaults to Metatag Defaults.
+ */
+function metatag_update_8103(&$sandbox) {
+  $config_installer = \Drupal::service('config.installer');
+  $entity_manager = \Drupal::service('entity.manager');
+
+  /**
+   * 1. Install cofiguration.
+   */
+  $sync_status = $config_installer->isSyncing();
+  if ($sync_status) {
+    $source_storage = $config_installer->getSourceStorage();
+  }
+
+  // Clear plugin manager caches.
+  \Drupal::getContainer()->get('plugin.cache_clearer')->clearCachedDefinitions();
+  // Install default configuration of the module.
+  if ($sync_status) {
+    $config_installer
+      ->setSyncing(TRUE)
+      ->setSourceStorage($source_storage);
+  }
+  // Install new configuration for Metatag.
+  $config_installer->installDefaultConfig('module', 'metatag');
+
+  /**
+   * 2. Extract Metatag field defaults.
+   */
+  $entity_info = $entity_manager->getDefinitions();
+  $tags = array();
+  // Get all of the field storage entities of type metatag.
+  $field_storage_configs = $entity_manager->getStorage('field_storage_config')
+                                         ->loadByProperties(array('type' => 'metatag'));
+
+  foreach ($field_storage_configs as $key => $field_storage) {
+    $field_name = $field_storage->getName();
+
+    // Get the individual fields (field instances) associated with bundles.
+    $fields = $entity_manager->getStorage('field_config')
+                             ->loadByProperties(array('field_name' => $field_name));
+    foreach ($fields as $field) {
+      // Adjust the config id depending on whether these are entity defaults
+      // or bundle defaults.
+      $entity_type = $field->getTargetEntityTypeId();
+      $bundle = $field->getTargetBundle();
+      $metatag_defaults_id = $entity_type;
+      if ($entity_type != $bundle) {
+        // This is a bundle override.
+        $metatag_defaults_id = $entity_type . '__' . $bundle;
+      }
+      // Extract field default values.
+      $field_default_tags_value = $field->getDefaultValueLiteral();
+      $field_default_tags_value = unserialize($field_default_tags_value[0]['value']);
+      $field_default_tags_value = array_filter($field_default_tags_value);
+      // Don't bother copying empty values.
+      if (!empty($field_default_tags_value)) {
+        $tags[$metatag_defaults_id] = $field_default_tags_value;
+      }
+    }
+  }
+
+  /**
+   * 3. Create Config entities with field default values.
+   */
+  if (!empty($tags)) {
+    foreach ($tags as $metatag_defaults_id => $values) {
+      list($entity_type, $entity_bundle) = explode('__', $metatag_defaults_id);
+      $entity_label = (string) $entity_info[$entity_type]->get('label');
+      $bundle_info = $entity_manager->getBundleInfo($entity_type);
+      $bundle_label = $bundle_info[$entity_bundle]['label'];
+      $label = $entity_label . ': ' . $bundle_label;
+
+      $entity = entity_load('metatag_defaults', $metatag_defaults_id);
+      if ($entity) {
+        // These are defaults for an existing config entity, such as User.
+        $entity->set('tags', $values);
+      }
+      else {
+        // These are bundle overrides.
+        $entity = entity_create('metatag_defaults', array(
+          'id' => $metatag_defaults_id,
+          'label' => $label,
+          'tags' => $values,
+        ));
+      }
+      $entity->save();
+    }
+    return (string) t("@count Metatag field defaults have been converted to using global entity defaults.", array('@count' => count($tags)));
+  }
+  else {
+    return (string) t("There were Metatag field configurations that needed to be converted.");
   }
 }

@@ -14,19 +14,17 @@ use Drupal\Core\Entity\ContentEntityInterface;
  * @package Drupal\metatag
  */
 interface MetatagManagerInterface {
+
   /**
-   * Formats metatags for use in hook_page_attachments().
-   *
-   * Converts the metatags on an entity to a formatted array suitable to
-   * use as attachments in hook_page_attachments().
+   * Extracts all tags of a given entity.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
    *   The content entity to extract metatags from.
    *
    * @return array
-   *   Array of metatags for passing to hook_page_attachments().
+   *   Array of metatags.
    */
-  public function attachmentsFromEntity(ContentEntityInterface $entity);
+  public function tagsFromEntity(ContentEntityInterface $entity);
 
   /**
    * Returns an array of group plugin information sorted by weight.

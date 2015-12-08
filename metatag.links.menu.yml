@@ -1,5 +1,6 @@
-metatag.settings:
-  title: 'Metatag settings'
-  description: 'Advanced settings for Metatag.'
-  route_name: metatag.settings
-  parent: system.admin_config_search
+# Metatag defaults menu items definition
+entity.metatag_defaults.collection:
+  title: 'Metatag'
+  route_name: entity.metatag_defaults.collection
+  description: 'Configure Metatag defaults.'
+  parent: system.admin_structure

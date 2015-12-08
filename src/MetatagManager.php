@@ -50,30 +50,18 @@ class MetatagManager implements MetatagManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function attachmentsFromEntity(ContentEntityInterface $entity) {
+  public function tagsFromEntity(ContentEntityInterface $entity) {
     $tags = array();
 
     $fields = $this->getFields($entity);
 
     /* @var FieldConfig $field_info */
     foreach ($fields as $field_name => $field_info) {
-      // Get the tags from the field's defaults.
-      $field_default_tags_value = $field_info->getDefaultValueLiteral();
-      $field_default_tags = unserialize($field_default_tags_value[0]['value']);
-
       // Get the tags from this field.
-      $field_tags = $this->getFieldTags($entity, $field_name);
-
-      // Go through all the available tags. If the field has a value set for it,
-      // use that. Otherwise, use the value from the default settings.
-      foreach ($field_default_tags as $key => $value) {
-        $tags[$key] = isset($field_tags[$key]) ? $field_tags[$key] : $field_default_tags[$key];
-      }
+      $tags = $this->getFieldTags($entity, $field_name);
     }
 
-    $attachments = $this->generateElements($tags, $entity);
-
-    return $attachments;
+    return $tags;
   }
 
   /**
@@ -185,8 +173,8 @@ class MetatagManager implements MetatagManagerInterface {
       '#type' => 'details',
     );
 
-    // Add the token browser.
-    $element['token_tree'] = $this->tokenService->tokenBrowser();
+    $element += $this->tokenService->tokenBrowser();
+
     $groups_and_tags = $this->sortedGroupsWithTags();
 
     $first = TRUE;
@@ -276,12 +264,14 @@ class MetatagManager implements MetatagManagerInterface {
    * Generate the elements that go in the attached array in
    * hook_page_attachments.
    *
-   * @param $tags
-   * @param $entity
-   *
+   * @param array $tags
+   *   The array of tags as plugin_id => value.
+   * @param object $entity
+   *   Optional entity object to use for token replacements.
    * @return array
+   *   Render array with tag elements.
    */
-  protected function generateElements($tags, $entity) {
+  public function generateElements($tags, $entity = NULL) {
     $metatag_tags = $this->tagPluginManager->getDefinitions();
     $elements = array();
 
@@ -294,10 +284,20 @@ class MetatagManager implements MetatagManagerInterface {
         $tag = $this->tagPluginManager->createInstance($tag_name);
 
         // Render any tokens in the value.
-        $value = $this->tokenService->tokenReplace($value, array('node' => $entity));
+        $token_replacements = array();
+        if ($entity) {
+          $token_replacements = array($entity->getEntityTypeId() => $entity);
+        }
 
-        // Tell the plugin what value to use for the metatag content.
+        // Set the value as sometimes the data needs massaging, such as when
+        // field defaults are used for the Robots field, which come as an array
+        // that needs to be filtered and converted to a string.
+        // @see @Robots::setValue().
         $tag->setValue($value);
+        $processed_value = $this->tokenService->tokenReplace($tag->value(), $token_replacements);
+
+        // Now store the value with processed tokens back into the plugin.
+        $tag->setValue($processed_value);
 
         // Have the tag generate the output based on the value we gave it.
         $output = $tag->output();

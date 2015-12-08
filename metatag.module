@@ -8,6 +8,7 @@
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\metatag\Entity\MetatagDefaults;
 
 /**
  * Implements hook_help().
@@ -31,13 +32,22 @@ tags", about your website and web pages.') . '</p>';
  */
 function metatag_form_field_storage_config_edit_form_alter(&$form, FormStateInterface $form_state) {
   if ($form_state->getFormObject()->getEntity()->getType() == 'metatag') {
-    // Disable the cardinality option on the field storage settings form for
-    // metatag fields.
-    $form['cardinality_container']['#prefix'] = t("Metatag fields must be singular.");
+    // Hide the cardinality field.
+    $form['cardinality_container']['#access'] = FALSE;
     $form['cardinality_container']['#disabled'] = TRUE;
-    $form['cardinality_container']['cardinality']['#disabled'] = TRUE;
-    $form['cardinality_container']['cardinality_number']['#disabled'] = TRUE;
-    unset($form['cardinality_container']['cardinality_number']['#states']);
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter() for 'field_config_edit_form'.
+ */
+function metatag_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state) {
+  if ($form_state->getFormObject()->getEntity()->getType() == 'metatag') {
+    // Hide the required and default value fields.
+    $form['required']['#access'] = FALSE;
+    $form['required']['#disabled'] = TRUE;
+    $form['default_value']['#access'] = FALSE;
+    $form['default_value']['#disabled'] = TRUE;
   }
 }
 
@@ -47,11 +57,18 @@ function metatag_form_field_storage_config_edit_form_alter(&$form, FormStateInte
  * Load all meta tags for this page.
  */
 function metatag_page_attachments(array &$attachments) {
+  if (!metatag_is_current_route_supported()) {
+    return;
+  }
+
   $metatag_attachments = drupal_static('metatag_attachments');
 
   if (is_null($metatag_attachments)) {
     // Load the meta tags from the route.
     $metatag_attachments = metatag_get_tags_from_route();
+    if (!$metatag_attachments) {
+      return;
+    }
 
     // If any Metatag items were found, append them.
     if (!empty($metatag_attachments['#attached']['html_head'])) {
@@ -69,34 +86,63 @@ function metatag_page_attachments(array &$attachments) {
 }
 
 /**
- * Identify whether a route is supported by the module.
- *
- * @param string $route_name
+ * Identify whether the current route is supported by the module.
  *
  * @return bool
+ *   TRUE if the current route is supported.
  */
-function metatag_is_supported_route($route_name) {
-  $supported = FALSE;
-
-  // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
-  $matches = array();
-
-  preg_match('/entity\.(.*)\.canonical/', $route_name, $matches);
-  if (!empty($matches[1])) {
-    $supported = $matches[1];
+function metatag_is_current_route_supported() {
+  // If upgrading, we need to wait for database updates to complete.
+  $is_ready = \Drupal::service('entity_type.manager')->getDefinition('metatag_defaults', FALSE);
+  if (!$is_ready) {
+    return FALSE;
   }
 
-  return $supported;
+  // Ignore admin paths.
+  $route = \Drupal::routeMatch()->getRouteObject();
+  $is_admin = \Drupal::service('router.admin_context')->isAdminRoute($route);
+  if ($is_admin) {
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
+/**
+ * Returns the entity of the current route.
+ *
+ * @return EntityInterface
+ *   The entity or NULL if this is not an entity route.
+ */
+function metatag_get_route_entity() {
+  $route_match = \Drupal::routeMatch();
+  $route_name = $route_match->getRouteName();
+  // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
+  $matches = array();
+  preg_match('/entity\.(.*)\.canonical/', $route_name, $matches);
+  if (!empty($matches[1])) {
+    $entity_type = $matches[1];
+    return $route_match->getParameter($entity_type);
+  }
+
+  return NULL;
 }
 
 /**
  * Implements template_preprocess_html().
  */
 function metatag_preprocess_html(&$variables) {
-  $attachments = drupal_static('metatag_attachments');
+  if (!metatag_is_current_route_supported()) {
+    return;
+  }
 
+  $attachments = drupal_static('metatag_attachments');
   if (is_null($attachments)) {
     $attachments = metatag_get_tags_from_route();
+  }
+
+  if (!$attachments) {
+    return;
   }
 
   // Load the page title.
@@ -153,31 +199,69 @@ function metatag_preprocess_html(&$variables) {
 /**
  * Load the meta tags by processing the route parameters.
  *
- * @return array()
- *   All of the meta tags identified for the header.
+ * @return mixed
+ *   Array of metatags or NULL.
  */
 function metatag_get_tags_from_route() {
-  $metatags = array();
+  $metatag_manager = \Drupal::service('metatag.manager');
 
-  // Load the current route.
-  $route_match = \Drupal::routeMatch();
-
-  // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
-  $entity_type = metatag_is_supported_route($route_match->getRouteName());
-
-  // Only proceed if an entity was identified.
-  if (!empty($entity_type)) {
-    // Load the entity from the route's parameters.
-    $entity = $route_match->getParameter($entity_type);
-
-    // Get the manager service to do all the work.
-    if ($entity instanceof ContentEntityInterface) {
-      $manager = \Drupal::service('metatag.manager');
-
-      // Assemble the attachments array from all the metatag plugins.
-      $metatags = $manager->attachmentsFromEntity($entity);
-    }
+  // First, get defaults.
+  $metatags = metatag_get_default_tags();
+  if (!$metatags) {
+    return;
   }
 
-  return $metatags;
+  // Then, set tag overrides for this particular entity.
+  $entity = metatag_get_route_entity();
+  if (!empty($entity)) {
+    $metatags = array_merge($metatags, $metatag_manager->tagsFromEntity($entity));
+  }
+
+  return $metatag_manager->generateElements($metatags, $entity);
+}
+
+/**
+ * Returns default tags for the current route.
+ *
+ * @return mixed
+ *   Array of tags or NULL;
+ */
+function metatag_get_default_tags() {
+  // First we load global defaults.
+  $metatags = entity_load('metatag_defaults', 'global');
+  if (!$metatags) {
+    return;
+  }
+
+  // Then, we check if this is a special page.
+  if (\Drupal::service('path.matcher')->isFrontPage()) {
+    $special_metatags = entity_load('metatag_defaults', 'front');
+  }
+  elseif(\Drupal::service('current_route_match')->getRouteName() == 'system.403') {
+    $special_metatags = entity_load('metatag_defaults', '403');
+  }
+  elseif(\Drupal::service('current_route_match')->getRouteName() == 'system.404') {
+    $special_metatags = entity_load('metatag_defaults', '404');
+  }
+  if (isset($special_metatags)) {
+    $metatags->set('tags', array_merge($metatags->get('tags'), $special_metatags->get('tags')));
+  }
+
+  // Now check if we should apply entity overrides.
+  $entity = metatag_get_route_entity();
+  if (!empty($entity)) {
+    $entity_metatags = entity_load('metatag_defaults', $entity->getEntityTypeId());
+    if ($entity_metatags != NULL) {
+      // Merge with global defaults.
+      $metatags->set('tags', array_merge($metatags->get('tags'), $entity_metatags->get('tags')));
+    }
+
+    // Finally, check if we should apply bundle overrides.
+    $bundle_metatags = entity_load('metatag_defaults', $entity->getEntityTypeId() . '__' . $entity->bundle());
+    if ($bundle_metatags != NULL) {
+      // Merge with existing defaults.
+      $metatags->set('tags', array_merge($metatags->get('tags'), $bundle_metatags->get('tags')));
+    }
+  }
+  return $metatags->get('tags');
 }
