@@ -213,7 +213,7 @@ function metatag_get_tags_from_route() {
 
   // Then, set tag overrides for this particular entity.
   $entity = metatag_get_route_entity();
-  if (!empty($entity)) {
+  if (!empty($entity) && $entity instanceof ContentEntityInterface) {
     $metatags = array_merge($metatags, $metatag_manager->tagsFromEntity($entity));
   }
 
