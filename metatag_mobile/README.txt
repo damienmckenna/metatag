@@ -11,6 +11,7 @@ Mobile:
   <meta http-equiv="cleartype" content="[VALUE]" />
 
 iOS:
+  <meta name="apple-itunes-app" content="[VALUE]" />
   <meta name="apple-mobile-web-app-capable" content="[VALUE]" />
   <meta name="apple-mobile-web-app-status-bar-style" content="[VALUE]" />
   <meta name="format-detection" content="[VALUE]" />
@@ -29,7 +30,7 @@ functions, e.g.:
 /**
  * Implements theme_metatag_mobile_android_app().
  *
-  * Remove the default prefix.
+ * Remove the default prefix.
  */
 function MYTHEME_metatag_mobile_android_app($variables) {
   // Pass everything through to the normal 'link' tag theme.
@@ -44,7 +45,7 @@ function MYTHEME_metatag_mobile_android_app($variables) {
 /**
  * Implements theme_metatag_mobile_ios_app().
  *
-  * Remove the default prefix.
+ * Remove the default prefix.
  */
 function MYTHEME_metatag_mobile_ios_app($variables) {
   // Pass everything through to the normal 'link' tag theme.

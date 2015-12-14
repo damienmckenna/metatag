@@ -81,6 +81,12 @@ function metatag_mobile_metatag_info() {
     'group' => 'apple_mobile',
   );
 
+  $info['tags']['apple-itunes-app'] = array(
+    'label' => t('iTunes App details'),
+    'description' => t('This informs iOS devices to display a banner to a specific app. If used, it must provide the "app-id" value, the "affiliate-data" and "app-argument" values are optional.'),
+    'weight' => ++$weight,
+  ) + $tag_info_defaults;
+
   $info['tags']['apple-mobile-web-app-capable'] = array(
     'label' => t('Web app capable?'),
     'description' => t('If set to "yes", the application will run in full-screen mode; the default behavior is to use Safari to display web content.'),
