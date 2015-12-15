@@ -74,6 +74,7 @@ By DamienMcKenna: Some commit messages were in the wrong place.
   modules are enabled.
 #2180031 by DamienMcKenna: Fixed double-encoding of tokens.
 #2635144 by DamienMcKenna: Added the apple-itunes-app meta tag.
+#1904542 by DamienMcKenna: Added a bunch of Windows and IE -focused meta tags.
 
 
 Metatag 7.x-1.7, 2015-07-24
