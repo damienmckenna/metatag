@@ -76,6 +76,8 @@ By DamienMcKenna: Some commit messages were in the wrong place.
 #2635144 by DamienMcKenna: Added the apple-itunes-app meta tag.
 #1904542 by DamienMcKenna: Added a bunch of Windows and IE -focused meta tags.
 #2636132 by SpaghettiBolognese: Inconsistency in submodule naming.
+#2637026 by matthewordie, DamienMcKenna: Mention in the og:image meta tag how
+  Facebook will handle multiple images (It defaults to the largest one).
 
 
 Metatag 7.x-1.7, 2015-07-24
