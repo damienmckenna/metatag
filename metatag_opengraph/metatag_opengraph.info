@@ -1,4 +1,4 @@
-name = Metatag:OpenGraph
+name = Metatag: OpenGraph
 description = Provides support for Open Graph Protocol meta tags.
 package = SEO
 core = 7.x
