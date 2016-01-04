@@ -21,13 +21,12 @@ class FieldItemNormalizer extends NormalizerBase {
    *
    * @var string
    */
-    protected $supportedInterfaceOrClass = 'Drupal\metatag\Plugin\Field\FieldType\MetatagFieldItem';
+  protected $supportedInterfaceOrClass = 'Drupal\metatag\Plugin\Field\FieldType\MetatagFieldItem';
 
   /**
    * Implements \Symfony\Component\Serializer\Normalizer\NormalizerInterface::normalize()
    */
   public function normalize($field_item, $format = NULL, array $context = array()) {
-
     $values = $field_item->toArray();
     if (isset($context['langcode'])) {
       $values['lang'] = $context['langcode'];
@@ -36,7 +35,6 @@ class FieldItemNormalizer extends NormalizerBase {
     $tags = $values;
 
     if ($format == 'json' || $format == 'hal_json') {
-
         $tags = array();
         // Get serialized value and break it into an array of tags with values.
         $serialized_value = $field_item->get('value')->getValue();
@@ -45,6 +43,5 @@ class FieldItemNormalizer extends NormalizerBase {
 
     return $tags;
   }
-
 
 }
