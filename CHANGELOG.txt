@@ -84,6 +84,7 @@ By DamienMcKenna: Some commit messages were in the wrong place.
   test suite.
 #2644156 by DamienMcKenna: Default value of image_src meta tag for user entity
   was set incorrectly.
+#2639170 by anthonyleach: Use the correct hooks to add the RDF namespaces.
 
 
 Metatag 7.x-1.7, 2015-07-24
