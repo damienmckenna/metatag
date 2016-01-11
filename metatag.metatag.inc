@@ -84,7 +84,7 @@ function metatag_metatag_config_default() {
     'title' => array('value' => '[user:name] | [site:name]'),
   );
   if (variable_get('user_pictures')) {
-    $config->config['image'] = array('value' => '[user:picture:url]');
+    $config->config['image_src'] = array('value' => '[user:picture:url]');
   }
   $configs[$config->instance] = $config;
 

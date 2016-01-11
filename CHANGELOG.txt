@@ -82,6 +82,8 @@ By DamienMcKenna: Some commit messages were in the wrong place.
   Gábor Hojtsy, pjonckiere, k_zoltan: Fixed i18n integration for core module and
   all submodules; added over 1,000 new test assertions in major expansion of the
   test suite.
+#2644156 by DamienMcKenna: Default value of image_src meta tag for user entity
+  was set incorrectly.
 
 
 Metatag 7.x-1.7, 2015-07-24
