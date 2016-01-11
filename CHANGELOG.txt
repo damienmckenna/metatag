@@ -87,6 +87,7 @@ By DamienMcKenna: Some commit messages were in the wrong place.
 #2639170 by anthonyleach: Use the correct hooks to add the RDF namespaces.
 #2628558 by marcelovani: Renamed the bundled Context definitions to avoid
   conflicts.
+By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
 
 
 Metatag 7.x-1.7, 2015-07-24
