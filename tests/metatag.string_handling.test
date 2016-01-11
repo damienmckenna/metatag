@@ -7,7 +7,7 @@
 /**
  * Tests the Metatag string handling.
  */
-class MetatagStringHandlingTest extends MetatagTestHelper {
+class MetatagCoreStringHandlingTest extends MetatagTestHelper {
 
   /**
    * @var $admin_user
@@ -20,7 +20,7 @@ class MetatagStringHandlingTest extends MetatagTestHelper {
    */
   public static function getInfo() {
     return array(
-      'name' => 'Metatag string tests',
+      'name' => 'Metatag core tests for string handling',
       'description' => "Tests Metatag's string handling.",
       'group' => 'Metatag',
     );
@@ -91,6 +91,7 @@ class MetatagStringHandlingTest extends MetatagTestHelper {
       'metatags[und][description][value]' => $desc_original,
     );
     $this->drupalPost('admin/config/search/metatags/config/node', $edit, 'Save');
+    $this->assertResponse(200);
 
     // Load the configuration object.
     $result = db_select('metatag_config', 'mc')
@@ -112,6 +113,7 @@ class MetatagStringHandlingTest extends MetatagTestHelper {
       'title' => $title_original,
     ));
     $this->drupalGet('node/' . $node->nid);
+    $this->assertResponse(200);
 
     // assertTitle() uses xpath, which parses the HTML, so all of the HTML
     // entities will be converted automagically.

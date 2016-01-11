@@ -114,7 +114,7 @@ class metatag_context_reaction extends context_reaction {
           }
 
           // Translate all of the meta tags using i18n.
-          metatag_translate_metatags($metadata_array);
+          metatag_translate_metatags($metadata_array, 'metatag_context:' . $context->name);
 
           // Add the meta tags to the output.
           foreach ($metadata_array as $langcode => $tags) {
@@ -188,9 +188,11 @@ function metatag_context_context_default_contexts() {
   $context->reactions = array(
     'metatag_context_reaction' => array(
       'metatags' => array(
-        'title' => array(
-          'value' => '[current-page:title] | [site:name]',
-          'default' => '[current-page:title] | [site:name]',
+        'und' => array(
+          'title' => array(
+            'value' => '[current-page:title] | [site:name]',
+            'default' => '[current-page:title] | [site:name]',
+          ),
         ),
       ),
       'metatag_admin' => 1,
@@ -220,9 +222,11 @@ function metatag_context_context_default_contexts() {
   $context->reactions = array(
     'metatag_context_reaction' => array(
       'metatags' => array(
-        'title' => array(
-          'value' => '[current-page:title] | [site:name]',
-          'default' => '[current-page:title] | [site:name]',
+        'und' => array(
+          'title' => array(
+            'value' => '[current-page:title] | [site:name]',
+            'default' => '[current-page:title] | [site:name]',
+          ),
         ),
       ),
       'metatag_admin' => 1,
@@ -248,9 +252,11 @@ function metatag_context_context_default_contexts() {
     $context->reactions = array(
       'metatag_context_reaction' => array(
         'metatags' => array(
-          'title' => array(
-            'value' => '[current-page:title] | [site:name]',
-            'default' => '[current-page:title] | [site:name]',
+          'und' => array(
+            'title' => array(
+              'value' => '[current-page:title] | [site:name]',
+              'default' => '[current-page:title] | [site:name]',
+            ),
           ),
         ),
         'metatag_admin' => 1,
@@ -277,9 +283,11 @@ function metatag_context_context_default_contexts() {
     $context->reactions = array(
       'metatag_context_reaction' => array(
         'metatags' => array(
-          'title' => array(
-            'value' => '[current-page:title] | [site:name]',
-            'default' => '[current-page:title] | [site:name]',
+          'und' => array(
+            'title' => array(
+              'value' => '[current-page:title] | [site:name]',
+              'default' => '[current-page:title] | [site:name]',
+            ),
           ),
         ),
         'metatag_admin' => 1,

@@ -382,11 +382,14 @@ function metatag_uninstall() {
   // Optionally disables the output cache.
   variable_del('metatag_cache_output');
 
-  // Optionally translate all output strings.
-  variable_del('metatag_translate_final_values');
-
   // Customizable pager string.
   variable_del('metatag_pager_string');
+
+  // Optionally enable translations of final output.
+  variable_del('metatag_i18n_translate_output');
+
+  // Optionally enable the automatic watchdog logging of i18n strings.
+  variable_del('metatag_i18n_enable_watchdog');
 
   // Remove all possible 'enable' variables.
   foreach (entity_get_info() as $entity_type => $entity_info) {
@@ -1850,4 +1853,60 @@ function metatag_update_7040(&$sandbox) {
  */
 function metatag_update_7041(&$sandbox) {
   metatag_update_7018($sandbox);
+}
+
+/**
+ * Delete a deprecated variable and clear all Metatag caches.
+ */
+function metatag_update_7100() {
+  variable_del('metatag_translate_final_values');
+
+  // Clear all caches so that i18n support can be activated, if necessary.
+  cache_clear_all('*', 'cache_metatag', TRUE);
+}
+
+/**
+ * Update i18n strings for all meta tags to use the new format.
+ */
+function metatag_update_7101() {
+  if (module_exists('i18n')) {
+    // Loop through each entity type. Not going to bother filtering this list,
+    // it'll only be a difference of a few entities anyway and the queries
+    // should be fairly quick.
+    foreach (entity_get_info() as $entity_type => $entity_info) {
+      // Entities must have bundles.
+      if (empty($entity_info['bundles'])) {
+        $entity_info['bundles'] = array(
+          $entity_type => $entity_type,
+        );
+      }
+      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+        // Update {locales_source}, replace 'metatag:ENTITYTYPE:BUNDLE:tag' with
+        // 'metatag:metatag_config:ENTITYTYPE:BUNDLE:tag'.
+        db_query("UPDATE {locales_source}
+          SET location = REPLACE(location, 'metatag:{$entity_name}:{$bundle_name}:', 'metatag:metatag_config:{$entity_name}:{$bundle_name}:'),
+            context = REPLACE(context, '{$entity_name}:{$bundle_name}:', '{$entity_name}:{$bundle_name}:')
+          WHERE textgroup = 'metatag'
+            AND location LIKE 'metatag:{$entity_name}:{$bundle_name}:%'");
+
+        // Update {locales_source}, replace 'metatag:ENTITYTYPE:tag' with
+        // 'metatag:metatag_config:ENTITYTYPE:tag'.
+        db_query("UPDATE {locales_source}
+          SET location = REPLACE(location, 'metatag:{$entity_name}:', 'metatag:metatag_config:{$entity_name}:'),
+            context = REPLACE(context, '{$entity_name}:', '{$entity_name}:')
+          WHERE textgroup = 'metatag'
+            AND location LIKE 'metatag:{$entity_name}:%'");
+      }
+    }
+    // Update {locales_source}, replace 'metatag:metatag:' with
+    // 'metatag:metatag_output:'.
+    db_query("UPDATE {locales_source}
+      SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
+        context = REPLACE(context, 'metatag:', 'metatag_output:')
+      WHERE textgroup = 'metatag'
+        AND location LIKE 'metatag:metatag:%'");
+  }
+  else {
+    return t('The Internationalization (i18n) module is not enabled, so there is no need to generate the missing translation strings.');
+  }
 }

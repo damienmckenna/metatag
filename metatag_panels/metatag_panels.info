@@ -3,10 +3,9 @@ description = Provides Metatag integration within the Panels interface.
 package = SEO
 core = 7.x
 
-dependencies[] = ctools
 dependencies[] = metatag
 dependencies[] = panels
-dependencies[] = token
 
 ; Tests.
 files[] = tests/metatag_panels.test
+files[] = tests/metatag_panels.i18n.test

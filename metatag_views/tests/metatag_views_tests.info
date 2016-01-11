@@ -1,0 +1,10 @@
+name = Metatag:Views Tests
+description = Helper module for testing metatag_views.module.
+core = 7.x
+
+; Don't show this on the modules admin page.
+hidden = TRUE
+
+dependencies[] = metatag
+dependencies[] = metatag_views
+dependencies[] = views

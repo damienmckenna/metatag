@@ -1,0 +1,11 @@
+name = Metatag:Panels Tests
+description = Helper module for testing metatag_panels.module.
+core = 7.x
+
+; Don't show this on the modules admin page.
+hidden = TRUE
+
+dependencies[] = ctools
+dependencies[] = page_manager
+dependencies[] = metatag
+dependencies[] = metatag_panels

@@ -87,7 +87,9 @@ function metatag_context_config_add_form_submit($form, &$form_state) {
   context_save($context);
 
   // Update the i18n strings.
-  metatag_update_translations($context->reactions['metatag_context_reaction']['metatags']);
+  if (!empty($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE])) {
+    metatag_translations_update($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE], 'metatag_context:' . $context->name);
+  }
 
   $form_state['redirect'] = 'admin/config/search/metatags/context/' . $context->name;
 }
@@ -181,7 +183,9 @@ function metatag_context_config_edit_form_submit($form, &$form_state) {
   context_save($context);
 
   // Update the i18n strings.
-  metatag_update_translations($context->reactions['metatag_context_reaction']['metatags']);
+  if (!empty($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE])) {
+    metatag_translations_update($context->reactions['metatag_context_reaction']['metatags'][LANGUAGE_NONE], 'metatag_context:' . $context->name);
+  }
 
   $form_state['redirect'] = 'admin/config/search/metatags/context';
 }

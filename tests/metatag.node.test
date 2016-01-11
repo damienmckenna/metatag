@@ -1,23 +1,16 @@
 <?php
 /**
  * @file
- * Tests for the Metatag module.
+ * Tests for the Metatag module and node entities.
  */
 
-class MetatagNodeTest extends MetatagTestHelper {
-  /**
-   * Admin user.
-   *
-   * @var \StdClass
-   */
-  protected $adminUser;
-
+class MetatagCoreNodeTest extends MetatagTestHelper {
   /**
    * {@inheritdoc}
    */
   public static function getInfo() {
     return array(
-      'name' => 'Metatag UI tests for nodes',
+      'name' => 'Metatag core tests for nodes',
       'description' => 'Test Metatag edit functionality for nodes.',
       'group' => 'Metatag',
     );
@@ -56,15 +49,16 @@ class MetatagNodeTest extends MetatagTestHelper {
 
     // Load the "add default configuration" page.
     $this->drupalGet('admin/config/search/metatags/config/add');
+    $this->assertResponse(200);
 
     // Verify the page loaded correct.
-    $this->assertResponse(200);
     $this->assertText(t('Select the type of default meta tags you would like to add.'));
 
     // Submit the initial form to select an entity bundle.
     $this->drupalPost(NULL, array(
       'instance' => 'node:' . $content_type,
     ), t('Add and configure'));
+    $this->assertResponse(200);
 
     // Verify the page loaded correct.
     $this->assertText('Node: ' . $label);
@@ -78,17 +72,21 @@ class MetatagNodeTest extends MetatagTestHelper {
       'metatags[und][dcterms.identifier][value]' => '[current-page:url:absolute]',
       'metatags[und][dcterms.language][value]' => '[node:language]',
     ), t('Save'));
+    $this->assertResponse(200);
 
     // Verify the page loaded correct.
     $this->assertText(strip_tags(t('The meta tag defaults for @label have been saved.', array('@label' => 'Node: ' . $label))));
+
+    // Verify that the user was redirected to the settings page again.
+    $this->assertEqual($this->getUrl(), url('admin/config/search/metatags', array('absolute' => TRUE)));
 
     // Create a test node.
 
     // Load the node form.
     $this->drupalGet('node/add/' . $content_type_path);
+    $this->assertResponse(200);
 
     // Verify the page loaded correctly.
-    $this->assertResponse(200);
     // @todo Update this to extract the page title.
     $this->assertText(strip_tags(t('Create @name', array('@name' => $label))));
 
@@ -97,6 +95,7 @@ class MetatagNodeTest extends MetatagTestHelper {
       'metatags[und][dcterms.subject][value]' => '[node:title] ponies',
       'title' => 'Who likes magic',
     ), t('Save'));
+    $this->assertResponse(200);
 
     // Verify that the node saved correctly.
     // $xpath = $this->xpath("//h1");
@@ -127,7 +126,7 @@ class MetatagNodeTest extends MetatagTestHelper {
 
     // This shouldn't happen, it indicates a problem.
     else {
-      $this->fail(t('Could not determine the ID for created node.'));
+      $this->fail(t('Could not determine the ID for the created node.'));
     }
 
     // Verify the title is using the custom default for this content type.
@@ -253,6 +252,7 @@ class MetatagNodeTest extends MetatagTestHelper {
     $this->assertResponse(200, 'Loaded the form to delete the second revision of this node.');
     // Try submitting the form.
     $this->drupalPost(NULL, array(), t('Delete'));
+    $this->assertResponse(200);
     // Verify that the revisions page no longer loads because there's only one
     // revision now.
     $this->drupalGet('node/' . $node->nid . '/revisions');

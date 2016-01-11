@@ -1,10 +1,13 @@
 <?php
 /**
  * @file
- * Tests for the Metatag module.
+ * Unit tests for the Metatag module.
  */
 
-class MetatagUnitTest extends MetatagTestHelper {
+/**
+ * @todo These aren't really unit tests, we might need to fix that.
+ */
+class MetatagCoreUnitTest extends MetatagTestHelper {
   public static function getInfo() {
     return array(
       'name' => 'Metatag unit tests',
@@ -17,54 +20,18 @@ class MetatagUnitTest extends MetatagTestHelper {
    * Test the metatag_config_load_with_defaults() function.
    */
   public function testConfigLoadDefaults() {
+    // Load the global defaults, inc the fake entity.
     $defaults = metatag_config_load_with_defaults('test:foo');
-    $this->assertEqual($defaults, array(
+
+    // Load the example values and verify they're the same as the globals.
+    $extra_tags = array(
       // Fake meta tag.
       'test:foo' => array('value' => 'foobar'),
+    );
+    $new_values = array_merge($extra_tags, $this->getTestDefaults());
 
-      // Basic meta tags.
-      'title' => array('value' => 'Test altered title'),
-      'description' => array('value' => 'Test foo description'),
-      'abstract' => array('value' => 'Test foo abstract'),
-      // 'keywords' => array('value' => ''),
-
-      // Advanced meta tags.
-      // 'robots' => array('value' => ''),
-      // 'news_keywords' => array('value' => ''),
-      // 'standout' => array('value' => ''),
-      // 'robots' => array('value' => ''),
-      // 'standout' => array('value' => ''),
-      'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
-      // 'standout' => array('value' => ''),
-      // 'image_src' => array('value' => ''),
-      'canonical' => array('value' => '[current-page:url:absolute]'),
-      'shortlink' => array('value' => '[current-page:url:unaliased]'),
-      // 'publisher' => array('value' => ''),
-      // 'author' => array('value' => ''),
-      // 'original-source' => array('value' => ''),
-      // 'revisit-after' => array('value' => ''),
-      // 'content-language' => array('value' => ''),'
-
-      // Dublin Core meta tags.
-      'dcterms.format' => array('value' => 'text/html'),
-      'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
-      'dcterms.title' => array('value' => '[current-page:title]'),
-      'dcterms.type' => array('value' => 'Text'),
-
-      // Google+ meta tags.
-      'itemprop:name' => array('value' => '[current-page:title]'),
-
-      // Open Graph meta tags.
-      'og:site_name' => array('value' => '[site:name]'),
-      'og:title' => array('value' => '[current-page:title]'),
-      'og:type' => array('value' => 'article'),
-      'og:url' => array('value' => '[current-page:url:absolute]'),
-
-      // Twitter Cards meta tags.
-      'twitter:card' => array('value' => 'summary'),
-      'twitter:title' => array('value' => '[current-page:title]'),
-      'twitter:url' => array('value' => '[current-page:url:absolute]'),
-    ));
+    // Confirm that the values are equal.
+    $this->assertEqual($defaults, $new_values);
   }
 
   public function testEntitySupport() {

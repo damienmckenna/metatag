@@ -78,6 +78,10 @@ By DamienMcKenna: Some commit messages were in the wrong place.
 #2636132 by SpaghettiBolognese: Inconsistency in submodule naming.
 #2637026 by matthewordie, DamienMcKenna: Mention in the og:image meta tag how
   Facebook will handle multiple images (It defaults to the largest one).
+#2564483 by DamienMcKenna, drupov, mas0h, das-peter, pwiniacki, sylus, webflo,
+  Gábor Hojtsy, pjonckiere, k_zoltan: Fixed i18n integration for core module and
+  all submodules; added over 1,000 new test assertions in major expansion of the
+  test suite.
 
 
 Metatag 7.x-1.7, 2015-07-24

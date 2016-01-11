@@ -1,17 +1,18 @@
 <?php
 /**
  * @file
- * Tests for the Metatag module and taxonomy term entities.
+ * Tests for the Metatag module for Views integration, outside of
+ * Metatag:Views.
  */
 
-class MetatagCoreTermTest extends MetatagTestHelper {
+class MetatagCoreWithViewsTest extends MetatagTestHelper {
   /**
    * {@inheritdoc}
    */
   public static function getInfo() {
     return array(
-      'name' => 'Metatag core tests for terms',
-      'description' => 'Test Metatag edit functionality for terms.',
+      'name' => 'Metatag core tests with Views',
+      'description' => 'Test Metatag integration with the Views module.',
       'group' => 'Metatag',
     );
   }
@@ -20,34 +21,30 @@ class MetatagCoreTermTest extends MetatagTestHelper {
    * {@inheritdoc}
    */
   function setUp(array $modules = array()) {
+    $modules[] = 'views';
+    $modules[] = 'views_ui';
+
     // Need the Path module to set a alias which can then be loaded.
     $modules[] = 'path';
+
     parent::setUp($modules);
   }
 
   /**
-   * Tests creation of a standard entity.
+   * Test the taxonomy term page still works when displayed via Views.
    */
-  public function testEntityCreationWorkflow() {
-    $content_type = 'metatag_test';
-    $content_type_path = str_replace('_', '-', $content_type);
-    $content_type_label = 'Test';
+  public function testTermViews() {
     $vocab_name = 'test_vocab';
     $term_name = 'Who likes magic';
     $term_path = 'term-test';
 
-    // Create a content type.
-    $this->createContentType($content_type, $content_type_label);
-
     // Create a vocabulary.
-    $vocabulary = $this->createVocabulary($vocab_name, $content_type);
+    $vocabulary = $this->createVocabulary($vocab_name);
 
     // Create an admin user and log them in.
     $perms = array(
-      // Needed for the content type.
-      'create ' . $content_type . ' content',
-      'delete any ' . $content_type . ' content',
-      'edit any ' . $content_type . ' content',
+      // Global admin access.
+      'administer site configuration',
 
       // Needed for the vocabulary.
       'administer taxonomy',
@@ -56,11 +53,12 @@ class MetatagCoreTermTest extends MetatagTestHelper {
 
       // Needed for the Path module.
       'create url aliases',
+
+      // Needed for Views.
+      'administer views',
     );
     $this->adminUser = $this->createAdminUser($perms);
     $this->drupalLogin($this->adminUser);
-
-    // Assign default values for the new vocabulary.
 
     // Load the "add default configuration" page.
     $this->drupalGet('admin/config/search/metatags/config/add');
@@ -122,6 +120,30 @@ class MetatagCoreTermTest extends MetatagTestHelper {
     $this->drupalGet($term_path);
     $this->assertResponse(200);
 
+    // Confirm the page is managed by the default taxonomy term page.
+    $this->assertText(t('There is currently no content classified with this term.'));
+
+    // Enable the taxonomy_term default display.
+    $view = views_get_view('taxonomy_term');
+    ctools_include('export');
+    ctools_export_set_object_status($view, 0);
+    $this->clearAllCaches();
+
+    $this->drupalGet('admin/structure/views');
+    $this->assertResponse(200);
+
+    $vars = variable_get('views_defaults');
+    $this->verbose(print_r($vars, TRUE));
+    $this->assertFalse($vars['taxonomy_term'], 'Taxonomy term page is enabled.');
+
+    // Load the page again.
+    $this->drupalGet($term_path);
+    $this->assertResponse(200);
+
+    // Confirm this page is managed by Views - if it's managed by the default
+    // taxonomy term page this text will show.
+    $this->assertNoText(t('There is currently no content classified with this term.'));
+
     // Try to extract the 'edit' link.
     $xpaths = $this->xpath("//ul/li/a");
     $matches = array();
@@ -162,4 +184,5 @@ class MetatagCoreTermTest extends MetatagTestHelper {
     $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
     $this->assertEqual($xpath[0]['content'], "Who likes magic ponies");
   }
+
 }

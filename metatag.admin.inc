@@ -134,6 +134,12 @@ function metatag_config_overview() {
       'title' => t('Export'),
       'href' => 'admin/config/search/metatags/config/' . $config->instance . '/export',
     );
+    if (module_exists('i18n_string')) {
+      $operations['translate'] = array(
+        'title' => t('Translate'),
+        'href' => 'admin/config/search/metatags/config/' . $config->instance . '/translate',
+      );
+    }
     $row['data']['operations'] = array(
       'data' => array(
         '#theme' => 'links',
@@ -306,7 +312,7 @@ function metatag_config_edit_form_submit($form, &$form_state) {
   $config = (object) $form_state['values'];
   // @todo Consider renaming the config field from 'config' to 'metatags'
   $config->config = $config->metatags[LANGUAGE_NONE];
-  unset($config->metatags[LANGUAGE_NONE]);
+  unset($config->metatags);
   metatag_config_save($config);
 
   $label = metatag_config_instance_label($config->instance);
@@ -590,6 +596,30 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_pager_string', 'Page PAGER | '),
   );
 
+  $form['i18n'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Internationalization options'),
+    '#description' => t('Additional options are available when using the Internationalization module.'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+
+  $form['i18n']['metatag_i18n_translate_output'] = array(
+    '#title' => t('Translate output'),
+    '#type' => 'checkbox',
+    '#description' => t('Optionally translate the final page output.'),
+    '#default_value' => variable_get('metatag_i18n_translate_output', FALSE),
+    '#disabled' => !module_exists('i18n_string'),
+  );
+
+  $form['i18n']['metatag_i18n_enable_watchdog'] = array(
+    '#title' => t('Enable logging of translations to Watchdog'),
+    '#type' => 'checkbox',
+    '#description' => t('Optionally log to Watchdog any changes that happen.'),
+    '#default_value' => variable_get('metatag_i18n_enable_watchdog', FALSE),
+    '#disabled' => !module_exists('i18n_string'),
+  );
+
   $form['advanced'] = array(
     '#type' => 'fieldset',
     '#title' => t('Advanced settings'),
@@ -638,15 +668,6 @@ function metatag_admin_settings_form() {
     '#description' => t('Disabling this will cause all meta tag output to be generated uniquely for each page load. Currently only affects entities. Note: the entity configuration and output for other types of pages will still be cached, but this can stop the {cache_metatag} table from growing out of control in some scenarios.'),
     '#default_value' => variable_get('metatag_cache_output', TRUE),
   );
-
-  if (module_exists('i18n_string')) {
-    $form['advanced']['metatag_translate_final_values'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Translate final meta tag output'),
-      '#description' => t('By default the string meta tags are made available for translation before tokens are processed, the idea being that the tokens will probably have already been translated because they come from content that is translated elsewhere. This allows for an optional second-stage translation for sites that want to translate the final output too.'),
-      '#default_value' => variable_get('metatag_translate_final_values', FALSE),
-    );
-  }
 
   $form['advanced']['metatag_page_region'] = array(
     '#type' => 'select',

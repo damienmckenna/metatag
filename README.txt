@@ -15,7 +15,7 @@ This version of the module only works with Drupal 7.28 and newer.
 
 
 Features
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 The primary features include:
 
 * The current supported basic meta tags are ABSTRACT, DESCRIPTION, CANONICAL,
@@ -25,7 +25,9 @@ The primary features include:
 
 * Multi-lingual support using the Entity Translation module.
 
-* Translation support using the Internationalization (i18n) module.
+* Translation support using the Internationalization (i18n) module of the global
+  configurations, the values for all three submodules (Metatag:Context,
+  Metatag:Panels, Metatag:Views), and the final meta tags being output.
 
 * Full support for entity revisions and workflows based upon revision editing,
   including compatibility with the Revisioning and Workbench Moderation modules.
@@ -121,7 +123,7 @@ The primary features include:
 
 
 Configuration
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
  1. On the People Permissions administration page ("Administer >> People
     >> Permissions") you need to assign:
 
@@ -157,19 +159,58 @@ Configuration
     admin/structure/types/manage/article/display/token
 
 
-Internationalization: i18n.module
-------------------------------------------------------------------------------
-All default configurations may be translated using the Internationalization
-(i18n) module. The custom strings that are assigned to e.g., the "Global: Front
-page" configuration will show up in the Translate Interface admin page
-(admin/config/regional/translate/translate) and may be customized per language.
+Internationalization with the Translation (core) and Entity Translation modules
+--------------------------------------------------------------------------------
+The module works with the core Translation module, allowing the meta tags for a
+specific entity (node, term, etc) to be tied to a specific language. It also
+supports the Entity Translation module, which may work better thank the basic
+Translation module depending upon the site's desired functionality. This
+integration means that content creators can customize an entity's meta tags for
+each language supported on the site, and that the correct meta tags should
+always be displayed for each locale.
 
-Additionally, the custom pager may be translated using the Variable Translation
-submodule.
+
+Internationalization with the i18n modules
+--------------------------------------------------------------------------------
+Using the String Translation (i18n_string) submodule of the Internationalization
+(i18n) module package it is possible to translate meta tags:
+
+* All default configurations (admin/config/search/metatag) are translatable.
+  When a configuration is created or updated it will pass the values to the
+  i18n_string system. Additionally it is possible to bulk update them via the
+  string translation page (admin/config/regional/translate/i18n_string).
+
+* Meta tags for all submodules (Metatag:Context, Metatag:Panels, Metatag:Views)
+  are translatable. Similar to the default configurations, these meta tags are
+  made available when they are created and/or update, and may also be bulk
+  updated.
+
+* Meta tags from entities (nodes, terms, etc) are not directly translatable.
+
+* The final output meta tags are passed through the translation system when the
+  page is being loaded. It is not possible to use the strings bulk updater to
+  spool all pages on the site, to do so it would be necessary to spool the page
+  using a separate script or tool.
+
+Additionally, certain variables are available for translation using the Variable
+Translation submodule of the i18n package:
+
+* metatag_pager_string - The custom pager string.
+
+
+Internationalization with the Smartling module
+--------------------------------------------------------------------------------
+The Smartling translation service may be used with the Metatag module provide an
+improved UX around the meta tag translation process. In order to do this, the
+Smartling Interface Translation (smartling_interface_translation) module must
+be enabled.
+
+For further details see the module's project page:
+  https://www.drupal.org/project/smartling
 
 
 Fine Tuning & Suggestions
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 * There are many options available on the settings page to control how Metatag
   works:
     admin/config/search/metatags/settings
@@ -207,7 +248,7 @@ Fine Tuning & Suggestions
 
 
 Developers
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Full API documentation is available in metatag.api.php.
 
 It is not necessary to control Metatag via the entity API, any entity that has
@@ -221,7 +262,7 @@ via drupal_render(), or examining to identify the actual text values.
 
 
 Troubleshooting / Known Issues
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 * When using custom page template files, e.g., page--front.tpl.php, it is
   important to ensure that the following code is present in the template file:
     <?php render($page['content']); ?>
@@ -256,7 +297,7 @@ Troubleshooting / Known Issues
 
 
 Related modules
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Some modules are available that extend Metatag with additional functionality:
 
 * Transliteration
@@ -302,7 +343,7 @@ Some modules are available that extend Metatag with additional functionality:
 
 
 Credits / Contact
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 Currently maintained by Damien McKenna [1] and Dave Reid [2]; all initial
 development was by Dave Reid.
 
@@ -315,7 +356,7 @@ request, a feature request or a bug report, in the project issue queue:
 
 
 References
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 1: https://www.drupal.org/u/damienmckenna
 2: https://www.drupal.org/u/dave-reid
 3: http://www.mediacurrent.com/

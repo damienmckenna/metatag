@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ * Tests for the Metatag module to ensure Locale integration doesn't break.
+ */
+
+class MetatagCoreLocaleTest extends MetatagTestHelper {
+  /**
+   * {@inheritdoc}
+   */
+  public static function getInfo() {
+    return array(
+      'name' => 'Metatag core tests for Locale',
+      'description' => 'Test Metatag integration with the locale module.',
+      'group' => 'Metatag',
+    );
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  function setUp(array $modules = array()) {
+    // Need Locale for the multiple languages.
+    $modules[] = 'locale';
+
+    parent::setUp($modules);
+  }
+
+  // @todo Make sure the meta tag fields are displayed in the correct locale.
+  // @todo Make sure the node records are stored with the correct language.
+}
