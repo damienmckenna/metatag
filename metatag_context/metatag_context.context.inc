@@ -169,7 +169,7 @@ function metatag_context_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'user_login';
+  $context->name = 'metatag_context_user_login';
   $context->description = 'A default Metatag:Context definition for the user login page. This needs to be enabled and then it can be customized as needed.';
   $context->tag = 'Metatag';
   $context->conditions = array(
@@ -204,7 +204,7 @@ function metatag_context_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'user_register';
+  $context->name = 'metatag_context_user_register';
   $context->description = 'A default Metatag:Context definition for the user registration page. This needs to be enabled and then it can be customized as needed.';
   $context->tag = 'Metatag';
   $context->conditions = array(
@@ -239,7 +239,7 @@ function metatag_context_context_default_contexts() {
     $context = new stdClass();
     $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
     $context->api_version = 3;
-    $context->name = 'forum';
+    $context->name = 'metatag_context_forum';
     $context->description = 'A default Metatag:Context definition for the main forum page. This needs to be enabled and then it can be customized as needed.';
     $context->tag = 'Metatag';
     $context->conditions = array(
@@ -270,7 +270,7 @@ function metatag_context_context_default_contexts() {
     $context = new stdClass();
     $context->disabled = TRUE; /* Edit this to true to make a default context disabled initially */
     $context->api_version = 3;
-    $context->name = 'blog';
+    $context->name = 'metatag_context_blog';
     $context->description = 'A default Metatag:Context definition for the main blog page. This needs to be enabled and then it can be customized as needed. Note: this does not cover the individual user blog pages, only the main blog page.';
     $context->tag = 'Metatag';
     $context->conditions = array(
