@@ -88,6 +88,8 @@ By DamienMcKenna: Some commit messages were in the wrong place.
 #2628558 by marcelovani: Renamed the bundled Context definitions to avoid
   conflicts.
 By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
+#2622662 by rollsd: Adjusted logic to fix problem with entity types that only
+  have one bundle.
 
 
 Metatag 7.x-1.7, 2015-07-24

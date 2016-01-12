@@ -1533,6 +1533,13 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
         else {
           $entity_types[$entity_name] = array();
           foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+            // If only one bundle exists, take configuration for entity, to
+            // reflect options as they are available in the UI.
+            if (count($entity_info['bundles']) === 1) {
+              $entity_types[$entity_name][$bundle_name] = variable_get('metatag_enable_' . $entity_name, FALSE) == TRUE;
+              continue;
+            }
+
             // Allow bundles to be disabled by assigning a variable
             // 'metatag_enable_{$entity_type}__{$bundle}' the value FALSE, e.g.:
             //
