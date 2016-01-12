@@ -699,16 +699,6 @@ function metatag_metatags_delete_multiple($entity_type, array $entity_ids, array
       // Clear the caches for these entities.
       entity_get_controller($entity_type)->resetCache($entity_ids);
 
-      // Update i18n.
-      if (module_exists('i18n_string')) {
-        $options = array();
-
-        // By default disable the watchdog logging of translation messages.
-        $options['watchdog'] = variable_get('metatag_i18n_enable_watchdog', FALSE);
-
-        i18n_string_object_remove('metatag_config', $new_metatags, $options);
-      }
-
       return TRUE;
     }
     catch (Exception $e) {
