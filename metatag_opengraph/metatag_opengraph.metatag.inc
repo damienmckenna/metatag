@@ -617,9 +617,8 @@ function _metatag_opengraph_type_options() {
       'video.other' => t('Miscellaneous video'),
     ),
     t('Websites') => array(
-      'blog' => t('Blog'),
       'website' => t('Website'),
-      'article' => t('Article'),
+      'article' => t('Article (inc blog)'),
     ),
   );
 
