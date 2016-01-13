@@ -105,7 +105,9 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
   // Don't care about the instance name, the data is being managed by Context
   // and not Metatag.
   $instance = "";
-  $options = array();
+  $options = array(
+    'token types' => array('node', 'term', 'user'),
+  );
 
   $metatags = $context->reactions['metatag_context_reaction']['metatags'];
   if (!isset($metatags[LANGUAGE_NONE])) {
@@ -148,9 +150,6 @@ function metatag_context_config_edit_form($form, &$form_state, $context) {
     '#suffix' => '</em></p>',
     '#weight' => -99,
   );
-
-  // Show all tokens.
-  $form['metatags']['tokens']['#token_types'] = 'all';
 
   $form['metatags']['#type'] = 'container';
   unset($form['metatags']['#collapsed']);

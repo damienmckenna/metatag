@@ -26,8 +26,10 @@ class metatag_context_reaction extends context_reaction {
       );
     }
 
-    // No options currently available.
-    $options = array();
+    // Provide token types.
+    $options = array(
+      'token types' => array('node', 'term', 'user'),
+    );
 
     $form['help'] = array(
       '#prefix' => '<p><em>',
@@ -138,6 +140,16 @@ class metatag_context_reaction extends context_reaction {
         asort($instance_names);
         $instance = 'context:' . implode(',', $instance_names);
         $options['instance'] = $instance;
+
+        // If an entity & entity type were saved elsewhere, grab them for later.
+        // @see hook_entity_prepare_view().
+        $entities = drupal_static('metatag_context_entities');
+        if (!empty($entities) && (count($entities[1]) == 1)) {
+          $data = array_values($entities[1]);
+          $options['entity'] = $data[0];
+          $options['entity_type'] = $entities[0];
+          $options['token data'] = array($entities[0] => $data[0]);
+        }
 
         // Don't output meta tags that only contain the pager.
         $current_pager = metatag_get_current_pager();

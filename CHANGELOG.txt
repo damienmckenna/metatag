@@ -99,6 +99,9 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
   now required.
 #2184857 by DamienMcKenna, mikeytown2: Expanded metatag_metatags_load() to allow
   meta tags to be loaded by revision ID.
+#1838554 by dimchich, jcnventura, Bao Truong, marcelovani, DamienMcKenna: Allow
+  entity tokens to be properly used on entity pages via Metatag:Context i.e.
+  'by path'.
 
 
 Metatag 7.x-1.7, 2015-07-24

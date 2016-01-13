@@ -82,6 +82,14 @@ function metatag_context_context_page_reaction() {
 }
 
 /**
+ * Implements hook_entity_prepare_view().
+ */
+function metatag_context_entity_prepare_view($entities, $entity_type, $langcode = NULL) {
+  // Store the current entities.
+  drupal_static('metatag_context_entities', array($entity_type, $entities));
+}
+
+/**
  * Implements hook_page_build().
  */
 function metatag_context_page_build(&$page) {
