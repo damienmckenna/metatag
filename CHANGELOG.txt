@@ -102,6 +102,8 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
 #1838554 by dimchich, jcnventura, Bao Truong, marcelovani, DamienMcKenna: Allow
   entity tokens to be properly used on entity pages via Metatag:Context i.e.
   'by path'.
+#2361343 by marcelovani: Allow by-path definitions to override the page title of
+  all pages.
 
 
 Metatag 7.x-1.7, 2015-07-24
