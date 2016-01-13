@@ -106,6 +106,8 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
   all pages.
 #2493689 by DamienMcKenna: Removed two arguments from metatag_metatags_save()
   that weren't actually being used.
+#2613598 by DamienMcKenna: Added a copy of the Contributor Covenant in the
+  CODE_OF_CONDUCT.txt file.
 
 
 Metatag 7.x-1.7, 2015-07-24
