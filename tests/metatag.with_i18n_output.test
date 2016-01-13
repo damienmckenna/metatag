@@ -77,7 +77,7 @@ class MetatagCoreWithI18nOutputTest extends MetatagTestHelper {
     $this->searchTranslationPage($string_en, $config_name);
 
     // Get the translation string lid for the front page's title.
-    $lid = $this->getTranslationLid($config_name);
+    $lid = $this->getTranslationLidByContext($config_name);
     $this->assertNotEqual($lid, 0, 'Found the locales_source string for the front page output title tag.');
 
     // Save the translation string.

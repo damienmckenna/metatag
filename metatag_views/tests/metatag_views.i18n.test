@@ -65,7 +65,7 @@ class MetatagViewsI18nTest extends MetatagTestHelper {
     $this->searchTranslationPage($string_en, $config_name);
 
     // Get the translation string lid for the generator tag.
-    $lid = $this->getTranslationLid($config_name);
+    $lid = $this->getTranslationLidByContext($config_name);
     $this->assertNotEqual($lid, 0, 'Found the locales_source string for the description tag.');
 
     // Save the translation string.

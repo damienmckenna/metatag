@@ -306,20 +306,52 @@ class MetatagTestHelper extends DrupalWebTestCase {
    *
    * @param string $context
    *   The context string to search for.
+   * @param string $textgroup
+   *   This string's textgroup; defaults to 'metatag'.
    *
    * @return integer
    *   The {locales_source}.lid value for this string.
    */
-  function getTranslationLid($context) {
+  function getTranslationLidByContext($context, $textgroup = 'metatag') {
     // Extra debug output.
     $this->debugLocalesSourcesByContext($context);
 
     // Look for the string that's actually being requested.
     return (int) db_query("SELECT lid
       FROM {locales_source}
-      WHERE textgroup = 'metatag'
+      WHERE textgroup = :textgroup
       AND context = :context",
-      array(':context' => $context))
+      array(
+        ':textgroup' => $textgroup,
+        ':context' => $context,
+      ))
+      ->fetchField();
+  }
+
+  /**
+   * Get the {locales_source} lid value for a specific source.
+   *
+   * @param string $context
+   *   The context string to search for.
+   * @param string $textgroup
+   *   This string's textgroup; defaults to 'metatag'.
+   *
+   * @return integer
+   *   The {locales_source}.lid value for this string.
+   */
+  function getTranslationLidBySource($string, $textgroup = 'metatag') {
+    // Extra debug output.
+    $this->debugLocalesSourcesByContext('', $textgroup);
+
+    // Look for the string that's actually being requested.
+    return (int) db_query("SELECT lid
+      FROM {locales_source}
+      WHERE textgroup = :textgroup
+      AND source = :source",
+      array(
+        ':textgroup' => $textgroup,
+        ':source' => $string,
+      ))
       ->fetchField();
   }
 
@@ -328,12 +360,17 @@ class MetatagTestHelper extends DrupalWebTestCase {
    *
    * @param string $context
    *   The translation context to search against.
+   * @param string $textgroup
+   *   This string's textgroup; defaults to 'metatag'.
    */
-  function debugLocalesSourcesByContext($context) {
+  function debugLocalesSourcesByContext($context, $textgroup = 'metatag') {
     // Get a dump of all i18n strings for Metatag.
     $records = db_query("SELECT lid, location, textgroup, source, context, version
       FROM {locales_source}
-      WHERE textgroup = 'metatag'")
+      WHERE textgroup = :textgroup",
+      array(
+        ':textgroup' => $textgroup,
+      ))
       ->fetchAllAssoc('lid');
     foreach ($records as $key => $record) {
       $records[$key] = (array) $record;
@@ -380,8 +417,11 @@ class MetatagTestHelper extends DrupalWebTestCase {
     // module, so need to replicate its behaviour.
     $this->assertText(check_plain(wordwrap($string_source, 0)));
 
-    // Look for the context value.
-    $this->assertText($context);
+    // Look for the context value; the context value is empty for all default
+    // i.e. interface strings, so don't test this when the context is empty.
+    if (!empty($context)) {
+      $this->assertText($context);
+    }
 
     // Confirm that the destination strings exist.
     $this->assertField('translations[fr]', 'Found the French translation string field.');
@@ -412,7 +452,8 @@ class MetatagTestHelper extends DrupalWebTestCase {
    *   The translation context to search against.
    */
   function debugLocalesTargetsByContext($context) {
-    $records = db_query("SELECT lt.lid, lt.translation, lt.language, lt.plid, lt.plural, lt.i18n_status
+    // , lt.i18n_status
+    $records = db_query("SELECT lt.lid, lt.translation, lt.language, lt.plid, lt.plural
       FROM {locales_target} lt
         INNER JOIN {locales_source} ls
           ON lt.lid = ls.lid
@@ -424,14 +465,14 @@ class MetatagTestHelper extends DrupalWebTestCase {
       $records[$key] = (array) $record;
     }
     $args = array(
-      'caption' => 'i18n target check for . ' . $context,
+      'caption' => 'Locale target check for . ' . $context,
       'header' => array(
         'lid',
         'translation',
         'language',
         'plid',
         'plural',
-        'i18n_status',
+        // 'i18n_status',
       ),
       'rows' => $records,
     );

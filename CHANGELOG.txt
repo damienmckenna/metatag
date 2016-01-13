@@ -92,6 +92,8 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
   have one bundle.
 #2648804 by DamienMcKenna: Removed some unfinished code from
   metatag_metatags_delete_multiple().
+#2587725 by DamienMcKenna: Fixed display of meta tag labels in localized entity
+  & config forms.
 
 
 Metatag 7.x-1.7, 2015-07-24

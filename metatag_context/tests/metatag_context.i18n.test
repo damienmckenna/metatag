@@ -74,7 +74,7 @@ class MetatagContextI18nTest extends MetatagTestHelper {
     // Check each of the meta tags that were transmitted.
     foreach (array('title', 'description', 'abstract', 'keywords') as $tag) {
       $i18n_context = 'metatag_context:' . $object_en->name . ':' . $tag;
-      $lid = $this->getTranslationLid($i18n_context);
+      $lid = $this->getTranslationLidByContext($i18n_context);
       $this->assertNotEqual($lid, 0, "Found the {locales_source} record for the {$tag} tag.");
 
       // Save a translation for this tag.
@@ -103,7 +103,7 @@ class MetatagContextI18nTest extends MetatagTestHelper {
     $this->searchTranslationPage($string_en, $config_name);
 
     // Get the translation string lid for the generator tag.
-    $lid = $this->getTranslationLid($config_name);
+    $lid = $this->getTranslationLidByContext($config_name);
     $this->assertNotEqual($lid, 0, 'Found the locales_source string for the description tag.');
 
     // Save the translation string.

@@ -69,7 +69,7 @@ class MetatagCoreWithI18nConfigTest extends MetatagTestHelper {
     $this->searchTranslationPage($string_en, $config_name);
 
     // Get the translation string lid for the generator tag.
-    $lid = $this->getTranslationLid($config_name);
+    $lid = $this->getTranslationLidByContext($config_name);
     $this->assertNotEqual($lid, 0, 'Found the locales_source string for the generator tag.');
 
     // Save the translation string.
@@ -128,7 +128,7 @@ class MetatagCoreWithI18nConfigTest extends MetatagTestHelper {
     $this->assertTitle($string_en);
 
     // Get the translation string lid for the front page's title.
-    $lid = $this->getTranslationLid($config_name);
+    $lid = $this->getTranslationLidByContext($config_name);
     $this->assertNotEqual($lid, 0, 'Found the locales_source string for the front page title tag.');
 
     // Save the translation string.
