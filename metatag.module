@@ -419,26 +419,48 @@ function metatag_config_cache_clear() {
 /**
  * Load an entity's tags.
  *
- * @param $entity_type
+ * @param string $entity_type
  *   The entity type to load.
- * @param $entity_id
+ * @param int $entity_id
  *   The ID of the entity to load.
+ * @param mixed $revision_id
+ *   Optional revision ID to load instead of the entity ID.
  *
  * @return
  *   An array of tag data keyed by revision ID and language.
  */
-function metatag_metatags_load($entity_type, $entity_id) {
-  $metatags = metatag_metatags_load_multiple($entity_type, array($entity_id));
-  return !empty($metatags) ? reset($metatags) : array();
+function metatag_metatags_load($entity_type, $entity_id, $revision_id = NULL) {
+  $metatags = metatag_metatags_load_multiple($entity_type, array($entity_id), array($revision_id));
+
+  // Something was found.
+  if (!empty($metatags)) {
+    // A specific revision ID was requested.
+    if (!empty($revision_id)) {
+      // Look for records for the requested revision ID.
+      if (isset($metatags[$revision_id])) {
+        return array($revision_id => $metatags[$revision_id]);
+      }
+    }
+    // Just send back the first item from the array.
+    else {
+      return reset($metatags);
+    }
+  }
+
+  // Getting to this point means that no meta tags were identified earlier, so
+  // return an empty array.
+  return array();
 }
 
 /**
  * Load tags for multiple entities.
  *
- * @param $entity_type
+ * @param string $entity_type
  *   The entity type to load.
- * @param $entity_ids
+ * @param array $entity_ids
  *   The list of entity IDs.
+ * @param array $revision_id
+ *   Optional revision ID to load instead of the entity ID.
  *
  * @return
  *   An array of tag data, keyed by entity ID, revision ID and language.
