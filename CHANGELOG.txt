@@ -94,6 +94,9 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
   metatag_metatags_delete_multiple().
 #2587725 by DamienMcKenna: Fixed display of meta tag labels in localized entity
   & config forms.
+#2389929 by michee.lengronne, scor, DamienMcKenna, sint: Fixed Google+ HTML
+  head declaration so it validates, but a change to the site's html.tpl.php is
+  now required.
 
 
 Metatag 7.x-1.7, 2015-07-24
