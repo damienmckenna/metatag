@@ -259,7 +259,7 @@ function _metatag_importer_migrate(array $types = array(), &$context = array()) 
             $entity->metatags[$langcode][$name] = $value;
           }
 
-          metatag_metatags_save($type, $entity_id, $revision_id, $entity->metatags, $langcode);
+          metatag_metatags_save($type, $entity_id, $revision_id, $entity->metatags);
           // watchdog('metatag_importer', 'Imported meta tags for @entity_type ID @id.', array('@entity_type' => $type, '@id' => $record_id), WATCHDOG_INFO);
           break;
 
@@ -292,7 +292,7 @@ function _metatag_importer_migrate(array $types = array(), &$context = array()) 
         //   $metatags = metatag_metatags_load($record->entity_type, $record->entity_id);
         //   $metatags = array_merge($metatags, $record->data);
         //   $vocabulary = taxonomy_vocabulary_load($record->entity_id);
-        //   metatag_metatags_save($record->entity_type, $record->entity_id, $vocabulary->vid, $metatags, $vocabulary->language);
+        //   metatag_metatags_save($record->entity_type, $record->entity_id, $vocabulary->vid, $metatags);
         //   break;
       }
     }

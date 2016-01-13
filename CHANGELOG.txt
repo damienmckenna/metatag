@@ -104,6 +104,8 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
   'by path'.
 #2361343 by marcelovani: Allow by-path definitions to override the page title of
   all pages.
+#2493689 by DamienMcKenna: Removed two arguments from metatag_metatags_save()
+  that weren't actually being used.
 
 
 Metatag 7.x-1.7, 2015-07-24

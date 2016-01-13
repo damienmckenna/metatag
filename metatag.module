@@ -543,10 +543,8 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
  *   The entity's VID.
  * @param $metatags
  *   All of the tag information
- * @param $language
- *   The language of the translation set
  */
-function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $langcode, $old_vid = NULL) {
+function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags) {
   // Check that $entity_id is numeric because of Entity API and string IDs.
   if (!is_numeric($entity_id)) {
     return;
@@ -568,13 +566,6 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
   // Don't do anything if the entity bundle is not supported.
   if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
     return;
-  }
-
-  // If no language assigned, or the language doesn't exist, use the
-  // has-no-language language.
-  $languages = language_list();
-  if (empty($langcode) || !isset($languages[$langcode])) {
-    $langcode = LANGUAGE_NONE;
   }
 
   // The revision_id must be a numeric value; some entities use NULL for the
@@ -858,7 +849,7 @@ function metatag_entity_insert($entity, $entity_type) {
       return;
     }
 
-    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $langcode);
+    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags);
   }
 }
 
@@ -919,8 +910,7 @@ function metatag_entity_update($entity, $entity_type) {
     }
 
     // Save the record.
-    $old_vid = isset($entity->old_vid) ? $entity->old_vid : NULL;
-    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $new_language, $old_vid);
+    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags);
   }
   else {
     // Still ensure the meta tag output is cached.
@@ -1490,10 +1480,9 @@ function metatag_commerce_product_form_submit($form, &$form_state) {
   $product = $form_state[$entity_type];
   $entity_id = $product->product_id;
   $revision_id = $product->revision_id;
-  $langcode = $product->language;
 
   // Update the meta tags for this entity type.
-  metatag_metatags_save($entity_type, $entity_id, $revision_id, $form_state['values']['metatags'], $langcode, NULL);
+  metatag_metatags_save($entity_type, $entity_id, $revision_id, $form_state['values']['metatags']);
 }
 
 /**
