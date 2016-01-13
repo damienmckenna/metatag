@@ -111,6 +111,8 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
 #2335015 by DamienMcKenna: Remove og:type 'blog'.
 #2649816 by DamienMcKenna: Added a copy of the GPL 2.0 license to the
   repository.
+#2338211 by DamienMcKenna: Only output the first item of a token for image meta
+  tags that only support one value.
 
 
 Metatag 7.x-1.7, 2015-07-24

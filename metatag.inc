@@ -267,12 +267,16 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
 
     // Special handling for images.
     if (!empty($this->info['image'])) {
-      if (!empty($this->info['multiple'])) {
-        $values = explode(',', $value);
+      // Support multiple items, whether it's needed or not. Also remove the
+      // empty values.
+      $values = array_filter(explode(',', $value));
+
+      // If this meta tag does *not* allow multiple items, only keep the first
+      // one.
+      if (empty($this->info['multiple']) && !empty($values[0])) {
+        $values = array($values[0]);
       }
-      else {
-        $values = array($value);
-      }
+
       foreach ($values as $key => &$image_value) {
         // If this contains embedded image tags, extract the image URLs.
         if (strip_tags($image_value) != $image_value) {
@@ -282,6 +286,9 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
             $image_value = $matches[1];
           }
         }
+
+        // File paths that contain "public://" are relative to the public file
+        // directory, so convert them to a publicly accessible URL.
         if (strpos($image_value, 'public://') === 0) {
           $image_value = file_create_url($image_value);
         }
