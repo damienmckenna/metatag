@@ -109,6 +109,8 @@ By DamienMcKenna: Fixed an accidental removal of the Token v1.6 requirement.
 #2613598 by DamienMcKenna: Added a copy of the Contributor Covenant in the
   CODE_OF_CONDUCT.txt file.
 #2335015 by DamienMcKenna: Remove og:type 'blog'.
+#2649816 by DamienMcKenna: Added a copy of the GPL 2.0 license to the
+  repository.
 
 
 Metatag 7.x-1.7, 2015-07-24
