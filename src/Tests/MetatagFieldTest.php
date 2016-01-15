@@ -92,7 +92,7 @@ class MetatagFieldTest extends WebTestBase {
     $values = array(
       'keywords' => 'Purple monkey dishwasher',
     );
-    $this->drupalPostForm('admin/structure/metatag_defaults/global', $values, 'Save');
+    $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     $this->drupalGet('entity_test/' . $entity->id());
     $elements = $this->cssSelect('meta[name=keywords]');
@@ -128,7 +128,7 @@ class MetatagFieldTest extends WebTestBase {
     $global_values = array(
       'description' => 'Global description',
     );
-    $this->drupalPostForm('admin/structure/metatag_defaults/global', $global_values, 'Save');
+    $this->drupalPostForm('admin/config/search/metatag/global', $global_values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
 
     // Now when we create an entity, global defaults are used to fill the form fields.

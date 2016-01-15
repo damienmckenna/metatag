@@ -38,7 +38,7 @@ Standard usage scenario
 --------------------------------------------------------------------------------
 
 1. Install the module.
-2. Open admin/structure/metatag_defaults.
+2. Open admin/config/search/metatag.
 3. Adjust global and entity defaults. Fill in reasonable default values for any
    of the meta tags that need to be customized. Tokens may be used to
    automatically assign values. If the Token module is enabled there will be a

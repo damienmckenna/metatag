@@ -2,6 +2,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2634844 by swentel: Only load entity meta tags on actual content entity pages.
 #2648752 by juampynr: Fixed the token browser integration.
+#2642430 by juampynr: Moved settings pages under admin/config.
 
 
 Metatag 8.x-1.0-beta3, 2015-12-08
