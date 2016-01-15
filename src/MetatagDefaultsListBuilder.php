@@ -9,7 +9,6 @@ namespace Drupal\metatag;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Url;
 
 /**
  * Provides a listing of Metatag defaults entities.
