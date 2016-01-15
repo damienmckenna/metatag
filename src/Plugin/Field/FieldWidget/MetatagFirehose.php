@@ -68,9 +68,11 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
     }
 
     // Populate fields which have not been overridden in the entity.
-    foreach ($default_tags as $tag_id => $tag_value) {
-      if (!isset($values[$tag_id]) && !empty($tag_value)) {
-        $values[$tag_id] = $tag_value;
+    if (!empty($default_tags)) {
+      foreach ($default_tags as $tag_id => $tag_value) {
+        if (!isset($values[$tag_id]) && !empty($tag_value)) {
+          $values[$tag_id] = $tag_value;
+        }
       }
     }
 
