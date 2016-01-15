@@ -13,17 +13,17 @@ use Drupal\Core\Routing\RouteMatchInterface;
  * Implements hook_help().
  */
 function metatag_help($route_name, RouteMatchInterface $route_match) {
-  $output = '';
+
   switch ($route_name) {
     // Main module help for the Metatag module.
     case 'help.page.metatag':
-      $output .= '<h3>' . t('About') . '</h3>';
+      $output = '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('This module allows you to automatically provide structured metadata, aka "meta
 tags", about your website and web pages.') . '</p>';
+      return $output;
       break;
   }
 
-  return $output;
 }
 
 /**
