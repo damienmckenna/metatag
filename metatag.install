@@ -1927,3 +1927,92 @@ function metatag_update_7102() {
 function metatag_update_7103() {
   cache_clear_all('*', 'cache_metatag', TRUE);
 }
+
+/**
+ * Remove the entity revision ID from the translation strings.
+ */
+function metatag_update_7104(&$sandbox) {
+  // Process records by groups of 10 (arbitrary value).
+  // When a group is processed, the batch update engine determines whether it
+  // should continue processing in the same request or provide progress
+  // feedback to the user and wait for the next request.
+  $limit = 10;
+  // When ran through Drush it's Ok to process a larger number of objects at a
+  // time.
+  if (drupal_is_cli()) {
+    $limit = 100;
+  }
+
+  // Use the sandbox at your convenience to store the information needed
+  // to track progression between successive calls to the function.
+  if (!isset($sandbox['progress'])) {
+    // The count of records visited so far.
+    $sandbox['progress'] = 0;
+
+    // Total records that must be visited.
+    $sandbox['max'] = db_query("SELECT COUNT(lid)
+      FROM {locales_source}
+      WHERE textgroup = 'metatag'
+      AND context LIKE 'metatag_output:%:%:%:%'")->fetchField();
+
+    // If there's no data, don't bother with the extra work.
+    if (empty($sandbox['max'])) {
+      watchdog('metatag', 'Update 7102: No nodes need the translation entity string fixed.', array(), WATCHDOG_INFO);
+      if (drupal_is_cli()) {
+        drupal_set_message(t('Update 7102: No nodes need the translation entity string fixed.'));
+      }
+      return t('No nodes need the Metatag language values fixed.');
+    }
+
+    // A place to store messages during the run.
+    $sandbox['messages'] = array();
+
+    // An initial record of the number of records to be updated.
+    watchdog('metatag', 'Update 7102: !count records to update.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7102: !count records to update.', array('!count' => $sandbox['max'])));
+    }
+  }
+
+  // Get a batch of records that need to be fixed.
+  $records = db_query_range("SELECT lid, location, context
+    FROM {locales_source}
+    WHERE textgroup = 'metatag'
+    AND context LIKE 'metatag_output:%:%:%:%'", 0, $limit);
+
+  // Update each of the records.
+  foreach ($records as $record) {
+    $old_location = '/metatag:metatag_output:([^:]*):([^:]*):([^:]*):([^:]*)/';
+    $new_location = 'metatag:metatag_output:$1:$2:$4';
+    $location = preg_replace($old_location, $new_location, $record->location);
+    $old_context = '/metatag_output:([^:]*):([^:]*):([^:]*):([^:]*)/';
+    $new_context = 'metatag_output:$1:$2:$4';
+    $context = preg_replace($old_context, $new_context, $record->context);
+    drupal_set_message($location);
+    drupal_set_message($context);
+    db_update('locales_source')
+      ->fields(array(
+        'location' => $location,
+        'context' => $context,
+      ))
+      ->condition('lid', $record->lid)
+      ->execute();
+
+    // Update our progress information.
+    $sandbox['progress']++;
+  }
+
+  // Set the "finished" status, to tell batch engine whether this function
+  // needs to run again. If you set a float, this will indicate the progress of
+  // the batch so the progress bar will update.
+  $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ? TRUE : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished']) {
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
+
+    // hook_update_N() may optionally return a string which will be displayed
+    // to the user.
+    return t('Fixed the Metatag language values for @count nodes.', array('@count' => $sandbox['progress']));
+  }
+}

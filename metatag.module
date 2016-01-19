@@ -2739,7 +2739,7 @@ function metatag_translate_metatag($string, $tag_name, $context = 'metatag_outpu
       // If this is an entity page, use the entity as the context.
       elseif (!empty($context['entity_type']) && !empty($context['entity'])) {
         list($entity_id, $revision_id, $bundle) = entity_extract_ids($context['entity_type'], $context['entity']);
-        $new_context .= $context['entity_type'] . ':' . $entity_id . ':' . $revision_id;
+        $new_context .= $context['entity_type'] . ':' . $entity_id;
       }
       // Otherwise, use the page URL.
       else {
