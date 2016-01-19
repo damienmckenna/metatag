@@ -1920,3 +1920,10 @@ function metatag_update_7101() {
 function metatag_update_7102() {
   metatag_update_7101();
 }
+
+/**
+ * Clear all metatag caches so the new entity caching structure takes over.
+ */
+function metatag_update_7103() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+}

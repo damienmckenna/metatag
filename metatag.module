@@ -746,7 +746,7 @@ function metatag_metatags_cache_clear($entity_type, $entity_ids = NULL) {
       $entity_ids = array($entity_ids);
     }
     foreach ($entity_ids as $entity_id) {
-      cache_clear_all("output:$entity_type:$entity_id", 'cache_metatag', TRUE);
+      cache_clear_all("output:$entity_type:$entity_id", 'cache_metatag');
     }
   }
 }
@@ -1045,9 +1045,13 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
   }
 
   $cid = FALSE;
+  $metatag_variants = array();
   if ($cached && variable_get('metatag_cache_output', TRUE)) {
+    // All possible variants of the metatags for this entity are stored in a
+    // single cache entry.
+    $cid = "output:$entity_type:$entity_id";
     // All applicable pieces for this current page.
-    $cid_parts = array(
+    $key_parts = array(
       'entity_type' => $entity_type,
       'bundle' => $bundle,
       'entity_id' => $entity_id,
@@ -1058,11 +1062,14 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
       'language_content' => $GLOBALS['language_content']->language,
       'view_mode' => $view_mode,
     );
-    $cid = metatag_cache_default_cid_parts($cid_parts);
+    $key = metatag_cache_default_cid_parts($key_parts);
+    if ($cache = metatag_cache_get($cid)) {
+      $metatag_variants = $cache->data;
+    }
   }
 
-  if ($cid && $cache = metatag_cache_get($cid)) {
-    $output = $cache->data;
+  if (isset($metatag_variants[$key])) {
+    $output = $metatag_variants[$key];
   }
   else {
     // Separate the meta tags.
@@ -1090,8 +1097,9 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
 
     // Render the metatags and save to the cache.
     $output = metatag_metatags_view($instance, $metatags, $options);
-    if ($cid) {
-      metatag_cache_set($cid, $output);
+    if ($cid && $key) {
+      $metatag_variants[$key] = $output;
+      metatag_cache_set($cid, $metatag_variants);
     }
   }
 
