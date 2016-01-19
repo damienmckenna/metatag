@@ -5,8 +5,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2651812 by DamienMcKenna: Added an option to disable the i18n integration.
 #2420489 by Les Lim, DamienMcKenna: New caching process for entities.
 #2652260 by DamienMcKenna: Remove the revision_id from translation string IDs.
-#2652294 by DamienMcKenna: Incorrect string context was being used for meta tag
-  output translation.
+#2652294 by DamienMcKenna, zniki.ru: Incorrect string context was being used
+  for meta tag output translation.
 
 
 Metatag 7.x-1.8, 2016-01-14
