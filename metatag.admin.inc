@@ -134,7 +134,7 @@ function metatag_config_overview() {
       'title' => t('Export'),
       'href' => 'admin/config/search/metatags/config/' . $config->instance . '/export',
     );
-    if (module_exists('i18n_string')) {
+    if (module_exists('i18n_string') && !variable_get('metatag_i18n_disabled', FALSE)) {
       $operations['translate'] = array(
         'title' => t('Translate'),
         'href' => 'admin/config/search/metatags/config/' . $config->instance . '/translate',
@@ -599,9 +599,17 @@ function metatag_admin_settings_form() {
   $form['i18n'] = array(
     '#type' => 'fieldset',
     '#title' => t('Internationalization options'),
-    '#description' => t('Additional options are available when using the Internationalization module.'),
+    '#description' => t('Additional options are available when using the <a href="@url">Internationalization module</a>.', array('@url' => 'https://www.drupal.org/project/i18n')),
     '#collapsible' => TRUE,
     '#collapsed' => FALSE,
+  );
+
+  $form['i18n']['metatag_i18n_disabled'] = array(
+    '#title' => t('Disable i18n integration'),
+    '#type' => 'checkbox',
+    '#description' => t('If the i18n_string module is enabled but the site does not need to translate Metatag strings, the integration may be disabled to avoid a large volume of records being added to the translation system.'),
+    '#default_value' => variable_get('metatag_i18n_disabled', FALSE),
+    '#disabled' => !module_exists('i18n_string'),
   );
 
   $form['i18n']['metatag_i18n_translate_output'] = array(

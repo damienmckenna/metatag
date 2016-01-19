@@ -391,6 +391,9 @@ function metatag_uninstall() {
   // Optionally enable the automatic watchdog logging of i18n strings.
   variable_del('metatag_i18n_enable_watchdog');
 
+  // Optionally disable the i18n integration.
+  variable_del('metatag_i18n_disabled');
+
   // Remove all possible 'enable' variables.
   foreach (entity_get_info() as $entity_type => $entity_info) {
     variable_del('metatag_enable_' . $entity_type);

@@ -31,6 +31,7 @@ files[] = tests/metatag.string_handling_with_i18n.test
 ; Internationalization & translation.
 files[] = tests/metatag.locale.test
 files[] = tests/metatag.with_i18n_output.test
+files[] = tests/metatag.with_i18n_disabled.test
 files[] = tests/metatag.with_i18n_config.test
 files[] = tests/metatag.with_i18n_node.test
 ; Basic integration with Panels.

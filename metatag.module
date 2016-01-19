@@ -214,7 +214,11 @@ function metatag_menu() {
   );
 
   // Optional integration with the i18n_string module for translating the
-  // configurations.
+  // configurations. Note: this should also check for 'metatag_i18n_disabled'
+  // but doing so would require rebuilding the menu cache every time the Metatag
+  // settings page was saved, which may not be advised. Instead the links to
+  // these pages on the config pages *do* check the variable, which is close
+  // enough.
   if (module_exists('i18n_string')) {
     $items['admin/config/search/metatags/config/%metatag_config/translate'] = array(
       'title' => 'Translate',
@@ -316,7 +320,7 @@ function metatag_config_load_multiple(array $instances) {
   }
 
   // Translate the configuration.
-  if (module_exists('i18n_string')) {
+  if (module_exists('i18n_string') && !variable_get('metatag_i18n_disabled', FALSE)) {
     $options = array();
 
     // By default disable the watchdog logging of translation messages.
@@ -2656,7 +2660,7 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
 }
 
 /**
- * Translates the metatag if i18n_string is enabled.
+ * Translates the metatag if i18n_string integration is enabled.
  *
  * @param string $string
  *   String in default language or array of strings to be translated.
@@ -2677,7 +2681,7 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  * @see i18n_string_translate()
  */
 function metatag_translate_metatag($string, $tag_name, $context = 'metatag_output', $langcode = NULL, $update = TRUE) {
-  if (module_exists('i18n_string')) {
+  if (module_exists('i18n_string') && !variable_get('metatag_i18n_disabled', FALSE)) {
     // By default do not add meta tags to admin pages. To enable meta tags on
     // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
     static $page_is_admin;
@@ -2800,7 +2804,7 @@ function metatag_translations_update($metatags, $context) {
   $original_context = $context;
 
   // Update the i18n string.
-  if (module_exists('i18n_string')) {
+  if (module_exists('i18n_string') && !variable_get('metatag_i18n_disabled', FALSE)) {
     $options = array();
 
     // By default disable the watchdog logging of translation messages.
@@ -2841,7 +2845,7 @@ function metatag_translations_delete($metatags, $context) {
   $original_context = $context;
 
   // Update the i18n string.
-  if (module_exists('i18n_string')) {
+  if (module_exists('i18n_string') && !variable_get('metatag_i18n_disabled', FALSE)) {
     $options = array();
 
     // By default disable the watchdog logging of translation messages.
