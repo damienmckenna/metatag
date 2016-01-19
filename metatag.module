@@ -2732,7 +2732,7 @@ function metatag_translate_metatag($string, $tag_name, $context = 'metatag_outpu
     // generator and needs some custom tailoring. Doing it this way to avoid an
     // unnecessary entity_extract_ids() call when i18n isn't being used.
     if (is_array($context)) {
-      $new_context = 'metatag:';
+      $new_context = 'metatag_output:';
       if (drupal_is_front_page()) {
         $new_context .= 'frontpage';
       }

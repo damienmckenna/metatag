@@ -2016,3 +2016,16 @@ function metatag_update_7104(&$sandbox) {
     return t('Fixed the Metatag language values for @count nodes.', array('@count' => $sandbox['progress']));
   }
 }
+
+/**
+ * Fix the output translation strings.
+ */
+function metatag_update_7105() {
+  db_query("UPDATE {locales_source}
+    SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
+      context = REPLACE(context, 'metatag:', 'metatag_output:')
+    WHERE textgroup = 'metatag'
+    AND location LIKE 'metatag:metatag:%'");
+
+  return t('Fixed the Metatag output strings.');
+}
