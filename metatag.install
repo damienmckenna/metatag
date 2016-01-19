@@ -1880,22 +1880,22 @@ function metatag_update_7101() {
           $entity_type => $entity_type,
         );
       }
-      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
+      foreach ($entity_info['bundles'] as $bundle_type => $bundle_info) {
         // Update {locales_source}, replace 'metatag:ENTITYTYPE:BUNDLE:tag' with
         // 'metatag:metatag_config:ENTITYTYPE:BUNDLE:tag'.
         db_query("UPDATE {locales_source}
-          SET location = REPLACE(location, 'metatag:{$entity_name}:{$bundle_name}:', 'metatag:metatag_config:{$entity_name}:{$bundle_name}:'),
-            context = REPLACE(context, '{$entity_name}:{$bundle_name}:', '{$entity_name}:{$bundle_name}:')
+          SET location = REPLACE(location, 'metatag:{$entity_type}:{$bundle_type}:', 'metatag:metatag_config:{$entity_type}:{$bundle_type}:'),
+            context = REPLACE(context, '{$entity_type}:{$bundle_type}:', 'metatag_config:{$entity_type}:{$bundle_type}:')
           WHERE textgroup = 'metatag'
-            AND location LIKE 'metatag:{$entity_name}:{$bundle_name}:%'");
+            AND location LIKE 'metatag:{$entity_type}:{$bundle_type}:%'");
 
         // Update {locales_source}, replace 'metatag:ENTITYTYPE:tag' with
         // 'metatag:metatag_config:ENTITYTYPE:tag'.
         db_query("UPDATE {locales_source}
-          SET location = REPLACE(location, 'metatag:{$entity_name}:', 'metatag:metatag_config:{$entity_name}:'),
-            context = REPLACE(context, '{$entity_name}:', '{$entity_name}:')
+          SET location = REPLACE(location, 'metatag:{$entity_type}:', 'metatag:metatag_config:{$entity_type}:'),
+            context = REPLACE(context, '{$entity_type}:', 'metatag_config:{$entity_type}:')
           WHERE textgroup = 'metatag'
-            AND location LIKE 'metatag:{$entity_name}:%'");
+            AND location LIKE 'metatag:{$entity_type}:%'");
       }
     }
     // Update {locales_source}, replace 'metatag:metatag:' with
@@ -1909,4 +1909,11 @@ function metatag_update_7101() {
   else {
     return t('The Internationalization (i18n) module is not enabled, so there is no need to generate the missing translation strings.');
   }
+}
+
+/**
+ * Re-run update 7101.
+ */
+function metatag_update_7102() {
+  metatag_update_7101();
 }
