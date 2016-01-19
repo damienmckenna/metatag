@@ -677,13 +677,6 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_cache_output', TRUE),
   );
 
-  $form['advanced']['metatag_leave_core_tags'] = array(
-    '#type' => 'checkbox',
-    '#title' => t("Leave core's meta tags as-is"),
-    '#description' => t("Drupal core outputs a number of meta tags itself: canonical, shortlink, and generator. Metatag can be used to replace these with custom values. Should Metatag not have values for these meta tags, core's tags will normally be removed. Enabling this option will leave those meta tags on the page, even if Metatag is not replacing them."),
-    '#default_value' => variable_get('metatag_leave_core_tags', FALSE),
-  );
-
   $form['advanced']['metatag_page_region'] = array(
     '#type' => 'select',
     '#title' => t("Page region to use"),

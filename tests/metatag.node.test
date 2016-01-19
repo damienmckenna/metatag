@@ -134,17 +134,6 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
     $this->assertEqual($xpath[0]['content'], 'Who likes magic ponies');
 
-    // Core's canonical tag is a relative URL, whereas Metatag outputs an
-    // absolute URL.
-    $old_canonical = url('node/' . $node->nid);
-    $new_canonical = url('node/' . $node->nid, array('absolute' => TRUE));
-
-    // Confirm that the canonical tag is in the correct format.
-    $xpath = $this->xpath("//link[@rel='canonical']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one canonical meta tag found.');
-    $this->assertEqual($xpath[0]['href'], $new_canonical);
-    $this->assertNotEqual($xpath[0]['href'], $old_canonical);
-
     // Try loading the node revisions page.
     $this->drupalGet('node/' . $node->nid . '/revisions');
     // Verify the page did not load correctly. This is because the revisions

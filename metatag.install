@@ -394,9 +394,6 @@ function metatag_uninstall() {
   // Optionally disable the i18n integration.
   variable_del('metatag_i18n_disabled');
 
-  // Optionally output core's meta tags.
-  variable_del('metatag_leave_core_tags');
-
   // Remove all possible 'enable' variables.
   foreach (entity_get_info() as $entity_type => $entity_info) {
     variable_del('metatag_enable_' . $entity_type);

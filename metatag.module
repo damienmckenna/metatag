@@ -2006,77 +2006,21 @@ function metatag_preprocess_maintenance_page(&$variables) {
 /**
  * Implements hook_html_head_alter().
  *
- * Hide tags added by core that are now handled by metatag.
+ * Removes tags added by core that are now handled by metatag.
  */
 function metatag_html_head_alter(&$elements) {
-  $metatags = array();
-  $other_tags = array();
-  foreach ($elements as $key => $data) {
-    // Identify meta tags added by the Metatag module.
-    if (strpos($key, 'metatag_') === 0) {
-      $metatags[] = $key;
-    }
-    // Identify meta tags added by other modules.
-    else {
-      $other_tags[] = $key;
+  $metatags = metatag_get_info('tags');
+
+  // Find matching tags added via drupal_add_html_head_link().
+  foreach (array_keys($elements) as $key) {
+    list($prefix, $name) = explode(':', $key, 3) + array('', '');
+    if ($prefix === 'drupal_add_html_head_link' && isset($metatags[$name])) {
+      unset($elements[$key]);
     }
   }
 
-  // Look for meta tags that were added by other modules and hide them.
-  foreach ($metatags as $metatag_name) {
-    $metatag = &$elements[$metatag_name];
-
-    // Setting the #access attribute to these will stop them from being output
-    // but still leave the tags present for other modules to interact with.
-    foreach ($other_tags as $other_tag) {
-      $other = &$elements[$other_tag];
-
-      // Look for other meta tags that have a 'name' attribute which matches the
-      // '#name' value from Metatag's tag.
-      if (isset($other['#attributes'], $other['#attributes']['name']) && is_string($other['#attributes']['name'])) {
-        if (strtolower($other['#attributes']['name']) == $metatag['#name']) {
-          $other['#access'] = FALSE;
-        }
-      }
-
-      // Look for other meta tags that have a 'rel' attribute which matches the
-      // '#name' value from Metatag's tag.
-      elseif (isset($other['#attributes'], $other['#attributes']['rel']) && is_string($other['#attributes']['rel'])) {
-        if (strtolower($other['#attributes']['rel']) == $metatag['#name']) {
-          $other['#access'] = FALSE;
-        }
-      }
-    }
-  }
-
-  // If the 'leave core tags' option is disabled then the following meta tags
-  // will be removed if they're provided by core.
-  if (!variable_get('metatag_leave_core_tags', FALSE)) {
-    $core_tags = array(
-      'generator',
-      'canonical',
-      'shortlink',
-      // Leave the shortcut icon, that's more of a theming thing.
-      // 'shortcut icon',
-    );
-    foreach ($elements as $name => &$element) {
-      // Ignore meta tags provided by Metatag.
-      if (strpos($name, 'metatag_') === 0) {
-        continue;
-      }
-
-      // Setting the #access attribute to these will stop them from being output
-      // but still leave the tags present for other modules to interact with.
-      foreach ($core_tags as $tag) {
-        if (!empty($element['#attributes']['rel']) && $element['#attributes']['rel'] == $tag) {
-          $element['#access'] = FALSE;
-        }
-        elseif (!empty($element['#attributes']['name']) && strtolower($element['#attributes']['name']) == $tag) {
-          $element['#access'] = FALSE;
-        }
-      }
-    }
-  }
+  // Remove the default generator meta tag.
+  unset($elements['system_meta_generator']);
 }
 
 function metatag_metatag_get_form($metatag, array $data = array(), array $options = array()) {

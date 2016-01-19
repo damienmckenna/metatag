@@ -21,15 +21,11 @@ files[] = metatag.migrate.inc
 
 ; Tests.
 files[] = tests/metatag.helper.test
-; Basic configuration handling.
 files[] = tests/metatag.unit.test
-; Core entities.
 files[] = tests/metatag.node.test
 files[] = tests/metatag.term.test
 files[] = tests/metatag.user.test
-; Handling of core's default meta tags.
-files[] = tests/metatag.core_tag_removal.test
-; String handling.
+; String handling
 files[] = tests/metatag.string_handling.test
 files[] = tests/metatag.string_handling_with_i18n.test
 ; Internationalization & translation.
