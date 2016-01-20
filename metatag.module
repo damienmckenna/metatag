@@ -403,7 +403,7 @@ function metatag_config_delete($instance) {
 
   // Allow modules to act upon the record deletion using
   // hook_metatag_config_delete().
-  module_invoke_all('metatag_config_delete', $config);
+  module_invoke_all('metatag_config_delete', $instance);
 
   // Clear any caches.
   metatag_config_cache_clear();

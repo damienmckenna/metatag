@@ -126,10 +126,10 @@ function hook_metatag_config_update($config) {
 /**
  * Triggered when a Metatag configuration is removed.
  *
- * @param object $config
- *   The configuration object that was removed.
+ * @param object $instance
+ *   The name of the configuration object that was removed.
  */
-function hook_metatag_config_delete($config) {
+function hook_metatag_config_delete($instance) {
 }
 
 /**
