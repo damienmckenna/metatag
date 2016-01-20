@@ -431,24 +431,29 @@ function metatag_config_cache_clear() {
  *   Optional revision ID to load instead of the entity ID.
  *
  * @return
- *   An array of tag data keyed by revision ID and language.
+ *   An array of tag data keyed by language for the entity's current active
+ *   revision.
  */
 function metatag_metatags_load($entity_type, $entity_id, $revision_id = NULL) {
+  // A specific revision ID was not requested, so get the active revision ID.
+  if (is_null($revision_id)) {
+    // Unfortunately, the only way of getting the active revision ID is to
+    // first load the entity, and then extract the ID. This is a bit
+    // performance intensive, but it seems to be the only way of doing it.
+    $entities = entity_load($entity_type, array($entity_id));
+    if (!empty($entities[$entity_id])) {
+      // We only care about the revision_id.
+      list(, $revision_id, ) = entity_extract_ids($entity_type, $entities[$entity_id]);
+    }
+  }
+
+  // This returns an array nested by the entity ID, the revision ID and the
+  // langcode.
   $metatags = metatag_metatags_load_multiple($entity_type, array($entity_id), array($revision_id));
 
-  // Something was found.
-  if (!empty($metatags)) {
-    // A specific revision ID was requested.
-    if (!empty($revision_id)) {
-      // Look for records for the requested revision ID.
-      if (isset($metatags[$revision_id])) {
-        return array($revision_id => $metatags[$revision_id]);
-      }
-    }
-    // Just send back the first item from the array.
-    else {
-      return reset($metatags);
-    }
+  // Look for records for the requested revision ID.
+  if (isset($metatags[$entity_id][$revision_id])) {
+    return $metatags[$entity_id][$revision_id];
   }
 
   // Getting to this point means that no meta tags were identified earlier, so
@@ -470,11 +475,19 @@ function metatag_metatags_load($entity_type, $entity_id, $revision_id = NULL) {
  *   An array of tag data, keyed by entity ID, revision ID and language.
  */
 function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $revision_ids = array()) {
-  // Double check entity IDs are numeric thanks to Entity API module.
+  // Double check entity IDs are all numeric.
   $entity_ids = array_filter($entity_ids, 'is_numeric');
   if (empty($entity_ids)) {
     return array();
   }
+
+  // Ensure that the revision IDs are all numeric too.
+  $revision_ids = array_filter($revision_ids, 'is_numeric');
+
+  // Verify that there aren't any empty values copied in from
+  // metatag_metatags_load(). Note: a zero indicates that the entity record does
+  // not support revisions, so this is ok to do.
+  $revision_ids = array_filter($revision_ids);
 
   // Also need to check if the metatag table exists since this condition could
   // fire before the table has been installed yet.

@@ -7,6 +7,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2652260 by DamienMcKenna: Remove the revision_id from translation string IDs.
 #2652294 by DamienMcKenna, zniki.ru: Incorrect string context was being used
   for meta tag output translation.
+#2653434 by DamienMcKenna, reinchek: Fixed metatag_metatags_load().
 
 
 Metatag 7.x-1.8, 2016-01-14
