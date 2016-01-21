@@ -1,4 +1,4 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
+Metatag 7.x-1.9, 2016-01-21
 -------------------------------
 #2652772 by DamienMcKenna: Fix update 7101 and rerun it to correct translation
   data.
