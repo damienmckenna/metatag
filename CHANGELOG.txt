@@ -10,6 +10,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2653434 by DamienMcKenna, reinchek: Fixed metatag_metatags_load().
 #2653446 by DamienMcKenna: Wrong variable name passed to
   metatag_config_delete().
+#1858540 by DamienMcKenna, friera: Added the pragma, cache-control and expires
+  meta tags.
 
 
 Metatag 7.x-1.8, 2016-01-14
