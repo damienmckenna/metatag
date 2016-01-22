@@ -79,6 +79,9 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
     // Create the form element.
     $element = $this->metatagManager->form($values, $element);
 
+    // Put the form element into the form's "advanced" group.
+    $element['#group'] = 'advanced';
+
     return $element;
   }
 
