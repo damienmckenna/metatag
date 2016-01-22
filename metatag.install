@@ -1875,46 +1875,45 @@ function metatag_update_7100() {
  * Update i18n strings for all meta tags to use the new format.
  */
 function metatag_update_7101() {
-  if (module_exists('i18n')) {
-    // Loop through each entity type. Not going to bother filtering this list,
-    // it'll only be a difference of a few entities anyway and the queries
-    // should be fairly quick.
-    foreach (entity_get_info() as $entity_type => $entity_info) {
-      // Entities must have bundles.
-      if (empty($entity_info['bundles'])) {
-        $entity_info['bundles'] = array(
-          $entity_type => $entity_type,
-        );
-      }
-      foreach ($entity_info['bundles'] as $bundle_type => $bundle_info) {
-        // Update {locales_source}, replace 'metatag:ENTITYTYPE:BUNDLE:tag' with
-        // 'metatag:metatag_config:ENTITYTYPE:BUNDLE:tag'.
-        db_query("UPDATE {locales_source}
-          SET location = REPLACE(location, 'metatag:{$entity_type}:{$bundle_type}:', 'metatag:metatag_config:{$entity_type}:{$bundle_type}:'),
-            context = REPLACE(context, '{$entity_type}:{$bundle_type}:', 'metatag_config:{$entity_type}:{$bundle_type}:')
-          WHERE textgroup = 'metatag'
-            AND location LIKE 'metatag:{$entity_type}:{$bundle_type}:%'");
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
 
-        // Update {locales_source}, replace 'metatag:ENTITYTYPE:tag' with
-        // 'metatag:metatag_config:ENTITYTYPE:tag'.
-        db_query("UPDATE {locales_source}
-          SET location = REPLACE(location, 'metatag:{$entity_type}:', 'metatag:metatag_config:{$entity_type}:'),
-            context = REPLACE(context, '{$entity_type}:', 'metatag_config:{$entity_type}:')
-          WHERE textgroup = 'metatag'
-            AND location LIKE 'metatag:{$entity_type}:%'");
-      }
+  // Loop through each entity type. Not going to bother filtering this list,
+  // it'll only be a difference of a few entities anyway and the queries
+  // should be fairly quick.
+  foreach (entity_get_info() as $entity_type => $entity_info) {
+    // Entities must have bundles.
+    if (empty($entity_info['bundles'])) {
+      $entity_info['bundles'] = array(
+        $entity_type => $entity_type,
+      );
     }
-    // Update {locales_source}, replace 'metatag:metatag:' with
-    // 'metatag:metatag_output:'.
-    db_query("UPDATE {locales_source}
-      SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
-        context = REPLACE(context, 'metatag:', 'metatag_output:')
-      WHERE textgroup = 'metatag'
-        AND location LIKE 'metatag:metatag:%'");
+    foreach ($entity_info['bundles'] as $bundle_type => $bundle_info) {
+      // Update {locales_source}, replace 'metatag:ENTITYTYPE:BUNDLE:tag' with
+      // 'metatag:metatag_config:ENTITYTYPE:BUNDLE:tag'.
+      db_query("UPDATE {locales_source}
+        SET location = REPLACE(location, 'metatag:{$entity_type}:{$bundle_type}:', 'metatag:metatag_config:{$entity_type}:{$bundle_type}:'),
+          context = REPLACE(context, '{$entity_type}:{$bundle_type}:', 'metatag_config:{$entity_type}:{$bundle_type}:')
+        WHERE textgroup = 'metatag'
+          AND location LIKE 'metatag:{$entity_type}:{$bundle_type}:%'");
+
+      // Update {locales_source}, replace 'metatag:ENTITYTYPE:tag' with
+      // 'metatag:metatag_config:ENTITYTYPE:tag'.
+      db_query("UPDATE {locales_source}
+        SET location = REPLACE(location, 'metatag:{$entity_type}:', 'metatag:metatag_config:{$entity_type}:'),
+          context = REPLACE(context, '{$entity_type}:', 'metatag_config:{$entity_type}:')
+        WHERE textgroup = 'metatag'
+          AND location LIKE 'metatag:{$entity_type}:%'");
+    }
   }
-  else {
-    return t('The Internationalization (i18n) module is not enabled, so there is no need to generate the missing translation strings.');
-  }
+  // Update {locales_source}, replace 'metatag:metatag:' with
+  // 'metatag:metatag_output:'.
+  db_query("UPDATE {locales_source}
+    SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
+      context = REPLACE(context, 'metatag:', 'metatag_output:')
+    WHERE textgroup = 'metatag'
+      AND location LIKE 'metatag:metatag:%'");
 }
 
 /**
@@ -1935,6 +1934,10 @@ function metatag_update_7103() {
  * Remove the entity revision ID from the translation strings.
  */
 function metatag_update_7104(&$sandbox) {
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
+
   // Process records by groups of 10 (arbitrary value).
   // When a group is processed, the batch update engine determines whether it
   // should continue processing in the same request or provide progress
@@ -2024,6 +2027,10 @@ function metatag_update_7104(&$sandbox) {
  * Fix the output translation strings.
  */
 function metatag_update_7105() {
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
+
   db_query("UPDATE {locales_source}
     SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
       context = REPLACE(context, 'metatag:', 'metatag_output:')
