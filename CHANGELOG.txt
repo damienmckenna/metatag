@@ -4,6 +4,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   Variable errors.
 #2654638 by DamienMcKenna, noah, marleythedog: Allow updates 7104 and 7105 to
   run if Locale is not enabled.
+#2654530 by DamienMcKenna, Adenn, deja711: Twitter Cards update 7100 and
+  OpenGraph update 7103 cannot run until Metatag update 7100 has finished.
 
 
 Metatag 7.x-1.9, 2016-01-21
