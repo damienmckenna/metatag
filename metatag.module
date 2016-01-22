@@ -60,7 +60,7 @@ function metatag_page_attachments(array &$attachments) {
     return;
   }
 
-  $metatag_attachments = drupal_static('metatag_attachments');
+  $metatag_attachments = &drupal_static('metatag_attachments');
 
   if (is_null($metatag_attachments)) {
     // Load the meta tags from the route.
