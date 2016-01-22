@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2654838 by Plazik, DamienMcKenna: Disabling output caching lead to Undefined
+  Variable errors.
 
 
 Metatag 7.x-1.9, 2016-01-21

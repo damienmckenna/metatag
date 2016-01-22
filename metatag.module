@@ -1058,11 +1058,15 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
   }
 
   $cid = FALSE;
+  $key = FALSE;
   $metatag_variants = array();
+
+  // Caching is enabled.
   if ($cached && variable_get('metatag_cache_output', TRUE)) {
     // All possible variants of the metatags for this entity are stored in a
     // single cache entry.
     $cid = "output:$entity_type:$entity_id";
+
     // All applicable pieces for this current page.
     $key_parts = array(
       'entity_type' => $entity_type,
@@ -1076,14 +1080,18 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
       'view_mode' => $view_mode,
     );
     $key = metatag_cache_default_cid_parts($key_parts);
+
     if ($cache = metatag_cache_get($cid)) {
       $metatag_variants = $cache->data;
     }
   }
 
-  if (isset($metatag_variants[$key])) {
+  // If a cached object exists for this key, return it.
+  if (!empty($key) && isset($metatag_variants[$key])) {
     $output = $metatag_variants[$key];
   }
+
+  // Otherwise, generate the output tags.
   else {
     // Separate the meta tags.
     $metatags = isset($entity->metatags) ? $entity->metatags : array();
@@ -1110,7 +1118,9 @@ function metatag_generate_entity_metatags($entity, $entity_type, $langcode = NUL
 
     // Render the metatags and save to the cache.
     $output = metatag_metatags_view($instance, $metatags, $options);
-    if ($cid && $key) {
+
+    // If output caching is enabled, store the data for later.
+    if (!empty($key) && !empty($cid)) {
       $metatag_variants[$key] = $output;
       metatag_cache_set($cid, $metatag_variants);
     }
