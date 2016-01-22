@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2568499 by DamienMcKenna, DD 85: Removed an errant space.
 
 
 Metatag 7.x-1.10, 2016-01-22
