@@ -281,7 +281,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
         // If this contains embedded image tags, extract the image URLs.
         if (strip_tags($image_value) != $image_value) {
           $matches = array();
-          preg_match('/src="([^"]*)"/', $val, $matches);
+          preg_match('/src="([^"]*)"/', $image_value, $matches);
           if (!empty($matches[1])) {
             $image_value = $matches[1];
           }
