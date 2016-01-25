@@ -32,6 +32,8 @@ files[] = tests/metatag.core_tag_removal.test
 ; String handling.
 files[] = tests/metatag.string_handling.test
 files[] = tests/metatag.string_handling_with_i18n.test
+; Images need specia attention.
+files[] = tests/metatag.image.test
 ; Internationalization & translation.
 files[] = tests/metatag.locale.test
 files[] = tests/metatag.with_i18n_output.test
