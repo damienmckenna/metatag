@@ -51,7 +51,7 @@ class MetatagCoreWithI18nOutputTest extends MetatagTestHelper {
     // Plan out the different translation string tests.
     $string_en = 'Welcome to the homepage!';
     $string_fr = 'Bonjour pour le homepage!';
-    $string_context = 'metatag_output:frontpage:title';
+    $string_context = 'output:frontpage:title';
 
     $this->searchTranslationPage('', $string_context);
 
@@ -96,6 +96,18 @@ class MetatagCoreWithI18nOutputTest extends MetatagTestHelper {
 
     // Confirm the page's title is what we set it to.
     $this->assertTitle($string_fr);
+  }
+
+  public function testMenuPaths() {
+    $paths = metatag_test_menu();
+    $test_string = 'read-more-books-every-day';
+    foreach ($paths as $path => $menu_item) {
+      if (substr($path, -1) == '%') {
+        $path = substr($path, 0, -1) . $test_string;
+      }
+      $this->drupalGet($path);
+      $this->assertResponse(200, 'Loaded a page: ' . $path);
+    }
   }
 
 }

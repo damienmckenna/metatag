@@ -2754,7 +2754,7 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  * @param string $tag_name
  *   The internal name of the meta tag being translated.
  * @param string $context
- *   A context to use with i18n, defaults to the string "metatag_output"
+ *   A context to use with i18n, defaults to the string "output"
  *   indicating it is translating the final rendered output strings.
  * @param string $langcode
  *   The language code to submit instead of the current page's language.
@@ -2767,7 +2767,7 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  *
  * @see i18n_string_translate()
  */
-function metatag_translate_metatag($string, $tag_name, $context = 'metatag_output', $langcode = NULL, $update = TRUE) {
+function metatag_translate_metatag($string, $tag_name, $context = 'output', $langcode = NULL, $update = TRUE) {
   if (module_exists('i18n_string') && !variable_get('metatag_i18n_disabled', FALSE)) {
     // By default do not add meta tags to admin pages. To enable meta tags on
     // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
@@ -2784,7 +2784,7 @@ function metatag_translate_metatag($string, $tag_name, $context = 'metatag_outpu
 
     // Optionally disable output translations.
     static $process_output;
-    if ($context == 'metatag_output') {
+    if ($context == 'output') {
       if (is_null($process_output)) {
         $process_output = (bool) variable_get('metatag_i18n_translate_output', FALSE);
       }
@@ -2811,7 +2811,7 @@ function metatag_translate_metatag($string, $tag_name, $context = 'metatag_outpu
     // generator and needs some custom tailoring. Doing it this way to avoid an
     // unnecessary entity_extract_ids() call when i18n isn't being used.
     if (is_array($context)) {
-      $new_context = 'metatag_output:';
+      $new_context = 'output:';
       if (drupal_is_front_page()) {
         $new_context .= 'frontpage';
       }
@@ -2822,7 +2822,10 @@ function metatag_translate_metatag($string, $tag_name, $context = 'metatag_outpu
       }
       // Otherwise, use the page URL.
       else {
-        $new_context .= 'page:' . current_path();
+        // Trim this to avoid SQL errors on the {locales_source} table.
+        // length = 255 - strlen('metatag:output:page:') - strlen(metatag);
+        $strlen = 255 - strlen('metatag:output:page:' . $tag_name);
+        $new_context .= 'page:' . drupal_substr(current_path(), 0, $strlen);
       }
       $context = $new_context;
     }
