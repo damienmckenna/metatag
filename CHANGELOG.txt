@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.11, 2016-01-26
+----------------------------
 #2568499 by DamienMcKenna, DD 85: Removed an errant space.
 #2655582 by DamienMcKenna, MihaiMiculescu: Fixed automatic image parsing.
 By DamienMcKenna: Minor changes to the README.txt file.
