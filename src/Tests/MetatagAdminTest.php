@@ -64,8 +64,10 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertNoLinkByHref('admin/config/search/metatag/global/delete', 0, t('Global defaults can\'t be deleted'));
     $this->assertNoLinkByHref('admin/config/search/metatag/node/delete', 0, t('Entity defaults can\'t be deleted'));
 
-    // Check that the module defaults were injected into the Global config entity.
+    // Check that the module defaults were injected into the Global config
+    // entity.
     $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
     $this->assertFieldById('edit-title', $metatag_defaults->get('title'), t('Metatag defaults were injected into the Global configuration entity.'));
 
     // Update the Global defaults and test them.
@@ -76,6 +78,7 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     $this->drupalGet('hit-a-404');
+    $this->assertResponse(404);
     foreach ($values as $metatag => $value) {
       $this->assertRaw($value, t('Updated metatag @tag was found in the HEAD section of the page.', array('@tag' => $metatag)));
     }
@@ -89,6 +92,7 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertText('Saved the Global Metatag defaults.');
     drupal_flush_all_caches();
     $this->drupalGet('hit-a-404');
+    $this->assertResponse(404);
     foreach ($values as $metatag => $value) {
       $processed_value = \Drupal::token()->replace($value);
       $this->assertRaw($processed_value, t('Processed token for metatag @tag was found in the HEAD section of the page.', array('@tag' => $metatag)));
@@ -103,7 +107,10 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     drupal_flush_all_caches();
+
+    // Trigger a 404 request.
     $this->drupalGet('hit-a-404');
+    $this->assertResponse(404);
     $robots_value = implode(', ', $robots_values);
     $this->assertRaw($robots_value, t('Robots metatag has the expected values.'));
 
@@ -131,6 +138,7 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalPostForm('admin/config/search/metatag/front', $values, 'Save');
     $this->assertText('Saved the Front page Metatag defaults.');
     $this->drupalGet('<front>');
+    $this->assertResponse(200);
     $this->assertRaw($values['description'], t('Front page defaults are used at the front page.'));
 
     // Adjust the 403 page and test it.
@@ -141,6 +149,7 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertText('Saved the 403 access denied Metatag defaults.');
     $this->drupalLogout();
     $this->drupalGet('admin/config/search/metatag');
+    $this->assertResponse(403);
     $this->assertRaw($values['description'], t('403 page defaults are used at 403 pages.'));
 
     // Adjust the 404 page and test it.
@@ -151,6 +160,7 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalPostForm('admin/config/search/metatag/404', $values, 'Save');
     $this->assertText('Saved the 404 page not found Metatag defaults.');
     $this->drupalGet('foo');
+    $this->assertResponse(404);
     $this->assertRaw($values['description'], t('404 page defaults are used at 404 pages.'));
     $this->drupalLogout();
   }
@@ -180,12 +190,14 @@ class MetatagAdminTest extends WebTestBase {
 
     // Check that the new values are found in the response.
     $this->drupalGet('node/' . $node->id());
+    $this->assertResponse(200);
     foreach ($values as $metatag => $value) {
       $this->assertRaw($value, t('Node metatag @tag overrides Global defaults.', array('@tag' => $metatag)));
     }
 
     /**
-     * Check that when the node defaults don't define a metatag, the Global one is used.
+     * Check that when the node defaults don't define a metatag, the Global one
+     * is used.
      */
     // First unset node defaults.
     $values = array(
@@ -206,7 +218,7 @@ class MetatagAdminTest extends WebTestBase {
     // Next, test that global defaults are rendered since node ones are empty.
     // We are creating a new node as doing a get on the previous one would
     // return cached results.
-    // @TODO  BookTest.php resets the cache of a single node, which is way more
+    // @todo BookTest.php resets the cache of a single node, which is way more
     // performant than creating a node for every set of assertions.
     // @see BookTest::testDelete().
     $node = $this->drupalCreateNode(array(
@@ -214,6 +226,7 @@ class MetatagAdminTest extends WebTestBase {
       'type' => 'article',
     ));
     $this->drupalGet('node/' . $node->id());
+    $this->assertResponse(200);
     foreach ($values as $metatag => $value) {
       $this->assertRaw($value, t('Found global @tag tag as Node does not set it.', array('@tag' => $metatag)));
     }
@@ -231,6 +244,7 @@ class MetatagAdminTest extends WebTestBase {
       'type' => 'article',
     ));
     $this->drupalGet('node/' . $node->id());
+    $this->assertResponse(200);
     unset($values['id']);
     foreach ($values as $metatag => $value) {
       $this->assertRaw($value, t('Found bundle override for tag @tag.', array('@tag' => $metatag)));

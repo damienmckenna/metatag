@@ -61,6 +61,7 @@ class MetatagFieldTest extends WebTestBase {
 
     // Add a metatag field to the entity type test_entity.
     $this->drupalGet('entity_test/structure/entity_test/fields/add-field');
+    $this->assertResponse(200);
     $edit = [
       'label' => 'Metatag',
       'field_name' => 'metatag',
@@ -95,6 +96,7 @@ class MetatagFieldTest extends WebTestBase {
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     $this->drupalGet('entity_test/' . $entity->id());
+    $this->assertResponse(200);
     $elements = $this->cssSelect('meta[name=keywords]');
     $this->assertTrue(count($elements) === 1, 'Found keywords metatag from defaults');
     $this->assertEqual((string) $elements[0]['content'], $values['keywords'], 'Default keywords applied');
@@ -112,6 +114,7 @@ class MetatagFieldTest extends WebTestBase {
     $this->assertEqual(1, count($entities), 'Entity was saved');
     $entity = reset($entities);
     $this->drupalGet('entity_test/' . $entity->id());
+    $this->assertResponse(200);
     $elements = $this->cssSelect("meta[property='og:url']");
     $this->assertTrue(count($elements) === 1, 'Found keywords metatag from defaults');
     $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][open_graph][og_url]']);
@@ -131,8 +134,10 @@ class MetatagFieldTest extends WebTestBase {
     $this->drupalPostForm('admin/config/search/metatag/global', $global_values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
 
-    // Now when we create an entity, global defaults are used to fill the form fields.
+    // Now when we create an entity, global defaults are used to fill the form
+    // fields.
     $this->drupalGet('entity_test/add');
+    $this->assertResponse(200);
     $this->assertFieldByName('field_metatag[0][basic][description]', $global_values['description'], t('Description field has the global default as the field default does not define it.'));
   }
 
