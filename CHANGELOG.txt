@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2644742 by kev5873, DamienMcKenna: Variable scoping issue with Metatag:Panels
+  could lead to incorrect meta tag output.
 
 
 Metatag 7.x-1.11, 2016-01-26
