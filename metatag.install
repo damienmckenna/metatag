@@ -253,13 +253,21 @@ function metatag_schema() {
       ),
     ),
     'indexes' => array(
-      'type_revision' => array('entity_type','revision_id'),
+      'type_revision' => array(
+        'entity_type',
+        'revision_id',
+      ),
     ),
-    'primary key' => array('entity_type', 'entity_id', 'revision_id', 'language'),
+    'primary key' => array(
+      'entity_type',
+      'entity_id',
+      'revision_id',
+      'language',
+    ),
   );
 
   $schema['cache_metatag'] = drupal_get_schema_unprocessed('system', 'cache');
-  $schema['cache_metatag']['description'] = t('Cache table for the generated meta tag output.');
+  $schema['cache_metatag']['description'] = 'Cache table for the generated meta tag output.';
 
   return $schema;
 }
@@ -397,6 +405,12 @@ function metatag_uninstall() {
   // Optionally output core's meta tags.
   variable_del('metatag_leave_core_tags');
 
+  // Optionally enable individual permissions for each meta tag.
+  variable_del('metatag_extended_permissions');
+
+  // Optionally load meta tags on admin pages.
+  variable_del('metatag_load_all_pages');
+
   // Remove all possible 'enable' variables.
   foreach (entity_get_info() as $entity_type => $entity_info) {
     variable_del('metatag_enable_' . $entity_type);
@@ -416,13 +430,7 @@ function metatag_enable() {
 }
 
 /**
- * Implements hook_disable().
- */
-// function metatag_disable() {
-// }
-
-/**
- * Disable the deprecated metatag_ui module which has been merged into metatag.
+ * Disable the deprecated metatag_ui module, which has been merged into metatag.
  */
 function metatag_update_7000() {
   if (module_exists('metatag_ui')) {
@@ -1751,8 +1759,9 @@ function metatag_update_7040(&$sandbox) {
     // The count of records visited so far.
     $sandbox['progress'] = 0;
 
-    // Update Node values.
-    $nodes = db_query("SELECT * FROM {metatag} m WHERE m.data LIKE '%robots%'");
+    // Get a list of {metatag} records that have a robots meta tag definition
+    // that is not in the correct format.
+    $nodes = db_query("SELECT * FROM {metatag} WHERE data LIKE '%:6:\"robots\";%' AND data NOT LIKE '%:6:\"robots\";a:1:{s:5:\"value\";%'");
     $sandbox['records'] = array();
     foreach ($nodes as $record) {
       $sandbox['records'][] = $record;
