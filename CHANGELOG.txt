@@ -5,6 +5,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2309017 by DamienMcKenna, rodrigoaguilera: Tidied up the install file a little.
 #2658808 by DamienMcKenna: Improved query to skip update 7040 if it isn't
   needed.
+#2658262 by Devin Carlson, DamienMcKenna: Fixed hook_metatag_config_delete(),
+  this time with tests.
 
 
 Metatag 7.x-1.11, 2016-01-26

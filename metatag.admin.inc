@@ -363,7 +363,7 @@ function metatag_config_delete_form($form, &$form_state, $config) {
 
 function metatag_config_delete_form_submit($form, &$form_state) {
   $config = metatag_config_load($form_state['values']['instance']);
-  metatag_config_delete($config->instance);
+  metatag_config_delete($config);
 
   $label = metatag_config_instance_label($config->instance);
   $delete = metatag_config_access('delete', $config);

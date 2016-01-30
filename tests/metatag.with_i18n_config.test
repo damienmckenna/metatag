@@ -34,6 +34,10 @@ class MetatagCoreWithI18nConfigTest extends MetatagTestHelper {
       // From i18n.
       'translate admin strings',
       'translate user-defined strings',
+      // Needed for content type management.
+      'bypass node access',
+      'administer content types',
+      'administer nodes',
     );
     $this->adminUser = $this->createAdminUser($perms);
     $this->setupLocales();
@@ -147,6 +151,109 @@ class MetatagCoreWithI18nConfigTest extends MetatagTestHelper {
 
     // Confirm the page's title is what we set it to.
     $this->assertTitle($string_fr);
+  }
+
+  /**
+   * Confirm that translations will be deleted when configs are deleted.
+   */
+  public function testI18nDeleteConfig() {
+    // Plan out the different translation string tests.
+    $string_en = 'Hey, an article!';
+    $string_fr = 'Alors! Un article!';
+    $config_name = 'metatag_config:node:article:title';
+
+    // Create a config for the 'article' content type's meta tags.
+    $instance = 'node:article';
+    $label = t('Node: Article');
+    $config = new StdClass();
+    $config->instance = $instance;
+    $config->api_version = 1;
+    $config->disabled = FALSE;
+    $config->export_module = 'metatag';
+    $config->config = array();
+
+    // Set something specific as the page title.
+    $config->config['title']['value'] = $string_en;
+    metatag_config_save($config);
+
+    // Confirm the string is present now.
+    $this->searchTranslationPage($string_en, $config_name);
+
+    // Load the 'delete' page.
+    $this->drupalGet('admin/config/search/metatags/config/' . $instance . '/delete');
+    $this->assertResponse(200);
+
+    // Confirm this is the correct page.
+    $this->assertText(t('Are you sure you want to delete the meta tag defaults for @label?', array('@label' => $label)));
+    $this->assertText(t('This action cannot be undone.'));
+    $this->assertFieldByName('op');
+    $this->assertFieldByName('op', t('Confirm'));
+
+    // Submit the form.
+    $this->drupalPost(NULL, array(), t('Confirm'));
+    $this->assertResponse(200);
+    $this->assertText(t('The meta tag defaults for @label have been deleted.', array('@label' => $label)));
+
+    // Confirm the string has been removed.
+    $this->searchTranslationPage($string_en, $config_name, FALSE);
+  }
+
+  /**
+   * Confirm that translations will be deleted when entity bundles are deleted.
+   */
+  public function testI18nDeleteEntityBundle() {
+    // Plan out the different translation string tests.
+    $string_en = 'Hey, an article!';
+    $string_fr = 'Alors! Un article!';
+    $config_name = 'metatag_config:node:article:title';
+
+    // Create a config for the 'article' content type's meta tags.
+    $content_type = 'article';
+    $content_type_label = t('Article');
+    $instance = 'node:article';
+    $instance_label = t('Node: Article');
+    $config = new StdClass();
+    $config->instance = $instance;
+    $config->api_version = 1;
+    $config->disabled = FALSE;
+    $config->export_module = 'metatag';
+    $config->config = array();
+
+    // Set something specific as the page title.
+    $config->config['title']['value'] = $string_en;
+    metatag_config_save($config);
+
+    // Confirm the string is present now.
+    $this->searchTranslationPage($string_en, $config_name);
+
+    // Load the 'delete' page.
+    $this->drupalGet('admin/structure/types/manage/' . $content_type);
+    $this->assertResponse(200);
+
+    // Confirm this is the correct page.
+    $this->assertFieldByName('op', t('Delete content type'));
+
+    // Submit the form.
+    $this->drupalPost(NULL, array(), t('Delete content type'));
+    $this->assertResponse(200);
+
+    // Confirm this is the correct page.
+    $this->assertText(t('Are you sure you want to delete the content type @label?', array('@label' => $content_type_label)));
+    $this->assertText(t('This action cannot be undone.'));
+    $this->assertFieldByName('op');
+    $this->assertFieldByName('op', t('Delete'));
+
+    // Submit the form.
+    $this->drupalPost(NULL, array(), t('Delete'));
+    $this->assertResponse(200);
+    $this->assertText(t('The content type @label has been deleted.', array('@label' => $content_type_label)));
+
+    // Confirm the config was deleted.
+    $config = metatag_config_load($instance);
+    $this->assertEqual($config, array());
+
+    // Confirm the string has been removed.
+    $this->searchTranslationPage($string_en, $config_name, FALSE);
   }
 
 }

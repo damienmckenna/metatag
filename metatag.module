@@ -396,14 +396,14 @@ function metatag_config_save($config) {
 /**
  * Delete a metatag configuration record.
  */
-function metatag_config_delete($instance) {
+function metatag_config_delete($config) {
   db_delete('metatag_config')
-    ->condition('instance', $instance)
+    ->condition('instance', $config->instance)
     ->execute();
 
   // Allow modules to act upon the record deletion using
   // hook_metatag_config_delete().
-  module_invoke_all('metatag_config_delete', $instance);
+  module_invoke_all('metatag_config_delete', $config);
 
   // Clear any caches.
   metatag_config_cache_clear();
@@ -1805,7 +1805,8 @@ function metatag_field_attach_rename_bundle($entity_type, $bundle_old, $bundle_n
   if ($config = metatag_config_load($instance_old)) {
     $config->instance = $instance_new;
     metatag_config_save($config);
-    metatag_config_delete($instance_old);
+    $config->instance = $instance_old;
+    metatag_config_delete($config);
   }
 }
 
@@ -1814,7 +1815,9 @@ function metatag_field_attach_rename_bundle($entity_type, $bundle_old, $bundle_n
  */
 function metatag_field_attach_delete_bundle($entity_type, $bundle) {
   $instance = $entity_type . ':' . $bundle;
-  metatag_config_delete($instance);
+  if ($config = metatag_config_load($instance)) {
+    metatag_config_delete($config);
+  }
 }
 
 /**
