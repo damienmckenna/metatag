@@ -36,6 +36,7 @@ class MetatagFieldTest extends WebTestBase {
     'field_ui',
     'metatag',
     'entity_test',
+    'contact',
   ];
 
   /**
@@ -118,6 +119,17 @@ class MetatagFieldTest extends WebTestBase {
     $elements = $this->cssSelect("meta[property='og:url']");
     $this->assertTrue(count($elements) === 1, 'Found keywords metatag from defaults');
     $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][open_graph][og_url]']);
+
+    // Test a route where the entity for that route does not implement
+    // ContentEntityInterface.
+    $controller = \Drupal::entityTypeManager()->getStorage('contact_form');
+    $controller->create(array(
+      'id' => 'test_contact_form',
+    ))->save();
+    $account = $this->drupalCreateUser(array('access site-wide contact form'));
+    $this->drupalLogin($account);
+    $this->drupalGet('contact/test_contact_form');
+    $this->assertResponse(200);
   }
 
   /**
