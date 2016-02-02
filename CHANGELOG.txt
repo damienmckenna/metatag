@@ -7,6 +7,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   needed.
 #2658262 by Devin Carlson, DamienMcKenna: Fixed hook_metatag_config_delete(),
   this time with tests.
+#2661378 by DamienMcKenna: No longer require Token v7.x-1.6, just highly
+  recommend it.
 
 
 Metatag 7.x-1.11, 2016-01-26

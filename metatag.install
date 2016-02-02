@@ -54,6 +54,9 @@ function metatag_requirements($phase) {
     }
   }
   elseif ($phase == 'runtime') {
+    // Complete data dump of all installed modules, used later.
+    $module_data = system_rebuild_module_data();
+
     // Work out the release of D7 that is currently running.
     list($major, $minor) = explode('.', VERSION);
     // Strip off any suffixes on the version string, e.g. "17-dev".
@@ -158,6 +161,36 @@ function metatag_requirements($phase) {
         'value' => $t('The Alternative Hreflang module is recommended.'),
         'description' => $t('Sites using more than one language or locale enabled should install the <a href="@url">Aternative Hreflang</a> module. This will cause content/node pages to add extra meta tags for linking to the content in each of the available locales. This is a recommendation from Google by way of blog posts their staff wrote on the topic.', array('@url' => 'https://www.drupal.org/project/hreflang')),
       );
+    }
+
+    // Token v7.x-1.6 is *highly* recommended.
+    $token_module = $module_data['token'];
+    // If the version string is not present then it means the module is running
+    // from git, which means it can't be compared against. Alternatively, look
+    // for the test file, which was the last commit of the 1.6 release.
+    if (!empty($token_module->info['version'])
+      || empty($token_module->info['files'])) {
+      // If there's no test file then this is older than v1.6.
+      if (empty($token_module->info['files'])) {
+        $minor = 5;
+      }
+      // Otherwise check the version string.
+      else {
+        list($major, $minor) = explode('.', $token_module->info['version']);
+        // Strip off any suffixes on the version string, e.g. "17-dev".
+        if (strpos('-', $minor)) {
+          list($minor, $suffix) = explode('-', $minor);
+        }
+      }
+      // If v1.6 is not installed, give a warning.
+      if ($minor < 6) {
+        $requirements['metatag_token_version'] = array(
+          'severity' => REQUIREMENT_WARNING,
+          'title' => 'Metatag',
+          'value' => $t('Token module is out of date.'),
+          'description' => $t('It is highly recommended to install <a href="https://www.drupal.org/project/token">Token module</a> v7.x-1.6 or newer, otherwise there may be problems using certain meta tags.'),
+        );
+      }
     }
   }
 
