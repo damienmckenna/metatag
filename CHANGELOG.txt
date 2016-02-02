@@ -12,6 +12,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2661408 by DamienMcKenna: Removed the status message when core is up-to-date.
 #2661412 by DamienMcKenna: Improve hook_requirements check for Entity
   Translation.
+#2661434 by DamienMcKenna: Removed the status message about alt_hreflang.
 
 
 Metatag 7.x-1.11, 2016-01-26

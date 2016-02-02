@@ -142,18 +142,6 @@ function metatag_requirements($phase) {
       );
     }
 
-    // Alternative Hreflang should be installed if there's more than one
-    // language available on the site.
-    $languages = language_list('enabled');
-    if (!empty($languages[1]) && count($languages[1]) > 1 && !module_exists('hreflang')) {
-      $requirements['metatag_hreflang'] = array(
-        'severity' => REQUIREMENT_INFO,
-        'title' => 'Metatag',
-        'value' => $t('The Alternative Hreflang module is recommended.'),
-        'description' => $t('Sites using more than one language or locale enabled should install the <a href="@url">Aternative Hreflang</a> module. This will cause content/node pages to add extra meta tags for linking to the content in each of the available locales. This is a recommendation from Google by way of blog posts their staff wrote on the topic.', array('@url' => 'https://www.drupal.org/project/hreflang')),
-      );
-    }
-
     // Token v7.x-1.6 is *highly* recommended.
     $token_module = $module_data['token'];
     // If the version string is not present then it means the module is running
