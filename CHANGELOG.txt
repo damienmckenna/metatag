@@ -10,6 +10,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2661378 by DamienMcKenna: No longer require Token v7.x-1.6, just highly
   recommend it.
 #2661408 by DamienMcKenna: Removed the status message when core is up-to-date.
+#2661412 by DamienMcKenna: Improve hook_requirements check for Entity
+  Translation.
 
 
 Metatag 7.x-1.11, 2016-01-26

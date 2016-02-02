@@ -98,16 +98,16 @@ function metatag_requirements($phase) {
     }
 
     // Check that Entity_Translation is current.
-    if (module_exists('entity_translation')) {
-      $rev = db_query("SELECT schema_version FROM {system} WHERE name = :module", array(':module' => 'entity_translation'))->fetchColumn();
-      if ($rev < 7004) {
-        $requirements['metatag_et_old'] = array(
-          'severity' => REQUIREMENT_ERROR,
-          'title' => 'Metatag',
-          'value' => $t('<a href="@url">Entity_Translation</a> is out of date and requires updating', array('@url' => 'https://www.drupal.org/project/entity_translation')),
-          'description' => $t('The Entity_Translation module is out of date and needs to be updated in order to be compatible with Metatag.'),
-        );
-      }
+    if (module_exists('entity_translation')
+      && !empty($module_data['entity_translation'])
+      && !empty($module_data['entity_translation']->schema_version)
+      && $module_data['entity_translation']->schema_version < 7004) {
+      $requirements['metatag_et_version'] = array(
+        'severity' => REQUIREMENT_ERROR,
+        'title' => 'Metatag',
+        'value' => $t('<a href="@url">Entity_Translation</a> is out of date and requires updating', array('@url' => 'https://www.drupal.org/project/entity_translation')),
+        'description' => $t('The Entity_Translation module is out of date and needs to be updated in order to be compatible with Metatag.'),
+      );
     }
 
     // It's recommended to install the Transliteration module to clean up file
