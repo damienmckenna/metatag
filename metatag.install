@@ -74,15 +74,6 @@ function metatag_requirements($phase) {
         'description' => $t("This older version of Drupal core is missing functionality necessary for the module's multilingual support and contains a broken [node:summary] token, it must be upgraded to version 7.28 or newer."),
       );
     }
-    // Everything's OK.
-    else {
-      $requirements['metatag'] = array(
-        'severity' => REQUIREMENT_OK,
-        'title' => 'Metatag',
-        'value' => $t('Drupal core is compatible'),
-        'description' => $t('Older versions of Drupal core contained bugs that made them incompatible with Metatag, but this version will work correctly.'),
-      );
-    }
 
     // Add a note if Page Title is also installed.
     if (module_exists('page_title')) {
