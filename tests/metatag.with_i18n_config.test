@@ -256,4 +256,65 @@ class MetatagCoreWithI18nConfigTest extends MetatagTestHelper {
     $this->searchTranslationPage($string_en, $config_name, FALSE);
   }
 
+  /**
+   * Test translations of the custom configurations.
+   */
+  public function testI18nDifferentSourceLanguage() {
+    // Make French the default source locale.
+    variable_set('i18n_string_source_language', 'fr');
+
+    // Verify that the default language and source language are different.
+    $this->assertNotEqual(i18n_string_source_language(), language_default('language'));
+
+    // Plan out the different translation string tests.
+    $string_en = 'Welcome to the homepage!';
+    $string_fr = 'Bonjour pour le homepage!';
+    $config_name = 'metatag_config:global:frontpage:title';
+
+    // Confirm the translation page exists and has some Metatag strings.
+    $this->searchTranslationPage('', $config_name);
+
+    // Confirm the string is not present yet.
+    $this->searchTranslationPage($string_en, $config_name, FALSE);
+
+    // Load the front page's meta tags.
+    $instance = 'global:frontpage';
+    $config = metatag_config_load($instance);
+
+    // Set something specific as the homepage.
+    $config->config['title']['value'] = $string_fr;
+    metatag_config_save($config);
+
+    // Confirm the string is present now.
+    $this->searchTranslationPage($string_fr, $config_name);
+
+    // Load the front page.
+    $this->drupalGet('fr');
+    $this->assertResponse(200, 'Loaded the homepage.');
+
+    // Confirm the page's title is what we set it to.
+    $this->assertTitle($string_fr);
+
+    // Get the translation string lid for the front page's title.
+    $lid = $this->getTranslationLidByContext($config_name);
+    $this->assertNotEqual($lid, 0, 'Found the locales_source string for the front page title tag.');
+
+    // Save the translation string.
+    $this->saveTranslationString($lid, $config_name, 'en', $string_fr, $string_en);
+
+    // Load the English front page again.
+    $this->drupalGet('');
+    $this->assertResponse(200, 'Loaded the default homepage.');
+
+    // Confirm the page's title is what we set it to.
+    $this->assertTitle($string_en);
+
+    // Load the French front page.
+    $this->drupalGet('fr');
+    $this->assertResponse(200, 'Loaded the French homepage.');
+
+    // Confirm the page's title is what we set it to.
+    $this->assertTitle($string_fr);
+  }
+
 }

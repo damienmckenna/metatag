@@ -424,8 +424,19 @@ class MetatagTestHelper extends DrupalWebTestCase {
     }
 
     // Confirm that the destination strings exist.
-    $this->assertField('translations[fr]', 'Found the French translation string field.');
-    $this->assertField('translations[es]', 'Found the Spanish translation string field.');
+    $source_locale = language_default('language');
+    if (function_exists('i18n_string_source_language')) {
+      $source_locale = i18n_string_source_language();
+    }
+    if ($source_locale != 'en') {
+      $this->assertField('translations[en]', 'Found the English translation string field.');
+    }
+    if ($source_locale != 'fr') {
+      $this->assertField('translations[fr]', 'Found the French translation string field.');
+    }
+    if ($source_locale != 'es') {
+      $this->assertField('translations[es]', 'Found the Spanish translation string field.');
+    }
 
     // Translate the string.
     $edit = array(

@@ -2069,3 +2069,20 @@ function metatag_update_7105() {
 function metatag_update_7106() {
   metatag_update_7105();
 }
+
+/**
+ * Fix the global config translation strings.
+ */
+function metatag_update_7107() {
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
+
+  db_query("UPDATE {locales_source}
+    SET location = REPLACE(location, 'metatag:global:', 'metatag:metatag_config:global:'),
+      context = REPLACE(context, 'global:', 'metatag_config:global:')
+    WHERE textgroup = 'metatag'
+    AND location LIKE 'metatag:global:%'");
+
+  return t('Fixed the Metatag global config string translations.');
+}

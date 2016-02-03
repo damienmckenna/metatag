@@ -2796,10 +2796,12 @@ function metatag_translate_metatag($string, $tag_name, $context = 'output', $lan
       }
     }
 
-    // Automatically create/update the {locales_source} record if one wasn't
-    // found.
     $options = array(
+      // Automatically create/update the {locales_source} record if one wasn't
+      // found.
       'update' => $update,
+      // Translate the string.
+      'translate' => TRUE,
     );
 
     // If the langcode was passed in, add it to the options passed to i18n.

@@ -13,6 +13,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2661412 by DamienMcKenna: Improve hook_requirements check for Entity
   Translation.
 #2661434 by DamienMcKenna: Removed the status message about alt_hreflang.
+#2652120 by DamienMcKenna: Fixes for old config translations that weren't
+  fixed with previous updates.
 
 
 Metatag 7.x-1.11, 2016-01-26
