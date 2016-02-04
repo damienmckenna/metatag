@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.12, 2016-03-04
 ----------------------------
 #2644742 by kev5873, DamienMcKenna: Variable scoping issue with Metatag:Panels
