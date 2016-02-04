@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2662952 by DamienMcKenna: Fixed logic on hook_requirements for checking the
+  version of Token that is installed.
 
 
 Metatag 7.x-1.12, 2016-03-04

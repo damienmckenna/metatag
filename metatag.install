@@ -155,10 +155,20 @@ function metatag_requirements($phase) {
       }
       // Otherwise check the version string.
       else {
-        list($major, $minor) = explode('.', $token_module->info['version']);
-        // Strip off any suffixes on the version string, e.g. "17-dev".
-        if (strpos('-', $minor)) {
-          list($minor, $suffix) = explode('-', $minor);
+        // Versions are in the format 7.x-1.y, so split the string up to find
+        // the 'y' portion.
+        $version = explode('-', $token_module->info['version']);
+        if (isset($version[1])) {
+          list($major, $minor) = explode('.', $version[1]);
+          // Strip off any suffixes on the version string, e.g. "17-dev".
+          if (strpos('-', $minor)) {
+            list($minor, $suffix) = explode('-', $minor);
+          }
+        }
+        // If the version string couldn't be extracted correctly, assume that
+        // an incorrect version is installed.
+        else {
+          $minor = 0;
         }
       }
       // If v1.6 is not installed, give a warning.
