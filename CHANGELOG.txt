@@ -19,6 +19,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   needed and was not translatable.
 #2624422 by mr.baileys: Added tests to confirm meta tag handling is loaded
   correctly when there is no default value available.
+#2658902 by swentel, DamienMcKenna: Renamed 'Add Metatag defaults' to something
+  more easily understood.
 
 
 Metatag 8.x-1.0-beta3, 2015-12-08

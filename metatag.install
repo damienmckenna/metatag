@@ -312,3 +312,10 @@ function metatag_update_8103(&$sandbox) {
 function metatag_update_8104() {
   \Drupal::service('router.builder')->setRebuildNeeded();
 }
+
+/**
+ * Rebuild routes after renaming.
+ */
+function metatag_update_8105() {
+  \Drupal::service('router.builder')->setRebuildNeeded();
+}
