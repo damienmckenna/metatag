@@ -14,6 +14,16 @@ LinkedIn, etc (see below).
 This version of the module only works with the v8.0.x releases of Drupal.
 
 
+Requirements
+--------------------------------------------------------------------------------
+Metatag for Drupal 8 requires the following:
+
+* Token
+  https://www.drupal.org/project/token
+  Provides a popup browser to see the available tokens for use in meta tag
+  fields.
+
+
 Features
 --------------------------------------------------------------------------------
 The primary features include:
@@ -36,7 +46,6 @@ The primary features include:
 
 Standard usage scenario
 --------------------------------------------------------------------------------
-
 1. Install the module.
 2. Open admin/config/search/metatag.
 3. Adjust global and entity defaults. Fill in reasonable default values for any
@@ -59,6 +68,7 @@ Standard usage scenario
        enabled for this entity, select "Users may translate this field" to use
        Drupal's translation system.
 
+
 DrupalConsole integration
 --------------------------------------------------------------------------------
 Using the DrupalConsole, it is possible to generate new meta tags, either for
@@ -71,16 +81,6 @@ To generate a new tag, install DrupalConsole and then use the following command:
 
 This will guide the site builder through the necessary steps to create a new
 meta tag plugin and add it to a module.
-
-
-Related modules
---------------------------------------------------------------------------------
-Some modules are available that extend Metatag with additional functionality:
-
-* Token
-  https://www.drupal.org/project/token
-  Provides a popup browser to see the available tokens for use in meta tag
-  fields.
 
 
 Credits / contact
