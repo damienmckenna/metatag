@@ -21,6 +21,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   correctly when there is no default value available.
 #2658902 by swentel, DamienMcKenna: Renamed 'Add Metatag defaults' to something
   more easily understood.
+#2636348 by DamienMcKenna: Config entity not working correctly after updating
+  from beta2.
 
 
 Metatag 8.x-1.0-beta3, 2015-12-08
