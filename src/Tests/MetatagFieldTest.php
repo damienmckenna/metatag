@@ -6,6 +6,7 @@
 
 namespace Drupal\metatag\Tests;
 
+use Drupal\Core\Cache\Cache;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -33,10 +34,20 @@ class MetatagFieldTest extends WebTestBase {
    * @var array
    */
   public static $modules = [
+    // Needed for the field UI testing.
     'field_ui',
-    'metatag',
+
+    // Needed for the basic entity testing.
     'entity_test',
+
+    // Needed to verify that nothing is broken for unsupported entities.
     'contact',
+
+    // The base module.
+    'metatag',
+
+    // Some extra custom logic for testing Metatag.
+    'metatag_test',
   ];
 
   /**
@@ -81,6 +92,7 @@ class MetatagFieldTest extends WebTestBase {
     $edit = [
       'name[0][value]' => 'Barfoo',
       'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
+      'field_metatag[0][basic][metatag_test]' => 'Kilimanjaro',
     ];
 
     $this->drupalPostForm('entity_test/add', $edit, t('Save'));
@@ -89,6 +101,18 @@ class MetatagFieldTest extends WebTestBase {
     ]);
     $this->assertEqual(1, count($entities), 'Entity was saved');
     $entity = reset($entities);
+
+    // Make sure tags that have a field value but no default value still show
+    // up.
+    $this->drupalGet('entity_test/' . $entity->id());
+    $this->assertResponse(200);
+    $elements = $this->cssSelect('meta[name=metatag_test]');
+    $this->assertTrue(count($elements) === 1, 'Found keywords metatag_test from defaults');
+    $this->assertEqual((string) $elements[0]['content'], 'Kilimanjaro', 'Field value for metatag_test found when no default set.');
+
+    // @TODO: This should not be required, but metatags does not invalidate
+    // cache upon setting globals.
+    Cache::invalidateTags(array('entity_test:' . $entity->id()));
 
     // Update the Global defaults and test them.
     $values = array(
