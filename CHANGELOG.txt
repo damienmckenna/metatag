@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.0-beta4, 2016-02-06
 ---------------------------------
 #2634844 by swentel: Only load entity meta tags on actual content entity pages.
