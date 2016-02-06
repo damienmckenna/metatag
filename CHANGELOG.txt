@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+By DamienMcKenna: Corrected return code from update 7107.
 
 
 Metatag 7.x-1.13, 2016-03-04

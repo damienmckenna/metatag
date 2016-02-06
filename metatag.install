@@ -2077,7 +2077,7 @@ function metatag_update_7105() {
  * update 7105.
  */
 function metatag_update_7106() {
-  metatag_update_7105();
+  return metatag_update_7105();
 }
 
 /**
