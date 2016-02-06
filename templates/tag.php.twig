@@ -1,13 +1,16 @@
 {% extends "generator.php.twig" %}
 
 {% block file_path %}
-Drupal\{{ module }}\Plugin\metatag\Tag\{{ class_name }}.
+\Drupal\{{ module }}\Plugin\metatag\Tag\{{ class_name }}.
 {% endblock %}
 
 {% block namespace_class %}
 namespace Drupal\{{ module }}\Plugin\metatag\Tag;
 {% endblock %}
-{% block use_class %}{% endblock %}
+
+{% block use_class %}
+use \Drupal\metatag\Plugin\metatag\Tag\{{ base_class }};
+{% endblock %}
 
 {% block class_declaration %}
 /**

@@ -332,3 +332,11 @@ function metatag_update_8105() {
 function metatag_update_8106() {
   \Drupal::entityDefinitionUpdateManager()->applyUpdates();
 }
+
+/**
+ * Enable the new metatag_open_graph module.
+ */
+function metatag_update_8107() {
+  \Drupal::service('module_installer')->install(array('metatag_open_graph'));
+  return (string) t("The new Metatag: Open Graph module has been enabled.");
+}

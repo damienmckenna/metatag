@@ -126,11 +126,11 @@ class MetatagFieldTest extends WebTestBase {
     $this->assertTrue(count($elements) === 1, 'Found keywords metatag from defaults');
     $this->assertEqual((string) $elements[0]['content'], $values['keywords'], 'Default keywords applied');
 
-    // Tests metatags with urls work.
+    // Tests metatags with URLs work.
     $edit = [
       'name[0][value]' => 'UrlTags',
       'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
-      'field_metatag[0][open_graph][og_url]' => 'http://example.com/foo.html',
+      'field_metatag[0][advanced][original_source]' => 'http://example.com/foo.html',
     ];
     $this->drupalPostForm('entity_test/add', $edit, t('Save'));
     $entities = entity_load_multiple_by_properties('entity_test', [
@@ -140,9 +140,9 @@ class MetatagFieldTest extends WebTestBase {
     $entity = reset($entities);
     $this->drupalGet('entity_test/' . $entity->id());
     $this->assertResponse(200);
-    $elements = $this->cssSelect("meta[property='og:url']");
-    $this->assertTrue(count($elements) === 1, 'Found keywords metatag from defaults');
-    $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][open_graph][og_url]']);
+    $elements = $this->cssSelect("meta[name='original-source']");
+    $this->assertTrue(count($elements) === 1, 'Found original source metatag from defaults');
+    $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][advanced][original_source]']);
 
     // Test a route where the entity for that route does not implement
     // ContentEntityInterface.
