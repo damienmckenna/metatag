@@ -7,12 +7,7 @@ Drupal\{{ module }}\Plugin\metatag\Tag\{{ class_name }}.
 {% block namespace_class %}
 namespace Drupal\{{ module }}\Plugin\metatag\Tag;
 {% endblock %}
-
-{% block use_class %}
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\TagBase;
-use Drupal\metatag\Annotation\MetatagTag;
-{% endblock %}
+{% block use_class %}{% endblock %}
 
 {% block class_declaration %}
 /**
@@ -24,7 +19,9 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   description = @Translation("{{ description }}"),
  *   name = "{{ name }}",
  *   group = "{{ group }}",
- *   weight = {{ weight }}
+ *   weight = {{ weight }},
+ *   image = {{ image }},
+ *   multiple = {{ multiple }}
  * )
  */
-class {{ class_name }} extends TagBase {% endblock %}
+class {{ class_name }} extends {{ base_class }} {% endblock %}
