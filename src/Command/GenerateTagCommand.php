@@ -109,8 +109,6 @@ class GenerateTagCommand extends GeneratorCommand {
    * {@inheritdoc}
    */
   protected function interact(InputInterface $input, OutputInterface $output) {
-    $io = new DrupalStyle($input, $output);
-
     $boolean_options = [
       'FALSE',
       'TRUE',
@@ -120,7 +118,7 @@ class GenerateTagCommand extends GeneratorCommand {
     // @todo Turn this into a choice() option.
     $base_class = $input->getOption('base_class');
     if (empty($base_class)) {
-      $label = $output->ask(
+      $base_class = $output->ask(
         $this->trans('commands.generate.metatag.tag.questions.base_class'),
         'TagBase'
       );
@@ -212,7 +210,7 @@ class GenerateTagCommand extends GeneratorCommand {
     // --image option.
     // @todo Turn this into an option.
     $image = $input->getOption('image');
-    if (is_null($weight)) {
+    if (is_null($image)) {
       $image = $output->choice(
         $this->trans('commands.generate.metatag.tag.questions.image'),
         $boolean_options,

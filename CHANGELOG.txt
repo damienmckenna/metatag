@@ -27,6 +27,7 @@ By DamienMcKenna: Note in the README.txt that Token is now required.
 #2663874 by mr.baileys: Fixed arguments to annotation translations for two
   Google meta tags.
 #2663650 by DamienMcKenna: Updated/fixed the DrupalConsole integration.
+#2663650 by mr.baileys: Further fixes to the DrupalConsole integration.
 
 
 Metatag 8.x-1.0-beta3, 2015-12-08
