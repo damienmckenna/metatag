@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.13, 2016-03-04
 ----------------------------
 #2662952 by DamienMcKenna: Fixed logic on hook_requirements for checking the
