@@ -143,7 +143,7 @@ Configuration
       admin/config/search/metatags/settings
 
  4. In order to provide a specific configuration per entity bundle (content
-    type, vocabulary, etc), click "Add a Metatag default".
+    type, vocabulary, etc), click "Add default meta tags".
 
  5. Each supported entity object (nodes, terms, users) will have a set of meta
     tag fields available for customization on their respective edit page, these

@@ -132,7 +132,7 @@ function metatag_menu() {
     'weight' => -10,
   );
   $items['admin/config/search/metatags/config/add'] = array(
-    'title' => 'Add a Metatag default',
+    'title' => 'Add default meta tags',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('metatag_config_add_form'),
     'access arguments' => array('administer meta tags'),
