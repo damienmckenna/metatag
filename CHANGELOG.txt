@@ -5,6 +5,7 @@ By DamienMcKenna: Corrected return code from update 7107.
   variable to avoid HTML validation errors because of the lack of space.
 #2658902 by DamienMcKenna, swentel: Renamed the 'Add a Metatag default' link to
   match the D8 wording.
+#2665206 by DamienMcKenna: Don't add an index in 7029 if it already exists.
 
 
 Metatag 7.x-1.13, 2016-03-04
