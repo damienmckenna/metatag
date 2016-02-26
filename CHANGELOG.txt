@@ -1,8 +1,7 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
-#2563623/2674732 by DamienMcKenna, esclapes, achton: Quote submodule strings to
-  avoid YAML compatibility problems with other tools, though Drupal doesn't
-  care.
+#2563623/2674732/2675208 by DamienMcKenna, esclapes, NickWilde, achton: Quote
+  submodule strings to avoid YAML compatibility problems.
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06
