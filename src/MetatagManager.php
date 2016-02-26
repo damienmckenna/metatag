@@ -9,6 +9,7 @@ namespace Drupal\metatag;
 
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\LoggerChannelFactory;
 use Drupal\field\Entity\FieldConfig;
 
@@ -295,7 +296,8 @@ class MetatagManager implements MetatagManagerInterface {
         // that needs to be filtered and converted to a string.
         // @see @Robots::setValue().
         $tag->setValue($value);
-        $processed_value = PlainTextOutput::renderFromHtml($this->tokenService->tokenReplace($tag->value(), $token_replacements));
+        $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+        $processed_value = PlainTextOutput::renderFromHtml($this->tokenService->tokenReplace($tag->value(), $token_replacements, array('langcode' => $langcode)));
 
         // Now store the value with processed tokens back into the plugin.
         $tag->setValue($processed_value);

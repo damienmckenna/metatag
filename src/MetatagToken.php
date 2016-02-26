@@ -49,7 +49,7 @@ class MetatagToken {
    * @param array $settings
    * @return mixed|string $string
    */
-  public function tokenReplace($string, $data, $settings = array()){
+  public function tokenReplace($string, $data, $settings) {
     if ($this->moduleHandler->moduleExists('token')) {
       return $this->contribReplace($string, $data, $settings);
     }
@@ -96,14 +96,10 @@ class MetatagToken {
    * @return mixed|string
    */
   private function coreReplace($string, $data, $settings = array()) {
-    // @TODO: Remove this temp code.
-    // This is just here as a way to see all available tokens in debugger.
-    $tokens = $this->coreToken->getInfo();
-
-    $options = array('clear' => TRUE);
+    $settings += array('clear' => TRUE);
 
     // Replace tokens with core Token service.
-    $replaced = $this->coreToken->replace($string, $data, $options);
+    $replaced = $this->coreToken->replace($string, $data, $settings);
 
     // Ensure that there are no double-slash sequences due to empty token values.
     $replaced = preg_replace('/(?<!:)\/+\//', '/', $replaced);
