@@ -120,7 +120,7 @@ class GenerateTagCommand extends GeneratorCommand {
     if (empty($base_class)) {
       $base_class = $output->ask(
         $this->trans('commands.generate.metatag.tag.questions.base_class'),
-        'TagBase'
+        'MetaNameBase'
       );
     }
     $input->setOption('base_class', $base_class);
