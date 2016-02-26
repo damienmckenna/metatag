@@ -7,6 +7,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
 #2664276 by DamienMcKenna, StevenPatz, rajeev_drupal: Wrong default base class
   for generated tag plugins.
+#2665790 by benjy, Sam152: Use StringTranslationTrait in MetaNameBase.
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06

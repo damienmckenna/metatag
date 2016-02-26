@@ -12,8 +12,12 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 abstract class MetaNameBase extends PluginBase {
+
+  use StringTranslationTrait;
+
   /**
    * Machine name of the meta tag plugin.
    *
@@ -141,12 +145,12 @@ abstract class MetaNameBase extends PluginBase {
 
     // Optional handling for items that allow multiple values.
     if (!empty($this->multiple)) {
-      $form['#description'] .= ' ' . t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
+      $form['#description'] .= ' ' . $this->t('Multiple values may be used, separated by a comma. Note: Tokens that return multiple values will be handled automatically.');
     }
 
     // Optional handling for images.
     if (!empty($this->image)) {
-      $form['#description'] .= ' ' . t('This will be able to extract the URL from an image field.');
+      $form['#description'] .= ' ' . $this->t('This will be able to extract the URL from an image field.');
     }
 
     return $form;
