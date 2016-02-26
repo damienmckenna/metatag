@@ -155,7 +155,7 @@ class GenerateTagCommand extends GeneratorCommand {
 
     // --description option.
     $description = $input->getOption('description');
-    if (empty($label)) {
+    if (empty($description)) {
       $description = $output->ask(
         $this->trans('commands.generate.metatag.tag.questions.description')
       );
