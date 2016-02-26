@@ -4,6 +4,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   submodule strings to avoid YAML compatibility problems.
 #2658242 by mr.baileys: Default meta tags were not translated into the entity's
   language.
+By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06
