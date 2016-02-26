@@ -12,6 +12,7 @@ By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
   on the Extend page.
 #2563625 by mr.baileys, juliencarnot: All Twitter Cards have been ported.
 #2674078 by Raphael Apard: The Generator meta tag is a META tag, not a LINK tag.
+#2664448 by mr.baileys: DrupalConsole generator for meta tag groups.
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06
