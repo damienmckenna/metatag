@@ -10,7 +10,7 @@ namespace Drupal\metatag;
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Language\LanguageInterface;
-use Drupal\Core\Logger\LoggerChannelFactory;
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\field\Entity\FieldConfig;
 
 /**
@@ -38,11 +38,12 @@ class MetatagManager implements MetatagManagerInterface {
    * @param MetatagGroupPluginManager $groupPluginManager
    * @param MetatagTagPluginManager $tagPluginManager
    * @param MetatagToken $token
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $channelFactory
    */
   public function __construct(MetatagGroupPluginManager $groupPluginManager,
                               MetatagTagPluginManager $tagPluginManager,
                               MetatagToken $token,
-                              LoggerChannelFactory $channelFactory) {
+                              LoggerChannelFactoryInterface $channelFactory) {
     $this->groupPluginManager = $groupPluginManager;
     $this->tagPluginManager = $tagPluginManager;
     $this->tokenService = $token;
