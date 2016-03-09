@@ -98,9 +98,7 @@ function metatag_is_current_route_supported() {
   }
 
   // Ignore admin paths.
-  $route = \Drupal::routeMatch()->getRouteObject();
-  $is_admin = \Drupal::service('router.admin_context')->isAdminRoute($route);
-  if ($is_admin) {
+  if (\Drupal::service('router.admin_context')->isAdminRoute()) {
     return FALSE;
   }
 
