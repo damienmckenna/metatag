@@ -50,9 +50,7 @@ Standard usage scenario
 2. Open admin/config/search/metatag.
 3. Adjust global and entity defaults. Fill in reasonable default values for any
    of the meta tags that need to be customized. Tokens may be used to
-   automatically assign values. If the Token module is enabled there will be a
-   "Browse available tokens" link that opens a popup to list & insert the
-   available tokens.
+   automatically assign values.
 4. You can add bundle defaults by clicking on "Add metatag defaults" and filling
    out the form.
 5. If you want to adjust metatags for a specific entity, then you need to add

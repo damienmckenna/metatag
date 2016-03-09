@@ -129,6 +129,7 @@ class MetatagTranslationTest extends WebTestBase {
     $this->drupalPostForm('node/1/translations/add/en/es', $edit, t('Save and keep published (this translation)'));
 
     $this->drupalGet('es/node/1');
+    $this->assertResponse(200);
     $this->assertNoRaw('<meta name="description" content="French summary.');
     $this->assertRaw('<meta name="description" content="Spanish summary.');
 

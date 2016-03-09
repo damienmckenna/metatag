@@ -34,6 +34,9 @@ class MetatagFieldTest extends WebTestBase {
    * @var array
    */
   public static $modules = [
+    // Needed for token handling.
+    'token',
+
     // Needed for the field UI testing.
     'field_ui',
 

@@ -302,7 +302,7 @@ class MetatagManager implements MetatagManagerInterface {
           $processed_value = $this->tokenService->tokenReplace($tag->value(), $token_replacements, array('langcode' => $langcode));
         }
         else {
-          $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->tokenReplace($tag->value(), $token_replacements, array('langcode' => $langcode))));
+          $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, array('langcode' => $langcode))));
         }
 
         // Now store the value with processed tokens back into the plugin.
