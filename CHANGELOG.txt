@@ -17,6 +17,8 @@ By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
 #2672892 by borisson_: Replaced usage of LoggerChannelFactory with
   LoggerChannelFactoryInterface.
 #2678196 by mr.baileys: Simplified usage of isAdminRoute().
+#2631408 by mikeyk, juampynr, DamienMcKenna: Filter out HTML from meta tags and
+  improve image meta tag handling.
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06

@@ -298,7 +298,12 @@ class MetatagManager implements MetatagManagerInterface {
         // @see @Robots::setValue().
         $tag->setValue($value);
         $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
-        $processed_value = PlainTextOutput::renderFromHtml($this->tokenService->tokenReplace($tag->value(), $token_replacements, array('langcode' => $langcode)));
+        if ($tag->image()) {
+          $processed_value = $this->tokenService->tokenReplace($tag->value(), $token_replacements, array('langcode' => $langcode));
+        }
+        else {
+          $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->tokenReplace($tag->value(), $token_replacements, array('langcode' => $langcode))));
+        }
 
         // Now store the value with processed tokens back into the plugin.
         $tag->setValue($processed_value);

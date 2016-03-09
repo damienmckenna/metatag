@@ -197,11 +197,25 @@ abstract class MetaNameBase extends PluginBase {
     //@TODO: If there is some common validation, put it here. Otherwise, make it abstract?
   }
 
+  /**
+   * Extract any image URLs that might be found in a meta tag.
+   *
+   * @return string
+   *   A comma separated list of any image URLs found in the meta tag's value,
+   *   or the original string if no images were identified.
+   */
   protected function parseImageURL() {
     $value = $this->value();
 
     // If this contains embedded image tags, extract the image URLs.
     if ($this->image()) {
+      // If image tag src is relative (starts with /), convert to an absolute
+      // link.
+      global $base_url;
+      if (strpos($value, '<img src="/')) {
+        $value = str_replace('<img src="/', '<img src="' . $base_url . '/', $value);
+      }
+
       if (strip_tags($value) != $value) {
         if ($this->multiple()) {
           $values = explode(',', $value);
