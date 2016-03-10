@@ -21,6 +21,7 @@ By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
   improve image meta tag handling.
 #2631826 by juampynr, DamienMcKenna, pguillard: Require the Token module.
 #2667850 by mikeyk: Token method was not renamed properly.
+By DamienMcKenna: Fixed group name on MetatagTranslationTest.
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06
