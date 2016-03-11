@@ -164,6 +164,10 @@ abstract class MetaNameBase extends PluginBase {
     $this->value = $value;
   }
 
+  private function tidy($value) {
+    return trim($value);
+  }
+
   public function output() {
     if (empty($this->value)) {
       // If there is no value, we don't want a tag output.
@@ -172,6 +176,8 @@ abstract class MetaNameBase extends PluginBase {
     else {
       // Parse out the image URL, if needed.
       $value = $this->parseImageURL();
+
+      $value = $this->tidy($value);
 
       $element = array(
         '#tag' => 'meta',

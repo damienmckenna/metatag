@@ -92,9 +92,10 @@ Credits / contact
 Currently maintained by Damien McKenna [2] and Dave Reid [3]. Drupal 7 module
 originally written by Dave Reid. Drupal 8 port by Damien McKenna and Michelle
 Cox [4], and sponsored by Mediacurrent [5], with contributions from Lee Rowlands
-[6], Rakesh James [7], Ivo Van Geertruyen [8], and many others.
+[6], Rakesh James [7], Ivo Van Geertruyen [8], Michael Kandelaars [9], and many
+others.
 
-Ongoing development is sponsored by Mediacurrent and Palantir.net [9].
+Ongoing development is sponsored by Mediacurrent and Palantir.net [10].
 
 The best way to contact the authors is to submit an issue, be it a support
 request, a feature request or a bug report, in the project issue queue:
@@ -111,4 +112,5 @@ References
 6: https://www.drupal.org/u/larowlan
 7: https://www.drupal.org/u/rakesh.gectcr
 8: https://www.drupal.org/u/mr.baileys
-9: http://www.palantir.net/
+9: https://www.drupal.org/u/mikeyk
+10: http://www.palantir.net/

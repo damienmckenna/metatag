@@ -35,12 +35,12 @@ class MetatagToken {
    *
    * @param $string
    * @param $data
-   * @param array $settings
+   * @param array $options
    *
    * @return mixed|string $string
    */
-  public function replace($string, $data, $settings = array()){
-    $options = array('clear' => TRUE);
+  public function replace($string, $data, $options = array()) {
+    $options['clear'] = TRUE;
 
     $replaced = $this->token->replace($string, $data, $options);
 
