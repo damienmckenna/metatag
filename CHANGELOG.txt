@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.0-beta5, 2016-03-11
 ---------------------------------
 #2563623/2674732/2675208 by DamienMcKenna, esclapes, NickWilde, achton: Quote
