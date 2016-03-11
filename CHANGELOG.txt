@@ -24,6 +24,7 @@ By DamienMcKenna: Added mr.baileys to the D8 contributors list :)
 By DamienMcKenna: Fixed group name on MetatagTranslationTest.
 #2684495 by mikeyk, DamienMcKenna: Fixed bug in translations that was causing
   the tests to fail. Also tidied up the tests a little.
+#2685355 by mikeyk: Fix image identification.
 
 
 Metatag 8.x-1.0-beta4, 2016-02-06
