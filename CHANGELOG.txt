@@ -7,6 +7,8 @@ By DamienMcKenna: Corrected return code from update 7107.
   match the D8 wording.
 #2665206 by DamienMcKenna: Don't add an index in 7029 if it already exists.
 #2670842 by Ambient.Impact: Fixed permissions in the Importer submodule.
+#2613598 by DamienMcKenna: Removed the Contributor Covenant, replaced it with a
+  link to https://www.drupal.org/dcoc.
 
 
 Metatag 7.x-1.13, 2016-03-04
