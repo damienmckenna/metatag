@@ -1,5 +1,7 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2689543 by kplanz: Fixed paths in image meta tags when the site is in a
+  subdirectory.
 
 
 Metatag 8.x-1.0-beta5, 2016-03-11

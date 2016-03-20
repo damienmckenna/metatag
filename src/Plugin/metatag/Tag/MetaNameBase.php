@@ -217,9 +217,9 @@ abstract class MetaNameBase extends PluginBase {
     if ($this->image()) {
       // If image tag src is relative (starts with /), convert to an absolute
       // link.
-      global $base_url;
+      global $base_root;
       if (strpos($value, '<img src="/') !== FALSE) {
-        $value = str_replace('<img src="/', '<img src="' . $base_url . '/', $value);
+        $value = str_replace('<img src="/', '<img src="' . $base_root . '/', $value);
       }
 
       if (strip_tags($value) != $value) {
