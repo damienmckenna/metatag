@@ -1869,6 +1869,11 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
     $metatags = array();
   }
 
+  // Certain circumstances can result in $metatags not being an array.
+  if (!is_array($metatags)) {
+    $metatags = array();
+  }
+
   $options['token types'] = array(token_get_entity_mapping('entity', $entity_type));
   $options['context'] = $entity_type;
   // Allow hook_metatag_token_types_alter() to modify the defined tokens.

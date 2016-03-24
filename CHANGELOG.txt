@@ -9,6 +9,8 @@ By DamienMcKenna: Corrected return code from update 7107.
 #2670842 by Ambient.Impact: Fixed permissions in the Importer submodule.
 #2613598 by DamienMcKenna: Removed the Contributor Covenant, replaced it with a
   link to https://www.drupal.org/dcoc.
+#2692933 by doostinharrell, DamienMcKenna: $metatags variable in
+  metatag_field_attach_form() may not be an array in certain circumstances.
 
 
 Metatag 7.x-1.13, 2016-03-04
