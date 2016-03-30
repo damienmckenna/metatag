@@ -298,7 +298,8 @@ Troubleshooting / known issues
 
 Related modules
 --------------------------------------------------------------------------------
-Some modules are available that extend Metatag with additional functionality:
+Some modules are available that extend Metatag with additional or complimentary
+functionality:
 
 * Transliteration
   https://drupal.org/project/transliteration
@@ -344,6 +345,10 @@ Some modules are available that extend Metatag with additional functionality:
 * Yoast SEO
   https://www.drupal.org/project/yoast_seo
   Adds integration with the Yoast service (https://yoast.com/).
+ 
+* Parse.ly Publishing Analytics
+  https://www.drupal.org/project/parsely
+  Automatically generates meta tags for the Parse.ly service.
 
 
 Credits / contact

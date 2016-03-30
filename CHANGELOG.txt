@@ -13,6 +13,7 @@ By DamienMcKenna: Corrected return code from update 7107.
   metatag_field_attach_form() may not be an array in certain circumstances.
 #2658808 by tommik: Rewrote query in update 7040 so it works better.
 #2688963 by DamienMcKenna: Added a note about the Yoast SEO module.
+#2687847 by DamienMcKenna: Added a note about the Parse.ly module.
 
 
 Metatag 7.x-1.13, 2016-03-04
