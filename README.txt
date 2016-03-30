@@ -341,6 +341,10 @@ Some modules are available that extend Metatag with additional functionality:
   with meta tags that only allow for one item but which are assigned from fields
   which accept multiple items, e.g. og:audio and og:video.
 
+* Yoast SEO
+  https://www.drupal.org/project/yoast_seo
+  Adds integration with the Yoast service (https://yoast.com/).
+
 
 Credits / contact
 --------------------------------------------------------------------------------
