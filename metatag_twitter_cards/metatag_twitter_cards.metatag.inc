@@ -68,9 +68,8 @@ function metatag_twitter_cards_metatag_bundled_config_alter(array &$configs) {
  */
 function metatag_twitter_cards_metatag_info() {
   $info['groups']['twitter-cards'] = array(
-    'label' => 'Twitter card',
-    'description' => 'A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Twitter</a>.',
-    'description args' => array('!url' => 'https://twitter.com/'),
+    'label' => t('Twitter card'),
+    'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Twitter</a>.', array('!url' => 'https://twitter.com/')),
     'form' => array(
       '#weight' => 60,
     ),
@@ -89,8 +88,8 @@ function metatag_twitter_cards_metatag_info() {
   );
 
   $info['tags']['twitter:card'] = array(
-    'label' => 'Twitter card type',
-    'description' => 'Notes: no other fields are required for a <em>Summary</em> card, a <em>Photo</em> card requires the \'image\' field, a <em>Media player</em> card requires the \'title\', \'description\', \'media player URL\', \'media player width\', \'media player height\' and \'image\' fields, a <em>Summary Card with Large Image</em> card requires the \'Summary\' field and the \'image\' field, a <em>Gallery Card</em> requires all the \'Gallery Image\' fields, an <em>App Card</em> requires the \'iPhone app ID\' field, the \'iPad app ID\' field and the \'Google Play app ID\' field, a <em>Product Card</em> requires the \'description\' field, the \'image\' field, the \'Label 1\' field, the \'Data 1\' field, the \'Label 2\' field and the \'Data 2\' field.',
+    'label' => t('Twitter card type'),
+    'description' => t('Notes: no other fields are required for a <em>Summary</em> card, a <em>Photo</em> card requires the \'image\' field, a <em>Media player</em> card requires the \'title\', \'description\', \'media player URL\', \'media player width\', \'media player height\' and \'image\' fields, a <em>Summary Card with Large Image</em> card requires the \'Summary\' field and the \'image\' field, a <em>Gallery Card</em> requires all the \'Gallery Image\' fields, an <em>App Card</em> requires the \'iPhone app ID\' field, the \'iPad app ID\' field and the \'Google Play app ID\' field, a <em>Product Card</em> requires the \'description\' field, the \'image\' field, the \'Label 1\' field, the \'Data 1\' field, the \'Label 2\' field and the \'Data 2\' field.'),
     'weight' => ++$weight,
     'form' => array(
       '#type' => 'select',
@@ -107,8 +106,8 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:site'] = array(
-    'label' => 'Site\'s Twitter account',
-    'description' => 'The @username for the website, which will be displayed in the Card\'s footer; must include the @ symbol.',
+    'label' => t('Site\'s Twitter account'),
+    'description' => t('The @username for the website, which will be displayed in the Card\'s footer; must include the @ symbol.'),
     'context' => array('global'),
     'weight' => ++$weight,
     'devel_generate' => array(
@@ -116,8 +115,8 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:site:id'] = array(
-    'label' => 'Site\'s Twitter account ID',
-    'description' => 'The numerical Twitter account ID for the website, which will be displayed in the Card\'s footer.',
+    'label' => t('Site\'s Twitter account ID'),
+    'description' => t('The numerical Twitter account ID for the website, which will be displayed in the Card\'s footer.'),
     'context' => array('global'),
     'weight' => ++$weight,
     'devel_generate' => array(
@@ -125,42 +124,42 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:creator'] = array(
-    'label' => 'Creator\'s Twitter account',
-    'description' => 'The @username for the content creator / author for this page, including the @ symbol.',
+    'label' => t('Creator\'s Twitter account'),
+    'description' => t('The @username for the content creator / author for this page, including the @ symbol.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'twitter',
     ),
   ) + $defaults;
   $info['tags']['twitter:creator:id'] = array(
-    'label' => 'Creator\'s Twitter account ID',
-    'description' => 'The numerical Twitter account ID for the content creator / author for this page.',
+    'label' => t('Creator\'s Twitter account ID'),
+    'description' => t('The numerical Twitter account ID for the content creator / author for this page.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
   ) + $defaults;
   $info['tags']['twitter:url'] = array(
-    'label' => 'Page URL',
-    'description' => 'The permalink / canonical URL of the current page.',
+    'label' => t('Page URL'),
+    'description' => t('The permalink / canonical URL of the current page.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'canonical',
     ),
   ) + $defaults;
   $info['tags']['twitter:title'] = array(
-    'label' => 'Title',
-    'description' => 'The page\'s title, which should be concise; it will be truncated at 70 characters by Twitter. This field is required unless this the \'type\' field is set to "photo".',
+    'label' => t('Title'),
+    'description' => t('The page\'s title, which should be concise; it will be truncated at 70 characters by Twitter. This field is required unless this the \'type\' field is set to "photo".'),
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['twitter:description'] = array(
-    'label' => 'Description',
-    'description' => 'A description that concisely summarizes the content of the page, as appropriate for presentation within a Tweet. Do not re-use the title text as the description, or use this field to describe the general services provided by the website. The string will be truncated, by Twitter, at the word to 200 characters.',
+    'label' => t('Description'),
+    'description' => t('A description that concisely summarizes the content of the page, as appropriate for presentation within a Tweet. Do not re-use the title text as the description, or use this field to describe the general services provided by the website. The string will be truncated, by Twitter, at the word to 200 characters.'),
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['twitter:image'] = array(
-    'label' => 'Image URL',
-    'description' => 'The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.',
+    'label' => t('Image URL'),
+    'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.'),
     'image' => TRUE,
     'weight' => ++$weight,
     'replaces' => array(
@@ -171,8 +170,8 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:image:width'] = array(
-    'label' => 'Image width',
-    'description' => 'The width of the image being linked to, in pixels.',
+    'label' => t('Image width'),
+    'description' => t('The width of the image being linked to, in pixels.'),
     'weight' => ++$weight,
     'dependencies' => array(
       array(
@@ -187,8 +186,8 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:image:height'] = array(
-    'label' => 'Image height',
-    'description' => 'The height of the image being linked to, in pixels.',
+    'label' => t('Image height'),
+    'description' => t('The height of the image being linked to, in pixels.'),
     'weight' => ++$weight,
     'dependencies' => array(
       array(
@@ -229,23 +228,23 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:image0'] = array(
-    'label' => '1st Gallery Image',
-    'description' => 'A URL to the image representing the first photo in your gallery.',
+    'label' => t('1st Gallery Image'),
+    'description' => t('A URL to the image representing the first photo in your gallery.'),
     'weight' => ++$weight,
   ) + $gallery_defaults;
   $info['tags']['twitter:image1'] = array(
-    'label' => '2nd Gallery Image',
-    'description' => 'A URL to the image representing the second photo in your gallery.',
+    'label' => t('2nd Gallery Image'),
+    'description' => t('A URL to the image representing the second photo in your gallery.'),
     'weight' => ++$weight,
   ) + $gallery_defaults;
   $info['tags']['twitter:image2'] = array(
-    'label' => '3rd Gallery Image',
-    'description' => 'A URL to the image representing the third photo in your gallery.',
+    'label' => t('3rd Gallery Image'),
+    'description' => t('A URL to the image representing the third photo in your gallery.'),
     'weight' => ++$weight,
   ) + $gallery_defaults;
   $info['tags']['twitter:image3'] = array(
-    'label' => '4th Gallery Image',
-    'description' => 'A URL to the image representing the fourth photo in your gallery.',
+    'label' => t('4th Gallery Image'),
+    'description' => t('A URL to the image representing the fourth photo in your gallery.'),
     'weight' => ++$weight,
   ) + $gallery_defaults;
 
@@ -261,41 +260,40 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:player'] = array(
-    'label' => 'Media player URL',
-    'description' => 'The full URL for loading a media player. Required when using a <em>Media player</em> card.',
+    'label' => t('Media player URL'),
+    'description' => t('The full URL for loading a media player. Required when using a <em>Media player</em> card.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'url',
     ),
   ) + $player_defaults;
   $info['tags']['twitter:player:width'] = array(
-    'label' => 'Media player width',
-    'description' => 'The width of the media player iframe, in pixels. Required when using a <em>Media player</em> card.',
+    'label' => t('Media player width'),
+    'description' => t('The width of the media player iframe, in pixels. Required when using a <em>Media player</em> card.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
   ) + $player_defaults;
   $info['tags']['twitter:player:height'] = array(
-    'label' => 'Media player height',
-    'description' => 'The height of the media player iframe, in pixels. Required when using a <em>Media player</em> card.',
+    'label' => t('Media player height'),
+    'description' => t('The height of the media player iframe, in pixels. Required when using a <em>Media player</em> card.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',
     ),
   ) + $player_defaults;
   $info['tags']['twitter:player:stream'] = array(
-    'label' => 'MP4 media stream URL',
-    'description' => 'The full URL for an MP4 video (h.264) or audio (AAC) stream, takes precidence over the other media player field.',
+    'label' => t('MP4 media stream URL'),
+    'description' => t('The full URL for an MP4 video (h.264) or audio (AAC) stream, takes precidence over the other media player field.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'url',
     ),
   ) + $player_defaults;
   $info['tags']['twitter:player:stream:content_type'] = array(
-    'label' => 'MP4 media stream MIME type',
-    'description' => 'The MIME type for the media contained in the stream URL, as defined by <a href="!url">RFC 4337</a>.',
-    'description args' => array('!url' => 'http://tools.ietf.org/rfc/rfc4337.txt'),
+    'label' => t('MP4 media stream MIME type'),
+    'description' => t('The MIME type for the media contained in the stream URL, as defined by <a href="!url">RFC 4337</a>.', array('!url' => 'http://tools.ietf.org/rfc/rfc4337.txt')),
     'weight' => ++$weight,
     'devel_generate' => array(
       'maxlength' => 1,
@@ -304,80 +302,80 @@ function metatag_twitter_cards_metatag_info() {
 
   // 'app' cards.
   $info['tags']['twitter:app:country'] = array(
-    'label' => 'App Store Country',
-    'description' => 'If your application is not available in the US App Store, you must set this value to the two-letter country code for the App Store that contains your application.',
+    'label' => t('App Store Country'),
+    'description' => t('If your application is not available in the US App Store, you must set this value to the two-letter country code for the App Store that contains your application.'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:name:iphone'] = array(
-    'label' => 'iPhone app name',
-    'description' => "The name of the iPhone app.",
+    'label' => t('iPhone app name'),
+    'description' => t("The name of the iPhone app."),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:id:iphone'] = array(
-    'label' => 'iPhone app ID',
-    'description' => "String value, should be the numeric representation of your iPhone app's ID in the App Store.",
+    'label' => t('iPhone app ID'),
+    'description' => t("String value, should be the numeric representation of your iPhone app's ID in the App Store."),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:url:iphone'] = array(
-    'label' => 'iPhone app\'s custom URL scheme',
-    'description' => 'The iPhone app\'s custom URL scheme (must include "://" after the scheme name).',
+    'label' => t('iPhone app\'s custom URL scheme'),
+    'description' => t('The iPhone app\'s custom URL scheme (must include "://" after the scheme name).'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:name:ipad'] = array(
-    'label' => 'iPad app name',
-    'description' => "The name of the iPad app.",
+    'label' => t('iPad app name'),
+    'description' => t("The name of the iPad app."),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:id:ipad'] = array(
-    'label' => 'iPad app ID',
-    'description' => "String value, should be the numeric representation of your iPad app's ID in the App Store.",
+    'label' => t('iPad app ID'),
+    'description' => t("String value, should be the numeric representation of your iPad app's ID in the App Store."),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:url:ipad'] = array(
-    'label' => 'iPad app\'s custom URL scheme',
-    'description' => 'The iPad app\'s custom URL scheme (must include "://" after the scheme name).',
+    'label' => t('iPad app\'s custom URL scheme'),
+    'description' => t('The iPad app\'s custom URL scheme (must include "://" after the scheme name).'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:name:googleplay'] = array(
-    'label' => 'Google Play app name',
-    'description' => "The name of the app in the Google Play app store.",
+    'label' => t('Google Play app name'),
+    'description' => t("The name of the app in the Google Play app store."),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:id:googleplay'] = array(
-    'label' => 'Google Play app ID',
-    'description' => "String value, and should be the numeric representation of your app's ID in Google Play.",
+    'label' => t('Google Play app ID'),
+    'description' => t("String value, and should be the numeric representation of your app's ID in Google Play."),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $defaults;
   $info['tags']['twitter:app:url:googleplay'] = array(
-    'label' => 'Google Play app\'s custom URL scheme',
-    'description' => 'The Google Play app\'s custom URL scheme (must include "://" after the scheme name).',
+    'label' => t('Google Play app\'s custom URL scheme'),
+    'description' => t('The Google Play app\'s custom URL scheme (must include "://" after the scheme name).'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
@@ -396,32 +394,32 @@ function metatag_twitter_cards_metatag_info() {
     ),
   ) + $defaults;
   $info['tags']['twitter:label1'] = array(
-    'label' => 'Label 1',
-    'description' => 'This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.',
+    'label' => t('Label 1'),
+    'description' => t('This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $product_defaults;
   $info['tags']['twitter:data1'] = array(
-    'label' => 'Data 1',
-    'description' => 'This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).',
+    'label' => t('Data 1'),
+    'description' => t('This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $product_defaults;
   $info['tags']['twitter:label2'] = array(
-    'label' => 'Label 2',
-    'description' => 'This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.',
+    'label' => t('Label 2'),
+    'description' => t('This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'
     ),
   ) + $product_defaults;
   $info['tags']['twitter:data2'] = array(
-    'label' => 'Data 2',
-    'description' => 'This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).',
+    'label' => t('Data 2'),
+    'description' => t('This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).'),
     'weight' => ++$weight,
     'element' => array(
       '#theme' => 'metatag_twitter_cards'

@@ -11,11 +11,10 @@ function metatag_feeds_processor_targets_alter(&$targets, $entity_type, $bundle)
   if (metatag_entity_supports_metatags($entity_type)) {
     $info = metatag_get_info();
     foreach ($info['tags'] as $name => $tag) {
-      $instance = metatag_get_instance($name);
       $targets['meta_' . $name] = array(
-        'name' => t('Meta tag: @label', array('@label' => $instance->getTranslatedLabel())),
+        'name' => t('Meta tag: !label', array('!label' => $tag['label'])),
         'callback' => 'metatag_feeds_set_target',
-        'description' => $instance->getTranslatedDescription(),
+        'description' => $tag['description'],
       );
     }
   }

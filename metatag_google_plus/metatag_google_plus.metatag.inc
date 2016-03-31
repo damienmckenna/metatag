@@ -66,9 +66,8 @@ function metatag_google_plus_metatag_bundled_config_alter(array &$configs) {
  */
 function metatag_google_plus_metatag_info() {
   $info['groups']['google-plus'] = array(
-    'label' => 'Google+',
-    'description' => 'A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Google+</a>.',
-    'description args' => array('!url' => 'https://plus.google.com/'),
+    'label' => t('Google+'),
+    'description' => t('A set of meta tags specially for controlling the summaries displayed when content is shared on <a href="!url">Google+</a>.', array('!url' => 'https://plus.google.com/')),
     'form' => array(
       '#weight' => 80,
     ),
@@ -87,12 +86,8 @@ function metatag_google_plus_metatag_info() {
   );
 
   $info['tags']['itemtype'] = array(
-    'label' => 'Page type',
-    'description' => 'Schema type. <a href="!url">More schema info</a>. If your page type does not exist in options above, please install <a href="!url2">select_or_other</a> module to enter page type manually.',
-    'description args' => array(
-      '!url' => 'http://schema.org/docs/schemas.html',
-      '!url2' => 'https://drupal.org/project/select_or_other',
-    ),
+    'label' => t('Page type'),
+    'description' => t('Schema type. <a href="!url">More schema info</a>. If your page type does not exist in options above, please install <a href="!url2">select_or_other</a> module to enter page type manually.', array('!url' => 'http://schema.org/docs/schemas.html', '!url2' => 'https://drupal.org/project/select_or_other')),
     'class' => 'DrupalSchemaMetaTag',
     'weight' => ++$weight,
     'select_or_other' => TRUE,
@@ -114,18 +109,18 @@ function metatag_google_plus_metatag_info() {
   ) + $defaults;
 
   $info['tags']['itemprop:name'] = array(
-    'label' => 'Title',
-    'description' => 'A Google+ title for the page being shared. Keep keywords towards the front.',
+    'label' => t('Title'),
+    'description' => t('A Google+ title for the page being shared. Keep keywords towards the front.'),
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['itemprop:description'] = array(
-    'label' => 'Description',
-    'description' => 'Longer form description, you’ve 200 words here that can specifically reference your presence on Google+',
+    'label' => t('Description'),
+    'description' => t('Longer form description, you’ve 200 words here that can specifically reference your presence on Google+'),
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['itemprop:image'] = array(
-    'label' => 'Image URL',
-    'description' => 'The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. ',
+    'label' => t('Image URL'),
+    'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. '),
     'weight' => ++$weight,
     'image' => TRUE,
     'devel_generate' => array(

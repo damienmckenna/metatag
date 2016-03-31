@@ -103,9 +103,8 @@ class MigrateMetatagHandler extends MigrateDestinationHandler {
     $elements = metatag_get_info();
 
     foreach ($elements['tags'] as $value) {
-      $instance = metatag_get_instance($value['name']);
       $metatag_field = 'metatag_' . $value['name'];
-      $fields[$metatag_field] = $instance->getTranslatedLabel();
+      $fields[$metatag_field] = $value['description'];
     }
 
     return $fields;

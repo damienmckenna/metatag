@@ -9,8 +9,8 @@
  */
 function metatag_facebook_metatag_info() {
   $info['groups']['facebook'] = array(
-    'label' => 'Facebook',
-    'description' => "Meta tags used to integrate with Facebook's APIs. Most sites do not need to use these, they are primarily of benefit for sites using either the Facebook widgets, the Facebook Connect single-signon system, or are using Facebook's APIs in a custom way. Sites that do need these meta tags usually will only need to set them globally.",
+    'label' => t('Facebook'),
+    'description' => t("Meta tags used to integrate with Facebook's APIs. Most sites do not need to use these, they are primarily of benefit for sites using either the Facebook widgets, the Facebook Connect single-signon system, or are using Facebook's APIs in a custom way. Sites that do need these meta tags usually will only need to set them globally."),
     'form' => array(
       '#weight' => 55,
     ),
@@ -30,15 +30,15 @@ function metatag_facebook_metatag_info() {
   );
 
   $info['tags']['fb:admins'] = array(
-    'label' => 'Admins',
-    'description' => 'A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page.',
+    'label' => t('Admins'),
+    'description' => t('A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page.'),
     'weight' => ++$weight,
     'multiple' => TRUE,
   ) + $tag_info_defaults;
 
   $info['tags']['fb:app_id'] = array(
-    'label' => 'Application ID',
-    'description' => 'A comma-separated list of Facebook Platform Application IDs applicable for this site.',
+    'label' => t('Application ID'),
+    'description' => t('A comma-separated list of Facebook Platform Application IDs applicable for this site.'),
     'weight' => ++$weight,
     'devel_generate' => array(
       'type' => 'integer',

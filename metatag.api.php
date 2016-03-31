@@ -142,8 +142,6 @@ function hook_metatag_config_delete($config) {
  *     'label' - The name for this meta tag.
  *     'description' - An explanation of what this meta tag is used for and what
  *       values are permissible.
- *     'description args' - An array of replacement parameters to be passed to
- *       the t() function for translating the description.
  *     'class' - The class name that controls this meta tag.
  *     'weight' - Used to sort the meta tags during output.
  *     'group' - The machine name of a group this meta tag will be contained
@@ -207,11 +205,9 @@ function hook_metatag_config_delete($config) {
  *   Groups:
  *     'label' - The name for this group.
  *     'description' - A detailed explanation of these meta tags.
- *     'description args' - An array of replacement parameters to be passed to
- *       the t() function for translating the description.
  *     'form' - Additional items to be passed directly to the form.
- *   Note: 'label' and 'description' should not be translated. However, any text
- *   strings passed in 'form' must be translated.
+ *   Note: 'label', 'description', and any text strings passed in 'form', should
+ *   be translated.
  *
  * @see metatag_metatag_info().
  */

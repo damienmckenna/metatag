@@ -50,8 +50,8 @@ function metatag_views_views_preview_info_alter(&$rows, $view) {
   $options['token data']['view'] = $view;
   $values = metatag_metatags_values($instance, $metatags, $options);
   foreach ($values as $metatag => $value) {
-    $instance = metatag_get_instance($metatag);
-    $values[$metatag] = check_plain($instance->getTranslatedLabel() . ': ' . $value);
+    $metatag_info = metatag_get_info('tags', $metatag);
+    $values[$metatag] = $metatag_info['label'] . ': ' . check_plain($value);
   }
   if (!empty($values)) {
     $rows['query'][] = array(

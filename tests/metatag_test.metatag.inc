@@ -48,15 +48,15 @@ function metatag_test_metatag_config_default_alter(array &$configs) {
  */
 function metatag_test_metatag_info() {
   $info['groups']['testing'] = array(
-    'label' => 'Testing',
+    'label' => t('Testing'),
     'form' => array(
       '#weight' => 100,
     ),
   );
 
   $info['test:foo'] = array(
-    'label' => 'Foo meta tag',
-    'description' => 'Testing metatag.',
+    'label' => t('Foo meta tag'),
+    'description' => t('Testing metatag.'),
     'class' => 'DrupalTextMetaTag',
     'group' => 'testing',
   );
