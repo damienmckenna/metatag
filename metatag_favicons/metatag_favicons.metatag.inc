@@ -19,8 +19,8 @@ function metatag_favicons_metatag_bundled_config_alter(&$config) {
  */
 function metatag_favicons_metatag_info() {
   $info['groups']['favicons'] = array(
-    'label' => t('Favicons & touch icons'),
-    'description' => t('Meta tags for displaying favicons of various sizes and types. All values should be either absolute or relative URLs. No effects are added to the "precomposed" icons.'),
+    'label' => 'Favicons & touch icons',
+    'description' => 'Meta tags for displaying favicons of various sizes and types. All values should be either absolute or relative URLs. No effects are added to the "precomposed" icons.',
     'form' => array(
       '#weight' => 100,
     ),
@@ -38,8 +38,8 @@ function metatag_favicons_metatag_info() {
   );
 
   $info['tags']['shortcut icon'] = array(
-      'label' => t('Default shortcut icon'),
-      'description' => t('The traditional favicon, must be either a GIF, ICO, JPG/JPEG or PNG image.'),
+      'label' => 'Default shortcut icon',
+      'description' => 'The traditional favicon, must be either a GIF, ICO, JPG/JPEG or PNG image.',
       'weight' => ++$weight,
       'element' => array(
         '#rel' => 'shortcut icon',
@@ -48,8 +48,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['icon_any'] = array(
-    'label' => t('Icon: SVG'),
-    'description' => t('A grayscale scalable vector graphic (SVG) file. To color the icon, use the "theme color" meta tag under "Mobile & UI Adjustments".'),
+    'label' => 'Icon: SVG',
+    'description' => 'A grayscale scalable vector graphic (SVG) file. To color the icon, use the "theme color" meta tag under "Mobile & UI Adjustments".',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'icon',
@@ -60,8 +60,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['icon_16x16'] = array(
-    'label' => t('Icon: 16px x 16px'),
-    'description' => t('A PNG image that is 16px wide by 16px high.'),
+    'label' => 'Icon: 16px x 16px',
+    'description' => 'A PNG image that is 16px wide by 16px high.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'icon',
@@ -71,8 +71,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['icon_32x32'] = array(
-    'label' => t('Icon: 32px x 32px'),
-    'description' => t('A PNG image that is 32px wide by 32px high.'),
+    'label' => 'Icon: 32px x 32px',
+    'description' => 'A PNG image that is 32px wide by 32px high.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'icon',
@@ -82,8 +82,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['icon_96x96'] = array(
-    'label' => t('Icon: 96px x 96px'),
-    'description' => t('A PNG image that is 96px wide by 96px high.'),
+    'label' => 'Icon: 96px x 96px',
+    'description' => 'A PNG image that is 96px wide by 96px high.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'icon',
@@ -93,8 +93,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['icon_192x192'] = array(
-    'label' => t('Icon: 192px x 192px'),
-    'description' => t('A PNG image that is 192px wide by 192px high.'),
+    'label' => 'Icon: 192px x 192px',
+    'description' => 'A PNG image that is 192px wide by 192px high.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'icon',
@@ -104,8 +104,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon'] = array(
-    'label' => t('Apple touch icon: 60px x 60px'),
-    'description' => t('A PNG image that is 60px wide by 60px high. Used with the non-Retina iPhone, iPod Touch, and Android 2.1+ devices.'),
+    'label' => 'Apple touch icon: 60px x 60px',
+    'description' => 'A PNG image that is 60px wide by 60px high. Used with the non-Retina iPhone, iPod Touch, and Android 2.1+ devices.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -114,8 +114,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon_72x72'] = array(
-    'label' => t('Apple touch icon: 72px x 72px'),
-    'description' => t('A PNG image that is 72px wide by 72px high. Used with the iPad mini and the first- and second-generation iPad (@1x display) on iOS <= 6.'),
+    'label' => 'Apple touch icon: 72px x 72px',
+    'description' => 'A PNG image that is 72px wide by 72px high. Used with the iPad mini and the first- and second-generation iPad (@1x display) on iOS <= 6.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -125,8 +125,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon_76x76'] = array(
-    'label' => t('Apple touch icon: 76px x 76px'),
-    'description' => t('A PNG image that is 76px wide by 76px high. Used with the iPad mini and the second-generation iPad (@1x display) on iOS >= 7.'),
+    'label' => 'Apple touch icon: 76px x 76px',
+    'description' => 'A PNG image that is 76px wide by 76px high. Used with the iPad mini and the second-generation iPad (@1x display) on iOS >= 7.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -136,8 +136,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon_114x114'] = array(
-    'label' => t('Apple touch icon: 114px x 114px'),
-    'description' => t('A PNG image that is 114px wide by 114px high. Used with iPhone with @2x display running iOS <= 6.'),
+    'label' => 'Apple touch icon: 114px x 114px',
+    'description' => 'A PNG image that is 114px wide by 114px high. Used with iPhone with @2x display running iOS <= 6.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -147,8 +147,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon_120x120'] = array(
-    'label' => t('Apple touch icon: 120px x 120px'),
-    'description' => t('A PNG image that is 120px wide by 120px high. Used with iPhone with @2x display running iOS >= 7.'),
+    'label' => 'Apple touch icon: 120px x 120px',
+    'description' => 'A PNG image that is 120px wide by 120px high. Used with iPhone with @2x display running iOS >= 7.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -158,8 +158,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon_144x144'] = array(
-    'label' => t('Apple touch icon: 144px x 144px'),
-    'description' => t('A PNG image that is 144px wide by 144px high. Used with iPad with @2x display running iOS <= 6.'),
+    'label' => 'Apple touch icon: 144px x 144px',
+    'description' => 'A PNG image that is 144px wide by 144px high. Used with iPad with @2x display running iOS <= 6.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -169,8 +169,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon_152x152'] = array(
-    'label' => t('Apple touch icon: 152px x 152px'),
-    'description' => t('A PNG image that is 152px wide by 152px high. Used with iPad with @2x display running iOS >= 7.'),
+    'label' => 'Apple touch icon: 152px x 152px',
+    'description' => 'A PNG image that is 152px wide by 152px high. Used with iPad with @2x display running iOS >= 7.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -180,8 +180,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon_180x180'] = array(
-    'label' => t('Apple touch icon: 180px x 180px'),
-    'description' => t('A PNG image that is 180px wide by 180px high. Used with iPhone 6 Plus with @3x display.'),
+    'label' => 'Apple touch icon: 180px x 180px',
+    'description' => 'A PNG image that is 180px wide by 180px high. Used with iPhone 6 Plus with @3x display.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon',
@@ -191,8 +191,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed'] = array(
-    'label' => t('Apple touch icon (precomposed): 57px x 57px'),
-    'description' => t('A PNG image that is 57px wide by 57px high. Used with the non-Retina iPhone, iPod Touch, and Android 2.1+ devices.'),
+    'label' => 'Apple touch icon (precomposed): 57px x 57px',
+    'description' => 'A PNG image that is 57px wide by 57px high. Used with the non-Retina iPhone, iPod Touch, and Android 2.1+ devices.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',
@@ -201,8 +201,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed_72x72'] = array(
-    'label' => t('Apple touch icon (precomposed): 72px x 72px'),
-    'description' => t('A PNG image that is 72px wide by 72px high. Used with the iPad mini and the first- and second-generation iPad (@1x display) on iOS <= 6.'),
+    'label' => 'Apple touch icon (precomposed): 72px x 72px',
+    'description' => 'A PNG image that is 72px wide by 72px high. Used with the iPad mini and the first- and second-generation iPad (@1x display) on iOS <= 6.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',
@@ -212,8 +212,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed_76x76'] = array(
-    'label' => t('Apple touch icon (precomposed): 76px x 76px'),
-    'description' => t('A PNG image that is 76px wide by 76px high. Used with the iPad mini and the second-generation iPad (@1x display) on iOS >= 7.'),
+    'label' => 'Apple touch icon (precomposed): 76px x 76px',
+    'description' => 'A PNG image that is 76px wide by 76px high. Used with the iPad mini and the second-generation iPad (@1x display) on iOS >= 7.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',
@@ -223,8 +223,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed_114x114'] = array(
-    'label' => t('Apple touch icon (precomposed): 114px x 114px'),
-    'description' => t('A PNG image that is 114px wide by 114px high. Used with iPhone with @2x display running iOS <= 6.'),
+    'label' => 'Apple touch icon (precomposed): 114px x 114px',
+    'description' => 'A PNG image that is 114px wide by 114px high. Used with iPhone with @2x display running iOS <= 6.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',
@@ -234,8 +234,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed_120x120'] = array(
-    'label' => t('Apple touch icon (precomposed): 120px x 120px'),
-    'description' => t('A PNG image that is 120px wide by 120px high. Used with iPhone with @2x display running iOS >= 7.'),
+    'label' => 'Apple touch icon (precomposed): 120px x 120px',
+    'description' => 'A PNG image that is 120px wide by 120px high. Used with iPhone with @2x display running iOS >= 7.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',
@@ -245,8 +245,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed_144x144'] = array(
-    'label' => t('Apple touch icon (precomposed): 144px x 144px'),
-    'description' => t('A PNG image that is 144px wide by 144px high. Used with iPad with @2x display running iOS <= 6.'),
+    'label' => 'Apple touch icon (precomposed): 144px x 144px',
+    'description' => 'A PNG image that is 144px wide by 144px high. Used with iPad with @2x display running iOS <= 6.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',
@@ -256,8 +256,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed_152x152'] = array(
-    'label' => t('Apple touch icon (precomposed): 152px x 152px'),
-    'description' => t('A PNG image that is 152px wide by 152px high. Used with iPad with @2x display running iOS >= 7.'),
+    'label' => 'Apple touch icon (precomposed): 152px x 152px',
+    'description' => 'A PNG image that is 152px wide by 152px high. Used with iPad with @2x display running iOS >= 7.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',
@@ -267,8 +267,8 @@ function metatag_favicons_metatag_info() {
   ) + $favicon_defaults;
 
   $info['tags']['apple-touch-icon-precomposed_180x180'] = array(
-    'label' => t('Apple touch icon (precomposed): 180px x 180px'),
-    'description' => t('A PNG image that is 180px wide by 180px high. Used with iPhone 6 Plus with @3x display.'),
+    'label' => 'Apple touch icon (precomposed): 180px x 180px',
+    'description' => 'A PNG image that is 180px wide by 180px high. Used with iPhone 6 Plus with @3x display.',
     'weight' => ++$weight,
     'element' => array(
       '#rel' => 'apple-touch-icon-precomposed',

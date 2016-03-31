@@ -49,7 +49,8 @@ function metatag_context_i18n_object_info() {
   // Compile all of the tags to add to the translation stack.
   $meta_tag_info = metatag_get_info();
   $groups = $meta_tag_info['groups'];
-  foreach ($meta_tag_info['tags'] as $tag_info) {
+  foreach ($meta_tag_info['tags'] as $name => $tag_info) {
+    $instance = metatag_get_instance($name);
     // Ignore certain field types that aren't translatable, mostly fields that
     // list predetermined options in various forms.
     if (!empty($tag_info['class']) && $tag_info['class'] == 'DrupalListMetaTag') {
@@ -65,9 +66,9 @@ function metatag_context_i18n_object_info() {
     // Build a suitable structure for this meta tag.
     $tag_name = $tag_info['name'];
     $tag_group = $tag_info['group'];
-    $group_label = isset($groups[$tag_group]['label']) ? $groups[$tag_group]['label'] : $tag_group;
+    $group_label = isset($groups[$tag_group]['label']) ? t($groups[$tag_group]['label']) : $tag_group;
     $info['metatag_context']['string translation']['properties'][$tag_name] = array(
-      'title' => $group_label . ': ' . $tag_info['label'],
+      'title' => $group_label . ': ' . $instance->getTranslatedLabel(),
       'field' => "reactions.metatag_context_reaction.und.{$tag_name}.value",
     );
   }

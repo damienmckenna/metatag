@@ -17,16 +17,17 @@ function metatag_token_info() {
 
   $metatag_info = metatag_get_info();
 
-  foreach ($metatag_info['tags'] as $value) {
+  foreach ($metatag_info['tags'] as $name => $value) {
+    $instance = metatag_get_instance($name);
     if (isset($value['group'], $metatag_info['groups'][$value['group']], $metatag_info['groups'][$value['group']]['label'])) {
-      $label = t($metatag_info['groups'][$value['group']]['label']) . ': ' . t($value['label']);
+      $label = t($metatag_info['groups'][$value['group']]['label']) . ': ' . $instance->getTranslatedLabel();
     }
     else {
-      $label = t('Basic tags') . ': ' . t($value['label']);
+      $label = t('Basic tags') . ': ' . $instance->getTranslatedLabel();
     }
     $info['tokens']['metatag'][$value['name']] = array(
       'name' => $label,
-      'description' => t($value['description']),
+      'description' => $instance->getTranslatedDescription(),
     );
   }
 

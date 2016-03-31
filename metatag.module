@@ -105,9 +105,11 @@ function metatag_permission() {
     $permissions['edit meta tags']['description'] .= '<br />' . t('<em>Extended Permissions</em> has been enabled. Roles have the :admin permission will see all meta tags on edit forms, otherwise the permissions below will control which meta tags are available and are needed in addition to <em>Edit meta tags</em>.', array(':admin' => t('Administer meta tags')));
     $metatags = metatag_get_info();
     foreach ($metatags['tags'] as $metatag_name => $metatag) {
+      $instance = metatag_get_instance($metatag_name);
+      $label = $instance->getTranslatedLabel();
       $permissions['edit meta tag: ' . $metatag_name] = array(
-        'title' => t('Extended permission: Edit :tag meta tag', array(':tag' => $metatag['label'])),
-        'description' => t('Customize the :tag meta tag on individual forms.', array(':tag' => $metatag['label'])),
+        'title' => t('Extended permission: Edit :tag meta tag', array(':tag' => $label)),
+        'description' => t('Customize the :tag meta tag on individual forms.', array(':tag' => $label)),
       );
     }
   }
@@ -1390,10 +1392,19 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
       $group_key = $metatag_info['group'];
       if (isset($info['groups'][$group_key]['label']) && !isset($form['metatags'][$langcode][$group_key])) {
         $group = $info['groups'][$group_key] + array('form' => array(), 'description' => NULL);
+        $description = '';
+        if (!empty($group['description'])) {
+          if (!empty($group['description args'])) {
+            $description = t($group['description'], $group['description args']);
+          }
+          else {
+            $description = t($group['description']);
+          }
+        }
         $form['metatags'][$langcode][$group_key] = $group['form'] + array(
           '#type' => 'fieldset',
           '#title' => t($group['label']),
-          '#description' => !empty($group['description']) ? t($group['description']) : '',
+          '#description' => $description,
           '#collapsible' => TRUE,
           '#collapsed' => TRUE,
         );

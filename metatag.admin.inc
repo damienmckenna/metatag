@@ -70,7 +70,7 @@ function metatag_config_overview() {
         continue;
       }
       $summary[] = array(
-        check_plain($metatags[$metatag]['label']) . ':',
+        check_plain(t($metatags[$metatag]['label'])) . ':',
         check_plain(metatag_get_value($metatag, $data, array('raw' => TRUE))),
       );
     }

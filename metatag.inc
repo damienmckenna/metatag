@@ -26,6 +26,10 @@ interface DrupalMetaTagInterface {
 
   function getElement();
 
+  function getTranslatedLabel();
+
+  function getTranslatedDescription();
+
   function tidyValue($value);
 
 }
@@ -152,6 +156,37 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   }
 
   /**
+   * The meta tag's full label after being passed through t().
+   *
+   * @return string
+   *   The meta tag's translated label.
+   */
+  public function getTranslatedLabel() {
+    return t($this->info['label']);
+  }
+
+  /**
+   * The meta tag's full description after being passed through t().
+   *
+   * This will use the 'description args' if present.
+   *
+   * @return string
+   *   The meta tag's translated description.
+   */
+  public function getTranslatedDescription() {
+    $description = '';
+    if (!empty($this->info['description'])) {
+      if (isset($this->info['description args'])) {
+        $description = t($this->info['description'], $this->info['description args']);
+      }
+      else {
+        $description = t($this->info['description']);
+      }
+    }
+    return $description;
+  }
+
+  /**
    * Remove unwanted formatting from a meta tag.
    *
    * @param $value string
@@ -197,8 +232,8 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
 
     $form['value'] += array(
       '#type' => 'textfield',
-      '#title' => t($this->info['label']),
-      '#description' => !empty($this->info['description']) ? t($this->info['description']) : '',
+      '#title' => $this->getTranslatedLabel(),
+      '#description' => $this->getTranslatedDescription(),
       '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
       '#element_validate' => array('token_element_validate'),
       '#token_types' => $options['token types'],
@@ -394,8 +429,8 @@ class DrupalListMetaTag extends DrupalDefaultMetaTag {
 
     $form['value'] += array(
       '#type' => 'checkboxes',
-      '#title' => $this->info['label'],
-      '#description' => !empty($this->info['description']) ? $this->info['description'] : '',
+      '#title' => $this->getTranslatedLabel(),
+      '#description' => $this->getTranslatedDescription(),
       '#default_value' => isset($this->data['value']) ? $this->data['value'] : array(),
     );
 
@@ -432,7 +467,8 @@ class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
   public function getForm(array $options = array()) {
     $form['value'] = array(
       '#type' => 'textfield',
-      '#title' => t('@title interval', array('@title' => $this->info['label'])),
+      '#title' => t('@title interval', array('@title' => $this->getTranslatedLabel())),
+      '#description' => $this->getTranslatedDescription(),
       '#default_value' => isset($this->data['value']) ? $this->data['value'] : '',
       '#element_validate' => array('element_validate_integer_positive'),
       '#maxlength' => 4,
@@ -440,7 +476,7 @@ class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
     );
     $form['period'] = array(
       '#type' => 'select',
-      '#title' => t('@title interval type', array('@title' => $this->info['label'])),
+      '#title' => t('@title interval type', array('@title' => $this->getTranslatedLabel())),
       '#default_value' => isset($this->data['period']) ? $this->data['period'] : '',
       '#options' => array(
         '' => t('- none -'),

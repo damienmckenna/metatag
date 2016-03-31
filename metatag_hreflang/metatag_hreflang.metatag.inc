@@ -43,8 +43,8 @@ function metatag_hreflang_metatag_bundled_config_alter(array &$configs) {
  */
 function metatag_hreflang_metatag_info() {
   $info['groups']['hreflang'] = array(
-    'label' => t('Alternative language links (hreflang)'),
-    'description' => t('These meta tags are designed to point visitors to versions of the current page in other languages. It is recommended to use the default "[node:url-LANGCODE]" tokens for the hreflang values, they will only be output if a translation exists for that locale. Also, it is suggested to use the "[node:source:url]" token for the default locale.'),
+    'label' => 'Alternative language links (hreflang)',
+    'description' => 'These meta tags are designed to point visitors to versions of the current page in other languages. It is recommended to use the default "[node:url-LANGCODE]" tokens for the hreflang values, they will only be output if a translation exists for that locale. Also, it is suggested to use the "[node:source:url]" token for the default locale.',
     'form' => array(
       '#weight' => 60,
     ),
@@ -60,8 +60,8 @@ function metatag_hreflang_metatag_info() {
   );
 
   $info['tags']['hreflang_xdefault'] = array(
-    'label' => t('Default locale (x-default)'),
-    'description' => t('This should point to the version of the page that is for the main or primary locale, e.g. the original version of an article that is translated into other languages.'),
+    'label' => 'Default locale (x-default)',
+    'description' => 'This should point to the version of the page that is for the main or primary locale, e.g. the original version of an article that is translated into other languages.',
     'weight' => $weight,
     'element' => array(
       '#theme' => 'metatag_link_hreflang',
