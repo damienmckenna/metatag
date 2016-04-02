@@ -64,6 +64,9 @@ metatag_twitter_cards.metatag_tag.twitter_cards_image_height:
 metatag_twitter_cards.metatag_tag.twitter_cards_image_width:
   type: label
   label: 'Twitter Cards: Image width'
+metatag_twitter_cards.metatag_tag.twitter_cards_image_alt:
+  type: label
+  label: 'Twitter Cards: Image alternative text'
 metatag_twitter_cards.metatag_tag.twitter_cards_label1:
   type: label
   label: 'Twitter Cards: Label 1'
