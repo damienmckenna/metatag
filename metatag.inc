@@ -166,6 +166,9 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     // doesn't end up with a bunch of a-circumflex characters.
     $value = str_replace('&nbsp;', ' ', $value);
 
+    // Decode HTML entities.
+    $value = decode_entities($value);
+
     // Remove any HTML code that might have been included.
     $value = strip_tags($value);
 
