@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.14, 2016-04-02
+----------------------------
 By DamienMcKenna: Corrected return code from update 7107.
 #2664624 by DamienMcKenna: Added a space in front of the Google Plus schemaorg
   variable to avoid HTML validation errors because of the lack of space.
