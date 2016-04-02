@@ -18,7 +18,7 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   name = "twitter:gallery:image3",
  *   group = "twitter_cards",
  *   weight = 203,
- *   image = TRUE,
+ *   type = "image",
  *   multiple = FALSE
  * )
  */

@@ -19,7 +19,7 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   name = "twitter:creator",
  *   group = "twitter_cards",
  *   weight = 4,
- *   image = FALSE,
+ *   type = "string",
  *   multiple = FALSE
  * )
  */

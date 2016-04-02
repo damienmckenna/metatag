@@ -18,7 +18,7 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   name = "twitter:app:url:ipad",
  *   group = "twitter_cards",
  *   weight = 305,
- *   image = FALSE,
+ *   type = "uri",
  *   multiple = FALSE
  * )
  */

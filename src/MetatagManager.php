@@ -298,7 +298,7 @@ class MetatagManager implements MetatagManagerInterface {
         // @see @Robots::setValue().
         $tag->setValue($value);
         $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
-        if ($tag->image()) {
+        if ($tag->type() === 'image') {
           $processed_value = $this->tokenService->replace($tag->value(), $token_replacements, array('langcode' => $langcode));
         }
         else {

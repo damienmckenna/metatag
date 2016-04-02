@@ -16,7 +16,7 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
  *   name = "generator",
  *   group = "advanced",
  *   weight = 4,
- *   image = FALSE,
+ *   type = "string",
  *   multiple = FALSE
  * )
  */

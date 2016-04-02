@@ -18,7 +18,7 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   name = "twitter:player:width",
  *   group = "twitter_cards",
  *   weight = 401,
- *   image = FALSE,
+ *   type = "integer",
  *   multiple = FALSE
  * );
  */

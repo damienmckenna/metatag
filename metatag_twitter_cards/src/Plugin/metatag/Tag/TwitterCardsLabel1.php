@@ -18,7 +18,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   name = "twitter:label1",
  *   group = "twitter_cards",
  *   weight = 500,
- *   image = FALSE,
+ *   type = "string",
  *   multiple = FALSE
  * )
  */

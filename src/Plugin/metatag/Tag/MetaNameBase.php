@@ -58,11 +58,11 @@ abstract class MetaNameBase extends PluginBase {
   protected $group;
 
   /**
-   * True if an image URL needs to be parsed out.
+   * Type of the value being stored.
    *
-   * @var boolean
+   * @var string
    */
-  protected $image;
+  protected $type;
 
   /**
    * True if more than one is allowed.
@@ -92,7 +92,7 @@ abstract class MetaNameBase extends PluginBase {
     $this->description = $plugin_definition['description'];
     $this->group = $plugin_definition['group'];
     $this->weight = $plugin_definition['weight'];
-    $this->image = $plugin_definition['image'];
+    $this->type = $plugin_definition['type'];
     $this->multiple = $plugin_definition['multiple'];
   }
 
@@ -114,8 +114,8 @@ abstract class MetaNameBase extends PluginBase {
   public function weight() {
     return $this->weight;
   }
-  public function image() {
-    return $this->image;
+  public function type() {
+    return $this->type;
   }
   public function multiple() {
     return $this->multiple;
@@ -149,7 +149,7 @@ abstract class MetaNameBase extends PluginBase {
     }
 
     // Optional handling for images.
-    if (!empty($this->image)) {
+    if (!empty($this->type() === 'image')) {
       $form['#description'] .= ' ' . $this->t('This will be able to extract the URL from an image field.');
     }
 
@@ -214,7 +214,7 @@ abstract class MetaNameBase extends PluginBase {
     $value = $this->value();
 
     // If this contains embedded image tags, extract the image URLs.
-    if ($this->image()) {
+    if ($this->type() === 'image') {
       // If image tag src is relative (starts with /), convert to an absolute
       // link.
       global $base_root;

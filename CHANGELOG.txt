@@ -9,6 +9,8 @@ By DamienMcKenna: Added a CODE_OF_CONDUCT.txt file that references the Drupal
 #2688963 by DamienMcKenna: Added a note about the Yoast SEO module.
 #2696445 by DuaelFr, Simon Georges, DamienMcKenna: Added the twitter:image:alt
   meta tag.
+#2692117 by penyaskito, DamienMcKenna: Replaced the 'image' attribute with a
+  general 'type' attribute.
 
 
 Metatag 8.x-1.0-beta5, 2016-03-11
