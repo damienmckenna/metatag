@@ -87,6 +87,16 @@ There is also a command for generating meta tag groups:
 Again, this provides a guided process to create a new group.
 
 
+Related modules
+--------------------------------------------------------------------------------
+Some modules are available that extend Metatag with additional or complimentary
+functionality:
+
+* Yoast SEO
+  https://www.drupal.org/project/yoast_seo
+  Adds integration with the Yoast service (https://yoast.com/).
+
+
 Credits / contact
 --------------------------------------------------------------------------------
 Currently maintained by Damien McKenna [2] and Dave Reid [3]. Drupal 7 module
