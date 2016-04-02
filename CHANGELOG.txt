@@ -16,6 +16,7 @@ By DamienMcKenna: Corrected return code from update 7107.
 #2687847 by DamienMcKenna: Added a note about the Parse.ly module.
 #2696445 by Simon Georges: Added the twitter:image:alt meta tag.
 #2678896 by Dave Reid: Fixed double-encoding of form fields.
+#2667214 by DamienMcKenna: Improved tests for string encoding.
 
 
 Metatag 7.x-1.13, 2016-03-04
