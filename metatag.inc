@@ -161,6 +161,11 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
    *   The meta tag value after it has been tidied up.
    */
   public function tidyValue($value) {
+    // Check for Media strings from the WYSIWYG submodule.
+    if (module_exists('media_wysiwyg') && strpos($value, '[[{') !== FALSE) {
+      $value = media_wysiwyg_filter($value);
+    }
+
     // Specifically replace encoded spaces, because some WYSIWYG editors are
     // silly. Do this before decoding the other HTML entities so that the output
     // doesn't end up with a bunch of a-circumflex characters.

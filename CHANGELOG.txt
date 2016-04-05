@@ -20,6 +20,8 @@ By DamienMcKenna: Corrected return code from update 7107.
 #2667214 by joelstein, DamienMcKenna: Decode HTML entities prior to rendering
   meta tags.
 #2700217 by DamienMcKenna: Added Media module as a test dependency.
+#2700217 by DamienMcKenna: Automatically filter out Media embed codes from meta
+  tags when the Media WYSIWYG module is installed.
 
 
 Metatag 7.x-1.13, 2016-03-04

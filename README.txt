@@ -121,6 +121,9 @@ The primary features include:
 * An import script is provided in the Metatag:Importer submodule for D6 sites
   that used Nodewords and need to migrate the data.
 
+* If the Media module (v2) is installed, the Media WYSIWYG submodule will be
+  used to automatically filter out Media's embed codes.
+
 
 Configuration
 --------------------------------------------------------------------------------
