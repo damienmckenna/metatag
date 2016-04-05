@@ -57,3 +57,7 @@ test_dependencies[] = i18n
 test_dependencies[] = context
 test_dependencies[] = panels
 test_dependencies[] = views
+
+; These are required for the Media integration.
+test_dependencies[] = file_entity
+test_dependencies[] = media

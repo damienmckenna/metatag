@@ -19,6 +19,7 @@ By DamienMcKenna: Corrected return code from update 7107.
 #2667214 by DamienMcKenna: Improved tests for string encoding.
 #2667214 by joelstein, DamienMcKenna: Decode HTML entities prior to rendering
   meta tags.
+#2700217 by DamienMcKenna: Added Media module as a test dependency.
 
 
 Metatag 7.x-1.13, 2016-03-04
