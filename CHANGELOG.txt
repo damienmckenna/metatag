@@ -1,6 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2709985 by alzz: Added fb:pages meta tag for Facebook Instant Pages.
+#2703081 by DylanUnderwood: Added apple-mobile-web-app-title meta tag.
 
 
 Metatag 7.x-1.14, 2016-04-02
