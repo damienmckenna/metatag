@@ -1974,8 +1974,14 @@ function metatag_update_7103() {
  * Remove the entity revision ID from the translation strings.
  */
 function metatag_update_7104(&$sandbox) {
+  // Verify that locales are being used in the first place.
   if (!module_exists('locale') || !db_table_exists('locales_source')) {
-    return t('No translations to fix as the locale system is not enabled.');
+    return t('Metatag: No translations to fix as the locale system is not enabled.');
+  }
+
+  // No need to do anything if output translation is disabled.
+  if (!variable_get('metatag_i18n_translate_output', FALSE)) {
+    return t('Metatag: Output translation is disabled, so no need to update anything.');
   }
 
   // Process records by groups of 10 (arbitrary value).
@@ -2104,4 +2110,41 @@ function metatag_update_7107() {
     AND location LIKE 'metatag:global:%'");
 
   return t('Fixed the Metatag global config string translations.');
+}
+
+/**
+ * Delete output translations if it's disabled.
+ */
+function metatag_update_7108() {
+  // If the output-translation option is enabled then don't delete anything.
+  if (variable_get('metatag_i18n_translate_output', FALSE)) {
+    return t("Metatag: Not deleting output translations because that option is enabled.");
+  }
+
+  $lids = db_select('locales_source', 'ls')
+    ->fields('ls', array('lid'))
+    ->condition('ls.textgroup', 'metatag')
+    ->condition('ls.context', 'output:%', 'LIKE')
+    ->execute()
+    ->fetchCol();
+
+  if (!empty($lids)) {
+    // Delete records in the tables in reverse order, so that if the query fails
+    // and has to be reran it'll still find records. But it should be ok.
+    if (db_table_exists('i18n_string')) {
+      db_delete('i18n_string')
+        ->condition('lid', $lids)
+        ->execute();
+    }
+    db_delete('locales_target')
+      ->condition('lid', $lids)
+      ->execute();
+    db_delete('locales_source')
+      ->condition('lid', $lids)
+      ->execute();
+    return t('Metatag: Removed @count output translation records that were not needed.', array('@count' => count($lids)));
+  }
+  else {
+    return t('Metatag; No output translation records needed to be removed.');
+  }
 }

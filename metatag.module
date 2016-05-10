@@ -2763,9 +2763,10 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  *   String in default language or array of strings to be translated.
  * @param string $tag_name
  *   The internal name of the meta tag being translated.
- * @param string $context
- *   A context to use with i18n, defaults to the string "output"
- *   indicating it is translating the final rendered output strings.
+ * @param mixed $context
+ *   A context string to use with i18n, or the $options array from a Metatag::
+ *   getValue() method; if the latter it will be used to generate the full
+ *   context.
  * @param string $langcode
  *   The language code to submit instead of the current page's language.
  * @param bool $update
@@ -2777,7 +2778,7 @@ function metatag_entity_translation_delete($entity_type, $entity, $langcode) {
  *
  * @see i18n_string_translate()
  */
-function metatag_translate_metatag($string, $tag_name, $context = 'output', $langcode = NULL, $update = TRUE) {
+function metatag_translate_metatag($string, $tag_name, $context, $langcode = NULL, $update = TRUE) {
   if (module_exists('i18n_string') && !variable_get('metatag_i18n_disabled', FALSE)) {
     // By default do not add meta tags to admin pages. To enable meta tags on
     // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
@@ -2792,37 +2793,16 @@ function metatag_translate_metatag($string, $tag_name, $context = 'output', $lan
       return $string;
     }
 
-    // Optionally disable output translations.
-    static $process_output;
-    if ($context == 'output') {
-      if (is_null($process_output)) {
-        $process_output = (bool) variable_get('metatag_i18n_translate_output', FALSE);
-      }
-      if (!$process_output) {
-        return;
-      }
-    }
-
-    $options = array(
-      // Automatically create/update the {locales_source} record if one wasn't
-      // found.
-      'update' => $update,
-      // Translate the string.
-      'translate' => TRUE,
-    );
-
-    // If the langcode was passed in, add it to the options passed to i18n.
-    if (!empty($langcode)) {
-      $options['langcode'] = $langcode;
-    }
-
-    // By default disable the watchdog logging of translation messages.
-    $options['watchdog'] = variable_get('metatag_i18n_enable_watchdog', FALSE);
-
     // If the context is an array then it is the $options from the meta tag
     // generator and needs some custom tailoring. Doing it this way to avoid an
     // unnecessary entity_extract_ids() call when i18n isn't being used.
     if (is_array($context)) {
+      // Optionally disable output generation.
+      if (!variable_get('metatag_i18n_translate_output', FALSE)) {
+        return $string;
+      }
+
+      // Output generation was enabled, so continue as normal.
       $new_context = 'output:';
       if (drupal_is_front_page()) {
         $new_context .= 'frontpage';
@@ -2841,6 +2821,22 @@ function metatag_translate_metatag($string, $tag_name, $context = 'output', $lan
       }
       $context = $new_context;
     }
+
+    $options = array(
+      // Automatically create/update the {locales_source} record if one wasn't
+      // found.
+      'update' => $update,
+      // Translate the string.
+      'translate' => TRUE,
+    );
+
+    // If the langcode was passed in, add it to the options passed to i18n.
+    if (!empty($langcode)) {
+      $options['langcode'] = $langcode;
+    }
+
+    // By default disable the watchdog logging of translation messages.
+    $options['watchdog'] = variable_get('metatag_i18n_enable_watchdog', FALSE);
 
     // Triggers hook_metatag_i18n_context_alter() - allows the i18n string to
     // be altered before being used.
