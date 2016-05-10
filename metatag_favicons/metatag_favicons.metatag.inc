@@ -38,13 +38,13 @@ function metatag_favicons_metatag_info() {
   );
 
   $info['tags']['shortcut icon'] = array(
-      'label' => t('Default shortcut icon'),
-      'description' => t('The traditional favicon, must be either a GIF, ICO, JPG/JPEG or PNG image.'),
-      'weight' => ++$weight,
-      'element' => array(
-        '#rel' => 'shortcut icon',
-        '#theme' => 'metatag_shortcut_icon',
-      ),
+    'label' => t('Default shortcut icon'),
+    'description' => t('The traditional favicon, must be either a GIF, ICO, JPG/JPEG or PNG image.'),
+    'weight' => ++$weight,
+    'element' => array(
+      '#rel' => 'shortcut icon',
+      '#theme' => 'metatag_shortcut_icon',
+    ),
   ) + $favicon_defaults;
 
   $info['tags']['icon_any'] = array(

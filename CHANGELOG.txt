@@ -8,6 +8,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2704805 by jcnventura: Fixed the hreflang meta tag.
 #2678004 by alvar0hurtad0: Improvements to the API documentation.
 By DamienMcKenna: Corrected some messages in metatag_update_7104.
+By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
 
 
 Metatag 7.x-1.14, 2016-04-02
