@@ -2003,9 +2003,9 @@ function metatag_update_7104(&$sandbox) {
 
     // If there's no data, don't bother with the extra work.
     if (empty($sandbox['max'])) {
-      watchdog('metatag', 'Update 7102: No nodes need the translation entity string fixed.', array(), WATCHDOG_INFO);
+      watchdog('metatag', 'Update 7104: No nodes need the translation entity string fixed.', array(), WATCHDOG_INFO);
       if (drupal_is_cli()) {
-        drupal_set_message(t('Update 7102: No nodes need the translation entity string fixed.'));
+        drupal_set_message(t('Update 7104: No nodes need the translation entity string fixed.'));
       }
       return t('No nodes need the Metatag language values fixed.');
     }
@@ -2014,9 +2014,9 @@ function metatag_update_7104(&$sandbox) {
     $sandbox['messages'] = array();
 
     // An initial record of the number of records to be updated.
-    watchdog('metatag', 'Update 7102: !count records to update.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
+    watchdog('metatag', 'Update 7104: !count records to update.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
     if (drupal_is_cli()) {
-      drupal_set_message(t('Update 7102: !count records to update.', array('!count' => $sandbox['max'])));
+      drupal_set_message(t('Update 7104: !count records to update.', array('!count' => $sandbox['max'])));
     }
   }
 

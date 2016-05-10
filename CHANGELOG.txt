@@ -7,6 +7,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2703081 by DylanUnderwood: Added apple-mobile-web-app-title meta tag.
 #2704805 by jcnventura: Fixed the hreflang meta tag.
 #2678004 by alvar0hurtad0: Improvements to the API documentation.
+By DamienMcKenna: Corrected some messages in metatag_update_7104.
 
 
 Metatag 7.x-1.14, 2016-04-02
