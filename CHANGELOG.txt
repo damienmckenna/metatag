@@ -11,6 +11,8 @@ By DamienMcKenna: Corrected some messages in metatag_update_7104.
 By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
 #2687309 by das-peter, skein, DamienMcKenna, k_zoltan: Fixed output translations
   so it's actually disabled when it's turned off.
+#2712815 by Chalk, DamienMcKenna: Rewrote update scripts that rename meta tags
+  to use two new shared functions, and always use a sandbox for it.
 
 
 Metatag 7.x-1.14, 2016-04-02

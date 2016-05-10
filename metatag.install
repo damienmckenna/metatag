@@ -452,6 +452,118 @@ function metatag_enable() {
 }
 
 /**
+ * Replace one meta tag with another in the entity records.
+ *
+ * @param array $sandbox
+ *   A Batch API sandbox, passed by reference.
+ * @param string $old_tag
+ *   The meta tag that is to be replaced.
+ * @param string $new_tag
+ *   The meta tag that replaces the old one.
+ */
+function metatag_update_replace_meta_tag(&$sandbox, $old_tag, $new_tag) {
+  if (!isset($sandbox['progress'])) {
+    // Count of all {metatag} records that contained an entry for the old meta
+    // tag.
+    $records_count = db_select('metatag', 'm')
+      ->condition('m.data', '%' . db_like('"" . $old_tag . ""') . '%', 'LIKE')
+      ->countQuery()
+      ->execute()
+      ->fetchField();
+
+    if (empty($records_count)) {
+      return t('No Metatag entity records needed to have the "' . $old_tag . '" meta tag renamed.');
+    }
+
+    $sandbox['max'] = $records_count;
+    $sandbox['progress'] = 0;
+  }
+
+  // Count of rows that will be processed per iteration.
+  $limit = 100;
+
+  // Fetches a part of records.
+  $records = db_select('metatag', 'm')
+    ->fields('m', array())
+    ->condition('m.data', '%' . db_like('"' . $old_tag . '"') . '%', 'LIKE')
+    ->range(0, $limit)
+    ->execute();
+
+  $count = 0;
+  $keys = array('entity_type', 'entity_id', 'revision_id', 'language');
+
+  // Loop over the values and correct them.
+  foreach ($records as $record) {
+    $record->data = unserialize($record->data);
+
+    if (isset($record->data[$old_tag])) {
+      $record->data[$new_tag] = $record->data[$old_tag];
+      unset($record->data[$old_tag]);
+      drupal_write_record('metatag', $record, $keys);
+
+      // Clear the cache for the entity this belongs to.
+      entity_get_controller($record->entity_type)->resetCache(array($record->entity_id));
+    }
+
+    $count++;
+  }
+
+  if (!empty($count)) {
+    $sandbox['progress'] += $count;
+    $sandbox['#finished'] = min(0.99, $sandbox['progress'] / $sandbox['max']);
+  }
+  else {
+    $sandbox['#finished'] = 1;
+    return t('Converted the "' . $old_tag . '" meta tag for @count entity records to "' . $new_tag . '" meta tag.', array('@count' => $sandbox['progress']));
+  }
+}
+
+/**
+ * Replace one meta tag with another in the configs.
+ *
+ * @param string $old_tag
+ *   The meta tag that is to be replaced.
+ * @param string $new_tag
+ *   The meta tag that replaces the old one.
+ */
+function metatag_update_replace_config($old_tag, $new_tag) {
+  // Find all {metatag_config} records that contained an entry for the old meta
+  // tag.
+  $records = db_select('metatag_config', 'm')
+    ->fields('m', array('cid', 'config'))
+    ->condition('m.config', '%' . db_like('"' . $old_tag . '"') . '%', 'LIKE')
+    ->execute();
+  // This message will be returned if nothing needed to be updated.
+  $none_message = t('No Metatag configuration records needed to have the "og:video" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
+
+  // Loop over the values and correct them.
+  if ($records->rowCount() == 0) {
+    drupal_set_message($none_message);
+  }
+  else {
+    $keys = array('cid');
+
+    // Loop over the values and correct them.
+    $counter = 0;
+    foreach ($records as $record) {
+      $record->config = unserialize($record->config);
+      if (isset($record->config[$old_tag])) {
+        $record->config[$new_tag] = $record->config[$old_tag];
+        unset($record->config['og:video']);
+        drupal_write_record('metatag_config', $record, $keys);
+        $counter++;
+      }
+    }
+    if ($counter == 0) {
+      drupal_set_message($none_message);
+    }
+    else {
+      drupal_set_message(t('Converted the "' . $old_tag . '" meta tag for @count configurations to the new "' . $new_tag . '" meta tag.', array('@count' => $counter)));
+    }
+  }
+}
+
+/**
  * Disable the deprecated metatag_ui module, which has been merged into metatag.
  */
 function metatag_update_7000() {
@@ -1527,38 +1639,10 @@ function metatag_update_7025() {
 /**
  * Rename the 'copyright' meta tag to 'rights', part 1.
  */
-function metatag_update_7026() {
-  // Find all {metatag} records that contained an entry for the old meta tag.
-  $records = db_query("SELECT entity_type, entity_id, revision_id, language, data
-    FROM {metatag}
-    WHERE data LIKE '%copyright%'");
-  // This message will be returned if nothing needed to be updated.
-  $none_message = t('No Metatag entity records needed to have the "copyright" meta tag fixed.');
-
-  if ($records->rowCount() == 0) {
-    drupal_set_message($none_message);
-  }
-  else {
-    $keys = array('entity_type', 'entity_id', 'revision_id', 'language');
-
-    // Loop over the values and correct them.
-    $counter = 0;
-    foreach ($records as $record) {
-      $record->data = unserialize($record->data);
-      if (isset($record->data['copyright'])) {
-        $record->data['rights'] = $record->data['copyright'];
-        unset($record->data['copyright']);
-        drupal_write_record('metatag', $record, $keys);
-        $counter++;
-      }
-    }
-    if ($counter == 0) {
-      drupal_set_message($none_message);
-    }
-    else {
-      drupal_set_message(t('Converted the "copyright" meta tag for @count entity records to the correct "rights" meta tag.', array('@count' => $counter)));
-    }
-  }
+function metatag_update_7026(&$sandbox) {
+  $old_tag = 'copyright';
+  $new_tag = 'rights';
+  return metatag_update_replace_meta_tag($sandbox, $old_tag, $new_tag);
 }
 
 /**
@@ -1599,39 +1683,9 @@ function metatag_update_7030() {
  * Rename the 'copyright' meta tag to 'rights', part 2.
  */
 function metatag_update_7031() {
-  // Find all {metatag_config} records that contained an entry for the old meta
-  // tag.
-  $records = db_query("SELECT cid, config
-    FROM {metatag_config}
-    WHERE config LIKE '%copyright%'");
-  // This message will be returned if nothing needed to be updated.
-  $none_message = t('No Metatag configuration records needed to have the "copyright" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
-
-  // Loop over the values and correct them.
-  if ($records->rowCount() == 0) {
-    drupal_set_message($none_message);
-  }
-  else {
-    $keys = array('cid');
-
-    // Loop over the values and correct them.
-    $counter = 0;
-    foreach ($records as $record) {
-      $record->config = unserialize($record->config);
-      if (isset($record->config['copyright'])) {
-        $record->config['rights'] = $record->config['copyright'];
-        unset($record->config['copyright']);
-        drupal_write_record('metatag_config', $record, $keys);
-        $counter++;
-      }
-    }
-    if ($counter == 0) {
-      drupal_set_message($none_message);
-    }
-    else {
-      drupal_set_message(t('Converted the "copyright" meta tag for @count configurations to the correct "rights" meta tag.', array('@count' => $counter)));
-    }
-  }
+  $old_tag = 'copyright';
+  $new_tag = 'rights';
+  return metatag_update_replace_config($old_tag, $new_tag);
 }
 
 /**
