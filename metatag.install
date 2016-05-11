@@ -2202,3 +2202,23 @@ function metatag_update_7108() {
     return t('Metatag; No output translation records needed to be removed.');
   }
 }
+
+/**
+ * Rename the 'icon_any' meta tag to 'mask-icon' in the entity records.
+ */
+function metatag_update_7109(&$sandbox) {
+  module_load_include('install', 'metatag');
+  $old_tag = 'icon_any';
+  $new_tag = 'mask-icon';
+  return metatag_update_replace_meta_tag($sandbox, $old_tag, $new_tag);
+}
+
+/**
+ * Rename the 'icon_any' meta tag to 'mask-icon' in the configs.
+ */
+function metatag_update_7110() {
+  module_load_include('install', 'metatag');
+  $old_tag = 'icon_any';
+  $new_tag = 'mask-icon';
+  return metatag_update_replace_config($old_tag, $new_tag);
+}
