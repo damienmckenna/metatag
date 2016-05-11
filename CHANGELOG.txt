@@ -16,6 +16,8 @@ By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
 #2720463 by DamienMcKenna: Rename the icon_any favicon to mask-icon.
 #2276855 by ben.kyriakou: Properly handle the 'disabled' state when featurized
   configs are reverted.
+#2687309 by das-peter, DamienMcKenna: Submodules shouldn't update translations
+  during page load.
 
 
 Metatag 7.x-1.14, 2016-04-02

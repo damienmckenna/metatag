@@ -2876,13 +2876,17 @@ function metatag_translate_metatag($string, $tag_name, $context, $langcode = NUL
  *   List of meta tags to be translated.
  * @param string $context
  *   An optional context to use with i18n.
+ * @param string $langcode
+ *   The language code to submit instead of the current page's language.
+ * @param bool $update
+ *   Whether or not to create/update records in {locales_source}.
  */
-function metatag_translate_metatags(&$metatags, $context = NULL) {
+function metatag_translate_metatags(&$metatags, $context = NULL, $langcode = NULL, $update = TRUE) {
   if (!empty($metatags)) {
     foreach ($metatags as $key => $data) {
       if (!empty($data['value']) && is_string($data['value'])) {
         $metatags[$key] = array(
-          'value' => metatag_translate_metatag($data['value'], $key, $context),
+          'value' => metatag_translate_metatag($data['value'], $key, $context, $langcode, $update),
         );
       }
     }
