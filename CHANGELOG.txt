@@ -14,6 +14,8 @@ By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
 #2712815 by Chalk, DamienMcKenna: Rewrote update scripts that rename meta tags
   to use two new shared functions, and always use a sandbox for it.
 #2720463 by DamienMcKenna: Rename the icon_any favicon to mask-icon.
+#2276855 by ben.kyriakou: Properly handle the 'disabled' state when featurized
+  configs are reverted.
 
 
 Metatag 7.x-1.14, 2016-04-02
