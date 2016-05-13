@@ -5,6 +5,9 @@ Metatag 8.x-1.0-beta7, 2016-04-03
 #2619450 by paulmckibben: Remove core's Canonical URL tag if Metatag is adding
   one.
 #2712277 by markdorison: Twitter Card Type meta tag wasn't updating.
+#2650408 by Raphael Apard, DamienMcKenna, gaurav.goyal, dpacassi, kyberman:
+  A node's meta tags should not override the front page defaults unless the
+  defaults are disabled/deleted.
 
 
 Metatag 8.x-1.0-beta6, 2016-04-02
