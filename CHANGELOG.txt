@@ -2,6 +2,8 @@ Metatag 8.x-1.0-beta7, 2016-04-03
 ---------------------------------
 #2699173 by DamienMcKenna: Fixed OgUpdatedTime annotations.
 #2723319 by itmaybejj: Fixed misspelling of 'its'.
+#2619450 by paulmckibben: Remove core's Canonical URL tag if Metatag is adding
+  one.
 
 
 Metatag 8.x-1.0-beta6, 2016-04-02
