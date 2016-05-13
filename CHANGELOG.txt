@@ -95,8 +95,10 @@ Metatag 7.x-1.9, 2016-01-21
 #2651812 by DamienMcKenna: Added an option to disable the i18n integration.
 #2420489 by Les Lim, DamienMcKenna: New caching process for entities.
 #2652260 by DamienMcKenna: Remove the revision_id from translation string IDs.
-#2652294 by DamienMcKenna, zniki.ru: Incorrect string context was being used
-  for meta tag output translation.
+#2509246 by DamienMcKenna, zniki.ru: Remove meta tags added by core, with option
+  to leave them as-is.
+#2652294 by DamienMcKenna: Incorrect string context was being used for meta tag
+  output translation.
 #2653434 by DamienMcKenna, reinchek: Fixed metatag_metatags_load().
 #2653446 by DamienMcKenna: Wrong variable name passed to
   metatag_config_delete().
