@@ -41,7 +41,7 @@ class TwitterCardsType extends MetaPropertyBase {
         'player' => t('Player Card'),
         'product' => t('Product Card'),
       ),
-      '#default_value' => 'summary',
+      '#default_value' => $this->value(),
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#element_validate' => array(array(get_class($this), 'validateTag')),
     );
