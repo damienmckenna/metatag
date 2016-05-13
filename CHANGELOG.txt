@@ -8,6 +8,8 @@ Metatag 8.x-1.0-beta7, 2016-04-03
 #2650408 by Raphael Apard, DamienMcKenna, gaurav.goyal, dpacassi, kyberman:
   A node's meta tags should not override the front page defaults unless the
   defaults are disabled/deleted.
+#2684479 by mikeyk, DamienMcKenna, aspilicious: Added 'secure' option as some
+  meta tags require HTTPS URLs.
 
 
 Metatag 8.x-1.0-beta6, 2016-04-02
