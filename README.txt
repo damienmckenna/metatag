@@ -47,6 +47,9 @@ The primary features include:
   engine to confirm ownership of the site; see the "Metatag: Verification"
   submodule.
 
+* Certain meta tags used by Google+ may be added by enabling the "Metatag:
+  Google+" submodule.
+
 
 Standard usage scenario
 --------------------------------------------------------------------------------

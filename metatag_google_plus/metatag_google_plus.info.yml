@@ -1,0 +1,7 @@
+name: 'Metatag: Google Plus'
+type: module
+description: Provides support for Google's Plus meta tags.
+core: 8.x
+package: SEO
+dependencies:
+  - metatag

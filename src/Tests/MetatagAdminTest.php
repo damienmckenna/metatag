@@ -23,6 +23,7 @@ class MetatagAdminTest extends WebTestBase {
     'test_page_test',
     'token',
     'metatag',
+    'metatag_google_plus',
     'metatag_open_graph',
     'metatag_twitter_cards',
     'metatag_verification',
