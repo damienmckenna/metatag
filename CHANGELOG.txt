@@ -1,6 +1,5 @@
-Metatag 8.x-1.0-beta7, 2016-04-03
----------------------------------
-#2699173 by DamienMcKenna: Fixed OgUpdatedTime annotations.
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
 #2723319 by itmaybejj: Fixed misspelling of 'its'.
 #2619450 by paulmckibben: Remove core's Canonical URL tag if Metatag is adding
   one.
@@ -19,6 +18,11 @@ Metatag 8.x-1.0-beta7, 2016-04-03
 #2708511 by DamienMcKenna: Added the referrer meta tag.
 #2563629 by Jim.M, DamienMcKenna: Added site verification tags.
 #2721857 by marvin_B8, DamienMcKenna: Added Google+ meta tags.
+
+
+Metatag 8.x-1.0-beta7, 2016-04-03
+---------------------------------
+#2699173 by DamienMcKenna: Fixed OgUpdatedTime annotations.
 
 
 Metatag 8.x-1.0-beta6, 2016-04-02
