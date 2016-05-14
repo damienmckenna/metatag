@@ -10,6 +10,7 @@ Metatag 8.x-1.0-beta7, 2016-04-03
   defaults are disabled/deleted.
 #2684479 by mikeyk, DamienMcKenna, aspilicious: Added 'secure' option as some
   meta tags require HTTPS URLs.
+#2699297 by DamienMcKenna: Added tests to ensure submodules can be enabled.
 
 
 Metatag 8.x-1.0-beta6, 2016-04-02
