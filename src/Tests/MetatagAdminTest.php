@@ -25,6 +25,7 @@ class MetatagAdminTest extends WebTestBase {
     'metatag',
     'metatag_open_graph',
     'metatag_twitter_cards',
+    'metatag_verification',
   );
 
   /**

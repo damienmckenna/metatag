@@ -17,6 +17,7 @@ Metatag 8.x-1.0-beta7, 2016-04-03
 #2705851 by vasi: Load field definitions, not field values, when getting a list
   of Metatag fields on an entity.
 #2708511 by DamienMcKenna: Added the referrer meta tag.
+#2563629 by Jim.M, DamienMcKenna: Added site verification tags.
 
 
 Metatag 8.x-1.0-beta6, 2016-04-02
