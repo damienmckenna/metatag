@@ -169,14 +169,14 @@ class MetatagManager implements MetatagManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function form(array $values, array $element, array $included_groups = NULL, array $included_tags = NULL) {
+  public function form(array $values, array $element, $token_types = NULL, array $included_groups = NULL, array $included_tags = NULL) {
 
     // Add the outer fieldset.
     $element += array(
       '#type' => 'details',
     );
 
-    $element += $this->tokenService->tokenBrowser();
+    $element += $this->tokenService->tokenBrowser($token_types);
 
     $groups_and_tags = $this->sortedGroupsWithTags();
 
