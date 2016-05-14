@@ -14,6 +14,8 @@ Metatag 8.x-1.0-beta7, 2016-04-03
 #2663974 by IT-Cru, DamienMcKenna: Added the og 'article' meta tags.
 #2650848 by ivanjaros, DamienMcKenna: Only show appropriate entities in the
   token browser.
+#2705851 by vasi: Load field definitions, not field values, when getting a list
+  of Metatag fields on an entity.
 
 
 Metatag 8.x-1.0-beta6, 2016-04-02
