@@ -18,6 +18,8 @@ By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
   configs are reverted.
 #2687309 by das-peter, DamienMcKenna: Submodules shouldn't update translations
   during page load.
+#2725251 by DamienMcKenna, Jim.M: Added validation tags for Alexa, Baidu, Norton
+  Safe Web and Yahoo.
 
 
 Metatag 7.x-1.14, 2016-04-02
