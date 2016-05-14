@@ -73,3 +73,24 @@ metatag.metatag_tag.og_updated_time:
 metatag.metatag_tag.og_url:
   type: label
   label: 'Open Graph: URL'
+metatag.metatag_tag.article_author:
+  type: label
+  label: 'Article author'
+metatag.metatag_tag.article_expiration_time:
+  type: label
+  label: 'Article expiration time'
+metatag.metatag_tag.article_modified_time:
+  type: label
+  label: 'Article modified time'
+metatag.metatag_tag.article_published_time:
+  type: label
+  label: 'Article published time'
+metatag.metatag_tag.article_publisher:
+  type: label
+  label: 'Article publisher'
+metatag.metatag_tag.article_section:
+  type: label
+  label: 'Article section'
+metatag.metatag_tag.article_tags:
+  type: label
+  label: 'Article tag(s)'
