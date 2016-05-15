@@ -20,6 +20,8 @@ By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
   during page load.
 #2725251 by DamienMcKenna, Jim.M: Added validation tags for Alexa, Baidu, Norton
   Safe Web and Yahoo.
+#2725741 by DamienMcKenna: Ensure the Locale module is enabled before running db
+  queries against the {locales_source} table.
 
 
 Metatag 7.x-1.14, 2016-04-02

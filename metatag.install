@@ -2170,6 +2170,10 @@ function metatag_update_7107() {
  * Delete output translations if it's disabled.
  */
 function metatag_update_7108() {
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
+
   // If the output-translation option is enabled then don't delete anything.
   if (variable_get('metatag_i18n_translate_output', FALSE)) {
     return t("Metatag: Not deleting output translations because that option is enabled.");
