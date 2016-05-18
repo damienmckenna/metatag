@@ -554,14 +554,28 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
 /**
  * Save an entity's tags.
  *
- * @param $entity_type
- *   The entity type to load
- * @param $entity_id
- *   The entity's ID
- * @param $revision_id
- *   The entity's VID.
- * @param $metatags
- *   All of the tag information
+ * @param string $entity_type
+ *   The entity type to load.
+ * @param int $entity_id
+ *   The entity's primary ID.
+ * @param int $revision_id
+ *   The entity's revision ID.
+ * @param array $metatags
+ *   All of the tag information, keyed by the language code. Most meta tags use
+ *   the 'value' element, so the structure should look like:
+ *   array(
+ *     LANGUAGE_NONE => array(
+ *       'title' => array(
+ *         'value' => "This node's title!",
+ *       ),
+ *       'og:title' => array(
+ *         'value' => "This node's title for Open Graph!",
+ *       ),
+ *       'og:image' => array(
+ *         'value' => "[node:field_thumbnail]",
+ *       ),
+ *     ),
+ *   );
  */
 function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags) {
   // Check that $entity_id is numeric because of Entity API and string IDs.

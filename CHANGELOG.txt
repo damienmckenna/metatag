@@ -22,6 +22,7 @@ By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
   Safe Web and Yahoo.
 #2725741 by DamienMcKenna: Ensure the Locale module is enabled before running db
   queries against the {locales_source} table.
+By DamienMcKenna: Updated the docblock comment for metatag_metatags_save().
 
 
 Metatag 7.x-1.14, 2016-04-02
