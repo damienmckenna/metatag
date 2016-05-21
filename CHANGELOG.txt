@@ -23,6 +23,8 @@ By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
 #2725741 by DamienMcKenna: Ensure the Locale module is enabled before running db
   queries against the {locales_source} table.
 By DamienMcKenna: Updated the docblock comment for metatag_metatags_save().
+#2728919 by DYdave: Workaround for CTools bug that causes the Views popup to be
+  tiny.
 
 
 Metatag 7.x-1.14, 2016-04-02
