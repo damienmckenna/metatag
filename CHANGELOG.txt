@@ -25,6 +25,9 @@ By DamienMcKenna: Incorrect indenting in metatag_favicons.metatag.inc.
 By DamienMcKenna: Updated the docblock comment for metatag_metatags_save().
 #2728919 by DYdave: Workaround for CTools bug that causes the Views popup to be
   tiny.
+#2728933 by DYdave, DamienMcKenna: Trigger hook_metatag_token_types() from
+  metatag_metatags_form() instead of metatag_field_attach_form() so it works
+  with all submodules too.
 
 
 Metatag 7.x-1.14, 2016-04-02

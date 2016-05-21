@@ -1320,6 +1320,10 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
     'instance' => $instance,
   );
 
+  // Trigger hook_metatag_token_types_alter().
+  // Allow the defined tokens to be modified.
+  drupal_alter('metatag_token_types', $options);
+
   $form['metatags'] = array(
     '#type' => 'fieldset',
     '#title' => t('Meta tags'),
@@ -1453,7 +1457,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
       $token_listing_link = theme('token_tree',
         array(
           'token_types' => $options['token types'],
-          'dialog' => TRUE
+          'dialog' => TRUE,
         )
       );
 
@@ -1890,10 +1894,10 @@ function metatag_field_attach_form($entity_type, $entity, &$form, &$form_state, 
     $metatags = array();
   }
 
-  $options['token types'] = array(token_get_entity_mapping('entity', $entity_type));
+  $options['token types'] = array(
+    token_get_entity_mapping('entity', $entity_type),
+  );
   $options['context'] = $entity_type;
-  // Allow hook_metatag_token_types_alter() to modify the defined tokens.
-  drupal_alter('metatag_token_types', $options);
 
   // @todo Remove metatag_form_alter() when https://www.drupal.org/node/1284642 is fixed in core.
   //metatag_metatags_form($form, $instance, $metatags, $options);

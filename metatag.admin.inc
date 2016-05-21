@@ -264,7 +264,8 @@ function metatag_config_edit_form($form, &$form_state, $config) {
     else {
       $options['token types'] = array($contexts[0]);
     }
-    // Allow hook_metatag_token_types_alter() to modify the defined tokens.
+    // Trigger hook_metatag_token_types_alter().
+    // Allow the defined tokens to be modified.
     drupal_alter('metatag_token_types', $options);
   }
 
