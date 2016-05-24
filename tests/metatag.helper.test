@@ -660,9 +660,9 @@ class MetatagTestHelper extends DrupalWebTestCase {
   /**
    * Create an image of a specific size & type.
    *
-   * @param string
+   * @param string $image_size
    *   The size of the requested image in 'XxY' format; defaults to '200x200'.
-   * @param string
+   * @param string $format
    *   The image format to use, defaults to 'png'.
    *
    * @return string

@@ -28,6 +28,8 @@ interface DrupalMetaTagInterface {
 
   function tidyValue($value);
 
+  function convertUrlToAbsolute($url);
+
 }
 
 class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
@@ -186,6 +188,33 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     return $value;
   }
 
+  /**
+   * Make sure a given URL is absolute.
+   *
+   * @param string $url
+   *   The URL to convert to an absolute URL.
+   *
+   * @return string
+   *   The argument converted to an absolute URL.
+   */
+  function convertUrlToAbsolute($url) {
+    // Convert paths relative to the hostname, that start with a slash, to
+    // ones that are relative to the Drupal root path.
+    if (strpos($url, base_path()) === 0) {
+      // Logic:
+      // * Get the length of the base_path(), 
+      // * Get a portion of the image's path starting from the position equal
+      //   to the base_path()'s length; this will result in a path relative
+      //   to the Drupal installation's base directory.
+      $len = strlen(base_path());
+      $url = substr($url, $len);
+    }
+
+    // Pass everything else through file_create_url(). The alternative is to
+    // use url() but it would insert '?q=' into the path.
+    return file_create_url($url);
+  }
+
 }
 
 /**
@@ -286,6 +315,9 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       }
 
       foreach ($values as $key => &$image_value) {
+        // Remove any unwanted whitespace around the value.
+        $image_value = trim($image_value);
+
         // If this contains embedded image tags, extract the image URLs.
         if (strip_tags($image_value) != $image_value) {
           $matches = array();
@@ -295,12 +327,14 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
           }
         }
 
-        // File paths that contain "public://" are relative to the public file
-        // directory, so convert them to a publicly accessible URL.
-        if (strpos($image_value, 'public://') === 0) {
-          $image_value = file_create_url($image_value);
-        }
+        // Convert the URL to an absolute URL.
+        $image_value = $this->convertUrlToAbsolute($image_value);
+
+        // Replace spaces the URL encoded entity to avoid validation problems.
+        $image_value = str_replace(' ', '%20', $image_value);
       }
+
+      // Combine the multiple values into a single string.
       $value = implode(',', $values);
     }
 
