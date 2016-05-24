@@ -28,8 +28,8 @@ By DamienMcKenna: Updated the docblock comment for metatag_metatags_save().
 #2728933 by DYdave, DamienMcKenna: Trigger hook_metatag_token_types() from
   metatag_metatags_form() instead of metatag_field_attach_form() so it works
   with all submodules too.
-#2710377: Updated the message for og:image:url to make it clear it might be
-  better to not use it.
+#2710377 by DamienMcKenna: Updated the message for og:image:url to make it
+  clear it might be better to not use it.
 
 
 Metatag 7.x-1.14, 2016-04-02
