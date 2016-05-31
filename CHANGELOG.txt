@@ -32,6 +32,7 @@ By DamienMcKenna: Updated the docblock comment for metatag_metatags_save().
   clear it might be better to not use it.
 #2539388 by DamienMcKenna: All image meta tags will be output with absolute URLs
   and spaces will be replaced with '%20'.
+#2692877 by stefan.r, DamienMcKenna, Drunkey Monkey: Search API integration.
 
 
 Metatag 7.x-1.14, 2016-04-02

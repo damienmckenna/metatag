@@ -63,3 +63,7 @@ test_dependencies[] = views
 ; These are required for the Media integration.
 test_dependencies[] = file_entity
 test_dependencies[] = media
+
+; These are required for the Search API integration.
+test_dependencies[] = entity
+test_dependencies[] = search_api
