@@ -287,9 +287,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       'token data' => array(),
       // Remove any remaining token after the string is parsed.
       'clear' => TRUE,
-      // This is safe to do because the strings will be processed by the normal
-      // theming system prior to output as an actual HTML tag.
-      'sanitize' => FALSE,
+      'sanitize' => variable_get('metatag_token_sanitize', FALSE),
       'raw' => FALSE,
     );
 

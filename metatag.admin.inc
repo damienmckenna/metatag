@@ -693,6 +693,13 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_page_region', 'content'),
   );
 
+  $form['advanced']['metatag_token_sanitize'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Sanitize content during token replacement'),
+    '#description' => t('If checked, will ensure that metatag value output is encoded and text filters are processed.'),
+    '#default_value' => variable_get('metatag_token_sanitize', FALSE),
+  );
+
   // Extra submission logic.
   $form['#submit'][] = 'metatag_admin_settings_form_submit';
 
