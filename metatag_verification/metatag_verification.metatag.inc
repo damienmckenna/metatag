@@ -46,7 +46,7 @@ function metatag_verification_metatag_info() {
 
   $info['tags']['google-site-verification'] = array(
     'label' => t('Google'),
-    'description' => t('A string provided by <a href="@google">Google</a>, full details are available from the <a href=':verify_url'>Google online help</a>.', array('@google' => 'https://www.google.com/', '@verify_url' => 'https://support.google.com/webmasters/answer/35179?hl=en')),
+    'description' => t('A string provided by <a href="@google">Google</a>, full details are available from the <a href="@verify_url">Google online help</a>.', array('@google' => 'https://www.google.com/', '@verify_url' => 'https://support.google.com/webmasters/answer/35179?hl=en')),
     'weight' => ++$weight,
   ) + $defaults;
 

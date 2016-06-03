@@ -3,3 +3,6 @@ description = "Various meta tags for verifying ownership of a site."
 package = SEO
 core = 7.x
 dependencies[] = metatag
+
+; Tests.
+files[] = tests/metatag_verification.test
