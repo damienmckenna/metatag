@@ -3,3 +3,6 @@ description = "Provides support for meta tags used to control the mobile browser
 package = SEO
 core = 7.x
 dependencies[] = metatag
+
+; Tests.
+files[] = tests/metatag_mobile.test

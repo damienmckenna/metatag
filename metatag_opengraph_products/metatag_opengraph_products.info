@@ -4,3 +4,6 @@ package = SEO
 core = 7.x
 dependencies[] = metatag
 dependencies[] = metatag_opengraph
+
+; Tests.
+files[] = tests/metatag_opengraph_products.test

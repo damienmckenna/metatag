@@ -1,6 +1,8 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2742063 by jalpesh, DamienMcKenna: Fix syntax error in verification module.
+#2742123 by DamienMcKenna: Added test for all submodules to ensure they could be
+  enabled.
 
 
 Metatag 7.x-1.15, 2016-06-03

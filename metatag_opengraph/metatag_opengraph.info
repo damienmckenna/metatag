@@ -3,3 +3,6 @@ description = Provides support for Open Graph Protocol meta tags.
 package = SEO
 core = 7.x
 dependencies[] = metatag
+
+; Tests.
+files[] = tests/metatag_opengraph.test

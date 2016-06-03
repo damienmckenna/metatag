@@ -5,3 +5,6 @@ package = SEO
 
 ; Need Metatag.
 dependencies[] = metatag
+
+; Tests.
+files[] = tests/metatag_importer.test

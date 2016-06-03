@@ -9,4 +9,5 @@ dependencies[] = metatag
 dependencies[] = locale
 
 ; Tests.
-files[] = metatag_hreflang.test
+files[] = tests/metatag_hreflang.test
+files[] = metatag_hreflang.with_entity_translation.test

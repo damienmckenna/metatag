@@ -4,3 +4,6 @@ package = Development
 core = 7.x
 tags[] = developer
 dependencies[] = metatag
+
+; Tests.
+files[] = tests/metatag_devel.test
