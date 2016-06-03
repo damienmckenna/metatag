@@ -99,6 +99,8 @@ The primary features include:
 * Support for the Feeds module for importing data from external data sources or
   file uploads.
 
+* Support for the Search API module for indexing of keywords.
+
 * Integrates with Devel_Generate, part of the Devel module, to automatically
   generate meta tags for generated nodes, via the Metatag:Devel submodule.
 
@@ -210,6 +212,18 @@ be enabled.
 
 For further details see the module's project page:
   https://www.drupal.org/project/smartling
+
+
+Search API integration
+--------------------------------------------------------------------------------
+Entity meta tag values can be made searchable using the Search API module
+(https://www.drupal.org/project/search_api).
+
+ 1. Select "Meta tags" under "Data alterations" in the filters for the
+    index:
+      admin/config/search/search_api/index/INDEX NAME/workflow
+ 2. Meta tag fields will now appear under "Fields" and can be enabled there:
+      admin/config/search/search_api/index/INDEX NAME/fields
 
 
 Fine tuning & suggestions
