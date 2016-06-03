@@ -35,6 +35,8 @@ By DamienMcKenna: Updated the docblock comment for metatag_metatags_save().
 #2692877 by stefan.r, DamienMcKenna, Drunkey Monkey: Search API integration.
 #2720221 by dnmurray: Allow sanitizing of values through token_replace(); for
   advanced usage only, may lead to other issues.
+#2497043 by marcelovani, uzlov: Allow Metatag:Context configs to be sorted by a
+  'weight' value.
 
 
 Metatag 7.x-1.14, 2016-04-02
