@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.16, 2016-06-03
+----------------------------
 #2742063 by jalpesh, DamienMcKenna: Fix syntax error in verification module.
 #2742123 by DamienMcKenna: Added test for all submodules to ensure they could be
   enabled.
