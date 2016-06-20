@@ -1,6 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2748627 by jalpesh: Corrected twitter:app:id:googleplay description.
+#2752319 by DamienMcKenna: Fixed output of the mask-icon meta tag.
 
 
 Metatag 7.x-1.16, 2016-06-03

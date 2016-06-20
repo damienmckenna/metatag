@@ -52,7 +52,7 @@ function metatag_favicons_metatag_info() {
     'description' => t('A grayscale scalable vector graphic (SVG) file. To color the icon, use the "theme color" meta tag under "Mobile & UI Adjustments".'),
     'weight' => ++$weight,
     'element' => array(
-      '#rel' => 'icon-mask',
+      '#rel' => 'mask-icon',
       '#theme' => 'metatag_favicon',
     ),
     'replaces' => array('icon_any'),
