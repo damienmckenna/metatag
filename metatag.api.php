@@ -178,6 +178,7 @@ function hook_metatag_config_delete($config) {
  *       extracting image URLs from the value. Currently limited to matching
  *       the default output of core image theming, i.e. the following string:
  *         src="[URL]" width=
+ *     'url' - If set to TRUE, relative paths will be converted to absolute.
  *     'select_or_other' - If set to TRUE, form[#type] is set to 'select' and
  *       the "select_or_other" module is available, that module will be used to
  *       provide a text field to manually insert another option.

@@ -300,8 +300,8 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       $value = token_replace($value, $options['token data'], $options);
     }
 
-    // Special handling for images.
-    if (!empty($this->info['image'])) {
+    // Special handling for images and other URLs.
+    if (!empty($this->info['image']) || !empty($this->info['url'])) {
       // Support multiple items, whether it's needed or not. Also remove the
       // empty values.
       $values = array_filter(explode(',', $value));
@@ -317,7 +317,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
         $image_value = trim($image_value);
 
         // If this contains embedded image tags, extract the image URLs.
-        if (strip_tags($image_value) != $image_value) {
+        if (!empty($this->info['image']) && strip_tags($image_value) != $image_value) {
           $matches = array();
           preg_match('/src="([^"]*)"/', $image_value, $matches);
           if (!empty($matches[1])) {

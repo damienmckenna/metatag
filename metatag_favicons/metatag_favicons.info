@@ -4,5 +4,8 @@ package = SEO
 core = 7.x
 dependencies[] = metatag
 
+; Custom class for mask-icon.
+files[] = metatag_favicons.mask-icon.class.inc
+
 ; Tests.
 files[] = tests/metatag_favicons.test
