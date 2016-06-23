@@ -252,6 +252,11 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       $form['value']['#description'] .= ' ' . t('This will be able to extract the URL from an image field.');
     }
 
+    // Optional handling for languages.
+    if (!empty($this->info['is_language'])) {
+      $form['value']['#description'] .= ' ' . t('This will not be displayed if it is set to the "Language neutral" (i.e. "und").');
+    }
+
     // Optional support for select_or_other.
     if ($form['value']['#type'] == 'select' && !empty($this->info['select_or_other']) && module_exists('select_or_other')) {
       $form['value']['#type'] = 'select_or_other';
@@ -298,6 +303,15 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       // to modify defined token patterns and values before replacement.
       drupal_alter('metatag_pattern', $value, $options['token data'], $this->info['name']);
       $value = token_replace($value, $options['token data'], $options);
+    }
+
+    // Special handling for language meta tags.
+    if (!empty($this->info['is_language'])) {
+      // If the meta tag value equals LANGUAGE_NONE, i.e. "und", then don't
+      // output it.
+      if (is_string($value) && $value == LANGUAGE_NONE) {
+        $value = '';
+      }
     }
 
     // Special handling for images and other URLs.
