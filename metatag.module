@@ -2008,6 +2008,9 @@ function metatag_get_value($metatag, array $data, array $options = array()) {
   if ($metatag_instance = metatag_get_instance($metatag, $data)) {
     $options["instance"] = $metatag;
     $value = $metatag_instance->getValue($options);
+    if (is_array($value)) {
+      $value = implode(', ', $value);
+    }
   }
   return $value;
 }

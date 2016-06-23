@@ -4,6 +4,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2752319 by DamienMcKenna: Fixed output of the mask-icon meta tag.
 #2752319 by DamienMcKenna: Added the mask-icon 'color' attribute, the new 'url'
   option for meta tag definitions, and tests for the mask-icon meta tag.
+#2754263 by DamienMcKenna: Meta tags with multiple values should still be
+  returned as a string from metatag_get_value().
 
 
 Metatag 7.x-1.16, 2016-06-03

@@ -60,6 +60,14 @@ class MetatagFaviconsTest extends MetatagTestHelper {
     $config->config['mask-icon']['value'] = $svg_path;
     metatag_config_save($config);
 
+    // Load the config page.
+    $this->drupalGet('admin/config/search/metatags');
+    $this->assertResponse(200);
+
+    // Confirm the meta tag's value is on the page.
+    $this->assertText(t('Icon: SVG') . ':');
+    $this->assertText($absolute_path);
+
     // Load the front page.
     $this->drupalGet('<front>');
     $this->assertResponse(200);
