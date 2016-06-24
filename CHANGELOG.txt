@@ -11,6 +11,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2659906 by DamienMcKenna: Rewrote update 7040 to use less memory and work
   better.
 #2720723 by IRuslan: Allow config instance names to be changed.
+#2669592 by DamienMcKenna: Fix for possible problem with removal of meta tags
+  that Metatag is already outputting.
 
 
 Metatag 7.x-1.16, 2016-06-03

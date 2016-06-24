@@ -2097,6 +2097,12 @@ function metatag_html_head_alter(&$elements) {
     }
   }
 
+  // The meta tag keys to look for.
+  $metatag_keys = array('name', 'property');
+
+  // Attributes to look for.
+  $attributes = array('name', 'rel');
+
   // Look for meta tags that were added by other modules and hide them.
   foreach ($metatags as $metatag_name) {
     $metatag = &$elements[$metatag_name];
@@ -2106,19 +2112,17 @@ function metatag_html_head_alter(&$elements) {
     foreach ($other_tags as $other_tag) {
       $other = &$elements[$other_tag];
 
-      // Look for other meta tags that have a 'name' attribute which matches the
-      // '#name' value from Metatag's tag.
-      if (isset($other['#attributes'], $other['#attributes']['name']) && is_string($other['#attributes']['name'])) {
-        if (strtolower($other['#attributes']['name']) == $metatag['#name']) {
-          $other['#access'] = FALSE;
-        }
-      }
-
-      // Look for other meta tags that have a 'rel' attribute which matches the
-      // '#name' value from Metatag's tag.
-      elseif (isset($other['#attributes'], $other['#attributes']['rel']) && is_string($other['#attributes']['rel'])) {
-        if (strtolower($other['#attributes']['rel']) == $metatag['#name']) {
-          $other['#access'] = FALSE;
+      // Look for other meta tags that have one of the defined attributes which
+      // matches one of the values from Metatag's tag.
+      foreach ($attributes as $attribute) {
+        if (isset($other['#attributes'], $other['#attributes'][$attribute]) && is_string($other['#attributes'][$attribute])) {
+          foreach ($metatag_keys as $metatag_key) {
+            if (isset($metatag[$metatag_key])) {
+              if (strtolower($other['#attributes'][$attribute]) == $metatag[$metatag_key]) {
+                $other['#access'] = FALSE;
+              }
+            }
+          }
         }
       }
     }
