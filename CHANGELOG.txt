@@ -8,6 +8,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   returned as a string from metatag_get_value().
 #1953080 by DamienMcKenna: Don't output language/locale meta tags if they are
   equal to LANGUAGE_NONE/"und".
+#2659906 by DamienMcKenna: Rewrote update 7040 to use less memory and work
+  better.
 
 
 Metatag 7.x-1.16, 2016-06-03
