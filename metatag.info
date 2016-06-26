@@ -45,6 +45,8 @@ files[] = tests/metatag.with_i18n_node.test
 files[] = tests/metatag.with_media.test
 ; Basic integration with Panels.
 files[] = tests/metatag.with_panels.test
+; Basic integration with Profile2.
+files[] = tests/metatag.with_profile2.test
 ; Basic integration with Search API.
 files[] = tests/metatag.with_search_api.test
 ; Basic integration with Views.

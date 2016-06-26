@@ -713,6 +713,7 @@ class MetatagTestHelper extends DrupalWebTestCase {
 
     return $saved_file;
   }
+
 }
 
 
