@@ -13,6 +13,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2720723 by IRuslan: Allow config instance names to be changed.
 #2669592 by DamienMcKenna: Fix for possible problem with removal of meta tags
   that Metatag is already outputting.
+#2162397 by DamienMckenna: Added test dependency for Profile2.
 
 
 Metatag 7.x-1.16, 2016-06-03

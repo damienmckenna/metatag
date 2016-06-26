@@ -70,3 +70,6 @@ test_dependencies[] = media
 ; These are required for the Search API integration.
 test_dependencies[] = entity
 test_dependencies[] = search_api
+
+; This is required for the Profile2-related tests.
+test_dependencies[] = profile2
