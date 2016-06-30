@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.17, 2016-06-30
+----------------------------
 #2748627 by jalpesh: Corrected twitter:app:id:googleplay description.
 #2752319 by DamienMcKenna: Fixed output of the mask-icon meta tag.
 #2752319 by DamienMcKenna: Added the mask-icon 'color' attribute, the new 'url'
