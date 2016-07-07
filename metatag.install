@@ -564,6 +564,15 @@ function metatag_update_replace_config($old_tag, $new_tag) {
       drupal_set_message(t('Converted the "@old_tag" meta tag for @count configurations to the new "@new_tag" meta tag.', array('@old_tag' => $old_tag, '@new_tag' => $new_tag, '@count' => $counter)));
     }
   }
+
+  // Clear all Metatag caches.
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  drupal_static_reset('metatag_config_load_with_defaults');
+  drupal_static_reset('metatag_entity_supports_metatags');
+  drupal_static_reset('metatag_config_instance_info');
+  drupal_static_reset('metatag_get_info');
+  ctools_include('export');
+  ctools_export_load_object_reset('metatag_config');
 }
 
 /**
@@ -603,6 +612,15 @@ function metatag_update_delete_config($tag_name) {
       drupal_set_message(t('Removed the "@tag" meta tag for @count configurations.', array('@tag' => $tag_name, '@count' => $counter)));
     }
   }
+
+  // Clear all Metatag caches.
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  drupal_static_reset('metatag_config_load_with_defaults');
+  drupal_static_reset('metatag_entity_supports_metatags');
+  drupal_static_reset('metatag_config_instance_info');
+  drupal_static_reset('metatag_get_info');
+  ctools_include('export');
+  ctools_export_load_object_reset('metatag_config');
 }
 
 /**
