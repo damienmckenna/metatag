@@ -567,6 +567,45 @@ function metatag_update_replace_config($old_tag, $new_tag) {
 }
 
 /**
+ * Remove a specific meta tag from all configs.
+ *
+ * @param string $$tag_name
+ *   The meta tag that is to be removed.
+ */
+function metatag_update_delete_config($tag_name) {
+  // Find all {metatag_config} records that contained an entry for the meta tag.
+  $records = db_select('metatag_config', 'm')
+    ->fields('m', array('cid', 'config'))
+    ->condition('m.config', '%' . db_like('"' . $tag_name . '"') . '%', 'LIKE')
+    ->execute();
+  // This message will be returned if nothing needed to be updated.
+  $none_message = t('No Metatag configuration records needed to have the "@tag" meta tag removed.', array('@tag' => $tag_name));
+
+  // Loop over the values and correct them.
+  if ($records->rowCount() == 0) {
+    drupal_set_message($none_message);
+  }
+  else {
+    // Loop over the values and correct them.
+    $counter = 0;
+    foreach ($records as $record) {
+      $record->config = unserialize($record->config);
+      if (isset($record->config[$tag_name])) {
+        unset($record->config[$tag_name]);
+        drupal_write_record('metatag_config', $record, array('cid'));
+        $counter++;
+      }
+    }
+    if ($counter == 0) {
+      drupal_set_message($none_message);
+    }
+    else {
+      drupal_set_message(t('Removed the "@tag" meta tag for @count configurations.', array('@tag' => $tag_name, '@count' => $counter)));
+    }
+  }
+}
+
+/**
  * Disable the deprecated metatag_ui module, which has been merged into metatag.
  */
 function metatag_update_7000() {

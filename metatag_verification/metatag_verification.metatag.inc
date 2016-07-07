@@ -26,12 +26,6 @@ function metatag_verification_metatag_info() {
     'group' => 'verification',
   );
 
-  $info['tags']['alexaVerifyID'] = array(
-    'label' => t('Alexa'),
-    'description' => t('A string provided by <a href="@alexa">Alexa</a>, which can be obtained from the <a href="@verify_url">Alexa "Claim Your Site" page</a>.', array('@alexa' => 'http://www.alexa.com/', '@verify_url' => 'http://www.alexa.com/siteowners/claim')),
-    'weight' => ++$weight,
-  ) + $defaults;
-
   $info['tags']['msvalidate.01'] = array(
     'label' => t('Bing'),
     'description' => t('A string provided by <a href="@bing">Bing</a>, full details are available from the <a href="@verify_url">Bing online help</a>.', array('@bing' => 'http://www.bing.com/', '@verify_url' => 'http://www.bing.com/webmaster/help/how-to-verify-ownership-of-your-site-afcfefc6')),
