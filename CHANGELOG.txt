@@ -3,6 +3,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2761817 by DamienMcKenna: Fixed metatag_update_replace_config() so it isn't
   hardcoded to only work with og:video.
 #2759843 by DamienMcKenna: Removed the Alexa verification tag.
+#2759855 by DamienMcKenna: Removed the Yahoo verification tag.
 
 
 Metatag 7.x-1.17, 2016-06-30

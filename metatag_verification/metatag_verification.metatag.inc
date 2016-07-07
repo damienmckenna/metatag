@@ -56,12 +56,6 @@ function metatag_verification_metatag_info() {
     'weight' => ++$weight,
   ) + $defaults;
 
-  $info['tags']['y_key'] = array(
-    'label' => t('Yahoo'),
-    'description' => t('A string provided by <a href="@yahoo">Yahoo</a>.', array('@yahoo' => 'http://www.yahoo.com/')),
-    'weight' => ++$weight,
-  ) + $defaults;
-
   $info['tags']['yandex-verification'] = array(
     'label' => t('Yandex'),
     'description' => t('A string provided by <a href="@yandex">Yandex</a>, full details are available from the <a href="@verify_url">Yandex online help</a>.', array('@yandex' => 'http://www.yandex.com/', '@verify_url' => 'http://api.yandex.com/webmaster/doc/dg/reference/hosts-type.xml')),
