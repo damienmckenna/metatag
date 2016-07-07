@@ -475,7 +475,7 @@ function metatag_update_replace_meta_tag(&$sandbox, $old_tag, $new_tag) {
       ->fetchField();
 
     if (empty($records_count)) {
-      return t('No Metatag entity records needed to have the "' . $old_tag . '" meta tag renamed.');
+      return t('No Metatag entity records needed to have the "@tag" meta tag renamed.', array('@tag' => $old_tag));
     }
 
     $sandbox['max'] = $records_count;
@@ -517,7 +517,7 @@ function metatag_update_replace_meta_tag(&$sandbox, $old_tag, $new_tag) {
   }
   else {
     $sandbox['#finished'] = 1;
-    return t('Converted the "' . $old_tag . '" meta tag for @count entity records to "' . $new_tag . '" meta tag.', array('@count' => $sandbox['progress']));
+    return t('Converted the "@old_tag" meta tag for @count entity records to "@new_tag" meta tag.', array('@old_tag' => $old_tag, '@new_tag' => $new_tag, '@count' => $sandbox['progress']));
   }
 }
 
@@ -537,7 +537,7 @@ function metatag_update_replace_config($old_tag, $new_tag) {
     ->condition('m.config', '%' . db_like('"' . $old_tag . '"') . '%', 'LIKE')
     ->execute();
   // This message will be returned if nothing needed to be updated.
-  $none_message = t('No Metatag configuration records needed to have the "og:video" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.');
+  $none_message = t('No Metatag configuration records needed to have the "@tag" meta tag fixed. That said, there may be other configurations elsewhere that do need updating.', array('@tag' => $old_tag));
 
   // Loop over the values and correct them.
   if ($records->rowCount() == 0) {
@@ -552,7 +552,7 @@ function metatag_update_replace_config($old_tag, $new_tag) {
       $record->config = unserialize($record->config);
       if (isset($record->config[$old_tag])) {
         $record->config[$new_tag] = $record->config[$old_tag];
-        unset($record->config['og:video']);
+        unset($record->config[$old_tag]);
         drupal_write_record('metatag_config', $record, $keys);
         $counter++;
       }
@@ -561,7 +561,7 @@ function metatag_update_replace_config($old_tag, $new_tag) {
       drupal_set_message($none_message);
     }
     else {
-      drupal_set_message(t('Converted the "' . $old_tag . '" meta tag for @count configurations to the new "' . $new_tag . '" meta tag.', array('@count' => $counter)));
+      drupal_set_message(t('Converted the "@old_tag" meta tag for @count configurations to the new "@new_tag" meta tag.', array('@old_tag' => $old_tag, '@new_tag' => $new_tag, '@count' => $counter)));
     }
   }
 }

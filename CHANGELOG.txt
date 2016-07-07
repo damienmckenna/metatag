@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2761817 by DamienMcKenna: Fixed metatag_update_replace_config() so it isn't
+  hardcoded to only work with og:video.
 
 
 Metatag 7.x-1.17, 2016-06-30
