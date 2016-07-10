@@ -576,8 +576,10 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
  *       ),
  *     ),
  *   );
+ * @param string|NULL $bundle
+ *   The bundle of the entity that is being saved. Optional.
  */
-function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags) {
+function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $entity = NULL) {
   // Check that $entity_id is numeric because of Entity API and string IDs.
   if (!is_numeric($entity_id)) {
     return;
@@ -588,17 +590,17 @@ function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags
     return;
   }
 
-  // Verify that the entity can be loaded.
-  $entity = entity_load($entity_type, array($entity_id));
-  if (empty($entity)) {
-    return;
+  // Verify the entity bundle is supported, if not available just check the
+  // entity type.
+  if (!empty($bundle)) {
+    if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
+      return;
+    }
   }
-  $entity = reset($entity);
-  list(, , $bundle) = entity_extract_ids($entity_type, $entity);
-
-  // Don't do anything if the entity bundle is not supported.
-  if (!metatag_entity_supports_metatags($entity_type, $bundle)) {
-    return;
+  else {
+    if (!metatag_entity_supports_metatags($entity_type)) {
+      return;
+    }
   }
 
   // The revision_id must be a numeric value; some entities use NULL for the
@@ -882,7 +884,7 @@ function metatag_entity_insert($entity, $entity_type) {
       return;
     }
 
-    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags);
+    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $bundle);
   }
 }
 
@@ -943,7 +945,7 @@ function metatag_entity_update($entity, $entity_type) {
     }
 
     // Save the record.
-    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags);
+    metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $bundle);
   }
   else {
     // Still ensure the meta tag output is cached.
@@ -1565,8 +1567,11 @@ function metatag_commerce_product_form_submit($form, &$form_state) {
   $entity_id = $product->product_id;
   $revision_id = $product->revision_id;
 
+  // Get the full entity details.
+  list(, , $bundle) = entity_extract_ids($entity_type, $product);
+
   // Update the meta tags for this entity type.
-  metatag_metatags_save($entity_type, $entity_id, $revision_id, $form_state['values']['metatags']);
+  metatag_metatags_save($entity_type, $entity_id, $revision_id, $form_state['values']['metatags'], $bundle);
 }
 
 /**
