@@ -96,7 +96,7 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
       'data' => [
         '#type' => 'details',
         '#prefix' => $prefix,
-        '#title' => $this->getLabel($entity),
+        '#title' => $entity->label(),
         'config' => [
           '#markup' => $output,
         ],

@@ -17,6 +17,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   entity->toUrl().
 #2755225 by jlbellido: Corrected the 'type' tag generator definition in
   tag.php.twig.
+#2759931 by Nikhilesh Gupta: Replace deprecated ConfigEntityListBuilder::
+  getLabel() with entity->label().
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
