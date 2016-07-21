@@ -5,6 +5,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   value selected.
 #2762981 by felribeiro, DamienMcKenna: Changed codebase to only use short array
   syntax.
+#2753595 by sylus: Moved the extra XML namespaces to the OpenGraph module.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
