@@ -2,7 +2,6 @@
 
 namespace Drupal\metatag\Tests;
 
-use Drupal\Component\Utility\Unicode;
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\simpletest\WebTestBase;
 

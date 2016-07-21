@@ -4,7 +4,6 @@ namespace Drupal\metatag\Form;
 
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\metatag\Entity\MetatagTag;
 
 /**
  * Class MetatagDefaultsForm.

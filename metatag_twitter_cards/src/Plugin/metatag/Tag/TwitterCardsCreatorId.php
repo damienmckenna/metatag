@@ -2,7 +2,6 @@
 
 namespace Drupal\metatag_twitter_cards\Plugin\metatag\Tag;
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
 
 /**
