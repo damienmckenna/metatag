@@ -8,6 +8,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2753595 by sylus: Moved the extra XML namespaces to the OpenGraph module.
 #2765137 by balsama: Don't display the installation message during site install,
   it looks funny.
+#2759843 by DamienMcKenna: Removed the Alexa verification tag.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
