@@ -151,7 +151,7 @@ class MetatagDefaultsForm extends EntityForm {
         ]));
     }
 
-    $form_state->setRedirectUrl($metatag_defaults->urlInfo('collection'));
+    $form_state->setRedirectUrl($metatag_defaults->toUrl('collection'));
   }
 
   /**

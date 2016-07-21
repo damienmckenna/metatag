@@ -13,6 +13,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2759917 by Nikhilesh Gupta, cilefen: Remove unused imports / 'use' statements.
 #2759927 by Nikhilesh Gupta: Replace deprecated \Drupal::entityTypeManager()
   with \Drupal::entityManager().
+#2759919 by Nikhilesh Gupta: Replace deprecated entity->urlInfo() with
+  entity->toUrl().
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
