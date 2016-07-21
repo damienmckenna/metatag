@@ -114,12 +114,12 @@ class MetatagFieldTest extends WebTestBase {
 
     // @TODO: This should not be required, but metatags does not invalidate
     // cache upon setting globals.
-    Cache::invalidateTags(array('entity_test:' . $entity->id()));
+    Cache::invalidateTags(['entity_test:' . $entity->id()]);
 
     // Update the Global defaults and test them.
-    $values = array(
+    $values = [
       'keywords' => 'Purple monkey dishwasher',
-    );
+    ];
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     $this->drupalGet('entity_test/' . $entity->id());
@@ -149,10 +149,10 @@ class MetatagFieldTest extends WebTestBase {
     // Test a route where the entity for that route does not implement
     // ContentEntityInterface.
     $controller = \Drupal::entityTypeManager()->getStorage('contact_form');
-    $controller->create(array(
+    $controller->create([
       'id' => 'test_contact_form',
-    ))->save();
-    $account = $this->drupalCreateUser(array('access site-wide contact form'));
+    ])->save();
+    $account = $this->drupalCreateUser(['access site-wide contact form']);
     $this->drupalLogin($account);
     $this->drupalGet('contact/test_contact_form');
     $this->assertResponse(200);
@@ -166,9 +166,9 @@ class MetatagFieldTest extends WebTestBase {
    */
   public function testDefaultInheritance() {
     // First we set global defaults.
-    $global_values = array(
+    $global_values = [
       'description' => 'Global description',
-    );
+    ];
     $this->drupalPostForm('admin/config/search/metatag/global', $global_values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
 
@@ -186,11 +186,11 @@ class MetatagFieldTest extends WebTestBase {
    * To pass all HTML including escaped should be removed.
    */
   public function testHTMLIsRemoved() {
-    $values = array(
+    $values = [
       'abstract' => 'No HTML here',
       'description' => '<html><body><p class="test">Surrounded by raw HTML</p></body></html>',
       'keywords' => '&lt;html&gt;&lt;body&gt;&lt;p class="test"&gt;Surrounded by escaped HTML&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;',
-    );
+    ];
 
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
@@ -213,10 +213,10 @@ class MetatagFieldTest extends WebTestBase {
    * unchanged.
    */
   public function testSecureTagOption() {
-    $values = array(
+    $values = [
       'og_image' => 'http://blahblahblah.com/insecure.jpg',
       'og_image_secure_url' => 'http://blahblahblah.com/secure.jpg',
-    );
+    ];
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     drupal_flush_all_caches();

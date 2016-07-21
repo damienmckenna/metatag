@@ -34,7 +34,7 @@ class MetatagToken {
    *
    * @return mixed|string $string
    */
-  public function replace($string, $data, $options = array()) {
+  public function replace($string, $data, $options = []) {
     $options['clear'] = TRUE;
 
     $replaced = $this->token->replace($string, $data, $options);
@@ -57,11 +57,11 @@ class MetatagToken {
    *   only the help text.
    */
   public function tokenBrowser($token_types = NULL) {
-    $form = array();
+    $form = [];
 
-    $form['intro_text'] = array(
+    $form['intro_text'] = [
       '#markup' => '<p>' . t('Configure the meta tags below. Use tokens to avoid redundant meta data and search engine penalization. For example, a \'keyword\' value of "example" will be shown on all content using this configuration, whereas using the [node:field_keywords] automatically inserts the "keywords" values from the current entity (node, term, etc).') . '</p>',
-    );
+    ];
 
     // Normalize taxonomy tokens.
     if (!empty($token_types)) {
@@ -70,7 +70,7 @@ class MetatagToken {
       }, (array) $token_types);
     }
 
-    $form['tokens'] = array(
+    $form['tokens'] = [
       '#theme' => 'token_tree_link',
       '#token_types' => !empty($token_types) ? $token_types : 'all',
       '#global_types' => TRUE,
@@ -78,7 +78,7 @@ class MetatagToken {
       '#show_restricted' => FALSE,
       '#recursion_limit' => 3,
       '#text' => t('Browse available tokens'),
-    );
+    ];
 
     return $form;
   }

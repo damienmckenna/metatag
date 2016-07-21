@@ -25,13 +25,13 @@ abstract class MetaPropertyBase extends MetaNameBase {
         $value = str_replace('http://', 'https://', $value);
       }
 
-      $element = array(
+      $element = [
         '#tag' => 'meta',
-        '#attributes' => array(
+        '#attributes' => [
           'property' => $this->name,
           'content' => $value,
-        )
-      );
+        ]
+      ];
     }
 
     return $element;

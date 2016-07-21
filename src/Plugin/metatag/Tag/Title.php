@@ -30,11 +30,11 @@ class Title extends MetaNameBase {
   //     $element = '';
   //   }
   //   else {
-  //     $element = array(
+  //     $element = [
   //       '#theme' => 'hidden',
   //       // '#tag' => 'title',
   //       '#value' => $this->value(),
-  //     );
+  //     ];
   //   }
   //
   //   return $element;

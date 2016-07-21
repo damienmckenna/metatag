@@ -24,7 +24,7 @@ class MetatagEmptyFormatter extends FormatterBase {
    */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     // Does not actually output anything.
-    return array();
+    return [];
   }
 
 }

@@ -44,7 +44,7 @@ class MetatagDefaultsForm extends EntityForm {
     // If this is a new Metatag defaults, then list available bundles.
     if ($metatag_defaults->isNew()) {
       $options = $this->getAvailableBundles();
-      $form['id'] = array(
+      $form['id'] = [
         '#type' => 'select',
         '#title' => t('Type'),
         '#description' => t('Select the type of default meta tags you would like to add.'),
@@ -52,7 +52,7 @@ class MetatagDefaultsForm extends EntityForm {
         '#required' => TRUE,
         '#default_value' => $default_type,
         '#ajax' => $ajax + ['trigger_as' => ['name' => 'select_id_submit']]
-      );
+      ];
       $form['select_id_submit'] = [
         '#type' => 'submit',
         '#value' => $this->t('Submit'),
@@ -62,7 +62,7 @@ class MetatagDefaultsForm extends EntityForm {
           'class' => ['js-hide']
         ]
       ];
-      $values = array();
+      $values = [];
     }
     else {
       $values = $metatag_defaults->get('tags');
@@ -125,7 +125,7 @@ class MetatagDefaultsForm extends EntityForm {
     // Set tags within the Metatag entity.
     $tag_manager = \Drupal::service('plugin.manager.metatag.tag');
     $tags = $tag_manager->getDefinitions();
-    $tag_values = array();
+    $tag_values = [];
     foreach ($tags as $tag_id => $tag_definition) {
       if ($form_state->hasValue($tag_id)) {
         // Some plugins need to process form input before storing it.
@@ -162,12 +162,12 @@ class MetatagDefaultsForm extends EntityForm {
    *   A list of available bundles as $id => $label.
    */
   protected function getAvailableBundles() {
-    $options = array();
+    $options = [];
     // @TODO discover supported entities.
-    $entity_types = array(
+    $entity_types = [
       'node' => 'Node',
       'taxonomy_term' => 'Taxonomy term',
-    );
+    ];
     $entity_manager = \Drupal::service('entity.manager');
     foreach ($entity_types as $entity_type => $entity_label) {
       $bundles = $entity_manager->getBundleInfo($entity_type);

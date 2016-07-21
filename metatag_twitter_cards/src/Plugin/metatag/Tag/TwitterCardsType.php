@@ -24,12 +24,12 @@ class TwitterCardsType extends MetaPropertyBase {
   /**
    * {@inheritdoc}
    */
-  public function form(array $element = array()) {
-    $form = array(
+  public function form(array $element = []) {
+    $form = [
       '#type' => 'select',
       '#title' => $this->label(),
       '#description' => $this->description(),
-      '#options' => array(
+      '#options' => [
         'summary' => t('Summary Card'),
         'summary_large_image' => t('Summary Card with large image'),
         'photo' => t('Photo Card'),
@@ -37,13 +37,13 @@ class TwitterCardsType extends MetaPropertyBase {
         'app' => t('App Card'),
         'player' => t('Player Card'),
         'product' => t('Product Card'),
-      ),
+      ],
       '#empty_option' => t('- None -'),
       '#empty_value' => '',
       '#default_value' => $this->value(),
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
-      '#element_validate' => array(array(get_class($this), 'validateTag')),
-    );
+      '#element_validate' => [[get_class($this), 'validateTag']],
+    ];
 
     return $form;
   }

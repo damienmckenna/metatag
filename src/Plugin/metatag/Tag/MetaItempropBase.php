@@ -20,13 +20,13 @@ abstract class MetaItempropBase extends MetaNameBase {
       // Parse out the image URL, if needed.
       $value = $this->parseImageURL();
 
-      $element = array(
+      $element = [
         '#tag' => 'meta',
-        '#attributes' => array(
+        '#attributes' => [
           'itemprop' => $this->name,
           'content' => $value,
-        )
-      );
+        ]
+      ];
     }
 
     return $element;

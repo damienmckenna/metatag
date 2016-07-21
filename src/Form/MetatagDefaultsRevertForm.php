@@ -15,7 +15,7 @@ class MetatagDefaultsRevertForm extends EntityConfirmFormBase {
    * {@inheritdoc}
    */
   public function getQuestion() {
-    return $this->t('Are you sure you want to revert %name to its default values?', array('%name' => $this->entity->label()));
+    return $this->t('Are you sure you want to revert %name to its default values?', ['%name' => $this->entity->label()]);
   }
 
   /**

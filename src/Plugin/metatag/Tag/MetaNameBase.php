@@ -139,16 +139,16 @@ abstract class MetaNameBase extends PluginBase {
   /**
    * Generate a form element for this meta tag.
    */
-  public function form(array $element = array()) {
-    $form = array(
+  public function form(array $element = []) {
+    $form = [
       '#type' => 'textfield',
       '#title' => $this->label(),
       '#default_value' => $this->value(),
       '#maxlength' => 255,
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#description' => $this->description(),
-      '#element_validate' => array(array(get_class($this), 'validateTag')),
-    );
+      '#element_validate' => [[get_class($this), 'validateTag']],
+    ];
 
     // Optional handling for items that allow multiple values.
     if (!empty($this->multiple)) {
@@ -196,13 +196,13 @@ abstract class MetaNameBase extends PluginBase {
         $value = str_replace('http://', 'https://', $value);
       }
 
-      $element = array(
+      $element = [
         '#tag' => 'meta',
-        '#attributes' => array(
+        '#attributes' => [
           'name' => $this->name,
           'content' => $value,
-        )
-      );
+        ]
+      ];
     }
 
     return $element;
@@ -244,10 +244,10 @@ abstract class MetaNameBase extends PluginBase {
           $values = explode(',', $value);
         }
         else {
-          $values = array($value);
+          $values = [$value];
         }
         foreach ($values as $key => $val) {
-          $matches = array();
+          $matches = [];
           preg_match('/src="([^"]*)"/', $val, $matches);
           if (!empty($matches[1])) {
             $values[$key] = $matches[1];

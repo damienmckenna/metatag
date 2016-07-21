@@ -16,13 +16,13 @@ abstract class LinkRelBase extends MetaNameBase {
       $element = '';
     }
     else {
-      $element = array(
+      $element = [
         '#tag' => 'link',
-        '#attributes' => array(
+        '#attributes' => [
           'rel' => $this->name,
           'href' => $this->value(),
-        )
-      );
+        ]
+      ];
     }
 
     return $element;

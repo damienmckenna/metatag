@@ -17,13 +17,13 @@ abstract class MetaHttpEquivBase extends MetaNameBase {
       $element = '';
     }
     else {
-      $element = array(
+      $element = [
         '#tag' => 'meta',
-        '#attributes' => array(
+        '#attributes' => [
           'http-equiv' => $this->name,
           'content' => $this->value(),
-        )
-      );
+        ]
+      ];
     }
 
     return $element;

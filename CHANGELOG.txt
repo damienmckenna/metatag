@@ -3,6 +3,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2747793 by rajeshwari10, cilefen, DamienMcKenna: Removed the @file docblocks.
 #2764163 by chrisfree, markdorison: Allow the 'referrer' meta tag to not have a
   value selected.
+#2762981 by felribeiro, DamienMcKenna: Changed codebase to only use short array
+  syntax.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

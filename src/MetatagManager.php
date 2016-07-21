@@ -49,7 +49,7 @@ class MetatagManager implements MetatagManagerInterface {
    * {@inheritdoc}
    */
   public function tagsFromEntity(ContentEntityInterface $entity) {
-    $tags = array();
+    $tags = [];
 
     $fields = $this->getFields($entity);
 
@@ -89,7 +89,7 @@ class MetatagManager implements MetatagManagerInterface {
     $metatag_groups = $this->groupDefinitions();
 
     // Pull the data from the definitions into a new array.
-    $groups = array();
+    $groups = [];
     foreach ($metatag_groups as $group_name => $group_info) {
       $id  = $group_info['id'];
       $groups[$id]['label'] = $group_info['label']->render();
@@ -98,7 +98,7 @@ class MetatagManager implements MetatagManagerInterface {
     }
 
     // Create the 'sort by' array.
-    $sort_by = array();
+    $sort_by = [];
     foreach ($groups as $group) {
       $sort_by[] = $group['weight'];
     }
@@ -116,7 +116,7 @@ class MetatagManager implements MetatagManagerInterface {
     $metatag_tags = $this->tagDefinitions();
 
     // Pull the data from the definitions into a new array.
-    $tags = array();
+    $tags = [];
     foreach ($metatag_tags as $tag_name => $tag_info) {
       $id  = $tag_info['id'];
       $tags[$id]['label'] = $tag_info['label']->render();
@@ -125,7 +125,7 @@ class MetatagManager implements MetatagManagerInterface {
     }
 
     // Create the 'sort by' array.
-    $sort_by = array();
+    $sort_by = [];
     foreach ($tags as $key => $tag) {
       $sort_by['group'][$key] = $tag['group'];
       $sort_by['weight'][$key] = $tag['weight'];
@@ -150,7 +150,7 @@ class MetatagManager implements MetatagManagerInterface {
       if (!isset($groups[$tag_group])) {
         // If the tag is claiming a group that has no matching plugin, log an
         // error and force it to the basic group.
-        $this->logger->error("Undefined group '%group' on tag '%tag'", array('%group' => $tag_group, '%tag' => $tag_id));
+        $this->logger->error("Undefined group '%group' on tag '%tag'", ['%group' => $tag_group, '%tag' => $tag_id]);
         $tag['group'] = 'basic';
         $tag_group = 'basic';
       }
@@ -167,9 +167,9 @@ class MetatagManager implements MetatagManagerInterface {
   public function form(array $values, array $element, $token_types = NULL, array $included_groups = NULL, array $included_tags = NULL) {
 
     // Add the outer fieldset.
-    $element += array(
+    $element += [
       '#type' => 'details',
-    );
+    ];
 
     $element += $this->tokenService->tokenBrowser($token_types);
 
@@ -211,7 +211,7 @@ class MetatagManager implements MetatagManagerInterface {
    * Returns a list of the metatag fields on an entity.
    */
   protected function getFields(ContentEntityInterface $entity) {
-    $field_list = array();
+    $field_list = [];
 
     if ($entity instanceof ContentEntityInterface) {
       // Get a list of the metatag field types.
@@ -242,7 +242,7 @@ class MetatagManager implements MetatagManagerInterface {
    * @param $field_name
    */
   protected function getFieldTags(ContentEntityInterface $entity, $field_name) {
-    $tags = array();
+    $tags = [];
     foreach ($entity->{$field_name} as $item) {
       // Get serialized value and break it into an array of tags with values.
       $serialized_value = $item->get('value')->getValue();
@@ -265,7 +265,7 @@ class MetatagManager implements MetatagManagerInterface {
    */
   public function generateElements($tags, $entity = NULL) {
     $metatag_tags = $this->tagPluginManager->getDefinitions();
-    $elements = array();
+    $elements = [];
 
     // Each element of the $values array is a tag with the tag plugin name
     // as the key.
@@ -276,9 +276,9 @@ class MetatagManager implements MetatagManagerInterface {
         $tag = $this->tagPluginManager->createInstance($tag_name);
 
         // Render any tokens in the value.
-        $token_replacements = array();
+        $token_replacements = [];
         if ($entity) {
-          $token_replacements = array($entity->getEntityTypeId() => $entity);
+          $token_replacements = [$entity->getEntityTypeId() => $entity];
         }
 
         // Set the value as sometimes the data needs massaging, such as when
@@ -288,10 +288,10 @@ class MetatagManager implements MetatagManagerInterface {
         $tag->setValue($value);
         $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
         if ($tag->type() === 'image') {
-          $processed_value = $this->tokenService->replace($tag->value(), $token_replacements, array('langcode' => $langcode));
+          $processed_value = $this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode]);
         }
         else {
-          $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, array('langcode' => $langcode))));
+          $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode])));
         }
 
         // Now store the value with processed tokens back into the plugin.
@@ -319,7 +319,7 @@ class MetatagManager implements MetatagManagerInterface {
    */
   protected function fieldTypes() {
     //@TODO: Either get this dynamically from field plugins or forget it and just hardcode metatag where this is called.
-    return array('metatag');
+    return ['metatag'];
   }
 
 }

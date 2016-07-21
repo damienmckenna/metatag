@@ -158,7 +158,7 @@ function metatag_get_route_entity() {
   $route_match = \Drupal::routeMatch();
   $route_name = $route_match->getRouteName();
   // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
-  $matches = array();
+  $matches = [];
   preg_match('/entity\.(.*)\.canonical/', $route_name, $matches);
   if (!empty($matches[1])) {
     $entity_type = $matches[1];
@@ -191,10 +191,10 @@ function metatag_preprocess_html(&$variables) {
       if (!empty($attachment[1]) && $attachment[1] == 'title') {
         // It's safe to access the value directly because it was already
         // processed in MetatagManager::generateElements().
-        $variables['head_title_array'] = array();
+        $variables['head_title_array'] = [];
         // Empty head_title to avoid the site name and slogan to be appended to
         // the meta title.
-        $variables['head_title'] = array();
+        $variables['head_title'] = [];
         $variables['head_title']['title'] = html_entity_decode($attachment[0]['#attributes']['content'], ENT_QUOTES);
         // Original:
         // $variables['head_title_array']['title'] = $attachment[0]['#attributes']['content'];
@@ -207,7 +207,7 @@ function metatag_preprocess_html(&$variables) {
   // Add XML namespaces if the RDF module is not enabled as it adds these two
   // automatically.
   if (!isset($variables['html_attributes'])) {
-    $variables['html_attributes'] = array();
+    $variables['html_attributes'] = [];
   }
   $namespaces = [];
   if (!\Drupal::moduleHandler()->moduleExists('rdf')) {
