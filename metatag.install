@@ -20,7 +20,7 @@ function metatag_install() {
  */
 function metatag_update_8101() {
   // Get all of the field storage entities of type metatag.
-  $field_storage_configs = \Drupal::entityManager()
+  $field_storage_configs = \Drupal::entityTypeManager()
     ->getStorage('field_storage_config')
     ->loadByProperties(['type' => 'metatag']);
 
@@ -28,7 +28,7 @@ function metatag_update_8101() {
     $field_name = $field_storage->getName();
 
     // Get the individual fields (field instances) associated with bundles.
-    $fields = \Drupal::entityManager()
+    $fields = \Drupal::entityTypeManager()
       ->getStorage('field_config')
       ->loadByProperties(['field_name' => $field_name]);
 
@@ -73,7 +73,7 @@ function metatag_update_8102(&$sandbox) {
     $field_counter = 0;
 
     // Get all of the field storage entities of type metatag.
-    $field_storage_configs = \Drupal::entityManager()
+    $field_storage_configs = \Drupal::entityTypeManager()
       ->getStorage('field_storage_config')
       ->loadByProperties(['type' => 'metatag']);
 
@@ -81,7 +81,7 @@ function metatag_update_8102(&$sandbox) {
       $field_name = $field_storage->getName();
 
       // Get the individual fields (field instances) associated with bundles.
-      $fields = \Drupal::entityManager()
+      $fields = \Drupal::entityTypeManager()
         ->getStorage('field_config')
         ->loadByProperties(['field_name' => $field_name]);
 

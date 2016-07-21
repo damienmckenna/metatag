@@ -11,6 +11,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2759843 by DamienMcKenna: Removed the Alexa verification tag.
 #2759855 by DamienMcKenna: Removed the Yahoo verification tag.
 #2759917 by Nikhilesh Gupta, cilefen: Remove unused imports / 'use' statements.
+#2759927 by Nikhilesh Gupta: Replace deprecated \Drupal::entityTypeManager()
+  with \Drupal::entityManager().
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
