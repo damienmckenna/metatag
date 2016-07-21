@@ -19,6 +19,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   tag.php.twig.
 #2759931 by Nikhilesh Gupta: Replace deprecated ConfigEntityListBuilder::
   getLabel() with entity->label().
+#2761231 by ashwin.shaharkar: Minor fix to image tag form selection logic.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

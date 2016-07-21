@@ -156,7 +156,7 @@ abstract class MetaNameBase extends PluginBase {
     }
 
     // Optional handling for images.
-    if (!empty($this->type() === 'image')) {
+    if ((!empty($this->type())) && ($this->type() === 'image')) {
       $form['#description'] .= ' ' . $this->t('This will be able to extract the URL from an image field.');
     }
 
