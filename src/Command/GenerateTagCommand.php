@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\metatag\Command\GenerateTagCommand.
- */
 
 namespace Drupal\metatag\Command;
 

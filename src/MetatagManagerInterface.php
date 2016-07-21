@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\MetatagManagerInterface.
- */
 
 namespace Drupal\metatag;
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\Field\FieldType\MetatagFieldItem.
- */
-
 namespace Drupal\metatag\Plugin\Field\FieldType;
 
 use Drupal\Core\Field\FieldItemBase;

@@ -1,5 +1,6 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2747793 by rajeshwari10, cilefen, DamienMcKenna: Removed the @file docblocks.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

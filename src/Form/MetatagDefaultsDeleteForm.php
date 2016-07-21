@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Form\MetatagDefaultsDeleteForm.
- */
-
 namespace Drupal\metatag\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;

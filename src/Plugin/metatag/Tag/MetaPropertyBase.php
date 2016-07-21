@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase.
- */
 
 /**
  * This base plugin allows "property"-style meta tags, e.g. Open Graph tags, to

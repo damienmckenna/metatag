@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\MetaItempropBase.
- */
 
 /**
  * This base plugin allows "itemprop"-style meta tags, e.g. Google plus tags, to

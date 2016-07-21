@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag_twitter_cards\Plugin\metatag\Tag\TwitterCardsGalleryImage0.
- */
 
 namespace Drupal\metatag_twitter_cards\Plugin\metatag\Tag;
 

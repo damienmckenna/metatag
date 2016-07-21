@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains the \Drupal\metatag\MetatagToken class.
- */
-
 namespace Drupal\metatag;
 use Drupal\Core\Utility\Token;
 

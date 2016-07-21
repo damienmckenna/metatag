@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains the \Drupal\metatag\MetatagManager class.
- */
-
 namespace Drupal\metatag;
 
 use Drupal\Component\Render\PlainTextOutput;

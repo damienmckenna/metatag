@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\Field\FieldWidget\MetatagFirehose.
- */
 
 namespace Drupal\metatag\Plugin\Field\FieldWidget;
 

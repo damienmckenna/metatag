@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Tests\MetatagFieldTest.
- */
 
 namespace Drupal\metatag\Tests;
 

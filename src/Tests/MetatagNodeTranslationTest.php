@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Tests\MetatagNodeTranslationTest.
- */
-
 namespace Drupal\metatag\Tests;
 
 use Drupal\Component\Utility\Unicode;

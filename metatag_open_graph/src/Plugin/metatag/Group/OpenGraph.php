@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Group\OpenGraph.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Group;
 

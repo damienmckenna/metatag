@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\MetaHttpEquivBase.
- */
 
 /**
  * This base plugin allows "http-equiv"-style meta tags, e.g. the content

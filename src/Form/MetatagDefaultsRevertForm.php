@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Form\MetatagDefaultsRevertForm.
- */
-
 namespace Drupal\metatag\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;

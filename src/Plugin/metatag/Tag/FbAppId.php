@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\FbAppId.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
 

@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase.
- */
 
 /**
  * Each meta tag will extend this base.

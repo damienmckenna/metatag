@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag_google_plus\Plugin\metatag\Tag\Name.
- */
 
 namespace Drupal\metatag_google_plus\Plugin\metatag\Tag;
 

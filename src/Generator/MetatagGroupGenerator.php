@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Generator\MetatagGroupGenerator.
- */
 
 namespace Drupal\metatag\Generator;
 
@@ -30,6 +26,7 @@ class MetatagGroupGenerator extends Generator {
       'plugin_id' => $plugin_id,
       'class_name' => $class_name,
       'weight' => $weight,
+      'prefix' => '<' . '?php',
     ];
 
     $this->renderFile(

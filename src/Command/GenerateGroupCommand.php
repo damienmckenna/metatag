@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains Drupal\metatag\Command\GenerateGroupCommand.
- */
 
 namespace Drupal\metatag\Command;
 

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Form\MetatagDefaultsForm.
- */
-
 namespace Drupal\metatag\Form;
 
 use Drupal\Core\Entity\EntityForm;

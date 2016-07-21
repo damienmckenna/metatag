@@ -1,8 +1,5 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag_test\Tag\metatag_test\Tag\MetatagTestTag.
- */
+
 namespace Drupal\metatag_test\Plugin\metatag\Tag;
 
 use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;

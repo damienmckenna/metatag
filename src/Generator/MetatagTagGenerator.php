@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Generator\MetatagTagGenerator.
- */
 
 namespace Drupal\metatag\Generator;
 
@@ -40,6 +36,7 @@ class MetatagTagGenerator extends Generator {
       'type' => $type,
       'secure' => $secure,
       'multiple' => $multiple,
+      'prefix' => '<' . '?php',
     ];
 
     $this->renderFile(

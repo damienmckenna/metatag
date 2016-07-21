@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains Drupal\metatag\Plugin\Field\FieldFormatter\MetatagEmptyFormatter.
- */
-
 namespace Drupal\metatag\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;

@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Entity\MetatagDefaults.
- */
-
 namespace Drupal\metatag\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;

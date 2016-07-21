@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Tests\MetatagConfigTranslationTest.
- */
 
 namespace Drupal\metatag\Tests;
 

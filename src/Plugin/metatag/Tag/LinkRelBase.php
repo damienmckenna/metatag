@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase.
- */
 
 /**
  * This base plugin allows "link rel" tags to be further customized.
