@@ -34,6 +34,8 @@ class Referrer extends MetaNameBase {
         'origin-when-cross-origin' => t('Origin When Cross-Origin'),
         'unsafe-url' => t('Unsafe URL'),
       ),
+      '#empty_option' => t('- None -'),
+      '#empty_value' => '',
       '#default_value' => $this->value(),
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#element_validate' => array(array(get_class($this), 'validateTag')),
