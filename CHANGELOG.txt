@@ -9,6 +9,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2765137 by balsama: Don't display the installation message during site install,
   it looks funny.
 #2759843 by DamienMcKenna: Removed the Alexa verification tag.
+#2759855 by DamienMcKenna: Removed the Yahoo verification tag.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
