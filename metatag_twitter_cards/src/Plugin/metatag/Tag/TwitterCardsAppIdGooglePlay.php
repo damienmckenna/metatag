@@ -10,7 +10,7 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  * @MetatagTag(
  *   id = "twitter_cards_app_id_google_play",
  *   label = @Translation("Google Play app ID"),
- *   description = @Translation("String value, and should be the numeric representation of your app's ID in Google Play."),
+ *   description = @Translation("Your app ID in the Google Play Store (i.e. ""com.android.app"")."),
  *   name = "twitter:app:id:googleplay",
  *   group = "twitter_cards",
  *   weight = 307,
