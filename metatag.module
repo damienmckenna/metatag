@@ -579,7 +579,7 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
  * @param string|NULL $bundle
  *   The bundle of the entity that is being saved. Optional.
  */
-function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $entity = NULL) {
+function metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $bundle = NULL) {
   // Check that $entity_id is numeric because of Entity API and string IDs.
   if (!is_numeric($entity_id)) {
     return;
