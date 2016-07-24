@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\metatag_test\Plugin\metatag\Tag;
+namespace Drupal\metatag_test_tag\Plugin\metatag\Tag;
 
 use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
 

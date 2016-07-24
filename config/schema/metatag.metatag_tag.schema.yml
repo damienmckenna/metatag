@@ -4,7 +4,7 @@ metatag.metatag_tag.abstract:
 metatag.metatag_tag.canonical_url:
   type: label
   label: 'Canonical URL'
-metatag.metatag_tag.content-language:
+metatag.metatag_tag.content_language:
   type: label
   label: 'Content Language'
 metatag.metatag_tag.description:

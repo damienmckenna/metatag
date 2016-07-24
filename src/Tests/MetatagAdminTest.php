@@ -19,10 +19,6 @@ class MetatagAdminTest extends WebTestBase {
     'test_page_test',
     'token',
     'metatag',
-    'metatag_google_plus',
-    'metatag_open_graph',
-    'metatag_twitter_cards',
-    'metatag_verification',
   ];
 
   /**
@@ -79,8 +75,6 @@ class MetatagAdminTest extends WebTestBase {
     $values = [
       'title' => 'Test title',
       'description' => 'Test description',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
@@ -94,8 +88,6 @@ class MetatagAdminTest extends WebTestBase {
     $values = [
       'title' => '[site:name] | Test title',
       'description' => '[site:name] | Test description',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
@@ -109,10 +101,7 @@ class MetatagAdminTest extends WebTestBase {
 
     // Test the Robots plugin.
     $robots_values = ['index', 'follow', 'noydir'];
-    $form_values = [
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
-    ];
+    $values = [];
     foreach ($robots_values as $value) {
       $values['robots[' . $value . ']'] = TRUE;
     }
@@ -146,8 +135,6 @@ class MetatagAdminTest extends WebTestBase {
     // Adjust the front page and test it.
     $values = [
       'description' => 'Front page description',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/front', $values, 'Save');
     $this->assertText('Saved the Front page Metatag defaults.');
@@ -158,8 +145,6 @@ class MetatagAdminTest extends WebTestBase {
     // Adjust the 403 page and test it.
     $values = [
       'description' => '403 page description.',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/403', $values, 'Save');
     $this->assertText('Saved the 403 access denied Metatag defaults.');
@@ -172,8 +157,6 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalLogin($account);
     $values = [
       'description' => '404 page description.',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/404', $values, 'Save');
     $this->assertText('Saved the 404 page not found Metatag defaults.');
@@ -196,8 +179,6 @@ class MetatagAdminTest extends WebTestBase {
     $values = [
       'title' => 'Test title for a node.',
       'description' => 'Test description for a node.',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/node', $values, 'Save');
     $this->assertText('Saved the Content Metatag defaults.');
@@ -223,8 +204,6 @@ class MetatagAdminTest extends WebTestBase {
     $values = [
       'title' => '',
       'description' => '',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/node', $values, 'Save');
     $this->assertText('Saved the Content Metatag defaults.');
@@ -233,8 +212,6 @@ class MetatagAdminTest extends WebTestBase {
     $values = [
       'title' => 'Global title',
       'description' => 'Global description',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
@@ -260,8 +237,6 @@ class MetatagAdminTest extends WebTestBase {
       'id' => 'node__article',
       'title' => 'Article title override',
       'description' => 'Article description override',
-      // This is a required field.
-      'twitter_cards_type' => 'summary',
     ];
     $this->drupalPostForm('admin/config/search/metatag/add', $values, 'Save');
     $this->assertText('Created the Content: Article Metatag defaults.');

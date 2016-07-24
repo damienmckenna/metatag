@@ -46,7 +46,7 @@ class MetatagFieldTest extends WebTestBase {
     'metatag',
 
     // Some extra custom logic for testing Metatag.
-    'metatag_test',
+    'metatag_test_tag',
 
     // Needed for testSecureTagOption().
     'metatag_open_graph',

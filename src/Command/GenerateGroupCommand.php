@@ -6,10 +6,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Drupal\Console\Command\GeneratorCommand;
-use Drupal\Console\Command\ServicesTrait;
-use Drupal\Console\Command\ModuleTrait;
-use Drupal\Console\Command\FormTrait;
-use Drupal\Console\Command\ConfirmationTrait;
 use Drupal\Console\Style\DrupalStyle;
 use Drupal\metatag\Generator\MetatagGroupGenerator;
 
@@ -21,10 +17,6 @@ use Drupal\metatag\Generator\MetatagGroupGenerator;
  * @package Drupal\metatag
  */
 class GenerateGroupCommand extends GeneratorCommand {
-  use ServicesTrait;
-  use ModuleTrait;
-  use FormTrait;
-  use ConfirmationTrait;
 
   /**
    * {@inheritdoc}
@@ -56,7 +48,6 @@ class GenerateGroupCommand extends GeneratorCommand {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $io = new DrupalStyle($input, $output);
 
-    // @see use Drupal\Console\Command\ConfirmationTrait::confirmGeneration
     if (!$this->confirmGeneration($io)) {
       return 1;
     }
@@ -94,7 +85,6 @@ class GenerateGroupCommand extends GeneratorCommand {
     // --module option.
     $module = $input->getOption('module');
     if (empty($module)) {
-      // @see Drupal\AppConsole\Command\Helper\ModuleTrait::moduleQuestion
       $module = $this->moduleQuestion($output);
     }
     $input->setOption('module', $module);

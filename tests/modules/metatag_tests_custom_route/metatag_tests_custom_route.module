@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains metatag_tests_custom_route.module..
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function metatag_tests_custom_route_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the metatag_tests_custom_route module.
+    case 'help.page.metatag_tests_custom_route':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Support module for testing handling of a custom route.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

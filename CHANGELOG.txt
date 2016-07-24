@@ -20,6 +20,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2759931 by Nikhilesh Gupta: Replace deprecated ConfigEntityListBuilder::
   getLabel() with entity->label().
 #2761231 by ashwin.shaharkar: Minor fix to image tag form selection logic.
+#2745177 by DamienMcKenna, cilefen: Added tests for each submodule to ensure
+  they can be enabled and that each meta tag can be used.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

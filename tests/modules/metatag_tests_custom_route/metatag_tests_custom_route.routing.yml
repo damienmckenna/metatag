@@ -1,0 +1,7 @@
+metatag_tests_custom_route.test:
+  path: '/metatag_tests_custom_route'
+  defaults:
+    _title: 'Metatag Test'
+    _controller: '\Drupal\metatag_tests_custom_route\Controller\MetatagTestsCustomRouteController::test'
+  requirements:
+    _permission: 'access content'
