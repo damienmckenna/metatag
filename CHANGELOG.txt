@@ -24,6 +24,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   they can be enabled and that each meta tag can be used.
 #2750705 by susannecoates, jalpesh: Updated description of the Google Play app
   ID meta tag.
+#2752239 by Saphyel, sylus, DamienMcKenna: Temporary fix for DrupalConsole
+  integration.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
