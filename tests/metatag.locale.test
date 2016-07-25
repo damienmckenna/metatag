@@ -5,6 +5,7 @@
  */
 
 class MetatagCoreLocaleTest extends MetatagTestHelper {
+
   /**
    * {@inheritdoc}
    */

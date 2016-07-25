@@ -24,6 +24,9 @@ files[] = metatag.search_api.inc
 files[] = tests/metatag.helper.test
 ; Basic configuration handling.
 files[] = tests/metatag.unit.test
+; Basic tag testing.
+files[] = tests/metatag.tags_helper.test
+files[] = tests/metatag.tags.test
 ; Core entities.
 files[] = tests/metatag.node.test
 files[] = tests/metatag.term.test

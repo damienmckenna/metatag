@@ -6,3 +6,4 @@ dependencies[] = metatag
 
 ; Tests.
 files[] = tests/metatag_dc.test
+files[] = tests/metatag_dc.tags.test

@@ -6,3 +6,4 @@ dependencies[] = metatag
 
 ; Tests.
 files[] = tests/metatag_facebook.test
+files[] = tests/metatag_facebook.tags.test
