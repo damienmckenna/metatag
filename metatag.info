@@ -33,6 +33,8 @@ files[] = tests/metatag.term.test
 files[] = tests/metatag.user.test
 ; Handling of core's default meta tags.
 files[] = tests/metatag.core_tag_removal.test
+; The custom Bulk Revert functionality.
+files[] = tests/metatag.bulk_revert.test
 ; String handling.
 files[] = tests/metatag.string_handling.test
 files[] = tests/metatag.string_handling_with_i18n.test
