@@ -293,7 +293,10 @@ Troubleshooting / known issues
 * Versions of Drupal older than v7.17 were missing necessary functionality for
   taxonomy term pages to work correctly.
 * Using Metatag with values assigned for the page title and the Page Title
-  module simultaneously can cause conflicts and unexpected results.
+  module simultaneously can cause conflicts and unexpected results. It is
+  strongly recommended to convert the Page Title settings to Metatag and just
+  uninstall Page Title entirely. See https://www.drupal.org/node/2774833 for
+  further details.
 * When customizing the meta tags for user pages, it is strongly recommended to
   not use the [current-user] tokens, these pertain to the person *viewing* the
   page and not e.g., the person who authored a page.

@@ -78,10 +78,10 @@ function metatag_requirements($phase) {
     // Add a note if Page Title is also installed.
     if (module_exists('page_title')) {
       $requirements['metatag_page_title'] = array(
-        'severity' => REQUIREMENT_INFO,
+        'severity' => REQUIREMENT_WARNING,
         'title' => 'Metatag',
-        'value' => $t('Possible conflicts with Page Title module'),
-        'description' => $t('The Metatag module is able to customize page titles so running the Page Title module simultaneously can lead to complications.'),
+        'value' => $t('Page Title module should be removed'),
+        'description' => $t('The Metatag module is able to customize page titles, so running the Page Title module simultaneously can lead to complications. Please follow the instructions to <a href="@page">convert the Page Title settings</a> and uninstall the module.', array('@page' => 'https://www.drupal.org/node/2774833')),
       );
     }
 
