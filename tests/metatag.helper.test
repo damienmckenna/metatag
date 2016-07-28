@@ -25,13 +25,9 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
     $modules[] = 'ctools';
     $modules[] = 'token';
 
-    // Metatag modules.
+    // Metatag modules. Only enable the main module, submodules will be tested
+    // separately.
     $modules[] = 'metatag';
-    $modules[] = 'metatag_dc';
-    $modules[] = 'metatag_facebook';
-    $modules[] = 'metatag_google_plus';
-    $modules[] = 'metatag_opengraph';
-    $modules[] = 'metatag_twitter_cards';
 
     // Adds some functionality for testing the entity handling.
     $modules[] = 'metatag_test';
@@ -217,26 +213,6 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
       // 'original-source' => array('value' => ''),
       // 'revisit-after' => array('value' => ''),
       // 'content-language' => array('value' => ''),'
-
-      // Dublin Core meta tags.
-      'dcterms.format' => array('value' => 'text/html'),
-      'dcterms.identifier' => array('value' => '[current-page:url:absolute]'),
-      'dcterms.title' => array('value' => '[current-page:title]'),
-      'dcterms.type' => array('value' => 'Text'),
-
-      // Google+ meta tags.
-      'itemprop:name' => array('value' => '[current-page:title]'),
-
-      // Open Graph meta tags.
-      'og:site_name' => array('value' => '[site:name]'),
-      'og:title' => array('value' => '[current-page:title]'),
-      'og:type' => array('value' => 'article'),
-      'og:url' => array('value' => '[current-page:url:absolute]'),
-
-      // Twitter Cards meta tags.
-      'twitter:card' => array('value' => 'summary'),
-      'twitter:title' => array('value' => '[current-page:title]'),
-      'twitter:url' => array('value' => '[current-page:url:absolute]'),
     );
   }
 
@@ -712,6 +688,23 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
     $saved_file = file_save($file);
 
     return $saved_file;
+  }
+
+  /**
+   * Verify a user entity's meta tags load correctly.
+   *
+   * @param object $user
+   *   A user object that is to be tested.
+   */
+  function assertUserEntityTags($user) {
+    // Load the user's profile page.
+    $this->drupalGet('user/' . $user->uid);
+    $this->assertResponse(200);
+
+    // Verify the title is using the custom default for this vocabulary.
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertEqual($xpath[0]['content'], $user->name . " ponies");
   }
 
 }

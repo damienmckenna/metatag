@@ -65,7 +65,7 @@ class MetatagCoreWithPanelsTest extends MetatagTestHelper {
 
     // Verify that it's possible to submit values to the form.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.subject][value]' => '[node:title] ponies',
+      'metatags[und][abstract][value]' => '[node:title] ponies',
       'title' => 'Who likes magic',
     ), t('Save'));
     $this->assertResponse(200);
@@ -148,8 +148,8 @@ class MetatagCoreWithPanelsTest extends MetatagTestHelper {
     }
 
     // Verify the title is using the custom default for this content type.
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
     $this->assertEqual($xpath[0]['content'], 'Who likes magic ponies');
   }
 

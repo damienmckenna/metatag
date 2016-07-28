@@ -20,8 +20,12 @@ class MetatagCoreImageTest extends MetatagTestHelper {
    * {@inheritdoc}
    */
   function setUp(array $modules = array()) {
+    // Needs the OpenGraph submodule because of testNodeFieldValueMultiple().
+    $modules[] = 'metatag_opengraph';
+
     // Need image handling.
     $modules[] = 'image';
+
     // Need the Devel Generate image generator.
     $modules[] = 'devel_generate';
 

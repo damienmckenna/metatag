@@ -56,7 +56,7 @@ class MetatagCoreWithProfile2Test extends MetatagCoreUserTest {
 
     // Verify that it's possible to submit values to the form.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.subject][value]' => '[user:name] ponies',
+      'metatags[und][abstract][value]' => '[user:name] ponies',
     ), t('Save'));
     $this->assertResponse(200);
 
@@ -109,7 +109,7 @@ class MetatagCoreWithProfile2Test extends MetatagCoreUserTest {
 
     // Verify that it's possible to submit values to the form.
     $edit = array(
-      'metatags[und][dcterms.subject][value]' => '[user:name] ponies',
+      'metatags[und][abstract][value]' => '[user:name] ponies',
     );
     $this->drupalPost(NULL, $edit, t('Save'));
     $this->assertResponse(200);

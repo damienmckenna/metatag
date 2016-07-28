@@ -19,6 +19,8 @@ By DamienMcKenna: Clear Metatag's caches after deleting or renaming a meta tag.
   languages are reverted on the Bulk Revert page.
 #2766315 by recrit, DamienMcKenna: metatag_entity_type_enable() would
   incorrectly change settings in certain circumstances.
+#2774859 by DamienMcKenna: Refactored main tests to not use the submodules by
+  default.
 
 
 Metatag 7.x-1.17, 2016-06-30

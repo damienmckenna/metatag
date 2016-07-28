@@ -5,6 +5,7 @@
  */
 
 class MetatagCoreNodeTest extends MetatagTestHelper {
+
   /**
    * {@inheritdoc}
    */
@@ -65,12 +66,7 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
 
     // Submit the form with some values.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.subject][value]' => '[node:title]',
-      'metatags[und][dcterms.creator][value]' => '[node:author]',
-      'metatags[und][dcterms.date][value]' => '[node:created:custom:Y-m-d\TH:iP]',
-      'metatags[und][dcterms.format][value]' => 'text/html',
-      'metatags[und][dcterms.identifier][value]' => '[current-page:url:absolute]',
-      'metatags[und][dcterms.language][value]' => '[node:language]',
+      'metatags[und][abstract][value]' => '[node:title]',
     ), t('Save'));
     $this->assertResponse(200);
 
@@ -92,7 +88,7 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
 
     // Verify that it's possible to submit values to the form.
     $this->drupalPost(NULL, array(
-      'metatags[und][dcterms.subject][value]' => '[node:title] ponies',
+      'metatags[und][abstract][value]' => '[node:title] ponies',
       'title' => 'Who likes magic',
     ), t('Save'));
     $this->assertResponse(200);
@@ -100,7 +96,7 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     // The meta tags that will be checked for.
     $expected = array(
       'und' => array(
-        'dcterms.subject' => array(
+        'abstract' => array(
           'value' => '[node:title] ponies',
         ),
       ),
@@ -149,8 +145,8 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     }
 
     // Verify the title is using the custom default for this content type.
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
     $this->assertEqual($xpath[0]['content'], 'Who likes magic ponies');
 
     // Core's canonical tag is a relative URL, whereas Metatag outputs an
@@ -180,7 +176,7 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     $this->assertResponse(200);
     // Try submitting text to the page.
     $args = array(
-      'metatags[und][dcterms.subject][value]' => '[node:title] kittens',
+      'metatags[und][abstract][value]' => '[node:title] kittens',
       'title' => $new_title,
       'revision' => 1,
       'log' => 'Creating a new revision',
@@ -192,7 +188,7 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     // A new version of the expected results
     $expected_updated = array(
       'und' => array(
-        'dcterms.subject' => array(
+        'abstract' => array(
           'value' => '[node:title] kittens',
         ),
       ),
@@ -208,10 +204,10 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     $this->assertText(strip_tags(t('@type %title has been updated.', $t_args)));
 
     // Verify the title is still using the custom default for this content type.
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
-    $this->assertNotEqual($xpath[0]['content'], $old_title . ' ponies', 'Did not find the new dcterms.subject meta tag.');
-    $this->assertEqual($xpath[0]['content'], $new_title . ' kittens', 'Found the old dcterms.subject meta tag.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertNotEqual($xpath[0]['content'], $old_title . ' ponies', 'Did not find the new abstract meta tag.');
+    $this->assertEqual($xpath[0]['content'], $new_title . ' kittens', 'Found the old abstract meta tag.');
 
     // Load the node revisions page.
     $this->drupalGet('node/' . $node->nid . '/revisions');
@@ -226,10 +222,10 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     $this->drupalGet('node/' . $node->nid . '/revisions/' . $old_vid . '/view');
     // Verify the page loaded correctly.
     $this->assertResponse(200, 'Loaded the original revision of this node.');
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
-    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new dcterms.subject meta tag.');
-    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old dcterms.subject meta tag.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new abstract meta tag.');
+    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old abstract meta tag.');
 
     // Load the updated node; force-load it to make sure it's loaded properly.
     $updated_node = node_load($node->nid, NULL, TRUE);
@@ -259,10 +255,10 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     // Load the current revision again.
     $this->drupalGet('node/' . $node->nid);
     $this->assertResponse(200, 'Loaded the current revision of this node.');
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
-    $this->assertNotEqual($xpath[0]['content'], $old_title . ' ponies', 'Did not find the old dcterms.subject meta tag.');
-    $this->assertEqual($xpath[0]['content'], $new_title . ' kittens', 'Found the new dcterms.subject meta tag.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertNotEqual($xpath[0]['content'], $old_title . ' ponies', 'Did not find the old abstract meta tag.');
+    $this->assertEqual($xpath[0]['content'], $new_title . ' kittens', 'Found the new abstract meta tag.');
 
     // Revert to the original revision.
     $this->drupalGet('node/' . $node->nid . '/revisions/' . $old_vid . '/revert');
@@ -279,10 +275,10 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     // Load the current revision, which will now have the old meta tags.
     $this->drupalGet('node/' . $node->nid);
     $this->assertResponse(200, 'Loaded the current revision of this node.');
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
-    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new dcterms.subject meta tag.');
-    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old dcterms.subject meta tag again.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new abstract meta tag.');
+    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old abstract meta tag again.');
 
     // Delete the original revision.
     $this->drupalGet('node/' . $node->nid . '/revisions/' . $old_vid . '/delete');
@@ -301,10 +297,10 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     metatag_config_cache_clear();
     $this->drupalGet('node/' . $node->nid);
     $this->assertResponse(200, 'Loaded the current revision of this node again.');
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
-    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new dcterms.subject meta tag.');
-    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old dcterms.subject meta tag again.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new abstract meta tag.');
+    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old abstract meta tag again.');
 
     // Delete the second revision.
     $this->drupalGet('node/' . $node->nid . '/revisions/' . $updated_vid . '/delete');
@@ -323,9 +319,10 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     metatag_config_cache_clear();
     $this->drupalGet('node/' . $node->nid);
     $this->assertResponse(200, 'Loaded the current revision of this node again.');
-    $xpath = $this->xpath("//meta[@name='dcterms.subject']");
-    $this->assertEqual(count($xpath), 1, 'Exactly one dcterms.subject meta tag found.');
-    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new dcterms.subject meta tag.');
-    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old dcterms.subject meta tag again.');
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertNotEqual($xpath[0]['content'], $new_title . ' kittens', 'Did not find the new abstract meta tag.');
+    $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old abstract meta tag again.');
   }
+
 }
