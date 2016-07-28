@@ -1679,23 +1679,40 @@ function metatag_entity_supports_metatags($entity_type = NULL, $bundle = NULL) {
 }
 
 /**
- * Enable support for a specific entity type.
+ * Enable support for a specific entity type if setting does not exist.
  *
  * @param string $entity_type
  * @param string $bundle
+ * @param bool $force_enable
+ *   If TRUE, then the type is enabled regardless of any stored variables.
+ *
+ * @return bool
+ *   TRUE if either the bundle or entity type was enabled by this function.
  */
-function metatag_entity_type_enable($entity_type, $bundle = NULL) {
+function metatag_entity_type_enable($entity_type, $bundle = NULL, $force_enable = FALSE) {
   // The bundle was defined.
+  $bundle_set = FALSE;
   if (isset($bundle)) {
-    variable_set('metatag_enable_' . $entity_type . '__' . $bundle, TRUE);
+    $stored_bundle = variable_get('metatag_enable_' . $entity_type . '__' . $bundle, NULL);
+    if ($force_enable || !isset($stored_bundle)) {
+      variable_set('metatag_enable_' . $entity_type . '__' . $bundle, TRUE);
+      $bundle_set = TRUE;
+    }
   }
 
   // Always enable the entity type, because otherwise there's no point in
   // enabling the bundle.
-  variable_set('metatag_enable_' . $entity_type, TRUE);
+  $entity_type_set = FALSE;
+  $stored_entity_type = variable_get('metatag_enable_' . $entity_type, NULL);
+  if ($force_enable || !isset($stored_entity_type)) {
+    variable_set('metatag_enable_' . $entity_type, TRUE);
+    $entity_type_set = TRUE;
+  }
 
   // Clear the static cache so that the entity type / bundle will work.
   drupal_static_reset('metatag_entity_supports_metatags');
+
+  return $bundle_set || $entity_type_set;
 }
 
 /**
@@ -2724,8 +2741,9 @@ function metatag_entity_type_is_suitable($entity_type, $entity_info = array()) {
  */
 function metatag_node_type_insert($info) {
   if (metatag_entity_supports_metatags('node')) {
-    metatag_entity_type_enable('node', $info->type);
-    drupal_set_message(t('Metatag support has been enabled for the @label content type.', array('@label' => $info->name)));
+    if (metatag_entity_type_enable('node', $info->type)) {
+      drupal_set_message(t('Metatag support has been enabled for the @label content type.', array('@label' => $info->name)));
+    }
   }
 }
 
@@ -2745,8 +2763,9 @@ function metatag_node_type_delete($info) {
  */
 function metatag_taxonomy_vocabulary_insert($vocabulary) {
   if (metatag_entity_supports_metatags('taxonomy_term')) {
-    metatag_entity_type_enable('taxonomy_term', $vocabulary->machine_name);
-    drupal_set_message(t('Metatag support has been enabled for the @label vocabulary.', array('@label' => $vocabulary->name)));
+    if (metatag_entity_type_enable('taxonomy_term', $vocabulary->machine_name)) {
+      drupal_set_message(t('Metatag support has been enabled for the @label vocabulary.', array('@label' => $vocabulary->name)));
+    }
   }
 }
 

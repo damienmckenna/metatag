@@ -17,6 +17,8 @@ By DamienMcKenna: Clear Metatag's caches after deleting or renaming a meta tag.
   converting its settings and uninstalling it.
 #1944862 by FeyP, DamienMcKenna: Allow control over which meta tags and
   languages are reverted on the Bulk Revert page.
+#2766315 by recrit, DamienMcKenna: metatag_entity_type_enable() would
+  incorrectly change settings in certain circumstances.
 
 
 Metatag 7.x-1.17, 2016-06-30

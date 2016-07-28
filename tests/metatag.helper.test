@@ -63,7 +63,7 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
     ));
 
     // Enable meta tags for this new content type.
-    metatag_entity_type_enable('node', $machine_name);
+    metatag_entity_type_enable('node', $machine_name, TRUE);
 
     return $content_type;
   }
@@ -147,7 +147,7 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
     taxonomy_vocabulary_save($vocabulary);
 
     // Enable meta tags for this new vocabulary.
-    metatag_entity_type_enable('taxonomy_term', $vocab_name);
+    metatag_entity_type_enable('taxonomy_term', $vocab_name, TRUE);
 
     return $vocabulary;
   }
