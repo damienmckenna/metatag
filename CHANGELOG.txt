@@ -12,6 +12,7 @@ By DamienMcKenna: Clear Metatag's caches after deleting or renaming a meta tag.
 #2771603 by FeyP: Fixed incorrect argument name to metatag_metatag_save().
 #2745177 by DamienMcKenna: Tests to confirm each meta tag can be filled in and
   added to the global settings.
+#2773839 by DamienMcKenna: Remove 'metatag_ui' from the {system} table.
 
 
 Metatag 7.x-1.17, 2016-06-30

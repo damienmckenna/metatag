@@ -2281,3 +2281,12 @@ function metatag_update_7110() {
   $new_tag = 'mask-icon';
   return metatag_update_replace_config($old_tag, $new_tag);
 }
+
+/**
+ * Remove the "metatag_ui" record from the {system} table.
+ */
+function metatag_update_7111() {
+  db_delete('system')
+    ->condition('name', 'metatag_ui')
+    ->execute();
+}
