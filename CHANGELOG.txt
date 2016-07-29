@@ -26,6 +26,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   ID meta tag.
 #2752239 by Saphyel, sylus, DamienMcKenna: Temporary fix for DrupalConsole
   integration.
+#2775245 by DamienMcKenna: Fix tests.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

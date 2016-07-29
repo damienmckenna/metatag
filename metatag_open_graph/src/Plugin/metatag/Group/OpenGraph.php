@@ -1,7 +1,8 @@
 <?php
 
-namespace Drupal\metatag\Plugin\metatag\Group;
+namespace Drupal\metatag_open_graph\Plugin\metatag\Group;
 
+use Drupal\metatag\Plugin\metatag\Group\GroupBase;
 
 /**
  * The open graph group.
