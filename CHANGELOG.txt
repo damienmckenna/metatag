@@ -27,6 +27,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2752239 by Saphyel, sylus, DamienMcKenna: Temporary fix for DrupalConsole
   integration.
 #2775245 by DamienMcKenna: Fix tests.
+#2776407 by cilefen: Module names must be wrapped in quotes if they contain
+  certain characters.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
