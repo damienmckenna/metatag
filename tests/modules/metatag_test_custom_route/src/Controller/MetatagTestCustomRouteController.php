@@ -7,7 +7,7 @@ use Drupal\Core\Controller\ControllerBase;
 /**
  * Testing routes for Metatag tests.
  */
-class MetatagTestsCustomRouteController extends ControllerBase {
+class MetatagTestCustomRouteController extends ControllerBase {
 
   /**
    * Constructs a page for integration testing.
