@@ -1443,8 +1443,8 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
         $group = $info['groups'][$group_key] + array('form' => array(), 'description' => NULL);
         $form['metatags'][$langcode][$group_key] = $group['form'] + array(
           '#type' => 'fieldset',
-          '#title' => t($group['label']),
-          '#description' => !empty($group['description']) ? t($group['description']) : '',
+          '#title' => $group['label'],
+          '#description' => !empty($group['description']) ? $group['description'] : '',
           '#collapsible' => TRUE,
           '#collapsed' => TRUE,
         );

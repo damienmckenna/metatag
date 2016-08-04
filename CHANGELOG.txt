@@ -21,6 +21,7 @@ By DamienMcKenna: Clear Metatag's caches after deleting or renaming a meta tag.
   incorrectly change settings in certain circumstances.
 #2774859 by DamienMcKenna: Refactored main tests to not use the submodules by
   default.
+#2678896 by nmalinoski: Fixed redundant t() calls to fix double translation.
 
 
 Metatag 7.x-1.17, 2016-06-30
