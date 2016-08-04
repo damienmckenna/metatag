@@ -30,6 +30,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2776407 by cilefen: Module names must be wrapped in quotes if they contain
   certain characters.
 By DamienMcKenna: Renamed the custom routes module.
+#2745173 by jibellido: Tag generator now appends metatag_tag.schema.yml.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

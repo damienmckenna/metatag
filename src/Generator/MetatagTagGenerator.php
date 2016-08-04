@@ -44,6 +44,13 @@ class MetatagTagGenerator extends Generator {
       $this->getSite()->getPluginPath($module, 'metatag/Tag') . '/' . $class_name . '.php',
       $parameters
     );
+
+    $this->renderFile(
+      'metatag_tag.schema.yml.twig',
+      $this->getSite()->getModulePath($module) . '/config/schema/' . $module . '.metatag_tag.schema.yml',
+      $parameters,
+      FILE_APPEND
+    );
   }
 
 }
