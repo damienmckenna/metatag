@@ -31,6 +31,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   certain characters.
 By DamienMcKenna: Renamed the custom routes module.
 #2745173 by jibellido: Tag generator now appends metatag_tag.schema.yml.
+#2673902 by DamienMcKenna: Confirm that forum posts can be loaded when the
+  module is enabled and outputting meta tags.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
