@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_twitter_cards\Plugin\metatag\Tag;
 
-use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
+use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
 
 /**
  * The Twitter Cards player stream url metatag.
@@ -19,5 +19,5 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   multiple = FALSE
  * )
  */
-class TwitterCardsPlayerStream extends MetaPropertyBase {
+class TwitterCardsPlayerStream extends MetaNameBase {
 }

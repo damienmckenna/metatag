@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_twitter_cards\Plugin\metatag\Tag;
 
-use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
+use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
 
 /**
  * The Twitter Cards app's custom URL scheme for iphone metatag.
@@ -19,5 +19,5 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   multiple = FALSE
  * )
  */
-class TwitterCardsAppUrlIphone extends MetaPropertyBase {
+class TwitterCardsAppUrlIphone extends MetaNameBase {
 }

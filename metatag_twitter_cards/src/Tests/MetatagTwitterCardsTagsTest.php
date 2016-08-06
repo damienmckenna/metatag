@@ -54,11 +54,6 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   ];
 
   /**
-   * The attribute to look for to indicate which tag.
-   */
-  public $test_name_attribute = 'property';
-
-  /**
    * {@inheritdoc}
    */
   protected function setUp() {

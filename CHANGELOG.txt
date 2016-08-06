@@ -38,6 +38,8 @@ By DamienMcKenna: Renamed the custom routes module.
   branch.
 #2780025 by DamienMcKenna: Basic tests for the output of every meta tag. Fixes
   the output of all Google Plus tags. Fixed the test route module.
+#2746031 by jalpesh, cilefen, DamienMcKenna, susannecoates: Fixed output of all
+  Twitter Cards meta tags.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
