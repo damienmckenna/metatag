@@ -8,7 +8,7 @@ use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  * The Twitter Cards app name Google Play metatag.
  *
  * @MetatagTag(
- *   id = "twitter_cards_app_name_google_play",
+ *   id = "twitter_cards_app_name_googleplay",
  *   label = @Translation("Google Play app name"),
  *   description = @Translation("The name of the app in the Google Play app store."),
  *   name = "twitter:app:name:googleplay",

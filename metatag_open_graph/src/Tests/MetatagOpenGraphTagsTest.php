@@ -52,25 +52,40 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
   ];
 
   /**
+   * The tag to look for when testing the output.
+   */
+  public $test_tag = 'meta';
+
+  /**
+   * The attribute to look for to indicate which tag.
+   */
+  public $test_name_attribute = 'property';
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {
     parent::$modules[] = 'metatag_open_graph';
     parent::setUp();
   }
-  //
-  // /**
-  //  * Implements {meta_tag_name}_test_xpath() for 'open_graph_type'.
-  //  */
-  // public function open_graph_type_test_xpath() {
-  //   return "//select[@name='open_graph_type']";
-  // }
-  //
-  // /**
-  //  * Implements {meta_tag_name}_test_value() for 'open_graph_type'.
-  //  */
-  // public function open_graph_type_test_value() {
-  //   return 'summary_large_image';
-  // }
+
+  /**
+   * Each of these meta tags has a different tag name vs its internal name.
+   */
+  public function get_test_tag_name($tag_name) {
+    // Replace the first underline with a colon.
+    $tag_name = str_replace('og_', 'og:', $tag_name);
+    $tag_name = str_replace('article_', 'article:', $tag_name);
+
+    // Some tags have an additional underline that turns into a colon.
+    $tag_name = str_replace('og:image_', 'og:image:', $tag_name);
+
+    // Additional fixes.
+    if ($tag_name == 'og:locale_alternative') {
+      $tag_name = 'og:locale:alternate';
+    }
+
+    return $tag_name;
+  }
 
 }

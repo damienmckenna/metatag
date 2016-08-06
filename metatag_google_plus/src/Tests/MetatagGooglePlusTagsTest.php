@@ -22,6 +22,11 @@ class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
   ];
 
   /**
+   * The attribute to look for to indicate which tag.
+   */
+  public $test_name_attribute = 'itemprop';
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {
@@ -29,18 +34,11 @@ class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
     parent::setUp();
   }
 
-  // /**
-  //  * Implements {meta_tag_name}_test_xpath() for 'twitter_cards_type'.
-  //  */
-  // public function twitter_cards_type_test_xpath() {
-  //   return "//select[@name='twitter_cards_type']";
-  // }
-  //
-  // /**
-  //  * Implements {meta_tag_name}_test_value() for 'twitter_cards_type'.
-  //  */
-  // public function twitter_cards_type_test_value() {
-  //   return 'summary_large_image';
-  // }
+  /**
+   * Each of these meta tags has a different tag name vs its internal name.
+   */
+  public function get_test_tag_name($tag_name) {
+    return str_replace('google_plus_', 'itemprop:', $tag_name);
+  }
 
 }

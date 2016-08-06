@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\metatag_tests_custom_route\Controller;
+namespace Drupal\metatag_test_custom_route\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 

@@ -16,10 +16,10 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $tags = [
-    'twitter_cards_app_id_google_play',
+    'twitter_cards_app_id_googleplay',
     'twitter_cards_app_id_ipad',
     'twitter_cards_app_id_iphone',
-    'twitter_cards_app_name_google_play',
+    'twitter_cards_app_name_googleplay',
     'twitter_cards_app_name_ipad',
     'twitter_cards_app_name_iphone',
     'twitter_cards_app_store_country',
@@ -54,6 +54,11 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   ];
 
   /**
+   * The attribute to look for to indicate which tag.
+   */
+  public $test_name_attribute = 'property';
+
+  /**
    * {@inheritdoc}
    */
   protected function setUp() {
@@ -62,9 +67,36 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   }
 
   /**
-   * Implements {meta_tag_name}_test_xpath() for 'twitter_cards_type'.
+   * Twitter meta tags (almost) all have colons instead of underlines, and they
+   * don't have "cards" in their name.
    */
-  public function twitter_cards_type_test_xpath() {
+  public function get_test_tag_name($tag_name) {
+    $tag_name = str_replace('twitter_cards', 'twitter', $tag_name);
+    $tag_name = str_replace('_', ':', $tag_name);
+
+    if ($tag_name == 'twitter:app:store:country') {
+      $tag_name = 'twitter:app:country';
+    }
+    elseif ($tag_name == 'twitter:page:url') {
+      $tag_name = 'twitter:url';
+    }
+    elseif ($tag_name == 'twitter:player:stream:content:type') {
+      $tag_name = 'twitter:player:stream:content_type';
+    }
+    elseif ($tag_name == 'twitter:type') {
+      $tag_name = 'twitter:card';
+    }
+    elseif ($tag_name == '') {
+      $tag_name = '';
+    }
+
+    return $tag_name;
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_field_xpath() for 'twitter_cards_type'.
+   */
+  public function twitter_cards_type_test_field_xpath() {
     return "//select[@name='twitter_cards_type']";
   }
 

@@ -36,6 +36,8 @@ By DamienMcKenna: Renamed the custom routes module.
 #2707791 by ashwin.shaharkar, DamienMcKenna, Shreya Shetty, MattDanger: Changed
   the Description and Abstract meta tags to use a textarea, matching the D7
   branch.
+#2780025 by DamienMcKenna: Basic tests for the output of every meta tag. Fixes
+  the output of all Google Plus tags. Fixed the test route module.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
