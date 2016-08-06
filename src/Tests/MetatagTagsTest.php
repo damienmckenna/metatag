@@ -36,6 +36,20 @@ class MetatagTagsTest extends MetatagTagsTestBase {
   ];
 
   /**
+   * Implements {meta_tag_name}_test_xpath() for 'abstract'.
+   */
+  public function abstract_test_xpath() {
+    return "//textarea[@name='abstract']";
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_xpath() for 'description'.
+   */
+  public function description_test_xpath() {
+    return "//textarea[@name='description']";
+  }
+
+  /**
    * Implements {meta_tag_name}_test_xpath() for 'referrer'.
    */
   public function referrer_test_xpath() {

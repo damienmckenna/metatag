@@ -33,6 +33,9 @@ By DamienMcKenna: Renamed the custom routes module.
 #2745173 by jibellido: Tag generator now appends metatag_tag.schema.yml.
 #2673902 by DamienMcKenna: Confirm that forum posts can be loaded when the
   module is enabled and outputting meta tags.
+#2707791 by ashwin.shaharkar, DamienMcKenna, Shreya Shetty, MattDanger: Changed
+  the Description and Abstract meta tags to use a textarea, matching the D7
+  branch.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
