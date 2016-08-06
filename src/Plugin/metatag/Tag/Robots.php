@@ -36,8 +36,6 @@ class Robots extends MetaNameBase {
     $this->value = $value;
   }
 
-
-
   /**
    * {@inheritdoc}
    */
