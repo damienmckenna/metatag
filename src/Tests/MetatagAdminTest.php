@@ -72,11 +72,13 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertFieldById('edit-title', $metatag_defaults->get('title'), t('Metatag defaults were injected into the Global configuration entity.'));
 
     // Update the Global defaults and test them.
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
     $values = [
       'title' => 'Test title',
       'description' => 'Test description',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     $this->drupalGet('hit-a-404');
     $this->assertResponse(404);
@@ -85,11 +87,13 @@ class MetatagAdminTest extends WebTestBase {
     }
 
     // Check that tokens are processed.
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
     $values = [
       'title' => '[site:name] | Test title',
       'description' => '[site:name] | Test description',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     drupal_flush_all_caches();
     $this->drupalGet('hit-a-404');
@@ -100,12 +104,14 @@ class MetatagAdminTest extends WebTestBase {
     }
 
     // Test the Robots plugin.
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
     $robots_values = ['index', 'follow', 'noydir'];
     $values = [];
     foreach ($robots_values as $value) {
       $values['robots[' . $value . ']'] = TRUE;
     }
-    $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     drupal_flush_all_caches();
 
@@ -116,7 +122,9 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertRaw($robots_value, t('Robots metatag has the expected values.'));
 
     // Test reverting global configuration to its defaults.
-    $this->drupalPostForm('admin/config/search/metatag/global/revert', [], 'Revert');
+    $this->drupalGet('admin/config/search/metatag/global/revert');
+    $this->assertResponse(200);
+    $this->drupalPostForm(NULL, [], 'Revert');
     $this->assertText('Reverted Global defaults.');
     $this->assertText($default_title, 'Global title was reverted to its default value.');
 
@@ -133,20 +141,24 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalLogin($account);
 
     // Adjust the front page and test it.
+    $this->drupalGet('admin/config/search/metatag/front');
+    $this->assertResponse(200);
     $values = [
       'description' => 'Front page description',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/front', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Front page Metatag defaults.');
     $this->drupalGet('<front>');
     $this->assertResponse(200);
     $this->assertRaw($values['description'], t('Front page defaults are used at the front page.'));
 
     // Adjust the 403 page and test it.
+    $this->drupalGet('admin/config/search/metatag/403');
+    $this->assertResponse(200);
     $values = [
       'description' => '403 page description.',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/403', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the 403 access denied Metatag defaults.');
     $this->drupalLogout();
     $this->drupalGet('admin/config/search/metatag');
@@ -155,10 +167,12 @@ class MetatagAdminTest extends WebTestBase {
 
     // Adjust the 404 page and test it.
     $this->drupalLogin($account);
+    $this->drupalGet('admin/config/search/metatag/404');
+    $this->assertResponse(200);
     $values = [
       'description' => '404 page description.',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/404', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the 404 page not found Metatag defaults.');
     $this->drupalGet('foo');
     $this->assertResponse(404);
@@ -176,11 +190,13 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalLogin($account);
 
     // Update the Metatag Node defaults.
+    $this->drupalGet('admin/config/search/metatag/node');
+    $this->assertResponse(200);
     $values = [
       'title' => 'Test title for a node.',
       'description' => 'Test description for a node.',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/node', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Content Metatag defaults.');
 
     // Create a test node.
@@ -201,19 +217,23 @@ class MetatagAdminTest extends WebTestBase {
      * is used.
      */
     // First unset node defaults.
+    $this->drupalGet('admin/config/search/metatag/node');
+    $this->assertResponse(200);
     $values = [
       'title' => '',
       'description' => '',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/node', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Content Metatag defaults.');
 
     // Then, set global ones.
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
     $values = [
       'title' => 'Global title',
       'description' => 'Global description',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
 
     // Next, test that global defaults are rendered since node ones are empty.
@@ -233,12 +253,14 @@ class MetatagAdminTest extends WebTestBase {
     }
 
     // Now create article overrides and then test them.
+    $this->drupalGet('admin/config/search/metatag/add');
+    $this->assertResponse(200);
     $values = [
       'id' => 'node__article',
       'title' => 'Article title override',
       'description' => 'Article description override',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/add', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Created the Content: Article Metatag defaults.');
     $node = $this->drupalCreateNode([
       'title' => t('Hello, world!'),
@@ -252,7 +274,9 @@ class MetatagAdminTest extends WebTestBase {
     }
 
     // Test deleting the article defaults.
-    $this->drupalPostForm('admin/config/search/metatag/node__article/delete', [], 'Delete');
+    $this->drupalGet('admin/config/search/metatag/node__article/delete');
+    $this->assertResponse(200);
+    $this->drupalPostForm(NULL, [], 'Delete');
     $this->assertText('Deleted Content: Article defaults.');
   }
 

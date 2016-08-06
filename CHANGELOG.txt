@@ -40,6 +40,8 @@ By DamienMcKenna: Renamed the custom routes module.
   the output of all Google Plus tags. Fixed the test route module.
 #2746031 by jalpesh, cilefen, DamienMcKenna, susannecoates: Fixed output of all
   Twitter Cards meta tags.
+#2780109 by DamienMcKenna: Always run drupalGet() before drupalPostForm() to
+  ensure the form loads correctly.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

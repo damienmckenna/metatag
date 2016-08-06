@@ -73,12 +73,14 @@ class MetatagFrontpageTest extends WebTestBase {
     $this->drupalLogin($this->adminUser);
 
     // Add something to the front page config.
+    $this->drupalGet('admin/config/search/metatag/front');
+    $this->assertResponse(200);
     $values = [
       'title' => 'Test title',
       'description' => 'Test description',
       'keywords' => 'testing,keywords'
     ];
-    $this->drupalPostForm('admin/config/search/metatag/front', $values, t('Save'));
+    $this->drupalPostForm(NULL, $values, t('Save'));
     $this->assertResponse(200);
     $this->assertText(t('Saved the Front page Metatag defaults.'));
 
@@ -103,7 +105,9 @@ class MetatagFrontpageTest extends WebTestBase {
 
     // Change the front page to a valid custom route.
     $edit['site_frontpage'] = '/test-page';
-    $this->drupalPostForm('admin/config/system/site-information', $edit, t('Save configuration'));
+    $this->drupalGet('admin/config/system/site-information');
+    $this->assertResponse(200);
+    $this->drupalPostForm(NULL, $edit, t('Save configuration'));
     $this->assertText(t('The configuration options have been saved.'), 'The front page path has been saved.');
 
     $this->drupalGet('test-page');
@@ -120,16 +124,20 @@ class MetatagFrontpageTest extends WebTestBase {
    */
   public function testFrontPageMetatagDisabledConfig() {
     // Disable front page metatag, enable node metatag & check.
-    $this->drupalPostForm('admin/config/search/metatag/front/delete', [], t('Delete'));
+    $this->drupalGet('admin/config/search/metatag/front/delete');
+    $this->assertResponse(200);
+    $this->drupalPostForm(NULL, [], t('Delete'));
     $this->assertResponse(200);
     $this->assertText(t('Deleted Front page defaults.'));
 
     // Update the Metatag Node defaults.
+    $this->drupalGet('admin/config/search/metatag/node');
+    $this->assertResponse(200);
     $values = [
       'title' => 'Test title for a node.',
       'description' => 'Test description for a node.',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/node', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Content Metatag defaults.');
     $this->drupalGet('<front>');
     foreach ($values as $metatag => $metatag_value) {
@@ -141,16 +149,20 @@ class MetatagFrontpageTest extends WebTestBase {
 
     // Front page is custom route.
     // Update the Metatag Node global.
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
     $values = [
       'title' => 'Test title.',
       'description' => 'Test description.',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/global', $values, 'Save');
+    $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
 
     // Change the front page to a valid path.
+    $this->drupalGet('admin/config/system/site-information');
+    $this->assertResponse(200);
     $edit['site_frontpage'] = '/test-page';
-    $this->drupalPostForm('admin/config/system/site-information', $edit, t('Save configuration'));
+    $this->drupalPostForm(NULL, $edit, t('Save configuration'));
     $this->assertText(t('The configuration options have been saved.'), 'The front page path has been saved.');
 
     // Test Metatags.

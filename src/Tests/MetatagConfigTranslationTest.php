@@ -62,10 +62,12 @@ class MetatagConfigTranslationTest extends WebTestBase {
     $this->drupalLogin($this->adminUser);
 
     // Enable the French language.
+    $this->drupalGet('admin/config/regional/language/add');
+    $this->assertResponse(200);
     $edit = [
       'predefined_langcode' => 'fr',
     ];
-    $this->drupalPostForm('admin/config/regional/language/add', $edit, t('Add language'));
+    $this->drupalPostForm(NULL, $edit, t('Add language'));
     $this->assertRaw(t(
       'The language %language has been created and can now be used.',
       ['%language' => t('French')]
@@ -117,11 +119,13 @@ class MetatagConfigTranslationTest extends WebTestBase {
    */
   public function testConfigTranslations() {
     // Add something to the Global config.
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
     $values = [
       'title' => 'Test title',
       'description' => 'Test description',
     ];
-    $this->drupalPostForm('admin/config/search/metatag/global', $values, t('Save'));
+    $this->drupalPostForm(NULL, $values, t('Save'));
     $this->assertResponse(200);
     $this->assertText(t('Saved the Global Metatag defaults.'));
 
