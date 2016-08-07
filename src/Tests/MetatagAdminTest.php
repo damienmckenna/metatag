@@ -277,7 +277,7 @@ class MetatagAdminTest extends WebTestBase {
     $this->drupalGet('admin/config/search/metatag/node__article/delete');
     $this->assertResponse(200);
     $this->drupalPostForm(NULL, [], 'Delete');
-    $this->assertText('Deleted Content: Article defaults.');
+    $this->assertText(t('Deleted @label defaults.', ['@label' => 'Content: Article']));
   }
 
 }

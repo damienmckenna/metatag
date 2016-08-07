@@ -45,6 +45,8 @@ By DamienMcKenna: Renamed the custom routes module.
 #2748615 by yannickoo, DamienMcKenna, agentrickard, SteffenR, paulmckibben: Try
   generating an empty entity on entity-add (e.g. node/add/*) so default values
   can be filled in.
+#2775441 by tom_ek, DamienMcKenna: Replace deprecated core entity APIs with the
+  newer ones.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

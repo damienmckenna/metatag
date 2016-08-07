@@ -3,6 +3,8 @@
 namespace Drupal\metatag\Form;
 
 use Drupal\Core\Entity\EntityForm;
+use Drupal\Core\Entity\EntityTypeBundleInfoInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -111,11 +113,12 @@ class MetatagDefaultsForm extends EntityForm {
       $metatag_defaults_id = $form_state->getValue('id');
       list($entity_type, $entity_bundle) = explode('__', $metatag_defaults_id);
       // Get the entity label.
-      $entity_manager = \Drupal::service('entity.manager');
+      $entity_manager = \Drupal::service('entity_type.manager');
       $entity_info = $entity_manager->getDefinitions();
       $entity_label = (string) $entity_info[$entity_type]->get('label');
       // Get the bundle label.
-      $bundle_info = $entity_manager->getBundleInfo($entity_type);
+      $bundle_manager = \Drupal::service('entity_type.bundle.info');
+      $bundle_info = $bundle_manager->getBundleInfo($entity_type);
       $bundle_label = $bundle_info[$entity_bundle]['label'];
       // Set the label to the config entity.
       $this->entity->set('label', $entity_label . ': ' . $bundle_label);
@@ -167,12 +170,16 @@ class MetatagDefaultsForm extends EntityForm {
       'node' => 'Node',
       'taxonomy_term' => 'Taxonomy term',
     ];
-    $entity_manager = \Drupal::service('entity.manager');
+    /** @var EntityTypeManagerInterface $entity_manager */
+    $entity_manager = \Drupal::service('entity_type.manager');
+    /** @var EntityTypeBundleInfoInterface $bundle_info */
+    $bundle_info = \Drupal::service('entity_type.bundle.info');
     foreach ($entity_types as $entity_type => $entity_label) {
-      $bundles = $entity_manager->getBundleInfo($entity_type);
+      $bundles = $bundle_info->getBundleInfo($entity_type);
       foreach ($bundles as $bundle_id => $bundle_metadata) {
         $metatag_defaults_id = $entity_type . '__' . $bundle_id;
-        if (empty(entity_load('metatag_defaults', $metatag_defaults_id))) {
+        $metatags_defaults_manager = $entity_manager->getStorage('metatag_defaults');
+        if (empty($metatags_defaults_manager->load($metatag_defaults_id))) {
           $options[$entity_label][$metatag_defaults_id] = $bundle_metadata['label'];
         }
       }

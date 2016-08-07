@@ -219,7 +219,7 @@ function metatag_update_8102(&$sandbox) {
  */
 function metatag_update_8103() {
   $config_installer = \Drupal::service('config.installer');
-  $entity_manager = \Drupal::service('entity.manager');
+  $entity_manager = \Drupal::entityTypeManager();
 
   /**
    * 1. Install cofiguration.
@@ -293,14 +293,16 @@ function metatag_update_8103() {
       $bundle_label = $bundle_info[$entity_bundle]['label'];
       $label = $entity_label . ': ' . $bundle_label;
 
-      $entity = entity_load('metatag_defaults', $metatag_defaults_id);
+      $metatags_global_manager = $entity_manager->getStorage('metatag_defaults');
+
+      $entity = $metatags_global_manager->load($metatag_defaults_id);
       if ($entity) {
         // These are defaults for an existing config entity, such as User.
         $entity->set('tags', $values);
       }
       else {
         // These are bundle overrides.
-        $entity = entity_create('metatag_defaults', [
+        $entity = $metatags_global_manager->create([
           'id' => $metatag_defaults_id,
           'label' => $label,
           'tags' => $values,
