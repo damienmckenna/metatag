@@ -157,12 +157,29 @@ function metatag_is_current_route_supported() {
 function metatag_get_route_entity() {
   $route_match = \Drupal::routeMatch();
   $route_name = $route_match->getRouteName();
+
   // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
   $matches = [];
   preg_match('/entity\.(.*)\.canonical/', $route_name, $matches);
   if (!empty($matches[1])) {
     $entity_type = $matches[1];
     return $route_match->getParameter($entity_type);
+  }
+
+  // Look for entity object 'add' pages, e.g. node/add/{bundle}.
+  $route_name_matches = [];
+  preg_match('/(.*)\.add/', $route_name, $route_name_matches);
+  if (!empty($route_name_matches[1])) {
+    $entity_type = $route_name_matches[1];
+    $type = $route_match->getParameter($entity_type . '_type');
+    if (!empty($type)) {
+      $entity_type = str_replace('entity.', '', $entity_type);
+      return \Drupal::entityTypeManager()
+        ->getStorage($entity_type)
+        ->create([
+          'type' => $type->bundle(),
+        ]);
+    }
   }
 
   return NULL;

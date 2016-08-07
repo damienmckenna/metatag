@@ -42,6 +42,9 @@ By DamienMcKenna: Renamed the custom routes module.
   Twitter Cards meta tags.
 #2780109 by DamienMcKenna: Always run drupalGet() before drupalPostForm() to
   ensure the form loads correctly.
+#2748615 by yannickoo, DamienMcKenna, agentrickard, SteffenR, paulmckibben: Try
+  generating an empty entity on entity-add (e.g. node/add/*) so default values
+  can be filled in.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
