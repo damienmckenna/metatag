@@ -23,7 +23,7 @@ function metatag_open_graph_reprocess_html(&$variables) {
   // Add XML namespaces if the RDF module is not enabled as it adds these two
   // automatically.
   if (!isset($variables['html_attributes'])) {
-    $variables['html_attributes'] = array();
+    $variables['html_attributes'] = [];
   }
   $namespaces = [];
   if (!\Drupal::moduleHandler()->moduleExists('rdf')) {

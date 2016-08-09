@@ -22,8 +22,8 @@ class AbstractTag extends MetaNameBase {
   /**
    * Generate a form element for this meta tag.
    */
-  public function form(array $element = array()) {
-    $form = array(
+  public function form(array $element = []) {
+    $form = [
       '#type' => 'textarea',
       '#title' => $this->label(),
       '#default_value' => $this->value(),
@@ -31,7 +31,7 @@ class AbstractTag extends MetaNameBase {
       '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
       '#description' => $this->description(),
       '#element_validate' => [[get_class($this), 'validateTag']],
-    );
+    ];
     return $form;
   }
 

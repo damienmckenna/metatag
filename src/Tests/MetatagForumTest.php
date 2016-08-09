@@ -71,7 +71,7 @@ class MetatagForumTest extends WebTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, t('Save and publish'));
     $this->assertResponse(200);
-    $this->assertText(t('@type @title has been created.', array('@type' => t('Forum topic'), '@title' => 'Testing forums')));
+    $this->assertText(t('@type @title has been created.', ['@type' => t('Forum topic'), '@title' => 'Testing forums']));
   }
 
 }

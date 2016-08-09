@@ -47,6 +47,7 @@ By DamienMcKenna: Renamed the custom routes module.
   can be filled in.
 #2775441 by tom_ek, DamienMcKenna: Replace deprecated core entity APIs with the
   newer ones.
+#2762981 by DamienMcKenna: More codebase changes to only use short array syntax.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
