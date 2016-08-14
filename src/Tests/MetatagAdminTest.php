@@ -16,6 +16,7 @@ class MetatagAdminTest extends WebTestBase {
    */
   public static $modules = [
     'node',
+    'field_ui',
     'test_page_test',
     'token',
     'metatag',
@@ -185,7 +186,15 @@ class MetatagAdminTest extends WebTestBase {
    */
   function testOverrides() {
     // Initiate session with a user who can manage metatags.
-    $permissions = ['administer site configuration', 'administer meta tags', 'access content', 'create article content', 'administer nodes', 'create article content', 'create page content'];
+    $permissions = [
+      'administer site configuration',
+      'administer meta tags',
+      'access content',
+      'create article content',
+      'administer nodes',
+      'create article content',
+      'create page content',
+    ];
     $account = $this->drupalCreateUser($permissions);
     $this->drupalLogin($account);
 
@@ -261,7 +270,9 @@ class MetatagAdminTest extends WebTestBase {
       'description' => 'Article description override',
     ];
     $this->drupalPostForm(NULL, $values, 'Save');
-    $this->assertText('Created the Content: Article Metatag defaults.');
+    $this->assertText(strip_tags(t('Created the %label Metatag defaults.', ['%label' => 'Content: Article'])));
+
+    // Confirm the fields load properly on the node/add/article page.
     $node = $this->drupalCreateNode([
       'title' => t('Hello, world!'),
       'type' => 'article',
@@ -278,6 +289,65 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertResponse(200);
     $this->drupalPostForm(NULL, [], 'Delete');
     $this->assertText(t('Deleted @label defaults.', ['@label' => 'Content: Article']));
+  }
+
+  /**
+   * Test that the entity default values load on the entity form, and that they
+   * can then be overridden correctly.
+   */
+  public function testEntityDefaultInheritence() {
+    // Initiate session with a user who can manage metatags and content type
+    // fields.
+    $permissions = [
+      'administer site configuration',
+      'administer meta tags',
+      'access content',
+      'administer node fields',
+      'create article content',
+      'administer nodes',
+      'create article content',
+      'create page content',
+    ];
+    $account = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($account);
+
+    // Add a Metatag field to the Article content type.
+    $this->drupalGet('admin/structure/types/manage/article/fields/add-field');
+    $this->assertResponse(200);
+    $edit = [
+      'new_storage_type' => 'metatag',
+      'label' => 'Meta tags',
+      'field_name' => 'meta_tags',
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
+    $this->drupalPostForm(NULL, [], t('Save field settings'));
+    $this->assertText(strip_tags(t('Updated field %label field settings.', ['%label' => 'Meta tags'])));
+    $this->drupalPostForm(NULL, [], t('Save settings'));
+    $this->assertText(strip_tags(t('Saved %label configuration.', ['%label' => 'Meta tags'])));
+
+    // Try creating an article, confirm the fields are present. This should be
+    // the node default values that are shown.
+    $this->drupalGet('node/add/article');
+    $this->assertResponse(200);
+    $this->assertFieldByName('field_meta_tags[0][basic][title]', '[node:title] | [site:name]');
+    $this->assertFieldByName('field_meta_tags[0][basic][description]', '[node:summary]');
+
+    // Customize the Article content type defaults.
+    $this->drupalGet('admin/config/search/metatag/add');
+    $this->assertResponse(200);
+    $values = [
+      'id' => 'node__article',
+      'title' => 'Article title override',
+      'description' => 'Article description override',
+    ];
+    $this->drupalPostForm(NULL, $values, 'Save');
+    $this->assertText(strip_tags(t('Created the %label Metatag defaults.', ['%label' => 'Content: Article'])));
+
+    // Try creating an article, this time with the overridden defaults.
+    $this->drupalGet('node/add/article');
+    $this->assertResponse(200);
+    $this->assertFieldByName('field_meta_tags[0][basic][title]', 'Article title override');
+    $this->assertFieldByName('field_meta_tags[0][basic][description]', 'Article description override');
   }
 
 }

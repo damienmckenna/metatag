@@ -45,6 +45,9 @@ function metatag_form_field_storage_config_edit_form_alter(&$form, FormStateInte
 
 /**
  * Implements hook_form_FORM_ID_alter() for 'field_config_edit_form'.
+ *
+ * Configuration defaults are handled via a different mechanism, so do not allow
+ * any values to be saved.
  */
 function metatag_form_field_config_edit_form_alter(&$form, FormStateInterface $form_state) {
   if ($form_state->getFormObject()->getEntity()->getType() == 'metatag') {
@@ -53,6 +56,23 @@ function metatag_form_field_config_edit_form_alter(&$form, FormStateInterface $f
     $form['required']['#disabled'] = TRUE;
     $form['default_value']['#access'] = FALSE;
     $form['default_value']['#disabled'] = TRUE;
+
+    // Step through the default value structure and erase any '#default_value'
+    // items that are found.
+    foreach ($form['default_value']['widget'][0] as $key => &$outer) {
+      if (is_array($outer)) {
+        foreach ($outer as $key => &$inner) {
+          if (is_array($inner) && isset($inner['#default_value'])) {
+            if (is_array($inner['#default_value'])) {
+              $inner['#default_value'] = array();
+            }
+            else {
+              $inner['#default_value'] = NULL;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -177,7 +197,7 @@ function metatag_get_route_entity() {
       return \Drupal::entityTypeManager()
         ->getStorage($entity_type)
         ->create([
-          'type' => $type->bundle(),
+          'type' => $type->getOriginalId(),
         ]);
     }
   }
@@ -240,7 +260,9 @@ function metatag_get_tags_from_route() {
   // Then, set tag overrides for this particular entity.
   $entity = metatag_get_route_entity();
   if (!empty($entity) && $entity instanceof ContentEntityInterface) {
-    $metatags = array_merge($metatags, $metatag_manager->tagsFromEntity($entity));
+    foreach ($metatag_manager->tagsFromEntity($entity) as $tag => $data) {
+      $metatags[$tag] = $data;
+    }
   }
 
   return $metatag_manager->generateElements($metatags, $entity);
@@ -261,7 +283,7 @@ function metatag_get_default_tags() {
     return;
   }
 
-  // Lastly, check if this is a special page.
+  // Check if this is a special page.
   if (\Drupal::service('path.matcher')->isFrontPage()) {
     $special_metatags = $global_metatag_manager->load('front');
   }
@@ -272,7 +294,7 @@ function metatag_get_default_tags() {
     $special_metatags = $global_metatag_manager->load('404');
   }
   if (isset($special_metatags)) {
-    $metatags->set('tags', array_merge($metatags->get('tags'), $special_metatags->get('tags')));
+    $metatags->overwriteTags($special_metatags->get('tags'));
   }
 
   // Next check if there is this page is an entity that has meta tags.
@@ -283,14 +305,14 @@ function metatag_get_default_tags() {
       $entity_metatags = $global_metatag_manager->load($entity->getEntityTypeId());
       if ($entity_metatags != NULL) {
         // Merge with global defaults.
-        $metatags->set('tags', array_merge($metatags->get('tags'), $entity_metatags->get('tags')));
+        $metatags->overwriteTags($entity_metatags->get('tags'));
       }
 
-      // Finally, check if we should apply bundle overrides.
+      // Finally, check if bundle overrides should be added.
       $bundle_metatags = $global_metatag_manager->load($entity->getEntityTypeId() . '__' . $entity->bundle());
       if ($bundle_metatags != NULL) {
         // Merge with existing defaults.
-        $metatags->set('tags', array_merge($metatags->get('tags'), $bundle_metatags->get('tags')));
+        $metatags->overwriteTags($bundle_metatags->get('tags'));
       }
     }
   }

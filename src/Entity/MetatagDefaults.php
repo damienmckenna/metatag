@@ -102,4 +102,22 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
     }
   }
 
+  /**
+   * Overwrite the current tags with new values.
+   */
+  public function overwriteTags(array $new_tags = []) {
+    if (!empty($new_tags)) {
+      // Get the existing tags.
+      $combined_tags = $this->get('tags');
+
+      // Loop over the new tags, adding them to the existing tags.
+      foreach ($new_tags as $tag_name => $data) {
+        $combined_tags[$tag_name] = $data;
+      }
+
+      // Save the combination of the existing tags + the new tags.
+      $this->set('tags', $combined_tags);
+    }
+  }
+
 }
