@@ -49,14 +49,14 @@ class MetatagToken {
   /**
    * Gatekeeper function to direct to either the core or contributed Token.
    *
-   * @param mixed $token_types
-   *   The token types to return. Defaults to all.
+   * @param array $token_types
+   *   The token types to filter the tokens list by. Defaults to an empty array.
    *
    * @return array
    *   If token module is installed, a popup browser plus a help text. If not
    *   only the help text.
    */
-  public function tokenBrowser($token_types = NULL) {
+  public function tokenBrowser(array $token_types = []) {
     $form = [];
 
     $form['intro_text'] = [
@@ -72,12 +72,9 @@ class MetatagToken {
 
     $form['tokens'] = [
       '#theme' => 'token_tree_link',
-      '#token_types' => !empty($token_types) ? $token_types : 'all',
+      '#token_types' => $token_types,
       '#global_types' => TRUE,
-      '#click_insert' => TRUE,
-      '#show_restricted' => FALSE,
-      '#recursion_limit' => 3,
-      '#text' => t('Browse available tokens'),
+      '#show_nested' => FALSE,
     ];
 
     return $form;

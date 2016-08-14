@@ -164,7 +164,7 @@ class MetatagManager implements MetatagManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function form(array $values, array $element, $token_types = NULL, array $included_groups = NULL, array $included_tags = NULL) {
+  public function form(array $values, array $element, array $token_types = [], array $included_groups = NULL, array $included_tags = NULL) {
 
     // Add the outer fieldset.
     $element += [

@@ -48,6 +48,8 @@ By DamienMcKenna: Renamed the custom routes module.
 #2775441 by tom_ek, DamienMcKenna: Replace deprecated core entity APIs with the
   newer ones.
 #2762981 by DamienMcKenna: More codebase changes to only use short array syntax.
+#2774807 by DamienMcKenna, Berdir, hussainweb: Token browser showed items that
+  were irrelevant, and didn't show the correct entities on default config forms.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

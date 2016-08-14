@@ -31,13 +31,14 @@ class MetatagDefaultsForm extends EntityForm {
     $form['#suffix'] = '</div>';
 
     $default_type = NULL;
-    if ($form_state->has('default_type')) {
-      $default_type = $form_state->get('default_type');
-    } else {
+    if (!empty($metatag_defaults)) {
+      $default_type = $metatag_defaults->getOriginalId();
+    }
+    else {
       $form_state->set('default_type', $default_type);
     }
 
-    $token_types = empty($default_type) ? NULL : [explode('__', $default_type)[0]];
+    $token_types = empty($default_type) ? [] : [explode('__', $default_type)[0]];
 
     // Add the token browser at the top.
     $form += \Drupal::service('metatag.token')->tokenBrowser($token_types);
