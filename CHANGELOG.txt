@@ -50,7 +50,7 @@ By DamienMcKenna: Renamed the custom routes module.
 #2762981 by DamienMcKenna: More codebase changes to only use short array syntax.
 #2774807 by DamienMcKenna, Berdir, hussainweb: Token browser showed items that
   were irrelevant, and didn't show the correct entities on default config forms.
-#2748615 by DamienMcKenna, yannickoo, SteffenR: The default configurations were
+#2748615 by yannickoo, DamienMcKenna, SteffenR: The default configurations were
   not loading properly in entity form fields.
 
 
