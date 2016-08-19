@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Contains Drupal\metatag\Command\GenerateGroupCommand.
+ */
 
 namespace Drupal\metatag\Command;
 
@@ -6,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Drupal\Console\Command\GeneratorCommand;
-use Drupal\Console\Command\Shared\ServicesTrait;
+use Drupal\Console\Command\Shared\ContainerAwareCommandTrait;
 use Drupal\Console\Command\Shared\ModuleTrait;
 use Drupal\Console\Command\Shared\FormTrait;
 use Drupal\Console\Command\Shared\ConfirmationTrait;
@@ -22,7 +26,7 @@ use Drupal\metatag\Generator\MetatagGroupGenerator;
  */
 class GenerateGroupCommand extends GeneratorCommand {
 
-  use ServicesTrait;
+  use ContainerAwareCommandTrait;
   use ModuleTrait;
   use FormTrait;
   use ConfirmationTrait;
@@ -57,6 +61,7 @@ class GenerateGroupCommand extends GeneratorCommand {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $io = new DrupalStyle($input, $output);
 
+    // @see use Drupal\Console\Command\ConfirmationTrait::confirmGeneration
     if (!$this->confirmGeneration($io)) {
       return 1;
     }
@@ -94,6 +99,7 @@ class GenerateGroupCommand extends GeneratorCommand {
     // --module option.
     $module = $input->getOption('module');
     if (empty($module)) {
+      // @see Drupal\AppConsole\Command\Helper\ModuleTrait::moduleQuestion
       $module = $this->moduleQuestion($output);
     }
     $input->setOption('module', $module);

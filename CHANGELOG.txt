@@ -52,6 +52,7 @@ By DamienMcKenna: Renamed the custom routes module.
   were irrelevant, and didn't show the correct entities on default config forms.
 #2748615 by yannickoo, DamienMcKenna, SteffenR: The default configurations were
   not loading properly in entity form fields.
+#2752239 by DamienMcKenna: Fixes to Drupal:Console integration.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
