@@ -55,6 +55,7 @@ By DamienMcKenna: Renamed the custom routes module.
 #2752239 by DamienMcKenna: Fixes to Drupal:Console integration.
 #1865228 by DamienMcKenna, greggles: Added the Author meta tag.
 #2493711 by DamienMcKenna: Added the geographical meta tags.
+#1343914 by DamienMcKenna, Dave Reid: Added the (Google+) Publisher meta tag.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

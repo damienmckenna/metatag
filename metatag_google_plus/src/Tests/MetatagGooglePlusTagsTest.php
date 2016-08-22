@@ -19,6 +19,7 @@ class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
     'google_plus_description',
     'google_plus_image',
     'google_plus_name',
+    'google_plus_publisher',
   ];
 
   /**
@@ -38,7 +39,25 @@ class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
    * Each of these meta tags has a different tag name vs its internal name.
    */
   public function get_test_tag_name($tag_name) {
-    return str_replace('google_plus_', 'itemprop:', $tag_name);
+    $tag_name = str_replace('google_plus_', 'itemprop:', $tag_name);
+    if ($tag_name == 'itemprop:publisher') {
+      $tag_name = 'publisher';
+    }
+    return $tag_name;
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_name_attribute() for 'publisher'.
+   */
+  public function google_plus_publisher_test_output_xpath() {
+    return "//link[@rel='publisher']";
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_value_attribute() for 'publisher'.
+   */
+  public function google_plus_publisher_test_value_attribute() {
+    return 'href';
   }
 
 }
