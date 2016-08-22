@@ -1,6 +1,9 @@
 metatag.metatag_tag.abstract:
   type: label
   label: 'Abstract'
+metatag.metatag_tag.author:
+  type: label
+  label: 'Author'
 metatag.metatag_tag.canonical_url:
   type: label
   label: 'Canonical URL'

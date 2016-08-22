@@ -17,6 +17,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
    */
   public $tags = [
     'abstract',
+    'author',
     'canonical_url',
     'content_language',
     'description',
@@ -40,6 +41,20 @@ class MetatagTagsTest extends MetatagTagsTestBase {
    */
   public function abstract_test_field_xpath() {
     return "//textarea[@name='abstract']";
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_name_attribute() for 'author'.
+   */
+  public function author_test_output_xpath() {
+    return "//link[@rel='author']";
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_value_attribute() for 'author'.
+   */
+  public function author_test_value_attribute() {
+    return 'href';
   }
 
   /**
