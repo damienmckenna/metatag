@@ -52,3 +52,15 @@ metatag.metatag_tag.standout:
 metatag.metatag_tag.title:
   type: label
   label: 'Page title'
+metatag.metatag_tag.icbm:
+  type: label
+  label: 'ICBM'
+metatag.metatag_tag.geo_region:
+  type: label
+  label: 'Geographical region'
+metatag.metatag_tag.geo_placename:
+  type: label
+  label: 'Geographical place name'
+metatag.metatag_tag.geo_position:
+  type: label
+  label: 'Geographical position'

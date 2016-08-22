@@ -54,6 +54,7 @@ By DamienMcKenna: Renamed the custom routes module.
   not loading properly in entity form fields.
 #2752239 by DamienMcKenna: Fixes to Drupal:Console integration.
 #1865228 by DamienMcKenna, greggles: Added the Author meta tag.
+#2493711 by DamienMcKenna: Added the geographical meta tags.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02

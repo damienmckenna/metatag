@@ -89,7 +89,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
         $xpath = "//input[@name='{$tag}' and @type='text']";
       }
 
-      $this->assertFieldByXPath($xpath);
+      $this->assertFieldByXPath($xpath, NULL, format_string('Found the @tag meta tag field.', ['@tag' => $tag]));
     }
 
     $this->drupalLogout();

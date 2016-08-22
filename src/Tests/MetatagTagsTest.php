@@ -24,6 +24,10 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'fb_admins',
     'fb_app_id',
     'generator',
+    'geo_placename',
+    'geo_position',
+    'geo_region',
+    'icbm',
     'image_src',
     'keywords',
     'news_keywords',
@@ -35,6 +39,34 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'standout',
     'title',
   ];
+
+  /**
+   * Each of these meta tags has a different tag name vs its internal name.
+   */
+  public function get_test_tag_name($tag_name) {
+    if ($tag_name == 'geo_placename') {
+      $tag_name = 'geo.placename';
+    }
+    elseif ($tag_name == 'geo_position') {
+      $tag_name = 'geo.position';
+    }
+    elseif ($tag_name == 'geo_region') {
+      $tag_name = 'geo.region';
+    }
+    elseif ($tag_name == 'content_language') {
+      $tag_name = 'content-language';
+    }
+    elseif ($tag_name == 'fb_admins') {
+      $tag_name = 'fb:admins';
+    }
+    elseif ($tag_name == 'fb_app_id') {
+      $tag_name = 'fb:app_id';
+    }
+    elseif ($tag_name == 'original_source') {
+      $tag_name = 'original-source';
+    }
+    return $tag_name;
+  }
 
   /**
    * Implements {meta_tag_name}_test_field_xpath() for 'abstract'.
@@ -79,13 +111,6 @@ class MetatagTagsTest extends MetatagTagsTestBase {
   }
 
   /**
-   * Implements {meta_tag_name}_test_tag_name() for 'content_language'.
-   */
-  public function content_language_test_tag_name() {
-    return 'content-language';
-  }
-
-  /**
    * Implements {meta_tag_name}_test_field_xpath() for 'description'.
    */
   public function description_test_field_xpath() {
@@ -100,31 +125,10 @@ class MetatagTagsTest extends MetatagTagsTestBase {
   }
 
   /**
-   * Implements {meta_tag_name}_test_tag_name() for 'fb_admins'.
-   */
-  public function fb_admins_test_tag_name() {
-    return 'fb:admins';
-  }
-
-  /**
    * Implements {meta_tag_name}_test_name_attribute() for 'fb_app_id'.
    */
   public function fb_app_id_test_name_attribute() {
     return 'property';
-  }
-
-  /**
-   * Implements {meta_tag_name}_test_tag_name() for 'fb_app_id'.
-   */
-  public function fb_app_id_test_tag_name() {
-    return 'fb:app_id';
-  }
-
-  /**
-   * Implements {meta_tag_name}_test_tag_name() for 'original_source'.
-   */
-  public function original_source_test_tag_name() {
-    return 'original-source';
   }
 
   /**
