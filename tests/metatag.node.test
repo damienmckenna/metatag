@@ -325,4 +325,99 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     $this->assertEqual($xpath[0]['content'], $old_title . ' ponies', 'Found the old abstract meta tag again.');
   }
 
+  /**
+   * Tests different 'preview' options. #1: Disabled.
+   */
+  public function testNodePreviewOption0() {
+    $this->checkNodePreviewOption(0);
+  }
+
+  /**
+   * Tests different 'preview' options. #2: Optional, without preview.
+   */
+  public function testNodePreviewOption1NoPreview() {
+    $this->checkNodePreviewOption(1, FALSE);
+  }
+
+  /**
+   * Tests different 'preview' options. #2: Optional, with preview.
+   */
+  public function testNodePreviewOption1Preview() {
+    $this->checkNodePreviewOption(1, TRUE);
+  }
+
+  /**
+   * Tests different 'preview' options. #3: Preview required.
+   */
+  public function testNodePreviewOption2() {
+    $this->checkNodePreviewOption(2);
+  }
+
+  /**
+   * Change the node preview option at the content type level, confirm meta tags
+   * still save correctly.
+   *
+   * @param int $option
+   *   A suitable value for the 'node_preview' option for a content type, must
+   *   be either 0, 1 or 2.
+   * @param bool $preview
+   *   Whether to perform a preview. Has the following implications:
+   *   - if $option === 0, $preview is ignored, no preview is performed.
+   *   - if $option === 1, $preview is considered, a preview may be performed.
+   *   - if $option === 2, $preview is ignored, a preview is performed.
+   */
+  function checkNodePreviewOption($option, $preview = FALSE) {
+    $content_type = 'article';
+    $label = 'Test';
+
+    // Create an admin user and log them in.
+    $perms = array(
+      // Needed for the content type.
+      'create ' . $content_type . ' content',
+      'edit any ' . $content_type . ' content',
+
+      // Required for customizing the node preview option.
+      'administer content types',
+    );
+    $this->adminUser = $this->createAdminUser($perms);
+    $this->drupalLogin($this->adminUser);
+
+    // Set the node preview mode.
+    $this->drupalGet('admin/structure/types/manage/' . $content_type);
+    $this->assertResponse(200);
+    $edit = array(
+      'node_preview' => $option,
+    );
+    $this->drupalPost(NULL, $edit, t('Save content type'));
+    $this->assertText(strip_tags(t('The content type %name has been updated.', array('%name' => t('Article')))));
+
+    // Create a test node.
+    $this->drupalGet('node/add/' . $content_type);
+    $this->assertResponse(200);
+
+    // Save a custom meta tag.
+    $edit = array(
+      'metatags[und][abstract][value]' => '[node:title] ponies',
+      'title' => 'Who likes magic',
+    );
+
+    // A preview may be optionally performed. Core allows three combinations:
+    // * 0 = Disallowed.
+    // * 1 = Optional.
+    // * 2 = Required.
+    if (($option === 1 && $preview) || $option === 2) {
+      $this->drupalPost(NULL, $edit, t('Preview'));
+      $this->drupalPost(NULL, array(), t('Save'));
+    }
+    else {
+      $this->drupalPost(NULL, $edit, t('Save'));
+    }
+    $this->assertResponse(200);
+
+    // Verify the title is using the custom default for this content type.
+    $xpath = $this->xpath("//meta[@name='abstract']");
+    $this->assertEqual(count($xpath), 1, 'Exactly one abstract meta tag found.');
+    $this->assertEqual($xpath[0]['content'], 'Who likes magic ponies');
+  }
+
 }
