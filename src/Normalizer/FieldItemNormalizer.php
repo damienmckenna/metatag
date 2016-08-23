@@ -32,16 +32,21 @@ class FieldItemNormalizer extends NormalizerBase {
       $values['lang'] = $context['langcode'];
     }
 
-    $tags = $values;
-
-    if ($format == 'json' || $format == 'hal_json') {
+    if (strpos($format, 'json') !== false) {
         $tags = array();
         // Get serialized value and break it into an array of tags with values.
         $serialized_value = $field_item->get('value')->getValue();
         $tags += unserialize($serialized_value);
     }
 
-    return $tags;
+    return array(
+      'field_metatag' => [
+        [
+          'values' => $tags,
+          'lang' => $values['lang']
+        ]
+      ]
+    );
   }
 
 }
