@@ -28,6 +28,11 @@ class FieldItemNormalizer extends NormalizerBase {
    */
   public function normalize($field_item, $format = NULL, array $context = []) {
     $values = $field_item->toArray();
+
+    // Convert tokens if there are any.
+    $token = \Drupal::token();
+    $values['value'] = $token->replace($values['value']);
+
     if (isset($context['langcode'])) {
       $values['lang'] = $context['langcode'];
     }
@@ -39,6 +44,12 @@ class FieldItemNormalizer extends NormalizerBase {
       $serialized_value = $field_item->get('value')->getValue();
       $tags += unserialize($serialized_value);
     }
+
+    // Convert tokens if there are any.
+    $tags = array_map(function ($s) {
+      $token = \Drupal::token();
+      return $token->replace($s);
+    }, $tags);
 
     // Mock the field array similar to the other fields.
     return array(
