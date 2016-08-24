@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\Rights.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The basic "Rights" meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "rights",
  *   group = "advanced",
  *   weight = 5,
- *   image = FALSE,
+ *   type = "label",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

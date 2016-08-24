@@ -1,17 +1,10 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase.
- */
 
 /**
  * This base plugin allows "link rel" tags to be further customized.
  */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Form\FormStateInterface;
 
 abstract class LinkRelBase extends MetaNameBase {
   /**
@@ -23,13 +16,13 @@ abstract class LinkRelBase extends MetaNameBase {
       $element = '';
     }
     else {
-      $element = array(
+      $element = [
         '#tag' => 'link',
-        '#attributes' => array(
+        '#attributes' => [
           'rel' => $this->name,
           'href' => $this->value(),
-        )
-      );
+        ]
+      ];
     }
 
     return $element;

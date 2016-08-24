@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\Generator.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The basic "Generator" meta tag.
@@ -20,10 +12,11 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "generator",
  *   group = "advanced",
  *   weight = 4,
- *   image = FALSE,
+ *   type = "string",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */
-class Generator extends LinkRelBase {
+class Generator extends MetaNameBase {
   // Nothing here yet. Just a placeholder class for a plugin.
 }

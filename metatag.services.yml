@@ -9,7 +9,7 @@ services:
 
   metatag.token:
     class: Drupal\metatag\MetatagToken
-    arguments: ['@module_handler', '@token']
+    arguments: ['@token']
 
   metatag.manager:
     class: Drupal\metatag\MetatagManager
@@ -20,3 +20,11 @@ services:
     tags:
       - { name: normalizer, priority: 30 }
 
+  metatag_generate_group:
+    class: Drupal\metatag\Command\GenerateGroupCommand
+    tags:
+      - { name: console.command }
+  metatag_generate_tag:
+    class: Drupal\metatag\Command\GenerateTagCommand
+    tags:
+      - { name: console.command }

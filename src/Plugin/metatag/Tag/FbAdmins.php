@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\FbAdmins.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The Facebook "fb:admins" meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "fb:admins",
  *   group = "facebook",
  *   weight = 1,
- *   image = FALSE,
+ *   type = "string",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

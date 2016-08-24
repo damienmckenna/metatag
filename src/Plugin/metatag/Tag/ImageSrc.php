@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\ImageSrc.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The advanced "Image" meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "image_src",
  *   group = "advanced",
  *   weight = 4,
- *   image = TRUE,
+ *   type = "image",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

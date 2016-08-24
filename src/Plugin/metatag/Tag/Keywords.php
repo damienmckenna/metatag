@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\Keywords.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The basic "Keywords" meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "keywords",
  *   group = "basic",
  *   weight = 4,
- *   image = FALSE,
+ *   type = "label",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

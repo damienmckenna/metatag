@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\metatag\Entity\MetatagDefaults.
- */
-
 namespace Drupal\metatag\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
@@ -39,7 +34,7 @@ use Drupal\metatag\MetatagDefaultsInterface;
  *     "edit-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/edit",
  *     "delete-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/delete",
  *     "revert-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/revert",
- *     "collection" = "/admin/structure/visibility_group"
+ *     "collection" = "/admin/structure/metatag_defaults"
  *   }
  * )
  */
@@ -104,6 +99,24 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
     if ($default_config_data) {
       $this->set('tags', $default_config_data['tags']);
       $this->save();
+    }
+  }
+
+  /**
+   * Overwrite the current tags with new values.
+   */
+  public function overwriteTags(array $new_tags = []) {
+    if (!empty($new_tags)) {
+      // Get the existing tags.
+      $combined_tags = $this->get('tags');
+
+      // Loop over the new tags, adding them to the existing tags.
+      foreach ($new_tags as $tag_name => $data) {
+        $combined_tags[$tag_name] = $data;
+      }
+
+      // Save the combination of the existing tags + the new tags.
+      $this->set('tags', $combined_tags);
     }
   }
 

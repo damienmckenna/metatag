@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\OriginalSource.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The advanced "Original Source" meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "original-source",
  *   group = "advanced",
  *   weight = 4,
- *   image = FALSE,
+ *   type = "uri",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

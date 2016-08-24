@@ -9,7 +9,10 @@
  * Implements hook_install().
  */
 function metatag_install() {
-  drupal_set_message(t("To adjust global defaults, go to admin/structure/metatag_defaults. If you need to set metatags for a specific entity, edit it's bundle and add the Metatag field."));
+  // Don't display the message during site installation, it looks funny.
+  if (!drupal_installation_attempted()) {
+    drupal_set_message(t("To adjust global defaults, go to admin/config/search/metatag. If you need to set metatags for a specific entity, edit its bundle and add the Metatag field."));
+  }
 }
 
 /**
@@ -17,17 +20,17 @@ function metatag_install() {
  */
 function metatag_update_8101() {
   // Get all of the field storage entities of type metatag.
-  $field_storage_configs = \Drupal::entityManager()
+  $field_storage_configs = \Drupal::entityTypeManager()
     ->getStorage('field_storage_config')
-    ->loadByProperties(array('type' => 'metatag'));
+    ->loadByProperties(['type' => 'metatag']);
 
   foreach ($field_storage_configs as $key => $field_storage) {
     $field_name = $field_storage->getName();
 
     // Get the individual fields (field instances) associated with bundles.
-    $fields = \Drupal::entityManager()
+    $fields = \Drupal::entityTypeManager()
       ->getStorage('field_config')
-      ->loadByProperties(array('field_name' => $field_name));
+      ->loadByProperties(['field_name' => $field_name]);
 
     // For each of the fields, delete all records that match the defaults.
     foreach ($fields as $field) {
@@ -70,17 +73,17 @@ function metatag_update_8102(&$sandbox) {
     $field_counter = 0;
 
     // Get all of the field storage entities of type metatag.
-    $field_storage_configs = \Drupal::entityManager()
+    $field_storage_configs = \Drupal::entityTypeManager()
       ->getStorage('field_storage_config')
-      ->loadByProperties(array('type' => 'metatag'));
+      ->loadByProperties(['type' => 'metatag']);
 
     foreach ($field_storage_configs as $key => $field_storage) {
       $field_name = $field_storage->getName();
 
       // Get the individual fields (field instances) associated with bundles.
-      $fields = \Drupal::entityManager()
+      $fields = \Drupal::entityTypeManager()
         ->getStorage('field_config')
-        ->loadByProperties(array('field_name' => $field_name));
+        ->loadByProperties(['field_name' => $field_name]);
 
       // For each of the fields, do the mass delete of exact matches but
       // store the overridden records in the sandbox to be batch processed.
@@ -146,7 +149,7 @@ function metatag_update_8102(&$sandbox) {
       // Strip any empty tags or ones matching the field's defaults and leave
       // only the overridden tags in $new_tags.
       $current_tags = unserialize($record->$field_value_field);
-      $new_tags = array();
+      $new_tags = [];
       foreach ($current_tags as $key => $tag) {
         if (!empty($tag) && $field_default_tags[$key] != $tag) {
           $new_tags[$key] = $tag;
@@ -166,9 +169,9 @@ function metatag_update_8102(&$sandbox) {
         // There are some overridden tags so update the record with just those.
         $tags_string = serialize($new_tags);
         db_update($field_table)
-          ->fields(array(
+          ->fields([
             $field_value_field => $tags_string,
-          ))
+          ])
           ->condition('entity_id', $record->entity_id)
           ->condition('revision_id', $record->revision_id)
           ->condition('langcode', $record->langcode)
@@ -201,10 +204,10 @@ function metatag_update_8102(&$sandbox) {
   }
 
   if ($sandbox['total_records'] > 0) {
-    return (string) t('Processed @processed of @total overridden Metatag records.', array(
+    return (string) t('Processed @processed of @total overridden Metatag records.', [
       '@processed' => $sandbox['records_processed'],
       '@total' => $sandbox['total_records']
-    ));
+    ]);
   }
   else {
     return (string) t("There were no overridden Metatag records.");
@@ -214,9 +217,9 @@ function metatag_update_8102(&$sandbox) {
 /**
  * Move field defaults to Metatag Defaults.
  */
-function metatag_update_8103(&$sandbox) {
+function metatag_update_8103() {
   $config_installer = \Drupal::service('config.installer');
-  $entity_manager = \Drupal::service('entity.manager');
+  $entity_manager = \Drupal::entityTypeManager();
 
   /**
    * 1. Install cofiguration.
@@ -234,24 +237,30 @@ function metatag_update_8103(&$sandbox) {
       ->setSyncing(TRUE)
       ->setSourceStorage($source_storage);
   }
+
   // Install new configuration for Metatag.
   $config_installer->installDefaultConfig('module', 'metatag');
+
+  // Apply all entity definition changes.
+  \Drupal::entityDefinitionUpdateManager()->applyUpdates();
 
   /**
    * 2. Extract Metatag field defaults.
    */
   $entity_info = $entity_manager->getDefinitions();
-  $tags = array();
+  $tags = [];
+
   // Get all of the field storage entities of type metatag.
-  $field_storage_configs = $entity_manager->getStorage('field_storage_config')
-                                         ->loadByProperties(array('type' => 'metatag'));
+  $field_storage_configs = $entity_manager
+    ->getStorage('field_storage_config')
+    ->loadByProperties(['type' => 'metatag']);
 
   foreach ($field_storage_configs as $key => $field_storage) {
     $field_name = $field_storage->getName();
 
     // Get the individual fields (field instances) associated with bundles.
     $fields = $entity_manager->getStorage('field_config')
-                             ->loadByProperties(array('field_name' => $field_name));
+                             ->loadByProperties(['field_name' => $field_name]);
     foreach ($fields as $field) {
       // Adjust the config id depending on whether these are entity defaults
       // or bundle defaults.
@@ -284,24 +293,55 @@ function metatag_update_8103(&$sandbox) {
       $bundle_label = $bundle_info[$entity_bundle]['label'];
       $label = $entity_label . ': ' . $bundle_label;
 
-      $entity = entity_load('metatag_defaults', $metatag_defaults_id);
+      $metatags_global_manager = $entity_manager->getStorage('metatag_defaults');
+
+      $entity = $metatags_global_manager->load($metatag_defaults_id);
       if ($entity) {
         // These are defaults for an existing config entity, such as User.
         $entity->set('tags', $values);
       }
       else {
         // These are bundle overrides.
-        $entity = entity_create('metatag_defaults', array(
+        $entity = $metatags_global_manager->create([
           'id' => $metatag_defaults_id,
           'label' => $label,
           'tags' => $values,
-        ));
+        ]);
       }
       $entity->save();
     }
-    return (string) t("@count Metatag field defaults have been converted to using global entity defaults.", array('@count' => count($tags)));
+    return (string) t("@count Metatag field defaults have been converted to using global entity defaults.", ['@count' => count($tags)]);
   }
   else {
     return (string) t("There were Metatag field configurations that needed to be converted.");
   }
+}
+
+/**
+ * Rebuild routes after moving Metatag admin from Structure to Config.
+ */
+function metatag_update_8104() {
+  \Drupal::service('router.builder')->setRebuildNeeded();
+}
+
+/**
+ * Rebuild routes after renaming.
+ */
+function metatag_update_8105() {
+  \Drupal::service('router.builder')->setRebuildNeeded();
+}
+
+/**
+ * Add the metatag_defaults config entity to the site.
+ */
+function metatag_update_8106() {
+  \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+}
+
+/**
+ * Enable the new metatag_open_graph module.
+ */
+function metatag_update_8107() {
+  \Drupal::service('module_installer')->install(['metatag_open_graph']);
+  return (string) t("The new Metatag: Open Graph module has been enabled.");
 }

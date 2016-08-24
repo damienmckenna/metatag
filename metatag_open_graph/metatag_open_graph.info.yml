@@ -1,0 +1,7 @@
+name: 'Metatag: Open Graph'
+type: module
+description: Provides support for Open Graph Protocol meta tags.
+core: 8.x
+package: SEO
+dependencies:
+  - metatag

@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\ShortLink.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * Provides a plugin for the 'shortlink' meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "shortlink",
  *   group = "advanced",
  *   weight = 1,
- *   image = FALSE,
+ *   type = "uri",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

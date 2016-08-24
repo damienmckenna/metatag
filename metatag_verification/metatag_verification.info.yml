@@ -1,0 +1,7 @@
+name: 'Metatag: Verification'
+type: module
+description: Verifies ownership of a site for search engines and other services.
+core: 8.x
+package: SEO
+dependencies:
+  - metatag

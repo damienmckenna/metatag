@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\ContentLanguage.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaHttpEquivBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The advanced "Content Language" meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "content-language",
  *   group = "advanced",
  *   weight = 1,
- *   image = FALSE,
+ *   type = "string",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

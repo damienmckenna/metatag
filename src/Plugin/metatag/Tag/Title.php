@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\Title.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The standard page title.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "title",
  *   group = "basic",
  *   weight = -1,
- *   image = FALSE,
+ *   type = "label",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */
@@ -37,11 +30,11 @@ class Title extends MetaNameBase {
   //     $element = '';
   //   }
   //   else {
-  //     $element = array(
+  //     $element = [
   //       '#theme' => 'hidden',
   //       // '#tag' => 'title',
   //       '#value' => $this->value(),
-  //     );
+  //     ];
   //   }
   //
   //   return $element;

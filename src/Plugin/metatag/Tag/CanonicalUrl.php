@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\CanonicalUrl.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * Provides a plugin for the 'canonical' meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "canonical",
  *   group = "advanced",
  *   weight = 1,
- *   image = FALSE,
+ *   type = "uri",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */

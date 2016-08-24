@@ -1,14 +1,6 @@
 <?php
-/**
- * @file
- * Contains \Drupal\metatag\Plugin\metatag\Tag\FbAppId.
- */
 
 namespace Drupal\metatag\Plugin\metatag\Tag;
-
-use Drupal\Core\Annotation\Translation;
-use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
-use Drupal\metatag\Annotation\MetatagTag;
 
 /**
  * The Facebook "fb:app_id" meta tag.
@@ -20,7 +12,8 @@ use Drupal\metatag\Annotation\MetatagTag;
  *   name = "fb:app_id",
  *   group = "facebook",
  *   weight = 2,
- *   image = FALSE,
+ *   type = "string",
+ *   secure = FALSE,
  *   multiple = FALSE
  * )
  */
