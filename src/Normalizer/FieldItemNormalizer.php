@@ -38,7 +38,7 @@ class FieldItemNormalizer extends NormalizerBase {
     }
 
     // Detect any data format that could be JSON (since we can define our own).
-    if (strpos($format, 'json') !== false) {
+    if (strpos($format, 'json') !== FALSE) {
       $tags = [];
       // Get serialized value and break it into an array of tags with values.
       $serialized_value = $field_item->get('value')->getValue();
