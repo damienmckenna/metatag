@@ -24,6 +24,7 @@ By DamienMcKenna: Clear Metatag's caches after deleting or renaming a meta tag.
 #2678896 by nmalinoski: Fixed redundant t() calls to fix double translation.
 #2787189 by DamienMcKenna: Added some tests to confirm that the different node
   preview options don't interfere with saving meta tag values.
+By DamienMcKenna: Added a Known Issue for problems with Entity Token.
 
 
 Metatag 7.x-1.17, 2016-06-30

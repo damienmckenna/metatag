@@ -314,6 +314,10 @@ Troubleshooting / known issues
   recommended to disable the "Force language neutral aliases" setting on the
   Admin Language settings page, i.e. set the "admin_language_force_neutral"
   variable to FALSE. Failing to do so can lead to data loss in Metatag.
+* If Entity Token is installed (a dependency for Rules, Commerce and others) it
+  is possible that the token browser may not work correctly and may either
+  timeout or give an error instead of a browsable list of tokens. This is a
+  limitation of the token browser.
 
 
 Related modules
