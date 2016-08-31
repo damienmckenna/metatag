@@ -42,10 +42,11 @@ files[] = tests/metatag.string_handling_with_i18n.test
 files[] = tests/metatag.image.test
 ; Internationalization & translation.
 files[] = tests/metatag.locale.test
+files[] = tests/metatag.node.with_i18n.test
+files[] = tests/metatag.term.with_i18n.test
 files[] = tests/metatag.with_i18n_output.test
 files[] = tests/metatag.with_i18n_disabled.test
 files[] = tests/metatag.with_i18n_config.test
-files[] = tests/metatag.with_i18n_node.test
 ; Basic integration with Media.
 files[] = tests/metatag.with_media.test
 ; Basic integration with Panels.
