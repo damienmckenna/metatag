@@ -1,6 +1,8 @@
 <?php
 
-namespace Drupal\metatag\Plugin\metatag\Tag;
+namespace Drupal\metatag_facebook\Plugin\metatag\Tag;
+
+use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
 
 /**
  * The Facebook "fb:admins" meta tag.

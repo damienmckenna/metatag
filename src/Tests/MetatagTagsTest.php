@@ -21,8 +21,6 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'canonical_url',
     'content_language',
     'description',
-    'fb_admins',
-    'fb_app_id',
     'generator',
     'geo_placename',
     'geo_position',
@@ -55,12 +53,6 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     }
     elseif ($tag_name == 'content_language') {
       $tag_name = 'content-language';
-    }
-    elseif ($tag_name == 'fb_admins') {
-      $tag_name = 'fb:admins';
-    }
-    elseif ($tag_name == 'fb_app_id') {
-      $tag_name = 'fb:app_id';
     }
     elseif ($tag_name == 'original_source') {
       $tag_name = 'original-source';
@@ -115,20 +107,6 @@ class MetatagTagsTest extends MetatagTagsTestBase {
    */
   public function description_test_field_xpath() {
     return "//textarea[@name='description']";
-  }
-
-  /**
-   * Implements {meta_tag_name}_test_name_attribute() for 'fb_admins'.
-   */
-  public function fb_admins_test_name_attribute() {
-    return 'property';
-  }
-
-  /**
-   * Implements {meta_tag_name}_test_name_attribute() for 'fb_app_id'.
-   */
-  public function fb_app_id_test_name_attribute() {
-    return 'property';
   }
 
   /**
