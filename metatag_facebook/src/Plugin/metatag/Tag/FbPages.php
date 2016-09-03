@@ -10,7 +10,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  * @MetatagTag(
  *   id = "fb_pages",
  *   label = @Translation("Facebook Pages"),
- *   description = @Translation("A comma-separated list of Facebook user IDs of people who are considered administrators or moderators of this page."),
+ *   description = @Translation("Facebook Instant Articles claim URL token."),
  *   name = "fb:pages",
  *   group = "facebook",
  *   weight = 1,
