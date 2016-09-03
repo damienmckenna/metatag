@@ -1,5 +1,6 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2786795 by heddn: Temporarily disable the DrupalConsole integration.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22
