@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2709985 by DamienMcKenna: Moved the two FB meta tags into a new submodule,
   Metatag Facebook, added the fb_pages meta tag.
 #2709985 by DamienMcKenna: Fixed the fb:pages meta tag description.
+By DamienMcKenna: Updated the description of content-language to clarify its
+  usage and the fact that Bing may still use it.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22
