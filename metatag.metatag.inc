@@ -326,17 +326,6 @@ function metatag_metatag_info() {
     ),
   );
 
-  $info['tags']['publisher'] = array(
-    'label' => t('Publisher URL'),
-    'description' => '',
-    'class' => 'DrupalLinkMetaTag',
-    'group' => 'advanced',
-    'weight' => ++$weight,
-    'devel_generate' => array(
-      'type' => 'url',
-    ),
-  );
-
   $info['tags']['original-source'] = array(
     'label' => t('Original Source'),
     'description' => '',

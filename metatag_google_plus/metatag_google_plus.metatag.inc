@@ -137,6 +137,16 @@ function metatag_google_plus_metatag_info() {
       'type' => 'url',
     ),
   ) + $defaults;
+  $info['tags']['publisher'] = array(
+    'label' => t('Publisher URL'),
+    'description' => t("Used by some search engines to confirm publication of the content on a page. Should be the full URL for the publication's Google+ profile page."),
+    'class' => 'DrupalLinkMetaTag',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
+  ) + $defaults;
+
 
   return $info;
 }

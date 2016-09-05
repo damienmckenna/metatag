@@ -26,6 +26,7 @@ class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
     'itemprop:description',
     'itemprop:image',
     'author',
+    'publisher',
   );
 
   /**

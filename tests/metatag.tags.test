@@ -39,7 +39,6 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'original-source',
     'pragma',
     'prev',
-    'publisher',
     'rating',
     'referrer',
     'refresh',
