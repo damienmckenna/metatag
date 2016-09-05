@@ -2224,7 +2224,7 @@ function metatag_update_7107() {
 /**
  * Delete output translations if it's disabled.
  */
-function metatag_update_7108() {
+function metatag_update_7108(&$sandbox) {
   if (!module_exists('locale') || !db_table_exists('locales_source')) {
     return t('No translations to fix as the locale system is not enabled.');
   }
@@ -2234,31 +2234,80 @@ function metatag_update_7108() {
     return t("Metatag: Not deleting output translations because that option is enabled.");
   }
 
-  $lids = db_select('locales_source', 'ls')
-    ->fields('ls', array('lid'))
-    ->condition('ls.textgroup', 'metatag')
-    ->condition('ls.context', 'output:%', 'LIKE')
-    ->execute()
-    ->fetchCol();
+  $limit = 100;
 
-  if (!empty($lids)) {
-    // Delete records in the tables in reverse order, so that if the query fails
-    // and has to be reran it'll still find records. But it should be ok.
-    if (db_table_exists('i18n_string')) {
-      db_delete('i18n_string')
-        ->condition('lid', $lids)
-        ->execute();
-    }
-    db_delete('locales_target')
-      ->condition('lid', $lids)
-      ->execute();
-    db_delete('locales_source')
-      ->condition('lid', $lids)
-      ->execute();
-    return t('Metatag: Removed @count output translation records that were not needed.', array('@count' => count($lids)));
+  // When ran through Drush it's Ok to process a larger number of objects at a
+  // time.
+  if (drupal_is_cli()) {
+    $limit = 500;
   }
-  else {
-    return t('Metatag; No output translation records needed to be removed.');
+
+  // Use the sandbox at your convenience to store the information needed to
+  // track progression between successive calls to the function.
+  if (!isset($sandbox['progress'])) {
+    // The count of records visited so far.
+    $sandbox['progress'] = 0;
+
+    $sandbox['max'] = db_query("SELECT COUNT(lid)
+      FROM {locales_source}
+      WHERE textgroup = 'metatag'
+      AND context LIKE 'output:%'")->fetchField();
+
+    // If there's no data, don't bother with the extra work.
+    if (empty($sandbox['max'])) {
+      watchdog('metatag', 'Update 7108: No nodes need the translation entity string fixed.', array(), WATCHDOG_INFO);
+      if (drupal_is_cli()) {
+        drupal_set_message(t('Update 7108: No nodes need the translation entity string fixed.'));
+      }
+      return t('No nodes need the Metatag language values fixed.');
+    }
+
+    // A place to store messages during the run.
+    $sandbox['messages'] = array();
+
+    // An initial record of the number of records to be updated.
+    watchdog('metatag', 'Update 7108: !count records to update.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7108: !count records to update.', array('!count' => $sandbox['max'])));
+    }
+  }
+
+  // Get a batch of records that need to be fixed.
+  $records = db_query_range("SELECT lid
+    FROM {locales_source}
+    WHERE textgroup = 'metatag'
+    AND context LIKE 'output:%'", 0, $limit);
+
+  $lids = $records->fetchCol();
+  $count = count($lids);
+  // Delete records in the tables in reverse order, so that if the query fails
+  // and has to be reran it'll still find records. But it should be ok.
+  if (db_table_exists('i18n_string')) {
+    db_delete('i18n_string')
+      ->condition('lid', $lids, 'IN')
+      ->execute();
+  }
+  db_delete('locales_target')
+    ->condition('lid', $lids, 'IN')
+    ->execute();
+  db_delete('locales_source')
+    ->condition('lid', $lids, 'IN')
+    ->execute();
+
+  $sandbox['progress'] = $sandbox['progress'] + $count;
+
+  // Set the "finished" status, to tell batch engine whether this function
+  // needs to run again. If you set a float, this will indicate the progress of
+  // the batch so the progress bar will update.
+  $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ? TRUE : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished']) {
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
+
+    // hook_update_N() may optionally return a string which will be displayed
+    // to the user.
+    return t('Deleted output translation if disabled for  @count items.', array('@count' => $sandbox['progress']));
   }
 }
 
