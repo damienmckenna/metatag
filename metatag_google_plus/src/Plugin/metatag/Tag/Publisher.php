@@ -13,7 +13,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
  *   description = @Translation("Used by some search engines to confirm publication of the content on a page. Should be the full URL for the publication's Google+ profile page."),
  *   name = "publisher",
  *   group = "google_plus",
- *   weight = 4,
+ *   weight = 5,
  *   type = "label",
  *   secure = FALSE,
  *   multiple = FALSE

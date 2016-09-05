@@ -16,6 +16,7 @@ class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $tags = [
+    'google_plus_author',
     'google_plus_description',
     'google_plus_image',
     'google_plus_name',
@@ -44,6 +45,20 @@ class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
       $tag_name = 'publisher';
     }
     return $tag_name;
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_name_attribute() for 'author'.
+   */
+  public function google_plus_author_test_output_xpath() {
+    return "//link[@rel='author']";
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_value_attribute() for 'author'.
+   */
+  public function google_plus_author_test_value_attribute() {
+    return 'href';
   }
 
   /**
