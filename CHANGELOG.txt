@@ -33,6 +33,8 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 #1865228 by DamienMcKenna: Moved Author meta tag to GooglePlus submodule.
 #1343914 by DamienMcKenna: Moved Publisher meta tag to GooglePlus submodule.
 #2784879 by sorinb, DamienMcKenna: Change metatag_update_7108 to use a sandbox.
+#2791963 by ttkaminski, DamienMcKenna: Don't change protocol-relative URLs in
+  image values.
 
 
 Metatag 7.x-1.17, 2016-06-30

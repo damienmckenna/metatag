@@ -199,8 +199,9 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
    */
   function convertUrlToAbsolute($url) {
     // Convert paths relative to the hostname, that start with a slash, to
-    // ones that are relative to the Drupal root path.
-    if (strpos($url, base_path()) === 0) {
+    // ones that are relative to the Drupal root path; ignore protocol-relative
+    // URLs.
+    if (strpos($url, base_path()) === 0 && strpos($url, '//') !== 0) {
       // Logic:
       // * Get the length of the base_path(), 
       // * Get a portion of the image's path starting from the position equal
