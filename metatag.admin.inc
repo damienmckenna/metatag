@@ -342,7 +342,7 @@ function metatag_config_disable($config) {
   ctools_export_crud_disable('metatag_config', $config);
 
   $label = metatag_config_instance_label($config->instance);
-  drupal_set_message(t('The meta tag defaults for @label have been disabed.', array('@label' => $label)));
+  drupal_set_message(t('The meta tag defaults for @label have been disabled.', array('@label' => $label)));
   drupal_goto();
 }
 
