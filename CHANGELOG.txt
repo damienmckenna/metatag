@@ -27,6 +27,9 @@ By DamienMcKenna: Clear Metatag's caches after deleting or renaming a meta tag.
 By DamienMcKenna: Added a Known Issue for problems with Entity Token.
 #2790967 by DamienMcKenna: Added tests for taxonomy term config translations
   using i18n.
+#2795255 by lazysoundsystem: 'disabled' was misspelled.
+By DamienMcKenna: Updated the description of content-language to clarify its
+  usage and the fact that Bing may still use it.
 
 
 Metatag 7.x-1.17, 2016-06-30

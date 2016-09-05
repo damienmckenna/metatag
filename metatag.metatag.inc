@@ -384,7 +384,7 @@ function metatag_metatag_info() {
 
   $info['tags']['content-language'] = array(
     'label' => t('Content language'),
-    'description' => t("A deprecated meta tag for defining this page's two-letter language code(s)."),
+    'description' => t("Used to define this page's language code. May be the two letter language code, e.g. \"de\" for German, or the two letter code with a dash and the two letter ISO country code, e.g. \"de-AT\" for German in Austria. Still used by Bing."),
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,
