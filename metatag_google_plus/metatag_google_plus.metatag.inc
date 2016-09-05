@@ -128,5 +128,15 @@ function metatag_google_plus_metatag_info() {
     ),
   ) + $defaults;
 
+  $info['tags']['author'] = array(
+    'label' => t('Author URL'),
+    'description' => t("Used by some search engines to confirm authorship of the content on a page. Should be either the full URL for the author's Google+ profile page or a local page with information about the author."),
+    'class' => 'DrupalLinkMetaTag',
+    'weight' => ++$weight,
+    'devel_generate' => array(
+      'type' => 'url',
+    ),
+  ) + $defaults;
+
   return $info;
 }

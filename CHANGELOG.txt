@@ -30,6 +30,7 @@ By DamienMcKenna: Added a Known Issue for problems with Entity Token.
 #2795255 by lazysoundsystem: 'disabled' was misspelled.
 By DamienMcKenna: Updated the description of content-language to clarify its
   usage and the fact that Bing may still use it.
+#1865228 by DamienMcKenna: Moved Author meta tag to GooglePlus submodule.
 
 
 Metatag 7.x-1.17, 2016-06-30

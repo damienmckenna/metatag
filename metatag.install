@@ -2290,3 +2290,11 @@ function metatag_update_7111() {
     ->condition('name', 'metatag_ui')
     ->execute();
 }
+
+/**
+ * The Publisher meta tag is now part of the Google Plus submodule.
+ */
+function metatag_update_7112() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+  drupal_set_message(t('The Publisher meta tag is now part of the Google Plus submodule.'));
+}
