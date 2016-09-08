@@ -35,6 +35,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 #2784879 by sorinb, DamienMcKenna: Change metatag_update_7108 to use a sandbox.
 #2791963 by ttkaminski, DamienMcKenna: Don't change protocol-relative URLs in
   image values.
+#2797069 by Internet, DamienMcKenna: Corrected the URL to Wikipedia's ICBM page.
 
 
 Metatag 7.x-1.17, 2016-06-30
