@@ -9,6 +9,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
   usage and the fact that Bing may still use it.
 #1865228 by DamienMcKenna: Moved the Author meta tag into the GoolgePlus
   submodule.
+#2797069 by Internet, DamienMcKenna: Corrected the URL to Wikipedia's ICBM page.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22
