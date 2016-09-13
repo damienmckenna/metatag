@@ -450,7 +450,7 @@ function metatag_metatag_info() {
 
   $info['tags']['expires'] = array(
     'label' => t('Expires'),
-    'description' => t("Control when the browser's internal cache of the current page should expire. The date must to be an <a href=\"@rfc\">RFC-1123</a>-compliant date string that is represented in Greenwich Mean Time (GMT), e.g. '@date'. Set to '0' to stop the page being cached entirely.", array('@rfc' => 'http://www.csgnetwork.com/timerfc1123calc.html', '@date' => gmdate("D, d M Y H:i:s \G\M\T"))),
+    'description' => t("Control when the browser's internal cache of the current page should expire. The date must to be an <a href=\"@rfc\">RFC-1123</a>-compliant date string that is represented in Greenwich Mean Time (GMT), e.g. 'Thu, 01 Sep 2016 00:12:56 GMT'. Set to '0' to stop the page being cached entirely.", array('@rfc' => 'http://www.csgnetwork.com/timerfc1123calc.html')),
     'class' => 'DrupalTextMetaTag',
     'weight' => ++$weight,
     'group' => 'advanced',
