@@ -4,4 +4,4 @@ description: Provides support for Open Graph Protocol meta tags.
 core: 8.x
 package: SEO
 dependencies:
-  - metatag
+  - metatag:metatag

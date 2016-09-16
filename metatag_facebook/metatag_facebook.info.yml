@@ -4,4 +4,4 @@ description: A set of meta tags specially for controlling advanced functionality
 core: 8.x
 package: SEO
 dependencies:
-  - metatag
+  - metatag:metatag

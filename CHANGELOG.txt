@@ -10,6 +10,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 #1865228 by DamienMcKenna: Moved the Author meta tag into the GoolgePlus
   submodule.
 #2797069 by Internet, DamienMcKenna: Corrected the URL to Wikipedia's ICBM page.
+#2801023 by trobey: Provide namespaces in dependencies to avoid ambiguity.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22

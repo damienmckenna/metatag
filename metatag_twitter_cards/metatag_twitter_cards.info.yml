@@ -4,4 +4,4 @@ description: Provides support for Twitter's Card meta tags.
 core: 8.x
 package: SEO
 dependencies:
-  - metatag
+  - metatag:metatag
