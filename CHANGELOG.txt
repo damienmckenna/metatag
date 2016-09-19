@@ -38,6 +38,8 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 #2797069 by Internet, DamienMcKenna: Corrected the URL to Wikipedia's ICBM page.
 #2799317 by mdooley: Use a static date example for the Expires meta tag's
   description to avoid flooding the {locales_source} table.
+#2800479 by DamienMcKenna, david.gil: Avoid showing errors if Search API is not
+  installed.
 
 
 Metatag 7.x-1.17, 2016-06-30
