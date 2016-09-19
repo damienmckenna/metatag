@@ -66,6 +66,10 @@ files[] = tests/metatag.with_i18n_output.test
 files[] = tests/metatag.with_i18n_disabled.test
 files[] = tests/metatag.with_i18n_config.test
 
+; Basic integration with Me.
+test_dependencies[] = me
+files[] = tests/metatag.with_me.test
+
 ; Basic integration with Media.
 test_dependencies[] = file_entity
 test_dependencies[] = media

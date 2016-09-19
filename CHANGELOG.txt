@@ -41,6 +41,8 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 #2800479 by DamienMcKenna, david.gil: Avoid showing errors if Search API is not
   installed.
 By DamienMcKenna: Slight reordering of the main info file.
+#2663208 by DamienMcKenna, geertvd: Don't load meta tags on the /user/me page,
+  avoid problems when the Me module is installed.
 
 
 Metatag 7.x-1.17, 2016-06-30

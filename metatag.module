@@ -1766,6 +1766,12 @@ function metatag_page_build(&$page) {
     return;
   }
 
+  // Special consideration for the Me module, which uses the "user/me" path and
+  // will cause problems.
+  if (arg(0) == 'user' && arg(1) == 'me') {
+    return;
+  }
+
   // The page region can be changed.
   $region = variable_get('metatag_page_region', 'content');
 
