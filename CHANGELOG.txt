@@ -40,6 +40,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
   description to avoid flooding the {locales_source} table.
 #2800479 by DamienMcKenna, david.gil: Avoid showing errors if Search API is not
   installed.
+By DamienMcKenna: Slight reordering of the main info file.
 
 
 Metatag 7.x-1.17, 2016-06-30
