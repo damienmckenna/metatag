@@ -1768,7 +1768,7 @@ function metatag_page_build(&$page) {
 
   // Special consideration for the Me module, which uses the "user/me" path and
   // will cause problems.
-  if (arg(0) == 'user' && arg(1) == 'me') {
+  if (arg(0) == 'user' && arg(1) == 'me' && function_exists('me_menu_alter')) {
     return;
   }
 

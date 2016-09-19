@@ -21,7 +21,7 @@ class MetatagCoreWithMeTest extends MetatagTestHelper {
    * {@inheritdoc}
    */
   function setUp(array $modules = array()) {
-    // $modules[] = 'me';
+    $modules[] = 'me';
 
     parent::setUp($modules);
   }
@@ -52,17 +52,17 @@ class MetatagCoreWithMeTest extends MetatagTestHelper {
     $this->assertEqual(count($xpath), 1, 'Exactly one shortlink meta tag found.');
     $this->assertEqual($xpath[0]['href'], url('user/' . $this->adminUser->uid, array('absolute' => TRUE)));
 
-    // // Load the 'me' page.
-    // $this->drupalGet('user/me');
-    // $this->assertResponse(200);
-    //
-    // // Confirm the meta tags defined above don't exist.
-    // $xpath = $this->xpath("//meta[@name='generator']");
-    // $this->assertEqual(count($xpath), 0, 'Did not find the generator meta tag.');
-    // $xpath = $this->xpath("//link[@rel='canonical']");
-    // $this->assertEqual(count($xpath), 0, 'Did not find the canonical meta tag.');
-    // $xpath = $this->xpath("//link[@rel='shortlink']");
-    // $this->assertEqual(count($xpath), 0, 'Did not find the shortlink meta tag.');
+    // Load the 'me' page.
+    $this->drupalGet('user/me');
+    $this->assertResponse(200);
+
+    // Confirm the meta tags defined above don't exist.
+    $xpath = $this->xpath("//meta[@name='generator']");
+    $this->assertEqual(count($xpath), 0, 'Did not find the generator meta tag.');
+    $xpath = $this->xpath("//link[@rel='canonical']");
+    $this->assertEqual(count($xpath), 0, 'Did not find the canonical meta tag.');
+    $xpath = $this->xpath("//link[@rel='shortlink']");
+    $this->assertEqual(count($xpath), 0, 'Did not find the shortlink meta tag.');
   }
 
 }
