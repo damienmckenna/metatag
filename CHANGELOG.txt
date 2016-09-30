@@ -13,6 +13,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 #2801023 by trobey: Provide namespaces in dependencies to avoid ambiguity.
 #2563627 by gaurav.goyal, DamienMcKenna, cilefen: Added all of the basic Dublin
   Core meta tags.
+#2795983 by dbungard: Improved help message on the main configuration page.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22
