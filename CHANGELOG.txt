@@ -30,8 +30,8 @@ Metatag 8.x-1.0-beta10, 2016-08-22
 #2759843 by DamienMcKenna: Removed the Alexa verification tag.
 #2759855 by DamienMcKenna: Removed the Yahoo verification tag.
 #2759917 by Nikhilesh Gupta, cilefen: Remove unused imports / 'use' statements.
-#2759927 by Nikhilesh Gupta: Replace deprecated \Drupal::entityTypeManager()
-  with \Drupal::entityManager().
+#2759927 by Nikhilesh Gupta: Replace deprecated \Drupal::entityManager()
+  with \Drupal::entityTypeManager().
 #2759919 by Nikhilesh Gupta: Replace deprecated entity->urlInfo() with
   entity->toUrl().
 #2755225 by jlbellido: Corrected the 'type' tag generator definition in
@@ -75,6 +75,7 @@ By DamienMcKenna: Renamed the custom routes module.
 #1865228 by DamienMcKenna, greggles: Added the Author meta tag.
 #2493711 by DamienMcKenna: Added the geographical meta tags.
 #1343914 by DamienMcKenna, Dave Reid: Added the (Google+) Publisher meta tag.
+By DamienMcKenna: Corrected the changelog comment for #2759927.
 
 
 Metatag 8.x-1.0-beta9, 2016-06-02
