@@ -14,6 +14,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 #2563627 by gaurav.goyal, DamienMcKenna, cilefen: Added all of the basic Dublin
   Core meta tags.
 #2795983 by dbungard: Improved help message on the main configuration page.
+#2786795 by -enzo-: Fixed Drupal Console integration; now requires rc1.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22

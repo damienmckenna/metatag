@@ -15,13 +15,26 @@ services:
     class: Drupal\metatag\MetatagManager
     arguments: ['@plugin.manager.metatag.group', '@plugin.manager.metatag.tag', '@metatag.token', '@logger.factory']
 
-# These will be reactivated once Console finishes refactoring the generators.
-# @see https://www.drupal.org/node/2786795
-#  metatag_generate_group:
-#    class: Drupal\metatag\Command\GenerateGroupCommand
-#    tags:
-#      - { name: console.command }
-#  metatag_generate_tag:
-#    class: Drupal\metatag\Command\GenerateTagCommand
-#    tags:
-#      - { name: console.command }
+  metatag.generate_tag:
+    class: Drupal\metatag\Command\GenerateTagCommand
+    arguments: ['@metatag.manager', '@metatag.tag_generator', '@?console.extension_manager', '@?console.string_converter','@?console.chain_queue']
+    tags:
+      - { name: drupal.command }
+
+  metatag.generate_group:
+    class: Drupal\metatag\Command\GenerateGroupCommand
+    arguments: ['@metatag.group_generator', '@?console.extension_manager', '@?console.chain_queue']
+    tags:
+      - { name: drupal.command }
+
+  metatag.tag_generator:
+    class: Drupal\metatag\Generator\MetatagTagGenerator
+    arguments: ['@?console.extension_manager', '@?console.renderer']
+    tags:
+      - { name: drupal.generator }
+
+  metatag.group_generator:
+    class: Drupal\metatag\Generator\MetatagGroupGenerator
+    arguments: ['@?console.extension_manager', '@?console.renderer']
+    tags:
+      - { name: drupal.generator }
