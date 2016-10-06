@@ -43,6 +43,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
 By DamienMcKenna: Slight reordering of the main info file.
 #2663208 by DamienMcKenna, geertvd: Don't load meta tags on the /user/me page,
   avoid problems when the Me module is installed.
+#2813429 by DamienMcKenna: Added tests for metatag_mobile.
 
 
 Metatag 7.x-1.17, 2016-06-30
