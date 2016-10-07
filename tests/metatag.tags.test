@@ -14,6 +14,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
       'name' => 'Metatag tags: Basic',
       'description' => 'Test the basic meta tags.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'token'),
     );
   }
 

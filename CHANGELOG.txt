@@ -45,6 +45,8 @@ By DamienMcKenna: Slight reordering of the main info file.
   avoid problems when the Me module is installed.
 #2813429 by DamienMcKenna: Added tests for metatag_mobile.
 #2813427 by DamienMcKenna: Added support for the amphtml link tag.
+#2811735 by Stevel, DamienMcKenna: Added dependencies to all tests so that tests
+  will only be listed if those dependencies are also available.
 
 
 Metatag 7.x-1.17, 2016-06-30

@@ -13,6 +13,7 @@ class MetatagCoreTermTest extends MetatagTestHelper {
       'name' => 'Metatag core tests for terms',
       'description' => 'Test Metatag edit functionality for terms.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'token'),
     );
   }
 

@@ -38,6 +38,7 @@ class MetatagCoreWithSearchAPITest extends MetatagTestHelper {
       'name' => 'Metatag Search API tests',
       'description' => 'Tests the Metatag Search API integration.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'token', 'entity', 'search_api'),
     );
   }
 
