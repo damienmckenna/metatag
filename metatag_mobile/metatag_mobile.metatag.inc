@@ -83,7 +83,7 @@ function metatag_mobile_metatag_info() {
 
   $info['tags']['amphtml'] = array(
     'label' => t('AMP URL'),
-    'description' => t('Provides an absolute URL to an AMP-formatted page version of the current page. See the <a href="@url">official AMP specifications</a> for details on how the page should be formatted.', array(':url' => 'https://www.ampproject.org/')),
+    'description' => t('Provides an absolute URL to an AMP-formatted version of the current page. See the <a href="@url">official AMP specifications</a> for details on how the page should be formatted.', array('@url' => 'https://www.ampproject.org/')),
     'class' => 'DrupalLinkMetaTag',
     'weight' => ++$weight,
   ) + $tag_info_defaults;
