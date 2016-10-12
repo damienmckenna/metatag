@@ -49,6 +49,11 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
     'og_type',
     'og_updated_time',
     'og_url',
+    'og_video',
+    'og_video_height',
+    'og_video_secure_url',
+    'og_video_type',
+    'og_video_width',
   ];
 
   /**
@@ -79,6 +84,7 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
 
     // Some tags have an additional underline that turns into a colon.
     $tag_name = str_replace('og:image_', 'og:image:', $tag_name);
+    $tag_name = str_replace('og:video_', 'og:video:', $tag_name);
 
     // Additional fixes.
     if ($tag_name == 'og:locale_alternative') {

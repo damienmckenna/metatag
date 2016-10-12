@@ -76,6 +76,21 @@ metatag.metatag_tag.og_updated_time:
 metatag.metatag_tag.og_url:
   type: label
   label: 'Open Graph: URL'
+metatag.metatag_tag.og_video:
+  type: label
+  label: 'Open Graph: Video URL'
+metatag.metatag_tag.og_video_height:
+  type: label
+  label: 'Open Graph: Video height'
+metatag.metatag_tag.og_video_secure_url:
+  type: label
+  label: 'Open Graph: Video Secure URL'
+metatag.metatag_tag.og_video_type:
+  type: label
+  label: 'Open Graph: Video type'
+metatag.metatag_tag.og_video_width:
+  type: label
+  label: 'Open Graph: Video width'
 metatag.metatag_tag.article_author:
   type: label
   label: 'Article author'

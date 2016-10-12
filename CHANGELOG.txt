@@ -15,6 +15,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
   Core meta tags.
 #2795983 by dbungard: Improved help message on the main configuration page.
 #2786795 by -enzo-: Fixed Drupal Console integration; now requires rc1.
+#2663974 by dawehmer, DamienMcKenna: Added the og:video meta tags.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22
