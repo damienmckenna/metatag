@@ -286,10 +286,11 @@ function metatag_update_8103() {
    * 3. Create Config entities with field default values.
    */
   if (!empty($tags)) {
+    $bundleInfoManager = \Drupal::service('entity_type.bundle.info');
     foreach ($tags as $metatag_defaults_id => $values) {
       list($entity_type, $entity_bundle) = explode('__', $metatag_defaults_id);
       $entity_label = (string) $entity_info[$entity_type]->get('label');
-      $bundle_info = $entity_manager->getBundleInfo($entity_type);
+      $bundle_info = $bundleInfoManager->getBundleInfo($entity_type);
       $bundle_label = $bundle_info[$entity_bundle]['label'];
       $label = $entity_label . ': ' . $bundle_label;
 
