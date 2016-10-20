@@ -8,7 +8,7 @@ use Drupal\metatag\Tests\MetatagTagsTestBase;
 /**
  * Tests that each of the Metatag Facebook tags work correctly.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagFacebookTagsTest extends MetatagTagsTestBase {
 

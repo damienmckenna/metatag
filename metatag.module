@@ -155,7 +155,8 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
  */
 function metatag_is_current_route_supported() {
   // If upgrading, we need to wait for database updates to complete.
-  $is_ready = \Drupal::service('entity_type.manager')->getDefinition('metatag_defaults', FALSE);
+  $is_ready = \Drupal::service('entity_type.manager')
+    ->getDefinition('metatag_defaults', FALSE);
   if (!$is_ready) {
     return FALSE;
   }
@@ -188,16 +189,46 @@ function metatag_get_route_entity() {
 
   // Look for entity object 'add' pages, e.g. node/add/{bundle}.
   $route_name_matches = [];
-  preg_match('/(.*)\.add/', $route_name, $route_name_matches);
-  if (!empty($route_name_matches[1])) {
-    $entity_type = $route_name_matches[1];
-    $type = $route_match->getParameter($entity_type . '_type');
+  preg_match('/(entity\.)?(.*)\.add/', $route_name, $route_name_matches);
+  if (!empty($route_name_matches[2])) {
+    $entity_type = $route_name_matches[2];
+    $definition = Drupal::entityTypeManager()->getDefinition($entity_type);
+    $type = $route_match->getRawParameter($definition->get('bundle_entity_type'));
+
     if (!empty($type)) {
-      $entity_type = str_replace('entity.', '', $entity_type);
       return \Drupal::entityTypeManager()
         ->getStorage($entity_type)
         ->create([
-          'type' => $type->getOriginalId(),
+          $definition->get('entity_keys')['bundle'] => $type,
+        ]);
+    }
+  }
+
+  // Look for entity object 'edit' pages, e.g. node/{entity_id}/edit.
+  $route_name_matches = [];
+  preg_match('/entity\.(.*)\.edit_form/', $route_name, $route_name_matches);
+  if (!empty($route_name_matches[1])) {
+    $entity_type = $route_name_matches[1];
+    $entity_id = $route_match->getRawParameter($entity_type);
+
+    if (!empty($entity_id)) {
+      return \Drupal::entityTypeManager()
+        ->getStorage($entity_type)
+        ->load($entity_id);
+    }
+  }
+
+  // Special handling for the admin user_create page. In this case, there's only
+  // one bundle and it's named the same as the entity type, so some shortcuts
+  // can be used.
+  if ($route_name == 'user.admin_create') {
+    $entity_type = $type = 'user';
+    $definition = Drupal::entityTypeManager()->getDefinition($entity_type);
+    if (!empty($type)) {
+      return \Drupal::entityTypeManager()
+        ->getStorage($entity_type)
+        ->create([
+          $definition->get('entity_keys')['bundle'] => $type,
         ]);
     }
   }

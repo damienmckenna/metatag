@@ -8,7 +8,7 @@ use Drupal\metatag\Tests\MetatagTagsTestBase;
 /**
  * Tests that each of the Metatag Twitter Cards tags work correctly.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
 

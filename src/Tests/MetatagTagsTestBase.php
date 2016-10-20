@@ -6,8 +6,6 @@ use Drupal\simpletest\WebTestBase;
 
 /**
  * Base class to test all of the meta tags that are in a specific module.
- *
- * @group Metatag
  */
 abstract class MetatagTagsTestBase extends WebTestBase {
 

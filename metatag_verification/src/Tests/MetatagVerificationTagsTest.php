@@ -8,7 +8,7 @@ use Drupal\metatag\Tests\MetatagTagsTestBase;
 /**
  * Tests that each of the Metatag Verification tags work correctly.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagVerificationTagsTest extends MetatagTagsTestBase {
 

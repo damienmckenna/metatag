@@ -7,7 +7,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Ensures that the Metatag config translations work correctly.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagConfigTranslationTest extends WebTestBase {
 

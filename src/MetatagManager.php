@@ -246,9 +246,9 @@ class MetatagManager implements MetatagManagerInterface {
     foreach ($entity->{$field_name} as $item) {
       // Get serialized value and break it into an array of tags with values.
       $serialized_value = $item->get('value')->getValue();
-      // if (!empty($serialized_value)) {
-      $tags += unserialize($serialized_value);
-      // }
+      if (!empty($serialized_value)) {
+        $tags += unserialize($serialized_value);
+      }
     }
 
     return $tags;

@@ -8,7 +8,7 @@ use Drupal\metatag\Tests\MetatagTagsTestBase;
 /**
  * Tests that each of the Dublin Core tags work correctly.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagDublinCoreTagsTest extends MetatagTagsTestBase {
 

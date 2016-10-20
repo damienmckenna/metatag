@@ -7,7 +7,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Ensures that meta tags are rendering correctly on forum pages.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagForumTest extends WebTestBase {
 

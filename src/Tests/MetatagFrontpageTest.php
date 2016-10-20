@@ -7,7 +7,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Ensures that metatags are rendering correctly on home page.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagFrontpageTest extends WebTestBase {
 

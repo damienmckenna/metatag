@@ -7,7 +7,7 @@ use Drupal\simpletest\WebTestBase;
 /**
  * Tests the Metatag administration.
  *
- * @group Metatag
+ * @group metatag
  */
 class MetatagAdminTest extends WebTestBase {
 
