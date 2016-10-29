@@ -41,8 +41,11 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
   public function getOperations(EntityInterface $entity) {
     $operations = parent::getOperations($entity);
 
+    // Set the defaults that should not be deletable
+    $protected_defaults = ['global', '403', '404', 'node', 'front', 'taxonomy_term', 'user'];
+
     // Global and entity defaults can be reverted but not deleted.
-    if (strpos($entity->id(), '__') === FALSE) {
+    if (in_array($entity->id(), $protected_defaults)) {
       unset($operations['delete']);
       $operations['revert'] = [
         'title' => t('Revert'),
@@ -115,4 +118,5 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
     ];
     return $build + parent::render();
   }
+
 }

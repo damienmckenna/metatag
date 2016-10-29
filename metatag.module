@@ -189,7 +189,7 @@ function metatag_get_route_entity() {
 
   // Look for entity object 'add' pages, e.g. node/add/{bundle}.
   $route_name_matches = [];
-  preg_match('/(entity\.)?(.*)\.add/', $route_name, $route_name_matches);
+  preg_match('/(entity\.)?(.*)\.add(_form)?/', $route_name, $route_name_matches);
   if (!empty($route_name_matches[2])) {
     $entity_type = $route_name_matches[2];
     $definition = Drupal::entityTypeManager()->getDefinition($entity_type);

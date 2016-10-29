@@ -20,6 +20,17 @@ class MetatagAdminTest extends WebTestBase {
     'test_page_test',
     'token',
     'metatag',
+
+    // @see testAvailableConfigEntities
+    'block',
+    'block_content',
+    'comment',
+    'contact',
+    'menu_link_content',
+    'menu_ui',
+    'shortcut',
+    'taxonomy',
+    'entity_test',
   ];
 
   /**
@@ -45,7 +56,7 @@ class MetatagAdminTest extends WebTestBase {
   /**
    * Tests the interface to manage metatag defaults.
    */
-  function testDefaults() {
+  public function testDefaults() {
     // Save the default title to test the Revert operation at the end.
     $metatag_defaults = \Drupal::config('metatag.metatag_defaults.global');
     $default_title = $metatag_defaults->get('tags')['title'];
@@ -133,9 +144,52 @@ class MetatagAdminTest extends WebTestBase {
   }
 
   /**
+   * Confirm the available entity types show on the add-default page.
+   */
+  public function testAvailableConfigEntities() {
+    // Initiate session with a user who can manage metatags.
+    $permissions = [
+      'administer site configuration',
+      'administer meta tags',
+    ];
+    $account = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($account);
+
+    // Load the default-add page.
+    $this->drupalGet('admin/config/search/metatag/add');
+    $this->assertResponse(200);
+
+    // Confirm the 'type' field exists.
+    $this->assertFieldByName('id');
+
+    // Compile a list of entities from the list.
+    $xpath = $this->xpath("//select[@name='id']");
+    $this->verbose('<pre>' . print_r($xpath, TRUE) . '</pre>');
+    $types = [];
+    foreach ($xpath[0]->children() as $item) {
+      if (!empty($item->option)) {
+        $data = (array)$item->option;
+        // $this->verbose('<pre>' . print_r($data, TRUE) . '</pre>');
+        $types[$data['@attributes']['value']] = $data[0];
+      }
+    }
+    $this->verbose('<pre>' . print_r($types, TRUE) . '</pre>');
+
+    // Check through the values that are in the 'select' list, make sure that
+    // unwanted items are not present.
+    $this->assertFalse(isset($types['block_content']), 'Custom block entities are not supported.');
+    $this->assertFalse(isset($types['comment']), 'Comment entities are not supported.');
+    $this->assertFalse(isset($types['menu_link_content']), 'Menu link entities are not supported.');
+    $this->assertFalse(isset($types['shortcut']), 'Shortcut entities are not supported.');
+    $this->assertTrue(isset($types['node__page']), 'Nodes are supported.');
+    $this->assertTrue(isset($types['user__user']), 'Users are supported.');
+    $this->assertTrue(isset($types['entity_test']), 'Test entities are supported.');
+  }
+
+  /**
    * Tests special pages.
    */
-  function testSpecialPages() {
+  public function testSpecialPages() {
     // Initiate session with a user who can manage metatags.
     $permissions = ['administer site configuration', 'administer meta tags'];
     $account = $this->drupalCreateUser($permissions);
@@ -184,7 +238,7 @@ class MetatagAdminTest extends WebTestBase {
   /**
    * Tests entity and bundle overrides.
    */
-  function testOverrides() {
+  public function testOverrides() {
     // Initiate session with a user who can manage metatags.
     $permissions = [
       'administer site configuration',
