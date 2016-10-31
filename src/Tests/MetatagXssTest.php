@@ -12,6 +12,13 @@ use Drupal\simpletest\WebTestBase;
 class MetatagXssTest extends WebTestBase {
 
   /**
+   * String that causes an alert when page titles aren't filtered for xss.
+   *
+   * @var string
+   */
+  private $xssTitleString = '<script>alert("xss");</script>';
+
+  /**
    * String that causes an alert when metatags aren't filtered for xss.
    *
    * @var string
@@ -53,10 +60,13 @@ class MetatagXssTest extends WebTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'metatag',
     'node',
+    'views',
     'system',
+    'field',
     'field_ui',
+    'token',
+    'metatag',
   ];
 
   /**
@@ -103,6 +113,7 @@ class MetatagXssTest extends WebTestBase {
   public function testXssMetatagConfig() {
     $this->drupalGet('admin/config/search/metatag/global');
     $values = [
+      'title' => $this->xssTitleString,
       'abstract' => $this->xssString,
       'image_src' => $this->xssImageString
     ];
@@ -110,8 +121,15 @@ class MetatagXssTest extends WebTestBase {
     $this->assertText('Saved the Global Metatag defaults.');
     $this->rebuildAll();
 
-    $this->drupalGet('<front>');
+    // Load the Views-based front page.
+    $this->drupalGet('node');
     $this->assertResponse(200);
+    $this->assertText(t('No front page content has been created yet.'));
+
+    // Check for the title tag, which will have the HTML tags removed and then
+    // be lightly HTML encoded.
+    $this->assertEscaped(strip_tags($this->xssTitleString));
+    $this->assertNoRaw($this->xssTitleString);
 
     // Check for the basic meta tag.
     $this->assertRaw($this->escapedXssTag);
@@ -129,10 +147,16 @@ class MetatagXssTest extends WebTestBase {
     $this->drupalGet('node/add/metatag_node');
     $edit = [
       'title[0][value]' => $this->randomString(32),
+      'field_metatag_field[0][basic][title]' => $this->xssTitleString,
       'field_metatag_field[0][basic][abstract]' => $this->xssString,
       'field_metatag_field[0][advanced][image_src]' => $this->xssImageString,
     ];
     $this->drupalPostForm(NULL, $edit, t('Save and publish'));
+
+    // Check for the title tag, which will have the HTML tags removed and then
+    // be lightly HTML encoded.
+    $this->assertEscaped(strip_tags($this->xssTitleString));
+    $this->assertNoRaw($this->xssTitleString);
 
     // Check for the basic meta tag.
     $this->assertRaw($this->escapedXssTag);
@@ -141,6 +165,39 @@ class MetatagXssTest extends WebTestBase {
     // Check for the image meta tag.
     $this->assertRaw($this->escapedXssImageTag);
     $this->assertNoRaw($this->xssImageString);
+  }
+
+  /**
+   * Verify XSS injected in the entity titles are not rendered.
+   */
+  public function testXssEntityTitle() {
+    $this->drupalGet('node/add/metatag_node');
+    $edit = [
+      'title[0][value]' => $this->xssTitleString,
+      'body[0][value]' => $this->randomString() . ' ' . $this->randomString(),
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Save and publish'));
+
+    // Check for the title tag, which will have the HTML tags removed and then
+    // be lightly HTML encoded.
+    $this->assertEscaped(strip_tags($this->xssTitleString));
+    $this->assertNoRaw($this->xssTitleString);
+  }
+
+  /**
+   * Verify XSS injected in the entity fields are not rendered.
+   */
+  public function testXssEntityBody() {
+    $this->drupalGet('node/add/metatag_node');
+    $edit = [
+      'title[0][value]' => $this->randomString(),
+      'body[0][value]' => $this->xssTitleString,
+    ];
+    $this->drupalPostForm(NULL, $edit, t('Save and publish'));
+
+    // Check the body text.
+    // $this->assertNoTitle($this->xssTitleString);
+    $this->assertNoRaw($this->xssTitleString);
   }
 
 }

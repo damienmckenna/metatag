@@ -25,6 +25,8 @@ By DamienMcKenna: Updated the description of content-language to clarify its
   ContentEntityType entities that have 'links' defined.
 #2816553 by andyrigby: Renamed article:tags to be article:tag.
 #2796701 by jiff, DamienMcKenna: Added tests to cover XSS via meta tag values.
+#2796701 by DamienMcKenna: Added tests to cover XSS on the page title and entity
+  values.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22
