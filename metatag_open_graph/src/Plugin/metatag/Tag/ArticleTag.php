@@ -5,13 +5,13 @@ namespace Drupal\metatag_open_graph\Plugin\metatag\Tag;
 use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
 
 /**
- * The Open Graph "Article tags" meta tag.
+ * The Open Graph "Article tag" meta tag.
  *
  * @MetatagTag(
- *   id = "article_tags",
+ *   id = "article_tag",
  *   label = @Translation("Article tag(s)"),
  *   description = @Translation("Appropriate keywords for this content."),
- *   name = "article:tags",
+ *   name = "article:tag",
  *   group = "open_graph",
  *   weight = 31,
  *   type = "label",
@@ -19,6 +19,6 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   multiple = TRUE
  * )
  */
-class ArticleTags extends MetaPropertyBase {
+class ArticleTag extends MetaPropertyBase {
   // Nothing here yet. Just a placeholder class for a plugin.
 }

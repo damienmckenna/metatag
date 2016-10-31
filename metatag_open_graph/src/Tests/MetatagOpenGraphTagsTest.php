@@ -22,7 +22,7 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
     'article_published_time',
     'article_publisher',
     'article_section',
-    'article_tags',
+    'article_tag',
     'og_country_name',
     'og_description',
     'og_determiner',

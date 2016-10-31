@@ -109,6 +109,6 @@ metatag.metatag_tag.article_publisher:
 metatag.metatag_tag.article_section:
   type: label
   label: 'Article section'
-metatag.metatag_tag.article_tags:
+metatag.metatag_tag.article_tag:
   type: label
   label: 'Article tag(s)'
