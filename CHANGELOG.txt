@@ -1,5 +1,5 @@
-Metatag 8.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 8.x-1.0-beta11, 2016-10-31
+----------------------------------
 #2786795 by agoradesign, heddn: Temporarily disable the DrupalConsole
   integration.
 #2709985 by DamienMcKenna: Moved the two FB meta tags into a new submodule,
