@@ -15,7 +15,7 @@ use Drupal\Core\Url;
 /**
  * Implements template_preprocess_html().
  */
-function metatag_open_graph_reprocess_html(&$variables) {
+function metatag_open_graph_preprocess_html(&$variables) {
   if (!metatag_is_current_route_supported()) {
     return;
   }
