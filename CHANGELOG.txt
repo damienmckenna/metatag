@@ -24,6 +24,7 @@ By DamienMcKenna: Updated the description of content-language to clarify its
   support for all entities, exclude certain core entity types, only support
   ContentEntityType entities that have 'links' defined.
 #2816553 by andyrigby: Renamed article:tags to be article:tag.
+#2796701 by jiff, DamienMcKenna: Added tests to cover XSS via meta tag values.
 
 
 Metatag 8.x-1.0-beta10, 2016-08-22

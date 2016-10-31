@@ -246,6 +246,8 @@ abstract class MetaNameBase extends PluginBase {
         else {
           $values = [$value];
         }
+
+        // Check through the value(s) to see if there are any image tags.
         foreach ($values as $key => $val) {
           $matches = [];
           preg_match('/src="([^"]*)"/', $val, $matches);
@@ -254,6 +256,9 @@ abstract class MetaNameBase extends PluginBase {
           }
         }
         $value = implode(',', $values);
+
+        // Remove any HTML tags that might remain.
+        $value = strip_tags($value);
       }
     }
 
