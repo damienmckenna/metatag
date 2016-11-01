@@ -48,6 +48,7 @@ By DamienMcKenna: Slight reordering of the main info file.
 #2811735 by Stevel, DamienMcKenna: Added dependencies to all tests so that tests
   will only be listed if those dependencies are also available.
 By stimalsina: Minor improvements to the amphtml meta tag's description.
+#2823367 by DamienMcKenna: Fixed tests after internal API change in Media.
 
 
 Metatag 7.x-1.17, 2016-06-30

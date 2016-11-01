@@ -165,7 +165,10 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   public function tidyValue($value) {
     // Check for Media strings from the WYSIWYG submodule.
     if (module_exists('media_wysiwyg') && strpos($value, '[[{') !== FALSE) {
-      $value = media_wysiwyg_filter($value);
+      // In https://www.drupal.org/node/2129273 media_wysiwyg_filter() was
+      // changed to require several additional arguments.
+      $langcode = language_default('language');
+      $value = media_wysiwyg_filter($value, NULL, NULL, $langcode, NULL, NULL);
     }
 
     // Specifically replace encoded spaces, because some WYSIWYG editors are
