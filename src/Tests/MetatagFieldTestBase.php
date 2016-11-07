@@ -234,10 +234,6 @@ abstract class MetatagFieldTestBase extends WebTestBase {
     }
   }
 
-    // Open the 'edit' form for the entity.
-    $this->drupalGet($entity->toUrl('edit-form'));
-    $this->assertResponse(200);
-
     // If this entity type supports defaults then verify the global default is
     // not present but that the entity default *is* present.
     if ($this->entity_supports_defaults) {
