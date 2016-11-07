@@ -234,9 +234,6 @@ abstract class MetatagFieldTestBase extends WebTestBase {
     }
   }
 
-    // Add a field to the entity type.
-    $this->addField();
-
     // Open the 'edit' form for the entity.
     $this->drupalGet($entity->toUrl('edit-form'));
     $this->assertResponse(200);
