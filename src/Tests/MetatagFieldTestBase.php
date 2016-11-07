@@ -219,20 +219,20 @@ abstract class MetatagFieldTestBase extends WebTestBase {
       $this->assertText(strip_tags(t('Saved the %label Metatag defaults.', ['%label' => t($this->entity_label)])));
     }
 
-    // Load the entity form for this entity type.
-    $title = 'Barfoo';
-    $this->drupalGet($this->entity_add_path);
-    $this->assertResponse(200);
-    $this->assertNoText('Fatal error');
+      // Load the entity form for this entity type.
+      $title = 'Barfoo';
+      $this->drupalGet($this->entity_add_path);
+      $this->assertResponse(200);
+      $this->assertNoText('Fatal error');
 
-    // Allow the fields to be customized if needed.
-    $edit = $this->entity_default_values();
-    if (empty($edit)) {
-      $edit = [
-        $this->entity_title_field . '[0][value]' => $title,
-      ];
+      // Allow the fields to be customized if needed.
+      $edit = $this->entity_default_values();
+      if (empty($edit)) {
+        $edit = [
+          $this->entity_title_field . '[0][value]' => $title,
+        ];
+      }
     }
-  }
 
     // If this entity type supports defaults then verify the global default is
     // not present but that the entity default *is* present.
