@@ -232,7 +232,6 @@ abstract class MetatagFieldTestBase extends WebTestBase {
           $this->entity_title_field . '[0][value]' => $title,
         ];
       }
-    }
 
     // If this entity type supports defaults then verify the global default is
     // not present but that the entity default *is* present.
