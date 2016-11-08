@@ -236,12 +236,12 @@ abstract class MetatagFieldTestBase extends WebTestBase {
     // If this entity type supports defaults then verify the global default is
     // not present but that the entity default *is* present.
     if ($this->entity_supports_defaults) {
-      $this->assertNoFieldByName('field_metatag[0][basic][metatag_test]', $global_values['metatag_test']);
       $this->assertFieldByName('field_metatag[0][basic][metatag_test]', $entity_values['metatag_test']);
     }
     else {
-      $this->assertFieldByName('field_metatag[0][basic][metatag_test]', $global_values['metatag_test']);
+      $this->assertNoFieldByName('field_metatag[0][basic][metatag_test]', $global_values['metatag_test']);
     }
+  }
 
   /**
    * Confirm that the default values for an entity bundle will work correctly
