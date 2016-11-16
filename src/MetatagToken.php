@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\metatag;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\Utility\Token;
 
 /**
@@ -37,7 +38,7 @@ class MetatagToken {
   public function replace($string, $data, $options = []) {
     $options['clear'] = TRUE;
 
-    $replaced = $this->token->replace($string, $data, $options);
+    $replaced = $this->token->replace($string, $data, $options, new BubbleableMetadata());
 
     // Ensure that there are no double-slash sequences due to empty token
     // values.
