@@ -66,7 +66,7 @@ Standard usage scenario
    5.1 Go to the "Manage fields" of the bundle where you want the metatag field
        to appear.
    5.2 Select "Meta tags" from the "Add a new field" selector.
-   5.3 Fill in a label for the field, e.g. "Meta tags", and set an appropiate
+   5.3 Fill in a label for the field, e.g. "Meta tags", and set an appropriate
        machine name, e.g. "meta_tags".
    5.4 Click the "Save and continue" button.
    5.5 If the site supports multiple languages, and translations have been
