@@ -109,6 +109,20 @@ class MetatagTagsTest extends MetatagTagsTestBase {
   }
 
   /**
+   * Implements {meta_tag_name}_test_output_xpath() for 'image_src'.
+   */
+  public function image_src_test_output_xpath() {
+    return "//link[@rel='image_src']";
+  }
+
+  /**
+   * Implements {meta_tag_name}_test_value_attribute() for 'image_src'.
+   */
+  public function image_src_test_value_attribute() {
+    return 'href';
+  }
+
+  /**
    * Implements {meta_tag_name}_test_field_xpath() for 'referrer'.
    */
   public function referrer_test_field_xpath() {

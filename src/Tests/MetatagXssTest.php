@@ -47,7 +47,7 @@ class MetatagXssTest extends WebTestBase {
    *
    * @var string
    */
-  private $escapedXssImageTag = '<meta name="image_src" content="&quot;&gt;alert(&quot;image xss&quot;);" />';
+  private $escapedXssImageTag = '<link rel="image_src" href="&quot;&gt;alert(&quot;image xss&quot;);" />';
 
   /**
    * Administrator user for tests.

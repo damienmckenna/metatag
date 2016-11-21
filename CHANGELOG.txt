@@ -5,6 +5,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   specific entity form, so don't assume they are; this fixes compatibility with
   the Lingotek module, possibly others.
 By DamienMcKenna: Fixed a typo in README.txt.
+#2824442 by jiff: image_src should be a 'link' tag.
 
 
 Metatag 8.x-1.0-beta11, 2016-10-31
