@@ -170,8 +170,7 @@ abstract class MetatagFieldTestBase extends WebTestBase {
 
   /**
    * Confirm that the global default values work correctly when there are no
-   * entity or bundle defaults available and when there is no field for
-   * overriding the defaults.
+   * entity or bundle defaults available.
    */
   public function testGlobalDefaultsInheritance() {
     // First we set global defaults.
@@ -194,12 +193,54 @@ abstract class MetatagFieldTestBase extends WebTestBase {
   }
 
   /**
-   * Confirm that the default values for the entity type will work correctly
-   * when there is no field for overriding the defaults.
+   * Confirm that the entity default values work correctly.
    */
-  // @todo
-  // public function testEntityDefaultsInheritance() {
-  // }
+  public function testEntityDefaultsInheritance() {
+    // This test doesn't make sense if the entity doesn't support defaults.
+    if (!$this->entity_supports_defaults) {
+      return;
+    }
+
+    // Set a global default.
+    $this->drupalGet('admin/config/search/metatag/global');
+    $this->assertResponse(200);
+    $global_values = [
+      'metatag_test' => 'Global description',
+    ];
+    $this->drupalPostForm(NULL, $global_values, 'Save');
+    $this->assertText(strip_tags(t('Saved the %label Metatag defaults.', ['%label' => t('Global')])));
+
+    // Set an entity default.
+    $this->drupalGet('admin/config/search/metatag/' . $this->entity_type);
+    $this->assertResponse(200);
+    $entity_values = [
+      'metatag_test' => 'Entity description',
+    ];
+    $this->drupalPostForm(NULL, $entity_values, 'Save');
+    $this->assertText(strip_tags(t('Saved the %label Metatag defaults.', ['%label' => t($this->entity_label)])));
+
+    // Add the field to this entity type.
+    $this->addField();
+
+    // Load the entity form for this entity type.
+    $this->drupalGet($this->entity_add_path);
+    $this->assertResponse(200);
+    $this->assertNoText('Fatal error');
+
+    // Allow the fields to be customized if needed.
+    $title = 'Barfoo';
+    $edit = $this->entity_default_values();
+    if (empty($edit)) {
+      $edit = [
+        $this->entity_title_field . '[0][value]' => $title,
+      ];
+    }
+
+    // If this entity type supports defaults then verify the global default is
+    // not present but that the entity default *is* present.
+    $this->assertFieldByName('field_metatag[0][basic][metatag_test]', $entity_values['metatag_test']);
+    $this->assertNoFieldByName('field_metatag[0][basic][metatag_test]', $global_values['metatag_test']);
+  }
 
   /**
    * Confirm that the default values for an entity bundle will work correctly
