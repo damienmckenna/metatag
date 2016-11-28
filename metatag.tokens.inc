@@ -77,7 +77,7 @@ function metatag_tokens($type, $tokens, array $data = array(), array $options = 
   if ($type == 'metatag' && !empty($data['metatag'])) {
     $metatag = $data['metatag'];
     foreach ($tokens as $name => $original) {
-      if(isset($metatag[$name])){
+      if (isset($metatag[$name])) {
         $replacements[$original] = $sanitize ? filter_xss($metatag[$name]) : $metatag[$name];
       }
     }

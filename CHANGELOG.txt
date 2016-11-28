@@ -51,6 +51,8 @@ By stimalsina: Minor improvements to the amphtml meta tag's description.
 #2823367 by DamienMcKenna: Fixed tests after internal API change in Media.
 #2826023 by renatog, DamienMcKenna, gfcamilo: Coding standards fixes for
   metatag.module.
+#2831030 by prince_zyxware: Fixed some minor coding standard bugs, spacing
+ issues.
 
 
 Metatag 7.x-1.17, 2016-06-30

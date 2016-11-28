@@ -120,7 +120,7 @@ function metatag_google_plus_metatag_info() {
   ) + $defaults;
   $info['tags']['itemprop:image'] = array(
     'label' => t('Image URL'),
-    'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. '),
+    'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages.'),
     'weight' => ++$weight,
     'image' => TRUE,
     'devel_generate' => array(
