@@ -51,6 +51,9 @@ files[] = tests/metatag.bulk_revert.test
 files[] = tests/metatag.string_handling.test
 files[] = tests/metatag.string_handling_with_i18n.test
 
+; XSS testing.
+files[] = tests/metatag.xss.test
+
 ; Images need specia attention.
 test_dependencies[] = devel
 test_dependencies[] = imagecache_token

@@ -61,6 +61,7 @@ By stimalsina: Minor improvements to the amphtml meta tag's description.
   [node:source:url]. Updates to many tests to allow these changes.
 #2532588 by cebasqueira, renatog, DamienMcKenna: Added new meta tags for Google
   CSE.
+#2796701 by DrupalDano, DamienMcKenna: Some XSS tests for meta tag handling.
 
 
 Metatag 7.x-1.17, 2016-06-30
