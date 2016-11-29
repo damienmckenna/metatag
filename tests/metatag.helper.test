@@ -36,6 +36,23 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  protected function verbose($message, $title = NULL) {
+    // Handle arrays, objects, etc.
+    if (!is_string($message)) {
+      $message = "<pre>\n" . print_r($message, TRUE) . "\n</pre>\n";
+    }
+
+    // Optional title to go before the output.
+    if (!empty($title)) {
+      $title = '<h2>' . check_plain($title) . "</h2>\n";
+    }
+
+    parent::verbose($title . $message);
+  }
+
+  /**
    * Load the Performance admin page and clear all caches.
    */
   function clearAllCaches() {
@@ -78,6 +95,7 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
       // Basic permissions for the module.
       'administer meta tags',
       'edit meta tags',
+
       // General admin access.
       'access administration pages',
     );
@@ -248,36 +266,58 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
   /**
    * Set up a basic starting point for the locales.
    *
-   * This assumes the Locale module is enabled.
+   * This assumes the Locale module is enabled. This also must be done before
+   * other user accounts are logged in.
+   *
+   * @param array $locales
+   *   A list of locales to be enabled, in langcode format.
    */
-  public function setupLocales() {
-    // If there isn't an admin user already, create one.
-    if (empty($this->adminUser)) {
-      $perms = array(
-        'administer languages',
-        'translate interface',
-        'access administration pages',
-      );
-      $this->adminUser = $this->createAdminUser($perms);
+  public function setupLocales(array $locales = array()) {
+    // If no locales were requested, add Spanish and French.
+    if (empty($locales)) {
+      $locales[] = 'es';
+      $locales[] = 'fr';
     }
 
-    // Log in as the admin user.
-    $this->drupalLogin($this->adminUser);
+    // Log in as an admin user with privs to just set up the locales.
+    $perms = array(
+      'administer languages',
+      'translate interface',
+      'access administration pages',
+    );
+    $admin_user = $this->drupalCreateUser($perms);
+    $this->drupalLogin($admin_user);
 
     // Load the admin page, just to have a point of reference.
     $this->drupalGet('admin');
     $this->assertResponse(200, 'Loaded the main admin page.');
 
-    // Add French.
-    $this->addSiteLanguage('fr');
+    // Identify the site's default language.
+    $default_language = language_default('language');
 
-    // Add Spanish.
-    $this->addSiteLanguage('es');
+    // Add the locales.
+    foreach ($locales as $langcode) {
+      // Don't create the default language, it's already present.
+      if ($langcode != $default_language) {
+        $this->addSiteLanguage($langcode);
+      }
+    }
 
     // Enable URL language detection and selection.
-    $edit = array('language[enabled][locale-url]' => '1');
-    $this->drupalPost('admin/config/regional/language/configure', $edit, t('Save settings'));
+    $this->drupalGet('admin/config/regional/language/configure');
     $this->assertResponse(200);
+    $edit = array(
+      'language[enabled][locale-url]' => TRUE,
+    );
+    // Also enable path handling for Entity Translation if it is installed.
+    if (module_exists('entity_translation')) {
+      $edit['language_content[enabled][locale-url]'] = TRUE;
+    }
+    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->assertResponse(200);
+
+    // Once all the setup is done, log out the user.
+    $this->drupalLogout();
   }
 
   /**

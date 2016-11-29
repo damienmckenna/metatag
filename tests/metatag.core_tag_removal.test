@@ -38,7 +38,7 @@ class MetatagCoreTagRemovalTest extends MetatagTestHelper {
     unset($config->config['generator']);
     metatag_config_save($config);
     // Dump out the current config, to aid with debugging.
-    $this->verbose('<pre>' . print_r($config, TRUE) . '</pre>');
+    $this->verbose($config);
 
     // Load the front page.
     $this->drupalGet('<front>');

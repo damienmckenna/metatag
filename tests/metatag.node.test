@@ -45,6 +45,8 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
       'administer nodes',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
 
     // Assign default values for the new content type.
@@ -118,25 +120,25 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     if (preg_match('@node/(\d+)$@', $this->getUrl(), $matches)) {
       $nid = end($matches);
       $node = node_load($nid);
-      $this->verbose('<p>node_load(' . $nid . ')</p><pre>' . print_r($node, TRUE) . '</pre>');
+      $this->verbose($node, 'node_load(' . $nid . ')');
 
       // Only the non-default values are stored.
       $this->assertEqual($expected, $node->metatags);
 
       // Confirm the APIs can load the data for this node.
       $metatags = metatag_metatags_load('node', $node->nid);
-      $this->verbose('<p>metatag_metatags_load("node", ' . $node->nid . ')</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+      $this->verbose($metatags, 'metatag_metatags_load("node", ' . $node->nid . ')');
       $this->assertEqual($expected, $metatags);
       $metatags = metatag_metatags_load_multiple('node', array($node->nid));
-      $this->verbose('<p>metatag_metatags_load_multiple("node", array(' . $node->nid . '))</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+      $this->verbose($metatags, 'metatag_metatags_load_multiple("node", array(' . $node->nid . '))');
       $this->assertEqual(array($node->nid => array($node->vid => $expected)), $metatags);
 
       // Confirm the APIs can load the data for this node revision.
       $metatags = metatag_metatags_load('node', $node->nid, $node->vid);
-      $this->verbose('<p>metatag_metatags_load("node", ' . $node->nid . ', ' . $node->vid . ')</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+      $this->verbose($metatags, 'metatag_metatags_load("node", ' . $node->nid . ', ' . $node->vid . ')');
       $this->assertEqual($expected, $metatags);
       $metatags = metatag_metatags_load_multiple('node', array($node->nid), array($node->vid));
-      $this->verbose('<p>metatag_metatags_load_multiple("node", array(' . $node->nid . '), array(' . $node->vid . '))</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+      $this->verbose($metatags, 'metatag_metatags_load_multiple("node", array(' . $node->nid . '), array(' . $node->vid . '))');
       $this->assertEqual(array($node->nid => array($node->vid => $expected)), $metatags);
     }
 
@@ -231,26 +233,26 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     // Load the updated node; force-load it to make sure it's loaded properly.
     $updated_node = node_load($node->nid, NULL, TRUE);
     $updated_vid = $updated_node->vid;
-    $this->verbose('<p>node_load(' . $node->nid . ', NULL, TRUE)</p><pre>' . print_r($updated_node, TRUE) . '</pre>');
+    $this->verbose($updated_node, 'node_load(' . $node->nid . ', NULL, TRUE)');
 
     // Confirm the APIs can load the data for this node.
     $metatags = metatag_metatags_load('node', $updated_node->nid);
-    $this->verbose('<p>metatag_metatags_load("node", ' . $updated_node->nid . ')</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+    $this->verbose($metatags, 'metatag_metatags_load("node", ' . $updated_node->nid . ')');
     $this->assertEqual($expected_updated, $metatags);
     $this->assertNotEqual($expected, $metatags);
     // This one is complicated. If only the entity id is passed in it will load
     // the {metatag} records for *all* of the entity's revisions.
     $metatags = metatag_metatags_load_multiple('node', array($updated_node->nid));
-    $this->verbose('<p>metatag_metatags_load_multiple("node", array(' . $updated_node->nid . '))</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+    $this->verbose($metatags, 'metatag_metatags_load_multiple("node", array(' . $updated_node->nid . '))');
     $this->assertEqual(array($updated_node->nid => array($node->vid => $expected, $updated_node->vid => $expected_updated)), $metatags);
 
     // Confirm the APIs can load the data for this node revision.
     $metatags = metatag_metatags_load('node', $updated_node->nid, $updated_vid);
-    $this->verbose('<p>metatag_metatags_load("node", ' . $updated_node->nid . ', ' . $updated_node->vid . ')</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+    $this->verbose($metatags, 'metatag_metatags_load("node", ' . $updated_node->nid . ', ' . $updated_node->vid . ')');
     $this->assertEqual($expected_updated, $metatags);
     $this->assertNotEqual($expected, $metatags);
     $metatags = metatag_metatags_load_multiple('node', array($updated_node->nid), array($updated_node->vid));
-    $this->verbose('<p>metatag_metatags_load_multiple("node", array(' . $updated_node->nid . '), array(' . $updated_node->vid . '))</p><pre>' . print_r($metatags, TRUE) . '</pre>');
+    $this->verbose($metatags, 'metatag_metatags_load_multiple("node", array(' . $updated_node->nid . '), array(' . $updated_node->vid . '))');
     $this->assertEqual(array($updated_node->nid => array($updated_node->vid => $expected_updated)), $metatags);
 
     // Load the current revision again.
@@ -381,6 +383,8 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
       'administer content types',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
 
     // Set the node preview mode.

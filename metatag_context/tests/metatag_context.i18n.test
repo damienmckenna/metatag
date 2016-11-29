@@ -35,6 +35,9 @@ class MetatagContextI18nTest extends MetatagTestHelper {
     // Enable all of the modules that are needed.
     parent::setUp($modules);
 
+    // Add more locales.
+    $this->setupLocales();
+
     // Set up the locales.
     $perms = array(
       'translate admin strings',
@@ -46,7 +49,9 @@ class MetatagContextI18nTest extends MetatagTestHelper {
     );
     // This replaces the one from MetatagContextTest().
     $this->adminUser = $this->createAdminUser($perms);
-    $this->setupLocales();
+
+    // Log in the admin user.
+    $this->drupalLogin($this->adminUser);
     
     // Reload the translations.
     drupal_flush_all_caches();

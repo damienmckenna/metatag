@@ -59,6 +59,8 @@ class MetatagCoreWithViewsTest extends MetatagTestHelper {
       'administer views',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
 
     // Load the "add default configuration" page.
@@ -132,7 +134,7 @@ class MetatagCoreWithViewsTest extends MetatagTestHelper {
     $this->assertResponse(200);
 
     $vars = variable_get('views_defaults');
-    $this->verbose(print_r($vars, TRUE));
+    $this->verbose($vars);
     $this->assertFalse($vars['taxonomy_term'], 'Taxonomy term page is enabled.');
 
     // Load the page again.

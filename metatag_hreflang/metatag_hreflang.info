@@ -11,4 +11,8 @@ dependencies[] = locale
 ; Tests.
 files[] = tests/metatag_hreflang.test
 files[] = tests/metatag_hreflang.tags.test
-;files[] = tests/metatag_hreflang.with_entity_translation.test
+
+; Entity Translation integration.
+test_dependencies[] = devel
+test_dependencies[] = entity_translation
+files[] = tests/metatag_hreflang.with_entity_translation.test

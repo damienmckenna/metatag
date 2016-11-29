@@ -53,6 +53,12 @@ By stimalsina: Minor improvements to the amphtml meta tag's description.
   metatag.module.
 #2831030 by prince_zyxware: Fixed some minor coding standard bugs, spacing
  issues.
+#2759461 by DamienMcKenna: hreflang=x-default is no longer removed when another
+  hreflang meta tag has the same URL, instead the other tag is removed as it
+  was supposed to be. Added a new [node:url-original] token for showing the
+  URL for the source node for translations; updated the default value for
+  the hreflang=x-default meta tag to use the new token instead of
+  [node:source:url]. Updates to many tests to allow these changes.
 
 
 Metatag 7.x-1.17, 2016-06-30

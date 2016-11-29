@@ -37,6 +37,8 @@ class MetatagContextTest extends MetatagTestHelper {
       'bypass node access',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
 
     // Create a content type, with underscores.

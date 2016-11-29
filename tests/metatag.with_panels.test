@@ -52,6 +52,8 @@ class MetatagCoreWithPanelsTest extends MetatagTestHelper {
       'administer page manager',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
 
     // Create a test node.

@@ -46,6 +46,8 @@ class MetatagCoreStringHandlingTest extends MetatagTestHelper {
       'administer nodes',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
   }
 

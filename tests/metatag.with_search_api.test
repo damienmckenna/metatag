@@ -64,6 +64,8 @@ class MetatagCoreWithSearchAPITest extends MetatagTestHelper {
       'administer search_api',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
 
     // Create an index.

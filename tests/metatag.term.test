@@ -59,6 +59,8 @@ class MetatagCoreTermTest extends MetatagTestHelper {
       'create url aliases',
     );
     $this->adminUser = $this->createAdminUser($perms);
+
+    // Log in the admin user.
     $this->drupalLogin($this->adminUser);
 
     // Assign default values for the new vocabulary.
