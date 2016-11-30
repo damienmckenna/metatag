@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.18, 2016-11-30
 ----------------------------
 #2761817 by DamienMcKenna: Fixed metatag_update_replace_config() so it isn't
