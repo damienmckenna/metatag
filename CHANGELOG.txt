@@ -64,6 +64,8 @@ By stimalsina: Minor improvements to the amphtml meta tag's description.
 #2796701 by DrupalDano, DamienMcKenna: Some XSS tests for meta tag handling.
 #2831073 by DamienMcKenna: Added Workbench Moderation as a test dependency, for
   future use.
+#2831822 by DamienMcKenna: Added support for the handheld mobile alternate link
+  tag, supported by Google.
 
 
 Metatag 7.x-1.17, 2016-06-30

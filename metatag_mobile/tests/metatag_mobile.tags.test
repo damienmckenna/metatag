@@ -21,6 +21,7 @@ class MetatagMobileTagsTest extends MetatagTagsTestBase {
    * {@inheritdoc}
    */
   public $tags = array(
+    'alternate_handheld',
     'amphtml',
     'android-app-link-alternative',
     'android-manifest',
