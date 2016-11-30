@@ -91,6 +91,10 @@ test_dependencies[] = entity
 test_dependencies[] = search_api
 files[] = tests/metatag.with_search_api.test
 
+; Integration with Workbench Moderation
+test_dependencies[] = workbench_moderation
+;files[] = tests/metatag.with_workbench_moderation,test
+
 ; Basic integration with Views.
 test_dependencies[] = views
 files[] = tests/metatag.with_views.test
