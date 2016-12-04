@@ -2657,8 +2657,12 @@ function metatag_cache_default_cid_parts(array $cid_parts = array()) {
  * @see cache_set()
  */
 function metatag_cache_set($cid, $data) {
-  // Cache the data for later.
-  return cache_set($cid, $data, 'cache_metatag');
+  // By default the cached data will not expire.
+  $expire = CACHE_PERMANENT;
+
+  // Triggers hook_metatag_cache_set_expire_alter().
+  drupal_alter("metatag_cache_set_expire", $expire, $cid, $data);
+  return cache_set($cid, $data, 'cache_metatag', $expire);
 }
 
 /**

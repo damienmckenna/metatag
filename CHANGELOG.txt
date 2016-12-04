@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2832427 by dmitry.kazberovich, e2thex, DamienMcKenna: Allow the metatag cache
+  expiration time to be modified.
 
 
 Metatag 7.x-1.18, 2016-11-30
