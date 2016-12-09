@@ -76,4 +76,34 @@ class MetatagHreflangTagsTest extends MetatagTagsTestBase {
     );
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public $test_tag = 'link';
+
+  /**
+   * {@inheritdoc}
+   */
+  public $test_name_attribute = 'hreflang';
+
+  /**
+   * {@inheritdoc}
+   */
+  public $test_value_attribute = 'href';
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestTagValue() {
+    return base_path() . $this->randomMachineName() . '/' . $this->randomMachineName();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestTagName($tag_name) {
+    $tag_name = str_replace('xdefault', 'x-default', $tag_name);
+    return str_replace('hreflang_', '', $tag_name);
+  }
+
 }

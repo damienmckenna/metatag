@@ -71,4 +71,11 @@ class MetatagDcAdvancedTagsTest extends MetatagTagsTestBase {
     parent::setUp($modules);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestTagName($tag_name) {
+    return str_replace('dcterms_', 'dcterms.', $tag_name);
+  }
+
 }

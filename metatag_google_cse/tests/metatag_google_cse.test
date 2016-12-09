@@ -7,7 +7,7 @@
 /**
  * MetatagMobileTest for Google CSE. 
  */
-class MetatagMobileTest extends MetatagTestHelper {
+class MetatagGoogleCSETest extends MetatagTestHelper {
 
   /**
    * {@inheritdoc}

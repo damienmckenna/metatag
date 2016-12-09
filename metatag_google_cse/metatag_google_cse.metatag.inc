@@ -30,6 +30,7 @@ function metatag_google_cse_metatag_info() {
   $info['tags']['thumbnail'] = array(
     'label' => t('Thumbnail'),
     'description' => t('Use a url of a valid image.'),
+    'image' => TRUE,
     'weight' => ++$weight,
   ) + $tag_info_defaults;
 

@@ -747,4 +747,18 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
     $this->assertEqual($xpath[0]['content'], $user->name . " ponies");
   }
 
+  /**
+   * Generate a string that is allowable as a machine name.
+   *
+   * @param int $length
+   *   How long the machine name will be, defaults to eight characters.
+   *
+   * @return string
+   *   A string that contains lowercase letters and numbers, with a letter as
+   *   the first character.
+   */
+  function randomMachineName($length = 8) {
+    return strtolower($this->randomName($length));
+  }
+
 }
