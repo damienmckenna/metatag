@@ -5,6 +5,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2780025 by DamienMcKenna: Backported output tests from D8. Also fixes the
   output of the shortcut icon, ios-app, android-app, author, publisher, and made
   the Google CSE thumbnail tag an 'image'. Left some others to be fixed later.
+#2832476 by czigor; Added the 'product.group' and 'place' og:type options.
 
 
 Metatag 7.x-1.18, 2016-11-30
