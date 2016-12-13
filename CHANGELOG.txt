@@ -6,6 +6,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   output of the shortcut icon, ios-app, android-app, author, publisher, and made
   the Google CSE thumbnail tag an 'image'. Left some others to be fixed later.
 #2832476 by czigor; Added the 'product.group' and 'place' og:type options.
+#2835614 by drumm: metatag_metatags_load_multiple() doesn't need to sort the
+  results.
 
 
 Metatag 7.x-1.18, 2016-11-30

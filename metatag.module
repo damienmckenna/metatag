@@ -526,9 +526,7 @@ function metatag_metatags_load_multiple($entity_type, array $entity_ids, array $
   // Get all translations of tag data for this entity.
   $query = db_select('metatag', 'm')
     ->fields('m', array('entity_id', 'revision_id', 'language', 'data'))
-    ->condition('m.entity_type', $entity_type)
-    ->orderBy('entity_id')
-    ->orderBy('revision_id');
+    ->condition('m.entity_type', $entity_type);
   // Filter by revision_ids if they are available. If not, filter by entity_ids.
   if (!empty($revision_ids)) {
     $query->condition('m.revision_id', $revision_ids, 'IN');
