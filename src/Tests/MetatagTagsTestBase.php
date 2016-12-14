@@ -104,22 +104,22 @@ abstract class MetatagTagsTestBase extends WebTestBase {
 
     // Update the Global defaults and test them.
     $all_values = $values = [];
-    foreach ($this->tags as $tag) {
+    foreach ($this->tags as $tag_name) {
       // Look for a custom method named "{$tagname}_test_key", if found use
       // that method to get the test string for this meta tag, otherwise it
       // defaults to the meta tag's name.
-      $method = "{$tag}_test_key";
+      $method = "{$tag_name}_test_key";
       if (method_exists($this, $method)) {
         $test_key = $this->$method();
       }
       else {
-        $test_key = $tag;
+        $test_key = $tag_name;
       }
 
       // Look for a custom method named "{$tagname}_test_value", if found use
       // that method to get the test string for this meta tag, otherwise it
       // defaults to just generating a random string.
-      $method = "{$tag}_test_value";
+      $method = "{$tag_name}_test_value";
       if (method_exists($this, $method)) {
         $test_value = $this->$method();
       }
@@ -130,7 +130,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
       }
 
       $values[$test_key] = $test_value;
-      $all_values[$tag] = $test_value;
+      $all_values[$tag_name] = $test_value;
     }
     $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
