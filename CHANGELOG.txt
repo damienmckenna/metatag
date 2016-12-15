@@ -16,6 +16,7 @@ By DamienMcKenna: Fixed a typo in README.txt.
   tags.
 #2835925 by DamienMcKenna: Added a placeholder to store the OG Products meta
   tags.
+#2563633 by DamienMcKenna: Added a placeholder to store the favicon meta tags.
 
 
 Metatag 8.x-1.0-beta11, 2016-10-31
