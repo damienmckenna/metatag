@@ -14,6 +14,8 @@ By DamienMcKenna: Fixed a typo in README.txt.
 #2563631 by DamienMcKenna: Added a placeholder to store the AppLinks meta tags.
 #2809351 by DamienMcKenna: Added a placeholder to store the DC Advanced meta
   tags.
+#2835925 by DamienMcKenna: Added a placeholder to store the OG Products meta
+  tags.
 
 
 Metatag 8.x-1.0-beta11, 2016-10-31
