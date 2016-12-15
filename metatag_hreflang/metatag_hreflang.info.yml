@@ -1,0 +1,7 @@
+name: "Metatag: hreflang"
+type: module
+description: Provides support for the hreflang meta tag with some extra logic to simplify it.
+core: 8.x
+package: SEO
+dependencies:
+  - metatag

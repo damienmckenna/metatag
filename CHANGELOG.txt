@@ -9,6 +9,7 @@ By DamienMcKenna: Fixed a typo in README.txt.
 #2821476 by DamienMcKenna, Daniel_Rose: Added tests to confirm entity defaults
   inherit properly.
 #2836124 by DamienMcKenna: Fixed tests for the Dublin Core meta tags.
+#2786625 by DamienMcKenna: Added the hreflang=x-default meta tag.
 
 
 Metatag 8.x-1.0-beta11, 2016-10-31
