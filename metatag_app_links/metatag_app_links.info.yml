@@ -1,0 +1,7 @@
+name: 'Metatag: App Links'
+type: module
+description: Provides support for applinks.org meta tags.
+core: 8.x
+package: SEO
+dependencies:
+  - metatag:metatag
