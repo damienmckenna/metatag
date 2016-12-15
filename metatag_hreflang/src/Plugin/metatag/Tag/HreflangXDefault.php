@@ -10,7 +10,7 @@ namespace Drupal\metatag_hreflang\Plugin\metatag\Tag;
  *   label = @Translation("Default locale (x-default)"),
  *   description = @Translation("This should point to the version of the page that is for the main or primary locale, e.g. the original version of an article that is translated into other languages."),
  *   name = "hreflang_xdefault",
- *   group = "Hreflang",
+ *   group = "hreflang",
  *   weight = 0,
  *   type = "uri",
  *   secure = FALSE,

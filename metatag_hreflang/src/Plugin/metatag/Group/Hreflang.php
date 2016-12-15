@@ -11,7 +11,7 @@ use \Drupal\metatag\Plugin\metatag\Group\GroupBase;
  *   id = "hreflang",
  *   label = @Translation("Alternative language links (hreflang)"),
  *   description = @Translation("These meta tags are designed to point visitors to versions of the current page in other languages. It is recommended to use the default ""[node:url-LANGCODE]"" tokens for the hreflang values, they will only be output if a translation exists for that locale. Also, it is suggested to use the ""[node:source:url]"" token for the default locale."),
- *   weight = 0,
+ *   weight = 60,
  * )
  */
 class Hreflang extends GroupBase {
