@@ -12,7 +12,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
  *   label = @Translation("Department"),
  *   description = @Translation("Department tag."),
  *   name = "department",
- *   group = "GoogleCse",
+ *   group = "google_cse",
  *   weight = 0,
  *   type = "string",
  *   secure = FALSE,

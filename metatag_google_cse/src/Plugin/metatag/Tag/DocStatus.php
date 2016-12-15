@@ -12,7 +12,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
  *   label = @Translation("Document status"),
  *   description = @Translation("The document status, e.g. ""draft""."),
  *   name = "doc_status",
- *   group = "GoogleCse",
+ *   group = "google_cse",
  *   weight = 0,
  *   type = "string",
  *   secure = FALSE,

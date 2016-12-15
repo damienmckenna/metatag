@@ -17,6 +17,8 @@ By DamienMcKenna: Fixed a typo in README.txt.
 #2835925 by DamienMcKenna: Added a placeholder to store the OG Products meta
   tags.
 #2563633 by DamienMcKenna: Added a placeholder to store the favicon meta tags.
+#2532588 by DamienMcKenna: Follow-up to fix the group assignment of the Google
+  CSE meta tags.
 
 
 Metatag 8.x-1.0-beta11, 2016-10-31

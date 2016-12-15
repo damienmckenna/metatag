@@ -12,7 +12,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
  *   label = @Translation("Content audience"),
  *   description = @Translation("The content audience, e.g. ""all""."),
  *   name = "audience",
- *   group = "GoogleCse",
+ *   group = "google_cse",
  *   weight = 0,
  *   type = "string",
  *   secure = FALSE,

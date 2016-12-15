@@ -12,7 +12,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
  *   label = @Translation("Thumbnail"),
  *   description = @Translation("Use a url of a valid image."),
  *   name = "thumbnail",
- *   group = "GoogleCse",
+ *   group = "google_cse",
  *   weight = 0,
  *   type = "uri",
  *   secure = FALSE,

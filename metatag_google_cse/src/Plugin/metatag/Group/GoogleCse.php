@@ -11,7 +11,7 @@ use \Drupal\metatag\Plugin\metatag\Group\GroupBase;
  *   id = "google_cse",
  *   label = @Translation("Google Custom Search Engine (CSE)"),
  *   description = @Translation("Meta tags used to control the mobile browser experience. Some of these meta tags have been replaced by newer mobile browsers. These meta tags usually only need to be set globally, rather than per-page."),
- *   weight = 0,
+ *   weight = 80,
  * )
  */
 class GoogleCse extends GroupBase {

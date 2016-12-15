@@ -12,7 +12,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase;
  *   label = @Translation("Content rating"),
  *   description = @Translation("Works only with numeric values."),
  *   name = "rating",
- *   group = "GoogleCse",
+ *   group = "google_cse",
  *   weight = 0,
  *   type = "string",
  *   secure = FALSE,
