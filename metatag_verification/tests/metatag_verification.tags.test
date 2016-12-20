@@ -1,9 +1,8 @@
 <?php
+
 /**
- * @file
  * Tests that each of the Metatag Verification tags work correctly.
  */
-
 class MetatagVerificationTagsTest extends MetatagTagsTestBase {
 
   /**

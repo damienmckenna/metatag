@@ -1,11 +1,7 @@
 <?php
-/**
- * @file
- * Tests that each of the Metatag Mobile tags work correctly.
- */
 
 /**
- * MetatagMobileTagsTest for Google CSE.
+ * Tests that each of the Metatag Google CSE tags work correctly.
  */
 class MetatagGoogleCSETagsTest extends MetatagTagsTestBase {
 

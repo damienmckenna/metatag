@@ -1,9 +1,8 @@
 <?php
+
 /**
- * @file
  * Tests that each of the Metatag GooglePlus tags work correctly.
  */
-
 class MetatagGooglePlusTagsTest extends MetatagTagsTestBase {
 
   /**

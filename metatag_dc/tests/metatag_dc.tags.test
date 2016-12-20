@@ -1,9 +1,8 @@
 <?php
+
 /**
- * @file
  * Tests that each of the Metatag Dublin Core tags work correctly.
  */
-
 class MetatagDcTagsTest extends MetatagTagsTestBase {
 
   /**

@@ -1,11 +1,7 @@
 <?php
-/**
- * @file
- * Tests for the Metatag Mobile module.
- */
 
 /**
- * MetatagMobileTest for Google CSE. 
+ * Tests for the Metatag Google CSE module.
  */
 class MetatagGoogleCSETest extends MetatagTestHelper {
 

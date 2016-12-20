@@ -11,11 +11,12 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Noted in the metatag_google_plus info file and README.txt that
   it includes the Author and Publisher meta tags.
 By DamienMcKenna: Tweaked the favicons module description.
-By DamienMcKenna: Updated tests to match the latest coding standards.
+By DamienMcKenna: Updated main tests to match the latest coding standards.
 By DamienMcKenna: Minor updates to various Google CSE labels.
 By DamienMcKenna: A string in metatag_opengraph_products wasn't using an
   argument that was being passed to it.
 By DamienMcKenna: Minor adjustment to metatag_mobile strings.
+By DamienMcKenna: Updated submodule tests to match the latest coding standards.
 
 
 Metatag 7.x-1.18, 2016-11-30

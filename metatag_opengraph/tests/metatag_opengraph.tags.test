@@ -1,9 +1,8 @@
 <?php
+
 /**
- * @file
  * Tests that each of the Metatag OpenGraph tags work correctly.
  */
-
 class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
 
   /**

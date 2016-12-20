@@ -1,9 +1,8 @@
 <?php
+
 /**
- * @file
  * Tests that each of the Metatag App Links tags work correctly.
  */
-
 class MetatagAppLinksTagsTest extends MetatagTagsTestBase {
 
   /**

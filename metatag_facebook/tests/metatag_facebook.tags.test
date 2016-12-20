@@ -1,9 +1,8 @@
 <?php
+
 /**
- * @file
  * Tests that each of the Metatag Facebook tags work correctly.
  */
-
 class MetatagFacebookTagsTest extends MetatagTagsTestBase {
 
   /**
