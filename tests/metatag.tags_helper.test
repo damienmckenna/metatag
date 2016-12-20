@@ -1,9 +1,8 @@
 <?php
-/**
- * @file
- * Base class 
- */
 
+/**
+ * Base class for testing a module's custom tags.
+ */
 abstract class MetatagTagsTestBase extends MetatagTestHelper {
 
   /**
