@@ -1,4 +1,4 @@
-name = "Metatag: Google CSE - Custom Search Engine"
+name = "Metatag: Google Custom Search Engine (CSE)"
 description = "Provides support for meta tags used for Google Custom Search Engine."
 package = SEO
 core = 7.x
