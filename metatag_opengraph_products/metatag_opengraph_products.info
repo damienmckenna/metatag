@@ -1,4 +1,4 @@
-name = Metatag:OpenGraph Products
+name = Metatag: OpenGraph Products
 description = Provides additional Open Graph Protocol meta tags for describing products.
 package = SEO
 core = 7.x
