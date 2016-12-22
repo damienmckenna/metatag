@@ -17,6 +17,8 @@ By DamienMcKenna: A string in metatag_opengraph_products wasn't using an
   argument that was being passed to it.
 By DamienMcKenna: Minor adjustment to metatag_mobile strings.
 By DamienMcKenna: Updated submodule tests to match the latest coding standards.
+#2838198 by DamienMcKenna, Mixologic: Test dependency changes to workaround
+  changes in the DrupalCI platform.
 
 
 Metatag 7.x-1.18, 2016-11-30

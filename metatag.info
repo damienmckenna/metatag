@@ -75,7 +75,7 @@ files[] = tests/metatag.with_me.test
 
 ; Basic integration with Media.
 test_dependencies[] = file_entity
-test_dependencies[] = media
+test_dependencies[] = media:media (>= 2.0, < 3.0)
 files[] = tests/metatag.with_media.test
 
 ; Basic integration with Panels.
