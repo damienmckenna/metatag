@@ -893,11 +893,6 @@ function metatag_entity_insert($entity, $entity_type) {
       unset($entity->metatags[LANGUAGE_NONE]);
     }
 
-    // Support for Workbench Moderation v1.
-    if ($entity_type == 'node' && _metatag_isdefaultrevision($entity)) {
-      return;
-    }
-
     metatag_metatags_save($entity_type, $entity_id, $revision_id, $entity->metatags, $bundle);
   }
 }
@@ -951,11 +946,6 @@ function metatag_entity_update($entity, $entity_type) {
           }
         }
       }
-    }
-
-    // Support for Workbench Moderation v1.
-    if ($entity_type == 'node' && _metatag_isdefaultrevision($entity)) {
-      return;
     }
 
     // Save the record.
@@ -2561,42 +2551,6 @@ function metatag_ctools_render_alter(&$info, $page, $context) {
       }
     }
   }
-}
-
-/**
- * Checks if this entity is the default revision (published).
- *
- * @param object $entity
- *   The entity object, e.g., $node.
- *
- * @return bool
- *   TRUE if the entity is the default revision, FALSE otherwise.
- */
-function _metatag_isdefaultrevision($entity) {
-  // D7 "Forward revisioning" is complex and causes a node_save() with the
-  // future node in node table. This fires hook_node_update() twice and cause
-  // abnormal behaviour in metatag.
-  //
-  // The steps taken by Workbench Moderation is to save the forward revision
-  // first and overwrite this with the live version in a shutdown function in
-  // a second step. This will confuse metatag. D7 has no generic property
-  // in the node object, if the node that is updated is the 'published' version
-  // or only a draft of a future version.
-  //
-  // This behaviour will change in D8 where $node->isDefaultRevision has been
-  // introduced. See below links for more details.
-  // - https://www.drupal.org/node/1879482
-  // - https://www.drupal.org/node/218755
-  // - https://www.drupal.org/node/1522154
-  //
-  // Every moderation module saving a forward revision needs to return FALSE.
-  // @todo: Refactor this workaround under D8.
-  // Support for Workbench Moderation v1 - if this is a node, check if the
-  // content type supports moderation.
-  if (function_exists('workbench_moderation_node_type_moderated') && workbench_moderation_node_type_moderated($entity->type) === TRUE) {
-    return !empty($entity->workbench_moderation['updating_live_revision']);
-  }
-  return FALSE;
 }
 
 /**

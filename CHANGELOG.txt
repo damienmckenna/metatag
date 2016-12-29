@@ -19,6 +19,8 @@ By DamienMcKenna: Minor adjustment to metatag_mobile strings.
 By DamienMcKenna: Updated submodule tests to match the latest coding standards.
 #2838198 by DamienMcKenna, Mixologic: Test dependency changes to workaround
   changes in the DrupalCI platform.
+#2831073 by dxvargas, DamienMcKenna: Remove old workarounds due to Workbench
+  Moderation 3.x API changes, warn if older version installed.
 
 
 Metatag 7.x-1.18, 2016-11-30
