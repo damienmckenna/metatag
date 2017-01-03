@@ -1,5 +1,5 @@
-Metatag 8.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 8.x-1.0-beta12, 2017-01-03
+----------------------------------
 #2823811 by Michelle: metatag_open_graph_preprocess_html() was misspelled.
 #2654148 by penyaskito, DamienMcKenna: Not all entity.*.add paths are tied to a
   specific entity form, so don't assume they are; this fixes compatibility with
