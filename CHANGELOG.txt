@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.19, 2017-01-01
 ----------------------------
 #2832427 by dmitry.kazberovich, e2thex, DamienMcKenna: Allow the metatag cache
