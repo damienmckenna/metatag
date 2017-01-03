@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.0-beta12, 2017-01-03
 ----------------------------------
 #2823811 by Michelle: metatag_open_graph_preprocess_html() was misspelled.
