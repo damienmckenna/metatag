@@ -1,0 +1,7 @@
+name: 'Metatag: Mobile & UI Adjustments'
+type: module
+description: Provides support for meta tags used to control the mobile browser experience.
+core: 8.x
+package: SEO
+dependencies:
+  - metatag:metatag

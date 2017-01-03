@@ -124,22 +124,18 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
     }
 
     // Check to see if the page currently outputs a canonical tag.
-    $has_canonical = FALSE;
     if (isset($metatag_attachments['#attached']['html_head'])) {
       foreach ($metatag_attachments['#attached']['html_head'] as $metatag_item) {
         if ($metatag_item[1] == 'canonical_url') {
           // Metatag provides a link rel="canonical" tag.
-          $has_canonical = TRUE;
-          break;
-        }
-      }
-    }
-
-    if ($has_canonical) {
-      foreach ($build['#attached']['html_head_link'] as $key => $item) {
-        if (isset($item[0]['rel']) && $item[0]['rel'] == 'canonical') {
-          // Remove the link rel="canonical" tag from the entity's build array.
-          unset($build['#attached']['html_head_link'][$key]);
+          foreach ($build['#attached']['html_head_link'] as $key => $item) {
+            if (isset($item[0]['rel']) && $item[0]['rel'] == 'canonical') {
+              // Remove the link rel="canonical" tag from the entity's build
+              // array.
+              unset($build['#attached']['html_head_link'][$key]);
+              break;
+            }
+          }
           break;
         }
       }
