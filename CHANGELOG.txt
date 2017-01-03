@@ -21,7 +21,7 @@ By DamienMcKenna: Fixed a typo in README.txt.
   CSE meta tags.
 #2786625 by DamienMcKenna: Follow-up to fix the group assignment of the hreflang
   x-default meta tag.
-#2563635 by DamienMcKenna, jlbellido: Ported all of the mobile meta tags to the
+#2563635 by jlbellido, DamienMcKenna: Ported all of the mobile meta tags to the
   new Metatag Mobile submodule.
 
 
