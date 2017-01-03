@@ -23,6 +23,7 @@ By DamienMcKenna: Fixed a typo in README.txt.
   x-default meta tag.
 #2563635 by jlbellido, DamienMcKenna: Ported all of the mobile meta tags to the
   new Metatag Mobile submodule.
+#2840222 by jmolivas: Update for Drupal Console rc13 namespace changes.
 
 
 Metatag 8.x-1.0-beta11, 2016-10-31
