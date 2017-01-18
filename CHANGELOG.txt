@@ -2,6 +2,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2840500 by DamienMcKenna: Bring back compatibility with Workbench Moderation
   v1.
+#2841064 by klausi, DamienMcKenna: Fix sandbox-based update scripts so they
+  don't run into infinite loops.
 
 
 Metatag 7.x-1.19, 2017-01-01
