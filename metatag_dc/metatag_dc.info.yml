@@ -4,4 +4,4 @@ description: Provides the fifteen <a href="http://dublincore.org/documents/dces/
 core: 8.x
 package: SEO
 dependencies:
-  - metatag
+  - metatag:metatag
