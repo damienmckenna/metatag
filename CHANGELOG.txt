@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.20, 2017-01-18
 ----------------------------
 #2840500 by DamienMcKenna: Bring back compatibility with Workbench Moderation
