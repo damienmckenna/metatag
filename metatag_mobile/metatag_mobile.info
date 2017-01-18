@@ -2,7 +2,7 @@ name = "Metatag: Mobile & UI Adjustments"
 description = "Provides support for meta tags used to control the mobile browser experience."
 package = SEO
 core = 7.x
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
 ; Tests.
 files[] = tests/metatag_mobile.test

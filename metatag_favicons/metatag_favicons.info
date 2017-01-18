@@ -2,7 +2,7 @@ name = Metatag: favicons
 description = "Provides support for many different favicons."
 package = SEO
 core = 7.x
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
 ; Custom class for mask-icon.
 files[] = metatag_favicons.mask-icon.class.inc

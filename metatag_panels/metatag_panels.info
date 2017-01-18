@@ -3,8 +3,8 @@ description = Provides Metatag integration within the Panels interface.
 package = SEO
 core = 7.x
 
-dependencies[] = metatag
-dependencies[] = panels
+dependencies[] = metatag:metatag
+dependencies[] = panels:panels
 
 ; Tests.
 files[] = tests/metatag_panels.test

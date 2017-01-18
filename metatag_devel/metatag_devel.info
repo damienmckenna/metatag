@@ -3,7 +3,7 @@ description = Provides development / debugging functionality for the Metatag mod
 package = Development
 core = 7.x
 tags[] = developer
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
 ; Tests.
 files[] = tests/metatag_devel.test

@@ -2,7 +2,7 @@ name = Metatag: Twitter Cards
 description = "Provides support for Twitter's Card meta tags."
 package = SEO
 core = 7.x
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
 ; Tests.
 files[] = tests/metatag_twitter_cards.test

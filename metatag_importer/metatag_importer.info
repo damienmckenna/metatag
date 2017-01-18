@@ -4,7 +4,7 @@ core = 7.x
 package = SEO
 
 ; Need Metatag.
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
 ; Tests.
 files[] = tests/metatag_importer.test

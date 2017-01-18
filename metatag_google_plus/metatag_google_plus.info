@@ -3,7 +3,7 @@ description = "Provides support for Google+ 'itemscope', 'author' and 'publisher
 package = SEO
 core = 7.x
 
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
 files[] = metatag_google_plus.inc
 

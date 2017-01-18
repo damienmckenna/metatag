@@ -2,7 +2,7 @@ name = Metatag: Facebook
 description = "Provides support for Facebook's custom meta tags."
 package = SEO
 core = 7.x
-dependencies[] = metatag
+dependencies[] = metatag:metatag
 
 ; Tests.
 files[] = tests/metatag_facebook.test

@@ -5,4 +5,4 @@ core = 7.x
 ; Don't show this on the modules admin page.
 hidden = TRUE
 
-dependencies[] = metatag
+dependencies[] = metatag:metatag

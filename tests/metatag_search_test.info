@@ -3,7 +3,7 @@ description = "Test module for the Metatag Search API integration."
 core = 7.x
 package = Metatag
 
-dependencies[] = metatag
-dependencies[] = search_api
+dependencies[] = metatag:metatag
+dependencies[] = search_api:search_api
 
 hidden = TRUE
