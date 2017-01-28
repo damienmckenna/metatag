@@ -82,14 +82,14 @@ for extending Metatag's options.
 
 To generate a new tag, install DrupalConsole and then use the following command:
 
-  drupal generate:metatag:tag
+  drupal generate:plugin:metatag:tag
 
 This will guide the site builder through the necessary steps to create a new
 meta tag plugin and add it to a module.
 
 There is also a command for generating meta tag groups:
 
-  drupal generate:metatag:group
+  drupal generate:plugin:metatag:group
 
 Again, this provides a guided process to create a new group.
 

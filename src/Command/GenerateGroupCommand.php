@@ -70,7 +70,7 @@ class GenerateGroupCommand extends Command {
    */
   protected function configure() {
     $this
-      ->setName('generate:metatag:group')
+      ->setName('generate:plugin:metatag:group')
       ->setDescription($this->trans('commands.generate.metatag.group.description'))
       ->setHelp($this->trans('commands.generate.metatag.group.help'))
       ->addOption('base_class', '', InputOption::VALUE_REQUIRED,

@@ -6,6 +6,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   not yet support custom tokens like the D7 version does.
 #2844504 by DamienMcKenna: Add project names to all dependencies.
 #2563631 by DamienMcKenna: Added all AppLinks meta tags.
+#2841737 by DamienMcKenna: Renamed the DrupalConsole commands.
 
 
 Metatag 8.x-1.0-beta12, 2017-01-03

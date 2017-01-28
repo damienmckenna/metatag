@@ -88,7 +88,7 @@ class GenerateTagCommand extends Command {
    */
   protected function configure() {
     $this
-      ->setName('generate:metatag:tag')
+      ->setName('generate:plugin:metatag:tag')
       ->setDescription($this->trans('commands.generate.metatag.tag.description'))
       ->setHelp($this->trans('commands.generate.metatag.tag.help'))
       ->addOption('base_class', '', InputOption::VALUE_REQUIRED,

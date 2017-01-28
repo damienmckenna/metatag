@@ -8,7 +8,9 @@ use Drupal\Console\Core\Utils\TwigRenderer;
 
 class MetatagGroupGenerator extends Generator {
 
-  /** @var Manager  */
+  /**
+   * @var Manager
+   */
   protected $extensionManager;
 
   /**
@@ -21,10 +23,7 @@ class MetatagGroupGenerator extends Generator {
    *
    * @param Manager $extensionManager
    */
-  public function __construct(
-      Manager $extensionManager,
-      TwigRenderer $render
-    ) {
+  public function __construct(Manager $extensionManager, TwigRenderer $render) {
     $this->extensionManager = $extensionManager;
 
     $render->addSkeletonDir(__DIR__ . '/../../templates/');
