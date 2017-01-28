@@ -230,6 +230,11 @@ function metatag_get_route_entity() {
     }
   }
 
+  // Trigger hook_metatag_route_entity().
+  if ($entities = \Drupal::moduleHandler()->invokeAll('metatag_route_entity', [$route_match])) {
+    return reset($entities);
+  }
+
   return NULL;
 }
 
