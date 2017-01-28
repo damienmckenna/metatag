@@ -9,6 +9,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2841737 by DamienMcKenna: Renamed the DrupalConsole commands.
 #2838175 by dawehner: Allow supported entity routes to be changed through the
   new hook_metatag_route_entity().
+#2825867 by Grayside: Improve support for the Typed Data API.
 
 
 Metatag 8.x-1.0-beta12, 2017-01-03
