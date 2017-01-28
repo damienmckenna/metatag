@@ -10,6 +10,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2838175 by dawehner: Allow supported entity routes to be changed through the
   new hook_metatag_route_entity().
 #2825867 by Grayside: Improve support for the Typed Data API.
+#2649592 by ziomizar, DamienMcKenna: Write tests to cover apostrophe handling.
 
 
 Metatag 8.x-1.0-beta12, 2017-01-03
