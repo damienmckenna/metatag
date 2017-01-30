@@ -27,12 +27,12 @@ function metatag_mobile_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_theme().
  */
 function metatag_mobile_theme() {
-  $info['metatag_mobile_android_app'] = array(
+  $info['metatag_mobile_android_app'] = [
     'render element' => 'element',
-  );
-  $info['metatag_mobile_ios_app'] = array(
+  ];
+  $info['metatag_mobile_ios_app'] = [
     'render element' => 'element',
-  );
+  ];
 
   return $info;
 }

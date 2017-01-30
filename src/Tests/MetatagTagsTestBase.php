@@ -218,7 +218,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
 
       // Extract the meta tag from the HTML.
       $xpath = $this->xpath($xpath_string);
-      $this->assertEqual(count($xpath), 1, format_string('One @name tag found.', array('@name' => $tag_name)));
+      $this->assertEqual(count($xpath), 1, format_string('One @name tag found.', ['@name' => $tag_name]));
       if (count($xpath) !== 1) {
         $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
       }

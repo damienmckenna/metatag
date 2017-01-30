@@ -64,7 +64,7 @@ function metatag_form_field_config_edit_form_alter(&$form, FormStateInterface $f
         foreach ($outer as $key => &$inner) {
           if (is_array($inner) && isset($inner['#default_value'])) {
             if (is_array($inner['#default_value'])) {
-              $inner['#default_value'] = array();
+              $inner['#default_value'] = [];
             }
             else {
               $inner['#default_value'] = NULL;
