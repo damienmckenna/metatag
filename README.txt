@@ -104,6 +104,20 @@ functionality:
   Adds integration with the Yoast service (https://yoast.com/).
 
 
+Known issues
+--------------------------------------------------------------------------------
+* In order to uninstall the module any "Metatag" fields must first be removed
+  from all entities. In order to see whether there are fields blocking the
+  module from being uninstalled, load the module uninstall page
+  (admin/modules/uninstall) and see if any are listed, it will look something
+  like the following:
+    The Meta tags field type is used in the following field:
+    node.field_meta_tags
+  In order to uninstall the module, go to the appropriate field settings pages
+  and remove the Metatag field listed in the message. Once this is done it will
+  be possible to uninstall the module.
+
+
 Credits / contact
 --------------------------------------------------------------------------------
 Currently maintained by Damien McKenna [2] and Dave Reid [3]. Drupal 7 module
