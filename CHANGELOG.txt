@@ -12,6 +12,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2825867 by Grayside: Improve support for the Typed Data API.
 #2649592 by ziomizar, DamienMcKenna: Write tests to cover apostrophe handling.
 By DamienMcKenna: Shortened some verbose variable syntax.
+#2835752 by DamienMcKenna: Improved hook_help().
 
 
 Metatag 8.x-1.0-beta12, 2017-01-03
