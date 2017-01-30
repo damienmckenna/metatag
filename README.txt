@@ -74,6 +74,51 @@ Standard usage scenario
        Drupal's translation system.
 
 
+Programmatically assign meta tags to an entity
+--------------------------------------------------------------------------------
+There are two ways to assign an entity's meta tags in custom module. Both
+scenarios require a "Metatag" field be added to the entity's field settings, the
+field name "field_meta_tags" is used but this is completely arbitrary.
+
+Option 1:
+
+  $entity_type = 'node';
+  $values = [
+    'nid' => NULL,
+    'type' => 'article',
+    'title' => 'Testing metatag creation',
+    'uid' => 1,
+    'status' => TRUE,
+    'field_meta_tags' => serialize([
+      'title' => 'Some title',
+      'description' => 'Some description.',
+      'keywords' => 'Some,Keywords',
+    ]),
+  ];
+  $node = \Drupal::entityTypeManager()->getStorage($entity_type)->create($values);
+  $node->save();
+
+Option 2:
+
+  $node = Node::create(array(
+    'type' => article,
+    'langcode' => 'en',
+    'status' => 1,
+    'uid' => 1,
+  ));
+  $node->set('title', 'Testing metatag creation');
+  $node->set('field_meta_tags', serialize([
+    'title' => 'Some title',
+    'description' => 'Some description.',
+    'keywords' => 'Some,Keywords',
+  ]));
+  $node->save();
+
+In both examples, the custom meta tag values will still be merged with the
+values defined via the global defaults prior to being output - it is not
+necessary to copy each value to the new record.
+
+
 DrupalConsole integration
 --------------------------------------------------------------------------------
 Using the DrupalConsole, it is possible to generate new meta tags, either for

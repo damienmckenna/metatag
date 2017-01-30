@@ -15,6 +15,8 @@ By DamienMcKenna: Shortened some verbose variable syntax.
 #2835752 by DamienMcKenna: Improved hook_help().
 #2789511 by DamienMcKenna: It is a known issue that all Metatag fields must be
   removed prior to uninstalling the module.
+#2809915 by nicxvan, DamienMcKenna: Document how to programmatically assign
+  meta tags when creating entities.
 
 
 Metatag 8.x-1.0-beta12, 2017-01-03
