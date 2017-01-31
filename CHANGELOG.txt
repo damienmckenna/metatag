@@ -1,6 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2844504 by DamienMcKenna: Add project names to all dependencies.
+By DamienMcKenna: Backported some minor text changes from the D8 branch.
 
 
 Metatag 7.x-1.20, 2017-01-18
