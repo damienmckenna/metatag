@@ -17,6 +17,7 @@ By DamienMcKenna: Shortened some verbose variable syntax.
   removed prior to uninstalling the module.
 #2809915 by nicxvan, DamienMcKenna: Document how to programmatically assign
   meta tags when creating entities.
+#2563645 by DamienMcKenna, Michelle: Improved documentation.
 
 
 Metatag 8.x-1.0-beta12, 2017-01-03
