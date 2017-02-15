@@ -1,3 +1,8 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+#2852737 by DamienMcKenna: Added CodeClimate config files.
+
+
 Metatag 8.x-1.0, 2017-01-31
 ---------------------------
 #2841139 by jmolivas: Relocated commands services registration to
@@ -18,7 +23,6 @@ By DamienMcKenna: Shortened some verbose variable syntax.
 #2809915 by nicxvan, DamienMcKenna: Document how to programmatically assign
   meta tags when creating entities.
 #2563645 by DamienMcKenna, Michelle: Improved documentation.
-#2852737 by DamienMcKenna: Added CodeClimate config files.
 
 
 Metatag 8.x-1.0-beta12, 2017-01-03
