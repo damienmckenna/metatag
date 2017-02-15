@@ -2569,3 +2569,17 @@ function metatag_update_7113() {
     cache_clear_all('output:', 'cache_metatag', TRUE);
   }
 }
+
+/**
+ * Disable output caching.
+ */
+function metatag_update_7114() {
+  variable_del('metatag_cache_output');
+}
+
+/**
+ * Clear all metatag output caches, it will be rebuild if needed.
+ */
+function metatag_update_7115() {
+  cache_clear_all('output:', 'cache_metatag', TRUE);
+}

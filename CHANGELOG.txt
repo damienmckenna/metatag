@@ -8,6 +8,8 @@ By DamienMcKenna, Michelle: Minor updates to README.txt.
 #2852260 by DamienMcKenna: Output caching wasn't fully disabled for the front
   page or non-entity pages that used the global defaults.
 #2852737 by DamienMcKenna: Added CodeClimate config files.
+By DamienMcKenna, klausi: Information disclosure issue under certain
+  circumstances.
 
 
 Metatag 7.x-1.20, 2017-01-18
