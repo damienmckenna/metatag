@@ -7,6 +7,7 @@ By DamienMcKenna: Backported some minor text changes from the D8 branch.
 By DamienMcKenna, Michelle: Minor updates to README.txt.
 #2852260 by DamienMcKenna: Output caching wasn't fully disabled for the front
   page or non-entity pages that used the global defaults.
+#2852737 by DamienMcKenna: Added CodeClimate config files.
 
 
 Metatag 7.x-1.20, 2017-01-18
