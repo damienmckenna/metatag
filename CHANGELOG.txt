@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.21, 2017-02-15
+----------------------------
 #2844504 by DamienMcKenna: Add project names to all dependencies.
 By DamienMcKenna: Backported some minor text changes from the D8 branch.
 #2821713 by WidgetsBurritos: Don't output the mask-icon 'color' attribute if
