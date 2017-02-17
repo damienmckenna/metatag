@@ -262,12 +262,21 @@ class MetatagManager implements MetatagManagerInterface {
    *   The array of tags as plugin_id => value.
    * @param object $entity
    *   Optional entity object to use for token replacements.
+   *
    * @return array
    *   Render array with tag elements.
    */
   public function generateElements($tags, $entity = NULL) {
     $metatag_tags = $this->tagPluginManager->getDefinitions();
     $elements = [];
+
+    // Order the elements by weight first, as some systems like Facebook care.
+    uksort($tags, function ($tag_name_a, $tag_name_b) use ($metatag_tags) {
+      $weight_a = isset($metatag_tags[$tag_name_a]['weight']) ? $metatag_tags[$tag_name_a]['weight'] : 0;
+      $weight_b = isset($metatag_tags[$tag_name_b]['weight']) ? $metatag_tags[$tag_name_b]['weight'] : 0;
+
+      return ($weight_a < $weight_b) ? -1 : 1;
+    });
 
     // Each element of the $values array is a tag with the tag plugin name
     // as the key.
