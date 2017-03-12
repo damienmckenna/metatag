@@ -36,8 +36,8 @@ function metatag_help($route_name, RouteMatchInterface $route_match) {
 
     // The main configuration page.
     case 'entity.metatag_defaults.collection':
-      $output = '<p>' . t('Configure global meta tag default values below. Meta tags may be ') . '</p>';
-      $output .= '<p>' . t('Meta tags inherit from one level to the next unless they are overridden. To view a summary of the meta tags and the inheritance for a specific configuration, click on its name below.') . '</p>';
+      $output = '<p>' . t('Configure global meta tag default values below. Meta tags may be left as the default.') . '</p>';
+      $output .= '<p>' . t('Meta tag patterns are passed down from one level to the next unless they are overridden. To view a summary of the individual meta tags and the pattern for a specific configuration, click on its name below.') . '</p>';
       $output .= '<p>' . t('If the top-level configuration is not specific enough, additional default meta tag configurations can be added for a specific entity type or entity bundle, e.g. for a specific content type.') . '</p>';
       $output .= '<p>' . t('Meta tags can be further refined on a per-entity basis, e.g. for individual nodes, by adding the "Metatag" field to that entity type through its normal field settings pages.') . '</p>';
       return $output;
@@ -45,8 +45,8 @@ function metatag_help($route_name, RouteMatchInterface $route_match) {
 
     // The 'add default meta tags' configuration page.
     case 'entity.metatag_defaults.add_form':
-      $output = '<p>' . t('Use the following form to override the global default meta tags for a specific entity type or entity bundle. In practical terms, this allows the meta tags to be changed for a specific content type or taxonomy vocabulary, so that its content will have different meta tags <em>default values</em> than others.') . '</p>';
-      $output .= '<p>' . t('As a reminder, if the "Metatag" field is added to the entity type through its normal field settings, the meta tags can be further refined on a per entity basis; this allows eg. each node to have its meta tags refined as needed.') . '</p>';
+      $output = '<p>' . t('Use the following form to override the global default meta tags for a specific entity type or entity bundle. In practical terms, this allows the meta tags to be customized for a specific content type or taxonomy vocabulary, so that its content will have different meta tags <em>default values</em> than others.') . '</p>';
+      $output .= '<p>' . t('As a reminder, if the "Metatag" field is added to the entity type through its normal field settings, the meta tags can be further refined on a per entity basis; this allows each node to have its meta tags  customized on an individual basis.') . '</p>';
       return $output;
       break;
   }
