@@ -91,10 +91,10 @@ class MetatagManager implements MetatagManagerInterface {
     // Pull the data from the definitions into a new array.
     $groups = [];
     foreach ($metatag_groups as $group_name => $group_info) {
-      $id  = $group_info['id'];
-      $groups[$id]['label'] = $group_info['label']->render();
-      $groups[$id]['description'] = $group_info['description'];
-      $groups[$id]['weight'] = $group_info['weight'];
+      $groups[$group_name]['id'] = $group_info['id'];
+      $groups[$group_name]['label'] = $group_info['label']->render();
+      $groups[$group_name]['description'] = $group_info['description'];
+      $groups[$group_name]['weight'] = $group_info['weight'];
     }
 
     // Create the 'sort by' array.
@@ -118,10 +118,10 @@ class MetatagManager implements MetatagManagerInterface {
     // Pull the data from the definitions into a new array.
     $tags = [];
     foreach ($metatag_tags as $tag_name => $tag_info) {
-      $id  = $tag_info['id'];
-      $tags[$id]['label'] = $tag_info['label']->render();
-      $tags[$id]['group'] = $tag_info['group'];
-      $tags[$id]['weight'] = $tag_info['weight'];
+      $tags[$tag_name]['id'] = $tag_info['id'];
+      $tags[$tag_name]['label'] = $tag_info['label']->render();
+      $tags[$tag_name]['group'] = $tag_info['group'];
+      $tags[$tag_name]['weight'] = $tag_info['weight'];
     }
 
     // Create the 'sort by' array.
@@ -144,7 +144,7 @@ class MetatagManager implements MetatagManagerInterface {
     $groups = $this->sortedGroups();
     $tags = $this->sortedTags();
 
-    foreach ($tags as $tag_id => $tag) {
+    foreach ($tags as $tag_name => $tag) {
       $tag_group = $tag['group'];
 
       if (!isset($groups[$tag_group])) {
@@ -155,7 +155,7 @@ class MetatagManager implements MetatagManagerInterface {
         $tag_group = 'basic';
       }
 
-      $groups[$tag_group]['tags'][$tag_id] = $tag;
+      $groups[$tag_group]['tags'][$tag_name] = $tag;
     }
 
     return $groups;
@@ -165,7 +165,6 @@ class MetatagManager implements MetatagManagerInterface {
    * {@inheritdoc}
    */
   public function form(array $values, array $element, array $token_types = [], array $included_groups = NULL, array $included_tags = NULL) {
-
     // Add the outer fieldset.
     $element += [
       '#type' => 'details',
@@ -176,29 +175,29 @@ class MetatagManager implements MetatagManagerInterface {
     $groups_and_tags = $this->sortedGroupsWithTags();
 
     $first = TRUE;
-    foreach ($groups_and_tags as $group_id => $group) {
+    foreach ($groups_and_tags as $group_name => $group) {
       // Only act on groups that have tags and are in the list of included
       // groups (unless that list is null).
-      if (isset($group['tags']) && (is_null($included_groups) || in_array($group_id, $included_groups))) {
+      if (isset($group['tags']) && (is_null($included_groups) || in_array($group_name, $included_groups) || in_array($group['id'], $included_groups))) {
         // Create the fieldset.
-        $element[$group_id]['#type'] = 'details';
-        $element[$group_id]['#title'] = $group['label'];
-        $element[$group_id]['#description'] = $group['description'];
-        $element[$group_id]['#open'] = $first;
+        $element[$group_name]['#type'] = 'details';
+        $element[$group_name]['#title'] = $group['label'];
+        $element[$group_name]['#description'] = $group['description'];
+        $element[$group_name]['#open'] = $first;
         $first = FALSE;
 
-        foreach ($group['tags'] as $tag_id => $tag) {
+        foreach ($group['tags'] as $tag_name => $tag) {
           // Only act on tags in the included tags list, unless that is null.
-          if (is_null($included_tags) || in_array($tag_id, $included_tags)) {
+          if (is_null($included_tags) || in_array($tag_name, $included_tags) || in_array($tag['id'], $included_tags)) {
             // Make an instance of the tag.
-            $tag = $this->tagPluginManager->createInstance($tag_id);
+            $tag = $this->tagPluginManager->createInstance($tag_name);
 
             // Set the value to the stored value, if any.
-            $tag_value = isset($values[$tag_id]) ? $values[$tag_id] : NULL;
+            $tag_value = isset($values[$tag_name]) ? $values[$tag_name] : NULL;
             $tag->setValue($tag_value);
 
             // Create the bit of form for this tag.
-            $element[$group_id][$tag_id] = $tag->form($element);
+            $element[$group_name][$tag_name] = $tag->form($element);
           }
         }
       }

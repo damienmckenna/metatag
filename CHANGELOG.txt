@@ -3,6 +3,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2852737 by DamienMcKenna: Added CodeClimate config files.
 #2853252 by dawehner: Ensure the metatags are ordered correctly.
 #2856454 by dbungard: Improvements to UI text, meta tag descriptions, etc.
+#2781485 by kalpaitch: Changed MetatagManager to use the instance name rather
+  than plugin ID to identify plugin instances.
 
 
 Metatag 8.x-1.0, 2017-01-31
