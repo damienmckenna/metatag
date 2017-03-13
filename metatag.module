@@ -235,6 +235,26 @@ function metatag_get_route_entity() {
     }
   }
 
+  // Look for entity object 'add content translation' pages, e.g.
+  // node/{nid}/translations/add/{source_lang}/{translation_lang}
+  $route_name_matches = [];
+  preg_match('/(entity\.)?(.*)\.content_translation_add/', $route_name, $route_name_matches);
+  if (!empty($route_name_matches[2])) {
+    $entity_type = $route_name_matches[2];
+    $definition = Drupal::entityTypeManager()->getDefinition($entity_type, FALSE);
+    if (!empty($definition)) {
+      $node = $route_match->getParameter($entity_type);
+      $type = $node->bundle();
+      if (!empty($type)) {
+        return \Drupal::entityTypeManager()
+          ->getStorage($entity_type)
+          ->create([
+            $definition->get('entity_keys')['bundle'] => $type,
+          ]);
+      }
+    }
+  }
+
   // Special handling for the admin user_create page. In this case, there's only
   // one bundle and it's named the same as the entity type, so some shortcuts
   // can be used.
