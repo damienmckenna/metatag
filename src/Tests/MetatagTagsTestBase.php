@@ -3,6 +3,7 @@
 namespace Drupal\metatag\Tests;
 
 use Drupal\simpletest\WebTestBase;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
 
 /**
@@ -105,7 +106,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
         $xpath = "//input[@name='{$tag}' and @type='text']";
       }
 
-      $this->assertFieldByXPath($xpath, NULL, format_string('Found the @tag meta tag field.', ['@tag' => $tag]));
+      $this->assertFieldByXPath($xpath, NULL, new FormattableMarkup('Found the @tag meta tag field.', ['@tag' => $tag]));
     }
 
     $this->drupalLogout();
@@ -218,7 +219,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
 
       // Extract the meta tag from the HTML.
       $xpath = $this->xpath($xpath_string);
-      $this->assertEqual(count($xpath), 1, format_string('One @name tag found.', ['@name' => $tag_name]));
+      $this->assertEqual(count($xpath), 1, new FormattableMarkup('One @name tag found.', ['@name' => $tag_name]));
       if (count($xpath) !== 1) {
         $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
       }

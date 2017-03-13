@@ -9,6 +9,8 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
   drupalGet() call, and that all drupalGet() calls have an assertResponse().
 #2858057 by nicrodgers: Wrong default values are displayed in the node form when
   adding a translation.
+#2855445 by rocket.man: Replace deprecated functions (database functions,
+  format_string()).
 
 
 Metatag 8.x-1.0, 2017-01-31
