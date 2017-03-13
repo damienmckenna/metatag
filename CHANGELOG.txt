@@ -11,6 +11,7 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
   adding a translation.
 #2855445 by rocket.man: Replace deprecated functions (database functions,
   format_string()).
+#2851582 by mtodor: Filled out missing attributes on the default configuration.
 
 
 Metatag 8.x-1.0, 2017-01-31
