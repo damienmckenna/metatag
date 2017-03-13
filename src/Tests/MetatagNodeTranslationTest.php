@@ -80,8 +80,9 @@ class MetatagNodeTranslationTest extends WebTestBase {
     $this->drupalCreateContentType(['type' => 'metatag_node', 'name' => $name]);
 
     // Add a metatag field to the content type.
-    $this->drupalGet("admin/structure/types");
-    $this->drupalGet("admin/structure/types/manage/metatag_node/fields/add-field");
+    $this->drupalGet('admin/structure/types');
+    $this->assertResponse(200);
+    $this->drupalGet('admin/structure/types/manage/metatag_node/fields/add-field');
     $this->assertResponse(200);
     $edit = [
       'label' => 'Metatag',
@@ -111,7 +112,8 @@ class MetatagNodeTranslationTest extends WebTestBase {
     // token value should be correctly translated.
 
     // Create a node.
-    $this->drupalGet("node/add/metatag_node");
+    $this->drupalGet('node/add/metatag_node');
+    $this->assertResponse(200);
     $edit = [
       'title[0][value]' => 'Node Français',
       'body[0][value]' => 'French summary.',

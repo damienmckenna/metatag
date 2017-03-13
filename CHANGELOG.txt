@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2856454 by dbungard: Improvements to UI text, meta tag descriptions, etc.
 #2781485 by kalpaitch: Changed MetatagManager to use the instance name rather
   than plugin ID to identify plugin instances.
+By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
+  drupalGet() call, and that all drupalGet() calls have an assertResponse().
 
 
 Metatag 8.x-1.0, 2017-01-31

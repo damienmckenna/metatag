@@ -45,6 +45,7 @@ class MetatagCustomRouteTest extends WebTestBase {
     ])->save();
 
     $this->drupalGet('metatag_test_custom_route/' . $entity_test->id());
+    $this->assertResponse(200);
     $xpath = $this->xpath("//meta[@name='keywords']");
     $this->assertEqual(count($xpath), 1);
     $this->assertEqual((string) $xpath[0]->attributes()['content'], 'test');
