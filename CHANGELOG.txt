@@ -14,6 +14,8 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
 #2851582 by mtodor: Filled out missing attributes on the default configuration.
 #2862277 by DamienMcKenna: Fixed filename of the MsapplicationStartUrl plugin.
 #2864524 by JamesK: Improve field description for the abstract meta tag.
+#2848353 by DamienMcKenna, grisendo: Only output one shortlink tag; extended tag
+  tests to cover an example entity.
 
 
 Metatag 8.x-1.0, 2017-01-31

@@ -134,8 +134,8 @@ function metatag_page_attachments(array &$attachments) {
  * Implements hook_entity_view_alter().
  */
 function metatag_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
-  // Some entities are built with a link rel="canonical" tag attached.
-  // If metatag provides one, remove the one built with the entity.
+  // Some entities are built with a link rel="canonical" and/or link rel="shortlink" tag attached.
+  // If metatag provides them, remove the ones built with the entity.
   if (isset($build['#attached']['html_head_link'])) {
     $metatag_attachments = drupal_static('metatag_attachments');
     if (is_null($metatag_attachments)) {
@@ -143,20 +143,18 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
       $metatag_attachments = metatag_get_tags_from_route();
     }
 
-    // Check to see if the page currently outputs a canonical tag.
+    // Check to see if the page currently outputs a canonical and/or shortlink tag.
     if (isset($metatag_attachments['#attached']['html_head'])) {
       foreach ($metatag_attachments['#attached']['html_head'] as $metatag_item) {
-        if ($metatag_item[1] == 'canonical_url') {
-          // Metatag provides a link rel="canonical" tag.
+        if (in_array($metatag_item[1], array('canonical_url', 'shortlink'))) {
+          // Metatag provides rel="canonical" and/or rel="shortlink" tags.
           foreach ($build['#attached']['html_head_link'] as $key => $item) {
-            if (isset($item[0]['rel']) && $item[0]['rel'] == 'canonical') {
-              // Remove the link rel="canonical" tag from the entity's build
-              // array.
+            if (isset($item[0]['rel']) && in_array($item[0]['rel'], array('canonical', 'shortlink'))) {
+              // Remove the link rel="canonical" or link rel="shortlink" tag
+              // from the entity's build array.
               unset($build['#attached']['html_head_link'][$key]);
-              break;
             }
           }
-          break;
         }
       }
     }
