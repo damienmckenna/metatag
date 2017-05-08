@@ -16,6 +16,9 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
 #2864524 by JamesK: Improve field description for the abstract meta tag.
 #2848353 by DamienMcKenna, grisendo: Only output one shortlink tag; extended tag
   tests to cover an example entity.
+#2706941 by ckaotik, monika.de, DamienMcKenna, mariancalinro, adinac: Allow
+  translations to be longer than 128 characters for tags which use textarea
+  fields.
 
 
 Metatag 8.x-1.0, 2017-01-31
