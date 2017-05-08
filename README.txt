@@ -382,6 +382,10 @@ functionality:
   https://www.drupal.org/project/parsely
   Automatically generates meta tags for the Parse.ly service.
 
+* Metatag Cxense
+  https://www.drupal.org/project/metatag_cxense
+  Adds support for the Cxense meta tags used by their DMP and Insight services.
+
 
 Credits / contact
 --------------------------------------------------------------------------------
