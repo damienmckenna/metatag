@@ -34,8 +34,11 @@ class MetatagToken {
    *
    * @return mixed|string $string
    */
-  public function replace($string, $data, $options = []) {
-    $options['clear'] = TRUE;
+  public function replace($string, array $data = [], $options = []) {
+    // Set default requirements for metatag unless options specify otherwise.
+    $options = $options + [
+      'clear' => TRUE
+    ];
 
     $replaced = $this->token->replace($string, $data, $options);
 

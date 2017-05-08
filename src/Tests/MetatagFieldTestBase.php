@@ -133,6 +133,8 @@ abstract class MetatagFieldTestBase extends WebTestBase {
     // create a user with these permissions.
     $all_perms = array_merge($this->base_perms, $this->entity_perms);
     $this->adminUser = $this->drupalCreateUser($all_perms);
+    $this->drupalGet('/user/login');
+    $this->assertResponse(200);
     $this->drupalLogin($this->adminUser);
   }
 
