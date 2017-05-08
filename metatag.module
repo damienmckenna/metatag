@@ -201,6 +201,15 @@ function metatag_get_route_entity() {
     return $route_match->getParameter($entity_type);
   }
 
+  // Look for a rest entity view page, e.g. node/{nid}?_format=json, etc.
+  $matches = [];
+  // ie: rest.entity.node.GET.json
+  preg_match('/rest\.entity\.(.*)\.(.*)\.(.*)/', $route_name, $matches);
+  if (!empty($matches[1])) {
+    $entity_type = $matches[1];
+    return $route_match->getParameter($entity_type);
+  }
+
   // Look for entity object 'add' pages, e.g. node/add/{bundle}.
   $route_name_matches = [];
   preg_match('/(entity\.)?(.*)\.add(_form)?/', $route_name, $route_name_matches);
