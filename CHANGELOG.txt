@@ -19,6 +19,7 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
 #2706941 by ckaotik, monika.de, DamienMcKenna, mariancalinro, adinac: Allow
   translations to be longer than 128 characters for tags which use textarea
   fields.
+#2868750 by DamienMcKenna: List Metatag Cxense as a related module.
 
 
 Metatag 8.x-1.0, 2017-01-31

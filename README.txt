@@ -184,6 +184,10 @@ functionality:
   Uses the YoastSEO.js library and service (https://yoast.com/) to provide
   realtime feedback on the meta tags.
 
+* Metatag Cxense
+  https://www.drupal.org/project/metatag_cxense
+  Adds support for the Cxense meta tags used by their DMP and Insight services.
+
 
 Known issues
 --------------------------------------------------------------------------------
