@@ -22,4 +22,10 @@ class MetatagJsonOutputTest extends WebTestBase {
     'metatag',
   ];
 
+  /**
+   * @todo
+   */
+  public function testJson() {
+  }
+
 }
