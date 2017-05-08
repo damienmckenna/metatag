@@ -21,6 +21,7 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
   fields.
 #2868750 by DamienMcKenna: List Metatag Cxense as a related module.
 #2563633 by ziomizar, DamienMcKenna, ruloweb: Add all of the Favicon meta tags.
+#2853515 by ohthehugemanatee: Add default handling to metatag manager.
 
 
 Metatag 8.x-1.0, 2017-01-31

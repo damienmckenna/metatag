@@ -4,9 +4,11 @@ namespace Drupal\metatag;
 
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\field\Entity\FieldConfig;
+use Drupal\metatag\Entity\MetatagDefaults;
 
 /**
  * Class MetatagManager.
@@ -17,7 +19,7 @@ class MetatagManager implements MetatagManagerInterface {
 
   protected $groupPluginManager;
   protected $tagPluginManager;
-
+  protected $metatagDefaults;
   protected $tokenService;
 
   /**
@@ -34,15 +36,18 @@ class MetatagManager implements MetatagManagerInterface {
    * @param MetatagTagPluginManager $tagPluginManager
    * @param MetatagToken $token
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $channelFactory
+   * @param EntityTypeManager $entityTypeManager
    */
   public function __construct(MetatagGroupPluginManager $groupPluginManager,
                               MetatagTagPluginManager $tagPluginManager,
                               MetatagToken $token,
-                              LoggerChannelFactoryInterface $channelFactory) {
+                              LoggerChannelFactoryInterface $channelFactory,
+                              EntityTypeManager $entityTypeManager) {
     $this->groupPluginManager = $groupPluginManager;
     $this->tagPluginManager = $tagPluginManager;
     $this->tokenService = $token;
     $this->logger = $channelFactory->get('metatag');
+    $this->metatagDefaults = $entityTypeManager->getStorage('metatag_defaults');
   }
 
   /**
@@ -63,10 +68,39 @@ class MetatagManager implements MetatagManagerInterface {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function tagsFromEntityWithDefaults(ContentEntityInterface $entity) {
+    return $this->tagsFromEntity($entity) + $this->defaultTagsFromEntity($entity);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultTagsFromEntity(ContentEntityInterface $entity) {
+    /** @var MetatagDefaults $metatags */
+    $metatags = $this->metatagDefaults->load('global');
+    if (!$metatags) {
+      return NULL;
+    }
+    // Add/overwrite with tags set on the entity type.
+    $entity_type_tags = $this->metatagDefaults->load($entity->getEntityTypeId());
+    if (!is_null($entity_type_tags)) {
+      $metatags->overwriteTags($entity_type_tags->get('tags'));
+    }
+    // Add/overwrite with tags set on the entity bundle.
+    $bundle_metatags = $this->metatagDefaults->load($entity->getEntityTypeId() . '__' . $entity->bundle());
+    if (!is_null($bundle_metatags)) {
+      $metatags->overwriteTags($bundle_metatags->get('tags'));
+    }
+    return $metatags->get('tags');
+  }
+
+  /**
    * Gets the group plugin definitions.
    *
    * @return array
-   *   Group definitions
+   *   Group definitions.
    */
   protected function groupDefinitions() {
     return $this->groupPluginManager->getDefinitions();
