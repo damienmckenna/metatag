@@ -10,18 +10,16 @@ use Drupal\simpletest\WebTestBase;
  *
  * @group metatag
  */
-// class MetatagJsonOutputTest extends WebTestBase {
-//
-//   /**
-//    * Modules to enable.
-//    *
-//    * @var array
-//    */
-//   public static $modules = [
-//     'content_translation',
-//     'field_ui',
-//     'metatag',
-//     'node',
-//   ];
-//
-// }
+class MetatagJsonOutputTest extends WebTestBase {
+
+  /**
+   * Modules to enable.
+   *
+   * @var array
+   */
+  public static $modules = [
+    'node',
+    'metatag',
+  ];
+
+}
