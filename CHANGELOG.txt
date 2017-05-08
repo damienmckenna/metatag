@@ -20,6 +20,7 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
   translations to be longer than 128 characters for tags which use textarea
   fields.
 #2868750 by DamienMcKenna: List Metatag Cxense as a related module.
+#2563633 by ziomizar, DamienMcKenna, ruloweb: Add all of the Favicon meta tags.
 
 
 Metatag 8.x-1.0, 2017-01-31
