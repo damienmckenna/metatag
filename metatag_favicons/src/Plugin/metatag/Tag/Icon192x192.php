@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_favicons\Plugin\metatag\Tag;
 
-use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
+use \Drupal\metatag_favicons\Plugin\metatag\Tag\LinkSizesBase;
 
 /**
  * The Favicons "icon_192x192" meta tag.
@@ -10,7 +10,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
  * @MetatagTag(
  *   id = "icon_192x192",
  *   label = @Translation("Icon: 192px x 192px"),
- *   description = @Translation("A PNG image that is 16px wide by 192px high."),
+ *   description = @Translation("A PNG image that is 192px wide by 192px high."),
  *   name = "icon",
  *   group = "favicons",
  *   weight = 6,

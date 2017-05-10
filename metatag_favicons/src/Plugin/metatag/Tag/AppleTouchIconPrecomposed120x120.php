@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_favicons\Plugin\metatag\Tag;
 
-use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
+use \Drupal\metatag_favicons\Plugin\metatag\Tag\LinkSizesBase;
 
 /**
  * The Favicons "apple-touch-icon-precomposed_120x120" meta tag.

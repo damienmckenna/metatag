@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_favicons\Plugin\metatag\Tag;
 
-use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
+use \Drupal\metatag_favicons\Plugin\metatag\Tag\LinkSizesBase;
 
 /**
  * The Favicons "apple-touch-icon_152x152" meta tag.
@@ -13,7 +13,7 @@ use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
  *   description = @Translation("A PNG image that is 152px wide by 152px high. Used with iPad with @2x display running iOS >= 7."),
  *   name = "apple-touch-icon",
  *   group = "favicons",
- *   weight = 1333,
+ *   weight = 13,
  *   type = "image",
  *   secure = FALSE,
  *   multiple = FALSE

@@ -26,6 +26,7 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
 #2636852 by Greyside: MetatagToken::replace() options array shouldn't assume the
   'clear' attribute is always needed.
 By DamienMcKenna: Allow MetatagJsonOutputTest to run.
+#2563633 by ziomizar: Misc fixes for the Favicon meta tags.
 
 
 Metatag 8.x-1.0, 2017-01-31
