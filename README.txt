@@ -179,6 +179,10 @@ Related modules
 Some modules are available that extend Metatag with additional or complimentary
 functionality:
 
+* Schema Metatag
+  https://www.drupal.org/project/schema_metatag
+  Extensive solution for adding schema.org support to Metatag.
+
 * Real-time SEO for Drupal
   https://www.drupal.org/project/yoast_seo
   Uses the YoastSEO.js library and service (https://yoast.com/) to provide

@@ -30,6 +30,7 @@ By DamienMcKenna: Allow MetatagJsonOutputTest to run.
 #2563647 by delta, tom_ek, DamienMcKenna, monika.de, ckaotik, martins.bertins,
   cgmonroe, danquah, blazey, paulmckibben, stijn.blomme, danquah, Alex Bukah,
   guarav.goyal, kducharm: Views integration.
+#2882769 by DamienMcKenna: List Schema Metatag as a related module.
 
 
 Metatag 8.x-1.0, 2017-01-31
