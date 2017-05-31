@@ -3,6 +3,7 @@
 namespace Drupal\metatag;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\views\ViewEntityInterface;
 
 /**
  * Class MetatagManager.

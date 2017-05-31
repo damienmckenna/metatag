@@ -27,6 +27,9 @@ By DamienMcKenna: Ensure all drupalPostForm() calls are preceeded by a
   'clear' attribute is always needed.
 By DamienMcKenna: Allow MetatagJsonOutputTest to run.
 #2563633 by ziomizar: Misc fixes for the Favicon meta tags.
+#2563647 by delta, tom_ek, DamienMcKenna, monika.de, ckaotik, martins.bertins,
+  cgmonroe, danquah, blazey, paulmckibben, stijn.blomme, danquah, Alex Bukah,
+  guarav.goyal, kducharm: Views integration.
 
 
 Metatag 8.x-1.0, 2017-01-31

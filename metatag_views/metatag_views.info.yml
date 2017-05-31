@@ -1,0 +1,8 @@
+name: 'Metatag: Views'
+type: module
+description: Provides views integration for metatags.
+core: 8.x
+package: SEO
+dependencies:
+  - metatag
+  - views

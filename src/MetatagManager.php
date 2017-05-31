@@ -9,6 +9,7 @@ use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\metatag\Entity\MetatagDefaults;
+use Drupal\views\ViewEntityInterface;
 
 /**
  * Class MetatagManager.
@@ -271,8 +272,8 @@ class MetatagManager implements MetatagManagerInterface {
   /**
    * Returns a list of the metatags with values from a field.
    *
-   * @param $entity
-   * @param $field_name
+   * @param ContentEntityInterface $entity
+   * @param string $field_name
    */
   protected function getFieldTags(ContentEntityInterface $entity, $field_name) {
     $tags = [];
@@ -288,6 +289,93 @@ class MetatagManager implements MetatagManagerInterface {
   }
 
   /**
+   *
+   *
+   * @param ContentEntityInterface $entity
+   */
+  public function getDefaultMetatags(ContentEntityInterface $entity = NULL) {
+    // Get general global metatags
+    $metatags = $this->getGlobalMetatags();
+    // If that is empty something went wrong.
+    if (!$metatags) {
+      return;
+    }
+
+    // Check if this is a special page.
+    $special_metatags = $this->getSpecialMetatags();
+
+    // Merge with all globals defaults.
+    if ($special_metatags) {
+      $metatags->set('tags', array_merge($metatags->get('tags'), $special_metatags->get('tags')));
+    }
+
+    // Next check if there is this page is an entity that has meta tags.
+    // @TODO: Think about using other defaults, e.g. views. Maybe use plugins?
+    else {
+      if (is_null($entity)) {
+        $entity = metatag_get_route_entity();
+      }
+
+      if (!empty($entity)) {
+        // Get default metatags for a given entity.
+        $entity_defaults = $this->getEntityDefaultMetatags($entity);
+        if ($entity_defaults != NULL) {
+          $metatags->set('tags', array_merge($metatags->get('tags'), $entity_defaults));
+        }
+      }
+    }
+
+    return $metatags->get('tags');
+  }
+
+  /**
+   *
+   */
+  public function getGlobalMetatags() {
+    return $this->metatagDefaults->load('global');
+  }
+
+  /**
+   *
+   */
+  public function getSpecialMetatags() {
+    $metatags = NULL;
+
+    if (\Drupal::service('path.matcher')->isFrontPage()) {
+      $metatags = $this->metatagDefaults->load('front');
+    }
+    elseif (\Drupal::service('current_route_match')->getRouteName() == 'system.403') {
+      $metatags = $this->metatagDefaults->load('403');
+    }
+    elseif (\Drupal::service('current_route_match')->getRouteName() == 'system.404') {
+      $metatags = $this->metatagDefaults->load('404');
+    }
+
+    return $metatags;
+  }
+
+  /**
+   *
+   */
+  public function getEntityDefaultMetatags(ContentEntityInterface $entity) {
+    $entity_metatags = $this->metatagDefaults->load($entity->getEntityTypeId());
+    $metatags = [];
+    if ($entity_metatags != NULL) {
+      // Merge with global defaults.
+      $metatags = array_merge($metatags, $entity_metatags->get('tags'));
+    }
+
+    // Finally, check if we should apply bundle overrides.
+    $bundle_metatags = $this->metatagDefaults->load($entity->getEntityTypeId() . '__' . $entity->bundle());
+    if ($bundle_metatags != NULL) {
+      // Merge with existing defaults.
+      $metatags = array_merge($metatags, $bundle_metatags->get('tags'));
+    }
+
+    return $metatags;
+  }
+
+  /**
    * Generate the elements that go in the attached array in
    * hook_page_attachments.
    *
@@ -300,8 +388,36 @@ class MetatagManager implements MetatagManagerInterface {
    *   Render array with tag elements.
    */
   public function generateElements($tags, $entity = NULL) {
-    $metatag_tags = $this->tagPluginManager->getDefinitions();
     $elements = [];
+    $tags = $this->generateRawElements($tags, $entity);
+
+    foreach ($tags as $name => $tag) {
+      if (!empty($tag)) {
+        $elements['#attached']['html_head'][] = [
+          $tag,
+          $name,
+        ];
+      }
+    }
+
+    return $elements;
+  }
+
+  /**
+   * Generate the actual meta tag values.
+   *
+   * @param array $tags
+   *   The array of tags as plugin_id => value.
+   * @param object $entity
+   *   Optional entity object to use for token replacements.
+   *
+   * @return array
+   *   Render array with tag elements.
+   */
+  public function generateRawElements($tags, $entity = NULL) {
+    $rawTags = [];
+
+    $metatag_tags = $this->tagPluginManager->getDefinitions();
 
     // Order the elements by weight first, as some systems like Facebook care.
     uksort($tags, function ($tag_name_a, $tag_name_b) use ($metatag_tags) {
@@ -322,7 +438,15 @@ class MetatagManager implements MetatagManagerInterface {
         // Render any tokens in the value.
         $token_replacements = [];
         if ($entity) {
-          $token_replacements = [$entity->getEntityTypeId() => $entity];
+          // @TODO: This needs a better way of discovering the context.
+          if ($entity instanceof ViewEntityInterface) {
+            // Views tokens require the ViewExecutable, not the config entity.
+            // @todo Can we move this into metatag_views somehow?
+            $token_replacements = ['view' => $entity->getExecutable()];
+          }
+          else {
+            $token_replacements = [$entity->getEntityTypeId() => $entity];
+          }
         }
 
         // Set the value as sometimes the data needs massaging, such as when
@@ -331,6 +455,7 @@ class MetatagManager implements MetatagManagerInterface {
         // @see @Robots::setValue().
         $tag->setValue($value);
         $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+
         if ($tag->type() === 'image') {
           $processed_value = $this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode]);
         }
@@ -345,15 +470,12 @@ class MetatagManager implements MetatagManagerInterface {
         $output = $tag->output();
 
         if (!empty($output)) {
-          $elements['#attached']['html_head'][] = [
-            $output,
-            $tag_name
-          ];
+          $rawTags[$tag_name] = $output;
         }
       }
     }
 
-    return $elements;
+    return $rawTags;
   }
 
   /**
