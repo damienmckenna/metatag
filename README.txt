@@ -192,6 +192,10 @@ functionality:
   https://www.drupal.org/project/metatag_cxense
   Adds support for the Cxense meta tags used by their DMP and Insight services.
 
+* Metatag Google Scholar
+  https://www.drupal.org/project/metatag_google_scholar
+  Adds support for a number of meta tags used with the Google Scholar system.
+
 
 Known issues
 --------------------------------------------------------------------------------

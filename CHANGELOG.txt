@@ -31,6 +31,7 @@ By DamienMcKenna: Allow MetatagJsonOutputTest to run.
   cgmonroe, danquah, blazey, paulmckibben, stijn.blomme, danquah, Alex Bukah,
   guarav.goyal, kducharm: Views integration.
 #2882769 by DamienMcKenna: List Schema Metatag as a related module.
+#2856416 by DamienMcKenna: List Metatag Google Scholar as a related module.
 
 
 Metatag 8.x-1.0, 2017-01-31
