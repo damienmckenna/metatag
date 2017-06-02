@@ -3,7 +3,9 @@ type: module
 description: Manage meta tags for all entities.
 core: 8.x
 package: SEO
+configure: entity.metatag_defaults.collection
 dependencies:
   - drupal:field
   - token:token
-configure: entity.metatag_defaults.collection
+test_dependencies:
+  - devel:devel

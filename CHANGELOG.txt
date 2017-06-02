@@ -1,5 +1,6 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2882954 by DamienMcKenna: Added Devel as a test dependency.
 
 
 Metatag 8.x-1.1, 2017-05-31
