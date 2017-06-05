@@ -4,6 +4,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2857982 by arosboro: Fixed tests due to changes in Entity Translation.
 #2864524 by JamesK: Improve field description for the abstract meta tag.
 #2868750 by DamienMcKenna: List Metatag Cxense as a related module.
+#2882048 by jyraya: i18n integration shouldn't assume a tag has a group.
 
 
 Metatag 7.x-1.21, 2017-02-15
