@@ -9,6 +9,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   the module is not installed.
 #2864834 by DamienMcKenna: Added a note to update script 7114 to note that
   output caching has been disabled.
+#2297647 by greggles, DamienMcKenna: Run views_invalidate_cache() when
+  metatag_views is disabled.
 
 
 Metatag 7.x-1.21, 2017-02-15
