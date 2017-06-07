@@ -2575,6 +2575,7 @@ function metatag_update_7113() {
  */
 function metatag_update_7114() {
   variable_del('metatag_cache_output');
+  drupal_set_message(t('Note: Output caching of meta tags has been disabled, it may be reenabled from the Metatag settings page if needed.'));
 }
 
 /**

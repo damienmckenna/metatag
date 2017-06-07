@@ -7,6 +7,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2882048 by jyraya: i18n integration shouldn't assume a tag has a group.
 #2882703 by smustgrave: module_load_include() doesn't work quite as intended if
   the module is not installed.
+#2864834 by DamienMcKenna: Added a note to update script 7114 to note that
+  output caching has been disabled.
 
 
 Metatag 7.x-1.21, 2017-02-15
