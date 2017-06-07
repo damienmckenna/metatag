@@ -5,6 +5,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2864524 by JamesK: Improve field description for the abstract meta tag.
 #2868750 by DamienMcKenna: List Metatag Cxense as a related module.
 #2882048 by jyraya: i18n integration shouldn't assume a tag has a group.
+#2882703 by smustgrave: module_load_include() doesn't work quite as intended if
+  the module is not installed.
 
 
 Metatag 7.x-1.21, 2017-02-15
