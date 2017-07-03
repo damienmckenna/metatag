@@ -11,6 +11,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   output caching has been disabled.
 #2297647 by greggles, DamienMcKenna: Run views_invalidate_cache() when
   metatag_views is disabled.
+#2857088 by arosboro: Fixed parsing of percentages in URLs in Metatag:Panels.
 
 
 Metatag 7.x-1.21, 2017-02-15
