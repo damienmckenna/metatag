@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.22, 2017-07-03
+----------------------------
 #2853699 by DamienMcKenna: Drupal core 7.40 is the minimum version supported.
 #2857982 by arosboro: Fixed tests due to changes in Entity Translation.
 #2864524 by JamesK: Improve field description for the abstract meta tag.
