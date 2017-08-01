@@ -1,5 +1,6 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2898975 by DamienMcKenna: Correct restui entry in composer.json.
 
 
 Metatag 8.x-1.2, 2017-07-31
