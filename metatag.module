@@ -198,7 +198,7 @@ function metatag_get_route_entity() {
 
   // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
   $matches = [];
-  preg_match('/entity\.(.*)\.canonical/', $route_name, $matches);
+  preg_match('/entity\.(.*)\.(latest[_-]version|canonical)/', $route_name, $matches);
   if (!empty($matches[1])) {
     $entity_type = $matches[1];
     return $route_match->getParameter($entity_type);
