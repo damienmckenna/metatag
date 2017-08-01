@@ -22,6 +22,7 @@
     "drupal/token": "^1.0"
   },
   "require-dev": {
-    "drupal/devel": "^1.0"
+    "drupal/devel": "^1.0",
+    "restui/restui": "^1.0"
   }
 }

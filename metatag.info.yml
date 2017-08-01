@@ -9,3 +9,4 @@ dependencies:
   - token:token
 test_dependencies:
   - devel:devel
+  - restui:restui
