@@ -74,6 +74,15 @@ class MetatagNodeTranslationTest extends WebTestBase {
    * Tests the metatag value translations.
    */
   public function testMetatagValueTranslation() {
+    if (floatval(\Drupal::VERSION) <= 8.3) {
+      $save_label = t('Save and publish');
+      $save_label_i18n = t('Save and keep published (this translation)');
+    }
+    else {
+      $save_label = t('Save');
+      $save_label_i18n = t('Save (this translation)');
+    }
+
     // Set up a content type.
     $name = $this->randomMachineName() . ' ' . $this->randomMachineName();
     $this->drupalLogin($this->adminUser);
@@ -127,7 +136,6 @@ class MetatagNodeTranslationTest extends WebTestBase {
       'title[0][value]' => 'Node Français',
       'body[0][value]' => 'French summary.',
     ];
-    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
     $this->drupalPostForm(NULL, $edit, $save_label);
     $this->assertResponse(200);
 
@@ -146,7 +154,7 @@ class MetatagNodeTranslationTest extends WebTestBase {
       'title[0][value]' => 'Node Español',
       'body[0][value]' => 'Spanish summary.',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and keep published (this translation)'));
+    $this->drupalPostForm(NULL, $edit, $save_label_i18n);
     $this->assertResponse(200);
 
     $this->drupalGet('es/node/1');
@@ -170,7 +178,7 @@ class MetatagNodeTranslationTest extends WebTestBase {
     $edit = [
       'field_meta_tags[0][basic][description]' => 'Overridden French description.',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and keep published (this translation)'));
+    $this->drupalPostForm(NULL, $edit, $save_label_i18n);
     $this->assertResponse(200);
 
     $xpath = $this->xpath("//meta[@name='description']");
@@ -185,7 +193,7 @@ class MetatagNodeTranslationTest extends WebTestBase {
     $edit = [
       'field_meta_tags[0][basic][description]' => 'Overridden Spanish description.',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and keep published (this translation)'));
+    $this->drupalPostForm(NULL, $edit, $save_label_i18n);
     $this->assertResponse(200);
 
     $xpath = $this->xpath("//meta[@name='description']");
