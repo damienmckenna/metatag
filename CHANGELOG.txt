@@ -6,6 +6,10 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   when a content type and node are present.
 #2898805 by DamienMcKenna: Small improvements to the test suite, working
   towards fixing the 8.4.x support.
+#2898805 by DamienMcKenna: Fixes to MetatagNodeTranslationTest to make it work
+  with 8.4.x.
+By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
+  testFrontPageMetatagsEnabledConfig().
 
 
 Metatag 8.x-1.2, 2017-07-31

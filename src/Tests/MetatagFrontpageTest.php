@@ -57,7 +57,7 @@ class MetatagFrontpageTest extends WebTestBase {
   /**
    * The front page config is enabled, its meta tags should be used.
    */
-  public function _testFrontPageMetatagsEnabledConfig() {
+  public function testFrontPageMetatagsEnabledConfig() {
     // Add something to the front page config.
     $this->drupalGet('admin/config/search/metatag/front');
     $this->assertResponse(200);
