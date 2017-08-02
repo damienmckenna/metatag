@@ -42,4 +42,36 @@ trait MetatagHelperTrait {
     parent::verbose($title . $message);
   }
 
+  /**
+   * Create a content type and a node.
+   *
+   * @param string $title
+   *   A title for the node that will be returned.
+   * @param string $body
+   *   The text to use as the body.
+   *
+   * @return \Drupal\node\NodeInterface
+   */
+  function createContentTypeNode($title = 'Title test', $body = 'Body test') {
+    $content_type = 'metatag_test';
+    $args = [
+      'type' => $content_type,
+      'label' => 'Test content type',
+    ];
+    $this->createContentType($args);
+    
+    $args = [
+      'body' => [
+        [
+          'value' => $body,
+          'format' => filter_default_format(),
+        ],
+      ],
+      'title' => $title,
+      'type' => $content_type,
+    ];
+
+    return $this->createNode($args);
+  }
+
 }

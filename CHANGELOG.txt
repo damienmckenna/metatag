@@ -2,6 +2,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #2898975 by DamienMcKenna: Correct restui entry in composer.json.
 #2899045 by DamienMcKenna: Fixed problems in MetatagNodeTranslationTest.
+#2899234 by DamienMcKenna: Expand Devel/WebProfiler tests to make sure they work
+  when a content type and node are present.
 
 
 Metatag 8.x-1.2, 2017-07-31
