@@ -4,6 +4,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2899045 by DamienMcKenna: Fixed problems in MetatagNodeTranslationTest.
 #2899234 by DamienMcKenna: Expand Devel/WebProfiler tests to make sure they work
   when a content type and node are present.
+#2898805 by DamienMcKenna: Small improvements to the test suite, working
+  towards fixing the 8.4.x support.
 
 
 Metatag 8.x-1.2, 2017-07-31

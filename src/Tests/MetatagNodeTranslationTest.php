@@ -127,7 +127,8 @@ class MetatagNodeTranslationTest extends WebTestBase {
       'title[0][value]' => 'Node Français',
       'body[0][value]' => 'French summary.',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and publish'));
+    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
+    $this->drupalPostForm(NULL, $edit, $save_label);
     $this->assertResponse(200);
 
     $xpath = $this->xpath("//meta[@name='description']");
