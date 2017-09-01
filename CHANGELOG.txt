@@ -10,6 +10,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   with 8.4.x.
 By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
   testFrontPageMetatagsEnabledConfig().
+#2905925 by DamienMcKenna: The Normalizer shouldn't assume all meta tags have a
+  'content' attribute; also support the 'href' attribute.
 
 
 Metatag 8.x-1.2, 2017-07-31
