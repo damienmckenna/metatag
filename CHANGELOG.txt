@@ -1,5 +1,6 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2906312 by DamienMcKenna: Added the twitter:dnt meta tag.
 
 
 Metatag 7.x-1.22, 2017-07-03

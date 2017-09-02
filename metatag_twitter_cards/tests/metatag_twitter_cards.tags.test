@@ -36,6 +36,7 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
     'twitter:data1',
     'twitter:data2',
     'twitter:description',
+    'twitter:dnt',
     'twitter:image',
     'twitter:image0',
     'twitter:image1',

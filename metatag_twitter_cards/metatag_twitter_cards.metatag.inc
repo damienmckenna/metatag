@@ -157,6 +157,11 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('A description that concisely summarizes the content of the page, as appropriate for presentation within a Tweet. Do not re-use the title text as the description, or use this field to describe the general services provided by the website. The string will be truncated, by Twitter, at the word to 200 characters.'),
     'weight' => ++$weight,
   ) + $defaults;
+  $info['tags']['twitter:dnt'] = array(
+    'label' => t('Do Not Track'),
+    'description' => t('By default Twitter tracks visitors when a tweet is embedded on a page using the official APIs. Setting this to "on" will <a href="@url">stop Twitter from tracking visitors</a>.', array('@url' => 'https://dev.twitter.com/web/overview/privacy#what-privacy-options-do-website-publishers-have')),
+    'weight' => ++$weight,
+  ) + $defaults;
   $info['tags']['twitter:image'] = array(
     'label' => t('Image URL'),
     'description' => t('The URL to a unique image representing the content of the page. Do not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images larger than 120x120px will be resized and cropped square based on longest dimension. Images smaller than 60x60px will not be shown. If the \'type\' is set to <em>Photo</em> then the image must be at least 280x150px.'),
