@@ -12,6 +12,7 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
   testFrontPageMetatagsEnabledConfig().
 #2905925 by DamienMcKenna: The Normalizer shouldn't assume all meta tags have a
   'content' attribute; also support the 'href' attribute.
+#2906312 by DamienMcKenna: Added the twitter:dnt meta tag.
 
 
 Metatag 8.x-1.2, 2017-07-31
