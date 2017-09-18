@@ -20,6 +20,8 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
 #2899752 by DamienMcKenna, huzooka, deepak_zyxware, samuel.mortenson, wanjee,
   giangi.vigazzola: Creating a new field bundle inside
   hook_entity_base_field_info_alter() is a bad idea and causes problems.
+#2906180 by John Lawter: Incorrect Wikipedia link for Advanced > Geographical
+  position.
 
 
 Metatag 8.x-1.2, 2017-07-31
