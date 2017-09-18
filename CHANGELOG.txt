@@ -14,6 +14,8 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
   'content' attribute; also support the 'href' attribute.
 #2906312 by DamienMcKenna: Added the twitter:dnt meta tag.
 #2909390 by Perignon: Small typo in MetatagToken.
+#2903661 by DamienMcKenna: Don't output 403/404 page node's meta tags on
+  403/404 pages.
 
 
 Metatag 8.x-1.2, 2017-07-31

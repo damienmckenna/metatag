@@ -137,8 +137,16 @@ function metatag_page_attachments(array &$attachments) {
  * Implements hook_entity_view_alter().
  */
 function metatag_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
-  // Some entities are built with a link rel="canonical" and/or link rel="shortlink" tag attached.
-  // If metatag provides them, remove the ones built with the entity.
+  // If this is a 403 or 404 page then don't output these meta tags.
+  // @todo Make the default meta tags load properly so this is unnecessary.
+  if ($display->getOriginalId() == 'node.403.default' || $display->getOriginalId() == 'node.404.default') {
+    $build['#attached']['html_head_link'] = [];
+    return;
+  }
+
+  // Some entities are built with a link rel="canonical" and/or link
+  // rel="shortlink" tag attached. If metatag provides them, remove the ones
+  // built with the entity.
   if (isset($build['#attached']['html_head_link'])) {
     $metatag_attachments = drupal_static('metatag_attachments');
     if (is_null($metatag_attachments)) {
