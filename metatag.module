@@ -11,9 +11,9 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
+use Drupal\taxonomy\TermInterface;
 
 /**
  * Implements hook_help().
@@ -132,6 +132,31 @@ function metatag_page_attachments(array &$attachments) {
     }
   }
 }
+/**
+ * Implements hook_module_implements_alter().
+ */
+function metatag_module_implements_alter(&$implementations, $hook) {
+  if ($hook == 'page_attachments_alter') {
+    // Move metatag_page_attachments_alter() to the end of the list. This is so
+    // the canonical and shortlink tags can be removed that are added by
+    // taxonomy_page_attachments_alter().
+    // @todo Remove once https://www.drupal.org/node/2282029 is fixed.
+    $group = $implementations['metatag'];
+    unset($implementations['metatag']);
+    $implementations['metatag'] = $group;
+  }
+}
+
+/**
+ * Implements hook_page_attachments_alter().
+ */
+function metatag_page_attachments_alter(array &$attachments) {
+  $route_match = \Drupal::routeMatch();
+  // Can be removed once https://www.drupal.org/node/2282029 is fixed.
+  if ($route_match->getRouteName() == 'entity.taxonomy_term.canonical' && ($term = $route_match->getParameter('taxonomy_term')) && $term instanceof TermInterface) {
+    _metatag_remove_duplicate_entity_tags($attachments);
+  }
+}
 
 /**
  * Implements hook_entity_view_alter().
@@ -144,9 +169,19 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
     return;
   }
 
+  _metatag_remove_duplicate_entity_tags($build);
+}
+
+/**
+ * Remove duplicate entity tags from a build.
+ *
+ * @param array $build
+ *   The build.
+ */
+function _metatag_remove_duplicate_entity_tags(array &$build) {
   // Some entities are built with a link rel="canonical" and/or link
-  // rel="shortlink" tag attached. If metatag provides them, remove the ones
-  // built with the entity.
+  // rel="shortlink" tag attached.
+  // If metatag provides them, remove the ones built with the entity.
   if (isset($build['#attached']['html_head_link'])) {
     $metatag_attachments = drupal_static('metatag_attachments');
     if (is_null($metatag_attachments)) {
@@ -154,7 +189,8 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
       $metatag_attachments = metatag_get_tags_from_route();
     }
 
-    // Check to see if the page currently outputs a canonical and/or shortlink tag.
+    // Check to see if the page currently outputs a canonical and/or shortlink
+    // tag.
     if (isset($metatag_attachments['#attached']['html_head'])) {
       foreach ($metatag_attachments['#attached']['html_head'] as $metatag_item) {
         if (in_array($metatag_item[1], array('canonical_url', 'shortlink'))) {

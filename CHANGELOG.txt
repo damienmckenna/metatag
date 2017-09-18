@@ -22,6 +22,8 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
   hook_entity_base_field_info_alter() is a bad idea and causes problems.
 #2906180 by John Lawter: Incorrect Wikipedia link for Advanced > Geographical
   position.
+#2859111 by acbramley, DamienMcKenna: Remove the second canonical tag on
+  taxonomy term pages because of a bug in core.
 
 
 Metatag 8.x-1.2, 2017-07-31
