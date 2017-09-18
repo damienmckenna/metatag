@@ -16,6 +16,7 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
 #2909390 by Perignon: Small typo in MetatagToken.
 #2903661 by DamienMcKenna: Don't output 403/404 page node's meta tags on
   403/404 pages.
+#2905769 by DamienMcKenna: Improved defaults for the canonical URL meta tag.
 
 
 Metatag 8.x-1.2, 2017-07-31
