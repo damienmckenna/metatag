@@ -17,6 +17,9 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
 #2903661 by DamienMcKenna: Don't output 403/404 page node's meta tags on
   403/404 pages.
 #2905769 by DamienMcKenna: Improved defaults for the canonical URL meta tag.
+#2899752 by DamienMcKenna, huzooka, deepak_zyxware, samuel.mortenson, wanjee,
+  giangi.vigazzola: Creating a new field bundle inside
+  hook_entity_base_field_info_alter() is a bad idea and causes problems.
 
 
 Metatag 8.x-1.2, 2017-07-31

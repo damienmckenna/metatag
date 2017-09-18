@@ -415,15 +415,30 @@ function metatag_get_default_tags($entity = NULL) {
 }
 
 /**
- * Implements hook_entity_base_field_info_alter().
+ * Implements hook_entity_base_field_info().
  */
-function metatag_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
-  $fields['metatag'] = BaseFieldDefinition::create('map')
-    ->setName('Metatags')
-    ->setLabel(t('Metatags'))
-    ->setDescription(t('The metatags for the entity.'))
-    ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
-    ->setQueryable(FALSE)
-    ->setComputed(TRUE);
-}
+function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
+  $fields = [];
+  $base_table = $entity_type->getBaseTable();
+  $canonical_template_exists = $entity_type->hasLinkTemplate('canonical');
+  // Certain classes are just not supported.
+  $original_class = $entity_type->getOriginalClass();
+  $classes_to_skip = [
+    'Drupal\comment\Entity\Comment',
+  ];
+
+  // If the entity type doesn't have a base table, has no link template then there's no point in
+  // supporting it.
+  if (!empty($base_table) && $canonical_template_exists && !in_array($original_class, $classes_to_skip)) {
+    $fields['metatag'] = BaseFieldDefinition::create('map')
+      ->setLabel(t('Metatags'))
+      ->setDescription(t('The metatags for the entity.'))
+      ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
+      ->setQueryable(FALSE)
+      ->setComputed(TRUE)
+      ->setTargetEntityTypeId($entity_type->id());
+  }
+
+  return $fields;
+ }
 
