@@ -13,7 +13,7 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
 #2905925 by DamienMcKenna: The Normalizer shouldn't assume all meta tags have a
   'content' attribute; also support the 'href' attribute.
 #2906312 by DamienMcKenna: Added the twitter:dnt meta tag.
-#2909390 by Perignon: Small typo in MetatagToken.
+#2909390/2894868 by Perignon, StijnStroobants: Small typo in MetatagToken.
 #2903661 by DamienMcKenna: Don't output 403/404 page node's meta tags on
   403/404 pages.
 #2905769 by DamienMcKenna: Improved defaults for the canonical URL meta tag.
