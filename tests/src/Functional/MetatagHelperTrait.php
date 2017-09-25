@@ -2,8 +2,11 @@
 
 namespace Drupal\Tests\metatag\Functional;
 
-use Drupal\user\Entity\User;
+use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\Entity\Vocabulary;
+use Drupal\user\Entity\User;
 
 /**
  * Misc helper functions for the automated tests.
@@ -77,6 +80,75 @@ trait MetatagHelperTrait {
     ];
 
     return $this->createNode($args);
+  }
+
+  /**
+   * Create a vocabulary.
+   *
+   * @param array $values
+   *   Items passed to the vocabulary. If the 'vid' item is not present it will
+   *   be automatically generated. If the 'name' item is not present the 'vid'
+   *   will be used.
+   *
+   * @return Drupal\taxonomy\Entity\Vocabulary
+   *   A fully formatted vocabulary object.
+   */
+  function createVocabulary(array $values = []) {
+    // Find a non-existent random type name.
+    if (!isset($values['vid'])) {
+      do {
+        $id = strtolower($this->randomMachineName(8));
+      } while (Vocabulary::load($id));
+    }
+    else {
+      $id = $values['vid'];
+    }
+    $values += [
+      'vid' => $id,
+      'name' => $id,
+    ];
+    $vocab = Vocabulary::create($values);
+    $status = $vocab->save();
+
+    if ($this instanceof \PHPUnit_Framework_TestCase) {
+      $this->assertSame($status, SAVED_NEW, (new FormattableMarkup('Created vocabulary %type.', ['%type' => $vocab->id()]))->__toString());
+    }
+    else {
+      $this->assertEqual($status, SAVED_NEW, (new FormattableMarkup('Created vocabulary %type.', ['%type' => $vocab->id()]))->__toString());
+    }
+
+    return $vocab;
+  }
+
+  /**
+   * Create a taxonomy term.
+   *
+   * @param array $values
+   *   Items passed to the term. Requires the 'vid' element.
+   *
+   * @return Drupal\taxonomy\Entity\Term
+   *   A fully formatted term object.
+   */
+  function createTerm(array $values = []) {
+    // Populate defaults array.
+    $values += [
+      'description' => [[
+        'value' => $this->randomMachineName(32),
+        'format' => filter_default_format(),
+      ]],
+      'name' => $this->randomMachineName(8),
+    ];
+    $term = Term::create($values);
+    $status = $term->save();
+
+    if ($this instanceof \PHPUnit_Framework_TestCase) {
+      $this->assertSame($status, SAVED_NEW, (new FormattableMarkup('Created term %name.', ['%name' => $term->label()]))->__toString());
+    }
+    else {
+      $this->assertEqual($status, SAVED_NEW, (new FormattableMarkup('Created term %name.', ['%name' => $term->label()]))->__toString());
+    }
+
+    return $term;
   }
 
 }
