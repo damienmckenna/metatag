@@ -32,6 +32,7 @@ By DamienMcKenna: Changed codebase to only use short array syntax, fixed some
 #2905769 by DamienMcKenna: Added tests for how default meta tags are displayed.
 #2872382 by Vlad_Bo, DamienMcKenna: Error if there is no node object (custom
   node view implementation).
+#2217549 by Alan D., Kuldeep K, DamienMcKenna: Integration with the Diff module.
 
 
 Metatag 8.x-1.2, 2017-07-31

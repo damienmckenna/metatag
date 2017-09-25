@@ -476,5 +476,53 @@ function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
   }
 
   return $fields;
- }
+}
 
+/**
+ * Implements hook_entity_diff_options().
+ */
+function metatag_entity_diff_options($entity_type) {
+  if (metatag_entity_supports_metatags($entity_type)) {
+    $options = array(
+      'metatag' => t('Metatags'),
+    );
+    return $options;
+  }
+}
+
+/**
+ * Implements hook_entity_diff
+ */
+function metatag_entity_diff($old_entity, $new_entity, $context) {
+  $result = array();
+  $entity_type = $context['entity_type'];
+  $options = variable_get('diff_additional_options_' . $entity_type, array());
+  if (!empty($options['metatag']) && metatag_entity_supports_metatags($entity_type)) {
+    // Find metatags that are set on either the new or old entity.
+    $tags = array();
+    foreach (array('old' => $old_entity, 'new' => $new_entity) as $entity_key => $entity) {
+      $language = metatag_entity_get_language($entity_type, $entity);
+      if (isset($entity->metatags[$language])) {
+        foreach ($entity->metatags[$language] as $key => $value) {
+          $tags[$key][$entity_key] = $value['value'];
+        }
+      }
+    }
+
+    $init_weight = 100;
+    foreach ($tags as $key => $values) {
+      $id = ucwords('Meta ' . $key);
+      // @todo find the default values and show these if not set.
+      $result[$id] = array(
+        '#name' => $id,
+        '#old' => array(empty($values['old']) ? '' : $values['old']),
+        '#new' => array(empty($values['new']) ? '' : $values['new']),
+        '#weight' => $init_weight++,
+        '#settings' => array(
+          'show_header' => TRUE,
+        ),
+      );
+    }
+  }
+  return $result;
+}
