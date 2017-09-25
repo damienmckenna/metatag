@@ -24,6 +24,8 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
   position.
 #2859111 by acbramley, DamienMcKenna: Remove the second canonical tag on
   taxonomy term pages because of a bug in core.
+By DamienMcKenna: Changed codebase to only use short array syntax, fixed some
+  comments.
 
 
 Metatag 8.x-1.2, 2017-07-31

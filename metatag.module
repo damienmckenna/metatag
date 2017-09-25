@@ -196,7 +196,7 @@ function _metatag_remove_duplicate_entity_tags(array &$build) {
         if (in_array($metatag_item[1], array('canonical_url', 'shortlink'))) {
           // Metatag provides rel="canonical" and/or rel="shortlink" tags.
           foreach ($build['#attached']['html_head_link'] as $key => $item) {
-            if (isset($item[0]['rel']) && in_array($item[0]['rel'], array('canonical', 'shortlink'))) {
+            if (isset($item[0]['rel']) && in_array($item[0]['rel'], ['canonical', 'shortlink'])) {
               // Remove the link rel="canonical" or link rel="shortlink" tag
               // from the entity's build array.
               unset($build['#attached']['html_head_link'][$key]);

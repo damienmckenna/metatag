@@ -11,9 +11,7 @@ use Drupal\serialization\Normalizer\NormalizerBase;
 class MetatagNormalizer extends NormalizerBase {
 
   /**
-   * The interface or class that this Normalizer supports.
-   *
-   * @var string
+   * {@inheritdoc}}
    */
   protected $supportedInterfaceOrClass = 'Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList';
 
