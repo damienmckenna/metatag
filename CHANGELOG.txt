@@ -27,6 +27,8 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
 By DamienMcKenna: Changed codebase to only use short array syntax, fixed some
   comments.
 #2911435 by DamienMcKenna, AdamPS: Streamline the HTML output logic.
+#2860088 by AdamPS, DamienMcKenna: Comma separated list in og:image breaks if
+  one component is empty.
 
 
 Metatag 8.x-1.2, 2017-07-31

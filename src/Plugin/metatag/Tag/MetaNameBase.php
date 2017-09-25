@@ -252,7 +252,8 @@ abstract class MetaNameBase extends PluginBase {
       }
 
       if ($this->multiple()) {
-        $values = explode(',', $value);
+        // Split the string into an array, remove empty items.
+        $values = array_filter(explode(',', $value));
       }
       else {
         $values = [$value];
