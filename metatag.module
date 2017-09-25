@@ -431,7 +431,7 @@ function metatag_get_default_tags($entity = NULL) {
       $entity = metatag_get_route_entity();
     }
 
-    if (!empty($entity)) {
+    if (!empty($entity) && $entity instanceof ContentEntityInterface) {
       $entity_metatags = $global_metatag_manager->load($entity->getEntityTypeId());
       if ($entity_metatags != NULL) {
         // Merge with global defaults.
