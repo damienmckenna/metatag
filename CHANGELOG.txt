@@ -26,6 +26,7 @@ By DamienMcKenna: Reenable \Drupal\metatag\Tests\MetatagFrontpageTest::
   taxonomy term pages because of a bug in core.
 By DamienMcKenna: Changed codebase to only use short array syntax, fixed some
   comments.
+#2911435 by DamienMcKenna, AdamPS: Streamline the HTML output logic.
 
 
 Metatag 8.x-1.2, 2017-07-31
