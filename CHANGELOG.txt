@@ -6,6 +6,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2143979 by bpleduc, drunken monkey, DamienMcKenna, thirdender, davidthou:
   Allow Views meta tags to "Use replacement tokens from the first row".
 #2882769 by DamienMcKenna: List Schema Metatag as a related module.
+#2882769 by DamienMcKenna: Added a hook_requirements() message about the
+  Schema.org Metatag module.
 
 
 Metatag 7.x-1.22, 2017-07-03

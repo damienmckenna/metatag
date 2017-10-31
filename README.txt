@@ -332,7 +332,7 @@ Related modules
 Some modules are available that extend Metatag with additional or complimentary
 functionality:
 
-* Schema Metatag
+* Schema.org Metatag
   https://www.drupal.org/project/schema_metatag
   Extensive solution for adding schema.org / JSON-LD support to Metatag.
 
