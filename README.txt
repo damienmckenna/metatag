@@ -332,6 +332,10 @@ Related modules
 Some modules are available that extend Metatag with additional or complimentary
 functionality:
 
+* Schema Metatag
+  https://www.drupal.org/project/schema_metatag
+  Extensive solution for adding schema.org / JSON-LD support to Metatag.
+
 * Transliteration
   https://drupal.org/project/transliteration
   Tidies up filenames for uploaded files, e.g. it can remove commas from
