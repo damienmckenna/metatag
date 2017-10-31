@@ -181,7 +181,7 @@ functionality:
 
 * Schema Metatag
   https://www.drupal.org/project/schema_metatag
-  Extensive solution for adding schema.org support to Metatag.
+  Extensive solution for adding schema.org / JSON-LD support to Metatag.
 
 * Context Metadata
   https://www.drupal.org/project/context_metadata
