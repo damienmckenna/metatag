@@ -35,7 +35,6 @@ function metatag_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<li>' . t('To override the meta tags for individual entities, e.g. for individual nodes, add the "Metatag" field via the field settings for that entity or bundle type.') . '</li>';
       $output .= '</ol>';
       return $output;
-      break;
 
     // The main configuration page.
     case 'entity.metatag_defaults.collection':
@@ -44,14 +43,12 @@ function metatag_help($route_name, RouteMatchInterface $route_match) {
       $output .= '<p>' . t('If the top-level configuration is not specific enough, additional default meta tag configurations can be added for a specific entity type or entity bundle, e.g. for a specific content type.') . '</p>';
       $output .= '<p>' . t('Meta tags can be further refined on a per-entity basis, e.g. for individual nodes, by adding the "Metatag" field to that entity type through its normal field settings pages.') . '</p>';
       return $output;
-      break;
 
     // The 'add default meta tags' configuration page.
     case 'entity.metatag_defaults.add_form':
       $output = '<p>' . t('Use the following form to override the global default meta tags for a specific entity type or entity bundle. In practical terms, this allows the meta tags to be customized for a specific content type or taxonomy vocabulary, so that its content will have different meta tags <em>default values</em> than others.') . '</p>';
       $output .= '<p>' . t('As a reminder, if the "Metatag" field is added to the entity type through its normal field settings, the meta tags can be further refined on a per entity basis; this allows each node to have its meta tags  customized on an individual basis.') . '</p>';
       return $output;
-      break;
   }
 }
 
@@ -132,6 +129,7 @@ function metatag_page_attachments(array &$attachments) {
     }
   }
 }
+
 /**
  * Implements hook_module_implements_alter().
  */
@@ -193,7 +191,7 @@ function _metatag_remove_duplicate_entity_tags(array &$build) {
     // tag.
     if (isset($metatag_attachments['#attached']['html_head'])) {
       foreach ($metatag_attachments['#attached']['html_head'] as $metatag_item) {
-        if (in_array($metatag_item[1], array('canonical_url', 'shortlink'))) {
+        if (in_array($metatag_item[1], ['canonical_url', 'shortlink'])) {
           // Metatag provides rel="canonical" and/or rel="shortlink" tags.
           foreach ($build['#attached']['html_head_link'] as $key => $item) {
             if (isset($item[0]['rel']) && in_array($item[0]['rel'], ['canonical', 'shortlink'])) {
@@ -233,7 +231,7 @@ function metatag_is_current_route_supported() {
 /**
  * Returns the entity of the current route.
  *
- * @return EntityInterface
+ * @return Drupal\Core\Entity\EntityInterface
  *   The entity or NULL if this is not an entity route.
  */
 function metatag_get_route_entity() {
@@ -248,16 +246,16 @@ function metatag_get_route_entity() {
     return $route_match->getParameter($entity_type);
   }
 
-  // Look for a rest entity view page, e.g. node/{nid}?_format=json, etc.
+  // Look for a rest entity view page, e.g. "node/{nid}?_format=json", etc.
   $matches = [];
-  // ie: rest.entity.node.GET.json
+  // Matches e.g. "rest.entity.node.GET.json".
   preg_match('/rest\.entity\.(.*)\.(.*)\.(.*)/', $route_name, $matches);
   if (!empty($matches[1])) {
     $entity_type = $matches[1];
     return $route_match->getParameter($entity_type);
   }
 
-  // Look for entity object 'add' pages, e.g. node/add/{bundle}.
+  // Look for entity object 'add' pages, e.g. "node/add/{bundle}".
   $route_name_matches = [];
   preg_match('/(entity\.)?(.*)\.add(_form)?/', $route_name, $route_name_matches);
   if (!empty($route_name_matches[2])) {
@@ -275,7 +273,7 @@ function metatag_get_route_entity() {
     }
   }
 
-  // Look for entity object 'edit' pages, e.g. node/{entity_id}/edit.
+  // Look for entity object 'edit' pages, e.g. "node/{entity_id}/edit".
   $route_name_matches = [];
   preg_match('/entity\.(.*)\.edit_form/', $route_name, $route_name_matches);
   if (!empty($route_name_matches[1])) {
@@ -290,7 +288,7 @@ function metatag_get_route_entity() {
   }
 
   // Look for entity object 'add content translation' pages, e.g.
-  // node/{nid}/translations/add/{source_lang}/{translation_lang}
+  // "node/{nid}/translations/add/{source_lang}/{translation_lang}".
   $route_name_matches = [];
   preg_match('/(entity\.)?(.*)\.content_translation_add/', $route_name, $route_name_matches);
   if (!empty($route_name_matches[2])) {
@@ -361,8 +359,10 @@ function metatag_preprocess_html(&$variables) {
         $variables['head_title'] = [];
         $variables['head_title']['title'] = html_entity_decode($attachment[0]['#attributes']['content'], ENT_QUOTES);
         // Original:
-        // $variables['head_title_array']['title'] = $attachment[0]['#attributes']['content'];
-        // $variables['head_title'] = implode(' | ', $variables['head_title_array']);
+        // $variables['head_title_array']['title'] =
+        //   $attachment[0]['#attributes']['content'];
+        // $variables['head_title'] = implode(' | ',
+        //   $variables['head_title_array']);
         break;
       }
     }
@@ -463,8 +463,8 @@ function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
     'Drupal\comment\Entity\Comment',
   ];
 
-  // If the entity type doesn't have a base table, has no link template then there's no point in
-  // supporting it.
+  // If the entity type doesn't have a base table, has no link template then
+  // there's no point in supporting it.
   if (!empty($base_table) && $canonical_template_exists && !in_array($original_class, $classes_to_skip)) {
     $fields['metatag'] = BaseFieldDefinition::create('map')
       ->setLabel(t('Metatags'))
@@ -483,24 +483,24 @@ function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
  */
 function metatag_entity_diff_options($entity_type) {
   if (metatag_entity_supports_metatags($entity_type)) {
-    $options = array(
+    $options = [
       'metatag' => t('Metatags'),
-    );
+    ];
     return $options;
   }
 }
 
 /**
- * Implements hook_entity_diff
+ * Implements hook_entity_diff().
  */
 function metatag_entity_diff($old_entity, $new_entity, $context) {
-  $result = array();
+  $result = [];
   $entity_type = $context['entity_type'];
-  $options = variable_get('diff_additional_options_' . $entity_type, array());
+  $options = variable_get('diff_additional_options_' . $entity_type, []);
   if (!empty($options['metatag']) && metatag_entity_supports_metatags($entity_type)) {
     // Find metatags that are set on either the new or old entity.
-    $tags = array();
-    foreach (array('old' => $old_entity, 'new' => $new_entity) as $entity_key => $entity) {
+    $tags = [];
+    foreach (['old' => $old_entity, 'new' => $new_entity] as $entity_key => $entity) {
       $language = metatag_entity_get_language($entity_type, $entity);
       if (isset($entity->metatags[$language])) {
         foreach ($entity->metatags[$language] as $key => $value) {
@@ -512,16 +512,16 @@ function metatag_entity_diff($old_entity, $new_entity, $context) {
     $init_weight = 100;
     foreach ($tags as $key => $values) {
       $id = ucwords('Meta ' . $key);
-      // @todo find the default values and show these if not set.
-      $result[$id] = array(
+      // @todo Find the default values and show these if not set.
+      $result[$id] = [
         '#name' => $id,
-        '#old' => array(empty($values['old']) ? '' : $values['old']),
-        '#new' => array(empty($values['new']) ? '' : $values['new']),
+        '#old' => [empty($values['old']) ? '' : $values['old']],
+        '#new' => [empty($values['new']) ? '' : $values['new']],
         '#weight' => $init_weight++,
-        '#settings' => array(
+        '#settings' => [
           'show_header' => TRUE,
-        ),
-      );
+        ],
+      ];
     }
   }
   return $result;

@@ -2,7 +2,6 @@
 
 namespace Drupal\metatag_twitter_cards\Tests;
 
-use Drupal\simpletest\WebTestBase;
 use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
@@ -15,7 +14,7 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $tags = [
+  private $tags = [
     'twitter_cards_app_id_googleplay',
     'twitter_cards_app_id_ipad',
     'twitter_cards_app_id_iphone',
@@ -63,10 +62,11 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   }
 
   /**
-   * Twitter meta tags (almost) all have colons instead of underlines, and they
-   * don't have "cards" in their name.
+   * Twitter meta tags (almost) all have colons instead of underlines.
+   *
+   * They also don't have "cards" in their name.
    */
-  public function getTestTagName($tag_name) {
+  private function getTestTagName($tag_name) {
     $tag_name = str_replace('twitter_cards', 'twitter', $tag_name);
     $tag_name = str_replace('_', ':', $tag_name);
 
@@ -90,16 +90,16 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   }
 
   /**
-   * Implements {meta_tag_name}_test_field_xpath() for 'twitter_cards_type'.
+   * Implements {tag_name}TestFieldXpath() for 'twitter_cards_type'.
    */
-  public function twitter_cards_type_test_field_xpath() {
+  private function twitterCardsTypeTestFieldXpath() {
     return "//select[@name='twitter_cards_type']";
   }
 
   /**
-   * Implements {meta_tag_name}_test_value() for 'twitter_cards_type'.
+   * Implements {tag_name}TestValue() for 'twitter_cards_type'.
    */
-  public function twitter_cards_type_test_value() {
+  private function twitterCardsTypeTestValue() {
     return 'summary_large_image';
   }
 

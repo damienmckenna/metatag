@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\Tests\metatag\Functional;
+namespace Drupal\metatag\Tests;
 
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
@@ -9,7 +9,9 @@ use Drupal\taxonomy\Entity\Vocabulary;
 use Drupal\user\Entity\User;
 
 /**
- * Misc helper functions for the automated tests.
+ * A copy of Drupal\Tests\metatag\Functional\MetatagHelperTrait.
+ *
+ * @todo Remove once the other tests are converted over.
  */
 trait MetatagHelperTrait {
 

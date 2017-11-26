@@ -3,14 +3,15 @@
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
 /**
- * This base plugin allows "itemprop"-style meta tags, e.g. Google plus tags, to
- * be further customized.
+ * This base plugin allows "itemprop"-style meta tags be customized.
+ *
+ * Used with e.g. the Google Plus tags.
  */
 abstract class MetaItempropBase extends MetaNameBase {
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
-  protected $name_attribute = 'itemprop';
+  protected $nameAttribute = 'itemprop';
 
 }

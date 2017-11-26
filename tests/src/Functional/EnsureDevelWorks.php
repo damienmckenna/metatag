@@ -11,6 +11,7 @@ use Drupal\Tests\BrowserTestBase;
  */
 class EnsureDevelWorks extends BrowserTestBase {
 
+  // Contains helper methods.
   use MetatagHelperTrait;
 
   /**

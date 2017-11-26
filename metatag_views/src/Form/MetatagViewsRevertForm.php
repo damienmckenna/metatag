@@ -6,7 +6,6 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
-use Drupal\views\ViewEntityInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -17,14 +16,14 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
   /**
    * Entity manager for views entities.
    *
-   * @var EntityTypeManagerInterface
+   * @var Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $viewsManager;
 
   /**
    * The view entity to revert metatags on.
    *
-   * @var ViewEntityInterface $view
+   * @var Drupal\views\ViewEntityInterface
    */
   protected $view;
 
@@ -36,7 +35,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
   protected $display_id;
 
   /**
-   * Constructor.
+   * {@inheritdoc}
    */
   public function __construct(EntityTypeManagerInterface $entity_manager) {
     $this->viewsManager = $entity_manager->getStorage('view');
@@ -101,9 +100,6 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
 
   /**
    * {@inheritdoc}
-   *
-   * @param int $id
-   *   (optional) The ID of the item to be deleted.
    */
   public function buildForm(array $form, FormStateInterface $form_state, $view_id = NULL, $display_id = NUL) {
     $this->view = $this->viewsManager->load($view_id);

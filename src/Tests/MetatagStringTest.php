@@ -12,7 +12,7 @@ use Drupal\simpletest\WebTestBase;
 class MetatagStringTest extends WebTestBase {
 
   /**
-   * Admin user
+   * Admin user.
    *
    * @var \Drupal\Core\Session\AccountInterface
    */
@@ -50,7 +50,7 @@ class MetatagStringTest extends WebTestBase {
   /**
    * {@inheritdoc}
    */
-  function setUp() {
+  protected function setUp() {
     parent::setUp();
     $this->adminUser = $this->drupalCreateUser($this->permissions);
     $this->drupalLogin($this->adminUser);
@@ -75,37 +75,37 @@ class MetatagStringTest extends WebTestBase {
   /**
    * Tests that a meta tag with single quote is not double escaped.
    */
-  function testSingleQuote() {
-    $this->_testAString("bla'bleblu");
+  public function testSingleQuote() {
+    $this->checkString("bla'bleblu");
   }
 
   /**
    * Tests that a meta tag with a double quote is not double escaped.
    */
-  function testDoubleQuote() {
-    $this->_testAString('bla"bleblu');
+  public function testDoubleQuote() {
+    $this->checkString('bla"bleblu');
   }
 
   /**
    * Tests that a meta tag with an ampersand is not double escaped.
    */
-  function testAmpersand() {
-    $this->_testAString("blable&blu");
+  public function testAmpersand() {
+    $this->checkString("blable&blu");
   }
 
   /**
    * Tests that specific strings are not double escaped.
    */
-  function _testAString($string) {
-    $this->_testConfig($string);
-    $this->_testNode($string);
-    $this->_testEncodedField($string);
+  public function checkString($string) {
+    $this->checkConfig($string);
+    $this->checkNode($string);
+    $this->checkEncodedField($string);
   }
 
   /**
    * Tests that a specific config string is not double encoded.
    */
-  function _testConfig($string) {
+  public function checkConfig($string) {
     // The original strings.
     $title_original = 'Title: ' . $string;
     $desc_original = 'Description: ' . $string;
@@ -185,7 +185,7 @@ class MetatagStringTest extends WebTestBase {
   /**
    * Tests that a specific node string is not double escaped.
    */
-  function _testNode($string) {
+  public function checkNode($string) {
     $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
 
     // The original strings.
@@ -257,7 +257,7 @@ class MetatagStringTest extends WebTestBase {
   /**
    * Tests that fields with encoded HTML entities will not be double-encoded.
    */
-  function _testEncodedField($string) {
+  public function checkEncodedField($string) {
     $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
 
     // The original strings.
@@ -317,4 +317,3 @@ class MetatagStringTest extends WebTestBase {
   }
 
 }
-

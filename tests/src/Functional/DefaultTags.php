@@ -2,10 +2,7 @@
 
 namespace Drupal\Tests\metatag\Functional;
 
-use Drupal\Core\Url;
 use Drupal\Tests\BrowserTestBase;
-use Drupal\user\Entity\Role;
-use Drupal\user\RoleInterface;
 
 /**
  * Verify that the configured defaults load as intended.
@@ -14,6 +11,7 @@ use Drupal\user\RoleInterface;
  */
 class DefaultTags extends BrowserTestBase {
 
+  // Contains helper methods.
   use MetatagHelperTrait;
 
   /**
@@ -39,7 +37,7 @@ class DefaultTags extends BrowserTestBase {
   ];
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   protected function setUp() {
     parent::setUp();
@@ -60,7 +58,7 @@ class DefaultTags extends BrowserTestBase {
     $this->assertResponse(200);
     $xpath = $this->xpath("//link[@rel='canonical']");
     $this_page_url = $this->buildUrl('<front>');
-    $this->assertEqual((string)$xpath[0]->getAttribute('href'), $this_page_url);
+    $this->assertEqual((string) $xpath[0]->getAttribute('href'), $this_page_url);
   }
 
   /**
@@ -74,7 +72,7 @@ class DefaultTags extends BrowserTestBase {
     // Check the meta tags.
     $xpath = $this->xpath("//link[@rel='canonical']");
     $this_page_url = $this->buildUrl('/metatag_test_custom_route');
-    $this->assertEqual((string)$xpath[0]->getAttribute('href'), $this_page_url);
+    $this->assertEqual((string) $xpath[0]->getAttribute('href'), $this_page_url);
   }
 
   /**
@@ -90,7 +88,7 @@ class DefaultTags extends BrowserTestBase {
 
     // Check the meta tags.
     $xpath = $this->xpath("//link[@rel='canonical']");
-    $this->assertEqual((string)$xpath[0]->getAttribute('href'), $this_page_url);
+    $this->assertEqual((string) $xpath[0]->getAttribute('href'), $this_page_url);
   }
 
   /**
@@ -105,7 +103,7 @@ class DefaultTags extends BrowserTestBase {
 
     // Check the meta tags.
     $xpath = $this->xpath("//link[@rel='canonical']");
-    $this->assertEqual((string)$xpath[0]->getAttribute('href'), $this_page_url);
+    $this->assertEqual((string) $xpath[0]->getAttribute('href'), $this_page_url);
   }
 
   /**
@@ -122,7 +120,7 @@ class DefaultTags extends BrowserTestBase {
 
     // Check the meta tags.
     $xpath = $this->xpath("//link[@rel='canonical']");
-    $this->assertEqual((string)$xpath[0]->getAttribute('href'), $this_page_url);
+    $this->assertEqual((string) $xpath[0]->getAttribute('href'), $this_page_url);
     $this->drupalLogout();
   }
 
@@ -150,8 +148,8 @@ class DefaultTags extends BrowserTestBase {
 
       // Check the meta tags.
       $xpath = $this->xpath("//link[@rel='canonical']");
-      $this->assertNotEqual((string)$xpath[0]->getAttribute('href'), $front_url);
-      $this->assertEqual((string)$xpath[0]->getAttribute('href'), $this_page_url);
+      $this->assertNotEqual((string) $xpath[0]->getAttribute('href'), $front_url);
+      $this->assertEqual((string) $xpath[0]->getAttribute('href'), $this_page_url);
     }
   }
 

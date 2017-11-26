@@ -2,7 +2,6 @@
 
 namespace Drupal\metatag\Normalizer;
 
-use Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList;
 use Drupal\serialization\Normalizer\NormalizerBase;
 
 /**
@@ -11,16 +10,15 @@ use Drupal\serialization\Normalizer\NormalizerBase;
 class MetatagNormalizer extends NormalizerBase {
 
   /**
-   * {@inheritdoc}}
+   * {@inheritdoc}
    */
   protected $supportedInterfaceOrClass = 'Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList';
 
   /**
-   * {@inheritdoc}}
-   *
-   * @see metatag_get_tags_from_route();
+   * {@inheritdoc}
    */
   public function normalize($field_item, $format = NULL, array $context = []) {
+    // @see metatag_get_tags_from_route()
     $entity = $field_item->getEntity();
 
     $tags = metatag_get_tags_from_route($entity);

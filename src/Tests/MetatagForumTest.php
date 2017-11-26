@@ -61,7 +61,7 @@ class MetatagForumTest extends WebTestBase {
   /**
    * Verify that a forum post can be loaded when Metatag is enabled.
    */
-  function testForumPost() {
+  public function testForumPost() {
     $this->drupalGet('node/add/forum');
     $this->assertResponse(200);
     $edit = [

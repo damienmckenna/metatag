@@ -1,6 +1,7 @@
 <?php
 
 namespace Drupal\metatag;
+
 use Drupal\Core\Utility\Token;
 
 /**
@@ -28,16 +29,20 @@ class MetatagToken {
   /**
    * Wrapper for the Token module's string parsing.
    *
-   * @param $string
-   * @param $data
+   * @param string $string
+   *   The string to parse.
+   * @param array $data
+   *   Arguments for token->replace().
    * @param array $options
+   *   Any additional options necessary.
    *
-   * @return mixed|string $string
+   * @return mixed|string
+   *   The processed string.
    */
-  public function replace($string, array $data = [], $options = []) {
+  public function replace($string, array $data = [], array $options = []) {
     // Set default requirements for metatag unless options specify otherwise.
     $options = $options + [
-      'clear' => TRUE
+      'clear' => TRUE,
     ];
 
     $replaced = $this->token->replace($string, $data, $options);
@@ -68,7 +73,7 @@ class MetatagToken {
 
     // Normalize taxonomy tokens.
     if (!empty($token_types)) {
-      $token_types = array_map(function($value) {
+      $token_types = array_map(function ($value) {
         return stripos($value, 'taxonomy_') === 0 ? substr($value, strlen('taxonomy_')) : $value;
       }, (array) $token_types);
     }

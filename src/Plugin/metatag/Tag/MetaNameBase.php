@@ -1,15 +1,14 @@
 <?php
 
-/**
- * Each meta tag will extend this base.
- */
-
 namespace Drupal\metatag\Plugin\metatag\Tag;
 
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
+/**
+ * Each meta tag will extend this base.
+ */
 abstract class MetaNameBase extends PluginBase {
 
   use StringTranslationTrait;
@@ -63,14 +62,14 @@ abstract class MetaNameBase extends PluginBase {
   /**
    * True if URL must use HTTPS.
    *
-   * @var boolean
+   * @var bool
    */
   protected $secure;
 
   /**
    * True if more than one is allowed.
    *
-   * @var boolean
+   * @var bool
    */
   protected $multiple;
 
@@ -86,7 +85,7 @@ abstract class MetaNameBase extends PluginBase {
    *
    * @var string
    */
-  protected $name_attribute = 'name';
+  protected $nameAttribute = 'name';
 
   /**
    * {@inheritdoc}
@@ -95,7 +94,7 @@ abstract class MetaNameBase extends PluginBase {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     // Set the properties from the annotation.
-    // @TODO: Should we have setProperty() methods for each of these?
+    // @todo Should we have setProperty() methods for each of these?
     $this->id = $plugin_definition['id'];
     $this->name = $plugin_definition['name'];
     $this->label = $plugin_definition['label'];
@@ -107,35 +106,99 @@ abstract class MetaNameBase extends PluginBase {
     $this->multiple = $plugin_definition['multiple'];
   }
 
+  /**
+   * Obtain the meta tag's internal ID.
+   *
+   * @return string
+   *   This meta tag's internal ID.
+   */
   public function id() {
     return $this->id;
   }
+
+  /**
+   * This meta tag's label.
+   *
+   * @return string
+   *   The label.
+   */
   public function label() {
     return $this->label;
   }
+
+  /**
+   * The meta tag's description.
+   *
+   * @return bool
+   *   This meta tag's description.
+   */
   public function description() {
     return $this->description;
   }
+
+  /**
+   * The meta tag's machine name.
+   *
+   * @return string
+   *   This meta tag's machine name.
+   */
   public function name() {
     return $this->name;
   }
+
+  /**
+   * The meta tag group this meta tag belongs to.
+   *
+   * @return string
+   *   The meta tag's group name.
+   */
   public function group() {
     return $this->group;
   }
+
+  /**
+   * This meta tag's form field's weight.
+   *
+   * @return int|float
+   *   The form API weight for this. May be any number supported by Form API.
+   */
   public function weight() {
     return $this->weight;
   }
+
+  /**
+   * Obtain this meta tag's type.
+   *
+   * @return string
+   *   This meta tag's type.
+   */
   public function type() {
     return $this->type;
   }
+
+  /**
+   * Whether or not this meta tag must output secure (HTTPS) URLs.
+   *
+   * @return bool
+   *   Whether or not this meta tag must output secure (HTTPS) URLs.
+   */
   public function secure() {
     return $this->secure;
   }
+
+  /**
+   * Whether or not this meta tag supports multiple values.
+   *
+   * @return bool
+   *   Whether or not this meta tag supports multiple values.
+   */
   public function multiple() {
     return $this->multiple;
   }
 
   /**
+   * Whether or not this meta tag is active.
+   *
    * @return bool
    *   Whether this meta tag has been enabled.
    */
@@ -145,6 +208,12 @@ abstract class MetaNameBase extends PluginBase {
 
   /**
    * Generate a form element for this meta tag.
+   *
+   * @param array $element
+   *   The existing form element to attach to.
+   *
+   * @return array
+   *   The completed form element.
    */
   public function form(array $element = []) {
     $form = [
@@ -175,14 +244,35 @@ abstract class MetaNameBase extends PluginBase {
     return $form;
   }
 
+  /**
+   * Obtain the current meta tag's raw value.
+   *
+   * @return string
+   *   The current raw meta tag value.
+   */
   public function value() {
     return $this->value;
   }
 
+  /**
+   * Assign the current meta tag a value.
+   *
+   * @param string $value
+   *   The value to assign this meta tag.
+   */
   public function setValue($value) {
     $this->value = $value;
   }
 
+  /**
+   * Make the string presentable.
+   *
+   * @param string $value
+   *   The raw string to process.
+   *
+   * @return string
+   *   The meta tag value after processing.
+   */
   private function tidy($value) {
     return trim($value);
   }
@@ -195,7 +285,7 @@ abstract class MetaNameBase extends PluginBase {
    */
   public function output() {
     // Parse out the image URL, if needed.
-    $value = $this->parseImageURL();
+    $value = $this->parseImageUrl();
     $value = $this->tidy($value);
 
     if (empty($value)) {
@@ -211,9 +301,9 @@ abstract class MetaNameBase extends PluginBase {
       $element = [
         '#tag' => 'meta',
         '#attributes' => [
-          $this->name_attribute => $this->name,
+          $this->nameAttribute => $this->name,
           'content' => $value,
-        ]
+        ],
       ];
     }
 
@@ -229,7 +319,8 @@ abstract class MetaNameBase extends PluginBase {
    *   The form state.
    */
   public static function validateTag(array &$element, FormStateInterface $form_state) {
-    //@TODO: If there is some common validation, put it here. Otherwise, make it abstract?
+    // @todo If there is some common validation, put it here. Otherwise, make
+    // it abstract?
   }
 
   /**
@@ -239,7 +330,7 @@ abstract class MetaNameBase extends PluginBase {
    *   A comma separated list of any image URLs found in the meta tag's value,
    *   or the original string if no images were identified.
    */
-  protected function parseImageURL() {
+  protected function parseImageUrl() {
     $value = $this->value();
 
     // If this contains embedded image tags, extract the image URLs.

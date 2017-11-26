@@ -66,7 +66,8 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
    *
    * @param string $tag_id
    *   The identifier of the tag.
-   * @return boolean
+   *
+   * @return bool
    *   TRUE if the tag exists.
    */
   public function hasTag($tag_id) {
@@ -78,8 +79,9 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
    *
    * @param string $tag_id
    *   The identifier of the tag.
-   * @return array|NULL
-   *   array containing the tag values or NULL if not found.
+   *
+   * @return array|null
+   *   Array containing the tag values or NULL if not found.
    */
   public function getTag($tag_id) {
     if (!$this->hasTag($tag_id)) {

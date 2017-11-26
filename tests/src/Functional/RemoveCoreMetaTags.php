@@ -13,6 +13,7 @@ use Drupal\Tests\BrowserTestBase;
  */
 class RemoveCoreMetaTags extends BrowserTestBase {
 
+  // Contains helper methods.
   use MetatagHelperTrait;
 
   /**

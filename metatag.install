@@ -28,7 +28,11 @@ function metatag_requirements($phase) {
         'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
         'value' => t('Schema.org Metatag is recommended'),
-        'description' => t('The <a href="@module">Schema.org Metatag</a> module is highly recommended to add <a href="@jsonld">JSON-LD</a> -formatted <a href="@schema">schema.org</a> compatible data structures to the site.', ['@module' => 'https://www.drupal.org/project/schema_metatag', '@jsonld' => 'https://json-ld.org', '@schema' => 'http://schema.org']),
+        'description' => t('The <a href="@module">Schema.org Metatag</a> module is highly recommended to add <a href="@jsonld">JSON-LD</a> -formatted <a href="@schema">schema.org</a> compatible data structures to the site.', [
+          '@module' => 'https://www.drupal.org/project/schema_metatag',
+          '@jsonld' => 'https://json-ld.org',
+          '@schema' => 'http://schema.org',
+        ]),
       ];
     }
     else {
@@ -36,11 +40,13 @@ function metatag_requirements($phase) {
         'severity' => REQUIREMENT_OK,
         'title' => 'Metatag',
         'value' => t('Schema.org Metatag is installed'),
-        'description' => t('The <a href="@module">Schema.org Metatag</a> module is installed.', ['@module' => 'https://www.drupal.org/project/schema_metatag']),
+        'description' => t('The <a href="@module">Schema.org Metatag</a> module is installed.', [
+          '@module' => 'https://www.drupal.org/project/schema_metatag',
+        ]),
       ];
     }
   }
-  
+
   return $requirements;
 }
 
@@ -72,8 +78,8 @@ function metatag_update_8101() {
       $field_default_tags = unserialize($field_default_tags_value);
 
       // Determine the table and "value" field names.
-      $field_table = "node__$field_name";
-      $field_value_field = "$field_name" . "_value";
+      $field_table = "node__" . $field_name;
+      $field_value_field = $field_name . "_value";
 
       // Delete all records where the field value and default are identical.
       \Drupal::database()->delete($field_table)
@@ -126,8 +132,8 @@ function metatag_update_8102(&$sandbox) {
         $field_default_tags = unserialize($field_default_tags_value);
 
         // Determine the table and "value" field names.
-        $field_table = "node__$field_name";
-        $field_value_field = "$field_name" . "_value";
+        $field_table = "node__" . $field_name;
+        $field_value_field = $field_name . "_value";
 
         // Get all records where the field data does not match the default.
         $query = \Drupal::database()->select($field_table);
@@ -211,23 +217,23 @@ function metatag_update_8102(&$sandbox) {
       $current_record++;
     }
 
+    // We ran out of records for the field so start the next batch out with the
+    // next field.
     if (!isset($current_field_records[$current_record])) {
-      // We ran out of records for the field so start the next batch out with
-      // the next field.
       $current_field++;
       $current_record = 0;
     }
 
+    // We have finished all the fields. All done.
     if (!isset($sandbox['fields'][$current_field])) {
-      // We have finished all the fields. All done.
-      $sandbox['records_processed'] += $counter-1;
+      $sandbox['records_processed'] += $counter - 1;
       $sandbox['#finished'] = 1;
     }
+    // Update the sandbox values to prepare for the next round.
     else {
-      // Update the sandbox values to prepare for the next round.
       $sandbox['current_field'] = $current_field;
       $sandbox['current_record'] = $current_record;
-      $sandbox['records_processed'] += $counter-1;
+      $sandbox['records_processed'] += $counter - 1;
       $sandbox['#finished'] = $sandbox['records_processed'] / $sandbox['total_records'];
     }
   }
@@ -235,7 +241,7 @@ function metatag_update_8102(&$sandbox) {
   if ($sandbox['total_records'] > 0) {
     return (string) t('Processed @processed of @total overridden Metatag records.', [
       '@processed' => $sandbox['records_processed'],
-      '@total' => $sandbox['total_records']
+      '@total' => $sandbox['total_records'],
     ]);
   }
   else {
@@ -250,9 +256,7 @@ function metatag_update_8103() {
   $config_installer = \Drupal::service('config.installer');
   $entity_manager = \Drupal::entityTypeManager();
 
-  /**
-   * 1. Install cofiguration.
-   */
+  // 1. Install cofiguration.
   $sync_status = $config_installer->isSyncing();
   if ($sync_status) {
     $source_storage = $config_installer->getSourceStorage();
@@ -273,9 +277,7 @@ function metatag_update_8103() {
   // Apply all entity definition changes.
   \Drupal::entityDefinitionUpdateManager()->applyUpdates();
 
-  /**
-   * 2. Extract Metatag field defaults.
-   */
+  // 2. Extract Metatag field defaults.
   $entity_info = $entity_manager->getDefinitions();
   $tags = [];
 
@@ -289,7 +291,7 @@ function metatag_update_8103() {
 
     // Get the individual fields (field instances) associated with bundles.
     $fields = $entity_manager->getStorage('field_config')
-                             ->loadByProperties(['field_name' => $field_name]);
+      ->loadByProperties(['field_name' => $field_name]);
     foreach ($fields as $field) {
       // Adjust the config id depending on whether these are entity defaults
       // or bundle defaults.
@@ -311,9 +313,7 @@ function metatag_update_8103() {
     }
   }
 
-  /**
-   * 3. Create Config entities with field default values.
-   */
+  // 3. Create Config entities with field default values.
   if (!empty($tags)) {
     $bundleInfoManager = \Drupal::service('entity_type.bundle.info');
     foreach ($tags as $metatag_defaults_id => $values) {

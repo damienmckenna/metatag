@@ -3,7 +3,6 @@
 namespace Drupal\Tests\metatag\Functional;
 
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Test\FunctionalTestSetupTrait;
 use Drupal\rest\RestResourceConfigInterface;
 use Drupal\Tests\BrowserTestBase;
 
@@ -48,7 +47,7 @@ class NodeJsonOutput extends BrowserTestBase {
   public function testNode() {
     $this->provisionResource();
 
-    /* @var \Drupal\node\NodeInterface $node */
+    /* @var\Drupal\node\NodeInterface $node */
     $node = $this->createContentTypeNode('Test JSON output', 'Testing JSON output for a content type');
     $url = $node->toUrl();
 
@@ -85,13 +84,13 @@ class NodeJsonOutput extends BrowserTestBase {
    *
    * @param string $entity_type
    *   The entity type to be enabled; defaults to 'node'.
-   * @param string[] $formats
+   * @param array $formats
    *   The allowed formats for this resource; defaults to ['json'].
-   * @param string[] $authentication
+   * @param array $authentication
    *   The allowed authentication providers for this resource; defaults to
    *   ['basic_auth'].
    */
-  protected function provisionResource($entity_type = 'node', $formats = [], $authentication = []) {
+  protected function provisionResource($entity_type = 'node', array $formats = [], array $authentication = []) {
     $this->resourceConfigStorage = $this->container
       ->get('entity_type.manager')
       ->getStorage('rest_resource_config');

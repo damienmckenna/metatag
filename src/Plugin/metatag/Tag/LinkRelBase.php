@@ -8,7 +8,7 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
 abstract class LinkRelBase extends MetaNameBase {
 
   /**
-   * {@inheritDoc}
+   * {@inheritdoc}
    */
   public function output() {
     $element = parent::output();

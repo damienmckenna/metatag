@@ -2,7 +2,6 @@
 
 namespace Drupal\metatag\Tests;
 
-use Drupal\Core\Cache\Cache;
 use Drupal\simpletest\WebTestBase;
 
 /**
@@ -14,6 +13,8 @@ class MetatagTagTypesTest extends WebTestBase {
 
   /**
    * Profile to use.
+   *
+   * @var string
    */
   protected $profile = 'testing';
 
@@ -89,10 +90,11 @@ class MetatagTagTypesTest extends WebTestBase {
   /**
    * Tests whether HTML is correctly removed from metatags
    *
-   * Tests three values in metatags -- one without any HTML; one with raw html; and one with escaped HTML.
-   * To pass all HTML including escaped should be removed.
+   * Tests three values in metatags -- one without any HTML; one with raw html;
+   * and one with escaped HTML. To pass all HTML including escaped should be
+   * removed.
    */
-  public function testHTMLIsRemoved() {
+  public function testHtmlIsRemoved() {
     $this->drupalGet('admin/config/search/metatag/global');
     $this->assertResponse(200);
     $values = [
@@ -113,8 +115,7 @@ class MetatagTagTypesTest extends WebTestBase {
   }
 
   /**
-   * Tests whether insecure links in Tags with attribute secure = TRUE are
-   * correctly changed to secure links
+   * Tests the 'secure' meta tag attribute.
    *
    * Tests insecure values in og:image:secure_url (a tag with secure attribue
    * set to TRUE) and in og:image (a tag with secure attribue set to FALSE). To
@@ -141,7 +142,7 @@ class MetatagTagTypesTest extends WebTestBase {
   /**
    * @todo Move this somewhere else.
    */
-  function testContactForm() {
+  public function testContactForm() {
     // Test a route where the entity for that route does not implement
     // ContentEntityInterface.
     $controller = \Drupal::entityTypeManager()->getStorage('contact_form');
@@ -157,27 +158,27 @@ class MetatagTagTypesTest extends WebTestBase {
   /**
    * @todo Finish.
    */
-  // public function testUrl() {
-  //   $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
-  //   // Tests metatags with URLs work.
-  //   $this->drupalGet($this->entity_add_path);
-  //   $this->assertResponse(200);
-  //   $edit = [
-  //     'name[0][value]' => 'UrlTags',
-  //     'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
-  //     'field_metatag[0][advanced][original_source]' => 'http://example.com/foo.html',
-  //   ];
-  //   $this->drupalPostForm(NULL, $edit, $save_label);
-  //   $entities = entity_load_multiple_by_properties('entity_test', [
-  //     'name' => 'UrlTags',
-  //   ]);
-  //   $this->assertEqual(1, count($entities), 'Entity was saved');
-  //   $entity = reset($entities);
-  //   $this->drupalGet($this->entity_base_path . '/' . $entity->id());
-  //   $this->assertResponse(200);
-  //   $elements = $this->cssSelect("meta[name='original-source']");
-  //   $this->assertTrue(count($elements) === 1, 'Found original source metatag from defaults');
-  //   $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][advanced][original_source]']);
-  // }
+  public function testUrl() {
+    // $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
+    // // Tests metatags with URLs work.
+    // $this->drupalGet($this->entity_add_path);
+    // $this->assertResponse(200);
+    // $edit = [
+    //   'name[0][value]' => 'UrlTags',
+    //   'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
+    //   'field_metatag[0][advanced][original_source]' => 'http://example.com/foo.html',
+    // ];
+    // $this->drupalPostForm(NULL, $edit, $save_label);
+    // $entities = entity_load_multiple_by_properties('entity_test', [
+    //   'name' => 'UrlTags',
+    // ]);
+    // $this->assertEqual(1, count($entities), 'Entity was saved');
+    // $entity = reset($entities);
+    // $this->drupalGet($this->entity_base_path . '/' . $entity->id());
+    // $this->assertResponse(200);
+    // $elements = $this->cssSelect("meta[name='original-source']");
+    // $this->assertTrue(count($elements) === 1, 'Found original source metatag from defaults');
+    // $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][advanced][original_source]']);
+  }
 
 }

@@ -3,7 +3,6 @@
 namespace Drupal\Tests\metatag_views\Functional;
 
 use Drupal\Tests\BrowserTestBase;
-use Drupal\Tests\metatag\Functional\MetatagHelperTrait;
 
 /**
  * Confirm the defaults functionality works.
@@ -12,7 +11,8 @@ use Drupal\Tests\metatag\Functional\MetatagHelperTrait;
  */
 class MetatagViewsBasicsTest extends BrowserTestBase {
 
-  use MetatagHelperTrait;
+  // Contains helper methods.
+  use \Drupal\Tests\metatag\Functional\MetatagHelperTrait;
 
   /**
    * {@inheritdoc}
@@ -109,7 +109,7 @@ class MetatagViewsBasicsTest extends BrowserTestBase {
     $this->assertText('Configure the meta tags below.');
     $this->assertFieldByName('title');
     $this->assertFieldByName('description');
-    $this->assertFieldByName('op');//, 'Apply');
+    $this->assertFieldByName('op');
     $edit = [
       'title' => 'Metatag title',
       'description' => 'Metatag description.',
@@ -120,14 +120,11 @@ class MetatagViewsBasicsTest extends BrowserTestBase {
     $this->assertText('Overridden');
 
     // @todo Confirm there's now a "save" button.
-    // $this->assertFieldByName('op');//, 'Save');
-
     // Save the changes.
     $edit = [];
     $this->drupalPostForm(NULL, $edit, 'Save');
 
     // @todo Confirm the page saved.
-
     // Load the archives page again.
     $this->drupalGet('/archive');
     $this->assertResponse(200);

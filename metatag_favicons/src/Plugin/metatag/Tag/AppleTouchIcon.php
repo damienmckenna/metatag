@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_favicons\Plugin\metatag\Tag;
 
-use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
+use Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
 
 /**
  * The Favicons "apple-touch-icon" meta tag.
@@ -22,4 +22,3 @@ use \Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
 class AppleTouchIcon extends LinkRelBase {
   // Nothing here yet. Just a placeholder class for a plugin.
 }
-

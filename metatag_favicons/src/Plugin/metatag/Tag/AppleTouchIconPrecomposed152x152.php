@@ -2,8 +2,6 @@
 
 namespace Drupal\metatag_favicons\Plugin\metatag\Tag;
 
-use \Drupal\metatag_favicons\Plugin\metatag\Tag\LinkSizesBase;
-
 /**
  * The Favicons "apple-touch-icon-precomposed_152x152" meta tag.
  *
@@ -20,8 +18,12 @@ use \Drupal\metatag_favicons\Plugin\metatag\Tag\LinkSizesBase;
  * )
  */
 class AppleTouchIconPrecomposed152x152 extends LinkSizesBase {
-  function sizes() {
+
+  /**
+   * {@inheritdoc}
+   */
+  private function sizes() {
     return '152x152';
   }
-}
 
+}

@@ -11,6 +11,7 @@ use Drupal\Tests\BrowserTestBase;
  */
 class NodeTranslation extends BrowserTestBase {
 
+  // Contains helper methods.
   use MetatagHelperTrait;
 
   /**

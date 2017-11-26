@@ -14,7 +14,7 @@ class MetatagFrontpageTest extends WebTestBase {
   // Use the helper functions from the Functional trait. This is pretty safe but
   // remember to rewrite all of these WebTestBase tests using BrowserTestBase
   // before the next millenium.
-  use \Drupal\Tests\metatag\Functional\MetatagHelperTrait;
+  use MetatagHelperTrait;
 
   /**
    * {@inheritdoc}
@@ -64,7 +64,7 @@ class MetatagFrontpageTest extends WebTestBase {
     $edit = [
       'title' => 'Test title',
       'description' => 'Test description',
-      'keywords' => 'testing,keywords'
+      'keywords' => 'testing,keywords',
     ];
     $this->drupalPostForm(NULL, $edit, t('Save'));
     $this->assertResponse(200);
@@ -99,6 +99,7 @@ class MetatagFrontpageTest extends WebTestBase {
     $this->assertText(t('The configuration options have been saved.'), 'The front page path has been saved.');
     return;
 
+    // @todo Finish this?
     $this->drupalGet('test-page');
     $this->assertResponse(200);
     foreach ($edit as $metatag => $metatag_value) {

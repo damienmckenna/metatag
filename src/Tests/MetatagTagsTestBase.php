@@ -2,9 +2,10 @@
 
 namespace Drupal\metatag\Tests;
 
-use Drupal\simpletest\WebTestBase;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Component\Utility\Html;
+use Drupal\simpletest\WebTestBase;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Base class to test all of the meta tags that are in a specific module.
@@ -31,23 +32,31 @@ abstract class MetatagTagsTestBase extends WebTestBase {
 
   /**
    * All of the meta tags defined by this module which will be tested.
+   *
+   * @var array
    */
-  public $tags = [];
+  private $tags = [];
 
   /**
    * The tag to look for when testing the output.
+   *
+   * @var string
    */
-  public $test_tag = 'meta';
+  private $testTag = 'meta';
 
   /**
-   * The attribute to look for to indicate which tag.
+   * {@inheritdoc}
+   *
+   * @var string
    */
-  public $test_name_attribute = 'name';
+  private $testNameAttribute = 'name';
 
   /**
    * The attribute to look for when testing the output.
+   *
+   * @var string
    */
-  public $test_value_attribute = 'content';
+  private $testValueAttribute = 'content';
 
   /**
    * {@inheritdoc}
@@ -88,17 +97,17 @@ abstract class MetatagTagsTestBase extends WebTestBase {
   /**
    * Tests that this module's tags are available.
    */
-  function testTagsArePresent() {
+  public function testTagsArePresent() {
     // Load the global config.
     $this->drupalGet('admin/config/search/metatag/global');
     $this->assertResponse(200);
 
     // Confirm the various meta tags are available.
     foreach ($this->tags as $tag) {
-      // Look for a custom method named "{$tagname}_test_field_xpath", if found
+      // Look for a custom method named "{$tagname}TestFieldXpath", if found
       // use that method to get the xpath definition for this meta tag,
       // otherwise it defaults to just looking for a text input field.
-      $method = "{$tag}_test_field_xpath";
+      $method = $this->getMethodFromTagCallback($tag, 'test_field_xpath');
       if (method_exists($this, $method)) {
         $xpath = $this->$method();
       }
@@ -113,10 +122,9 @@ abstract class MetatagTagsTestBase extends WebTestBase {
   }
 
   /**
-   * Confirm that each tag can be saved and that the output of each tag is
-   * correct.
+   * Confirm that each tag can be saved and that the output is correct.
    */
-  function testTagsInputOutput() {
+  public function testTagsInputOutput() {
     // Create a content type to test with.
     $this->createContentType(['type' => 'page']);
     $node = $this->drupalCreateNode([
@@ -139,7 +147,6 @@ abstract class MetatagTagsTestBase extends WebTestBase {
       ],
     ];
 
-    // 
     foreach ($paths as $item) {
       list($path1, $path2, $save_message) = $item;
 
@@ -150,10 +157,10 @@ abstract class MetatagTagsTestBase extends WebTestBase {
       // Update the Global defaults and test them.
       $all_values = $values = [];
       foreach ($this->tags as $tag_name) {
-        // Look for a custom method named "{$tagname}_test_key", if found use
+        // Look for a custom method named "{$tagname}TestKey", if found use
         // that method to get the test string for this meta tag, otherwise it
         // defaults to the meta tag's name.
-        $method = "{$tag_name}_test_key";
+        $method = $this->getMethodFromTagCallback($tag_name, 'TestKey');
         if (method_exists($this, $method)) {
           $test_key = $this->$method();
         }
@@ -161,10 +168,10 @@ abstract class MetatagTagsTestBase extends WebTestBase {
           $test_key = $tag_name;
         }
 
-        // Look for a custom method named "{$tagname}_test_value", if found use
+        // Look for a custom method named "{$tagname}TestValue", if found use
         // that method to get the test string for this meta tag, otherwise it
         // defaults to just generating a random string.
-        $method = "{$tag_name}_test_value";
+        $method = $this->getMethodFromTagCallback($tag_name, 'TestValue');
         if (method_exists($this, $method)) {
           $test_value = $this->$method();
         }
@@ -186,41 +193,41 @@ abstract class MetatagTagsTestBase extends WebTestBase {
 
       // Look for the values.
       foreach ($this->tags as $tag_name) {
-        // Look for a custom method named "{$tag_name}_test_output_xpath", if
+        // Look for a custom method named "{$tag_name}TestOutputXpath", if
         // found use that method to get the xpath definition for this meta tag,
         // otherwise it defaults to just looking for a meta tag matching:
-        // <$test_tag $test_name_attribute=$tag_name $test_value_attribute=$value />
-        $method = "{$tag_name}_test_output_xpath";
+        // <$testTag $testNameAttribute=$tag_name $testValueAttribute=$value />
+        $method = $this->getMethodFromTagCallback($tag_name, 'TestOutputXpath');
         if (method_exists($this, $method)) {
           $xpath_string = $this->$method();
         }
         else {
-          // Look for a custom method named "{$tag_name}_test_tag", if
+          // Look for a custom method named "{$tag_name}TestTag", if
           // found use that method to get the xpath definition for this meta
-          // tag, otherwise it defaults to $this->test_tag.
-          $method = "{$tag_name}_test_tag";
+          // tag, otherwise it defaults to $this->testTag.
+          $method = $this->getMethodFromTagCallback($tag_name, 'TestTag');
           if (method_exists($this, $method)) {
             $xpath_tag = $this->$method();
           }
           else {
-            $xpath_tag = $this->test_tag;
+            $xpath_tag = $this->testTag;
           }
 
-          // Look for a custom method named "{$tag_name}_test_name_attribute",
+          // Look for a custom method named "{$tag_name}TestNameAttribute",
           // if found use that method to get the xpath definition for this meta
-          // tag, otherwise it defaults to $this->test_name_attribute.
-          $method = "{$tag_name}_test_name_attribute";
+          // tag, otherwise it defaults to $this->testNameAttribute.
+          $method = $this->getMethodFromTagCallback($tag_name, 'TestNameAttribute');
           if (method_exists($this, $method)) {
             $xpath_name_attribute = $this->$method();
           }
           else {
-            $xpath_name_attribute = $this->test_name_attribute;
+            $xpath_name_attribute = $this->testNameAttribute;
           }
 
-          // Look for a custom method named "{$tag_name}_test_tag_name", if
+          // Look for a custom method named "{$tag_name}TestTagName", if
           // found use that method to get the xpath definition for this meta
           // tag, otherwise it defaults to $tag_name.
-          $method = "{$tag_name}_test_tag_name";
+          $method = $this->getMethodFromTagCallback($tag_name, 'TestTagName');
           if (method_exists($this, $method)) {
             $xpath_name_tag = $this->$method();
           }
@@ -232,15 +239,15 @@ abstract class MetatagTagsTestBase extends WebTestBase {
           $xpath_string = "//{$xpath_tag}[@{$xpath_name_attribute}='{$xpath_name_tag}']";
         }
 
-        // Look for a custom method named "{$tag_name}_test_value_attribute", if
+        // Look for a custom method named "{$tag_name}TestValueAttribute", if
         // found use that method to get the xpath definition for this meta tag,
-        // otherwise it defaults to $this->test_value_attribute.
-        $method = "{$tag_name}_test_value_attribute";
+        // otherwise it defaults to $this->testValueAttribute.
+        $method = $this->getMethodFromTagCallback($tag_name, 'TestValueAttribute');
         if (method_exists($this, $method)) {
           $xpath_value_attribute = $this->$method();
         }
         else {
-          $xpath_value_attribute = $this->test_value_attribute;
+          $xpath_value_attribute = $this->testValueAttribute;
         }
 
         // Extract the meta tag from the HTML.
@@ -251,12 +258,6 @@ abstract class MetatagTagsTestBase extends WebTestBase {
         }
 
         // Run various tests on the output variables.
-        // $this->assertTrue($xpath_string);
-        // $this->assertTrue($xpath_value_attribute);
-        // $this->assertTrue(isset($xpath[0][$xpath_value_attribute]));
-        // $this->assertTrue($all_values[$tag_name]);
-        // $this->assertTrue(isset($xpath[0][$xpath_value_attribute]));
-        // $this->assertEqual($xpath[0][$xpath_value_attribute], $all_values[$tag_name], "The meta tag was found with the expected value.");
         // Most meta tags have an attribute, but some don't.
         if (!empty($xpath_value_attribute)) {
           $this->assertTrue($xpath_value_attribute);
@@ -266,7 +267,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
             $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
           }
           else {
-            if ((string)$xpath[0][$xpath_value_attribute] != $all_values[$tag_name]) {
+            if ((string) $xpath[0][$xpath_value_attribute] != $all_values[$tag_name]) {
               $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
             }
             $this->assertTrue($xpath[0][$xpath_value_attribute]);
@@ -275,8 +276,8 @@ abstract class MetatagTagsTestBase extends WebTestBase {
         }
         else {
           $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
-          $this->assertTrue((string)$xpath[0]);
-          $this->assertEqual((string)$xpath[0], $all_values[$tag_name], "The meta tag was found with the expected value.");
+          $this->assertTrue((string) $xpath[0]);
+          $this->assertEqual((string) $xpath[0], $all_values[$tag_name], "The meta tag was found with the expected value.");
         }
       }
     }
@@ -297,7 +298,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
    * @return string
    *   The converted tag name.
    */
-  public function getTestTagName($tag_name) {
+  private function getTestTagName($tag_name) {
     return $tag_name;
   }
 
@@ -310,7 +311,7 @@ abstract class MetatagTagsTestBase extends WebTestBase {
    * @return string
    *   A normal string.
    */
-  public function getTestTagValue() {
+  private function getTestTagValue() {
     return $this->randomMachineName() . ' ' . $this->randomMachineName();
   }
 
@@ -320,8 +321,24 @@ abstract class MetatagTagsTestBase extends WebTestBase {
    * @return string
    *   An absolute URL to a non-existant image.
    */
-  public function randomImageUrl() {
-    return 'http://www.example.com/images/'  . $this->randomMachineName() . '.png';
+  private function randomImageUrl() {
+    return 'http://www.example.com/images/' . $this->randomMachineName() . '.png';
+  }
+
+  /**
+   * Convert a tag name with a callback to a lowerCamelCase method name.
+   *
+   * @param string $tag_name
+   *   The meta tag name.
+   * @param string $callback
+   *   The callback that is to be used.
+   *
+   * @return string
+   *   The tag name and callback concatenated together and converted to
+   *   lowerCamelCase.
+   */
+  private function getMethodFromTagCallback($tag_name, $callback) {
+    return lcfirst(Container::camelize($tag_name . '_' . $callback));
   }
 
 }

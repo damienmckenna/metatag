@@ -2,7 +2,6 @@
 
 namespace Drupal\metatag_hreflang\Tests;
 
-use Drupal\simpletest\WebTestBase;
 use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
@@ -15,24 +14,24 @@ class MetatagHreflangTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $tags = [
+  private $tags = [
     'hreflang_xdefault',
   ];
 
   /**
    * {@inheritdoc}
    */
-  public $test_tag = 'link';
+  private $testTag = 'link';
 
   /**
    * {@inheritdoc}
    */
-  public $test_name_attribute = 'hreflang';
+  private $testNameAttribute = 'hreflang';
 
   /**
    * {@inheritdoc}
    */
-  public $test_value_attribute = 'href';
+  private $testValueAttribute = 'href';
 
   /**
    * {@inheritdoc}
@@ -45,14 +44,14 @@ class MetatagHreflangTagsTest extends MetatagTagsTestBase {
   /**
    * Each of these meta tags has a different tag name vs its internal name.
    */
-  public function getTestTagName($tag_name) {
+  private function getTestTagName($tag_name) {
     return str_replace('hreflang_', '', $tag_name);
   }
 
   /**
-   * Implements {meta_tag_name}_test_output_xpath() for 'hreflang_xdefault'.
+   * Implements {tag_name}TestOutputXpath() for 'hreflang_xdefault'.
    */
-  public function hreflang_xdefault_test_output_xpath() {
+  private function hreflangXdefaultTestOutputXpath() {
     return "//link[@hreflang='x-default']";
   }
 
