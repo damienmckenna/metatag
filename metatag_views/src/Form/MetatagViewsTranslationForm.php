@@ -10,6 +10,7 @@ use Drupal\metatag\MetatagTagPluginManager;
 use Drupal\metatag\MetatagToken;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
+use Drupal\metatag_views\MetatagViewsValuesCleanerTrait;
 
 /**
  * Class MetatagViewsEditForm.
@@ -18,7 +19,7 @@ use Drupal\language\ConfigurableLanguageManagerInterface;
  */
 class MetatagViewsTranslationForm extends FormBase {
 
-  use Drupal\metatag_views\MetatagViewsValuesCleanerTrait;
+  use MetatagViewsValuesCleanerTrait;
 
   /**
    * Drupal\metatag\MetatagManager definition.

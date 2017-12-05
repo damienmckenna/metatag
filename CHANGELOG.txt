@@ -3,6 +3,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2882769 by DamienMcKenna: Added a hook_requirements() message about the
   Schema.org Metatag module.
 #2864079 by DamienMcKenna: Resolve coding standards violations.
+#2928394 by DamienMcKenna, mattlt: Error: Trait metatag_views\
+  MetatagViewsValuesCleanerTrait not found.
 
 
 Metatag 8.x-1.3, 2017-09-29
