@@ -8,6 +8,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #2882769 by DamienMcKenna: List Schema Metatag as a related module.
 #2882769 by DamienMcKenna: Added a hook_requirements() message about the
   Schema.org Metatag module.
+#2929487 by volkswagenchick, porkloin: Typo in metatag_dc.install, aka "Dublin"
+  misspelled by the guy from Ireland.
 
 
 Metatag 7.x-1.22, 2017-07-03
