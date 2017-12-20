@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2864079 by DamienMcKenna: Resolve coding standards violations.
 #2928394 by DamienMcKenna, mattlt: Error: Trait metatag_views\
   MetatagViewsValuesCleanerTrait not found.
+#2932110 by thejimbirch: Update Description's meta description to 320 chars
+  (for 2018).
 
 
 Metatag 8.x-1.3, 2017-09-29
