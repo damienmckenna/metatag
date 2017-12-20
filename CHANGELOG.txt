@@ -12,6 +12,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   misspelled by the guy from Ireland.
 #2931744 by DamienMcKenna: Fix tests for the 7.x-1.x branch,
   testXssMetatagConfig has a regression.
+#2932110 by thejimbirch: Update Description's meta description to 320 chars
+  (for 2018).
 
 
 Metatag 7.x-1.22, 2017-07-03
