@@ -2,6 +2,7 @@
 
 namespace Drupal\metatag_hreflang\Tests;
 
+use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
@@ -16,6 +17,9 @@ class MetatagHreflangTagsTest extends MetatagTagsTestBase {
    */
   private $tags = [
     'hreflang_xdefault',
+    'hreflang_en',
+    'hreflang_es',
+    'hreflang_fr',
   ];
 
   /**
@@ -37,8 +41,16 @@ class MetatagHreflangTagsTest extends MetatagTagsTestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
+    // Need the Language module in order for any of this to work.
+    parent::$modules[] = 'language';
+    // This module.
     parent::$modules[] = 'metatag_hreflang';
     parent::setUp();
+
+    // Enable additional languages.
+    foreach (['es', 'fr'] as $langcode) {
+      ConfigurableLanguage::createFromLangcode($langcode)->save();
+    }
   }
 
   /**
@@ -53,6 +65,27 @@ class MetatagHreflangTagsTest extends MetatagTagsTestBase {
    */
   private function hreflangXdefaultTestOutputXpath() {
     return "//link[@hreflang='x-default']";
+  }
+
+  /**
+   * Implements {tag_name}TestOutputXpath() for 'hreflang_en'.
+   */
+  private function hreflangEnTestOutputXpath() {
+    return "//link[@hreflang='en']";
+  }
+
+  /**
+   * Implements {tag_name}TestOutputXpath() for 'hreflang_es'.
+   */
+  private function hreflangEsTestOutputXpath() {
+    return "//link[@hreflang='es']";
+  }
+
+  /**
+   * Implements {tag_name}TestOutputXpath() for 'hreflang_fr'.
+   */
+  private function hreflangFrTestOutputXpath() {
+    return "//link[@hreflang='fr']";
   }
 
 }

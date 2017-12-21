@@ -13,6 +13,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   objects exist.
 #2932361 by DamienMcKenna: Improve coding standards on Metatags 8.x-1.x.
 #2930001 by Aurif3x, DamienMcKenna: New meta tag: Set-Cookie.
+#2810635 by DamienMcKenna: Automatically add hreflang meta tags for each enabled
+  language.
 
 
 Metatag 8.x-1.3, 2017-09-29

@@ -12,6 +12,8 @@ use Symfony\Component\DependencyInjection\Container;
  */
 abstract class MetatagTagsTestBase extends WebTestBase {
 
+  use MetatagHelperTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -75,23 +77,6 @@ abstract class MetatagTagsTestBase extends WebTestBase {
     ];
     $account = $this->drupalCreateUser($permissions);
     $this->drupalLogin($account);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function verbose($message, $title = NULL) {
-    // Handle arrays, objects, etc.
-    if (!is_string($message)) {
-      $message = "<pre>\n" . print_r($message, TRUE) . "\n</pre>\n";
-    }
-
-    // Optional title to go before the output.
-    if (!empty($title)) {
-      $title = '<h2>' . Html::escape($title) . "</h2>\n";
-    }
-
-    parent::verbose($title . $message);
   }
 
   /**
