@@ -30,11 +30,10 @@ use Drupal\metatag\MetatagDefaultsInterface;
  *     "label" = "label"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/metatag_defaults/{metatag_defaults}",
- *     "edit-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/edit",
- *     "delete-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/delete",
- *     "revert-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/revert",
- *     "collection" = "/admin/structure/metatag_defaults"
+ *     "edit-form" = "/admin/config/search/metatag/{metatag_defaults}/edit",
+ *     "delete-form" = "/admin/config/search/metatag/{metatag_defaults}/delete",
+ *     "revert-form" = "/admin/config/search/metatag/{metatag_defaults}/revert",
+ *     "collection" = "/admin/config/search/metatag"
  *   }
  * )
  */

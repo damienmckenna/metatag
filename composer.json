@@ -23,6 +23,7 @@
   },
   "require-dev": {
     "drupal/devel": "^1.0",
+    "drupal/redirect": "^1.0",
     "drupal/restui": "^1.0"
   }
 }

@@ -7,6 +7,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   MetatagViewsValuesCleanerTrait not found.
 #2932110 by thejimbirch: Update Description's meta description to 320 chars
   (for 2018).
+#2932285 by DamienMcKenna, Sophie.SK: After updating Redirect to 1.0, config
+  import fails: route does not exist.
 
 
 Metatag 8.x-1.3, 2017-09-29
