@@ -9,6 +9,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   (for 2018).
 #2932285 by DamienMcKenna, Sophie.SK: After updating Redirect to 1.0, config
   import fails: route does not exist.
+#2932316 by DamienMcKenna, Sophie.SK: Error on main defaults page if no config
+  objects exist.
 
 
 Metatag 8.x-1.3, 2017-09-29

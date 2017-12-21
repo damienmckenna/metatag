@@ -15,8 +15,15 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
    */
   public function load() {
     $entities = parent::load();
-    // Move the Global defaults to the top.
-    return ['global' => $entities['global']] + $entities;
+
+    // Move the Global defaults to the top. Don't assume that the global config
+    // exists, it might have been removed.
+    if (isset($entities['global'])) {
+      return ['global' => $entities['global']] + $entities;
+    }
+    else {
+      return $entities;
+    }
   }
 
   /**
