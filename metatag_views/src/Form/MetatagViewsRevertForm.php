@@ -16,14 +16,14 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
   /**
    * Entity manager for views entities.
    *
-   * @var Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $viewsManager;
 
   /**
    * The view entity to revert metatags on.
    *
-   * @var Drupal\views\ViewEntityInterface
+   * @var \Drupal\views\ViewEntityInterface
    */
   protected $view;
 
@@ -32,7 +32,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
    *
    * @var string
    */
-  protected $display_id;
+  protected $displayId;
 
   /**
    * {@inheritdoc}
@@ -63,7 +63,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
   public function getQuestion() {
     return $this->t('Do you want to revert metatags for @view_name : @display_name?', [
       '@view_name' => $this->view->label(),
-      '@display_name' => $this->view->getDisplay($this->display_id)['display_title'],
+      '@display_name' => $this->view->getDisplay($this->displayId)['display_title'],
     ]);
   }
 
@@ -80,7 +80,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
   public function getDescription() {
     return $this->t('You are about to revert the custom metatags for the %display_name display on the %view_name view. This action cannot be undone.', [
       '%view_name' => $this->view->label(),
-      '%display_name' => $this->view->getDisplay($this->display_id)['display_title'],
+      '%display_name' => $this->view->getDisplay($this->displayId)['display_title'],
     ]);
   }
 
@@ -103,7 +103,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $view_id = NULL, $display_id = NUL) {
     $this->view = $this->viewsManager->load($view_id);
-    $this->display_id = $display_id;
+    $this->displayId = $display_id;
 
     return parent::buildForm($form, $form_state);
   }
@@ -114,7 +114,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Removed metatags from the view.
     $config_name = $this->view->getConfigDependencyName();
-    $config_path = 'display.' . $this->display_id . '.display_options.display_extenders.metatag_display_extender.metatags';
+    $config_path = 'display.' . $this->displayId . '.display_options.display_extenders.metatag_display_extender.metatags';
 
     $configuration = $this->configFactory()->getEditable($config_name)
       ->clear($config_path)
@@ -125,7 +125,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
 
     drupal_set_message($this->t('Reverted metatags for @view_name : @display_name', [
       '@view_name' => $this->view->label(),
-      '@display_name' => $this->view->getDisplay($this->display_id)['display_title'],
+      '@display_name' => $this->view->getDisplay($this->displayId)['display_title'],
     ]));
   }
 

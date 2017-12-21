@@ -32,27 +32,27 @@ class GenerateTagCommand extends Command {
   use ConfirmationTrait;
 
   /**
-   * @var Drupal\metatag\MetatagManager
+   * @var \Drupal\metatag\MetatagManager
    */
   protected $metatagManager;
 
   /**
-   * @var Drupal\metatag\Generator\MetatagTagGenerator
+   * @var \Drupal\metatag\Generator\MetatagTagGenerator
    */
   protected $generator;
 
   /**
-   * @var Drupal\Console\Extension\Manager
+   * @var \Drupal\Console\Extension\Manager
    */
   protected $extensionManager;
 
   /**
-   * @var Drupal\Console\Core\Utils\StringConverter
+   * @var \Drupal\Console\Core\Utils\StringConverter
    */
   protected $stringConverter;
 
   /**
-   * @var Drupal\Console\Core\Utils\ChainQueue
+   * @var \Drupal\Console\Core\Utils\ChainQueue
    */
   protected $chainQueue;
 

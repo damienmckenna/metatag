@@ -130,7 +130,9 @@ Option 1:
       'keywords' => 'Some,Keywords',
     ]),
   ];
-  $node = \Drupal::entityTypeManager()->getStorage($entity_type)->create($values);
+  $node = \Drupal::entityTypeManager()
+    ->getStorage($entity_type)
+    ->create($values);
   $node->save();
 
 Option 2:

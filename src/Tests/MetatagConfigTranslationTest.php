@@ -13,11 +13,13 @@ class MetatagConfigTranslationTest extends WebTestBase {
 
   /**
    * Profile to use.
+   *
+   * @var string
    */
   protected $profile = 'testing';
 
   /**
-   * Admin user
+   * Admin user.
    *
    * @var \Drupal\Core\Session\AccountInterface
    */

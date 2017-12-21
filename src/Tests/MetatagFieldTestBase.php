@@ -43,7 +43,7 @@ abstract class MetatagFieldTestBase extends WebTestBase {
   ];
 
   /**
-   * Admin user
+   * Admin user.
    *
    * @var \Drupal\Core\Session\AccountInterface
    */
@@ -269,11 +269,14 @@ abstract class MetatagFieldTestBase extends WebTestBase {
   }
 
   /**
-   * Confirm that the default values for an entity bundle work when there is no field for overriding the defaults.
+   * Confirm that the default values for an entity bundle work.
+   *
+   * When there is no field for overriding the defaults.
+   *
+   * @todo
    */
-  // @todo
-  // public function testBundleDefaultsInheritance() {
-  // }
+  public function testBundleDefaultsInheritance() {
+  }
 
   /**
    * Confirm a field can be added to the entity bundle.

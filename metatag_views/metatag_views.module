@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Contains hook implementations for the metatag_views module.
  */
 
@@ -14,7 +15,7 @@ use Drupal\views\Views;
  *
  * @param mixed $view
  *   The view id, view config entity or view executable.
- * @param string $display
+ * @param string $display_id
  *   The display id. If empty uses the preselected display if $view is a
  *   ViewExecutable, otherwise the default display.
  *

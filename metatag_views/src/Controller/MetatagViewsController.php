@@ -10,19 +10,19 @@ use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class MetatagViewsController
+ * Class MetatagViewsController.
  *
  * @package Drupal\metatag_views\Controller
  */
 class MetatagViewsController extends ControllerBase {
 
   /**
-   * @var Drupal\Core\Entity\EntityStorageInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $viewStorage;
 
   /**
-   * @var Drupal\metatag\MetatagManagerInterface
+   * @var \Drupal\metatag\MetatagManagerInterface
    */
   protected $metatagManager;
 
@@ -223,7 +223,7 @@ class MetatagViewsController extends ControllerBase {
    * Gets label values for the views and their displays.
    */
   protected function getViewsAndDisplaysLabels() {
-    /** @var Drupal\views\ViewEntityInterface[] $views */
+    /** @var \Drupal\views\ViewEntityInterface[] $views */
     $views = $this->viewStorage->loadByProperties(['status' => 1]);
 
     $labels = [];

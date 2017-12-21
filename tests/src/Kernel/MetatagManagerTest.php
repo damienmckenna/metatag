@@ -23,7 +23,7 @@ class MetatagManagerTest extends KernelTestBase {
    * Test the order of the meta tags as they are output.
    */
   public function testMetatagOrder() {
-    /** @var Drupal\metatag\MetatagManager $metatag_manager */
+    /** @var \Drupal\metatag\MetatagManager $metatag_manager */
     $metatag_manager = \Drupal::service('metatag.manager');
 
     $tags = $metatag_manager->generateElements([

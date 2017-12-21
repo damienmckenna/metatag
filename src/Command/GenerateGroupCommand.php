@@ -30,17 +30,17 @@ class GenerateGroupCommand extends Command {
   use ConfirmationTrait;
 
   /**
-   * @var Drupal\metatag\Generator\MetatagGroupGenerator
+   * @var \Drupal\metatag\Generator\MetatagGroupGenerator
    */
   protected $generator;
 
   /**
-   * @var Drupal\Console\Extension\Manager
+   * @var \Drupal\Console\Extension\Manager
    */
   protected $extensionManager;
 
   /**
-   * @var Drupal\Console\Core\Utils\ChainQueue
+   * @var \Drupal\Console\Core\Utils\ChainQueue
    */
   protected $chainQueue;
 

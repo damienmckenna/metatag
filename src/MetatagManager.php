@@ -18,12 +18,12 @@ use Drupal\views\ViewEntityInterface;
 class MetatagManager implements MetatagManagerInterface {
 
   /**
-   * @var Drupal\metatag\MetatagGroupPluginManager
+   * @var \Drupal\metatag\MetatagGroupPluginManager
    */
   protected $groupPluginManager;
 
   /**
-   * @var Drupal\metatag\MetatagTagPluginManager
+   * @var \Drupal\metatag\MetatagTagPluginManager
    */
   protected $tagPluginManager;
 
@@ -33,14 +33,14 @@ class MetatagManager implements MetatagManagerInterface {
   protected $metatagDefaults;
 
   /**
-   * @var Drupal\metatag\MetatagToken
+   * @var \Drupal\metatag\MetatagToken
    */
   protected $tokenService;
 
   /**
    * Metatag logging channel.
    *
-   * @var Drupal\Core\Logger\LoggerChannelInterface
+   * @var \Drupal\Core\Logger\LoggerChannelInterface
    */
   protected $logger;
 
@@ -78,7 +78,7 @@ class MetatagManager implements MetatagManagerInterface {
 
     $fields = $this->getFields($entity);
 
-    /* @var Drupal\field\Entity\FieldConfig $field_info */
+    /* @var \Drupal\field\Entity\FieldConfig $field_info */
     foreach ($fields as $field_name => $field_info) {
       // Get the tags from this field.
       $tags = $this->getFieldTags($entity, $field_name);
@@ -98,7 +98,7 @@ class MetatagManager implements MetatagManagerInterface {
    * {@inheritdoc}
    */
   public function defaultTagsFromEntity(ContentEntityInterface $entity) {
-    /** @var Drupal\metatag\Entity\MetatagDefaults $metatags */
+    /** @var \Drupal\metatag\Entity\MetatagDefaults $metatags */
     $metatags = $this->metatagDefaults->load('global');
     if (!$metatags) {
       return NULL;

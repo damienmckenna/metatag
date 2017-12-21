@@ -116,7 +116,7 @@ class MetatagXssTest extends WebTestBase {
     $values = [
       'title' => $this->xssTitleString,
       'abstract' => $this->xssString,
-      'image_src' => $this->xssImageString
+      'image_src' => $this->xssImageString,
     ];
     $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');

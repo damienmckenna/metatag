@@ -24,36 +24,36 @@ class MetatagViewsTranslationForm extends FormBase {
   /**
    * Drupal\metatag\MetatagManager definition.
    *
-   * @var Drupal\metatag\MetatagManager
+   * @var \Drupal\metatag\MetatagManager
    */
   protected $metatagManager;
 
   /**
    * The language manager.
    *
-   * @var Drupal\language\ConfigurableLanguageManagerInterface
+   * @var \Drupal\language\ConfigurableLanguageManagerInterface
    */
   protected $languageManager;
 
   /**
-   * @var Drupal\Core\Entity\EntityStorageInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $viewsManager;
 
   /**
-   * @var Drupal\metatag\MetatagToken
+   * @var \Drupal\metatag\MetatagToken
    */
   protected $tokenService;
 
   /**
-   * @var Drupal\metatag\MetatagTagPluginManager
+   * @var \Drupal\metatag\MetatagTagPluginManager
    */
   protected $tagPluginManager;
 
   /**
    * View entity object.
    *
-   * @var Drupal\views\ViewEntityInterface
+   * @var \Drupal\views\ViewEntityInterface
    */
   protected $view;
 

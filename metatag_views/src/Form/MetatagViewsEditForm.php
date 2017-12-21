@@ -40,7 +40,7 @@ class MetatagViewsEditForm extends FormBase {
   /**
    * View entity object.
    *
-   * @var Drupal\views\ViewEntityInterface
+   * @var \Drupal\views\ViewEntityInterface
    */
   protected $view;
 
@@ -162,7 +162,7 @@ class MetatagViewsEditForm extends FormBase {
     unset($metatags['view']);
     $metatags = $this->clearMetatagViewsDisallowedValues($metatags);
 
-    /** @var Drupal\views\ViewEntityInterface $view */
+    /** @var \Drupal\views\ViewEntityInterface $view */
     $view = $this->viewsManager->load($view_id);
 
     // Store the metatags on the view.

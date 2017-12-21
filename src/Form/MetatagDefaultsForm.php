@@ -181,9 +181,9 @@ class MetatagDefaultsForm extends EntityForm {
   protected function getAvailableBundles() {
     $options = [];
     $entity_types = $this->getSupportedEntityTypes();
-    /** @var Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager */
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager */
     $entity_manager = \Drupal::service('entity_type.manager');
-    /** @var Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info */
+    /** @var \Drupal\Core\Entity\EntityTypeBundleInfoInterface $bundle_info */
     $bundle_info = \Drupal::service('entity_type.bundle.info');
     $metatags_defaults_manager = $entity_manager->getStorage('metatag_defaults');
     foreach ($entity_types as $entity_type => $entity_label) {
@@ -212,7 +212,7 @@ class MetatagDefaultsForm extends EntityForm {
   protected function getSupportedEntityTypes() {
     $entity_types = [];
 
-    /** @var Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager */
+    /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $entity_manager */
     $entity_manager = \Drupal::service('entity_type.manager');
 
     // A list of entity types that are not supported.
@@ -264,7 +264,7 @@ class MetatagDefaultsForm extends EntityForm {
     $label = $entityType->getLabel();
 
     if (is_a($label, 'Drupal\Core\StringTranslation\TranslatableMarkup')) {
-      /** @var Drupal\Core\StringTranslation\TranslatableMarkup $label */
+      /** @var \Drupal\Core\StringTranslation\TranslatableMarkup $label */
       $label = $label->render();
     }
 

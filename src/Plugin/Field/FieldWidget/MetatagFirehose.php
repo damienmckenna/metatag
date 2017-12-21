@@ -26,7 +26,7 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
   /**
    * Instance of MetatagManager service.
    *
-   * @var Drupal\metatag\MetatagManager
+   * @var \Drupal\metatag\MetatagManager
    */
   protected $metatagManager;
 

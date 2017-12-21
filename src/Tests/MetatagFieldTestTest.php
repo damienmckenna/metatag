@@ -67,9 +67,11 @@ class MetatagFieldTestTest extends MetatagFieldTestBase {
   protected $entityFieldAdminPath = 'entity_test/structure/entity_test/fields';
 
   /**
-   * @todo Fix this.
+   * Whether or not the entity type supports defaults.
    *
    * @var bool
+   *
+   * @todo Fix this.
    */
   protected $entitySupportsDefaults = FALSE;
 

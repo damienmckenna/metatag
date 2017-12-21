@@ -16,19 +16,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class MetatagViewsTranslationController extends ControllerBase {
 
   /**
-   * @var Drupal\Core\Entity\EntityStorageInterface
+   * @var \Drupal\Core\Entity\EntityStorageInterface
    */
   protected $viewStorage;
 
   /**
-   * @var Drupal\metatag\MetatagManagerInterface
+   * @var \Drupal\metatag\MetatagManagerInterface
    */
   protected $metatagManager;
 
   /**
    * The language manager.
    *
-   * @var Drupal\Core\Language\LanguageManagerInterface
+   * @var \Drupal\Core\Language\LanguageManagerInterface
    */
   protected $languageManager;
 
