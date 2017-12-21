@@ -29,6 +29,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'referrer',
     'rights',
     'robots',
+    'set_cookie',
     'shortlink',
     'standout',
     'title',
@@ -53,6 +54,10 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     elseif ($tag_name == 'original_source') {
       $tag_name = 'original-source';
     }
+    elseif ($tag_name == 'set_cookie') {
+      $tag_name = 'set-cookie';
+    }
+
     return $tag_name;
   }
 
@@ -95,6 +100,13 @@ class MetatagTagsTest extends MetatagTagsTestBase {
    * Implements {tag_name}TestNameAttribute() for 'content_language'.
    */
   private function contentLanguageTestNameAttribute() {
+    return 'http-equiv';
+  }
+
+  /**
+   * Implements {tag_name}TestNameAttribute() for 'set_cookie'.
+   */
+  private function setCookieTestNameAttribute() {
     return 'http-equiv';
   }
 
