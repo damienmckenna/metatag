@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.4, 2017-12-21
 ---------------------------
 #2882769 by DamienMcKenna: Added a hook_requirements() message about the
