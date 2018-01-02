@@ -14,6 +14,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   testXssMetatagConfig has a regression.
 #2932110 by thejimbirch: Update Description's meta description to 320 chars
   (for 2018).
+#2933940 by DamienMcKenna: og:image must be at least 200x200 otherwise it is
+  ignored by Facebook.
 
 
 Metatag 7.x-1.22, 2017-07-03
