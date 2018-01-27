@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   ignored by Facebook.
 #2936371 by gaurav.kapoor: Unused variable in metatag defaults class revert
   function.
+#2923080 by DamienMcKenna, pingwin4eg, pazhyn: Undefined offset: 1 in
+  metatag_mobile_page_attachments_alter.
 
 
 Metatag 8.x-1.4, 2017-12-21
