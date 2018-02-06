@@ -9,6 +9,9 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   metatag_mobile_page_attachments_alter.
 #2930037 by smurrayatwork, rbayliss, moshe weitzman: Missing ampersand with
   drupal_static causes multiple calls to metatag_get_tags_from_route().
+#2899234 by DamienMcKenna, JeffM2001, twang, heddn, edurenye, ShaunDychko:
+  Missing dependency (drupal:serialization) / Fatal error: Class NormalizerBase
+  not found.
 
 
 Metatag 8.x-1.4, 2017-12-21
