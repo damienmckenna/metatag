@@ -204,7 +204,7 @@ class MetatagManager implements MetatagManagerInterface {
       if (!isset($groups[$tag_group])) {
         // If the tag is claiming a group that has no matching plugin, log an
         // error and force it to the basic group.
-        $this->logger->error("Undefined group '%group' on tag '%tag'", ['%group' => $tag_group, '%tag' => $tag_id]);
+        $this->logger->error("Undefined group '%group' on tag '%tag'", ['%group' => $tag_group, '%tag' => $tag_name]);
         $tag['group'] = 'basic';
         $tag_group = 'basic';
       }
