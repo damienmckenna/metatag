@@ -16,6 +16,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   (for 2018).
 #2933940 by DamienMcKenna: og:image must be at least 200x200 otherwise it is
   ignored by Facebook.
+#2946145 by DamienMcKenna, bkosborne: Remove usage of deprecrated each()
+  function for PHP 7.2+ future proofing.
 
 
 Metatag 7.x-1.22, 2017-07-03

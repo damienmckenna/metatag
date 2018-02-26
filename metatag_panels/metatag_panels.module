@@ -11,7 +11,7 @@ function metatag_panels_page_manager_variant_operations_alter(&$operations, $han
   // Use this obnoxious construct to safely insert our item.
   reset($operations['children']);
   $children_operations = array();
-  while (list($key, $value) = each($operations['children'])) {
+  foreach ($operations['children'] as $key => $value) {
     $children_operations[$key] = $value;
     if ($key == 'context') {
       $children_operations['meta'] = array(
