@@ -8,17 +8,16 @@
  * Implements hook_drush_command().
  */
 function metatag_importer_drush_command() {
-  // This needs to be fixed.
-  // $items['metatag-convert-nodewords'] = array(
-  //   'description' => dt('Convert data from Nodewords into Metatag.'),
-  //   'drupal dependencies' => array('metatag'),
-  // );
+  $items['metatag-convert-nodewords'] = array(
+    'description' => dt('Convert data from Nodewords into Metatag.'),
+    'drupal dependencies' => array('metatag'),
+  );
 
   $items['metatag-convert-page-title'] = array(
     'description' => dt('Convert data from Page Title into Metatag.'),
     'drupal dependencies' => array('metatag'),
   );
-  
+
   return $items;
 }
 
@@ -32,7 +31,7 @@ function drush_metatag_importer_metatag_convert_nodewords() {
 
   // Need to make sure the Nodewords table actually exists.
   if (!db_table_exists('nodewords')) {
-    drush_set_error('metatag_importer', dt('Could not find the nodewords table.'));
+    drush_set_error('metatag_importer', dt('Could not find the nodewords table!'));
     return;
   }
 
@@ -40,8 +39,8 @@ function drush_metatag_importer_metatag_convert_nodewords() {
   include('metatag_importer.nodewords.inc');
 
   // Start the import.
-  // @todo This isn't working.
-  _metatag_importer_import();
+  $types = array_keys(_metatag_importer_list_nodewords());
+  _metatag_importer_import($types);
 
   drush_print(dt('Data converesion finished.'));
 }

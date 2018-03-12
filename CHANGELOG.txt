@@ -20,6 +20,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   function for PHP 7.2+ future proofing.
 #2872206 by jenlampton: Drush command for importing from Page Title throws
   fatal.
+#2872446 by jenlampton, DamienMcKenna: Complete the drush command for importing
+  nodewords meta tags.
 
 
 Metatag 7.x-1.22, 2017-07-03
