@@ -156,6 +156,53 @@ values defined via the global defaults prior to being output - it is not
 necessary to copy each value to the new record.
 
 
+Obtain meta tags for an entity
+--------------------------------------------------------------------------------
+For developers needing to access the rendered meta tags for a given entity, a
+function is provided to make this easy to do:
+
+  $metatags = metatag_generate_entity_metatags($entity);
+
+This will return an array with the following structure:
+
+  [
+    'title' => [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'title',
+        'content' => 'The What | D8.4',
+      ],
+    ],
+    'canonical_url' => [
+      '#tag' => 'link',
+      '#attributes' => [
+        'rel' => 'canonical',
+        'href' => 'http://example.com/what',
+      ],
+    ],
+    'description' => [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'description',
+        'content' => 'I can't even.',
+      ],
+    ],
+    'generator' => [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'generator',
+        'content' => 'Drupal 8!',
+      ],
+    ],
+  ]
+
+The meta tags are keyed off the meta tag plugin's ID, e.g. "generator". Each
+meta tag is then provided as arguments suitable for use in a render array with
+the type "html_tag". Extracting the value of the meta tag will depend upon the
+type of meta tag, e.g. the generator meta tag uses the "content" attribute while
+the link tag uses the "href" attribute.
+
+
 DrupalConsole integration
 --------------------------------------------------------------------------------
 Using the DrupalConsole, it is possible to generate new meta tags, either for

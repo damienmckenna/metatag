@@ -526,3 +526,23 @@ function metatag_entity_diff($old_entity, $new_entity, $context) {
   }
   return $result;
 }
+
+/**
+ * Turn the meta tags for an entity into a human readable structure.
+ *
+ * @param object $entity
+ *   The entity object.
+ *
+ * @return array
+ *   All of the meta tags in a nested structure.
+ */
+function metatag_generate_entity_metatags($entity) {
+  $values = [];
+  $raw = metatag_get_tags_from_route($entity);
+  if (!empty($raw['#attached']['html_head'])) {
+    foreach ($raw['#attached']['html_head'] as $tag) {
+      $values[$tag[1]] = $tag[0];
+    }
+  }
+  return $values;
+}
