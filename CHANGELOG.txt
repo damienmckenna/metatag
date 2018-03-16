@@ -24,6 +24,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   nodewords meta tags.
 #1282806 by DamienMcKenna, iamEAP, osopolar, victoriachan, malcomio, HyperGlide,
   Murz, dandaman, klokie: Upgrade script for Meta Tags Quick.
+By DamienMcKenna: Updated README.txt related to the importer module.
 
 
 Metatag 7.x-1.22, 2017-07-03

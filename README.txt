@@ -127,8 +127,9 @@ The primary features include:
 
 * Several advanced options may be controlled via the Settings page.
 
-* An import script is provided in the Metatag:Importer submodule for D6 sites
-  that used Nodewords and need to migrate the data.
+* An import script is provided in the Metatag:Importer submodule for sites that
+  need to import data from Metatags Quick, Nodewords (Drupal 6 only), or Page
+  Title.
 
 * If the Media module (v2) is installed, the Media WYSIWYG submodule will be
   used to automatically filter out Media's embed codes.
