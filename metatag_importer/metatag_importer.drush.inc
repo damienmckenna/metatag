@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Drush integration for the Metatag Importer module.
@@ -8,17 +9,37 @@
  * Implements hook_drush_command().
  */
 function metatag_importer_drush_command() {
+  $items['metatag-convert-metatags-quick'] = array(
+    'description' => dt('Convert data from Metatags Quick into Metatag'),
+    'drupal dependencies' => array('metatag', 'metatag_importer'),
+    'aliases' => array('mtcmq'),
+  );
+
   $items['metatag-convert-nodewords'] = array(
     'description' => dt('Convert data from Nodewords into Metatag.'),
-    'drupal dependencies' => array('metatag'),
+    'drupal dependencies' => array('metatag', 'metatag_importer'),
+    'aliases' => array('mtcnw'),
   );
 
   $items['metatag-convert-page-title'] = array(
     'description' => dt('Convert data from Page Title into Metatag.'),
-    'drupal dependencies' => array('metatag'),
+    'drupal dependencies' => array('metatag', 'metatag_importer'),
+    'aliases' => array('mtcpt'),
   );
 
   return $items;
+}
+
+/**
+ * Callback to convert all Metatags Quick data.
+ */
+function drush_metatag_importer_metatag_convert_metatags_quick() {
+  if (!drush_confirm(dt('Ready to convert all data from Metatags Quick?'))) {
+    return;
+  }
+
+  include('metatag_importer.metatags_quick.inc');
+  metatag_importer_metatags_quick_import();
 }
 
 /**
