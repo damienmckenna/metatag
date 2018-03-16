@@ -21,6 +21,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   standards compliance.
 #2939608 by alberto56: Invalid argument supplied for foreach() in
   MetatagNormalizer.
+#2936876 by bonus, DamienMcKenna: Add support for Pinterest meta namespace.
 
 
 Metatag 8.x-1.4, 2017-12-21
