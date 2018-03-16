@@ -17,6 +17,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2953313 by DamienMcKenna: Add a function for getting the meta tags in a human
   readable format - metatag_generate_entity_metatags().
 #2953635 by DamienMcKenna: MetatagStringTest has the wrong @group.
+#2937683 by prafullsranjan, DamienMcKenna: Further improve module's coding
+  standards compliance.
 
 
 Metatag 8.x-1.4, 2017-12-21

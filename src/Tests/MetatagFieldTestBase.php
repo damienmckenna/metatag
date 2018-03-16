@@ -350,7 +350,6 @@ abstract class MetatagFieldTestBase extends WebTestBase {
     $entity = reset($entities);
 
     // @todo Confirm the values output correctly.
-
     // Add a field to the entity type.
     $this->addField();
 
@@ -433,7 +432,6 @@ abstract class MetatagFieldTestBase extends WebTestBase {
     $entity = reset($entities);
 
     // @todo Confirm the values output correctly.
-
     // Open the 'edit' form for the entity.
     $this->drupalGet($entity->toUrl('edit-form'));
     $this->assertResponse(200);
