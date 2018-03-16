@@ -22,6 +22,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2939608 by alberto56: Invalid argument supplied for foreach() in
   MetatagNormalizer.
 #2936876 by bonus, DamienMcKenna: Add support for Pinterest meta namespace.
+#2938025 by DamienMcKenna, Oliver Eyton-Williams: Incorrect rel attribute on
+  hreflang tags.
 
 
 Metatag 8.x-1.4, 2017-12-21
