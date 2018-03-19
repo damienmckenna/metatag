@@ -116,3 +116,15 @@ metatag.metatag_tag.article_section:
 metatag.metatag_tag.article_tag:
   type: label
   label: 'Article tag(s)'
+metatag.metatag_tag.book_author:
+  type: label
+  label: 'Book Author'
+metatag.metatag_tag.book_isbn:
+  type: label
+  label: 'Book ISBN'
+metatag.metatag_tag.book_release_date:
+  type: label
+  label: 'Book Release Date'
+metatag.metatag_tag.book_tag:
+  type: label
+  label: 'Book Tags'
