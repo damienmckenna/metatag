@@ -14,6 +14,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Url;
 use Drupal\taxonomy\TermInterface;
+use Drupal\Component\Utility\Html;
 
 /**
  * Implements hook_help().
@@ -124,8 +125,33 @@ function metatag_page_attachments(array &$attachments) {
     if (empty($attachments['#attached']['html_head'])) {
       $attachments['#attached']['html_head'] = [];
     }
+
+    $head_links = [];
     foreach ($metatag_attachments['#attached']['html_head'] as $item) {
       $attachments['#attached']['html_head'][] = $item;
+
+      // Also add a HTTP header "Link:" for canonical URLs and shortlinks.
+      // See HtmlResponseAttachmentsProcessor::processHtmlHeadLink() for the
+      // implementation of the functionality in core.
+      if (in_array($item[1], ['canonical_url', 'shortlink'])) {
+        $attributes = $item[0]['#attributes'];
+
+        $href = '<' . Html::escape($attributes['href']) . '>';
+        unset($attributes['href']);
+        if ($param = drupal_http_header_attributes($attributes)) {
+          $href .= ';' . $param;
+        }
+        $head_links[] = $href;
+      }
+    }
+
+    // If any HTTP Header items were found, add them too.
+    if (!empty($head_links)) {
+      $attachments['#attached']['http_header'][] = [
+        'Link',
+        implode(', ', $head_links),
+        FALSE,
+      ];
     }
   }
 }

@@ -25,6 +25,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2938025 by DamienMcKenna, Oliver Eyton-Williams: Incorrect rel attribute on
   hreflang tags.
 #2954214 by DamienMcKenna: composer.json improvements.
+#2908119 by LEalex, DamienMcKenna, jeffam, BenStallings: Set "link" HTTP header
+  for canonical URL and shortlink tags.
 
 
 Metatag 8.x-1.4, 2017-12-21
