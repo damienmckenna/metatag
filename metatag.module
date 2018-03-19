@@ -414,7 +414,14 @@ function metatag_get_tags_from_route($entity = NULL) {
   if (!$entity) {
     $entity = metatag_get_route_entity();
   }
+
   if (!empty($entity) && $entity instanceof ContentEntityInterface) {
+    // If content entity does not have an ID the page is likely an "Add" page,
+    // so do not generate meta tags for entity which has not been created yet.
+    if (!$entity->id()) {
+      return NULL;
+    }
+
     foreach ($metatag_manager->tagsFromEntity($entity) as $tag => $data) {
       $metatags[$tag] = $data;
     }
