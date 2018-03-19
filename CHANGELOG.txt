@@ -24,6 +24,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2936876 by bonus, DamienMcKenna: Add support for Pinterest meta namespace.
 #2938025 by DamienMcKenna, Oliver Eyton-Williams: Incorrect rel attribute on
   hreflang tags.
+#2954214 by DamienMcKenna: composer.json improvements.
 
 
 Metatag 8.x-1.4, 2017-12-21
