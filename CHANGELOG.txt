@@ -29,6 +29,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   for canonical URL and shortlink tags.
 #2954169 by yasmeensalah, DamienMcKenna: Translations of description meta tags
   shouldn't be limited to 128 characters.
+#2897450 by edurenye: Add product:price:amount and product:price:currency OG
+  tags.
 
 
 Metatag 8.x-1.4, 2017-12-21
