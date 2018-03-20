@@ -418,7 +418,7 @@ class DrupalTitleMetaTag extends DrupalTextMetaTag {
   public function getElement(array $options = array()) {
     $element = array();
     if ($value = $this->getValue($options)) {
-      $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_title', $value);
+      $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_title', decode_entities($value));
       $element['#attached']['metatag_set_preprocess_variable'][] = array('html', 'head_array', array('title' => $value));
     }
     return $element;
