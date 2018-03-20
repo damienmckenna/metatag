@@ -312,6 +312,18 @@ function metatag_metatag_info() {
     ),
   );
 
+  $info['tags']['set_cookie'] = array(
+    'label' => t('Set cookie'),
+    'description' => t('<a href="https://www.metatags.org/meta_http_equiv_set_cookie">Sets a cookie</a> on the visitor\'s browser. Can be in either NAME=VALUE format, or a more verbose format including the path and expiration date; see the link for full details on the syntax.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'is_language' => TRUE,
+    'element' => array(
+      '#theme' => 'metatag_http_equiv',
+    ),
+  );
+
   $info['tags']['shortlink'] = array(
     'label' => t('Shortlink URL'),
     'description' => t('A brief URL, often created by a URL shortening service.'),

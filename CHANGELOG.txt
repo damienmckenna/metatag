@@ -27,6 +27,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 By DamienMcKenna: Updated README.txt related to the importer module.
 #2950652 by Les Lim: metatag_favicons_get_mime_type() is mostly wrong.
 #2933194 by ocastle: Issue with URL Decoding panel substitutions.
+#2932401 by DamienMcKenna: New tag: Set-Cookie.
 
 
 Metatag 7.x-1.22, 2017-07-03

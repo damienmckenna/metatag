@@ -45,6 +45,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     // @todo 'revisit-after',
     'rights',
     'robots',
+    // 'set_cookie',
     'shortlink',
     'standout',
     'title',
