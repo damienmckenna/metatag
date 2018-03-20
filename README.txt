@@ -98,7 +98,7 @@ Standard usage scenario
    automatically assign values.
 4. Additional bundle defaults may be added by clicking on "Add metatag
    defaults" and filling out the form.
-5. To adjust metatags for a specific entity, the Metatag field must be added
+5. To adjust meta tags for a specific entity, the Metatag field must be added
    first. Follow these steps:
 
    5.1 Go to the "Manage fields" of the bundle where the Metatag field is to

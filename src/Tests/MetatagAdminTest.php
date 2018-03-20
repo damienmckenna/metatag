@@ -348,7 +348,7 @@ class MetatagAdminTest extends WebTestBase {
    * And that they can then be overridden correctly.
    */
   public function testEntityDefaultInheritence() {
-    // Initiate session with a user who can manage metatags and content type
+    // Initiate session with a user who can manage meta tags and content type
     // fields.
     $permissions = [
       'administer site configuration',

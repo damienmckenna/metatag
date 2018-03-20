@@ -289,7 +289,7 @@ class MetatagManager implements MetatagManagerInterface {
   }
 
   /**
-   * Returns a list of the metatags with values from a field.
+   * Returns a list of the meta tags with values from a field.
    *
    * @param Drupal\Core\Entity\ContentEntityInterface $entity
    *   The ContentEntityInterface object.
@@ -339,7 +339,7 @@ class MetatagManager implements MetatagManagerInterface {
       }
 
       if (!empty($entity)) {
-        // Get default metatags for a given entity.
+        // Get default meta tags for a given entity.
         $entity_defaults = $this->getEntityDefaultMetatags($entity);
         if ($entity_defaults != NULL) {
           $metatags->set('tags', array_merge($metatags->get('tags'), $entity_defaults));

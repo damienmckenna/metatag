@@ -12,7 +12,7 @@ metatag_views.metatags.edit:
   path: '/admin/config/search/metatag/views/{view_id}/{display_id}/edit'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsEditForm'
-    _title: 'Edit metatags for a view'
+    _title: 'Edit meta tags for a view'
   requirements:
     _permission: 'administer meta tags'
   options:
@@ -22,7 +22,7 @@ metatag_views.metatags.add:
   path: '/admin/config/search/metatag/views/add'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsAddForm'
-    _title: 'Add metatags for a view'
+    _title: 'Add meta tags for a view'
   requirements:
     _permission: 'administer meta tags'
   options:
@@ -32,7 +32,7 @@ metatag_views.metatags.revert:
   path: '/admin/config/search/metatag/views/{view_id}/{display_id}/revert'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsRevertForm'
-    _title: 'Revert metatags for a view'
+    _title: 'Revert meta tags for a view'
   requirements:
     _permission: 'administer meta tags'
   options:
@@ -43,7 +43,7 @@ metatag_views.metatags.translate_overview:
   path: '/admin/config/search/metatag/views/{view_id}/{display_id}/translate'
   defaults:
     _controller: '\Drupal\metatag_views\Controller\MetatagViewsTranslationController::itemPage'
-    _title: 'Translate metatags for a view'
+    _title: 'Translate meta tags for a view'
   requirements:
     _permission: 'administer meta tags'
     _module_dependencies: 'config_translation'
@@ -54,7 +54,7 @@ metatag_views.metatags.translate:
   path: '/admin/config/search/metatag/views/{view_id}/{display_id}/translate/{langcode}'
   defaults:
     _form: '\Drupal\metatag_views\Form\MetatagViewsTranslationForm'
-    _title: 'Translate metatags for a view'
+    _title: 'Translate meta tags for a view'
   requirements:
     _permission: 'administer meta tags'
     _module_dependencies: 'config_translation'
