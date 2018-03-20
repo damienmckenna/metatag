@@ -25,6 +25,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #1282806 by DamienMcKenna, iamEAP, osopolar, victoriachan, malcomio, HyperGlide,
   Murz, dandaman, klokie: Upgrade script for Meta Tags Quick.
 By DamienMcKenna: Updated README.txt related to the importer module.
+#2950652 by Les Lim: metatag_favicons_get_mime_type() is mostly wrong.
 
 
 Metatag 7.x-1.22, 2017-07-03
