@@ -36,6 +36,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2947493 by DamienMcKenna, kala4ek: Adding forms of custom entities are broken.
 #2828607 by pingevt, DamienMcKenna: Add OG book meta tags.
 #2954522 by DamienMcKenna: Correct spelling of "meta tags".
+#2809351 by DamienMcKenna, thejimbirch: Add the advanced Dublin Core meta tags.
 
 
 Metatag 8.x-1.4, 2017-12-21

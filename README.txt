@@ -43,6 +43,9 @@ The primary features include:
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Metatag: Dublin Core" submodule.
 
+* Forty additional Dublin Core meta tags may be added by enabling the "Metatag:
+  Dublin Core Advanced" submodule.
+
 * The Open Graph Protocol meta tags, as used by Facebook, Pinterest, LinkedIn
   and other sites, may be added by enabling the "Metatag: Open Graph" submodule.
 
