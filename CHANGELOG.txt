@@ -37,6 +37,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2828607 by pingevt, DamienMcKenna: Add OG book meta tags.
 #2954522 by DamienMcKenna: Correct spelling of "meta tags".
 #2809351 by DamienMcKenna, thejimbirch: Add the advanced Dublin Core meta tags.
+#2956199 by DamienMcKenna: Remove separate admin pages for Views integration.
 
 
 Metatag 8.x-1.4, 2017-12-21
