@@ -71,6 +71,24 @@ class MetatagManager implements MetatagManagerInterface {
   }
 
   /**
+   * Returns the list of protected defaults.
+   *
+   * @return array
+   *   Th protected defaults.
+   */
+  public static function protectedDefaults() {
+    return [
+      'global',
+      '403',
+      '404',
+      'node',
+      'front',
+      'taxonomy_term',
+      'user',
+    ];
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function tagsFromEntity(ContentEntityInterface $entity) {
