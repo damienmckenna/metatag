@@ -2647,8 +2647,8 @@ function metatag_cache_default_cid_parts(array $cid_parts = array()) {
   }
 
   // Allow each page in a sequence to have different values.
-  if (isset($_GET['page'])) {
-    $cid_parts['page'] = $_GET['page'];
+  if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+    $cid_parts['page'] = int_val($_GET['page']);
   }
 
   // Allow other modules to customize the data using

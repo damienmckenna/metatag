@@ -30,6 +30,7 @@ By DamienMcKenna: Updated README.txt related to the importer module.
 #2932401 by DamienMcKenna: New tag: Set-Cookie.
 #2945589 by ron_s: Apostrophe encoded in page title when using Panels
   substitutions.
+#2956465 by DamienMcKenna, alexpott: Make sure $_GET['page'] is an integer.
 
 
 Metatag 7.x-1.22, 2017-07-03
