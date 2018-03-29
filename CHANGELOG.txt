@@ -42,6 +42,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2900368 by plopesc: Don't allow certain defaults to be removed.
 #2840751 by ocastle, ElegguaDP, Wim Leers, keopx, adamzimmermann:
   Protocol-relative URLs are broken.
+#2925974 by keopx, ocastle, DamienMcKenna, Wim Leers, mangy.fox: Twitter Cards
+  (and others) require absolute URLs.
 
 
 Metatag 8.x-1.4, 2017-12-21

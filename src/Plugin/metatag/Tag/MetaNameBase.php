@@ -74,6 +74,20 @@ abstract class MetaNameBase extends PluginBase {
   protected $multiple;
 
   /**
+   * True if the URL value(s) must be absolute.
+   *
+   * @var bool
+   */
+  protected $absoluteUrl;
+
+  /**
+   * Retrieves the currently active request object.
+   *
+   * @var \Symfony\Component\HttpFoundation\Request
+   */
+  protected $request;
+
+  /**
    * The value of the metatag in this instance.
    *
    * @var mixed
@@ -104,6 +118,8 @@ abstract class MetaNameBase extends PluginBase {
     $this->type = $plugin_definition['type'];
     $this->secure = $plugin_definition['secure'];
     $this->multiple = $plugin_definition['multiple'];
+    $this->absoluteUrl = !empty($plugin_definition['absolute_url']);
+    $this->request = \Drupal::request();
   }
 
   /**
@@ -197,6 +213,16 @@ abstract class MetaNameBase extends PluginBase {
   }
 
   /**
+   * Whether or not this meta tag must output required absolute URLs.
+   *
+   * @return bool
+   *   Whether or not this meta tag must output required absolute URLs.
+   */
+  public function requiresAbsoluteUrl() {
+    return $this->absoluteUrl;
+  }
+
+  /**
    * Whether or not this meta tag is active.
    *
    * @return bool
@@ -234,6 +260,10 @@ abstract class MetaNameBase extends PluginBase {
     // Optional handling for images.
     if ((!empty($this->type())) && ($this->type() === 'image')) {
       $form['#description'] .= ' ' . $this->t('This will be able to extract the URL from an image field.');
+    }
+
+    if (!empty($this->absolute_url)) {
+      $form['#description'] .= ' ' . $this->t('Any relative or protocol-relative URLs will be converted to absolute URLs.');
     }
 
     // Optional handling for secure paths.
@@ -293,6 +323,17 @@ abstract class MetaNameBase extends PluginBase {
       $element = '';
     }
     else {
+      if ($this->requiresAbsoluteUrl()) {
+        // Relative URL.
+        if (parse_url($value, PHP_URL_HOST) == NULL) {
+          $value = $this->request->getSchemeAndHttpHost() . $value;
+        }
+        // Protocol-relative URL.
+        elseif (substr($value, 0, 2) === '//') {
+          $value = $this->request->getScheme() . ':' . $value;
+        }
+      }
+
       // If tag must be secure, convert all http:// to https://.
       if ($this->secure() && strpos($value, 'http://') !== FALSE) {
         $value = str_replace('http://', 'https://', $value);
