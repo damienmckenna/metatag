@@ -1,3 +1,7 @@
+Metatag 8.x-1.x, xxxx-xx-xx
+---------------------------
+
+
 Metatag 8.x-1.5, 2018-03-29
 ---------------------------
 #2932596 by yo30, Punk_UnDeaD: Wrong method in abstract class LinkSizesBase.
