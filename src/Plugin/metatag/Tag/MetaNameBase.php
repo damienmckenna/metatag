@@ -336,9 +336,9 @@ abstract class MetaNameBase extends PluginBase {
     // If this contains embedded image tags, extract the image URLs.
     if ($this->type() === 'image') {
       // If image tag src is relative (starts with /), convert to an absolute
-      // link.
+      // link; ignore protocol-relative URLs.
       global $base_root;
-      if (strpos($value, '<img src="/') !== FALSE) {
+      if (strpos($value, '<img src="/') !== FALSE && strpos($value, '<img src="//') === FALSE) {
         $value = str_replace('<img src="/', '<img src="' . $base_root . '/', $value);
       }
 

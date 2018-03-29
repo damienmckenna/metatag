@@ -40,6 +40,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2956199 by DamienMcKenna: Remove separate admin pages for Views integration.
 #2956227 by DamienMcKenna: Test improvements from 2883718-20.
 #2900368 by plopesc: Don't allow certain defaults to be removed.
+#2840751 by ocastle, ElegguaDP, Wim Leers, keopx, adamzimmermann:
+  Protocol-relative URLs are broken.
 
 
 Metatag 8.x-1.4, 2017-12-21
