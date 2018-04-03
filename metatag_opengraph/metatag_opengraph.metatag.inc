@@ -132,6 +132,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:title'] = array(
     'label' => t('Content title'),
     'description' => t('The title of the content, e.g., <em>The Rock</em>.'),
+    'maxlength' => 0,
     'weight' => ++$weight,
   ) + $og_defaults;
 
@@ -157,6 +158,7 @@ function metatag_opengraph_metatag_info() {
   $info['tags']['og:description'] = array(
     'label' => t('Content description'),
     'description' => t('A one to two sentence description of the content.'),
+    'maxlength' => 0,
     'weight' => ++$weight,
   ) + $og_defaults;
 

@@ -111,11 +111,13 @@ function metatag_google_plus_metatag_info() {
   $info['tags']['itemprop:name'] = array(
     'label' => t('Title'),
     'description' => t('A Google+ title for the page being shared. Keep keywords towards the front.'),
+    'maxlength' => 0,
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['itemprop:description'] = array(
     'label' => t('Description'),
     'description' => t('Longer form description, you’ve 200 words here that can specifically reference your presence on Google+'),
+    'maxlength' => 0,
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['itemprop:image'] = array(

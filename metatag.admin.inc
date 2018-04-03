@@ -776,6 +776,32 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_token_sanitize', FALSE),
   );
 
+  $form['lengths'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Maximum meta tag lengths'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+    '#description' => t('Many meta tags may be shortened to a certain length. To reset to the default, leave the field blank. To keep the entire meta tag, regardless of length, set the value to zero (0). Note: the meta tag will be shortened <em>after</em> the tokens have been replaced, not before.'),
+  );
+  $info = metatag_get_info();
+  $groups = $info['groups'];
+  $tags = $info['tags'];
+  foreach ($tags as $tag => $info) {
+    if (isset($info['maxlength'])) {
+      $default = $info['maxlength'];
+      $var_name = 'metatag_maxlength_' . $tag;
+      $title = $info['label'];
+      if (!empty($info['group']) && isset($groups[$info['group']])) {
+        $title = $groups[$info['group']]['label'] . ': ' . $title;
+      }
+      $form['lengths'][$var_name] = array(
+        '#type' => 'textfield',
+        '#title' => $title,
+        '#default_value' => intval(variable_get($var_name, $default)),
+      );
+    }
+  }
+
   // Extra submission logic.
   $form['#submit'][] = 'metatag_admin_settings_form_submit';
 
@@ -785,8 +811,21 @@ function metatag_admin_settings_form() {
 /**
  * Form API submission callback for metatag_admin_settings_form().
  */
-function metatag_admin_settings_form_submit() {
-  cache_clear_all('entity_info:', 'cache', TRUE);
+function metatag_admin_settings_form_submit($form, &$form_state) {
+  // Only keep maxlength values that are numeric. Any empty, non-zero values
+  // will be removed.
+  foreach ($form_state['values'] as $name => $value) {
+    if (strpos($name, 'metatag_maxlength_') !== FALSE) {
+      if ((empty($value) && $value !== 0 && $value !== '0') || !is_numeric($value)) {
+        unset($form_state['values'][$name]);
+        variable_del($name);
+      }
+      else {
+        $form_state['values'][$name] = intval($value);
+      }
+    }
+  }
+
   cache_clear_all('*', 'cache_metatag', TRUE);
-  drupal_set_message(t('The Metatag cache has been cleared, so all meta tags can be reloaded.'));
+  drupal_set_message(t('The Metatag cache has been cleared so all meta tags can be reloaded.'));
 }

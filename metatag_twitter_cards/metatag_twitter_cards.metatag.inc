@@ -150,11 +150,13 @@ function metatag_twitter_cards_metatag_info() {
   $info['tags']['twitter:title'] = array(
     'label' => t('Title'),
     'description' => t('The page\'s title, which should be concise; it will be truncated at 70 characters by Twitter. This field is required unless this the \'type\' field is set to "photo".'),
+    'maxlength' => 70,
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['twitter:description'] = array(
     'label' => t('Description'),
     'description' => t('A description that concisely summarizes the content of the page, as appropriate for presentation within a Tweet. Do not re-use the title text as the description, or use this field to describe the general services provided by the website. The string will be truncated, by Twitter, at the word to 200 characters.'),
+    'maxlength' => 200,
     'weight' => ++$weight,
   ) + $defaults;
   $info['tags']['twitter:dnt'] = array(

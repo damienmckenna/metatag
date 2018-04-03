@@ -150,6 +150,7 @@ function metatag_metatag_info() {
   $info['tags']['title'] = array(
     'label' => t('Page title'),
     'description' => t("The text to display in the title bar of a visitor's web browser when they view this page. This meta tag may also be used as the title of the page when a visitor bookmarks or favorites this page."),
+    'maxlength' => 0,
     'class' => 'DrupalTitleMetaTag',
     'group' => 'basic',
     'weight' => ++$weight,
@@ -158,6 +159,7 @@ function metatag_metatag_info() {
   $info['tags']['description'] = array(
     'label' => t('Description'),
     'description' => t("A brief and concise summary of the page's content, preferably 320 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
+    'maxlength' => 380,
     'class' => 'DrupalTextMetaTag',
     'group' => 'basic',
     'weight' => ++$weight,
@@ -171,6 +173,7 @@ function metatag_metatag_info() {
   $info['tags']['abstract'] = array(
     'label' => t('Abstract'),
     'description' => t("A brief and concise summary of the page's content, preferably 150 characters or less. Where as the description meta tag may be used by search engines to display a snippet about the page in search results, the abstract tag may be used to archive a summary about the page. This meta tag is <em>no longer</em> supported by major search engines."),
+    'maxlength' => 0,
     'class' => 'DrupalTextMetaTag',
     'group' => 'basic',
     'weight' => ++$weight,
@@ -184,6 +187,7 @@ function metatag_metatag_info() {
   $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
     'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines anymore."),
+    'maxlength' => 0,
     'class' => 'DrupalTextMetaTag',
     'group' => 'basic',
     'weight' => ++$weight,
@@ -215,6 +219,7 @@ function metatag_metatag_info() {
   $info['tags']['news_keywords'] = array(
     'label' => t('Google News Keywords'),
     'description' => t('A comma-separated list of keywords about the page. This meta tag is used as an indicator in <a href="@google_news">Google News</a>.', array('@google_news' => 'http://support.google.com/news/publisher/bin/answer.py?hl=en&answer=68297')),
+    'maxlength' => 0,
     'class' => 'DrupalTextMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,

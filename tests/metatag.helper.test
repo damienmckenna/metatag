@@ -25,6 +25,10 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
     $modules[] = 'ctools';
     $modules[] = 'token';
 
+    // Used for the tests.
+    $modules[] = 'devel';
+    $modules[] = 'devel_generate';
+
     // Metatag modules. Only enable the main module, submodules will be tested
     // separately.
     $modules[] = 'metatag';
@@ -55,7 +59,7 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
   /**
    * Load the Performance admin page and clear all caches.
    */
-  function clearAllCaches() {
+  public function clearAllCaches() {
     $this->drupalGet('admin/config/development/performance');
     $this->assertResponse(200);
     $this->assertText(t('Performance'));

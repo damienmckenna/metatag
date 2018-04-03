@@ -17,6 +17,15 @@ function metatag_twitter_cards_update_dependencies() {
 }
 
 /**
+ * Implements hook_uninstall().
+ */
+function metatag_twitter_cards_uninstall() {
+  // Remove all of the maxlength variables.
+  variable_del('metatag_maxlength_twitter:title');
+  variable_del('metatag_maxlength_twitter:description');
+}
+
+/**
  * Implementations of hook_update_N().
  */
 

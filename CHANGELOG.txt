@@ -33,6 +33,9 @@ By DamienMcKenna: Updated README.txt related to the importer module.
 #2956465 by DamienMcKenna, alexpott: Make sure $_GET['page'] is an integer.
 #2832101 by DamienMcKenna, jenstechs: hreflang tokens should support Content
   Translation.
+#2309017 by DamienMcKenna, rodrigoaguilera, nmillin, John_B, David Hernández,
+  ctarres, cmseasy, computerbarry, skein, erwangel, espurnes, zmove:
+  Automatically trim meta tag lengths.
 
 
 Metatag 7.x-1.22, 2017-07-03

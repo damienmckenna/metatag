@@ -37,6 +37,10 @@ The primary features include:
 
 * Automatically extracts URLs from image fields, no need for extra modules.
 
+* String-based meta tags may be automatically trimmed to a certain length, and
+  the lengths may be easily customized to accommodate changes in search engine
+  algorithms.
+
 * A custom pager string may be added to meta tags by inserting the token
   [current-page:pager] into e.g. page titles, description tags, etc. The
   replacement string may be customized from the settings page.
