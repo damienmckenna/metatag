@@ -229,7 +229,7 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
       // 'standout' => array('value' => ''),
       // 'robots' => array('value' => ''),
       // 'standout' => array('value' => ''),
-      'generator' => array('value' => 'Drupal 7 (http://drupal.org)'),
+      'generator' => array('value' => 'Drupal 7 (https://www.drupal.org)'),
       // 'standout' => array('value' => ''),
       // 'image_src' => array('value' => ''),
       'canonical' => array('value' => '[current-page:url:absolute]'),
