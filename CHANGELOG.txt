@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.23, 2018-04-03
+----------------------------
 #2906312 by DamienMcKenna: Added the twitter:dnt meta tag.
 #2903980 by DamienMcKenna, Chris Charlton: Undefined index in
   metatag_token_info.
