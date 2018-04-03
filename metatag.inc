@@ -504,8 +504,8 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     // Special handling for images and other URLs.
     if (!empty($this->info['image']) || !empty($this->info['url'])) {
       // Support multiple items, whether it's needed or not. Also remove the
-      // empty values.
-      $values = array_filter(explode(',', $value));
+      // empty values and reindex the array.
+      $values = array_values(array_filter(explode(',', $value)));
 
       // If this meta tag does *not* allow multiple items, only keep the first
       // one.

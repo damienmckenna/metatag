@@ -40,6 +40,8 @@ By DamienMcKenna: Updated README.txt related to the importer module.
 #2864078 by DamienMcKenna: Improve coding standards on Metatags 7.x-1.x.
 #2924181 by Mike Lewis: Default value for Robots on config form does not
   reflect stored configuration.
+#2853251 by kpaxman: Code to use only first item doesn't work if first item is
+  blank.
 
 
 Metatag 7.x-1.22, 2017-07-03
