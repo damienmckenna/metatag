@@ -36,6 +36,7 @@ By DamienMcKenna: Updated README.txt related to the importer module.
 #2309017 by DamienMcKenna, rodrigoaguilera, nmillin, John_B, David Hernández,
   ctarres, cmseasy, computerbarry, skein, erwangel, espurnes, zmove:
   Automatically trim meta tag lengths.
+#2958206 by DamienMcKenna: Fix hreflang tags for entity_translation.
 
 
 Metatag 7.x-1.22, 2017-07-03

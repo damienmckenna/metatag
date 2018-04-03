@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Custom tokens for Metatag:hreflang.
@@ -13,6 +14,7 @@ function metatag_hreflang_token_info() {
   if (!(module_exists('translation') || module_exists('entity_translation'))) {
     return;
   }
+
   // Don't do anything if the patch was applied to Entity Translation to add
   // these.
   // @see https://www.drupal.org/node/2603056
@@ -100,7 +102,7 @@ function metatag_hreflang_tokens($type, $tokens, array $data = array(), array $o
         elseif (isset($node->translations, $node->translations->data)) {
           foreach ($node->translations->data as $langcode => $translation) {
             // Only deal with published nodes.
-            if ($translation->status && $name == 'url-' . $langcode) {
+            if ($translation['status'] && $name == 'url-' . $langcode) {
               $url_options = $options;
               $url_options['absolute'] = TRUE;
               $url_options['language'] = $languages[1][$langcode];
