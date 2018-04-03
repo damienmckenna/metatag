@@ -1,7 +1,8 @@
 <?php
+
 /**
  * @file
- * Metatag integration for the metatag Twitter Cards module.
+ * Metatag integration for the Metatag Twitter Cards module.
  */
 
 /**
@@ -313,7 +314,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('If your application is not available in the US App Store, you must set this value to the two-letter country code for the App Store that contains your application.'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:name:iphone'] = array(
@@ -321,7 +322,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("The name of the iPhone app."),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:id:iphone'] = array(
@@ -329,7 +330,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("String value, should be the numeric representation of your iPhone app's ID in the App Store."),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:url:iphone'] = array(
@@ -337,7 +338,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The iPhone app\'s custom URL scheme (must include "://" after the scheme name).'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:name:ipad'] = array(
@@ -345,7 +346,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("The name of the iPad app."),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:id:ipad'] = array(
@@ -353,7 +354,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("String value, should be the numeric representation of your iPad app's ID in the App Store."),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:url:ipad'] = array(
@@ -361,7 +362,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The iPad app\'s custom URL scheme (must include "://" after the scheme name).'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:name:googleplay'] = array(
@@ -369,7 +370,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("The name of the app in the Google Play app store."),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:id:googleplay'] = array(
@@ -377,7 +378,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t("Your app ID in the Google Play Store (i.e. \"com.android.app\")."),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
   $info['tags']['twitter:app:url:googleplay'] = array(
@@ -385,7 +386,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('The Google Play app\'s custom URL scheme (must include "://" after the scheme name).'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $defaults;
 
@@ -405,7 +406,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $product_defaults;
   $info['tags']['twitter:data1'] = array(
@@ -413,7 +414,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $product_defaults;
   $info['tags']['twitter:label2'] = array(
@@ -421,7 +422,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and you can specify values for labels such as price, items in stock, sizes, etc.'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $product_defaults;
   $info['tags']['twitter:data2'] = array(
@@ -429,7 +430,7 @@ function metatag_twitter_cards_metatag_info() {
     'description' => t('This field expects a string, and allows you to specify the types of data you want to offer (price, country, etc.).'),
     'weight' => ++$weight,
     'element' => array(
-      '#theme' => 'metatag_twitter_cards'
+      '#theme' => 'metatag_twitter_cards',
     ),
   ) + $product_defaults;
 

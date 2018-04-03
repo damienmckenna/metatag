@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Primary hook implementations for Metatag:favicons.
@@ -149,14 +150,18 @@ function metatag_favicons_get_mime_type($uri) {
   switch ($extension) {
     case 'ico':
       return 'image/vnd.microsoft.icon';
+
     case 'jpg':
     case 'jpeg':
       return 'image/jpeg';
+
     case 'svg':
       return 'image/svg+xml';
+
     case 'gif':
     case 'png':
       return 'image/' . $extension;
+
     default:
       return '';
   }

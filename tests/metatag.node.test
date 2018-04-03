@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Tests for the Metatag module and node entities.
+ */
+
+/**
  * Tests for the Metatag module and node entities.
  */
 class MetatagCoreNodeTest extends MetatagTestHelper {
@@ -49,7 +54,6 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     $this->drupalLogin($this->adminUser);
 
     // Assign default values for the new content type.
-
     // Load the "add default configuration" page.
     $this->drupalGet('admin/config/search/metatags/config/add');
     $this->assertResponse(200);
@@ -206,7 +210,7 @@ class MetatagCoreNodeTest extends MetatagTestHelper {
     // Verify the page submission loaded correctly.
     $this->assertResponse(200);
 
-    // A new version of the expected results
+    // A new version of the expected results.
     $expected_updated = array(
       'und' => array(
         'abstract' => array(

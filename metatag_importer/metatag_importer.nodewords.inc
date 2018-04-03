@@ -6,16 +6,16 @@
  */
 
 // The Nodwords record types.
-define('NODEWORDS_TYPE_DEFAULT',    1);
-define('NODEWORDS_TYPE_ERRORPAGE',  2);
-define('NODEWORDS_TYPE_FRONTPAGE',  3);
-define('NODEWORDS_TYPE_NONE',       0);
-define('NODEWORDS_TYPE_NODE',       5);
-define('NODEWORDS_TYPE_PAGE',      10);
-define('NODEWORDS_TYPE_PAGER',      4);
-define('NODEWORDS_TYPE_TERM',       6);
-define('NODEWORDS_TYPE_TRACKER',    7);
-define('NODEWORDS_TYPE_USER',       8);
+define('NODEWORDS_TYPE_DEFAULT', 1);
+define('NODEWORDS_TYPE_ERRORPAGE', 2);
+define('NODEWORDS_TYPE_FRONTPAGE', 3);
+define('NODEWORDS_TYPE_NONE', 0);
+define('NODEWORDS_TYPE_NODE', 5);
+define('NODEWORDS_TYPE_PAGE', 10);
+define('NODEWORDS_TYPE_PAGER', 4);
+define('NODEWORDS_TYPE_TERM', 6);
+define('NODEWORDS_TYPE_TRACKER', 7);
+define('NODEWORDS_TYPE_USER', 8);
 define('NODEWORDS_TYPE_VOCABULARY', 9);
 
 /**
@@ -299,10 +299,10 @@ function _metatag_importer_migrate(array $types = array(), &$context = array()) 
 
         // @todo: A 'vocabulary' setting becomes a default configuration?
         case 'vocabulary':
-        //   $metatags = metatag_metatags_load($record->entity_type, $record->entity_id);
-        //   $metatags = array_merge($metatags, $record->data);
-        //   $vocabulary = taxonomy_vocabulary_load($record->entity_id);
-        //   metatag_metatags_save($record->entity_type, $record->entity_id, $vocabulary->vid, $metatags);
+          //   $metatags = metatag_metatags_load($record->entity_type, $record->entity_id);
+          //   $metatags = array_merge($metatags, $record->data);
+          //   $vocabulary = taxonomy_vocabulary_load($record->entity_id);
+          //   metatag_metatags_save($record->entity_type, $record->entity_id, $vocabulary->vid, $metatags);
           break;
       }
     }
@@ -575,7 +575,6 @@ function _metatag_importer_convert_data($name, $value) {
 // 0 - NODEWORDS_GENERATION_NEVER - never auto-generate the string.
 // 1 - NODEWORDS_GENERATION_WHEN_EMPTY - when the field is empty. Default.
 // 2 - NODEWORDS_GENERATION_ALWAYS - always use the generated string.
-
 // 'nodewords_metatags_generation_method_' . $type:
 // 1 - NODEWORDS_GENERATION_BODY - use the body field.
 // 2 - NODEWORDS_GENERATION_TEASER - use the node teaser. Default.

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Metatag integration for the Metatag Google+ module.
@@ -150,7 +151,6 @@ function metatag_google_plus_metatag_info() {
       'type' => 'url',
     ),
   ) + $defaults;
-
 
   return $info;
 }

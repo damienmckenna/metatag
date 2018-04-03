@@ -165,7 +165,7 @@ function metatag_importer_get_quick_data(array $fields) {
         'entity_id',
         'revision_id',
         'language',
-        $field_name . '_metatags_quick'
+        $field_name . '_metatags_quick',
       ))
       ->condition('f.entity_type', array('metatags_path_based'), '<>')
       ->orderBy('f.entity_type', 'ASC')
@@ -178,7 +178,7 @@ function metatag_importer_get_quick_data(array $fields) {
         $result->entity_type,
         $result->entity_id,
         $result->revision_id,
-        $result->language
+        $result->language,
       ));
 
       if (!isset($data[$id])) {

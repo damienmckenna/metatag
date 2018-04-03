@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Provides native meta tag integration with Views.
@@ -122,10 +123,10 @@ function metatag_views_page_alter(&$page) {
 
       // If enabled, use replacement tokens from the first Views result row.
       if ($view->display_handler->get_option('metatags_tokenize')) {
-        // If the Views output was loaded from the Views output cache, the fields
-        // won't have been rendered and thus the first row tokens would be empty.
-        // Therefore, in this case, we manually trigger rendering of the first
-        // row.
+        // If the Views output was loaded from the Views output cache, the
+        // fields won't have been rendered and thus the first row tokens would
+        // be empty. Therefore, in this case, we manually trigger rendering of
+        // the first row.
         _metatag_views_render_first_row($view);
 
         foreach ($metatags as $langcode => $values) {

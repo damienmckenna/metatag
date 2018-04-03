@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * A base class for the Metatag tests, provides shared methods.
+ */
+
+/**
  * A base class for the Metatag tests, provides shared methods.
  */
 abstract class MetatagTestHelper extends DrupalWebTestCase {
@@ -218,7 +223,6 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
       'description' => array('value' => 'Test foo description'),
       'abstract' => array('value' => 'Test foo abstract'),
       // 'keywords' => array('value' => ''),
-
       // Advanced meta tags.
       // 'robots' => array('value' => ''),
       // 'news_keywords' => array('value' => ''),
@@ -638,7 +642,7 @@ abstract class MetatagTestHelper extends DrupalWebTestCase {
    *   The source string to search for.
    * @param string $context
    *   The i18n string context to check for.
-   * @param boolean $assert_true
+   * @param bool $assert_true
    *   By default strings are expeted to be found. If the string is not expected
    *   to be translatable yet then pass in FALSE.
    */

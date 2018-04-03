@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Definition of variables for Variable API module.

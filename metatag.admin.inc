@@ -85,7 +85,7 @@ function metatag_config_overview() {
       $row['class'][] = 'warning';
     }
 
-    // Close the details div
+    // Close the details div.
     $details .= '</div>';
 
     // Add indentation to the leading cell based on how many parents the config has.
@@ -383,10 +383,11 @@ function metatag_config_export_form($config) {
  * Form constructor to revert nodes to their default metatags.
  *
  * @see metatag_bulk_revert_form_submit()
+ *
  * @ingroup forms
  */
 function metatag_bulk_revert_form() {
-  // Get the list of entity:bundle options
+  // Get the list of entity:bundle options.
   $options = array();
   foreach (entity_get_info() as $entity_type => $entity_info) {
     foreach (array_keys($entity_info['bundles']) as $bundle) {
@@ -550,7 +551,7 @@ function metatag_bulk_revert_batch_operation($entity_type, $bundle, $tags, $lang
           $entities = entity_load($entity_type, array($entity_id));
           if (!empty($entities[$entity_id])) {
             // We only care about the revision_id.
-            list(, $revision_id, ) = entity_extract_ids($entity_type, $entities[$entity_id]);
+            list(, $revision_id,) = entity_extract_ids($entity_type, $entities[$entity_id]);
           }
           metatag_metatags_save($entity_type, $entity_id, $revision_id, $metatags, $bundle);
           $reset = TRUE;

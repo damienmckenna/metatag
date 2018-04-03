@@ -1,9 +1,13 @@
 <?php
+
 /**
  * @file
  * Metatag primary classes.
  */
 
+/**
+ * The master interface for all tags.
+ */
 interface DrupalMetaTagInterface {
 
   /**
@@ -38,12 +42,35 @@ interface DrupalMetaTagInterface {
 
 }
 
+/**
+ * The default meta tag class from which all others inherit.
+ */
 class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
 
+  /**
+   * All of the basic information about this tag.
+   *
+   * @var array
+   */
   protected $info;
+
+  /**
+   * The values submitted for this tag.
+   *
+   * @var array
+   */
   protected $data = array('value' => '');
+
+  /**
+   * This item's weight; used for sorting the output.
+   *
+   * @var float
+   */
   protected $weight = 0;
 
+  /**
+   * Constructor.
+   */
   function __construct(array $info, array $data = NULL) {
     $this->info = $info;
     if (isset($data)) {
@@ -213,7 +240,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     // URLs.
     if (strpos($url, base_path()) === 0 && strpos($url, '//') !== 0) {
       // Logic:
-      // * Get the length of the base_path(), 
+      // * Get the length of the base_path(),
       // * Get a portion of the image's path starting from the position equal
       //   to the base_path()'s length; this will result in a path relative
       //   to the Drupal installation's base directory.
@@ -259,7 +286,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
   }
 
   /**
-   * Copied from text.module with the following changes:
+   * Copied from text.module with the following changes:.
    *
    * Change 1: $size is required.
    * Change 2: $format is removed.
@@ -274,8 +301,7 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     //   // the variable 'teaser_length' is preserved for backwards compatibility.
     //   $size = variable_get('teaser_length', 600);
     // }
-
-    // Find where the delimiter is in the body
+    // Find where the delimiter is in the body.
     $delimiter = strpos($text, '<!--break-->');
 
     // If the size is zero, and there is no delimiter,
@@ -298,7 +324,6 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     //     return $text;
     //   }
     // }
-
     // If we have a short body, the entire body is the summary.
     if (drupal_strlen($text) <= $size) {
       return $text;
@@ -306,7 +331,6 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
 
     // If the delimiter has not been specified, try to split at paragraph or
     // sentence boundaries.
-
     // The summary may not be longer than maximum length specified.
     // Initial slice.
     $summary = truncate_utf8($text, $size);
@@ -338,10 +362,8 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     //   $line_breaks["\n"] = 1;
     // }
     // $break_points[] = $line_breaks;
-
     // If the first paragraph is too long, split at the end of a sentence.
     // $break_points[] = array('. ' => 1, '! ' => 1, '? ' => 1, '。' => 0, '؟ ' => 1);
-
     // From https://www.drupal.org/node/1482178.
     // If the first sentence is too long, split at the first word break.
     $word_breaks = array(' ' => 0, "\t" => 0);
@@ -366,11 +388,11 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
       }
     }
 
-    // If the htmlcorrector filter is present, apply it to the generated summary.
+    // If the htmlcorrector filter is present, apply it to the generated
+    // summary.
     // if (isset($filters['filter_htmlcorrector'])) {
     //   $summary = _filter_htmlcorrector($summary);
     // }
-
     return trim($summary);
   }
 
@@ -700,9 +722,9 @@ class DrupalDateIntervalMetaTag extends DrupalDefaultMetaTag {
       }
     }
 
-    // Translate the final output string prior to output. Use the
-    // 'output' i18n_string object type, and pass along the meta tag's
-    // options as the context so it can be handled appropriately.
+    // Translate the final output string prior to output. Use the 'output'
+    // i18n_string object type, and pass along the meta tag's options as the
+    // context so it can be handled appropriately.
     $value = metatag_translate_metatag($value, $this->info['name'], $options, NULL, TRUE);
 
     return $value;

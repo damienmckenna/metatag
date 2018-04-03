@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Tests for Metatag's i18n integration for the configurations.
+ */
+
+/**
  * Tests for Metatag's i18n integration for the configurations.
  */
 class MetatagCoreWithI18nConfigTest extends MetatagTestHelper {

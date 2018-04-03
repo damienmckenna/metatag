@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Tests Metatag module to ensure there are no XSS scripting vulnerabilities.
+ */
+
+/**
  * Tests Metatag module to ensure there are no XSS scripting vulnerabilities.
  */
 class MetatagCoreXSSTest extends MetatagTestHelper {

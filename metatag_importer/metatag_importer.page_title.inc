@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Functionality for migrating data from the Page Title module.

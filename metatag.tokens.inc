@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Custom tokens for Metatag.

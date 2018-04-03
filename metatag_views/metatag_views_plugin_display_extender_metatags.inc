@@ -1,13 +1,17 @@
 <?php
+
 /**
  * @file
  * Custom display extender plugin for Views.
  */
 
+/**
+ * Custom display extender plugin for Views.
+ */
 class metatag_views_plugin_display_extender_metatags extends views_plugin_display_extender {
 
   /**
-   * Default values.
+   * {@inheritdoc}
    */
   function options_definition() {
     $options = parent::option_definition();
@@ -15,15 +19,20 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
     $options['metatags_tokenize'] = array('bool' => TRUE, 'default' => FALSE);
     return $options;
   }
+
+  /**
+   * {@inheritdoc}
+   */
   function options_definition_alter(&$options) {
     $options['metatags'] = array('default' => array());
     $options['metatags_tokenize'] = array('bool' => TRUE, 'default' => FALSE);
   }
 
   /**
-   * Defines where within the Views admin UI the new settings will be visible.
+   * {@inheritdoc}
    */
   function options_summary(&$categories, &$options) {
+    // Defines where within the Views admin UI the new settings will be visible.
     $categories['metatags'] = array(
       'title' => t('Meta tags'),
       'column' => 'second',
@@ -36,9 +45,10 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
   }
 
   /**
-   * Defines the form.
+   * {@inheritdoc}
    */
   function options_form(&$form, &$form_state) {
+    // Defines the form.
     if ($form_state['section'] == 'metatags') {
       $form['#title'] .= t('The meta tags for this display');
       $metatags = $this->get_metatags();
@@ -66,7 +76,8 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
         $options[t('Fields')]["[$field]"] = $handler->ui_name();
       }
 
-      $count = 0; // This lets us prepare the key as we want it printed.
+      $count = 0;
+      // This lets us prepare the key as we want it printed.
       foreach ($this->view->display_handler->get_handlers('argument') as $arg => $handler) {
         $options[t('Arguments')]['%' . ++$count] = t('@argument title', array('@argument' => $handler->ui_name()));
         $options[t('Arguments')]['!' . $count] = t('@argument input', array('@argument' => $handler->ui_name()));
@@ -83,7 +94,7 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
             $output .= theme('item_list',
               array(
                 'items' => $items,
-                'type' => $type
+                'type' => $type,
               ));
           }
         }
@@ -111,9 +122,10 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
   }
 
   /**
-   * Saves the form values.
+   * {@inheritdoc}
    */
   function options_submit(&$form, &$form_state) {
+    // Save the form values.
     if ($form_state['section'] == 'metatags') {
       $metatags = $form_state['values']['metatags'];
 
@@ -136,6 +148,9 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
 
   /**
    * Identify whether or not the current display has custom meta tags defined.
+   *
+   * @return bool
+   *   Indicates whether the current display has custom meta tags defined.
    */
   protected function has_metatags() {
     $metatags = $this->get_metatags();
@@ -161,4 +176,5 @@ class metatag_views_plugin_display_extender_metatags extends views_plugin_displa
 
     return $metatags;
   }
+
 }

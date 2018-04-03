@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * @file
+ * Metatag API implementations to provide the basic meta tags.
+ */
+
+/**
  * Implements hook_metatag_config_default().
  */
 function metatag_metatag_config_default() {

@@ -38,7 +38,7 @@ function drush_metatag_importer_metatag_convert_metatags_quick() {
     return;
   }
 
-  include('metatag_importer.metatags_quick.inc');
+  include 'metatag_importer.metatags_quick.inc';
   metatag_importer_metatags_quick_import();
 }
 
@@ -57,7 +57,7 @@ function drush_metatag_importer_metatag_convert_nodewords() {
   }
 
   // Offload all of the logic to the code contained in the admin file.
-  include('metatag_importer.nodewords.inc');
+  include 'metatag_importer.nodewords.inc';
 
   // Start the import.
   $types = array_keys(_metatag_importer_list_nodewords());
@@ -85,7 +85,7 @@ function drush_metatag_importer_metatag_convert_page_title() {
     return;
   }
 
-  include('metatag_importer.page_title.inc');
+  include 'metatag_importer.page_title.inc';
 
   // Start the importer.
   $count = metatag_importer_for_page_title();

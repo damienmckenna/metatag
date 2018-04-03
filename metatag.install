@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Install, update, and uninstall functions for the metatag module.
@@ -66,7 +67,7 @@ function metatag_requirements($phase) {
     }
 
     // Releases of Drupal older than 7.40 support did not project:module syntax
-    // for dependencies
+    // for dependencies.
     if ($minor < 40) {
       $requirements['metatag'] = array(
         'severity' => REQUIREMENT_WARNING,
@@ -605,7 +606,7 @@ function metatag_update_replace_entity_value(&$sandbox, $meta_tag, $old_value, $
 
   if (!isset($sandbox['progress'])) {
     // Count of all {metatag} records that contained an entry for the old meta
-    // tag value
+    // tag value.
     $records_count = db_select('metatag', 'm')
       ->condition($db_and)
       ->countQuery()
