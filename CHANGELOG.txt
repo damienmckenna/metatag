@@ -42,6 +42,8 @@ By DamienMcKenna: Updated README.txt related to the importer module.
   reflect stored configuration.
 #2853251 by kpaxman: Code to use only first item doesn't work if first item is
   blank.
+#1624266 by L-four, angrytoast: Add support Views Bulk Operations for mass
+  updating metatags.
 
 
 Metatag 7.x-1.22, 2017-07-03
