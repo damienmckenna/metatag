@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.25, 2018-04-03
+----------------------------
 #2958362 by DamienMcKenna, didierlebouc: Undefined index error in 7.x-1.24.
 #2958208 by DamienMcKenna: Bug in count() statement in metatag.metatag.inc.
 
