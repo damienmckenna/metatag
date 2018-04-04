@@ -1,5 +1,5 @@
-Metatag 7.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 7.x-1.24, 2018-04-03
+----------------------------
 #2958279 by joelpittet: Fatal error:  Call to undefined function int_val().
 
 
