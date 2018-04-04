@@ -1576,7 +1576,7 @@ function metatag_metatags_form(array &$form, $instance, array $metatags = array(
 
     // Get the form element from the meta tag class.
     $metatag_form = $metatag_instance->getForm($options);
-    if (is_array($metatag_form['value']['#default_value'])) {
+    if (isset($metatag_form['value']['#default_value']) && is_array($metatag_form['value']['#default_value'])) {
       $metatag_form['value']['#default_value'] = array_filter($metatag_form['value']['#default_value']);
     }
 
