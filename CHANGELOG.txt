@@ -2,6 +2,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
 ---------------------------
 #2961777 by thejimbirch, Baysaa: "Geographical position" (geo.position) should
   use semi-colon instead of comma.
+#2964626 by idebr: og:image:secure_url allows for multiple values.
 
 
 Metatag 8.x-1.5, 2018-03-29
