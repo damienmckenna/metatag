@@ -377,18 +377,10 @@ function metatag_preprocess_html(&$variables) {
   if (!empty($attachments['#attached']['html_head'])) {
     foreach ($attachments['#attached']['html_head'] as $key => $attachment) {
       if (!empty($attachment[1]) && $attachment[1] == 'title') {
-        // It's safe to access the value directly because it was already
-        // processed in MetatagManager::generateElements().
-        $variables['head_title_array'] = [];
         // Empty head_title to avoid the site name and slogan to be appended to
         // the meta title.
         $variables['head_title'] = [];
         $variables['head_title']['title'] = html_entity_decode($attachment[0]['#attributes']['content'], ENT_QUOTES);
-        // Original:
-        // $variables['head_title_array']['title'] =
-        //   $attachment[0]['#attributes']['content'];
-        // $variables['head_title'] = implode(' | ',
-        //   $variables['head_title_array']);
         break;
       }
     }
