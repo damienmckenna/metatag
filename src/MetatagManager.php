@@ -507,12 +507,7 @@ class MetatagManager implements MetatagManagerInterface {
         $tag->setValue($value);
         $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
 
-        if ($tag->type() === 'image') {
-          $processed_value = $this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode]);
-        }
-        else {
-          $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode])));
-        }
+        $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode])));
 
         // Now store the value with processed tokens back into the plugin.
         $tag->setValue($processed_value);
