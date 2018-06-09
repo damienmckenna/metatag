@@ -7,6 +7,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
   installing Metatag.
 #2962426 by dragonwize: Image URL double encoded.
 #2973277 by mvantuch, DamienMcKenna: Support for og:image:alt.
+#2977002 by DamienMcKenna, maxoid: Enable testing on the two og product meta
+  tags.
 
 
 Metatag 8.x-1.5, 2018-03-29
