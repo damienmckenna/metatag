@@ -4,12 +4,37 @@ namespace Drupal\metatag\Form;
 
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Url;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Builds the form to revert Metatag defaults entities.
  */
 class MetatagDefaultsRevertForm extends EntityConfirmFormBase {
+
+  /**
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(MessengerInterface $messenger) {
+    $this->messenger = $messenger;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('messenger')
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -38,7 +63,7 @@ class MetatagDefaultsRevertForm extends EntityConfirmFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->revert();
 
-    drupal_set_message(
+    $this->messenger->addMessage(
       $this->t('Reverted @label defaults.',
         [
           '@label' => $this->entity->label(),

@@ -13,6 +13,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
   Metatag's use of a custom data structure.
 #2925714 by acbramley, vakulrai, Berdir, nkoporec: Replace deprecated
   BaseFieldDefinition ::setQueryable.
+#2971271 by nkoporec, Michelle: Replace drupal_set_message().
 
 
 Metatag 8.x-1.5, 2018-03-29

@@ -5,6 +5,7 @@ namespace Drupal\metatag_views\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\metatag\MetatagManagerInterface;
 use Drupal\metatag\MetatagTagPluginManager;
 use Drupal\metatag\MetatagToken;
@@ -89,14 +90,22 @@ class MetatagViewsTranslationForm extends FormBase {
   protected $baseData = [];
 
   /**
+   * The messenger service.
+   *
+   * @var \Drupal\Core\Messenger\MessengerInterface
+   */
+  protected $messenger;
+
+  /**
    * {@inheritdoc}
    */
-  public function __construct(MetatagManagerInterface $metatag_manager, EntityTypeManagerInterface $entity_manager, MetatagToken $token, MetatagTagPluginManager $tagPluginManager, ConfigurableLanguageManagerInterface $language_manager) {
+  public function __construct(MetatagManagerInterface $metatag_manager, EntityTypeManagerInterface $entity_manager, MetatagToken $token, MetatagTagPluginManager $tagPluginManager, ConfigurableLanguageManagerInterface $language_manager, MessengerInterface $messenger) {
     $this->metatagManager = $metatag_manager;
     $this->viewsManager = $entity_manager->getStorage('view');
     $this->tokenService = $token;
     $this->tagPluginManager = $tagPluginManager;
     $this->languageManager = $language_manager;
+    $this->messenger = $messenger;
   }
 
   /**
@@ -108,7 +117,8 @@ class MetatagViewsTranslationForm extends FormBase {
       $container->get('entity_type.manager'),
       $container->get('metatag.token'),
       $container->get('plugin.manager.metatag.tag'),
-      $container->get('language_manager')
+      $container->get('language_manager'),
+      $container->get('messenger')
     );
   }
 
@@ -251,7 +261,7 @@ class MetatagViewsTranslationForm extends FormBase {
       'display_id' => $this->displayId,
     ]);
 
-    drupal_set_message($this->t('Successfully updated @language translation.', [
+    $this->messenger->addMessage($this->t('Successfully updated @language translation.', [
       '@language' => $this->language->getName(),
     ]));
   }
