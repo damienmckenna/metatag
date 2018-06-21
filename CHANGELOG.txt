@@ -22,6 +22,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
   /admin/config/search/metatag?page=1.
 #2943954 by thejimbirch, DamienMcKenna: Document an approach to simplify
   overriding meta tags on a per-entity basis.
+#2968902 by DamienMcKenna, Berdir: Default user page title token should use
+  [user:display-name].
 
 
 Metatag 8.x-1.5, 2018-03-29
