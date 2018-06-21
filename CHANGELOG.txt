@@ -11,6 +11,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
   tags.
 #2977545 by pmelab, bappa.sarkar, DamienMcKenna: GraphQL throws an error due to
   Metatag's use of a custom data structure.
+#2925714 by acbramley, vakulrai, Berdir, nkoporec: Replace deprecated
+  BaseFieldDefinition ::setQueryable.
 
 
 Metatag 8.x-1.5, 2018-03-29

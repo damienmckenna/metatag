@@ -495,7 +495,6 @@ function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
       ->setLabel(t('Metatags'))
       ->setDescription(t('The meta tags for the entity.'))
       ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
-      ->setQueryable(FALSE)
       ->setComputed(TRUE)
       ->setTargetEntityTypeId($entity_type->id());
   }
