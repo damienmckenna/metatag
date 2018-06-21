@@ -115,6 +115,20 @@ Standard usage scenario
        Drupal's translation system.
 
 
+Simplify the content administration experience
+--------------------------------------------------------------------------------
+This module and its submodules gives a site's content team the ability to add
+every meta tag ever. The standard meta tag form added by the Metatag field on
+content entities can be overwhelming to content creators and editors who just
+need to manage a few options.
+
+The easiest way of simplifying this for content teams is to add new fields to
+the content type for the meta data fields that are needed and skip adding the
+Metatag field entirely, then use tokens for those fields in the defaults
+(/admin/config/search/metatag). These fields can be used in the entity's
+display, or just left hidden.
+
+
 Programmatically assign meta tags to an entity
 --------------------------------------------------------------------------------
 There are two ways to assign an entity's meta tags in custom module. Both
