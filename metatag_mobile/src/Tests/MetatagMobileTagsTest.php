@@ -46,6 +46,7 @@ class MetatagMobileTagsTest extends MetatagTagsTestBase {
     'msapplication_window',
     'theme_color',
     'viewport',
+    'web_manifest',
     'x_ua_compatible',
   ];
 
@@ -210,6 +211,20 @@ class MetatagMobileTagsTest extends MetatagTagsTestBase {
    */
   private function msapplicationWide310x150logoTestValue() {
     return $this->randomImageUrl();
+  }
+
+  /**
+   * Implements {tag_name}TestOutputXpath() for 'web_manifest'.
+   */
+  private function webManifestTestOutputXpath() {
+    return "//link[@rel='manifest']";
+  }
+
+  /**
+   * Implements {tag_name}TestValueAttribute() for 'web_manifest'.
+   */
+  private function webManifestTestValueAttribute() {
+    return 'href';
   }
 
   /**

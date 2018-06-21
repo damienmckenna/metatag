@@ -18,6 +18,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
 #2958743 by DamienMcKenna, AdamEvertsson, StepanISK, trong.nguyen.tcec,
   chiefme, quixxel, rjg, CProfessionals: Ignore update.php requests when
   loading entities; error message when updating from 8.x-1.0 to 8.x-1.5.
+#2961918 by thejimbirch, Michelle: Add the site.webmanifest meta tag.
 
 
 Metatag 8.x-1.5, 2018-03-29
