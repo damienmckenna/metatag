@@ -5,7 +5,6 @@ namespace Drupal\metatag_views\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\metatag\MetatagManagerInterface;
 use Drupal\metatag_views\MetatagViewsValuesCleanerTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -46,19 +45,11 @@ class MetatagViewsEditForm extends FormBase {
   protected $view;
 
   /**
-   * The messenger service.
-   *
-   * @var \Drupal\Core\Messenger\MessengerInterface
-   */
-  protected $messenger;
-
-  /**
    * {@inheritdoc}
    */
-  public function __construct(MetatagManagerInterface $metatag_manager, EntityTypeManagerInterface $entity_manager, MessengerInterface $messenger) {
+  public function __construct(MetatagManagerInterface $metatag_manager, EntityTypeManagerInterface $entity_manager) {
     $this->metatagManager = $metatag_manager;
     $this->viewsManager = $entity_manager->getStorage('view');
-    $this->messenger = $messenger;
   }
 
   /**
@@ -67,8 +58,7 @@ class MetatagViewsEditForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('metatag.manager'),
-      $container->get('entity_type.manager'),
-      $container->get('messenger')
+      $container->get('entity_type.manager')
     );
   }
 
@@ -193,7 +183,7 @@ class MetatagViewsEditForm extends FormBase {
     // Redirect back to the views list.
     $form_state->setRedirect('metatag_views.metatags.list');
 
-    $this->messenger->addMessage($this->t('Metatags for @view : @display have been saved.', [
+    drupal_set_message($this->t('Metatags for @view : @display have been saved.', [
       '@view' => $view->label(),
       '@display' => $view->getDisplay($display_id)['display_title'],
     ]));

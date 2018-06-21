@@ -5,7 +5,6 @@ namespace Drupal\metatag_views\Form;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\ConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Url;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -36,18 +35,10 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
   protected $displayId;
 
   /**
-   * The messenger service.
-   *
-   * @var \Drupal\Core\Messenger\MessengerInterface
-   */
-  protected $messenger;
-
-  /**
    * {@inheritdoc}
    */
-  public function __construct(EntityTypeManagerInterface $entity_manager, MessengerInterface $messenger) {
+  public function __construct(EntityTypeManagerInterface $entity_manager) {
     $this->viewsManager = $entity_manager->getStorage('view');
-    $this->messenger = $messenger;
   }
 
   /**
@@ -55,8 +46,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager'),
-      $container->get('messenger')
+      $container->get('entity_type.manager')
     );
   }
 
@@ -133,7 +123,7 @@ class MetatagViewsRevertForm extends ConfirmFormBase {
     // Redirect back to the views list.
     $form_state->setRedirect('metatag_views.metatags.list');
 
-    $this->messenger->addMessage($this->t('Reverted meta tags for @view_name : @display_name', [
+    drupal_set_message($this->t('Reverted meta tags for @view_name : @display_name', [
       '@view_name' => $this->view->label(),
       '@display_name' => $this->view->getDisplay($this->displayId)['display_title'],
     ]));

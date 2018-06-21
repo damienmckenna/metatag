@@ -13,6 +13,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
   Metatag's use of a custom data structure.
 #2925714 by acbramley, vakulrai, Berdir, nkoporec: Replace deprecated
   BaseFieldDefinition ::setQueryable.
+<<<<<<< HEAD
 #2971271 by nkoporec, Michelle: Replace drupal_set_message().
 #2957411 by pmelab: Field item empty check on empty arrays.
 #2958743 by DamienMcKenna, AdamEvertsson, StepanISK, trong.nguyen.tcec,
@@ -21,6 +22,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
 #2961918 by thejimbirch, Michelle: Add the site.webmanifest meta tag.
 #2895577 by plopesc, drupallogic: Error loading
   /admin/config/search/metatag?page=1.
+=======
+>>>>>>> parent of 57ed7bf... Issue #2971271 by nkoporec, Michelle: Replace drupal_set_message().
 
 
 Metatag 8.x-1.5, 2018-03-29

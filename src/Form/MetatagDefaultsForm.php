@@ -6,9 +6,7 @@ use Drupal\Core\Entity\ContentEntityType;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\metatag\MetatagManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class MetatagDefaultsForm.
@@ -16,29 +14,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @package Drupal\metatag\Form
  */
 class MetatagDefaultsForm extends EntityForm {
-
-  /**
-   * The messenger service.
-   *
-   * @var \Drupal\Core\Messenger\MessengerInterface
-   */
-  protected $messenger;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(MessengerInterface $messenger) {
-    $this->messenger = $messenger;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get('messenger')
-    );
-  }
 
   /**
    * {@inheritdoc}
@@ -195,13 +170,13 @@ class MetatagDefaultsForm extends EntityForm {
 
     switch ($status) {
       case SAVED_NEW:
-        $this->messenger->addMessage($this->t('Created the %label Metatag defaults.', [
+        drupal_set_message($this->t('Created the %label Metatag defaults.', [
           '%label' => $metatag_defaults->label(),
         ]));
         break;
 
       default:
-        $this->messenger->addMessage($this->t('Saved the %label Metatag defaults.', [
+        drupal_set_message($this->t('Saved the %label Metatag defaults.', [
           '%label' => $metatag_defaults->label(),
         ]));
     }
