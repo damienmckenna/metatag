@@ -9,6 +9,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
 #2973277 by mvantuch, DamienMcKenna: Support for og:image:alt.
 #2977002 by DamienMcKenna, maxoid: Enable testing on the two og product meta
   tags.
+#2977545 by pmelab, bappa.sarkar, DamienMcKenna: GraphQL throws an error due to
+  Metatag's use of a custom data structure.
 
 
 Metatag 8.x-1.5, 2018-03-29
