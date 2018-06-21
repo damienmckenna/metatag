@@ -15,6 +15,9 @@ Metatag 8.x-1.x, xxxx-xx-xx
   BaseFieldDefinition ::setQueryable.
 #2971271 by nkoporec, Michelle: Replace drupal_set_message().
 #2957411 by pmelab: Field item empty check on empty arrays.
+#2958743 by DamienMcKenna, AdamEvertsson, StepanISK, trong.nguyen.tcec,
+  chiefme, quixxel, rjg, CProfessionals: Ignore update.php requests when
+  loading entities; error message when updating from 8.x-1.0 to 8.x-1.5.
 
 
 Metatag 8.x-1.5, 2018-03-29

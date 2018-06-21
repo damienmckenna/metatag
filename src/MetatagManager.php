@@ -466,6 +466,12 @@ class MetatagManager implements MetatagManagerInterface {
    *   Render array with tag elements.
    */
   public function generateRawElements(array $tags, $entity = NULL) {
+    // Ignore the update.php path.
+    $request = \Drupal::request();
+    if ($request->getBaseUrl() == '/update.php') {
+      return [];
+    }
+
     $rawTags = [];
 
     $metatag_tags = $this->tagPluginManager->getDefinitions();
