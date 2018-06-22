@@ -24,6 +24,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
   overriding meta tags on a per-entity basis.
 #2968902 by DamienMcKenna, Berdir: Default user page title token should use
   [user:display-name].
+#2977197 by justin., DamienMcKenna: Allow modules to override the entity used
+  for token replacements.
 
 
 Metatag 8.x-1.5, 2018-03-29

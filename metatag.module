@@ -422,7 +422,7 @@ function metatag_get_tags_from_route($entity = NULL) {
   // Trigger hook_metatags_alter().
   // Allow modules to override tags or the entity used for token replacements.
   $context = [
-    'entity' => $entity,
+    'entity' => &$entity,
   ];
   \Drupal::service('module_handler')->alter('metatags', $metatags, $context);
 

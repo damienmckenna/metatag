@@ -31,9 +31,11 @@ function hook_metatag_route_entity(\Drupal\Core\Routing\RouteMatchInterface $rou
  * @param array $metatags
  *   The special meta tags to be added to the page.
  * @param array $context
- *   The context, containing the entity used for token replacements.
+ *   The context for the current meta tags being generated. Will contain the
+ *   following:
+ *   'entity' - The entity being processed; passed by reference.
  */
-function hook_metatags_alter(array &$metatags, array $context) {
+function hook_metatags_alter(array &$metatags, array &$context) {
   // Exclude meta tags on frontpage.
   if (\Drupal::service('path.matcher')->isFrontPage()) {
     $metatags = NULL;
