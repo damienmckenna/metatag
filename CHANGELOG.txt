@@ -26,6 +26,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
   [user:display-name].
 #2977197 by justin., DamienMcKenna: Allow modules to override the entity used
   for token replacements.
+#2691313 by KarenS, carstenG, DamienMcKenna, Michelle, marysmech: New option to
+  control which meta tag groups are used on each form.
 
 
 Metatag 8.x-1.5, 2018-03-29

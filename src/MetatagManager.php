@@ -246,7 +246,6 @@ class MetatagManager implements MetatagManagerInterface {
 
     $groups_and_tags = $this->sortedGroupsWithTags();
 
-    $first = TRUE;
     foreach ($groups_and_tags as $group_name => $group) {
       // Only act on groups that have tags and are in the list of included
       // groups (unless that list is null).
@@ -255,8 +254,7 @@ class MetatagManager implements MetatagManagerInterface {
         $element[$group_name]['#type'] = 'details';
         $element[$group_name]['#title'] = $group['label'];
         $element[$group_name]['#description'] = $group['description'];
-        $element[$group_name]['#open'] = $first;
-        $first = FALSE;
+        $element[$group_name]['#open'] = FALSE;
 
         foreach ($group['tags'] as $tag_name => $tag) {
           // Only act on tags in the included tags list, unless that is null.
@@ -267,6 +265,11 @@ class MetatagManager implements MetatagManagerInterface {
             // Set the value to the stored value, if any.
             $tag_value = isset($values[$tag_name]) ? $values[$tag_name] : NULL;
             $tag->setValue($tag_value);
+
+            // Open any groups that have non-empty values.
+            if (!empty($tag_value)) {
+              $element[$group_name]['#open'] = TRUE;
+            }
 
             // Create the bit of form for this tag.
             $element[$group_name][$tag_name] = $tag->form($element);
