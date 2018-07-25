@@ -28,6 +28,11 @@ Metatag 8.x-1.x, xxxx-xx-xx
   for token replacements.
 #2691313 by KarenS, carstenG, DamienMcKenna, Michelle, marysmech: New option to
   control which meta tag groups are used on each form.
+#2563657 by plopesc, scotthooker, dawehner, ryanissamson, KevinVb, dobrzyns,
+  PieterDC, peter.keppert, piggito, DamienMcKenna, Grayle, kunal.kursija,
+  Citizen Dan, al0a, kaushashah, yohanaraujo07@gmail.com, markandrewsutton,
+  fuzzyjared, igalafate, PascoS, rybchynski: Panels / Page Manager
+  integration.
 
 
 Metatag 8.x-1.5, 2018-03-29

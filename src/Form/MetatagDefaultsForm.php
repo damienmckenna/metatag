@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\metatag\MetatagManager;
+use Drupal\page_manager\Entity\PageVariant;
 
 /**
  * Class MetatagDefaultsForm.
@@ -161,7 +162,21 @@ class MetatagDefaultsForm extends EntityForm {
         // Get the bundle label.
         $bundle_manager = \Drupal::service('entity_type.bundle.info');
         $bundle_info = $bundle_manager->getBundleInfo($entity_type);
-        $entity_label .= ': ' . $bundle_info[$entity_bundle]['label'];
+        if ($entity_type === 'page_variant') {
+          // Check if page manager is enabled and try to load the page variant
+          // so the label of the variant can be used.
+          $moduleHandler = \Drupal::service('module_handler');
+          if ($moduleHandler->moduleExists('metatag_page_manager')) {
+            $page_variant = PageVariant::load($entity_bundle);
+            $page = $page_variant->getPage();
+            if ($page_variant) {
+              $entity_label .= ': ' . $page->label() . ': ' . $page_variant->label();
+            }
+          }
+        }
+        else {
+          $entity_label .= ': ' . $bundle_info[$entity_bundle]['label'];
+        }
       }
 
       // Set the label to the config entity.
