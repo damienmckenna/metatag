@@ -35,6 +35,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
   integration.
 #2989295 by JKerschner: Coding style improvements.
 #2987852 by Chris Burge: Allow meta tags to be altered before page attachment.
+#2989543 by JKerschner: Remove unused variables and imports.
 
 
 Metatag 8.x-1.5, 2018-03-29

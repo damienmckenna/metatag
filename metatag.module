@@ -80,9 +80,9 @@ function metatag_form_field_config_edit_form_alter(&$form, FormStateInterface $f
 
     // Step through the default value structure and erase any '#default_value'
     // items that are found.
-    foreach ($form['default_value']['widget'][0] as $key => &$outer) {
+    foreach ($form['default_value']['widget'][0] as &$outer) {
       if (is_array($outer)) {
-        foreach ($outer as $key => &$inner) {
+        foreach ($outer as &$inner) {
           if (is_array($inner) && isset($inner['#default_value'])) {
             if (is_array($inner['#default_value'])) {
               $inner['#default_value'] = [];

@@ -7,7 +7,6 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\metatag\Entity\MetatagDefaults;
 use Drupal\views\ViewEntityInterface;
 
 /**

@@ -106,7 +106,6 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
     // Flatten the values array to remove the groups and then serialize all the
     // meta tags into one value for storage.
     $tag_manager = \Drupal::service('plugin.manager.metatag.tag');
-    $tags = $tag_manager->getDefinitions();
     foreach ($values as &$value) {
       $flattened_value = [];
       foreach ($value as $group) {
