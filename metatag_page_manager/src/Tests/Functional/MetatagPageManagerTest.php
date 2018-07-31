@@ -45,7 +45,7 @@ class MetatagPageManagerTest extends BrowserTestBase {
       'label' => 'Metatag Page',
       'path' => '/metatag-test',
     ])->save();
-    $page_variant = PageVariant::create([
+    PageVariant::create([
       'id' => 'metatag_page_manager_variant_test',
       'variant' => 'block_display',
       'label' => 'Metatag Variant',
@@ -167,7 +167,7 @@ class MetatagPageManagerTest extends BrowserTestBase {
     $this->assertSession->statusCodeEquals(200);
     $this->assertSession->titleEquals('My title');
 
-    // Visit page as anonynous user and confirm the right title.
+    // Visit page as anonymous user and confirm the right title.
     $this->drupalLogout();
     $this->drupalGet('/metatag-test');
     $this->assertSession->statusCodeEquals(200);

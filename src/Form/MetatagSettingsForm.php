@@ -93,7 +93,7 @@ class MetatagSettingsForm extends ConfigFormBase {
    * @return array
    *   The filtered array.
    */
-  public static function arrayFilterRecursive($input) {
+  public static function arrayFilterRecursive(array $input) {
     foreach ($input as &$value) {
       if (is_array($value)) {
         $value = static::arrayFilterRecursive($value);

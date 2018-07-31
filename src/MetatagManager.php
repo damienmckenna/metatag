@@ -316,6 +316,8 @@ class MetatagManager implements MetatagManagerInterface {
    *   The ContentEntityInterface object.
    * @param string $field_name
    *   The name of the field to work on.
+   *
+   * @return array
    */
   protected function getFieldTags(ContentEntityInterface $entity, $field_name) {
     $tags = [];

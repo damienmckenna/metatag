@@ -5,4 +5,3 @@ metatag.settings:
     entity_type_groups:
       type: mapping
       label: 'Metatag groups that apply to each entity type'
-

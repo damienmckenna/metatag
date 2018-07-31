@@ -33,6 +33,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
   Citizen Dan, al0a, kaushashah, yohanaraujo07@gmail.com, markandrewsutton,
   fuzzyjared, igalafate, PascoS, rybchynski: Panels / Page Manager
   integration.
+#2989295 by JKerschner: Coding style improvements.
 
 
 Metatag 8.x-1.5, 2018-03-29

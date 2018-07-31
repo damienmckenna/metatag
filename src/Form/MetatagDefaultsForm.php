@@ -50,8 +50,8 @@ class MetatagDefaultsForm extends EntityForm {
       $options = $this->getAvailableBundles();
       $form['id'] = [
         '#type' => 'select',
-        '#title' => t('Type'),
-        '#description' => t('Select the type of default meta tags you would like to add.'),
+        '#title' => $this->t('Type'),
+        '#description' => $this->t('Select the type of default meta tags you would like to add.'),
         '#options' => $options,
         '#required' => TRUE,
         '#default_value' => $default_type,
