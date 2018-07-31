@@ -41,3 +41,19 @@ function hook_metatags_alter(array &$metatags, array &$context) {
     $metatags = NULL;
   }
 }
+
+/**
+ * Alter the meta tags for any page prior to page attachment.
+ *
+ * @param array $metatag_attachments
+ *   An array of metatag objects to be attached to the current page.
+ */
+function hook_metatags_attachments_alter(array &$metatag_attachments) {
+  if (\Drupal::service('path.matcher')->isFrontPage() && \Drupal::currentUser()->isAnonymous()) {
+    foreach ($metatag_attachments['#attached']['html_head'] as $id => $attachment) {
+      if ($attachment[1] == 'title') {
+        $metatag_attachments['#attached']['html_head'][$id][0]['#attributes']['content'] = 'Front Page Title for Anonymous Users';
+      }
+    }
+  }
+}

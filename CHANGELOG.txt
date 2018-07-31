@@ -34,6 +34,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
   fuzzyjared, igalafate, PascoS, rybchynski: Panels / Page Manager
   integration.
 #2989295 by JKerschner: Coding style improvements.
+#2987852 by Chris Burge: Allow meta tags to be altered before page attachment.
 
 
 Metatag 8.x-1.5, 2018-03-29

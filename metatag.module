@@ -117,6 +117,10 @@ function metatag_page_attachments(array &$attachments) {
     return NULL;
   }
 
+  // Trigger hook_metatags_attachments_alter().
+  // Allow modules to rendered metatags prior to attaching.
+  \Drupal::service('module_handler')->alter('metatags_attachments', $metatag_attachments);
+
   // If any Metatag items were found, append them.
   if (!empty($metatag_attachments['#attached']['html_head'])) {
     if (empty($attachments['#attached'])) {
