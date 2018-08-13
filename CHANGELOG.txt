@@ -44,6 +44,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
 #2987904 by thejimbirch: Remove groups redundantly stored in the main module.
 #2987107 by ziomizar: Add support for bubbeable metadata in the MetatagToken
   service.
+#2978106 by Rolf van de Krol: Translated metatags not showing in normalized
+  entity representations (i.e. REST).
 
 
 Metatag 8.x-1.5, 2018-03-29

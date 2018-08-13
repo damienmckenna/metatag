@@ -505,6 +505,7 @@ function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
       ->setDescription(t('The meta tags for the entity.'))
       ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
       ->setComputed(TRUE)
+      ->setTranslatable(TRUE)
       ->setTargetEntityTypeId($entity_type->id());
   }
 
