@@ -42,6 +42,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
   ZapevalovAnton, caspervoogt: Full support for meta tags that allow multiple
   values.
 #2987904 by thejimbirch: Remove groups redundantly stored in the main module.
+#2987107 by ziomizar: Add support for bubbeable metadata in the MetatagToken
+  service.
 
 
 Metatag 8.x-1.5, 2018-03-29
