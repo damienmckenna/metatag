@@ -36,6 +36,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
 #2989295 by JKerschner: Coding style improvements.
 #2987852 by Chris Burge: Allow meta tags to be altered before page attachment.
 #2989543 by JKerschner: Remove unused variables and imports.
+#2753595 by sinn, thejimbirch: W3C validation error on xmlns attribute.
 
 
 Metatag 8.x-1.5, 2018-03-29
