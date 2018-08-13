@@ -430,6 +430,11 @@ function metatag_get_tags_from_route($entity = NULL) {
   ];
   \Drupal::service('module_handler')->alter('metatags', $metatags, $context);
 
+  // If the entity was changed above, use that for generating the meta tags.
+  if (isset($context['entity'])) {
+    $entity = $context['entity'];
+  }
+
   return $metatag_manager->generateElements($metatags, $entity);
 }
 
