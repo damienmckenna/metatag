@@ -46,6 +46,8 @@ Metatag 8.x-1.x, xxxx-xx-xx
   service.
 #2978106 by Rolf van de Krol: Translated metatags not showing in normalized
   entity representations (i.e. REST).
+#2799861 by kalpaitch, DamienMcKenna, dmitry.yankouski, ckaotik: Canonical links
+  repeated when using Panels pages.
 
 
 Metatag 8.x-1.5, 2018-03-29
