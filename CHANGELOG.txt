@@ -41,6 +41,7 @@ Metatag 8.x-1.x, xxxx-xx-xx
 #2628934 by nikunjkotecha, smaz, e.escribano, idebr, DamienMcKenna,
   ZapevalovAnton, caspervoogt: Full support for meta tags that allow multiple
   values.
+#2987904 by thejimbirch: Remove groups redundantly stored in the main module.
 
 
 Metatag 8.x-1.5, 2018-03-29
