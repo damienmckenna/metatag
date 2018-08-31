@@ -527,6 +527,12 @@ class MetatagManager implements MetatagManagerInterface {
 
         if (!empty($output)) {
           $output = $tag->multiple() ? $output : [$output];
+
+          // Backwards compatibility for modules which don't support this logic.
+          if (isset($output['#tag'])) {
+            $output = [$output];
+          }
+
           foreach ($output as $index => $element) {
             // Add index to tag name as suffix to avoid having same key.
             $index_tag_name = $tag->multiple() ? $tag_name . '_' . $index : $tag_name;

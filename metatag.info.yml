@@ -11,3 +11,4 @@ test_dependencies:
   - devel:devel
   - redirect:redirect
   - restui:restui
+  - schema_metatag:schema_web_page

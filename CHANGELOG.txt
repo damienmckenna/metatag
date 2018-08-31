@@ -1,5 +1,8 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2994979 by DamienMcKenna, dspachos, ynotpeanutbutter, oxy86, IT-Cru, kdeds,
+  zenimagine: Fixed backwards compatibility break when support for multiple-
+  value tags was added.
 
 
 Metatag 8.x-1.6, 2018-08-21
