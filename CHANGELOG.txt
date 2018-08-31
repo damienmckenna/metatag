@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.6, 2018-08-21
 ---------------------------
 #2961777 by thejimbirch, Baysaa: "Geographical position" (geo.position) should
