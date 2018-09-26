@@ -4,43 +4,34 @@ This module adds support for meta tag configuration for Google Scholar meta tags
 
 The following Google Scholar tags are provided:
 
-* itemprop:name
-* itemprop:description
-* itemprop:image
-* author
-* publisher
+    'citation_title'
+    'citation_author'
+    'citation_publication_date'
+    'citation_journal_title'
+    'citation_volume'
+    'citation_issue'
+    'citation_firstpage'
+    'citation_lastpage'
+    'citation_pdf_url'
 
-Also itemtype is provided to add schema in the HTML markup as follows:
-
-<html itemscope itemtype="http://schema.org/Article">
 
 
 Usage
 --------------------------------------------------------------------------------
-Page type (itemtype) provides default type options from the Google+ Snippet page
-[1]; to add other types either install select_or_other module [2] or use the
-Metatag hooks (see metatag.api.php).
-
+You can set any patterns for each tag so content type's field matches to each metatag of Google Scholar index.
 
 Installation
 --------------------------------------------------------------------------------
-The $schemaorg variable must be appended to the <html> tag in the html.tpl.php
-file being used on the site, and it must be added after the $rdf_namespaces
-variable, e.g.:
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php print
-  $language->language; ?>" version="XHTML+RDFa 1.0" dir="<?php print
-  $language->dir; ?>"<?php print $rdf_namespaces; ?><?php print $schemaorg; ?>>
+Enable the module after you enable Metatag. 
 
 
 Credits / Contact
 --------------------------------------------------------------------------------
-Originally developed by Eric Chen [3] and sponsored by Monkii [4].
+Myeong Lee [1] developed the submodule by modifying Google Metatag modules developed by Eric Chen [2] and sponsored by Monkii [3]
 
 
 References
 --------------------------------------------------------------------------------
-1: https://developers.google.com/+/web/snippet/
-2. https://drupal.org/project/select_or_other
-3: https://drupal.org/user/265729
-4: http://monkii.com
+1: https://myeonglee.com
+2: https://drupal.org/user/265729
+3: http://monkii.com
