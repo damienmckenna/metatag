@@ -111,7 +111,6 @@ function metatag_google_scholar_metatag_info() {
   $info['tags']['citation_journal_title'] = array(
     'label' => t('Citation Journal Title'),
     'description' => t("Name of the Venue."),
-    'class' => 'DrupalLinkMetaTag',
     'weight' => ++$weight,
     'maxlength' => 0,
   ) + $defaults;
@@ -119,7 +118,6 @@ function metatag_google_scholar_metatag_info() {
   $info['tags']['citation_volume'] = array(
     'label' => t('Citation Volume'),
     'description' => t("The volume number of the publication."),
-    'class' => 'DrupalLinkMetaTag',
     'weight' => ++$weight,
     'maxlength' => 0,
   ) + $defaults;
@@ -127,7 +125,6 @@ function metatag_google_scholar_metatag_info() {
   $info['tags']['citation_issue'] = array(
     'label' => t('Citation Issue'),
     'description' => t("The issue number of the publiation."),
-    'class' => 'DrupalLinkMetaTag',
     'weight' => ++$weight,
     'maxlength' => 0,
   ) + $defaults;
@@ -135,7 +132,6 @@ function metatag_google_scholar_metatag_info() {
   $info['tags']['citation_firstpage'] = array(
     'label' => t('Citation First Page'),
     'description' => t("The first page number of the publication."),
-    'class' => 'DrupalLinkMetaTag',
     'weight' => ++$weight,
     'maxlength' => 0,
   ) + $defaults;
@@ -143,7 +139,6 @@ function metatag_google_scholar_metatag_info() {
   $info['tags']['citation_lastpage'] = array(
     'label' => t('Citation Last Page'),
     'description' => t("The last page number of the publication."),
-    'class' => 'DrupalLinkMetaTag',
     'weight' => ++$weight,
     'maxlength' => 0,
   ) + $defaults;
@@ -151,13 +146,9 @@ function metatag_google_scholar_metatag_info() {
   $info['tags']['citation_pdf_url'] = array(
     'label' => t('Citation PDF URL'),
     'description' => t("The URL of the publication PDF file."),
-    'class' => 'DrupalLinkMetaTag',
     'weight' => ++$weight,
     'maxlength' => 0,
     'element' => array(),
-    'devel_generate' => array(
-      'type' => 'url',
-    ),
   ) + $defaults;
 
   return $info;
