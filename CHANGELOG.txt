@@ -1,5 +1,7 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#2971271 by subson, idebr, nkoporec, DamienMcKenna, Michelle: Replace
+  drupal_set_message().
 
 
 Metatag 8.x-1.7, 2018-08-31
