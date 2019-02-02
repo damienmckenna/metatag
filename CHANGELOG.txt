@@ -6,6 +6,7 @@ Metatag 7.x-1.x, xxxx-xx-xx
   lock_waits with stampede protection.
 #3030181 by DamienMcKenna: Filter JavaScript, style content out of values.
 #3021167 by Stevel, DamienMcKenna: Make Devel a dependency for all tests.
+#3030239 by DamienMcKenna: Remove duplicate metatag_hreflang.test file.
 
 
 Metatag 7.x-1.25, 2018-04-03
