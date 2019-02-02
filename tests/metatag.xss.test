@@ -15,21 +15,21 @@ class MetatagCoreXSSTest extends MetatagTestHelper {
    *
    * @var string
    */
-  private $xssTitleString = '<script>alert("xss");</script>';
+  private $xssTitleString = '<script>alert("xss");</script>Mango.';
 
   /**
    * String that causes an alert when metatags aren't filtered for xss.
    *
    * @var string
    */
-  private $xssString = '"><script>alert("xss");</script><meta "';
+  private $xssString = '"><script>alert("xss");</script>Mango.<meta "';
 
   /**
    * Rendered xss tag that has escaped attribute to avoid xss injection.
    *
    * @var string
    */
-  private $escapedXssTag = '<meta name="abstract" content="&quot;&gt;alert(&quot;xss&quot;);" />';
+  private $escapedXssTag = '<meta name="abstract" content="&quot;&gt;Mango." />';
 
   /**
    * String that causes an alert when metatags aren't filtered for xss.
@@ -46,7 +46,7 @@ class MetatagCoreXSSTest extends MetatagTestHelper {
    *
    * @var string
    */
-  private $escapedXssImageTag = '';
+  private $escapedXssImageTag = 'Mango.';
 
   /**
    * {@inheritdoc}

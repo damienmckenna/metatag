@@ -213,6 +213,13 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
     // Decode HTML entities.
     $value = decode_entities($value);
 
+    // First off, remove the <style> tag, because strip_tags() leaves the CSS
+    // inline.
+    $value = preg_replace('/<style\b[^>]*>(.*?)<\/style>/is', '', $value);
+
+    // Ditto for JavaScript.
+    $value = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $value);
+
     // Remove any HTML code that might have been included.
     $value = strip_tags($value);
 

@@ -22,7 +22,7 @@ class MetatagCoreStringHandlingTest extends MetatagTestHelper {
   public static function getInfo() {
     return array(
       'name' => 'Metatag core tests for string handling',
-      'description' => "Tests Metatag's string handling.",
+      'description' => "Tests Metatag's string handling. Also provides some additional test coverage for XSS protection.",
       'group' => 'Metatag',
       'dependencies' => array('ctools', 'token'),
     );
@@ -271,6 +271,104 @@ class MetatagCoreStringHandlingTest extends MetatagTestHelper {
     $this->assertNoRaw('"' . $desc_original . '"', 'Confirmed the node "description" meta tag string does not show in its original form.');
     // Normal meta tags should not be double-encoded.
     $this->assertNoRaw('"' . $desc_encodeded . '"', 'Confirmed the node "description" meta tag string was not double-encoded.');
+  }
+
+  /**
+   * Test JavaScript handling.
+   */
+  function testjavaScript() {
+    // Create a node with a script tag that has no line breaks.
+    $node = $this->drupalCreateNode(array(
+      'title' => $this->randomName() . ' ' . $this->randomName(),
+      'body' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => '<script>alert("Hello world!");</script>Mango.',
+            'format' => filter_default_format(),
+          ),
+        ),
+      ),
+    ));
+
+    // Load the node page.
+    $this->drupalGet('node/' . $node->nid);
+    $this->assertResponse(200);
+
+    // Verify the script does not get output.
+    $xpath = $this->xpath("//meta[@name='description']");
+    $this->assertEqual($xpath[0]['content'], 'Mango.');
+    $this->assertNotEqual($xpath[0]['content'], 'alert("Hello world!");Mango.');
+
+    // Create a node with a script tag that has line breaks.
+    $node = $this->drupalCreateNode(array(
+      'title' => $this->randomName() . ' ' . $this->randomName(),
+      'body' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => "<script>\nalert('Hello world!');\n</script>\nMango.",
+            'format' => filter_default_format(),
+          ),
+        ),
+      ),
+    ));
+
+    // Load the node page.
+    $this->drupalGet('node/' . $node->nid);
+    $this->assertResponse(200);
+
+    // Verify the script does not get output.
+    $xpath = $this->xpath("//meta[@name='description']");
+    $this->assertEqual($xpath[0]['content'], 'Mango.');
+    $this->assertNotEqual($xpath[0]['content'], 'alert("Hello world!");Mango.');
+  }
+
+  /**
+   * Test CSS handling.
+   */
+  function testCss() {
+    // Create a node with a style tag that has no line breaks.
+    $node = $this->drupalCreateNode(array(
+      'title' => $this->randomName() . ' ' . $this->randomName(),
+      'body' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => "<style>body{color:red;}</style>Mango.",
+            'format' => filter_default_format(),
+          ),
+        ),
+      ),
+    ));
+
+    // Load the node page.
+    $this->drupalGet('node/' . $node->nid);
+    $this->assertResponse(200);
+
+    // Verify the style does not get output.
+    $xpath = $this->xpath("//meta[@name='description']");
+    $this->assertEqual($xpath[0]['content'], "Mango.");
+    $this->assertNotEqual($xpath[0]['content'], "body{color:red;}Mango.");
+
+    // Create a node with a style tag that has line breaks.
+    $node = $this->drupalCreateNode(array(
+      'title' => $this->randomName() . ' ' . $this->randomName(),
+      'body' => array(
+        LANGUAGE_NONE => array(
+          array(
+            'value' => "<style>\nbody{color:red;}\n</style>\nMango.",
+            'format' => filter_default_format(),
+          ),
+        ),
+      ),
+    ));
+
+    // Load the node page.
+    $this->drupalGet('node/' . $node->nid);
+    $this->assertResponse(200);
+
+    // Verify the style does not get output.
+    $xpath = $this->xpath("//meta[@name='description']");
+    $this->assertEqual($xpath[0]['content'], "Mango.");
+    $this->assertNotEqual($xpath[0]['content'], "body{color:red;} Mango.");
   }
 
 }
