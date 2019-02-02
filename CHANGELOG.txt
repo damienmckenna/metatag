@@ -1,5 +1,7 @@
 Metatag 7.x-1.x, xxxx-xx-xx
 ---------------------------
+#3011548 by jacob.embree, DamienMcKenna: Add configure link to
+  metatag_importer.info.
 
 
 Metatag 7.x-1.25, 2018-04-03
