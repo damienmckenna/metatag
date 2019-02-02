@@ -1964,15 +1964,17 @@ function metatag_page_build(&$page) {
     );
     $cid = metatag_cache_default_cid_parts($cid_parts);
 
-    if ($cache = metatag_cache_get($cid)) {
-      $metatags = $cache->data;
+    if (variable_get('metatag_cache_output', FALSE)) {
+      if ($cache = metatag_cache_get($cid)) {
+        $metatags = $cache->data;
+      }
+      else {
+        $metatags = metatag_metatags_view($instance, array());
+        metatag_cache_set($cid, $metatags);
+      }
     }
     else {
       $metatags = metatag_metatags_view($instance, array());
-      // If output caching is enabled, save this for later.
-      if (variable_get('metatag_cache_output', FALSE)) {
-        metatag_cache_set($cid, $metatags);
-      }
     }
 
     $page[$region]['metatags'][$instance] = $metatags;

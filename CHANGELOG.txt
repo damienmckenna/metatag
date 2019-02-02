@@ -2,6 +2,8 @@ Metatag 7.x-1.x, xxxx-xx-xx
 ---------------------------
 #3011548 by jacob.embree, DamienMcKenna: Add configure link to
   metatag_importer.info.
+#2966185 by DamienMcKenna, justindodge: Cache get without set causes super long
+  lock_waits with stampede protection.
 
 
 Metatag 7.x-1.25, 2018-04-03
