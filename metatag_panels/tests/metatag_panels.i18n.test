@@ -18,7 +18,7 @@ class MetatagPanelsI18nTest extends MetatagTestHelper {
       'name' => 'Metatag:Panels i18n tests',
       'description' => 'Test Metatag integration via the Metatag:Panels module.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'panels', 'page_manager', 'i18n'),
+      'dependencies' => array('ctools', 'devel', 'token', 'panels', 'page_manager', 'i18n'),
     );
   }
 

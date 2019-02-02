@@ -18,6 +18,7 @@ class MetatagOpenGraphProductsTagsTest extends MetatagTagsTestBase {
       'name' => 'Metatag tags: OpenGraph Products',
       'description' => 'Test the OpenGraph Products meta tags.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

@@ -18,6 +18,7 @@ class MetatagVerificationTest extends MetatagTestHelper {
       'name' => 'Metatag Verification tests',
       'description' => 'Test the Metatag:Verification module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

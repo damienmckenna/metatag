@@ -18,6 +18,7 @@ class MetatagTwitterCardsTest extends MetatagTestHelper {
       'name' => 'Metatag Twitter Cards tests',
       'description' => 'Test the Metatag:Twitter Cards module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

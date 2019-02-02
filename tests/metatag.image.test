@@ -18,7 +18,7 @@ class MetatagCoreImageTest extends MetatagTestHelper {
       'name' => 'Metatag core tests for images',
       'description' => 'Test Metatag integration with image files.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'devel_generate'),
+      'dependencies' => array('ctools', 'devel', 'token', 'devel_generate'),
     );
   }
 

@@ -18,6 +18,7 @@ class MetatagDevelest extends MetatagTestHelper {
       'name' => 'Metatag Devel tests',
       'description' => 'Test the Metatag:Devel module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

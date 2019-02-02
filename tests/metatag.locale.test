@@ -18,7 +18,7 @@ class MetatagCoreLocaleTest extends MetatagTestHelper {
       'name' => 'Metatag core tests for Locale',
       'description' => 'Test Metatag integration with the locale module.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token'),
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

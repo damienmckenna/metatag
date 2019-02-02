@@ -18,7 +18,7 @@ class MetatagCoreWithMeTest extends MetatagTestHelper {
       'name' => 'Metatag core tests with Me',
       'description' => 'Test Metatag integration with the Me module.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'me'),
+      'dependencies' => array('ctools', 'devel', 'token', 'me'),
     );
   }
 

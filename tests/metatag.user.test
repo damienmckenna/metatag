@@ -18,7 +18,7 @@ class MetatagCoreUserTest extends MetatagTestHelper {
       'name' => 'Metatag core tests for users',
       'description' => 'Test Metatag edit functionality for users.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token'),
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

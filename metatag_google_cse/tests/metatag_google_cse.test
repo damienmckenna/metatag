@@ -18,6 +18,7 @@ class MetatagGoogleCSETest extends MetatagTestHelper {
       'name' => 'Metatag Google CSE tests',
       'description' => 'Test the Metatag:Google CSE module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

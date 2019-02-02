@@ -18,7 +18,7 @@ class MetatagCoreWithPanelsTest extends MetatagTestHelper {
       'name' => 'Metatag core tests with Panels',
       'description' => 'Test Metatag integration with the Panels module.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'panels', 'page_manager'),
+      'dependencies' => array('ctools', 'devel', 'token', 'panels', 'page_manager'),
     );
   }
 

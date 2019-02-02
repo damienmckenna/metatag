@@ -18,6 +18,7 @@ class MetatagImporterTest extends MetatagTestHelper {
       'name' => 'Metatag Importer tests',
       'description' => 'Test the Metatag:Importer module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

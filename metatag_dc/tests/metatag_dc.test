@@ -18,6 +18,7 @@ class MetatagDcTest extends MetatagTestHelper {
       'name' => 'Metatag DC tests',
       'description' => 'Test the Metatag:DC module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

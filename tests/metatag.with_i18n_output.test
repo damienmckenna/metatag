@@ -18,7 +18,7 @@ class MetatagCoreWithI18nOutputTest extends MetatagTestHelper {
       'name' => 'Metatag core tests with i18n: output',
       'description' => 'Test Metatag integration with the i18n module.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'i18n'),
+      'dependencies' => array('ctools', 'devel', 'token', 'i18n'),
     );
   }
 

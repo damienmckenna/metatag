@@ -18,6 +18,7 @@ class MetatagAppLinksTest extends MetatagTestHelper {
       'name' => 'Metatag AppLinks tests',
       'description' => 'Test the Metatag:AppLinks module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

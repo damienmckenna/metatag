@@ -18,7 +18,7 @@ class MetatagContextI18nTest extends MetatagTestHelper {
       'name' => 'Metatag:Context tests, with i18n',
       'description' => 'Test Metatag integration with the Context and i18n modules.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'context', 'i18n'),
+      'dependencies' => array('ctools', 'devel', 'token', 'context', 'i18n'),
     );
   }
 

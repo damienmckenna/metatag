@@ -18,7 +18,7 @@ class MetatagContextTest extends MetatagTestHelper {
       'name' => 'Metatag:Context tests',
       'description' => 'Test basic Metatag:Context functionality.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'context'),
+      'dependencies' => array('ctools', 'devel', 'token', 'context'),
     );
   }
 

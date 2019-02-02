@@ -18,6 +18,7 @@ class MetatagDcAdvancedTest extends MetatagTestHelper {
       'name' => 'Metatag DC Advanced tests',
       'description' => 'Test the Metatag:DC Advanced module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

@@ -21,7 +21,7 @@ class MetatagCoreWithProfile2Test extends MetatagCoreUserTest {
       'name' => 'Metatag core tests with Profile2',
       'description' => 'Test Metatag integration with the Profile2 module.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'profile2'),
+      'dependencies' => array('ctools', 'devel', 'token', 'profile2'),
     );
   }
 

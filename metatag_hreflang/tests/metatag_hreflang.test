@@ -18,6 +18,7 @@ class MetatagHreflangTest extends MetatagTestHelper {
       'name' => 'Metatag Hreflang tests',
       'description' => 'Test the Metatag:Hreflang module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

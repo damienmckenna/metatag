@@ -18,6 +18,7 @@ class MetatagFaviconsTest extends MetatagTestHelper {
       'name' => 'Metatag Favicons tests',
       'description' => 'Test the Metatag:Favicons module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

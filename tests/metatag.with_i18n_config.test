@@ -18,7 +18,7 @@ class MetatagCoreWithI18nConfigTest extends MetatagTestHelper {
       'name' => 'Metatag core tests with i18n: configs',
       'description' => 'Test Metatag configuration integration with the i18n module.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'i18n'),
+      'dependencies' => array('ctools', 'devel', 'token', 'i18n'),
     );
   }
 

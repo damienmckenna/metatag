@@ -24,7 +24,7 @@ class MetatagCoreStringHandlingTest extends MetatagTestHelper {
       'name' => 'Metatag core tests for string handling',
       'description' => "Tests Metatag's string handling. Also provides some additional test coverage for XSS protection.",
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token'),
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

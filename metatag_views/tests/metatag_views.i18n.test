@@ -18,6 +18,7 @@ class MetatagViewsI18nTest extends MetatagTestHelper {
       'name' => 'Metatag:Views i18n tests',
       'description' => 'Test Metatag integration via the Metatag:Views module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

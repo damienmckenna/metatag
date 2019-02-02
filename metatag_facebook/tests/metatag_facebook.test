@@ -18,6 +18,7 @@ class MetatagFacebookTest extends MetatagTestHelper {
       'name' => 'Metatag Facebook tests',
       'description' => 'Test the Metatag:Facebook module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

@@ -18,7 +18,7 @@ class MetatagCoreOutputCachingTest extends MetatagTestHelper {
       'name' => 'Metatag: output caching',
       'description' => 'Test the output caching functionality in Metatag.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token'),
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 

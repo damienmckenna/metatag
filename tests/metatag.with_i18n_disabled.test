@@ -18,7 +18,7 @@ class MetatagCoreWithI18nDisabledTest extends MetatagTestHelper {
       'name' => 'Metatag core tests with i18n disabled',
       'description' => 'Test Metatag integration with the i18n module enabled but the integration disabled.',
       'group' => 'Metatag',
-      'dependencies' => array('ctools', 'token', 'i18n'),
+      'dependencies' => array('ctools', 'devel', 'token', 'i18n'),
     );
   }
 

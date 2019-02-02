@@ -18,6 +18,7 @@ class MetatagGooglePlusTest extends MetatagTestHelper {
       'name' => 'Metatag GooglePlus tests',
       'description' => 'Test the Metatag:GooglePlus module.',
       'group' => 'Metatag',
+      'dependencies' => array('ctools', 'devel', 'token'),
     );
   }
 
