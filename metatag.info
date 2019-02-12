@@ -26,6 +26,9 @@ files[] = metatag.search_api.inc
 
 
 ; Tests.
+; Devel is a dependency for all tests as it's used to automatically trim meta
+; tags to a certain length.
+test_dependencies[] = devel:devel
 files[] = tests/metatag.helper.test
 
 ; Basic configuration handling.
@@ -56,8 +59,7 @@ files[] = tests/metatag.xss.test
 ; Output caching.
 files[] = tests/metatag.output_caching.test
 
-; Images need specia attention.
-test_dependencies[] = devel:devel
+; Images need special attention.
 test_dependencies[] = imagecache_token:imagecache_token
 files[] = tests/metatag.image.test
 
@@ -71,24 +73,24 @@ files[] = tests/metatag.with_i18n_output.test
 files[] = tests/metatag.with_i18n_disabled.test
 files[] = tests/metatag.with_i18n_config.test
 
-; Basic integration with Me.
+; Integration with Me.
 test_dependencies[] = me:me
 files[] = tests/metatag.with_me.test
 
-; Basic integration with Media.
+; Integration with Media.
 test_dependencies[] = file_entity:file_entity
 test_dependencies[] = media:media (>= 2.0, < 3.0)
 files[] = tests/metatag.with_media.test
 
-; Basic integration with Panels.
+; Integration with Panels.
 test_dependencies[] = panels:panels
 files[] = tests/metatag.with_panels.test
 
-; Basic integration with Profile2.
+; Integration with Profile2.
 test_dependencies[] = profile2:profile2
 files[] = tests/metatag.with_profile2.test
 
-; Basic integration with Search API.
+; Integration with Search API.
 test_dependencies[] = entity:entity
 test_dependencies[] = search_api:search_api
 files[] = tests/metatag.with_search_api.test
@@ -97,9 +99,9 @@ files[] = tests/metatag.with_search_api.test
 test_dependencies[] = workbench_moderation:workbench_moderation
 files[] = tests/metatag.with_workbench_moderation.test
 
-; Basic integration with Views.
+; Integration with Views.
 test_dependencies[] = views:views
 files[] = tests/metatag.with_views.test
 
-; Other test dependencies.
+; Test dependencies used by submodules, left here to make it easier to find.
 test_dependencies[] = context:context
