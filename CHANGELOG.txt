@@ -6,6 +6,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   instead of itemprop="description".
 #3025142 by thejimbirch, bum-dee-dum, volkswagenchick: Add meta tag: Pocket site
   verification.
+#3005466 by dbgilbert, DamienMcKenna, thejimbirch: Allow multiple Google
+  verification tags.
 
 
 Metatag 8.x-1.7, 2018-08-31
