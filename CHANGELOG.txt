@@ -4,6 +4,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   drupal_set_message().
 #2997834 by thejimbirch, volkswagenchick: itemprop="itemprop:description"
   instead of itemprop="description".
+#3025142 by thejimbirch, bum-dee-dum, volkswagenchick: Add meta tag: Pocket site
+  verification.
 
 
 Metatag 8.x-1.7, 2018-08-31
