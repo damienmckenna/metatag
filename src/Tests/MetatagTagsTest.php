@@ -27,6 +27,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'keywords',
     'news_keywords',
     'original_source',
+    'rating',
     'referrer',
     'rights',
     'robots',

@@ -8,6 +8,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   verification.
 #3005466 by dbgilbert, DamienMcKenna, thejimbirch: Allow multiple Google
   verification tags.
+#1498762 by DamienMcKenna, thejimbirch, vipul tulse: Add new meta tag: Rating.
 
 
 Metatag 8.x-1.7, 2018-08-31
