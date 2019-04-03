@@ -15,6 +15,7 @@
       "role": "Developer"
     }
   ],
+  "minimum-stability": "dev",
   "support": {
     "issues": "http://drupal.org/project/issues/metatag",
     "source": "http://cgit.drupalcode.org/metatag"
