@@ -57,7 +57,7 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
     $item = $items[$delta];
-    $default_tags = metatag_get_default_tags();
+    $default_tags = metatag_get_default_tags($items->getEntity());
 
     // Retrieve the values for each metatag from the serialized array.
     $values = [];
