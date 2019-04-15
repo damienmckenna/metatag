@@ -468,16 +468,19 @@ function metatag_get_tags_from_route($entity = NULL) {
  *   Array of tags or NULL;
  */
 function metatag_get_default_tags($entity = NULL) {
-  /** @var \Drupal\Core\Entity\EntityTypeManagerInterface $global_metatag_manager */
+  /** @var \Drupal\Core\Entity\EntityStorageInterface $global_metatag_manager */
   $global_metatag_manager = \Drupal::entityTypeManager()->getStorage('metatag_defaults');
+  /** @var \Drupal\metatag\MetatagManager $metatag_manager */
+  $metatag_manager = \Drupal::service('metatag.manager');
+
   // First we load global defaults.
-  $metatags = $global_metatag_manager->load('global');
+  $metatags = $metatag_manager->getGlobalMetatags();
   if (!$metatags) {
     return NULL;
   }
 
   // Check if this is a special page.
-  $special_metatags = \Drupal::service('metatag.manager')->getSpecialMetatags();
+  $special_metatags = $metatag_manager->getSpecialMetatags();
   if (isset($special_metatags)) {
     $metatags->overwriteTags($special_metatags->get('tags'));
   }
@@ -489,15 +492,17 @@ function metatag_get_default_tags($entity = NULL) {
     }
 
     if (!empty($entity) && $entity instanceof ContentEntityInterface) {
+      /** @var \Drupal\metatag\Entity\MetatagDefaults|null $entity_metatags */
       $entity_metatags = $global_metatag_manager->load($entity->getEntityTypeId());
-      if ($entity_metatags != NULL) {
+      if ($entity_metatags != NULL && $entity_metatags->status()) {
         // Merge with global defaults.
         $metatags->overwriteTags($entity_metatags->get('tags'));
       }
 
       // Finally, check if bundle overrides should be added.
+      /** @var \Drupal\metatag\Entity\MetatagDefaults|null $bundle_metatags */
       $bundle_metatags = $global_metatag_manager->load($entity->getEntityTypeId() . '__' . $entity->bundle());
-      if ($bundle_metatags != NULL) {
+      if ($bundle_metatags != NULL && $bundle_metatags->status()) {
         // Merge with existing defaults.
         $metatags->overwriteTags($bundle_metatags->get('tags'));
       }
