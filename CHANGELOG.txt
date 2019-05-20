@@ -13,6 +13,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3045460 by Berdir: MetatagFirehose::formElement() should pass current entity
   explicitly to metatag_get_default_tags().
 #3046976 by idebr, chr.fritsch: Schema for entity_type_groups is incorrect.
+By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 
 
 Metatag 8.x-1.8, 2019-02-20
