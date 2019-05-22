@@ -15,6 +15,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3046976 by idebr, chr.fritsch: Schema for entity_type_groups is incorrect.
 By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #3048615 by thalles, idebr: Replace MetatagManager by MetatagManagerInterface.
+#3048566 by thejimbirch, sean_e_dietrich: Pinterest and Yandex URLs in
+  Verification need updating.
 
 
 Metatag 8.x-1.8, 2019-02-20
