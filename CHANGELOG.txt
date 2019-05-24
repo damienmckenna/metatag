@@ -8,6 +8,8 @@ Metatag 7.x-1.x, xxxx-xx-xx
 #3021167 by Stevel, DamienMcKenna: Make Devel a dependency for all tests.
 #3030239 by DamienMcKenna: Remove duplicate metatag_hreflang.test file.
 #3044943 by thejimbirch, mluzitano, DamienMcKenna: Fix LICENSE.txt.
+#3037897 by Ronino, DamienMcKenna: Allow raw meta tags to be modified prior to
+  creating the render array.
 
 
 Metatag 7.x-1.25, 2018-04-03

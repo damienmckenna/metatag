@@ -172,6 +172,15 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
   }
   $metatags = $all_metatags;
 
+  $instance = 'panels:' . $handler->name;
+  $options = array(
+    'instance' => $instance,
+  );
+
+  // Trigger hook_metatag_metatags_alter(). Allow the raw meta tags to be
+  // modified prior to rendering.
+  drupal_alter('metatag_metatags', $metatags, $instance, $options);
+
   if (empty($metatags)) {
     return;
   }
@@ -205,10 +214,7 @@ function metatag_panels_ctools_render_alter($info, $page, $context) {
   $current_pager = metatag_get_current_pager();
 
   // Build the Metatag.
-  $options = array(
-    'instance' => 'panels:' . $handler->name,
-    'token data' => $tokens,
-  );
+  $options['token data'] = $tokens;
   foreach ($metatags as $metatag => $data) {
     // Render CTools context substitution values prior to rendering the meta
     // tag.

@@ -1396,6 +1396,10 @@ function metatag_metatags_view($instance, array $metatags = array(), array $opti
 
   $options['instance'] = $instance;
 
+  // Trigger hook_metatag_metatags_alter(). Allow the raw meta tags to be
+  // modified prior to rendering.
+  drupal_alter('metatag_metatags', $metatags, $instance, $options);
+
   // Don't output meta tags that only contain the pager.
   $current_pager = metatag_get_current_pager();
 

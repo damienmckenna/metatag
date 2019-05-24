@@ -275,13 +275,35 @@ function hook_metatag_info_alter(&$info) {
 }
 
 /**
+ * Alter raw metatags before being cached.
+ *
+ * This hook is invoked prior to the meta tags for a given page are converted to
+ * a render array and cached.
+ *
+ * @param array $metatags
+ *   All of the meta tags to be output for this page in their raw format, keyed
+ *   by tag name. Each tag is an array with a "value" field to hold the
+ *   respective value or values.
+ * @param string $instance
+ *   An identifier for the current page's page type, typically a combination
+ *   of the entity name and bundle name, e.g. "node:story".
+ * @param array $options
+ *   All of the options used to generate the meta tags.
+ */
+function hook_metatag_metatags_alter(array &$metatags, array $instance, array $options) {
+  if (isset($metatags['description']['value'])) {
+    $metatags['description']['value'] = '0 rly?';
+  }
+}
+
+/**
  * Alter metatags before being cached.
  *
  * This hook is invoked prior to the meta tags for a given page are cached.
  *
  * @param array $output
- *   All of the meta tags to be output for this page in their raw format. This
- *   is a heavily nested array.
+ *   All of the meta tags to be output for this page in their render format.
+ *   This is a heavily nested array.
  * @param string $instance
  *   An identifier for the current page's page type, typically a combination
  *   of the entity name and bundle name, e.g. "node:story".
