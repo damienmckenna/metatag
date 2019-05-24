@@ -10,6 +10,8 @@ Metatag 7.x-1.x, xxxx-xx-xx
 #3044943 by thejimbirch, mluzitano, DamienMcKenna: Fix LICENSE.txt.
 #3037897 by Ronino, DamienMcKenna: Allow raw meta tags to be modified prior to
   creating the render array.
+#3037874 by Ronino: Build meta tags for Panels much later so they can be altered
+  after page data has been processed.
 
 
 Metatag 7.x-1.25, 2018-04-03
