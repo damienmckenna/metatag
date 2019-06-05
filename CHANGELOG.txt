@@ -17,6 +17,7 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #3048615 by thalles, idebr: Replace MetatagManager by MetatagManagerInterface.
 #3048566 by thejimbirch, sean_e_dietrich: Pinterest and Yandex URLs in
   Verification need updating.
+#3042739 by DamienMcKenna: Fix tests on Metatag 8.x-1.x branch.
 
 
 Metatag 8.x-1.8, 2019-02-20

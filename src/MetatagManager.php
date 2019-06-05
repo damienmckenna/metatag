@@ -396,11 +396,11 @@ class MetatagManager implements MetatagManagerInterface {
    * Returns global meta tags.
    *
    * @return \Drupal\metatag\Entity\MetatagDefaults|null
-   *   The global meta tags or null.
+   *   The global meta tags or NULL.
    */
   public function getGlobalMetatags() {
     $metatags = $this->metatagDefaults->load('global');
-    return $metatags->status() ? $metatags : NULL;
+    return (!empty($metatags) && $metatags->status()) ? $metatags : NULL;
   }
 
   /**
