@@ -43,6 +43,9 @@ The primary features include:
 * The fifteen Dublin Core Basic Element Set 1.1 meta tags may be added by
   enabling the "Metatag: Dublin Core" submodule.
 
+* Forty additional Dublin Core meta tags may be added by enabling the "Metatag:
+  Dublin Core Advanced" submodule.
+
 * The Open Graph Protocol meta tags, as used by Facebook, Pinterest, LinkedIn
   and other sites, may be added by enabling the "Metatag: Open Graph" submodule.
 
@@ -57,6 +60,9 @@ The primary features include:
   are using Facebook widgets or are building custom integration with Facebook's
   APIs, but they are not needed by most sites and have no bearing on the
   Open Graph meta tags.
+
+* The Pinterest meta tags may be added by enabling the "Metatag: Pinterest" 
+  submodule.
 
 * Site verification meta tags can be added, e.g. as used by the Google search
   engine to confirm ownership of the site; see the "Metatag: Verification"
@@ -95,7 +101,7 @@ Standard usage scenario
    automatically assign values.
 4. Additional bundle defaults may be added by clicking on "Add metatag
    defaults" and filling out the form.
-5. To adjust metatags for a specific entity, the Metatag field must be added
+5. To adjust meta tags for a specific entity, the Metatag field must be added
    first. Follow these steps:
 
    5.1 Go to the "Manage fields" of the bundle where the Metatag field is to
@@ -107,6 +113,28 @@ Standard usage scenario
    5.5 If the site supports multiple languages, and translations have been
        enabled for this entity, select "Users may translate this field" to use
        Drupal's translation system.
+
+
+Simplify the content administration experience
+--------------------------------------------------------------------------------
+This module and its submodules gives a site's content team the ability to add
+every meta tag ever. The standard meta tag form added by the Metatag field on
+content entities can be overwhelming to content creators and editors who just
+need to manage a few options.
+
+The easiest way of simplifying this for content teams is to add new fields to
+the content type for the meta data fields that are needed and skip adding the
+Metatag field entirely, then use tokens for those fields in the defaults
+(/admin/config/search/metatag). These fields can be used in the entity's
+display, or just left hidden.
+
+
+Alternative option to simplify the content administration experience
+--------------------------------------------------------------------------------
+On the settings page (/admin/config/search/metatag/settings) are options to
+control which meta tag groups are available for each entity bundle. This allows
+e.g. the Favicon meta tags to be available for global configurations but to hide
+them on entity forms.
 
 
 Programmatically assign meta tags to an entity
@@ -130,17 +158,19 @@ Option 1:
       'keywords' => 'Some,Keywords',
     ]),
   ];
-  $node = \Drupal::entityTypeManager()->getStorage($entity_type)->create($values);
+  $node = \Drupal::entityTypeManager()
+    ->getStorage($entity_type)
+    ->create($values);
   $node->save();
 
 Option 2:
 
-  $node = Node::create(array(
+  $node = Node::create([
     'type' => article,
     'langcode' => 'en',
     'status' => 1,
     'uid' => 1,
-  ));
+  ]);
   $node->set('title', 'Testing metatag creation');
   $node->set('field_meta_tags', serialize([
     'title' => 'Some title',
@@ -152,6 +182,53 @@ Option 2:
 In both examples, the custom meta tag values will still be merged with the
 values defined via the global defaults prior to being output - it is not
 necessary to copy each value to the new record.
+
+
+Obtain meta tags for an entity
+--------------------------------------------------------------------------------
+For developers needing to access the rendered meta tags for a given entity, a
+function is provided to make this easy to do:
+
+  $metatags = metatag_generate_entity_metatags($entity);
+
+This will return an array with the following structure:
+
+  [
+    'title' => [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'title',
+        'content' => 'The What | D8.4',
+      ],
+    ],
+    'canonical_url' => [
+      '#tag' => 'link',
+      '#attributes' => [
+        'rel' => 'canonical',
+        'href' => 'http://example.com/what',
+      ],
+    ],
+    'description' => [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'description',
+        'content' => 'I can't even.',
+      ],
+    ],
+    'generator' => [
+      '#tag' => 'meta',
+      '#attributes' => [
+        'name' => 'generator',
+        'content' => 'Drupal 8!',
+      ],
+    ],
+  ]
+
+The meta tags are keyed off the meta tag plugin's ID, e.g. "generator". Each
+meta tag is then provided as arguments suitable for use in a render array with
+the type "html_tag". Extracting the value of the meta tag will depend upon the
+type of meta tag, e.g. the generator meta tag uses the "content" attribute while
+the link tag uses the "href" attribute.
 
 
 DrupalConsole integration
@@ -179,10 +256,27 @@ Related modules
 Some modules are available that extend Metatag with additional or complimentary
 functionality:
 
+* Schema.org Metatag
+  https://www.drupal.org/project/schema_metatag
+  Extensive solution for adding schema.org / JSON-LD support to Metatag.
+
+* Context Metadata
+  https://www.drupal.org/project/context_metadata
+  Allow assignment of meta tags based upon different system contexts, e.g. per
+  path.
+
 * Real-time SEO for Drupal
   https://www.drupal.org/project/yoast_seo
   Uses the YoastSEO.js library and service (https://yoast.com/) to provide
   realtime feedback on the meta tags.
+
+* Metatag Cxense
+  https://www.drupal.org/project/metatag_cxense
+  Adds support for the Cxense meta tags used by their DMP and Insight services.
+
+* Metatag Google Scholar
+  https://www.drupal.org/project/metatag_google_scholar
+  Adds support for a number of meta tags used with the Google Scholar system.
 
 
 Known issues
@@ -202,12 +296,15 @@ Known issues
 Credits / contact
 --------------------------------------------------------------------------------
 Currently maintained by Damien McKenna [2] and Dave Reid [3]. Drupal 7 module
-originally written by Dave Reid. Drupal 8 port by Damien McKenna and Michelle
-Cox [4] and sponsored by Mediacurrent [5], with contributions from Lee Rowlands
-[6], Rakesh James [7], Ivo Van Geertruyen [8], Michael Kandelaars [9], and many
-others.
+originally written by Dave Reid. Early work on Drupal 8 port by Damien McKenna
+and Michelle Cox [4], and sponsored by Mediacurrent [5]; key improvements by
+Juampy Novillo Requena [6] with insights from Dave Reid and sponsorship by
+Lullabot [7] and Acquia [8]. Additional contributions to the 8.x-1.0 release
+from cilefen [9], Daniel Wehner [10], Jesus Manuel Olivas [11], Lee Rowlands
+[12], Michael Kandelaars [13], Ivo Van Geertruyen [14], Nikhilesh Gupta B [15],
+Rakesh James [16], and many others.
 
-Ongoing development is sponsored by Mediacurrent and Lullabot [10].
+Ongoing development is sponsored by Mediacurrent.
 
 The best way to contact the authors is to submit an issue, be it a support
 request, a feature request or a bug report, in the project issue queue:
@@ -221,8 +318,14 @@ References
 3: https://www.drupal.org/u/dave-reid
 4: https://www.drupal.org/u/michelle
 5: https://www.mediacurrent.com/
-6: https://www.drupal.org/u/larowlan
-7: https://www.drupal.org/u/rakesh.gectcr
-8: https://www.drupal.org/u/mr.baileys
-9: https://www.drupal.org/u/mikeyk
-10: https://www.lullabot.com/
+6: https://www.drupal.org/u/juampynr
+7: https://www.lullabot.com/
+8: https://www.acquia.com/
+9: https://www.drupal.org/u/cilefen
+10: https://www.drupal.org/u/dawehner
+11: https://www.drupal.org/u/jmolivas
+12: https://www.drupal.org/u/larowlan
+13: https://www.drupal.org/u/mikeyk
+14: https://www.drupal.org/u/mr.baileys
+15: https://www.drupal.org/u/nikhilesh-gupta
+16: https://www.drupal.org/u/rakeshgectcr

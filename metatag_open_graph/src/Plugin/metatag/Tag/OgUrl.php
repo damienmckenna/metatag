@@ -2,7 +2,7 @@
 
 namespace Drupal\metatag_open_graph\Plugin\metatag\Tag;
 
-use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
+use Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
 
 /**
  * The Open Graph "URL" meta tag.
@@ -16,7 +16,8 @@ use \Drupal\metatag\Plugin\metatag\Tag\MetaPropertyBase;
  *   weight = 3,
  *   type = "uri",
  *   secure = FALSE,
- *   multiple = FALSE
+ *   multiple = FALSE,
+ *   absolute_url = TRUE
  * )
  */
 class OgUrl extends MetaPropertyBase {

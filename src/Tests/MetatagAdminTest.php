@@ -2,7 +2,10 @@
 
 namespace Drupal\metatag\Tests;
 
+use Drupal\metatag\MetatagManager;
+use Drupal\metatag\Entity\MetatagDefaults;
 use Drupal\simpletest\WebTestBase;
+use Drupal\Tests\metatag\Functional\MetatagHelperTrait;
 
 /**
  * Tests the Metatag administration.
@@ -10,6 +13,8 @@ use Drupal\simpletest\WebTestBase;
  * @group metatag
  */
 class MetatagAdminTest extends WebTestBase {
+
+  use MetatagHelperTrait;
 
   /**
    * {@inheritdoc}
@@ -74,8 +79,8 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertLinkByHref('admin/config/search/metatag/global', 0, t('Global defaults were created on installation.'));
 
     // Check that Global and entity defaults can't be deleted.
-    $this->assertNoLinkByHref('admin/config/search/metatag/global/delete', 0, t('Global defaults can\'t be deleted'));
-    $this->assertNoLinkByHref('admin/config/search/metatag/node/delete', 0, t('Entity defaults can\'t be deleted'));
+    $this->assertNoLinkByHref('admin/config/search/metatag/global/delete', 0, t("Global defaults can't be deleted"));
+    $this->assertNoLinkByHref('admin/config/search/metatag/node/delete', 0, t("Entity defaults can't be deleted"));
 
     // Check that the module defaults were injected into the Global config
     // entity.
@@ -168,8 +173,7 @@ class MetatagAdminTest extends WebTestBase {
     $types = [];
     foreach ($xpath[0]->children() as $item) {
       if (!empty($item->option)) {
-        $data = (array)$item->option;
-        // $this->verbose('<pre>' . print_r($data, TRUE) . '</pre>');
+        $data = (array) $item->option;
         $types[$data['@attributes']['value']] = $data[0];
       }
     }
@@ -275,10 +279,8 @@ class MetatagAdminTest extends WebTestBase {
       $this->assertRaw($value, t('Node metatag @tag overrides Global defaults.', ['@tag' => $metatag]));
     }
 
-    /**
-     * Check that when the node defaults don't define a metatag, the Global one
-     * is used.
-     */
+    // Check that when the node defaults don't define a metatag, the Global one
+    // is used.
     // First unset node defaults.
     $this->drupalGet('admin/config/search/metatag/node');
     $this->assertResponse(200);
@@ -304,7 +306,7 @@ class MetatagAdminTest extends WebTestBase {
     // return cached results.
     // @todo BookTest.php resets the cache of a single node, which is way more
     // performant than creating a node for every set of assertions.
-    // @see BookTest::testDelete().
+    // @see BookTest::testDelete()
     $node = $this->drupalCreateNode([
       'title' => t('Hello, world!'),
       'type' => 'article',
@@ -346,11 +348,12 @@ class MetatagAdminTest extends WebTestBase {
   }
 
   /**
-   * Test that the entity default values load on the entity form, and that they
-   * can then be overridden correctly.
+   * Test that the entity default values load on the entity form.
+   *
+   * And that they can then be overridden correctly.
    */
   public function testEntityDefaultInheritence() {
-    // Initiate session with a user who can manage metatags and content type
+    // Initiate session with a user who can manage meta tags and content type
     // fields.
     $permissions = [
       'administer site configuration',
@@ -402,6 +405,93 @@ class MetatagAdminTest extends WebTestBase {
     $this->assertResponse(200);
     $this->assertFieldByName('field_meta_tags[0][basic][title]', 'Article title override');
     $this->assertFieldByName('field_meta_tags[0][basic][description]', 'Article description override');
+  }
+
+  /**
+   * Test that protected Metatag defaults cannot be deleted.
+   */
+  public function testDefaultProtected() {
+    // Initiate session with a user who can manage metatags.
+    $permissions = ['administer site configuration', 'administer meta tags'];
+    $account = $this->drupalCreateUser($permissions);
+    $this->drupalLogin($account);
+
+    // Add default metatag for Articles.
+    $edit = [
+      'id' => 'node__article',
+    ];
+    $this->drupalPostForm('/admin/config/search/metatag/add', $edit, 'Save');
+
+    // Check that protected defaults contains "Revert" link instead of "Delete".
+    foreach (MetatagManager::protectedDefaults() as $protected) {
+      $this->assertLinkByHref('/admin/config/search/metatag/' . $protected);
+      $this->assertLinkByHref('/admin/config/search/metatag/' . $protected . '/revert');
+      $this->assertNoLinkByHref('/admin/config/search/metatag/' . $protected . '/delete');
+    }
+
+    // Confirm that non protected defaults can be deleted.
+    $this->assertLinkByHref('/admin/config/search/metatag/node__article');
+    $this->assertNoLinkByHref('/admin/config/search/metatag/node__article/revert');
+    $this->assertLinkByHref('/admin/config/search/metatag/node__article/delete');
+
+    // Visit each protected default page to confirm "Delete" button is hidden.
+    foreach (MetatagManager::protectedDefaults() as $protected) {
+      $this->drupalGet('/admin/config/search/metatag/' . $protected);
+      $this->assertNoLink('Delete');
+    }
+
+    // Confirm that non protected defaults can be deleted.
+    $this->drupalGet('/admin/config/search/metatag/node__article');
+    $this->assertLink('Delete');
+  }
+
+  /**
+   * Test that metatag list page pager works as expected.
+   */
+  public function testListPager() {
+    $this->loginUser1();
+
+    $this->drupalGet('admin/config/search/metatag');
+    $this->assertLinkByHref('/admin/config/search/metatag/global');
+    $this->assertLinkByHref('/admin/config/search/metatag/front');
+    $this->assertLinkByHref('/admin/config/search/metatag/403');
+    $this->assertLinkByHref('/admin/config/search/metatag/404');
+    $this->assertLinkByHref('/admin/config/search/metatag/node');
+    $this->assertLinkByHref('/admin/config/search/metatag/taxonomy_term');
+    $this->assertLinkByHref('/admin/config/search/metatag/user');
+
+    // Create 50 vocabularies and generate metatag defaults for all of them.
+    for ($i = 0; $i < 50; $i++) {
+      $vocabulary = $this->createVocabulary();
+      MetatagDefaults::create([
+        'id' => 'taxonomy_term__' . $vocabulary->id(),
+        'label' => 'Taxonomy term: ' . $vocabulary->label(),
+      ])->save();
+    }
+
+    // Reload the page.
+    $this->drupalGet('admin/config/search/metatag');
+    $this->assertLinkByHref('/admin/config/search/metatag/global');
+    $this->assertLinkByHref('/admin/config/search/metatag/front');
+    $this->assertLinkByHref('/admin/config/search/metatag/403');
+    $this->assertLinkByHref('/admin/config/search/metatag/404');
+    $this->assertLinkByHref('/admin/config/search/metatag/node');
+    $this->assertLinkByHref('/admin/config/search/metatag/taxonomy_term');
+    // User entity not visible because it has been pushed to the next page.
+    $this->assertNoLinkByHref('/admin/config/search/metatag/user');
+    $this->clickLinkPartialName('Next');
+
+    // Go to next page and confirm that parents are loaded and user us present.
+    $this->assertLinkByHref('/admin/config/search/metatag/global');
+    $this->assertLinkByHref('/admin/config/search/metatag/taxonomy_term');
+    // Main links not visible in the 2nd page.
+    $this->assertNoLinkByHref('/admin/config/search/metatag/front');
+    $this->assertNoLinkByHref('/admin/config/search/metatag/403');
+    $this->assertNoLinkByHref('/admin/config/search/metatag/404');
+    $this->assertNoLinkByHref('/admin/config/search/metatag/node');
+    // User is present because was pushed to page 2.
+    $this->assertLinkByHref('/admin/config/search/metatag/user');
+
   }
 
 }

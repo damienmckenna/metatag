@@ -2,7 +2,6 @@
 
 namespace Drupal\metatag_verification\Tests;
 
-use Drupal\simpletest\WebTestBase;
 use Drupal\metatag\Tests\MetatagTagsTestBase;
 
 /**
@@ -15,12 +14,13 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  public $tags = [
+  private $tags = [
     'baidu',
     'bing',
     'google',
     'norton_safe_web',
     'pinterest',
+    'pocket',
     'yandex',
   ];
 
@@ -35,7 +35,7 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
   /**
    * Each of these meta tags has a different tag name vs its internal name.
    */
-  public function getTestTagName($tag_name) {
+  private function getTestTagName($tag_name) {
     if ($tag_name == 'baidu') {
       $tag_name = 'baidu-site-verification';
     }
@@ -50,6 +50,9 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
     }
     elseif ($tag_name == 'pinterest') {
       $tag_name = 'p:domain_verify';
+    }
+    elseif ($tag_name == 'pocket') {
+      $tag_name = 'pocket-site-verification';
     }
     elseif ($tag_name == 'yandex') {
       $tag_name = 'yandex-verification';

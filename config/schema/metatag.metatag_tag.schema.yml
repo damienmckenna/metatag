@@ -1,5 +1,9 @@
+# The 'type' should be "label" for short meta tags and "text" for ones which
+# could get longer, especially ones which use a textarea field instead of a
+# textfield.
+
 metatag.metatag_tag.abstract:
-  type: label
+  type: text
   label: 'Abstract'
 metatag.metatag_tag.canonical_url:
   type: label
@@ -8,7 +12,7 @@ metatag.metatag_tag.content_language:
   type: label
   label: 'Content Language'
 metatag.metatag_tag.description:
-  type: label
+  type: text
   label: 'Description'
 metatag.metatag_tag.generator:
   type: label
@@ -17,7 +21,7 @@ metatag.metatag_tag.image_src:
   type: label
   label: 'Image SRC'
 metatag.metatag_tag.keywords:
-  type: label
+  type: text
   label: 'Keywords'
 metatag.metatag_tag.news_keywords:
   type: label
@@ -25,6 +29,9 @@ metatag.metatag_tag.news_keywords:
 metatag.metatag_tag.original_source:
   type: label
   label: 'Original source'
+metatag.metatag_tag.rating:
+  type: label
+  label: 'Rating'
 metatag.metatag_tag.rights:
   type: label
   label: 'Rights'
@@ -55,3 +62,9 @@ metatag.metatag_tag.geo_placename:
 metatag.metatag_tag.geo_position:
   type: label
   label: 'Geographical position'
+metatag.metatag_tag.set_cookie:
+  type: label
+  label: 'Set Cookie'
+metatag.metatag_tag.google:
+  type: label
+  label: 'Google'

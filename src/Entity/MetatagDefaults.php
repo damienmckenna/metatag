@@ -3,6 +3,7 @@
 namespace Drupal\metatag\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\Core\Config\Entity\ConfigEntityInterface;
 use Drupal\Core\Config\FileStorage;
 use Drupal\Core\Config\InstallStorage;
 use Drupal\Core\Config\StorageInterface;
@@ -30,11 +31,10 @@ use Drupal\metatag\MetatagDefaultsInterface;
  *     "label" = "label"
  *   },
  *   links = {
- *     "canonical" = "/admin/structure/metatag_defaults/{metatag_defaults}",
- *     "edit-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/edit",
- *     "delete-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/delete",
- *     "revert-form" = "/admin/structure/metatag_defaults/{metatag_defaults}/revert",
- *     "collection" = "/admin/structure/metatag_defaults"
+ *     "edit-form" = "/admin/config/search/metatag/{metatag_defaults}/edit",
+ *     "delete-form" = "/admin/config/search/metatag/{metatag_defaults}/delete",
+ *     "revert-form" = "/admin/config/search/metatag/{metatag_defaults}/revert",
+ *     "collection" = "/admin/config/search/metatag"
  *   }
  * )
  */
@@ -66,7 +66,8 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
    *
    * @param string $tag_id
    *   The identifier of the tag.
-   * @return boolean
+   *
+   * @return bool
    *   TRUE if the tag exists.
    */
   public function hasTag($tag_id) {
@@ -78,8 +79,9 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
    *
    * @param string $tag_id
    *   The identifier of the tag.
-   * @return array|NULL
-   *   array containing the tag values or NULL if not found.
+   *
+   * @return array|null
+   *   Array containing the tag values or NULL if not found.
    */
   public function getTag($tag_id) {
     if (!$this->hasTag($tag_id)) {
@@ -92,7 +94,6 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
    * Reverts an entity to its default values.
    */
   public function revert() {
-    $config_installer = \Drupal::service('config.installer');
     $default_install_path = drupal_get_path('module', 'metatag') . '/' . InstallStorage::CONFIG_INSTALL_DIRECTORY;
     $storage = new FileStorage($default_install_path, StorageInterface::DEFAULT_COLLECTION);
     $default_config_data = $storage->read('metatag.metatag_defaults.' . $this->id());
@@ -118,6 +119,28 @@ class MetatagDefaults extends ConfigEntityBase implements MetatagDefaultsInterfa
       // Save the combination of the existing tags + the new tags.
       $this->set('tags', $combined_tags);
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function sort(ConfigEntityInterface $a, ConfigEntityInterface $b) {
+    // Put always Global in 1st place and front page later if available.
+    if ($a->id() == 'global') {
+      return -1;
+    }
+    elseif ($b->id() == 'global') {
+      return 1;
+    }
+    elseif ($a->id() == 'front') {
+      return -1;
+    }
+    elseif ($b->id() == 'front') {
+      return 1;
+    }
+
+    // Use the default sort function.
+    return parent::sort($a, $b);
   }
 
 }
