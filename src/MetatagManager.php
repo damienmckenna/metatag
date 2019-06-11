@@ -288,7 +288,13 @@ class MetatagManager implements MetatagManagerInterface {
         // that needs to be filtered and converted to a string.
         // @see @Robots::setValue().
         $tag->setValue($value);
-        $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+        $langcode;
+        if ($entity) {
+          $langcode = $entity->language()->getId(); 
+        }
+        else {
+          $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();  
+        }
         if ($tag->type() === 'image') {
           $processed_value = $this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode]);
         }
