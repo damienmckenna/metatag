@@ -13,6 +13,7 @@ Metatag 7.x-1.x, xxxx-xx-xx
 #3037874 by Ronino: Build meta tags for Panels much later so they can be altered
   after page data has been processed.
 #3018692 by thatguy, DamienMcKenna: Search API index multiple types.
+#3061475 by DamienMcKenna: Token to provide summary of text fields.
 
 
 Metatag 7.x-1.25, 2018-04-03

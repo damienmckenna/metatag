@@ -63,6 +63,28 @@ function metatag_token_info() {
     'description' => t('A custom pager (from the Metatag module). Currently set to "@pager" which would be output as e.g. "@page".', array('@pager' => $pager, '@page' => $page)),
   );
 
+  // Custom summary tokens for each long text field.
+  $supported_types = array('text_long', 'text_with_summary');
+  if (variable_get('metatag_summary_text_field', FALSE)) {
+    $supported_types[] = 'text';
+  }
+  $trim_length = variable_get('metatag_summary_length', 200);
+  foreach (field_read_fields() as $field_name => $field) {
+    if (!empty($field['module'])) {
+      if (in_array($field['type'], $supported_types)) {
+        $instances = field_read_instances(array('field_name' => $field_name));
+        foreach ($instances as $instance) {
+          if (!empty($instance['entity_type']) && !empty($instance['label'])) {
+            $info['tokens'][$instance['entity_type']][$field_name . '-summary'] = array(
+              'name' => t('@label (summary)', array('@label' => $instance['label'])),
+              'description' => t('A summary of the @label field, trimmed to @length characters.', array('@label' => $instance['label'], '@length' => $trim_length)),
+            );
+          }
+        }
+      }
+    }
+  }
+
   return $info;
 }
 
@@ -124,6 +146,50 @@ function metatag_tokens($type, $tokens, array $data = array(), array $options = 
             $replacements[$original] = $pager;
           }
           break;
+      }
+    }
+  }
+
+  // Summary tokens. It is safe to rely upon an "entity" token type here because
+  // it is added by the Token module.
+  if ($type == 'entity' && isset($options['entity'], $options['entity_type'])) {
+    $trim_length = variable_get('metatag_summary_length', 200);
+    foreach ($tokens as $name => $original) {
+      if (substr($name, -8) == '-summary') {
+        // The field name is the token name minus "-summary".
+        $field_name = substr($name, 0, -8);
+
+        // Work out the requested language, if appropriate.
+        if (isset($options['language'])) {
+          $language_code = $options['language']->language;
+        }
+        else {
+          $language_code = NULL;
+        }
+        $entity = $options['entity'];
+        $entity_type = $options['entity_type'];
+        list($entity_id, $revision_id, $bundle) = entity_extract_ids($entity_type, $entity);
+        $items = field_get_items($entity_type, $entity, $field_name, $language_code);
+        if (!empty($items)) {
+          $instance = field_info_instance($entity_type, $field_name, $bundle);
+          $field_langcode = field_language($entity_type, $entity, $field_name, $language_code);
+
+          // If the summary was filled in it is not empty, use it.
+          if (!empty($items[0]['summary'])) {
+            $output = $sanitize ? _text_sanitize($instance, $field_langcode, $items[0], 'summary') : $items[0]['summary'];
+          }
+          // Attempt to provide a suitable version of the 'body' field.
+          else {
+            $output = $sanitize ? _text_sanitize($instance, $field_langcode, $items[0], 'value') : $items[0]['value'];
+          }
+          if (!empty($output)) {
+            // Trim the summary.
+            $output = text_summary($output, $instance['settings']['text_processing'] ? $items[0]['format'] : NULL, $trim_length);
+            if (!empty($output)) {
+              $replacements[$original] = $output;
+            }
+          }
+        }
       }
     }
   }

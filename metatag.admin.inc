@@ -674,6 +674,19 @@ function metatag_admin_settings_form() {
     '#default_value' => variable_get('metatag_pager_string', 'Page PAGER | '),
   );
 
+  $form['additional']['metatag_summary_text_field'] = array(
+    '#title' => t('Add summary tokens for regular text fields'),
+    '#type' => 'checkbox',
+    '#description' => t("By default Metatag's summary tokens are added to long text fields. Enabling this option will also add summary tokens for all plain text fields."),
+    '#default_value' => variable_get('metatag_summary_text_field', FALSE),
+  );
+  $form['additional']['metatag_summary_length'] = array(
+    '#title' => t('Length of summary'),
+    '#type' => 'textfield',
+    '#description' => t("How long each of the summary tokens will be after it is truncated."),
+    '#default_value' => variable_get('metatag_summary_length', 200),
+  );
+
   $form['i18n'] = array(
     '#type' => 'fieldset',
     '#title' => t('Internationalization options'),
@@ -827,6 +840,19 @@ function metatag_admin_settings_form_submit($form, &$form_state) {
     }
   }
 
+  // If the token option was disabled, clear the token cache too.
+  $old_var = (bool) variable_get('metatag_summary_text_field', FALSE);
+  $new_var = !empty($form_state['values']['metatag_summary_text_field']);
+  if ($old_var != $new_var) {
+    token_clear_cache();
+  }
+
+  // Make sure the metatag_summary_length value is a number.
+  if (!empty($form_state['values']['metatag_summary_length'])) {
+    $form_state['values']['metatag_summary_length'] = intval($form_state['values']['metatag_summary_length']);
+  }
+
+  // Clear the Metatag caches so any settings changes will be available.
   cache_clear_all('*', 'cache_metatag', TRUE);
   drupal_set_message(t('The Metatag cache has been cleared so all meta tags can be reloaded.'));
 }
