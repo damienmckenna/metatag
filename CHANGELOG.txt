@@ -1,3 +1,8 @@
+Metatag 8.x-1.x, 2019-xx-xx
+---------------------------
+By DamienMcKenna, anton.shloma: Improved maintenance mode identification.
+
+
 Metatag 8.x-1.8, 2019-02-20
 ---------------------------
 By samuel.mortenson, Berdir, DamienMcKenna: Fix data property definition.
