@@ -1,4 +1,4 @@
-Metatag 8.x-1.x, 2019-xx-xx
+Metatag 8.x-1.9, 2019-07-24
 ---------------------------
 By DamienMcKenna, anton.shloma: Improved maintenance mode identification.
 
