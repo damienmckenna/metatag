@@ -18,6 +18,8 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #3048566 by thejimbirch, sean_e_dietrich: Pinterest and Yandex URLs in
   Verification need updating.
 #3042739 by DamienMcKenna: Fix tests on Metatag 8.x-1.x branch.
+#2820214 by DamienMcKenna, Lendude, KarenS, idebr: Update tests to use
+  BrowserTestBase instead of WebTestBase.
 
 
 Metatag 8.x-1.9, 2019-07-24

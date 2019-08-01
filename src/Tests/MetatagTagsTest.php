@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\metatag\Tests;
+namespace Drupal\Tests\metatag\Functional;
 
 /**
  * Tests that each of the Metatag base tags work correctly.

@@ -1,8 +1,8 @@
 <?php
 
-namespace Drupal\metatag_verification\Tests;
+namespace Drupal\Tests\metatag_verification\Functional;
 
-use Drupal\metatag\Tests\MetatagTagsTestBase;
+use Drupal\Tests\metatag\Functional\MetatagTagsTestBase;
 
 /**
  * Tests that each of the Metatag Verification tags work correctly.
