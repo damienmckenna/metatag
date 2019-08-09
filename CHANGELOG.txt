@@ -20,6 +20,7 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #3042739 by DamienMcKenna: Fix tests on Metatag 8.x-1.x branch.
 #2820214 by DamienMcKenna, Lendude, KarenS, idebr: Update tests to use
   BrowserTestBase instead of WebTestBase.
+#3073826 by chr.fritsch: Move tests in /tests/Functional folder.
 
 
 Metatag 8.x-1.9, 2019-07-24
