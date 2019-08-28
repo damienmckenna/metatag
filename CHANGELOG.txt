@@ -21,6 +21,8 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #2820214 by DamienMcKenna, Lendude, KarenS, idebr: Update tests to use
   BrowserTestBase instead of WebTestBase.
 #3073826 by chr.fritsch: Move tests in /tests/Functional folder.
+#3071678 by idebr, DamienMcKenna: metatag_defaults @ConfigEntityType annotation
+  is missing a config_export key.
 
 
 Metatag 8.x-1.9, 2019-07-24
