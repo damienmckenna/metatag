@@ -23,6 +23,7 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #3073826 by chr.fritsch: Move tests in /tests/Functional folder.
 #3071678 by idebr, DamienMcKenna: metatag_defaults @ConfigEntityType annotation
   is missing a config_export key.
+#3076572 by davps: Metatag manager - incorrect default tags for an entity.
 
 
 Metatag 8.x-1.9, 2019-07-24
