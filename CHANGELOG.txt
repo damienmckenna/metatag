@@ -26,6 +26,7 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #3076572 by davps: Metatag manager - incorrect default tags for an entity.
 #2898941 by thejimbirch, cindytwilliams, feddovdm: Expand the referrer-policy
   dropdown.
+#3059963 by jzech: Improve description for Open Graph.
 
 
 Metatag 8.x-1.9, 2019-07-24
