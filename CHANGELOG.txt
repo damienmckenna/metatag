@@ -27,6 +27,10 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
 #2898941 by thejimbirch, cindytwilliams, feddovdm: Expand the referrer-policy
   dropdown.
 #3059963 by jzech: Improve description for Open Graph.
+#2563649 by DamienMcKenna, Jo Fitzgerald, marvil07, pobster, oliverpolden,
+  WidgetsBurritos, socketwench, marcelovani, Benia, heddn, Steven Jones,
+  benjifisher, mglaman, tedfordgif, mikeryan, a.milkovsky, drupalninja99, cruno,
+  ccarrascal, PapaGrande, pcranston: Migrations: Metatag-D7 basic entities.
 
 
 Metatag 8.x-1.9, 2019-07-24
