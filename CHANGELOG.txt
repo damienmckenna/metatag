@@ -31,6 +31,7 @@ By samuel.mortenson, Berdir, DamienMcKenna: Test coverage for data handling.
   WidgetsBurritos, socketwench, marcelovani, Benia, heddn, Steven Jones,
   benjifisher, mglaman, tedfordgif, mikeryan, a.milkovsky, drupalninja99, cruno,
   ccarrascal, PapaGrande, pcranston: Migrations: Metatag-D7 basic entities.
+#3077784 by davps: Fix compatibility / tests against core 8.8.x.
 
 
 Metatag 8.x-1.9, 2019-07-24
