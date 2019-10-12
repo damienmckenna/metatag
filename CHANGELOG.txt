@@ -15,6 +15,8 @@ Metatag 7.x-1.x, xxxx-xx-xx
 #3018692 by thatguy, DamienMcKenna: Search API index multiple types.
 #3061475 by DamienMcKenna: Token to provide summary of text fields.
 #2994100 by DamienMcKenna: Add new meta tag: google.
+#3082120 by thejimbirch, cindytwilliams, DamienMcKenna: Add option name in
+  ROBOTS selector.
 
 
 Metatag 7.x-1.25, 2018-04-03
