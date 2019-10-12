@@ -481,5 +481,13 @@ function metatag_metatag_info() {
     ),
   );
 
+  $info['tags']['google'] = array(
+    'label' => t('Google'),
+    'description' => t("This meta tag communicates with Google. There are currently two directives supported: 'nositelinkssearchbox' to not to show the sitelinks search box, and 'notranslate' to ask Google not to offer a translation of the page. Both options may be added, just separate them with a comma. See <a href='@docs'>meta tags that Google understands</a> for further details.", array('@docs' => 'https://support.google.com/webmasters/answer/79812?hl=en')),
+    'class' => 'DrupalTextMetaTag',
+    'weight' => ++$weight,
+    'group' => 'advanced',
+  );
+
   return $info;
 }

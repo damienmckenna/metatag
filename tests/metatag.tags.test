@@ -36,6 +36,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'geo.placename',
     'geo.position',
     'geo.region',
+    'google',
     'icbm',
     'image_src',
     'keywords',
