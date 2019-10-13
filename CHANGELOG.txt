@@ -23,6 +23,7 @@ Metatag 7.x-1.x, xxxx-xx-xx
   DrupalDefaultMetaTag::tidyValue().
 #2982252 by DamienMcKenna, dev20.addweb, Mingsong: PHP Notice: Undefined index
   value.
+#3047486 by DamienMcKenna: Recommend the Fast Token Browser module.
 
 
 Metatag 7.x-1.25, 2018-04-03
