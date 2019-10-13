@@ -17,6 +17,10 @@ Metatag 7.x-1.x, xxxx-xx-xx
 #2994100 by DamienMcKenna: Add new meta tag: google.
 #3082120 by thejimbirch, cindytwilliams, DamienMcKenna: Add option name in
   ROBOTS selector.
+#2831198 by FeyP, Xrobak, DamienMcKenna, Simon Georges: Translated views metatag
+  do not display.
+#2947473 by aether, rpayanm: Validate string in
+  DrupalDefaultMetaTag::tidyValue().
 
 
 Metatag 7.x-1.25, 2018-04-03

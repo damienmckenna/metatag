@@ -197,6 +197,11 @@ class DrupalDefaultMetaTag implements DrupalMetaTagInterface {
    *   The meta tag value after it has been tidied up.
    */
   public function tidyValue($value) {
+    // This shouldn't happen, but protect against tokens returning arrays.
+    if (!is_string($value)) {
+      return '';
+    }
+
     // Check for Media strings from the WYSIWYG submodule.
     if (module_exists('media_wysiwyg') && strpos($value, '[[{') !== FALSE) {
       // In https://www.drupal.org/node/2129273 media_wysiwyg_filter() was
