@@ -204,7 +204,7 @@ function metatag_panels_page_build(&$page) {
 
   // Substitute Panels context variables.
   foreach ($metatags as $metatag => $data) {
-    if (is_string($data['value']) && strpos($data['value'], '%') !== FALSE) {
+    if (isset($data['value']) && is_string($data['value']) && strpos($data['value'], '%') !== FALSE) {
       $metatags[$metatag]['value'] = check_plain(urldecode(ctools_context_keyword_substitute($data['value'], array(), $context['handler']->conf['display']->context)));
     }
   }
@@ -235,7 +235,7 @@ function metatag_panels_page_build(&$page) {
   foreach ($metatags as $metatag => $data) {
     // Render CTools context substitution values prior to rendering the meta
     // tag.
-    if (is_string($data['value'])) {
+    if (isset($data['value']) && is_string($data['value'])) {
       $data['value'] = check_plain(urldecode(ctools_context_keyword_substitute(trim($data['value']), array(), $task_contexts)));
     }
     $metatag_instance = metatag_get_instance($metatag, $data);

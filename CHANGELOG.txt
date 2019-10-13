@@ -21,6 +21,8 @@ Metatag 7.x-1.x, xxxx-xx-xx
   do not display.
 #2947473 by aether, rpayanm: Validate string in
   DrupalDefaultMetaTag::tidyValue().
+#2982252 by DamienMcKenna, dev20.addweb, Mingsong: PHP Notice: Undefined index
+  value.
 
 
 Metatag 7.x-1.25, 2018-04-03

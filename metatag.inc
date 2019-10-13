@@ -495,6 +495,11 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       'raw' => FALSE,
     );
 
+    // If the value wasn't set there's no point in proceeding.
+    if (!isset($this->data['value'])) {
+      return '';
+    }
+
     $value = $this->data['value'];
 
     if (empty($options['raw'])) {
