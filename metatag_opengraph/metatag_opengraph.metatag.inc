@@ -208,6 +208,12 @@ function metatag_opengraph_metatag_info() {
       'type' => 'image',
     ),
   ) + $og_defaults;
+  $info['tags']['og:image:alt'] = array(
+    'label' => t('Image alternative text'),
+    'description' => t('A description of what is in the image (not a caption). If og:image is provided this value should also be provided.'),
+    'multiple' => TRUE,
+    'weight' => ++$weight,
+  ) + $og_defaults;
   $info['tags']['og:image:type'] = array(
     'label' => t('Image type'),
     'description' => t('The type of image referenced above. Should be either "image/gif" for a GIF image, "image/jpeg" for a JPG/JPEG image, or "image/png" for a PNG image. Note: there should be one value for each image, and having more than there are images may cause problems.'),
