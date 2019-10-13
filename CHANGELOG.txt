@@ -25,6 +25,7 @@ Metatag 7.x-1.x, xxxx-xx-xx
   value.
 #3047486 by DamienMcKenna: Recommend the Fast Token Browser module.
 #2977120 by DamienMcKenna: New meta tag: og:image:alt.
+#3027076 by DamienMcKenna: Add meta tag: Pocket site verification.
 
 
 Metatag 7.x-1.25, 2018-04-03
