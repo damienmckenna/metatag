@@ -26,7 +26,9 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'image_src',
     'keywords',
     'news_keywords',
+    'next',
     'original_source',
+    'prev',
     'rating',
     'referrer',
     'rights',
@@ -130,6 +132,34 @@ class MetatagTagsTest extends MetatagTagsTestBase {
    * Implements {tag_name}TestValueAttribute() for 'image_src'.
    */
   private function imageSrcTestValueAttribute() {
+    return 'href';
+  }
+
+  /**
+   * Implements {tag_name}TestNameAttribute() for 'next'.
+   */
+  private function nextUrlTestOutputXpath() {
+    return "//link[@rel='next']";
+  }
+
+  /**
+   * Implements {tag_name}TestValueAttribute() for 'next'.
+   */
+  private function nextUrlTestValueAttribute() {
+    return 'href';
+  }
+
+  /**
+   * Implements {tag_name}TestNameAttribute() for 'prev'.
+   */
+  private function prevUrlTestOutputXpath() {
+    return "//link[@rel='prev']";
+  }
+
+  /**
+   * Implements {tag_name}TestValueAttribute() for 'prev'.
+   */
+  private function prevUrlTestValueAttribute() {
     return 'href';
   }
 

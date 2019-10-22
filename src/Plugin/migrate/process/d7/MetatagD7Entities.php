@@ -101,13 +101,11 @@ class MetatagD7Entities extends ProcessPluginBase {
       'image_src' => 'image_src',
       'keywords' => 'keywords',
       'news_keywords' => 'news_keywords',
-      // @todo https://www.drupal.org/project/metatag/issues/3077773
-      // 'next' => '',
+      'next' => 'next',
       'original-source' => 'original_source',
       // @todo https://www.drupal.org/project/metatag/issues/3077772
       // 'pragma' => '',
-      // @todo https://www.drupal.org/project/metatag/issues/3077773
-      // 'prev' => '',
+      'prev' => 'prev',
       'rating' => 'rating',
       'referrer' => 'referrer',
       // @todo https://www.drupal.org/project/metatag/issues/3077774

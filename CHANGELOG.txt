@@ -10,6 +10,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   name of the favicons submodule.
 #3077780 by thejimbirch, volkswagenchick, DamienMcKenna: Add new meta tag:
   Google's new "handheld" link alternate URL.
+#3077773 by gueguerreiro, cindytwilliams, DamienMcKenna: Add new meta tags:
+  rel=prev / rel=next.
 
 
 Metatag 8.x-1.10, 2019-08-29

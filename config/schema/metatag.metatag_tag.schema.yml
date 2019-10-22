@@ -26,9 +26,15 @@ metatag.metatag_tag.keywords:
 metatag.metatag_tag.news_keywords:
   type: label
   label: 'Google News Keywords'
+metatag.metatag_tag.next:
+  type: label
+  label: 'Next page URL'
 metatag.metatag_tag.original_source:
   type: label
   label: 'Original source'
+metatag.metatag_tag.prev:
+  type: label
+  label: 'Previous page URL'
 metatag.metatag_tag.rating:
   type: label
   label: 'Rating'
