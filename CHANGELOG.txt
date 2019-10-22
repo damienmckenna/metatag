@@ -18,6 +18,9 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   Revisit-After.
 #3077772 by DamienMcKenna, thejimbirch, volkswagenchick, cindytwilliams: Add new
   meta tags: pragma, cache-control, expires.
+#3001387 by mbovan, Berdir, kell.mcnaughton, DamienMcKenna: Extend meta tag
+  definition to allow some tags to use a textarea instead of text field, e.g.
+  og:description.
 
 
 Metatag 8.x-1.10, 2019-08-29
