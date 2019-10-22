@@ -1,4 +1,4 @@
-name: 'Metatag: favicons'
+name: 'Metatag: Favicons'
 type: module
 description: Provides support for many different favicons.
 core: 8.x

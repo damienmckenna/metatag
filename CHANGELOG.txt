@@ -6,6 +6,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   /tests/Functional folder.
 #3082119 by thejimbirch, cindytwilliams, DamienMcKenna: Add option name in
   ROBOTS selector.
+#3052628 by Neslee Canil Pinto, cindytwilliams, DamienMcKenna: Capitalize the
+  name of the favicons submodule.
 
 
 Metatag 8.x-1.10, 2019-08-29
