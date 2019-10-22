@@ -38,12 +38,15 @@ metatag.metatag_tag.prev:
 metatag.metatag_tag.rating:
   type: label
   label: 'Rating'
-metatag.metatag_tag.rights:
-  type: label
-  label: 'Rights'
 metatag.metatag_tag.referrer:
   type: label
   label: 'Referrer policy'
+metatag.metatag_tag.refresh:
+  type: label
+  label: 'Refresh'
+metatag.metatag_tag.rights:
+  type: label
+  label: 'Rights'
 metatag.metatag_tag.robots:
   type: label
   label: 'Robots'

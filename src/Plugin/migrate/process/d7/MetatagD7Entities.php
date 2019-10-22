@@ -108,8 +108,7 @@ class MetatagD7Entities extends ProcessPluginBase {
       'prev' => 'prev',
       'rating' => 'rating',
       'referrer' => 'referrer',
-      // @todo https://www.drupal.org/project/metatag/issues/3077774
-      // 'refresh' => '',
+      'refresh' => 'refresh',
       // @todo https://www.drupal.org/project/metatag/issues/3077776
       // 'revisit-after' => '',
       'rights' => 'rights',

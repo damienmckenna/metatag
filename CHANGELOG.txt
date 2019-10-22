@@ -12,6 +12,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   Google's new "handheld" link alternate URL.
 #3077773 by gueguerreiro, cindytwilliams, DamienMcKenna: Add new meta tags:
   rel=prev / rel=next.
+#3077774 by thejimbirch, cindytwilliams, DamienMcKenna: Add new meta tag:
+  Refresh.
 
 
 Metatag 8.x-1.10, 2019-08-29
