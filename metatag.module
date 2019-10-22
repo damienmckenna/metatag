@@ -487,6 +487,13 @@ function metatag_get_default_tags($entity = NULL) {
   /** @var \Drupal\metatag\MetatagManager $metatag_manager */
   $metatag_manager = \Drupal::service('metatag.manager');
 
+  // Load config based on language.
+  if ($entity !== NULL) {
+    /** @var \Drupal\Core\Language\LanguageManagerInterface $language_manager */
+    $language_manager = \Drupal::languageManager();
+    $language_manager->setConfigOverrideLanguage($entity->language());
+  }
+
   // First we load global defaults.
   $metatags = $metatag_manager->getGlobalMetatags();
   if (!$metatags) {

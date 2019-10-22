@@ -27,6 +27,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   external sites in metatag_open_graph.module.
 #3057582 by jrearick, DamienMcKenna, Dave Reid, sunset_bill, dspachos:
   SchemaWebPageTest not found.
+#3080314 by matteodem, DamienMcKenna: Load metatag defaults based on entity
+  language.
 
 
 Metatag 8.x-1.10, 2019-08-29
