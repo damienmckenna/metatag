@@ -4,6 +4,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   og:video:duration tag.
 #3084547 by baikho, DamienMcKenna, SerShevchyk: Move submodule tests in
   /tests/Functional folder.
+#3082119 by thejimbirch, cindytwilliams, DamienMcKenna: Add option name in
+  ROBOTS selector.
 
 
 Metatag 8.x-1.10, 2019-08-29
