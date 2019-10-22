@@ -44,6 +44,9 @@ metatag.metatag_tag.referrer:
 metatag.metatag_tag.refresh:
   type: label
   label: 'Refresh'
+metatag.metatag_tag.revisit_after:
+  type: label
+  label: 'Revisit After'
 metatag.metatag_tag.rights:
   type: label
   label: 'Rights'

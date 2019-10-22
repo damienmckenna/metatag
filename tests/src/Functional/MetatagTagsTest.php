@@ -32,6 +32,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'rating',
     'referrer',
     'refresh',
+    'revisit_after',
     'rights',
     'robots',
     'set_cookie',
