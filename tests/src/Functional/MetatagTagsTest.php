@@ -14,9 +14,11 @@ class MetatagTagsTest extends MetatagTagsTestBase {
    */
   private $tags = [
     'abstract',
+    'cache_control',
     'canonical_url',
     'content_language',
     'description',
+    'expires',
     'generator',
     'geo_placename',
     'geo_position',
@@ -28,6 +30,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
     'news_keywords',
     'next',
     'original_source',
+    'pragma',
     'prev',
     'rating',
     'referrer',

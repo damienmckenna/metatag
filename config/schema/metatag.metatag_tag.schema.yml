@@ -5,6 +5,9 @@
 metatag.metatag_tag.abstract:
   type: text
   label: 'Abstract'
+metatag.metatag_tag.cache_control:
+  type: label
+  label: 'Cache control'
 metatag.metatag_tag.canonical_url:
   type: label
   label: 'Canonical URL'
@@ -14,6 +17,9 @@ metatag.metatag_tag.content_language:
 metatag.metatag_tag.description:
   type: text
   label: 'Description'
+metatag.metatag_tag.expires:
+  type: label
+  label: 'Expires'
 metatag.metatag_tag.generator:
   type: label
   label: 'Generator'
@@ -32,6 +38,9 @@ metatag.metatag_tag.next:
 metatag.metatag_tag.original_source:
   type: label
   label: 'Original source'
+metatag.metatag_tag.pragma:
+  type: label
+  label: 'Pragma'
 metatag.metatag_tag.prev:
   type: label
   label: 'Previous page URL'

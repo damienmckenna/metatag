@@ -16,6 +16,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   Refresh.
 #3077776 by DamienMcKenna, thejimbirch, cindytwilliams: Add new meta tag:
   Revisit-After.
+#3077772 by DamienMcKenna, thejimbirch, volkswagenchick, cindytwilliams: Add new
+  meta tags: pragma, cache-control, expires.
 
 
 Metatag 8.x-1.10, 2019-08-29

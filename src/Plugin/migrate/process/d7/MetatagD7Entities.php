@@ -86,13 +86,11 @@ class MetatagD7Entities extends ProcessPluginBase {
     $map = [
       // From the main Metatag module.
       'abstract' => 'abstract',
-      // @todo https://www.drupal.org/project/metatag/issues/3077772
-      // 'cache-control' => '',
+      'cache-control' => 'cache_control',
       'canonical' => 'canonical_url',
       'content-language' => 'content_language',
       'description' => 'description',
-      // @todo https://www.drupal.org/project/metatag/issues/3077772
-      // 'expires' => '',
+      'expires' => 'expires',
       'generator' => 'generator',
       'geo.placename' => 'geo_placename',
       'geo.position' => 'geo_position',
@@ -103,8 +101,7 @@ class MetatagD7Entities extends ProcessPluginBase {
       'news_keywords' => 'news_keywords',
       'next' => 'next',
       'original-source' => 'original_source',
-      // @todo https://www.drupal.org/project/metatag/issues/3077772
-      // 'pragma' => '',
+      'pragma' => 'pragma',
       'prev' => 'prev',
       'rating' => 'rating',
       'referrer' => 'referrer',
