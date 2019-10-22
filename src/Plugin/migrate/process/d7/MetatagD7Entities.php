@@ -256,8 +256,7 @@ class MetatagD7Entities extends ProcessPluginBase {
       // 'hreflang_' . $langcode => 'hreflang_per_language',
 
       // From metatag_mobile.metatag.inc:
-      // @todo https://www.drupal.org/project/metatag/issues/3077780
-      // 'alternate_handheld' => '',
+      'alternate_handheld' => 'alternate_handheld',
       // @todo https://www.drupal.org/project/metatag/issues/3077781
       //'amphtml' => '',
       'android-app-link-alternative' => 'android_app_link_alternative',
