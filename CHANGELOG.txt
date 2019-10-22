@@ -23,6 +23,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   og:description.
 #2908527 by lapek, DamienMcKenna, christian.rolf, DrColossos: Views overwritten
   title in contextual filter.
+#3087329 by Martijn de Wit, DamienMcKenna: Use HTTPS links instead of HTTP to
+  external sites in metatag_open_graph.module.
 
 
 Metatag 8.x-1.10, 2019-08-29
