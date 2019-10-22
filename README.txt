@@ -91,6 +91,10 @@ The primary features include:
 * Integration with DrupalConsole [1] to provide a quick method of generating new
   meta tags.
 
+* A report page at /admin/reports/metatag-plugins which shows all of the meta
+  tag plugins provided on the site, and indication as to which module provides
+  them.
+
 
 Standard usage scenario
 --------------------------------------------------------------------------------
