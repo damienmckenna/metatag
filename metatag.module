@@ -416,7 +416,7 @@ function metatag_preprocess_html(&$variables) {
 
   // Load the page title.
   if (!empty($attachments['#attached']['html_head'])) {
-    foreach ($attachments['#attached']['html_head'] as $key => $attachment) {
+    foreach ($attachments['#attached']['html_head'] as $attachment) {
       if (!empty($attachment[1]) && $attachment[1] == 'title') {
         // Empty head_title to avoid the site name and slogan to be appended to
         // the meta title.

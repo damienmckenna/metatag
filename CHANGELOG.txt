@@ -29,6 +29,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   SchemaWebPageTest not found.
 #3080314 by matteodem, DamienMcKenna: Load metatag defaults based on entity
   language.
+#3072165 by vuil, DamienMcKenna: Coding standards improvements.
 
 
 Metatag 8.x-1.10, 2019-08-29
