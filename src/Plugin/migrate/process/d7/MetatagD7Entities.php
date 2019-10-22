@@ -337,6 +337,8 @@ class MetatagD7Entities extends ProcessPluginBase {
       'og:updated_time' => 'og_updated_time',
       'og:url' => 'og_url',
       // @todo '' => 'og_video',
+      // https://www.drupal.org/project/metatag/issues/3089445
+      // @todo '' => 'og_video_duration',
       'og:video:height' => 'og_video_height',
       'og:video:secure_url' => 'og_video_secure_url',
       'og:video:type' => 'og_video_type',
