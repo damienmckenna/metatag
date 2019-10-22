@@ -21,6 +21,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3001387 by mbovan, Berdir, kell.mcnaughton, DamienMcKenna: Extend meta tag
   definition to allow some tags to use a textarea instead of text field, e.g.
   og:description.
+#2908527 by lapek, DamienMcKenna, christian.rolf, DrColossos: Views overwritten
+  title in contextual filter.
 
 
 Metatag 8.x-1.10, 2019-08-29
