@@ -31,6 +31,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   language.
 #3072165 by vuil, DamienMcKenna: Coding standards improvements.
 #3074350 by jrockowitz, DamienMcKenna: Create Meta plugin report.
+#3074350 by DamienMcKenna: Follow-up to fix some API mismatches.
 
 
 Metatag 8.x-1.10, 2019-08-29

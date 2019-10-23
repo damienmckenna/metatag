@@ -18,22 +18,24 @@ class MetatagController extends ControllerBase {
   /**
    * Metatag tag plugin manager.
    *
-   * @var \Drupal\metatag\MetatagTagPluginManager.
+   * @var \Drupal\metatag\MetatagTagPluginManager
    */
   protected $tagManager;
 
   /**
    * Metatag group plugin manager.
    *
-   * @var \Drupal\metatag\MetatagGroupPluginManager.
+   * @var \Drupal\metatag\MetatagGroupPluginManager
    */
   protected $groupManager;
 
   /**
    * Constructs a new \Drupal\views_ui\Controller\ViewsUIController object.
    *
-   * @param \Drupal\views\ViewsData $tag
-   *   The Views data cache object.
+   * @param \Drupal\metatag\MetatagTagPluginManager $tag_manaager
+   *   The tag manager object.
+   * @param \Drupal\metatag\MetatagGroupPluginManager $group_manager
+   *   The group manager object.
    */
   public function __construct(MetatagTagPluginManager $tag_manaager, MetatagGroupPluginManager $group_manager) {
     $this->tagManager = $tag_manaager;
