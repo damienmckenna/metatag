@@ -28,6 +28,8 @@ Metatag 7.x-1.x, xxxx-xx-xx
 #3027076 by DamienMcKenna: Add meta tag: Pocket site verification.
 #3096935 by DamienMcKenna, cindytwilliams, rubyji: Add new tag: Zoom domain
   verification.
+#2994102 by DamienMcKenna, LaravZ: Removed extra xmlns definitions due to W3C
+  validation errors.
 
 
 Metatag 7.x-1.25, 2018-04-03
