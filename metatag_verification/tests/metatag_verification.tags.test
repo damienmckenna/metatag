@@ -33,6 +33,7 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
     'p:domain_verify',
     'pocket-site-verification',
     'yandex-verification',
+    'zoom-domain-verification'
   );
 
   /**

@@ -69,5 +69,11 @@ function metatag_verification_metatag_info() {
     'weight' => ++$weight,
   ) + $defaults;
 
+  $info['tags']['zoom-domain-verification'] = array(
+    'label' => t('Zoom'),
+    'description' => t('A string provided by <a href="@zoom">Zoom</a>, full details are available from the <a href="@help">Zoom online help</a>.', array('@zoom' => 'https://zoom.us/', '@help' => 'https://support.zoom.us/hc/en-us/articles/203395207-What-is-Managed-Domain')),
+    'weight' => ++$weight,
+  ) + $defaults;
+
   return $info;
 }
