@@ -432,6 +432,7 @@ class MetatagD7Entities extends ProcessPluginBase {
       'p:domain_verify' => 'pinterest',
       // @todo '' => 'pocket',
       'yandex-verification' => 'yandex',
+      'zoom-domain-verification' => 'zoom-domain-verification',
     ];
 
     // Trigger hook_metatag_migrate_metatagd7_tags_map_alter().
