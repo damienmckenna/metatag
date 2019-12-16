@@ -34,6 +34,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3074350 by DamienMcKenna: Follow-up to fix some API mismatches.
 #3096936 by DamienMcKenna, thejimbirch, rubyji: Add new tag: Zoom domain
   verification.
+#3101288 by chr.fritsch: Fix namespace and imports.
 
 
 Metatag 8.x-1.10, 2019-08-29
