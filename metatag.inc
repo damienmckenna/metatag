@@ -503,6 +503,16 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
     $value = $this->data['value'];
 
     if (empty($options['raw'])) {
+      // Make sure there is a node to work with.
+      if (isset($options['token data']['node'])) {
+        // Get language to use for selecting body field value.
+        $lang = field_language('node', $options['token data']['node'], 'body');
+        if (!empty($options['token data']['node']->body[$lang][0]['value'])) {
+          // Pre-tidy the node body for token_replace if it's not empty.
+          $options['token data']['node']->body[$lang][0]['value'] = $this->tidyValue($options['token data']['node']->body[$lang][0]['value']);
+        }
+      }
+
       // Give other modules the opportunity to use hook_metatag_pattern_alter()
       // to modify defined token patterns and values before replacement.
       drupal_alter('metatag_pattern', $value, $options['token data'], $this->info['name']);

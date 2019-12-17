@@ -30,6 +30,8 @@ Metatag 7.x-1.x, xxxx-xx-xx
   verification.
 #2994102 by DamienMcKenna, LaravZ: Removed extra xmlns definitions due to W3C
   validation errors.
+#3063056 by tristangraves, DamienMcKenna: Metatag has media browser token in
+  meta description.
 
 
 Metatag 7.x-1.25, 2018-04-03
