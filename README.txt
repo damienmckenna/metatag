@@ -247,7 +247,7 @@ Two migration processes are supported:
 
     This is set up in metatag_migration_plugins_alter() and then leverages code
     in metatag_migrate_prepare_row() and
-    \Drupal\metatag\Plugin\migrate\process\d7\MetatagD7Entities to do the actual
+    \Drupal\metatag\Plugin\migrate\process\d7\MetatagEntities to do the actual
     data migration.
 
  2. A custom migration using Migrate Plus [3] and possibly Migrate Tools [4].
@@ -259,16 +259,16 @@ Two migration processes are supported:
 .......................................
 process:
   field_metatag:
-    plugin: metatag_d7_entities
-    source: pseudo_metatag_d7_entities
+    plugin: d7_metatag_entities
+    source: pseudo_d7_metatag_entities
 .......................................
 
-    The important items are the plugin "metatag_d7_entities" and the source
-    value of "pseudo_metatag_d7_entities", if these are not present the
+    The important items are the plugin "d7_metatag_entities" and the source
+    value of "pseudo_d7_metatag_entities", if these are not present the
     migration will not work as expected.
 
     This is handled by metatag_migrate_prepare_row() and
-    \Drupal\metatag\Plugin\migrate\process\d7\MetatagD7Entities.
+    \Drupal\metatag\Plugin\migrate\process\d7\MetatagEntities.
 
 
 DrupalConsole integration

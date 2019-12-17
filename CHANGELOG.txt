@@ -35,6 +35,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3096936 by DamienMcKenna, thejimbirch, rubyji: Add new tag: Zoom domain
   verification.
 #3101288 by chr.fritsch: Fix namespace and imports.
+#3090002 by DamienMcKenna: Rename migrate plugins to follow naming conventions.
 
 
 Metatag 8.x-1.10, 2019-08-29

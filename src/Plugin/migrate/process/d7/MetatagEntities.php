@@ -11,11 +11,11 @@ use Drupal\migrate\Row;
  * Migrate data from Metatag-D7.
  *
  * @MigrateProcessPlugin(
- *   id = "metatag_d7_entities",
+ *   id = "d7_metatag_entities",
  *   handle_multiples = TRUE
  * )
  */
-class MetatagD7Entities extends ProcessPluginBase {
+class MetatagEntities extends ProcessPluginBase {
 
   /**
    * {@inheritdoc}
