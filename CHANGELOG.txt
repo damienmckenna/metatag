@@ -38,6 +38,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3090002 by DamienMcKenna: Rename migrate plugins to follow naming conventions.
 #3099168 by jedihe, DamienMcKenna, docans: Remove "title" meta tag, leave the
   regular title tag.
+#3101567 by DamienMcKenna: Update migrations/state/metatag.migrate_drupal.yml
+  for recent changes.
 
 
 Metatag 8.x-1.10, 2019-08-29
