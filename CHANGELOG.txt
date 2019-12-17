@@ -36,6 +36,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   verification.
 #3101288 by chr.fritsch: Fix namespace and imports.
 #3090002 by DamienMcKenna: Rename migrate plugins to follow naming conventions.
+#3099168 by jedihe, DamienMcKenna, docans: Remove "title" meta tag, leave the
+  regular title tag.
 
 
 Metatag 8.x-1.10, 2019-08-29

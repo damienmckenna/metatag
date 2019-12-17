@@ -166,6 +166,18 @@ function metatag_page_attachments(array &$attachments) {
       ];
     }
   }
+
+  // Remove the erroneous "title" meta tag as the page title has already been
+  // overridden.
+  // @see metatag_preprocess_html()
+  if (!empty($attachments['#attached']['html_head'])) {
+    foreach ($attachments['#attached']['html_head'] as $ctr => $data) {
+      if (!empty($data[1]) && $data[1] == 'title') {
+        unset($attachments['#attached']['html_head'][$ctr]);
+        break;
+      }
+    }
+  }
 }
 
 /**
@@ -414,7 +426,9 @@ function metatag_preprocess_html(&$variables) {
     return NULL;
   }
 
-  // Load the page title.
+  // Copy the "title" meta tag into the regular <title> tag. The redundant meta
+  // tag will be removed elsewhere.
+  // @see metatag_page_attachments()
   if (!empty($attachments['#attached']['html_head'])) {
     foreach ($attachments['#attached']['html_head'] as $attachment) {
       if (!empty($attachment[1]) && $attachment[1] == 'title') {
@@ -422,6 +436,8 @@ function metatag_preprocess_html(&$variables) {
         // the meta title.
         $variables['head_title'] = [];
         $variables['head_title']['title'] = html_entity_decode($attachment[0]['#attributes']['content'], ENT_QUOTES);
+
+        // No need to do anything else after this.
         break;
       }
     }
