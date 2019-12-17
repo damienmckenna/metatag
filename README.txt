@@ -118,6 +118,8 @@ Standard usage scenario
        enabled for this entity, select "Users may translate this field" to use
        Drupal's translation system.
 
+Please note: no meta tags will be output while the site is in maintenance mode.
+
 
 Simplify the content administration experience
 --------------------------------------------------------------------------------

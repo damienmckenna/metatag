@@ -140,4 +140,13 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function render() {
+    drupal_set_message($this->t('Please note that while the site is in maintenance mode none of the usual meta tags will be output.'));
+
+    return parent::render();
+  }
+
 }

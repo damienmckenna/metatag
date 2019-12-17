@@ -40,6 +40,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   regular title tag.
 #3101567 by DamienMcKenna: Update migrations/state/metatag.migrate_drupal.yml
   for recent changes.
+#3080665 by DamienMcKenna, Chris Matthews: Add status message when site is in
+  maintenance mode that no meta data will be output.
 
 
 Metatag 8.x-1.10, 2019-08-29
