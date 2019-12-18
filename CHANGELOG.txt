@@ -32,6 +32,7 @@ Metatag 7.x-1.x, xxxx-xx-xx
   validation errors.
 #3063056 by tristangraves, DamienMcKenna: Metatag has media browser token in
   meta description.
+#2957361 by DamienMcKenna: Add support for Pinterest meta namespace.
 
 
 Metatag 7.x-1.25, 2018-04-03
