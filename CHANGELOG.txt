@@ -1,5 +1,5 @@
-Metatag 7.x-1.x, xxxx-xx-xx
----------------------------
+Metatag 7.x-1.26, 2019-12-20
+----------------------------
 #3011548 by jacob.embree, DamienMcKenna: Add configure link to
   metatag_importer.info.
 #2966185 by DamienMcKenna, justindodge: Cache get without set causes super long
