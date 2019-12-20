@@ -42,6 +42,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   for recent changes.
 #3080665 by DamienMcKenna, Chris Matthews: Add status message when site is in
   maintenance mode that no meta data will be output.
+#3087677 by DamienMcKenna: Update MetatagD7Entities for new meta tags in 7.x.
 
 
 Metatag 8.x-1.10, 2019-08-29
