@@ -140,7 +140,7 @@ function metatag_requirements($phase) {
         'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
         'value' => $t('The Fast Token Browser module is recommended.'),
-        'description' => $t("Using the \"@url\" can help avoid problems with the token browser.", array('@url' => l('Fast Token Browser module', 'https://www.drupal.org/project/fast_token_browser'))),
+        'description' => $t("Using the !url can help avoid problems with the token browser.", array('!url' => l('Fast Token Browser module', 'https://www.drupal.org/project/fast_token_browser'))),
       );
     }
 
