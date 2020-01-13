@@ -1,6 +1,7 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #3102937 by yasmeensalah, Berdir: Plugin AlternateHandheld is misnamed.
+#3103725 by thalles: Create kernel test to Form\MetatagSettingsForm.
 
 
 Metatag 8.x-1.11, 2019-12-20
