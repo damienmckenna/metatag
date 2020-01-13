@@ -2,18 +2,8 @@
 
 /**
  * @file
- * Install, update and uninstall functions for the metatag module.
+ * Requirements and update functions for the Metatag module.
  */
-
-/**
- * Implements hook_install().
- */
-function metatag_install() {
-  // Don't display the message during site installation, it looks funny.
-  if (!drupal_installation_attempted()) {
-    \Drupal::messenger()->addMessage(t("To adjust global defaults, go to admin/config/search/metatag. If you need to set meta tags for a specific entity, edit its bundle and add the Metatag field."));
-  }
-}
 
 /**
  * Implements hook_requirements().
@@ -285,7 +275,7 @@ function metatag_update_8103() {
   $config_installer->installDefaultConfig('module', 'metatag');
 
   // Apply all entity definition changes.
-  \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+  \Drupal::entityDefinitionUpdateManager()->getChangeList();
 
   // 2. Extract Metatag field defaults.
   $entity_info = $entity_manager->getDefinitions();
@@ -375,7 +365,7 @@ function metatag_update_8105() {
  * Add the metatag_defaults config entity to the site.
  */
 function metatag_update_8106() {
-  \Drupal::entityDefinitionUpdateManager()->applyUpdates();
+  \Drupal::entityDefinitionUpdateManager()->getChangeList();
 }
 
 /**
