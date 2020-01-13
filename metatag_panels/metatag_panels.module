@@ -135,30 +135,13 @@ function metatag_panels_form_submit($form, $form_state) {
  * Implements hook_ctools_render_alter().
  */
 function metatag_panels_ctools_render_alter($info, $page, $context) {
-  // Save the data necessary for metatag_panels_page_build() to build the meta
-  // tags later. Don't build them here yet as this is before any
-  // hook_page_build() has run which means some data to alter the meta tags in
-  // hook_metatag_metatags_view() might not exist yet.
-  $static = &drupal_static('metatag_panels');
-  $static['context'] = $context;
-  $static['info'] = $info;
-}
-
-/**
- * Implements hook_page_build().
- *
- * @see metatag_panels_ctools_render_alter()
- */
-function metatag_panels_page_build(&$page) {
   // By default do not add meta tags to admin pages. To enable meta tags on
   // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
   if (path_is_admin(current_path()) && !variable_get('metatag_tag_admin_pages', FALSE)) {
     return;
   }
 
-  $static = drupal_static('metatag_panels');
-  $context = $static['context'];
-  $info = $static['info'];
+  $output = &drupal_static('metatag_panels');
 
   $handler = $context['handler'];
 
@@ -244,14 +227,29 @@ function metatag_panels_page_build(&$page) {
       $tag_output = $metatag_instance->getElement($options);
       // Don't output the pager if that's all there is.
       if ($tag_output != $current_pager) {
-        $metatags[$metatag] = $tag_output;
+        $output[$metatag] = $tag_output;
       }
     }
   }
 
   // Give third-parties the opportunity to alter the metatag for a given
   // instance.
-  drupal_alter('metatag_metatags_view', $metatags, $options['instance']);
+  drupal_alter('metatag_metatags_view', $output, $options['instance']);
+}
+
+/**
+ * Implements hook_page_build().
+ *
+ * @see metatag_panels_ctools_render_alter()
+ */
+function metatag_panels_page_build(&$page) {
+  // By default do not add meta tags to admin pages. To enable meta tags on
+  // admin pages set the 'metatag_tag_admin_pages' variable to TRUE.
+  if (path_is_admin(current_path()) && !variable_get('metatag_tag_admin_pages', FALSE)) {
+    return;
+  }
+
+  $metatags = drupal_static('metatag_panels');
 
   if (!empty($metatags)) {
     // The page region can be changed.
