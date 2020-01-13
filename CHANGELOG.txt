@@ -3,6 +3,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3102937 by yasmeensalah, Berdir: Plugin AlternateHandheld is misnamed.
 #3103725 by thalles: Create kernel test to Form\MetatagSettingsForm.
 #3105837 by Berdir: Remove metatag_install().
+#3105343 by Kionn, DenisCi: Maintenance mode message shown on settings forms
+  when site is not in maintenance mode.
 
 
 Metatag 8.x-1.11, 2019-12-20
