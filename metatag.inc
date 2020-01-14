@@ -514,7 +514,7 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
         if (!empty($options['token data']['node']->body[$lang][0]['value'])) {
           $old_value = $options['token data']['node']->body[$lang][0]['value'];
           // Pre-tidy the node body for token_replace if it's not empty.
-          $options['token data']['node']->body[$lang][0]['value'] = $this->tidyValue();
+          $options['token data']['node']->body[$lang][0]['value'] = $this->tidyValue($old_value);
         }
       }
 
