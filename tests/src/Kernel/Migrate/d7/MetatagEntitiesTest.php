@@ -17,7 +17,7 @@ use Drupal\Tests\migrate_drupal\Kernel\d7\MigrateDrupal7TestBase;
  *
  * @group metatag
  */
-class MigrateMetatagD7EntitiesTest extends MigrateDrupal7TestBase {
+class MetatagEntitiesTest extends MigrateDrupal7TestBase {
 
   /**
    * {@inheritdoc}

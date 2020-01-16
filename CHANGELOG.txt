@@ -6,6 +6,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3105343 by Kionn, DenisCi: Maintenance mode message shown on settings forms
   when site is not in maintenance mode.
 #3102582 by DamienMcKenna, dbourrion: Change uses of http:// to https://.
+#3101532 by DamienMcKenna, heddn, slv_: Only attach Metatag migration field
+  logic on '\''Drupal 7'\'' migrations, e.g. core upgrades.
 
 
 Metatag 8.x-1.11, 2019-12-20

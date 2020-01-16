@@ -723,7 +723,7 @@ function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, M
 /**
  * Implements hook_migration_plugins_alter().
  */
-function metatag_migration_plugins_alter(array &$migrations) {
+function metatag_migration_plugins_alter(array &$definitions) {
   // This is used for guided migrations from Drupal 7 using either core's
   // Migrate Drupal UI or the Migrate Upgrade contributed module. It will
   // automatically create a field named "field_metatag" with the per-entity
@@ -735,64 +735,96 @@ function metatag_migration_plugins_alter(array &$migrations) {
   //
   // @see metatag_migrate_prepare_row()
   // @see Drupal\metatag\Plugin\migrate\process\d7\MetatagD7
-  foreach ($migrations as &$migration) {
-    if (isset($migration['destination']['plugin'])) {
-      // Follow logic on hook_entity_base_field_info() and exclude the metatag
-      // entity itself, plus some others.
-      $destinations_to_ignore = [
-        'entity:metatag',
-        'color',
-        'component_entity_display',
-        'component_entity_form_display',
-        'config',
-        'd7_theme_settings',
-        'entity:base_field_override',
-        'entity:block',
-        'entity:block_content',
-        'entity:block_content_type',
-        'entity:comment',
-        'entity:comment_type',
-        'entity:contact_form',
-        'entity:date_format',
-        'entity:entity_view_mode',
-        'entity:field_config',
-        'entity:field_storage_config',
-        'entity:filter_format',
-        'entity:image_style',
-        'entity:menu',
-        'entity:menu_link_content',
-        'entity:node_type',
-        'entity:rdf_mapping',
-        'entity:shortcut',
-        'entity:shortcut_set',
-        'entity:taxonomy_vocabulary',
-        'entity:user_role',
-        'shortcut_set_users',
-        'url_alias',
-        'user_data',
+  foreach ($definitions as &$definition) {
+    // Only certain migrate plugins are supported.
+    if (_metatag_is_migration_plugin_supported($definition)) {
+      // Metatag-D7's data is handled via a custom process plugin that does
+      // the data conversion.
+      $definition['process']['field_metatag'] = [
+        'plugin' => 'd7_metatag_entities',
+        'source' => 'pseudo_d7_metatag_entities',
       ];
-      if (in_array($migration['destination']['plugin'], $destinations_to_ignore)) {
-        continue;
-      }
 
-      // Load the destination plugin.
-      $plugin_definition = \Drupal::service('plugin.manager.migrate.destination')
-        ->getDefinition($migration['destination']['plugin']);
-      $destination_plugin = DefaultFactory::getPluginClass($migration['destination']['plugin'], $plugin_definition);
-
-      if (is_subclass_of($destination_plugin, EntityContentBase::class) || $destination_plugin == EntityContentBase::class) {
-        // Metatag-D7's data is handled via a custom process plugin that does
-        // the data conversion.
-        $migration['process']['field_metatag'] = [
-          'plugin' => 'd7_metatag_entities',
-          'source' => 'pseudo_d7_metatag_entities',
-        ];
-
-        // List dependencies here so that they are processed first, otherwise
-        // the destination field won't be available for the data to go into.
-        $migration['migration_dependencies']['optional'][] = 'd7_metatag_field';
-        $migration['migration_dependencies']['optional'][] = 'd7_metatag_field_instance';
-      }
+      // List dependencies here so that they are processed first, otherwise
+      // the destination field won't be available for the data to go into.
+      $definition['migration_dependencies']['optional'][] = 'd7_metatag_field';
+      $definition['migration_dependencies']['optional'][] = 'd7_metatag_field_instance';
     }
   }
+}
+
+/**
+ * Check if a given migrate plugin should have Metatag's logic added.
+ *
+ * @param array $definition
+ *   The migration plugin definition to examine.
+ *
+ * @return bool
+ *   Indicates whether Metatag's custom migration logic should be added for this
+ *   migrate plugin definition
+ *
+ * @see metatag_migration_plugins_alter()
+ */
+function _metatag_is_migration_plugin_supported(array $definition) {
+  // Only run add the migration plugins when doing a "Drupal 7" migration. This
+  // will catch standard core migrations but allow skipping this log for custom
+  // migrations that do not have this tag.
+  if (!empty($definition['migration_tags'])) {
+    if (!in_array('Drupal 7', $definition['migration_tags'])) {
+      return FALSE;
+    }
+  }
+
+  // This migration has destination plugins defined.
+  if (!empty($definition['destination']['plugin'])) {
+    // Follow logic on hook_entity_base_field_info() and exclude the metatag
+    // entity itself, plus some others.
+    $destinations_to_ignore = [
+      'entity:metatag',
+      'color',
+      'component_entity_display',
+      'component_entity_form_display',
+      'config',
+      'd7_theme_settings',
+      'entity:base_field_override',
+      'entity:block',
+      'entity:block_content',
+      'entity:block_content_type',
+      'entity:comment',
+      'entity:comment_type',
+      'entity:contact_form',
+      'entity:date_format',
+      'entity:entity_view_mode',
+      'entity:field_config',
+      'entity:field_storage_config',
+      'entity:filter_format',
+      'entity:image_style',
+      'entity:menu',
+      'entity:menu_link_content',
+      'entity:node_type',
+      'entity:rdf_mapping',
+      'entity:shortcut',
+      'entity:shortcut_set',
+      'entity:taxonomy_vocabulary',
+      'entity:user_role',
+      'shortcut_set_users',
+      'url_alias',
+      'user_data',
+    ];
+    if (in_array($definition['destination']['plugin'], $destinations_to_ignore)) {
+      return FALSE;
+    }
+  }
+
+  // Only support content entity destinations.
+  $plugin_definition = \Drupal::service('plugin.manager.migrate.destination')
+    ->getDefinition($definition['destination']['plugin']);
+  $destination_plugin = DefaultFactory::getPluginClass($definition['destination']['plugin'], $plugin_definition);
+  if (!is_subclass_of($destination_plugin, EntityContentBase::class) && $destination_plugin != EntityContentBase::class) {
+    return FALSE;
+  }
+
+  // If this stage is reached then this is a supported core migration and the
+  // Metatag migration will be automatically handled.
+  return TRUE;
 }

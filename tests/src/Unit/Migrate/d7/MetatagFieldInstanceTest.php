@@ -9,7 +9,7 @@ use Drupal\Tests\migrate\Unit\MigrateSqlSourceTestCase;
  *
  * @group metatag
  */
-class MetatagD7FieldInstanceTest extends MigrateSqlSourceTestCase {
+class MetatagFieldInstanceTest extends MigrateSqlSourceTestCase {
 
   const PLUGIN_CLASS = 'Drupal\metatag\Plugin\migrate\source\d7\MetatagFieldInstance';
 
