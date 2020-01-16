@@ -308,7 +308,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
    *   An absolute URL to a non-existent image.
    */
   private function randomImageUrl() {
-    return 'http://www.example.com/images/' . $this->randomMachineName() . '.png';
+    return 'https://www.example.com/images/' . $this->randomMachineName() . '.png';
   }
 
   /**

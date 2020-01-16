@@ -8,7 +8,7 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
  * @MetatagTag(
  *   id = "referrer",
  *   label = @Translation("Referrer policy"),
- *   description = @Translation("Indicate to search engines and other page scrapers whether or not links should be followed. See <a href='http://w3c.github.io/webappsec/specs/referrer-policy/'>the W3C specifications</a> for further details."),
+ *   description = @Translation("Indicate to search engines and other page scrapers whether or not links should be followed. See <a href='https://w3c.github.io/webappsec/specs/referrer-policy/'>the W3C specifications</a> for further details."),
  *   name = "referrer",
  *   group = "advanced",
  *   weight = 5,

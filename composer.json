@@ -17,8 +17,8 @@
   ],
   "minimum-stability": "dev",
   "support": {
-    "issues": "http://drupal.org/project/issues/metatag",
-    "source": "http://cgit.drupalcode.org/metatag"
+    "issues": "https://www.drupal.org/project/issues/metatag",
+    "source": "https://git.drupalcode.org/project/metatag"
   },
   "require": {
     "drupal/token": "^1.0"

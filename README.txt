@@ -211,7 +211,7 @@ This will return an array with the following structure:
       '#tag' => 'link',
       '#attributes' => [
         'rel' => 'canonical',
-        'href' => 'http://example.com/what',
+        'href' => 'https://example.com/what',
       ],
     ],
     'description' => [

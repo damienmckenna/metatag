@@ -32,7 +32,7 @@ function metatag_requirements($phase) {
         'description' => t('The <a href="@module">Schema.org Metatag</a> module is highly recommended to add <a href="@jsonld">JSON-LD</a> -formatted <a href="@schema">schema.org</a> compatible data structures to the site.', [
           '@module' => 'https://www.drupal.org/project/schema_metatag',
           '@jsonld' => 'https://json-ld.org',
-          '@schema' => 'http://schema.org',
+          '@schema' => 'https://schema.org',
         ]),
       ];
     }

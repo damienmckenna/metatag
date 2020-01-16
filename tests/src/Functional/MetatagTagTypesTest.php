@@ -126,8 +126,8 @@ class MetatagTagTypesTest extends BrowserTestBase {
     $this->drupalGet('admin/config/search/metatag/global');
     $this->assertResponse(200);
     $values = [
-      'og_image' => 'http://blahblahblah.com/insecure.jpg',
-      'og_image_secure_url' => 'http://blahblahblah.com/secure.jpg',
+      'og_image' => 'https://blahblahblah.com/insecure.jpg',
+      'og_image_secure_url' => 'https://blahblahblah.com/secure.jpg',
     ];
     $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
@@ -135,8 +135,8 @@ class MetatagTagTypesTest extends BrowserTestBase {
     $this->drupalGet('');
     $this->assertResponse(200);
 
-    $this->assertRaw('<meta property="og:image" content="http://blahblahblah.com/insecure.jpg" />', t('Test og:image with regular http:// link'));
-    $this->assertRaw('<meta property="og:image:secure_url" content="https://blahblahblah.com/secure.jpg" />', t('Test og:image:secure_url updated regular http:// link to https://'));
+    $this->assertRaw('<meta property="og:image" content="https://blahblahblah.com/insecure.jpg" />', t('Test og:image with regular https:// link'));
+    $this->assertRaw('<meta property="og:image:secure_url" content="https://blahblahblah.com/secure.jpg" />', t('Test og:image:secure_url updated regular https:// link to https://'));
   }
 
   /**
@@ -171,7 +171,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
     // $edit = [
     //   'name[0][value]' => 'UrlTags',
     //   'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
-    //   'field_metatag[0][advanced][original_source]' => 'http://example.com/foo.html',
+    //   'field_metatag[0][advanced][original_source]' => 'https://example.com/foo.html',
     // ];
     // $this->drupalPostForm(NULL, $edit, $save_label);
     // $entities = entity_load_multiple_by_properties('entity_test', [

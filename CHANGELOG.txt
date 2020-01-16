@@ -5,6 +5,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3105837 by Berdir: Remove metatag_install().
 #3105343 by Kionn, DenisCi: Maintenance mode message shown on settings forms
   when site is not in maintenance mode.
+#3102582 by DamienMcKenna, dbourrion: Change uses of http:// to https://.
 
 
 Metatag 8.x-1.11, 2019-12-20
