@@ -8,6 +8,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3102582 by DamienMcKenna, dbourrion: Change uses of http:// to https://.
 #3101532 by DamienMcKenna, heddn, slv_: Only attach Metatag migration field
   logic on 'Drupal 7' migrations, e.g. core upgrades.
+#3102602 by jedihe, Gnanagowthaman sankar, thalles, DamienMcKenna, Berdir: Use
+  DI to add services to the settings form.
 
 
 Metatag 8.x-1.11, 2019-12-20
