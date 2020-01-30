@@ -10,6 +10,9 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   logic on 'Drupal 7' migrations, e.g. core upgrades.
 #3102602 by jedihe, Gnanagowthaman sankar, thalles, DamienMcKenna, Berdir: Use
   DI to add services to the settings form.
+#3106609 by bygeoffthompson, Daniel Korte, DamienMcKenna, Maya Slatinek,
+  mrshowerman, BryanDeNijs: The Basic Description field has a maxlength of 255
+  but recommends 320 or less.
 
 
 Metatag 8.x-1.11, 2019-12-20
