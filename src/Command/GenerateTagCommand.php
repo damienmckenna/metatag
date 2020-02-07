@@ -344,21 +344,4 @@ class GenerateTagCommand extends Command {
     return array_keys($this->metatagManager->sortedGroups());
   }
 
-  /**
-   * Confirm that a requested group exists.
-   *
-   * @param string $group
-   *   A group's machine name.
-   *
-   * @return string
-   *   The group's name, if available, otherwise an empty string.
-   */
-  private function validateGroupExist($group) {
-    $groups = $this->getGroups();
-    if (isset($groups[$group])) {
-      return $group;
-    }
-    return '';
-  }
-
 }
