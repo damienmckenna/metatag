@@ -19,6 +19,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   validateGroupExist().
 #3111875 by Hardik_Patel_12: Replace \Drupal calls with dependency injection in
   MetatagFirehose.php.
+#3111900 by Hardik_Patel_12: Replace \Drupal calls with dependency injection in
+  MetatagViewsTranslationController.
 
 
 Metatag 8.x-1.11, 2019-12-20
