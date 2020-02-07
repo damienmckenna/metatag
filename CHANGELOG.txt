@@ -13,6 +13,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3106609 by bygeoffthompson, Daniel Korte, DamienMcKenna, Maya Slatinek,
   mrshowerman, BryanDeNijs: The Basic Description field has a maxlength of 255
   but recommends 320 or less.
+#2841737 by DamienMcKenna, andyg5000, harold20, jmolivas, jim22: DrupalConsole
+  commands not working.
 
 
 Metatag 8.x-1.11, 2019-12-20
