@@ -17,6 +17,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   commands not working.
 #3111878 by Hardik_Patel_12: Remove unused GenerateTagCommand::
   validateGroupExist().
+#3111875 by Hardik_Patel_12: Replace \Drupal calls with dependency injection in
+  MetatagFirehose.php.
 
 
 Metatag 8.x-1.11, 2019-12-20

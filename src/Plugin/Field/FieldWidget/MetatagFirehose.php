@@ -8,6 +8,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\metatag\MetatagManagerInterface;
+use Drupal\metatag\MetatagTagPluginManager;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -31,6 +33,20 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
   protected $metatagManager;
 
   /**
+   * Instance of MetatagTagPluginManager service.
+   *
+   * @var \Drupal\metatag\MetatagTagPluginManager
+   */
+  protected $metatagPluginManager;
+
+  /**
+   * The config factory.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected $configFactory;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -40,16 +56,20 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
       $configuration['field_definition'],
       $configuration['settings'],
       $configuration['third_party_settings'],
-      $container->get('metatag.manager')
+      $container->get('metatag.manager'),
+      $container->get('plugin.manager.metatag.tag'),
+      $container->get('config.factory')
     );
   }
 
   /**
    * {@inheritdoc}
    */
-  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, MetatagManagerInterface $manager) {
+  public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, MetatagManagerInterface $manager, MetatagTagPluginManager $plugin_manager, ConfigFactoryInterface $config_factory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->metatagManager = $manager;
+    $this->metatagPluginManager = $plugin_manager;
+    $this->configFactory = $config_factory;
   }
 
   /**
@@ -75,7 +95,7 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
     }
 
     // Retrieve configuration settings.
-    $settings = \Drupal::config('metatag.settings');
+    $settings = $this->configFactory->get('metatag.settings');
     $entity_type_groups = $settings->get('entity_type_groups');
 
     // Find the current entity type and bundle.
@@ -105,7 +125,7 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
   public function massageFormValues(array $values, array $form, FormStateInterface $form_state) {
     // Flatten the values array to remove the groups and then serialize all the
     // meta tags into one value for storage.
-    $tag_manager = \Drupal::service('plugin.manager.metatag.tag');
+    $tag_manager = $this->metatagPluginManager;
     foreach ($values as &$value) {
       $flattened_value = [];
       foreach ($value as $group) {
