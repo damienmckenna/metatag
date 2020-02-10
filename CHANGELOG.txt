@@ -1,3 +1,7 @@
+Metatag 7.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 7.x-1.27, 2020-02-10
 ----------------------------
 #3047486 by DamienMcKenna: Fixed hook_requirements message about Fast Token
