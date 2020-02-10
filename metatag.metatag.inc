@@ -154,7 +154,7 @@ function metatag_metatag_info() {
 
   $info['tags']['title'] = array(
     'label' => t('Page title'),
-    'description' => t("The text to display in the title bar of a visitor's web browser when they view this page. This meta tag may also be used as the title of the page when a visitor bookmarks or favorites this page."),
+    'description' => t("The text to display in the title bar of a visitor's web browser when they view this page. This meta tag may also be used as the title of the page when a visitor bookmarks or favorites this page, or as the page title in a search engine result. It is common to append '[site:name]' to the end of this, so the site's name is automatically added. It is recommended that the title be no greater than 55 - 65 characters long, including spaces."),
     'maxlength' => 0,
     'class' => 'DrupalTitleMetaTag',
     'group' => 'basic',
@@ -163,7 +163,7 @@ function metatag_metatag_info() {
 
   $info['tags']['description'] = array(
     'label' => t('Description'),
-    'description' => t("A brief and concise summary of the page's content, preferably 320 characters or less. The description meta tag may be used by search engines to display a snippet about the page in search results."),
+    'description' => t("A brief and concise summary of the page's content, preferably 150 characters or less. Where as the description meta tag may be used by search engines to display a snippet about the page in search results, the abstract tag is used by search engines to archive a summary about the page."),
     'maxlength' => 380,
     'class' => 'DrupalTextMetaTag',
     'group' => 'basic',
@@ -191,7 +191,7 @@ function metatag_metatag_info() {
 
   $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
-    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>not</em> supported by most search engines anymore."),
+    'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>no longer</em> supported by most search engines anymore."),
     'maxlength' => 0,
     'class' => 'DrupalTextMetaTag',
     'group' => 'basic',
@@ -313,7 +313,7 @@ function metatag_metatag_info() {
 
   $info['tags']['canonical'] = array(
     'label' => t('Canonical URL'),
-    'description' => t("Preferred page location or URL to help eliminate duplicate content for search engines."),
+    'description' => t("The URl of the preferred page location or URL of the content of this page, to help eliminate duplicate content penalties from search engines."),
     'class' => 'DrupalLinkMetaTag',
     'group' => 'advanced',
     'weight' => ++$weight,

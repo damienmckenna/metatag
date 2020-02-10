@@ -10,7 +10,15 @@
  */
 function metatag_help($path, $arg) {
   if ($path == 'admin/config/search/metatags') {
-    return '<p>' . t('To view a summary of the default meta tags and the inheritance, click on a meta tag type.') . '</p>';
+    return '<p>' . t('Configure global meta tag default values below. Meta tags may be left as the default.') . '</p>'
+      . '<p>' . t('Meta tag patterns are passed down from one level to the next unless they are overridden. To view a summary of the individual meta tags and the pattern for a specific configuration, click on its name below.') . '</p>'
+      . '<p>' . t('If the top-level configuration is not specific enough, additional default meta tag configurations can be added for a specific entity type or entity bundle, e.g. for a specific content type, using the "Add default meta tags" form.') . '</p>'
+      . '<p>' . t('Meta tags can be further refined on a per-entity basis, e.g. for individual nodes, from the "Meta tags" fields that show on those edit forms.')
+      . '<p>' . t('To view a summary of the default meta tags and the inheritance, click on a meta tag type.') . '</p>';
+  }
+  elseif ($path == 'admin/config/search/metatags/config/add') {
+    return '<p>' . t('Use the following form to override the global default meta tags for a specific entity type or entity bundle. In practical terms, this allows the meta tags to be customized for a specific content type or taxonomy vocabulary, so that its content will have different meta tags <em>default values</em> than others.') . '</p>'
+      . '<p>' . t('As a reminder, the meta tags can be further refined on a per entity basis using the "Meta tags" field, but it is recommended to set reasonable defaults for each entity type or bundle (e.g. content types).') . '</p>';
   }
   elseif ($path == 'admin/help#metatag') {
     return '<p>' . t('The Metatag module provides a options to let each page have customized meta data added to the "meta" tags in the HEAD section of the document.') . '</p>';

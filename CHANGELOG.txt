@@ -11,6 +11,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   system_rebuild_module_data().
 #3108311 by mvc, DamienMcKenna: Meta tags not working with taxonomy terms Views
   page ending in /all.
+#3107119 by DamienMcKenna: Improve in-module text, meta tag descriptions, etc.
 
 
 Metatag 7.x-1.26, 2019-12-20

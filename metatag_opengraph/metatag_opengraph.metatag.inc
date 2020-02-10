@@ -478,7 +478,7 @@ function metatag_opengraph_metatag_info() {
   // );
   $info['tags']['og:video:url'] = array(
     'label' => t('Video URL'),
-    'description' => t('The URL to a video file that complements this object.'),
+    'description' => t('The URL of an video which should represent the content. For best results use a source that is at least 1200 x 630 pixels in size, but at least 600 x 316 pixels is a recommended minimum. Object types supported include video.episode, video.movie, video.other, and video.tv_show.'),
     'weight' => ++$weight,
     'replaces' => array(
       'og:video',
@@ -514,7 +514,7 @@ function metatag_opengraph_metatag_info() {
   ) + $og_defaults;
   $info['tags']['og:video:type'] = array(
     'label' => t('Video type'),
-    'description' => t('The MIME type of the video file. Examples include "application/x-shockwave-flash" for a Flash video, or "text/html" if this is a standalone web page containing a video.'),
+    'description' => t('The type of video referenced above. Should be either  video.episode, video.movie, video.other, and video.tv_show. Note: there should be one value for each video, and having more than there are videos may cause problems.'),
     'weight' => ++$weight,
   ) + $og_defaults;
   $info['tags']['video:actor'] = array(
