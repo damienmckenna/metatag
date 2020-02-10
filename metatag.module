@@ -2048,6 +2048,12 @@ function _metatag_entity_is_page($entity_type, $entity) {
     return TRUE;
   }
 
+  // Support for Views' taxonomy_term pages with depth specifier, e.g.
+  // "taxonomy_term/123/1/all".
+  elseif ($entity_type == 'taxonomy_term' && strpos($current_path, $uri['path']) === 0 && count(explode('/', $current_path)) == 4) {
+    return TRUE;
+  }
+
   // Any other page.
   else {
     return !empty($uri['path']) && $current_path == $uri['path'];
