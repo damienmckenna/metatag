@@ -7,8 +7,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
   joekings: Summary token filtering from #3063056 breaks content displays.
 #3112422 by DamienMcKenna: Combine submodule "TagsTest" and "Test" tests.
 #3112410 by DamienMcKenna: Only run token logic if node:summary token used.
-#3109898 by malcolm_p, DamienMcKenna: metatag_requirements() loads slowly due to
-  system_rebuild_module_data().
+#3109898/#2954968 by malcolm_p, andyg5000, DamienMcKenna:
+  metatag_requirements() loads slowly due to system_rebuild_module_data().
 #3108311 by mvc, DamienMcKenna: Meta tags not working with taxonomy terms Views
   page ending in /all.
 #3107119 by DamienMcKenna: Improve in-module text, meta tag descriptions, etc.
