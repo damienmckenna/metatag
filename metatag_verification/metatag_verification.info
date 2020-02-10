@@ -5,5 +5,4 @@ core = 7.x
 dependencies[] = metatag:metatag
 
 ; Tests.
-files[] = tests/metatag_verification.test
 files[] = tests/metatag_verification.tags.test

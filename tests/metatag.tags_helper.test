@@ -43,6 +43,22 @@ abstract class MetatagTagsTestBase extends MetatagTestHelper {
   }
 
   /**
+   * Confirm that it's possible to load the front page.
+   *
+   * This is a simple test to confirm the site didn't blow up when this module
+   * was enabled. It's particularly useful when this test is extended on
+   * submodules.
+   */
+  public function testFrontPage() {
+    // Load the front page.
+    $this->drupalGet('<front>');
+    $this->assertResponse(200);
+
+    // Confirm the page is correct.
+    $this->assertText(t('No front page content has been created yet.'));
+  }
+
+  /**
    * Tests that this module's tags are available.
    */
   function testTagsArePresent() {

@@ -5,6 +5,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #3104933 by DamienMcKenna, ron_s: Revert #3037874 for breaking Panels support.
 #3102817 by DamienMcKenna, ron_s, steveoriol, jmouse888, mattlt, slovv,
   joekings: Summary token filtering from #3063056 breaks content displays.
+#3112422 by DamienMcKenna: Combine submodule "TagsTest" and "Test" tests.
 
 
 Metatag 7.x-1.26, 2019-12-20

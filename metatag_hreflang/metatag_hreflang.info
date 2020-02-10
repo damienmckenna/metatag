@@ -9,7 +9,6 @@ dependencies[] = metatag:metatag
 dependencies[] = drupal:locale
 
 ; Tests.
-files[] = tests/metatag_hreflang.test
 files[] = tests/metatag_hreflang.tags.test
 
 ; Entity Translation integration.
