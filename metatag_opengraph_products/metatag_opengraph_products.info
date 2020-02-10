@@ -6,4 +6,4 @@ dependencies[] = metatag:metatag
 dependencies[] = metatag:metatag_opengraph
 
 ; Tests.
-files[] = tests/metatag_opengraph_products.tags.test
+files[] = tests/MetatagOpenGraphProductsTagsTest.test

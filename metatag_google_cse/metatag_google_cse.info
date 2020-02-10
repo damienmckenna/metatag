@@ -5,4 +5,4 @@ core = 7.x
 dependencies[] = metatag:metatag
 
 ; Tests.
-files[] = tests/metatag_google_cse.tags.test
+files[] = tests/MetatagGoogleCseTagsTest.test

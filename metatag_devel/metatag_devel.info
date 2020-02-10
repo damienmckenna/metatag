@@ -6,4 +6,4 @@ tags[] = developer
 dependencies[] = metatag:metatag
 
 ; Tests.
-files[] = tests/metatag_devel.test
+files[] = tests/MetatagDevelTest.test

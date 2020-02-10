@@ -8,4 +8,4 @@ dependencies[] = metatag:metatag
 files[] = metatag_favicons.mask-icon.class.inc
 
 ; Tests.
-files[] = tests/metatag_favicons.tags.test
+files[] = tests/MetatagFaviconsTagsTest.test

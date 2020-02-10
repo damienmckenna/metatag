@@ -14,6 +14,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #3107119 by DamienMcKenna: Improve in-module text, meta tag descriptions, etc.
 #2403349 by DamienMcKenna, pvhee, thejimbirch: Convert "author" tag to HTML 5.2
   spec.
+#3112549 by DamienMcKenna: Rename test files to PascalCase.
 
 
 Metatag 7.x-1.26, 2019-12-20

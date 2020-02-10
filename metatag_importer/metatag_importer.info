@@ -9,4 +9,4 @@ configure = admin/config/search/metatags/importer
 dependencies[] = metatag:metatag
 
 ; Tests.
-files[] = tests/metatag_importer.test
+files[] = tests/MetatagImporterTest.test

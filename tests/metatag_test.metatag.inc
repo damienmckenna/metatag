@@ -10,7 +10,7 @@
  *
  * @todo Expand to cover more meta tags.
  *
- * @see MetatagTestHelper::getTestDefaults()
+ * @see MetatagTestBase::getTestDefaults()
  */
 function metatag_test_metatag_config_default() {
   $configs = array();

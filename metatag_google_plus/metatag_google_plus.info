@@ -8,4 +8,4 @@ dependencies[] = metatag:metatag
 files[] = metatag_google_plus.inc
 
 ; Tests.
-files[] = tests/metatag_google_plus.tags.test
+files[] = tests/MetatagGooglePlusTagsTest.test

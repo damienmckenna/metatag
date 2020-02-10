@@ -6,4 +6,4 @@ dependencies[] = metatag:metatag
 dependencies[] = metatag:metatag_dc
 
 ; Tests.
-files[] = tests/metatag_dc_advanced.tags.test
+files[] = tests/MetatagDcAdvancedTagsTest.test

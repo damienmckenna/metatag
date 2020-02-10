@@ -5,4 +5,4 @@ core = 7.x
 dependencies[] = metatag:metatag
 
 ; Tests.
-files[] = tests/metatag_twitter_cards.tags.test
+files[] = tests/MetatagTwitterCardsTagsTest.test
