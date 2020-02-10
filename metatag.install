@@ -56,9 +56,6 @@ function metatag_requirements($phase) {
     }
   }
   elseif ($phase == 'runtime') {
-    // Complete data dump of all installed modules, used later.
-    $module_data = system_rebuild_module_data();
-
     // Work out the release of D7 that is currently running.
     list($major, $minor) = explode('.', VERSION);
     // Strip off any suffixes on the version string, e.g. "17-dev".
@@ -101,9 +98,7 @@ function metatag_requirements($phase) {
 
     // Check that Entity_Translation is current.
     if (module_exists('entity_translation')
-      && !empty($module_data['entity_translation'])
-      && !empty($module_data['entity_translation']->schema_version)
-      && $module_data['entity_translation']->schema_version < 7004) {
+      && drupal_get_installed_schema_version('entity_translation') < 7004) {
       $requirements['metatag_et_version'] = array(
         'severity' => REQUIREMENT_ERROR,
         'title' => 'Metatag',
@@ -155,21 +150,21 @@ function metatag_requirements($phase) {
     }
 
     // Token v7.x-1.6 is *highly* recommended.
-    $token_module = $module_data['token'];
+    $token_module_info = system_get_info('module', 'token');
     // If the version string is not present then it means the module is running
     // from git, which means it can't be compared against. Alternatively, look
     // for the test file, which was the last commit of the 1.6 release.
-    if (!empty($token_module->info['version'])
-      || empty($token_module->info['files'])) {
+    if (!empty($token_module_info['version'])
+      || empty($token_module_info['files'])) {
       // If there's no test file then this is older than v1.6.
-      if (empty($token_module->info['files'])) {
+      if (empty($token_module_info['files'])) {
         $minor = 5;
       }
       // Otherwise check the version string.
       else {
         // Versions are in the format 7.x-1.y, so split the string up to find
         // the 'y' portion.
-        $version = explode('-', $token_module->info['version']);
+        $version = explode('-', $token_module_info['version']);
         if (isset($version[1])) {
           list($major, $minor) = explode('.', $version[1]);
           // Strip off any suffixes on the version string, e.g. "17-dev".
@@ -197,13 +192,13 @@ function metatag_requirements($phase) {
     // If Workbench Moderation is installed, show a message if it is out of
     // date.
     if (module_exists('workbench_moderation')) {
-      $wm_module = $module_data['workbench_moderation'];
+      $wm_module_info = system_get_info('module', 'workbench_moderation');
       // If the version string is not present then it means the module is
       // running from git, which means it can't be compared against.
-      if (!empty($wm_module->info['version'])) {
+      if (!empty($wm_module_info['version'])) {
         // Versions are in the format 7.x-1.y, so split the string up to find
         // the 'y' portion.
-        $version = explode('-', $wm_module->info['version']);
+        $version = explode('-', $wm_module_info['version']);
         if (isset($version[1])) {
           list($major, $minor) = explode('.', $version[1]);
         }
