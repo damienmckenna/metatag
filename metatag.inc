@@ -507,14 +507,21 @@ class DrupalTextMetaTag extends DrupalDefaultMetaTag {
       // is extracted, so that this doesn't break output from other modules.
       $old_value = NULL;
 
-      // Make sure there is a node to work with.
-      if (isset($options['token data']['node'])) {
-        // Get language to use for selecting body field value.
-        $lang = field_language('node', $options['token data']['node'], 'body');
-        if (!empty($options['token data']['node']->body[$lang][0]['value'])) {
-          $old_value = $options['token data']['node']->body[$lang][0]['value'];
-          // Pre-tidy the node body for token_replace if it's not empty.
-          $options['token data']['node']->body[$lang][0]['value'] = $this->tidyValue($old_value);
+      // There can be problems extracting the [node:summary] token due to
+      // certain modules using custom placeholders, e.g. Media WYSIWYG. To avoid
+      // that problem, the string needs to be filtered using tidyValue() before
+      // the tokens are processed.
+      if (strpos($value, '[node:summary]') !== FALSE) {
+        // Make sure there is a node to work with.
+        if (isset($options['token data']['node'])) {
+          // Get language to use for selecting body field value.
+          $lang = field_language('node', $options['token data']['node'], 'body');
+          if (!empty($options['token data']['node']->body[$lang][0]['value'])) {
+            $old_value = $options['token data']['node']->body[$lang][0]['value'];
+
+            // Pre-tidy the node body for token_replace if it's not empty.
+            $options['token data']['node']->body[$lang][0]['value'] = $this->tidyValue($old_value);
+          }
         }
       }
 

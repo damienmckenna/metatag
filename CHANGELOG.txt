@@ -6,6 +6,7 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #3102817 by DamienMcKenna, ron_s, steveoriol, jmouse888, mattlt, slovv,
   joekings: Summary token filtering from #3063056 breaks content displays.
 #3112422 by DamienMcKenna: Combine submodule "TagsTest" and "Test" tests.
+#3112410 by DamienMcKenna: Only run token logic if node:summary token used.
 
 
 Metatag 7.x-1.26, 2019-12-20
