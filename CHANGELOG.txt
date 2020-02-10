@@ -12,6 +12,8 @@ Metatag 7.x-1.x-dev, xxxx-xx-xx
 #3108311 by mvc, DamienMcKenna: Meta tags not working with taxonomy terms Views
   page ending in /all.
 #3107119 by DamienMcKenna: Improve in-module text, meta tag descriptions, etc.
+#2403349 by DamienMcKenna, pvhee, thejimbirch: Convert "author" tag to HTML 5.2
+  spec.
 
 
 Metatag 7.x-1.26, 2019-12-20

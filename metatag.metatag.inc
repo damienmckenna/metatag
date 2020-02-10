@@ -189,6 +189,15 @@ function metatag_metatag_info() {
     ),
   );
 
+  $info['tags']['author'] = array(
+    'label' => t('Author'),
+    'description' => t('Author(s) of the web page; little used though an official part of the <a href="https://www.w3.org/TR/html52/document-metadata.html#author">HTML 5.2 specification</a>.'),
+    'class' => 'DrupalTextMetaTag',
+    'group' => 'advanced',
+    'weight' => ++$weight,
+    'name' => 'author',
+  );
+
   $info['tags']['keywords'] = array(
     'label' => t('Keywords'),
     'description' => t("A comma-separated list of keywords about the page. This meta tag is <em>no longer</em> supported by most search engines anymore."),

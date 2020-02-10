@@ -27,6 +27,7 @@ class MetatagTagsTest extends MetatagTagsTestBase {
    */
   public $tags = array(
     'abstract',
+    'author',
     'cache-control',
     'canonical',
     'content-language',
