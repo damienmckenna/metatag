@@ -2,6 +2,7 @@ name: 'Metatag Tests: Tag'
 type: module
 description: 'Support module for testing handling of a custom meta tag.'
 core: 8.x
+core_version_requirement: '^8 || ^9'
 package: Testing
 dependencies:
   - metatag:metatag

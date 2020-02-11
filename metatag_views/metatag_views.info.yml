@@ -2,6 +2,7 @@ name: 'Metatag: Views'
 type: module
 description: Provides views integration for metatags.
 core: 8.x
+core_version_requirement: '^8 || ^9'
 package: SEO
 dependencies:
   - metatag:metatag

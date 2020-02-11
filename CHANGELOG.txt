@@ -21,6 +21,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   MetatagFirehose.php.
 #3111900 by Hardik_Patel_12: Replace \Drupal calls with dependency injection in
   MetatagViewsTranslationController.
+#3109835 by phenaproxima: Declare compatibility with Drupal 9.
 
 
 Metatag 8.x-1.11, 2019-12-20

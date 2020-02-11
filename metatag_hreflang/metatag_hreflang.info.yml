@@ -2,6 +2,7 @@ name: "Metatag: hreflang"
 type: module
 description: Provides support for the hreflang meta tag with some extra logic to simplify it.
 core: 8.x
+core_version_requirement: '^8 || ^9'
 package: SEO
 dependencies:
   - metatag:metatag
