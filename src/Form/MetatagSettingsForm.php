@@ -116,7 +116,8 @@ class MetatagSettingsForm extends ConfigFormBase {
         $value[$entity_type][$bundle_id] = $groups[0];
       }
     }
-    $settings->set('entity_type_groups', $value)->save();
+    $settings->set('entity_type_groups', $value);
+    $settings->save();
     parent::submitForm($form, $form_state);
   }
 

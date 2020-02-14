@@ -24,6 +24,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3109835 by phenaproxima: Declare compatibility with Drupal 9.
 #3113481 by thalles: Fix subclassing and stop overriding constructors in
   metatag_views\Plugin\views\display_extender\MetatagDisplayExtender.
+By DamienMcKenna: Minor code readability tweak.
 
 
 Metatag 8.x-1.11, 2019-12-20
