@@ -65,6 +65,43 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
   /**
    * {@inheritdoc}
    */
+  public static function defaultSettings() {
+    return [
+      'sidebar' => TRUE,
+    ] + parent::defaultSettings();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsForm(array $form, FormStateInterface $form_state) {
+    $element['sidebar'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Place field in sidebar'),
+      '#default_value' => $this->getSetting('sidebar'),
+      '#description' => t('If checked, the field will be placed in the sidebar on entity forms.'),
+    ];
+
+    return $element;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function settingsSummary() {
+    if ($this->getSetting('sidebar')) {
+      $summary[] = t('Use sidebar: Yes');
+    }
+    else {
+      $summary[] = t('Use sidebar: No');
+    }
+
+    return $summary;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function __construct($plugin_id, $plugin_definition, FieldDefinitionInterface $field_definition, array $settings, array $third_party_settings, MetatagManagerInterface $manager, MetatagTagPluginManager $plugin_manager, ConfigFactoryInterface $config_factory) {
     parent::__construct($plugin_id, $plugin_definition, $field_definition, $settings, $third_party_settings);
     $this->metatagManager = $manager;
@@ -103,18 +140,28 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
     $entity_bundle = $item->getEntity()->bundle();
 
     // See if there are requested groups for this entity type and bundle.
-    $groups = !empty($entity_type_groups[$entity_type]) && !empty($entity_type_groups[$entity_type][$entity_bundle]) ? $entity_type_groups[$entity_type][$entity_bundle] : [];
+    $groups = [];
+    if (!empty($entity_type_groups[$entity_type]) && !empty($entity_type_groups[$entity_type][$entity_bundle])) {
+      $groups = $entity_type_groups[$entity_type][$entity_bundle];
+    }
+
     // Limit the form to requested groups, if any.
     if (!empty($groups)) {
       $element = $this->metatagManager->form($values, $element, [$entity_type], $groups);
     }
+
     // Otherwise, display all groups.
     else {
       $element = $this->metatagManager->form($values, $element, [$entity_type]);
     }
 
-    // Put the form element into the form's "advanced" group.
-    $element['#group'] = 'advanced';
+    // If the "sidebar" option was checked on the field widget, put the
+    // form element into the form's "advanced" group. Otherwise, let it
+    // default to the main field area.
+    $sidebar = $this->getSetting('sidebar');
+    if ($sidebar) {
+      $element['#group'] = 'advanced';
+    }
 
     return $element;
   }

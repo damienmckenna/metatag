@@ -29,6 +29,8 @@ By DamienMcKenna: Minor code readability tweak.
   data.
 #3112784 by thalles: Missing doc comment into Create method to $instance
   metatag\Form\MetatagSettingsForm.
+#2844696 by DamienMcKenna, Michelle: Allow the field to control whether it is
+  displayed in the sidebar or not.
 
 
 Metatag 8.x-1.11, 2019-12-20
