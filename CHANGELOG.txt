@@ -31,6 +31,9 @@ By DamienMcKenna: Minor code readability tweak.
   metatag\Form\MetatagSettingsForm.
 #2844696 by DamienMcKenna, Michelle: Allow the field to control whether it is
   displayed in the sidebar or not.
+#2993991 by DamienMcKenna, jcnventura, raphaeltbm, Geolim4, SteffenR, xurubo93,
+  GuillaumeDuveau, joehuggans, mmaldonado: Metatag_hreflang - duplicate
+  alternate hreflang meta.
 
 
 Metatag 8.x-1.11, 2019-12-20
