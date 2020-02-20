@@ -38,6 +38,9 @@ class MetatagSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
+    /**
+     * @var \Drupal\metatag\Form\MetatagSettingsForm
+     */
     $instance = parent::create($container);
     $instance->entityTypeBundleInfo = $container->get('entity_type.bundle.info');
     $instance->metatagManager = $container->get('metatag.manager');
