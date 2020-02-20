@@ -8,9 +8,9 @@
 use Drupal\Component\Plugin\Factory\DefaultFactory;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
-use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
@@ -19,10 +19,13 @@ use Drupal\migrate\Plugin\migrate\destination\EntityContentBase;
 use Drupal\migrate\Plugin\MigrateSourceInterface;
 use Drupal\migrate\Plugin\MigrationInterface;
 use Drupal\migrate\Row;
-use Drupal\node\Plugin\migrate\source\d7\Node;
-use Drupal\taxonomy\Plugin\migrate\source\d7\Term;
+use Drupal\node\Plugin\migrate\source\d6\Node as Node6;
+use Drupal\node\Plugin\migrate\source\d7\Node as Node7;
+use Drupal\taxonomy\Plugin\migrate\source\d6\Term as Term6;
+use Drupal\taxonomy\Plugin\migrate\source\d7\Term as Term7;
 use Drupal\taxonomy\TermInterface;
-use Drupal\user\Plugin\migrate\source\d7\User;
+use Drupal\user\Plugin\migrate\source\d6\User as User6;
+use Drupal\user\Plugin\migrate\source\d7\User as User7;
 
 /**
  * Implements hook_help().
@@ -650,73 +653,145 @@ function metatag_generate_entity_metatags($entity) {
  * Implements hook_migrate_prepare_row().
  */
 function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, MigrationInterface $migration) {
-  // If there's no 'metatag' table in the source, there's no point in
-  // continuing.
-  if (!method_exists($source, 'getDatabase')
-      || !$source->getDatabase()->schema()->tableExists('metatag')) {
+  // Don't bother if there source doesn't allow the getDatabase() method.
+  if (!method_exists($source, 'getDatabase')) {
     return;
   }
 
-  // @todo Write a more general version rather than hard-coded.
-  // Support a know subset of D7 sources.
-  if (is_a($source, Node::class)) {
-    // E.g. d7_node, d7_node_revision.
-    $source_type = 'node';
-  }
-  elseif (is_a($source, Term::class)) {
-    // E.g. d7_taxonomy_term.
-    $source_type = 'taxonomy';
-  }
-  elseif (is_a($source, User::class)) {
-    // E.g. d7_user.
-    $source_type = 'user';
-  }
-  else {
-    // Not supported now, nothing to do.
-    return;
-  }
-
-  if ($migration->getDestinationPlugin() instanceof EntityContentBase) {
-    $entity_type = NULL;
-    $entity_id = NULL;
-    $revision_id = NULL;
-
-    // @todo Write a more general version rather than a switch statement.
-    switch ($source_type) {
-      case 'node':
-        $entity_type = 'node';
-        $entity_id = $row->getSourceProperty('nid');
-        $revision_id = $row->getSourceProperty('vid');
-        break;
-
-      case 'taxonomy':
-        $entity_type = 'taxonomy_term';
-        $entity_id = $row->getSourceProperty('tid');
-        break;
-
-      case 'user':
-        $entity_type = 'user';
-        $entity_id = $row->getSourceProperty('uid');
-        break;
+  // Work out what sort of migration to do.
+  // Metatag-D7.
+  if ($source->getDatabase()->schema()->tableExists('metatag')) {
+    // @todo Write a more general version rather than hard-coded.
+    // Support a know subset of D7 sources.
+    if (is_a($source, Node7::class)) {
+      // E.g. d7_node, d7_node_revision.
+      $source_type = 'node';
+    }
+    elseif (is_a($source, Term7::class)) {
+      // E.g. d7_taxonomy_term.
+      $source_type = 'taxonomy';
+    }
+    elseif (is_a($source, User7::class)) {
+      // E.g. d7_user.
+      $source_type = 'user';
+    }
+    else {
+      // Not supported now, nothing to do.
+      return;
     }
 
-    /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source */
-    /** @var \Drupal\Core\Database\Query\SelectInterface $query */
-    $query = $source->getDatabase()->select('metatag', 'm')
-      ->fields('m', ['data'])
-      ->condition('entity_type', $entity_type)
-      ->condition('entity_id', $entity_id);
-    if (!is_null($revision_id)) {
-      if ($source->getDatabase()->schema()->fieldExists('metatag', 'revision_id')) {
-        $query->condition('revision_id', $revision_id);
+    if ($migration->getDestinationPlugin() instanceof EntityContentBase) {
+      $entity_type = NULL;
+      $entity_id = NULL;
+      $revision_id = NULL;
+
+      // @todo Write a more general version rather than a switch statement.
+      switch ($source_type) {
+        case 'node':
+          $entity_type = 'node';
+          $entity_id = $row->getSourceProperty('nid');
+          $revision_id = $row->getSourceProperty('vid');
+          break;
+
+        case 'taxonomy':
+          $entity_type = 'taxonomy_term';
+          $entity_id = $row->getSourceProperty('tid');
+          break;
+
+        case 'user':
+          $entity_type = 'user';
+          $entity_id = $row->getSourceProperty('uid');
+          break;
       }
+
+      /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source */
+      /** @var \Drupal\Core\Database\Query\SelectInterface $query */
+      $query = $source->getDatabase()->select('metatag', 'm')
+        ->fields('m', ['data'])
+        ->condition('entity_type', $entity_type)
+        ->condition('entity_id', $entity_id);
+      if (!is_null($revision_id)) {
+        if ($source->getDatabase()->schema()->fieldExists('metatag', 'revision_id')) {
+          $query->condition('revision_id', $revision_id);
+        }
+      }
+      $value = $query->execute()->fetchCol();
+      if (!empty($value) && is_array($value)) {
+        $value = array_pop($value);
+      }
+
+      $row->setSourceProperty('pseudo_metatag_entities', $value);
     }
-    $value = $query->execute()->fetchCol();
-    if (!empty($value) && is_array($value)) {
-      $value = array_pop($value);
+  }
+
+  // Nodewords-D6.
+  elseif ($source->getDatabase()->schema()->tableExists('nodewords')) {
+    // @todo Write a more general version rather than hard-coded.
+    // Support a know subset of D6 sources.
+    if (is_a($source, Node6::class)) {
+      // E.g. d6_node, d6_node_revision.
+      $source_type = 'node';
+    }
+    elseif (is_a($source, Term6::class)) {
+      // E.g. d6_taxonomy_term.
+      $source_type = 'taxonomy_term';
+    }
+    elseif (is_a($source, User6::class)) {
+      // E.g. d6_user.
+      $source_type = 'user';
+    }
+    else {
+      // Not supported now, nothing to do.
+      return;
     }
 
-    $row->setSourceProperty('pseudo_d7_metatag_entities', $value);
+    if ($migration->getDestinationPlugin() instanceof EntityContentBase) {
+      $nodeword_type = $entity_id = NULL;
+
+      // @todo Write a more general version rather than a switch statement.
+      switch ($source_type) {
+        case 'node':
+          // define('NODEWORDS_TYPE_NODE',       5);
+          $nodeword_type = 5;
+          $entity_id = $row->getSourceProperty('nid');
+          break;
+
+        case 'taxonomy_term':
+          // define('NODEWORDS_TYPE_TERM',       6);
+          $nodeword_type = 6;
+          $entity_id = $row->getSourceProperty('tid');
+          break;
+
+        case 'user':
+          // define('NODEWORDS_TYPE_USER',       8);
+          $nodeword_type = 8;
+          $entity_id = $row->getSourceProperty('uid');
+          break;
+      }
+      // @todo
+      // define('NODEWORDS_TYPE_BLOG',       13);
+      // define('NODEWORDS_TYPE_DEFAULT',    1);
+      // define('NODEWORDS_TYPE_ERRORPAGE',  2);
+      // define('NODEWORDS_TYPE_FORUM',      12);
+      // define('NODEWORDS_TYPE_FRONTPAGE',  3);
+      // define('NODEWORDS_TYPE_NONE',       0);
+      // define('NODEWORDS_TYPE_OFFLINE',    11);
+      // define('NODEWORDS_TYPE_PAGE',       10);
+      // define('NODEWORDS_TYPE_PAGER',      4);
+      // define('NODEWORDS_TYPE_TRACKER',    7);
+      // define('NODEWORDS_TYPE_VOCABULARY', 9);
+
+      /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source */
+      /** @var \Drupal\Core\Database\Query\SelectInterface $query */
+      $query = $source->getDatabase()->select('nodewords', 'nw')
+        ->fields('nw', ['name', 'content'])
+        ->condition('type', $nodeword_type)
+        ->condition('id', $entity_id)
+        ->orderBy('nw.name');
+      $value = $query->execute()->fetchAllKeyed();
+
+      $row->setSourceProperty('pseudo_metatag_entities',  $value);
+    }
   }
 }
 
@@ -738,17 +813,23 @@ function metatag_migration_plugins_alter(array &$definitions) {
   foreach ($definitions as &$definition) {
     // Only certain migrate plugins are supported.
     if (_metatag_is_migration_plugin_supported($definition)) {
-      // Metatag-D7's data is handled via a custom process plugin that does
-      // the data conversion.
-      $definition['process']['field_metatag'] = [
-        'plugin' => 'd7_metatag_entities',
-        'source' => 'pseudo_d7_metatag_entities',
-      ];
-
-      // List dependencies here so that they are processed first, otherwise
-      // the destination field won't be available for the data to go into.
-      $definition['migration_dependencies']['optional'][] = 'd7_metatag_field';
-      $definition['migration_dependencies']['optional'][] = 'd7_metatag_field_instance';
+      // There are different field and process plugins for D6 and D7 too.
+      if (in_array('Drupal 6', $definition['migration_tags'], TRUE)) {
+        $definition['process']['field_metatag'] = [
+          'plugin' => 'd6_nodewords_entities',
+          'source' => 'pseudo_metatag_entities',
+        ];
+        $definition['migration_dependencies']['optional'][] = 'd6_nodewords_field';
+        $definition['migration_dependencies']['optional'][] = 'd6_nodewords_field_instance';
+      }
+      if (in_array('Drupal 7', $definition['migration_tags'], TRUE)) {
+        $definition['process']['field_metatag'] = [
+          'plugin' => 'd7_metatag_entities',
+          'source' => 'pseudo_metatag_entities',
+        ];
+        $definition['migration_dependencies']['optional'][] = 'd7_metatag_field';
+        $definition['migration_dependencies']['optional'][] = 'd7_metatag_field_instance';
+      }
     }
   }
 }
@@ -770,7 +851,7 @@ function _metatag_is_migration_plugin_supported(array $definition) {
   // will catch standard core migrations but allow skipping this log for custom
   // migrations that do not have this tag.
   if (!empty($definition['migration_tags'])) {
-    if (!in_array('Drupal 7', $definition['migration_tags'])) {
+    if (!array_intersect(['Drupal 6', 'Drupal 7'], $definition['migration_tags'])) {
       return FALSE;
     }
   }
@@ -820,7 +901,7 @@ function _metatag_is_migration_plugin_supported(array $definition) {
   $plugin_definition = \Drupal::service('plugin.manager.migrate.destination')
     ->getDefinition($definition['destination']['plugin']);
   $destination_plugin = DefaultFactory::getPluginClass($definition['destination']['plugin'], $plugin_definition);
-  if (!is_subclass_of($destination_plugin, EntityContentBase::class) && $destination_plugin != EntityContentBase::class) {
+  if (!is_subclass_of($destination_plugin, EntityContentBase::class) && $destination_plugin !== EntityContentBase::class) {
     return FALSE;
   }
 

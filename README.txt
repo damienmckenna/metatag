@@ -237,40 +237,59 @@ type of meta tag, e.g. the generator meta tag uses the "content" attribute while
 the link tag uses the "href" attribute.
 
 
-Migration / Upgrade from Drupal 7
+Migration / Upgrade from Drupal 6 or 7
 --------------------------------------------------------------------------------
-An upgrade path from Metatag on Drupal 7 is provided.
+An upgrade path from Nodewords on Drupal 6 or Metatag on Drupal 7 is provided.
 
 Two migration processes are supported:
 
  1. A guided migration using either the Migrate Drupal UI from core or the
     Migrate Upgrade [2] contributed module. This will automatically create a
-    field named "field_metatag" and import any meta tag data that existed in D7.
+    field named "field_metatag" and import any meta tag data that existed in
+    Nodewords on D6 or Metatag on D7.
 
-    This is set up in metatag_migration_plugins_alter() and then leverages code
-    in metatag_migrate_prepare_row() and
-    \Drupal\metatag\Plugin\migrate\process\d7\MetatagEntities to do the actual
-    data migration.
+    This migration configuration is all prepared in
+    metatag_migration_plugins_alter(), the data is loaded onto the migrated
+    entity in metatag_migrate_prepare_row(), and then the data is remapped in
+    either \Drupal\metatag\Plugin\migrate\process\d6\NodewordsEntities or
+    \Drupal\metatag\Plugin\migrate\process\d7\MetatagEntities depending upon
+    what the source is.
 
  2. A custom migration using Migrate Plus [3] and possibly Migrate Tools [4].
     This will require manually creating the meta tag fields and assigning a
     custom process plugin as the source for its data. For example, if the name
     of the field is "field_meta_tags" the lines fron the "process" section of
-    the migration yml file will look line the following:
+    the migration yml file would need to look line the following:
 
-.......................................
+    For migrating from Nodewords on D6:
+--------------------------------------------------------------------
 process:
-  field_metatag:
+...
+  field_meta_tags:
+    plugin: d6_nodewords_entities
+    source: pseudo_metatag_entities
+...
+--------------------------------------------------------------------
+
+    For Migrating from Metatag on D7:
+--------------------------------------------------------------------
+process:
+...
+  field_meta_tags:
     plugin: d7_metatag_entities
-    source: pseudo_d7_metatag_entities
-.......................................
+    source: pseudo_metatag_entities
+...
+--------------------------------------------------------------------
 
-    The important items are the plugin "d7_metatag_entities" and the source
-    value of "pseudo_d7_metatag_entities", if these are not present the
-    migration will not work as expected.
+    The important items are the "plugin" and the "source" values, if these are
+    not present the migration will not work as expected.
 
-    This is handled by metatag_migrate_prepare_row() and
-    \Drupal\metatag\Plugin\migrate\process\d7\MetatagEntities.
+    The data will then be loaded into the migrating entity using
+    metatag_migrate_prepare_row().
+
+    See also:
+    * \Drupal\metatag\Plugin\migrate\process\d6\NodewordsEntities
+    * \Drupal\metatag\Plugin\migrate\process\d7\MetatagEntities
 
 
 DrupalConsole integration

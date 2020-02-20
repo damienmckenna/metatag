@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\metatag\Plugin\migrate\process\d7;
+namespace Drupal\metatag\Plugin\migrate\process\d6;
 
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\MigrateExecutableInterface;
@@ -8,14 +8,14 @@ use Drupal\migrate\ProcessPluginBase;
 use Drupal\migrate\Row;
 
 /**
- * Migrate entity data from Metatag on D7.
+ * Migrate entity data from Nodewords on D6.
  *
  * @MigrateProcessPlugin(
- *   id = "d7_metatag_entities",
+ *   id = "d6_nodewords_entities",
  *   handle_multiples = TRUE
  * )
  */
-class MetatagEntities extends ProcessPluginBase {
+class NodewordsEntities extends ProcessPluginBase {
 
   /**
    * {@inheritdoc}
@@ -26,61 +26,72 @@ class MetatagEntities extends ProcessPluginBase {
       return NULL;
     }
 
-    $tags_map = $this->tagsMap();
-
     $metatags = [];
 
-    // Re-shape D7 entries into for D8 entries.
-    $old_tags = unserialize($value);
+    // Restructure Nodewords-D6 data.
+    $tags_map = $this->tagsMap();
 
     // This is expected to be an array, if it isn't something went wrong.
-    if (!is_array($old_tags)) {
-      throw new MigrateException('Data from Metatag-D7 was not a serialized array.');
+    if (!is_array($value)) {
+      throw new MigrateException('Data from Nodewords-D6 was not a serialized array.');
     }
 
-    foreach ($old_tags as $d7_metatag_name => $data) {
-      // If there's no data for this tag, ignore everything.
-      if (empty($data)) {
-        continue;
-      }
+    // Re-shape D6 entries into for D8 entries.
+    $old_tags = array_map(static function ($value) {
+      return unserialize($value);
+    }, $value);
 
-      // @todo Skip these values for now, maybe some version supported these?
-      if (!is_array($data) || empty($data['value'])) {
-        continue;
-      }
-
-      // Convert the D7 meta tag name to the D8 equivalent. If this meta tag
+    foreach ($old_tags as $d6_metatag_name => $metatag_value) {
+      // Convert the D6 nodewords name to the D8 equivalent. If this meta tag
       // is not recognized, skip it.
-      if (empty($tags_map[$d7_metatag_name])) {
+      if (empty($tags_map[$d6_metatag_name])) {
         continue;
       }
-      $d8_metatag_name = $tags_map[$d7_metatag_name];
+      $d8_metatag_name = $tags_map[$d6_metatag_name];
+
+      // The 'value' element was required.
+      if (!isset($metatag_value['value'])) {
+        continue;
+      }
+      $metatag_value = $metatag_value['value'];
+      // Exclude empty values. Doesn't just use empty() because that would
+      // exclude the number 0, and that was an appropriate value for some
+      // meta tags.
+      if (is_scalar($metatag_value) && trim($metatag_value) === '') {
+        continue;
+      }
+      if (is_array($metatag_value) && empty($metatag_value)) {
+        continue;
+      }
 
       // Convert the nested arrays to a flat structure.
-      if (is_array($data['value'])) {
+      // @todo Some meta tags have extra options besides the basic 'value'.
+      if (is_array($metatag_value)) {
         // Remove empty values.
-        $data['value'] = array_filter($data['value']);
+        $metatag_value = array_filter($metatag_value);
         // Convert the array into a comma-separated list.
-        $data = implode(', ', $data['value']);
+        $data = implode(', ', $metatag_value);
       }
       else {
-        $data = $data['value'];
+        $data = $metatag_value;
       }
 
-      // Keep the entire data structure.
       $metatags[$d8_metatag_name] = $data;
     }
+
+    // Sort the meta tags alphabetically to make testing easier.
+    ksort($metatags);
 
     return serialize($metatags);
   }
 
   /**
-   * Match Metatag-D7 meta tags with their D8 counterparts.
+   * Match Metatag-D6 meta tags with their D8 counterparts.
    *
    * @return array
-   *   An array of D7 tags to their D8 counterparts.
+   *   An array of D6 tags to their D8 counterparts.
    */
-  protected function tagsMap() {
+  public function tagsMap() {
     $map = [
       // From the main Metatag module.
       'abstract' => 'abstract',
@@ -99,6 +110,7 @@ class MetatagEntities extends ProcessPluginBase {
       'news_keywords' => 'news_keywords',
       'next' => 'next',
       'original-source' => 'original_source',
+      'page_title' => 'title',
       'pragma' => 'pragma',
       'prev' => 'prev',
       'rating' => 'rating',
@@ -110,6 +122,7 @@ class MetatagEntities extends ProcessPluginBase {
       'set_cookie' => 'set_cookie',
       'shortlink' => 'shortlink',
       'standout' => 'standout',
+      'syndication-source' => 'original_source',
       'title' => 'title',
 
       // From metatag_app_links.metatag.inc:
@@ -156,6 +169,7 @@ class MetatagEntities extends ProcessPluginBase {
       'dcterms.type' => 'dcterms_type',
 
       // From metatag_dc_advanced.metatag.inc:
+      'copyright' => 'dcterms_date_copyrighted',
       'dcterms.abstract' => 'dcterms_abstract',
       'dcterms.accessRights' => 'dcterms_access_rights',
       'dcterms.accrualMethod' => 'dcterms_accrual_method',
