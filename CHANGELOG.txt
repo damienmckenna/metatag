@@ -41,6 +41,8 @@ By DamienMcKenna: Minor code readability tweak.
   ~160 characters.
 #3115634 by DamienMcKenna: Refactor MetatagManager::generateRawElements() to
   create token arguments once per call.
+#3001282 by maximpodorov, DamienMcKenna: Support hasAffectingChanges method of
+  FieldItemList.
 
 
 Metatag 8.x-1.11, 2019-12-20
