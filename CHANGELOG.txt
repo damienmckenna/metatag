@@ -34,6 +34,9 @@ By DamienMcKenna: Minor code readability tweak.
 #2993991 by DamienMcKenna, jcnventura, raphaeltbm, Geolim4, SteffenR, xurubo93,
   GuillaumeDuveau, joehuggans, mmaldonado: Metatag_hreflang - duplicate
   alternate hreflang meta.
+#3110152 by DamienMcKenna, antongp: testTagsArePresent() and
+  testTagsInputOutput() methods of the MetatagTagsTestBase class do not loop
+  through child classes $tags property; updated all tests as necessary.
 
 
 Metatag 8.x-1.11, 2019-12-20

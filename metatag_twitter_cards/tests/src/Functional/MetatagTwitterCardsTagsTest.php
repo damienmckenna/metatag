@@ -14,7 +14,7 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  private $tags = [
+  protected $tags = [
     'twitter_cards_app_id_googleplay',
     'twitter_cards_app_id_ipad',
     'twitter_cards_app_id_iphone',
@@ -66,7 +66,7 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
    *
    * They also don't have "cards" in their name.
    */
-  private function getTestTagName($tag_name) {
+  protected function getTestTagName($tag_name) {
     $tag_name = str_replace('twitter_cards', 'twitter', $tag_name);
     $tag_name = str_replace('_', ':', $tag_name);
 
@@ -92,14 +92,14 @@ class MetatagTwitterCardsTagsTest extends MetatagTagsTestBase {
   /**
    * Implements {tag_name}TestFieldXpath() for 'twitter_cards_type'.
    */
-  private function twitterCardsTypeTestFieldXpath() {
+  protected function twitterCardsTypeTestFieldXpath() {
     return "//select[@name='twitter_cards_type']";
   }
 
   /**
    * Implements {tag_name}TestValue() for 'twitter_cards_type'.
    */
-  private function twitterCardsTypeTestValue() {
+  protected function twitterCardsTypeTestValue() {
     return 'summary_large_image';
   }
 

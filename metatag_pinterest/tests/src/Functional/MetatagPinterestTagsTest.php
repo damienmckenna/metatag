@@ -14,7 +14,7 @@ class MetatagPinterestTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  private $tags = [
+  protected $tags = [
     'pinterest_description',
     'pinterest_id',
     'pinterest_media',
@@ -27,12 +27,12 @@ class MetatagPinterestTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  private $testTag = 'meta';
+  protected $testTag = 'meta';
 
   /**
    * {@inheritdoc}
    */
-  private $testNameAttribute = 'property';
+  protected $testNameAttribute = 'property';
 
   /**
    * {@inheritdoc}
@@ -45,7 +45,7 @@ class MetatagPinterestTagsTest extends MetatagTagsTestBase {
   /**
    * Each of these meta tags has a different tag name vs its internal name.
    */
-  private function getTestTagName($tag_name) {
+  protected function getTestTagName($tag_name) {
     if ($tag_name == ('pinterest_nopin' || 'pinterest_nohover' || 'pinterest_nosearch')) {
       $tag_name = 'pinterest';
     }
@@ -58,24 +58,24 @@ class MetatagPinterestTagsTest extends MetatagTagsTestBase {
   }
 
   /**
-   * Implements {tag_name}TestFieldXpath() for 'pinterest'.
+   * Implements {tag_name}TestFieldXpath() for 'pinterest_nopin'.
    */
-  private function pinterestTestFieldXpath() {
-    return "//input[@name='pinterest[index]' and @type='checkbox']";
+  protected function pinterestNopinTestFieldXpath() {
+    return "//input[@name='pinterest_nopin' and @type='checkbox']";
   }
 
   /**
-   * Implements {tag_name}TestKey() for 'pinterest'.
+   * Implements {tag_name}TestFieldXpath() for 'pinterest_nohover'.
    */
-  private function pinterestTestKey() {
-    return 'pinterest[index]';
+  protected function pinterestNohoverTestFieldXpath() {
+    return "//input[@name='pinterest_nohover' and @type='checkbox']";
   }
 
   /**
-   * Implements {tag_name}TestValue() for 'pinterest'.
+   * Implements {tag_name}TestFieldXpath() for 'pinterest_nosearch'.
    */
-  private function pinterestTestValue() {
-    return TRUE;
+  protected function pinterestNosearchTestFieldXpath() {
+    return "//input[@name='pinterest_nosearch' and @type='checkbox']";
   }
 
 }

@@ -14,7 +14,7 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  private $tags = [
+  protected $tags = [
     'article_author',
     'article_expiration_time',
     'article_modified_time',
@@ -24,7 +24,7 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
     'article_tag',
     'book_author',
     'book_isbn',
-    'book_releasedate',
+    'book_release_date',
     'book_tag',
     'og_country_name',
     'og_description',
@@ -64,12 +64,12 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
-  private $testTag = 'meta';
+  protected $testTag = 'meta';
 
   /**
    * {@inheritdoc}
    */
-  private $testNameAttribute = 'property';
+  protected $testNameAttribute = 'property';
 
   /**
    * {@inheritdoc}
@@ -82,7 +82,7 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
   /**
    * Each of these meta tags has a different tag name vs its internal name.
    */
-  private function getTestTagName($tag_name) {
+  protected function getTestTagName($tag_name) {
     // Replace the first underline with a colon.
     $tag_name = str_replace('og_', 'og:', $tag_name);
     $tag_name = str_replace('article_', 'article:', $tag_name);
@@ -98,6 +98,13 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
     }
 
     return $tag_name;
+  }
+
+  /**
+   * Implements TestFieldXpath() callback for og_description.
+   */
+  protected function ogDescriptionTestFieldXpath() {
+    return '//textarea[@name="og_description"]';
   }
 
 }

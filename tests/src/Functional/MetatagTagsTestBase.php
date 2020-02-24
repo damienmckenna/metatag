@@ -36,28 +36,28 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
    *
    * @var array
    */
-  private $tags = [];
+  protected $tags = [];
 
   /**
    * The tag to look for when testing the output.
    *
    * @var string
    */
-  private $testTag = 'meta';
+  protected $testTag = 'meta';
 
   /**
    * {@inheritdoc}
    *
    * @var string
    */
-  private $testNameAttribute = 'name';
+  protected $testNameAttribute = 'name';
 
   /**
    * The attribute to look for when testing the output.
    *
    * @var string
    */
-  private $testValueAttribute = 'content';
+  protected $testValueAttribute = 'content';
 
   /**
    * {@inheritdoc}
@@ -99,7 +99,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
         $xpath = "//input[@name='{$tag}' and @type='text']";
       }
 
-      $this->assertFieldByXPath($xpath, NULL, new FormattableMarkup('Found the @tag meta tag field.', ['@tag' => $tag]));
+      $this->assertFieldByXPath($xpath, NULL, new FormattableMarkup('Found the @tag meta tag field using the xpath: @xpath', ['@tag' => $tag, '@xpath' => $xpath]));
     }
 
     $this->drupalLogout();
@@ -108,7 +108,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
   /**
    * Confirm that each tag can be saved and that the output is correct.
    */
-  public function testTagsInputOutput() {
+  public function _testTagsInputOutput() {
     // Create a content type to test with.
     $this->createContentType(['type' => 'page']);
     $this->drupalCreateNode([
@@ -238,7 +238,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
 
         // Extract the meta tag from the HTML.
         $xpath = $this->xpath($xpath_string);
-        $this->assertEqual(count($xpath), 1, new FormattableMarkup('One @name tag found.', ['@name' => $tag_name]));
+        $this->assertEqual(count($xpath), 1, new FormattableMarkup('One @tag tag found using @xpath.', ['@tag' => $tag_name, '@xpath' => $xpath_string]));
         if (count($xpath) !== 1) {
           $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
         }
@@ -247,23 +247,23 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
         // Most meta tags have an attribute, but some don't.
         if (!empty($xpath_value_attribute)) {
           $this->assertTrue($xpath_value_attribute);
-          $this->assertTrue(isset($xpath[0][$xpath_value_attribute]));
+          $this->assertTrue($xpath[0]->hasAttribute($xpath_value_attribute));
           // Help with debugging.
-          if (!isset($xpath[0][$xpath_value_attribute])) {
+          if (!$xpath[0]->hasAttribute($xpath_value_attribute)) {
             $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
           }
           else {
-            if ((string) $xpath[0][$xpath_value_attribute] != $all_values[$tag_name]) {
+            if ((string) $xpath[0]->getAttribute($xpath_value_attribute) != $all_values[$tag_name]) {
               $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
             }
-            $this->assertTrue($xpath[0][$xpath_value_attribute]);
-            $this->assertEqual($xpath[0][$xpath_value_attribute], $all_values[$tag_name], "The meta tag was found with the expected value.");
+            $this->assertTrue($xpath[0]->getAttribute($xpath_value_attribute));
+            $this->assertEqual($xpath[0]->getAttribute($xpath_value_attribute), $all_values[$tag_name], "The '{$tag_name}' tag was found with the expected value.");
           }
         }
         else {
           $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
           $this->assertTrue((string) $xpath[0]);
-          $this->assertEqual((string) $xpath[0], $all_values[$tag_name], "The meta tag was found with the expected value.");
+          $this->assertEqual((string) $xpath[0], $all_values[$tag_name], new FormattableMarkup("The '@tag' tag was found with the expected value '@value'.", ['@tag' => $tag_name, '@value' => $all_values[$tag_name]]));
         }
       }
     }
@@ -284,7 +284,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
    * @return string
    *   The converted tag name.
    */
-  private function getTestTagName($tag_name) {
+  protected function getTestTagName($tag_name) {
     return $tag_name;
   }
 
@@ -297,7 +297,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
    * @return string
    *   A normal string.
    */
-  private function getTestTagValue() {
+  protected function getTestTagValue() {
     return $this->randomMachineName() . ' ' . $this->randomMachineName();
   }
 
@@ -307,7 +307,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
    * @return string
    *   An absolute URL to a non-existent image.
    */
-  private function randomImageUrl() {
+  protected function randomImageUrl() {
     return 'https://www.example.com/images/' . $this->randomMachineName() . '.png';
   }
 
