@@ -39,6 +39,8 @@ By DamienMcKenna: Minor code readability tweak.
   through child classes $tags property; updated all tests as necessary.
 #3114120 by felribeiro, DamienMcKenna: Recommend "description" tag be less than
   ~160 characters.
+#3115634 by DamienMcKenna: Refactor MetatagManager::generateRawElements() to
+  create token arguments once per call.
 
 
 Metatag 8.x-1.11, 2019-12-20
