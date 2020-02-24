@@ -37,6 +37,8 @@ By DamienMcKenna: Minor code readability tweak.
 #3110152 by DamienMcKenna, antongp: testTagsArePresent() and
   testTagsInputOutput() methods of the MetatagTagsTestBase class do not loop
   through child classes $tags property; updated all tests as necessary.
+#3114120 by felribeiro, DamienMcKenna: Recommend "description" tag be less than
+  ~160 characters.
 
 
 Metatag 8.x-1.11, 2019-12-20
