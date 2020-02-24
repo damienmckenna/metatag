@@ -43,6 +43,7 @@ By DamienMcKenna: Minor code readability tweak.
   create token arguments once per call.
 #3001282 by maximpodorov, DamienMcKenna: Support hasAffectingChanges method of
   FieldItemList.
+#3106870 by DamienMcKenna: Improve UX around OG "secure" meta tags.
 
 
 Metatag 8.x-1.11, 2019-12-20
