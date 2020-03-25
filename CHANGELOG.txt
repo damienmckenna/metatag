@@ -44,6 +44,8 @@ By DamienMcKenna: Minor code readability tweak.
 #3001282 by maximpodorov, DamienMcKenna: Support hasAffectingChanges method of
   FieldItemList.
 #3106870 by DamienMcKenna: Improve UX around OG "secure" meta tags.
+#3120981 by DamienMcKenna: NodewordsFieldInstanceTest uses the wrong source
+  plugin.
 
 
 Metatag 8.x-1.11, 2019-12-20

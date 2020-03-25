@@ -26,7 +26,7 @@ class NodewordsFieldInstanceTest extends MigrateSqlSourceTestCase {
   protected $migrationConfiguration = [
     'id' => 'test',
     'source' => [
-      'plugin' => 'd7_metatag_field_instance',
+      'plugin' => 'd6_nodewords_field_instance',
     ],
   ];
 
