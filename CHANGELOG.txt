@@ -47,6 +47,8 @@ By DamienMcKenna: Minor code readability tweak.
 #3120981 by DamienMcKenna: NodewordsFieldInstanceTest uses the wrong source
   plugin.
 #3120331 by thalles: Add directive docs into support section of composer file.
+#3121289 by Dave Reid, DamienMcKenna: Normalize token types using the Token
+  module mapper service.
 
 
 Metatag 8.x-1.11, 2019-12-20

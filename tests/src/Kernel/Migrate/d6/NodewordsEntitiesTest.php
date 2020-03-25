@@ -23,16 +23,23 @@ class NodewordsEntitiesTest extends MigrateDrupal6TestBase {
    * {@inheritdoc}
    */
   public static $modules = [
+    // Core modules.
+    // @see testAvailableConfigEntities
     'comment',
     'datetime',
     'filter',
     'image',
     'link',
+    'menu_link_content',
     'menu_ui',
     'node',
     'taxonomy',
     'telephone',
     'text',
+
+    // Contrib modules.
+    'token',
+
     // This module.
     'metatag',
   ];
@@ -76,6 +83,7 @@ class NodewordsEntitiesTest extends MigrateDrupal6TestBase {
     $this->installEntitySchema('node');
     $this->installEntitySchema('comment');
     $this->installEntitySchema('taxonomy_term');
+    $this->installEntitySchema('menu_link_content');
     $this->installConfig(static::$modules);
     $this->installSchema('user', ['users_data']);
     $this->installSchema('node', ['node_access']);

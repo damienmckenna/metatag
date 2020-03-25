@@ -14,7 +14,20 @@ class MetatagManagerTest extends KernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['system', 'field', 'text', 'user', 'metatag', 'metatag_open_graph'];
+  public static $modules = [
+    // Core modules.
+    'system',
+    'field',
+    'text',
+    'user',
+
+    // Contrib modules.
+    'token',
+
+    // This module.
+    'metatag',
+    'metatag_open_graph',
+  ];
 
   /**
    * The entity type manager.

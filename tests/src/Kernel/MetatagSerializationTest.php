@@ -17,7 +17,16 @@ class MetatagSerializationTest extends FieldKernelTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['metatag', 'serialization'];
+  public static $modules = [
+    // Core modules.
+    'serialization',
+
+    // Contrib modules.
+    'token',
+
+    // This module.
+    'metatag',
+  ];
 
   /**
    * The serializer service.

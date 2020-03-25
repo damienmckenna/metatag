@@ -19,22 +19,28 @@ class MetatagAdminTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   public static $modules = [
-    'node',
-    'field_ui',
-    'test_page_test',
-    'token',
-    'metatag',
-
+    // Core modules.
     // @see testAvailableConfigEntities
     'block',
     'block_content',
     'comment',
     'contact',
+    'field_ui',
     'menu_link_content',
     'menu_ui',
+    'node',
     'shortcut',
     'taxonomy',
+
+    // Core test modules.
     'entity_test',
+    'test_page_test',
+
+    // Contrib modules.
+    'token',
+
+    // This module.
+    'metatag',
   ];
 
   /**
