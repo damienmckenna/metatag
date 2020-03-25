@@ -46,6 +46,7 @@ By DamienMcKenna: Minor code readability tweak.
 #3106870 by DamienMcKenna: Improve UX around OG "secure" meta tags.
 #3120981 by DamienMcKenna: NodewordsFieldInstanceTest uses the wrong source
   plugin.
+#3120331 by thalles: Add directive docs into support section of composer file.
 
 
 Metatag 8.x-1.11, 2019-12-20

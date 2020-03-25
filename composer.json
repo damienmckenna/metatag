@@ -18,7 +18,8 @@
   "minimum-stability": "dev",
   "support": {
     "issues": "https://www.drupal.org/project/issues/metatag",
-    "source": "https://git.drupalcode.org/project/metatag"
+    "source": "https://git.drupalcode.org/project/metatag",
+    "docs": "https://www.drupal.org/docs/8/modules/metatag"
   },
   "require": {
     "drupal/core": "^8 || ^9",
