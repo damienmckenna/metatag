@@ -49,6 +49,8 @@ By DamienMcKenna: Minor code readability tweak.
 #3120331 by thalles: Add directive docs into support section of composer file.
 #3121289 by Dave Reid, DamienMcKenna: Normalize token types using the Token
   module mapper service.
+#3120947 by DamienMcKenna, quietone: Expand FieldInstanceTest classes to handle
+  multiple bundles per entity type.
 
 
 Metatag 8.x-1.11, 2019-12-20
