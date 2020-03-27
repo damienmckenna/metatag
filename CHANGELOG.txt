@@ -52,6 +52,9 @@ By DamienMcKenna: Minor code readability tweak.
 #3120947 by DamienMcKenna, quietone: Expand FieldInstanceTest classes to handle
   multiple bundles per entity type.
 #3122683 by Neslee Canil Pinto: Capitalize the name of the module in .info file.
+#3110152 by DamienMcKenna, antongp, Lendude: testTagsArePresent() and
+  testTagsInputOutput() methods of the MetatagTagsTestBase class do not loop
+  through child classes $tags property.
 
 
 Metatag 8.x-1.11, 2019-12-20

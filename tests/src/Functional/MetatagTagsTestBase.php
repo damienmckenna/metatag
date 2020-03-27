@@ -107,8 +107,16 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
 
   /**
    * Confirm that each tag can be saved and that the output is correct.
+   *
+   * Each tag is passed in one at a time (using the dataProvider) to make it
+   * easier to distinguish when a problem occurs.
+   *
+   * @param string $tag_name
+   *   The tag to test.
+   *
+   * @dataProvider tagsInputOutputProvider
    */
-  public function _testTagsInputOutput() {
+  public function testTagsInputOutput($tag_name) {
     // Create a content type to test with.
     $this->createContentType(['type' => 'page']);
     $this->drupalCreateNode([
@@ -132,7 +140,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
     ];
 
     foreach ($paths as $item) {
-      list($path1, $path2, $save_message) = $item;
+      [$path1, $path2, $save_message] = $item;
 
       // Load the global config.
       $this->drupalGet($path1);
@@ -140,34 +148,32 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
 
       // Update the Global defaults and test them.
       $all_values = $values = [];
-      foreach ($this->tags as $tag_name) {
-        // Look for a custom method named "{$tagname}TestKey", if found use
-        // that method to get the test string for this meta tag, otherwise it
-        // defaults to the meta tag's name.
-        $method = $this->getMethodFromTagCallback($tag_name, 'TestKey');
-        if (method_exists($this, $method)) {
-          $test_key = $this->$method();
-        }
-        else {
-          $test_key = $tag_name;
-        }
-
-        // Look for a custom method named "{$tagname}TestValue", if found use
-        // that method to get the test string for this meta tag, otherwise it
-        // defaults to just generating a random string.
-        $method = $this->getMethodFromTagCallback($tag_name, 'TestValue');
-        if (method_exists($this, $method)) {
-          $test_value = $this->$method();
-        }
-        else {
-          // Generate a random string. Generating two words of 8 characters each
-          // with simple machine name -style strings.
-          $test_value = $this->randomMachineName() . ' ' . $this->randomMachineName();
-        }
-
-        $values[$test_key] = $test_value;
-        $all_values[$tag_name] = $test_value;
+      // Look for a custom method named "{$tagname}TestKey", if found use
+      // that method to get the test string for this meta tag, otherwise it
+      // defaults to the meta tag's name.
+      $method = $this->getMethodFromTagCallback($tag_name, 'TestKey');
+      if (method_exists($this, $method)) {
+        $test_key = $this->$method();
       }
+      else {
+        $test_key = $tag_name;
+      }
+
+      // Look for a custom method named "{$tagname}TestValue", if found use
+      // that method to get the test string for this meta tag, otherwise it
+      // defaults to just generating a random string.
+      $method = $this->getMethodFromTagCallback($tag_name, 'TestValue');
+      if (method_exists($this, $method)) {
+        $test_value = $this->$method();
+      }
+      else {
+        // Generate a random string. Generating two words of 8 characters each
+        // with simple machine name -style strings.
+        $test_value = $this->randomMachineName() . ' ' . $this->randomMachineName();
+      }
+
+      $values[$test_key] = $test_value;
+      $all_values[$tag_name] = $test_value;
       $this->drupalPostForm(NULL, $values, 'Save');
       $this->assertText($save_message);
 
@@ -176,99 +182,111 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
       $this->assertResponse(200);
 
       // Look for the values.
-      foreach ($this->tags as $tag_name) {
-        // Look for a custom method named "{$tag_name}TestOutputXpath", if
-        // found use that method to get the xpath definition for this meta tag,
-        // otherwise it defaults to just looking for a meta tag matching:
-        // {@code}
-        // <$testTag $testNameAttribute=$tag_name $testValueAttribute=$value />
-        // {@endcode}
-        $method = $this->getMethodFromTagCallback($tag_name, 'TestOutputXpath');
+      // Look for a custom method named "{$tag_name}TestOutputXpath", if
+      // found use that method to get the xpath definition for this meta tag,
+      // otherwise it defaults to just looking for a meta tag matching:
+      // {@code}
+      // <$testTag $testNameAttribute=$tag_name $testValueAttribute=$value />
+      // {@endcode}
+      $method = $this->getMethodFromTagCallback($tag_name, 'TestOutputXpath');
+      if (method_exists($this, $method)) {
+        $xpath_string = $this->$method();
+      }
+      else {
+        // Look for a custom method named "{$tag_name}TestTag", if
+        // found use that method to get the xpath definition for this meta
+        // tag, otherwise it defaults to $this->testTag.
+        $method = $this->getMethodFromTagCallback($tag_name, 'TestTag');
         if (method_exists($this, $method)) {
-          $xpath_string = $this->$method();
+          $xpath_tag = $this->$method();
         }
         else {
-          // Look for a custom method named "{$tag_name}TestTag", if
-          // found use that method to get the xpath definition for this meta
-          // tag, otherwise it defaults to $this->testTag.
-          $method = $this->getMethodFromTagCallback($tag_name, 'TestTag');
-          if (method_exists($this, $method)) {
-            $xpath_tag = $this->$method();
-          }
-          else {
-            $xpath_tag = $this->testTag;
-          }
-
-          // Look for a custom method named "{$tag_name}TestNameAttribute",
-          // if found use that method to get the xpath definition for this meta
-          // tag, otherwise it defaults to $this->testNameAttribute.
-          $method = $this->getMethodFromTagCallback($tag_name, 'TestNameAttribute');
-          if (method_exists($this, $method)) {
-            $xpath_name_attribute = $this->$method();
-          }
-          else {
-            $xpath_name_attribute = $this->testNameAttribute;
-          }
-
-          // Look for a custom method named "{$tag_name}TestTagName", if
-          // found use that method to get the xpath definition for this meta
-          // tag, otherwise it defaults to $tag_name.
-          $method = $this->getMethodFromTagCallback($tag_name, 'TestTagName');
-          if (method_exists($this, $method)) {
-            $xpath_name_tag = $this->$method();
-          }
-          else {
-            $xpath_name_tag = $this->getTestTagName($tag_name);
-          }
-
-          // Compile the xpath.
-          $xpath_string = "//{$xpath_tag}[@{$xpath_name_attribute}='{$xpath_name_tag}']";
+          $xpath_tag = $this->testTag;
         }
 
-        // Look for a custom method named "{$tag_name}TestValueAttribute", if
-        // found use that method to get the xpath definition for this meta tag,
-        // otherwise it defaults to $this->testValueAttribute.
-        $method = $this->getMethodFromTagCallback($tag_name, 'TestValueAttribute');
+        // Look for a custom method named "{$tag_name}TestNameAttribute",
+        // if found use that method to get the xpath definition for this meta
+        // tag, otherwise it defaults to $this->testNameAttribute.
+        $method = $this->getMethodFromTagCallback($tag_name, 'TestNameAttribute');
         if (method_exists($this, $method)) {
-          $xpath_value_attribute = $this->$method();
+          $xpath_name_attribute = $this->$method();
         }
         else {
-          $xpath_value_attribute = $this->testValueAttribute;
+          $xpath_name_attribute = $this->testNameAttribute;
         }
 
-        // Extract the meta tag from the HTML.
-        $xpath = $this->xpath($xpath_string);
-        $this->assertEqual(count($xpath), 1, new FormattableMarkup('One @tag tag found using @xpath.', ['@tag' => $tag_name, '@xpath' => $xpath_string]));
-        if (count($xpath) !== 1) {
+        // Look for a custom method named "{$tag_name}TestTagName", if
+        // found use that method to get the xpath definition for this meta
+        // tag, otherwise it defaults to $tag_name.
+        $method = $this->getMethodFromTagCallback($tag_name, 'TestTagName');
+        if (method_exists($this, $method)) {
+          $xpath_name_tag = $this->$method();
+        }
+        else {
+          $xpath_name_tag = $this->getTestTagName($tag_name);
+        }
+
+        // Compile the xpath.
+        $xpath_string = "//{$xpath_tag}[@{$xpath_name_attribute}='{$xpath_name_tag}']";
+      }
+
+      // Look for a custom method named "{$tag_name}TestValueAttribute", if
+      // found use that method to get the xpath definition for this meta tag,
+      // otherwise it defaults to $this->testValueAttribute.
+      $method = $this->getMethodFromTagCallback($tag_name, 'TestValueAttribute');
+      if (method_exists($this, $method)) {
+        $xpath_value_attribute = $this->$method();
+      }
+      else {
+        $xpath_value_attribute = $this->testValueAttribute;
+      }
+
+      // Extract the meta tag from the HTML.
+      $xpath = $this->xpath($xpath_string);
+      $this->assertEqual(count($xpath), 1, new FormattableMarkup('One @tag tag found using @xpath.', ['@tag' => $tag_name, '@xpath' => $xpath_string]));
+      if (count($xpath) !== 1) {
+        $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
+      }
+
+      // Run various tests on the output variables.
+      // Most meta tags have an attribute, but some don't.
+      if (!empty($xpath_value_attribute)) {
+        $this->assertTrue($xpath_value_attribute);
+        $this->assertTrue($xpath[0]->hasAttribute($xpath_value_attribute));
+        // Help with debugging.
+        if (!$xpath[0]->hasAttribute($xpath_value_attribute)) {
           $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
         }
-
-        // Run various tests on the output variables.
-        // Most meta tags have an attribute, but some don't.
-        if (!empty($xpath_value_attribute)) {
-          $this->assertTrue($xpath_value_attribute);
-          $this->assertTrue($xpath[0]->hasAttribute($xpath_value_attribute));
-          // Help with debugging.
-          if (!$xpath[0]->hasAttribute($xpath_value_attribute)) {
+        else {
+          if ((string) $xpath[0]->getAttribute($xpath_value_attribute) != $all_values[$tag_name]) {
             $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
           }
-          else {
-            if ((string) $xpath[0]->getAttribute($xpath_value_attribute) != $all_values[$tag_name]) {
-              $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
-            }
-            $this->assertTrue($xpath[0]->getAttribute($xpath_value_attribute));
-            $this->assertEqual($xpath[0]->getAttribute($xpath_value_attribute), $all_values[$tag_name], "The '{$tag_name}' tag was found with the expected value.");
-          }
+          $this->assertTrue($xpath[0]->getAttribute($xpath_value_attribute));
+          $this->assertEqual($xpath[0]->getAttribute($xpath_value_attribute), $all_values[$tag_name], "The '{$tag_name}' tag was found with the expected value.");
         }
-        else {
-          $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
-          $this->assertTrue((string) $xpath[0]);
-          $this->assertEqual((string) $xpath[0], $all_values[$tag_name], new FormattableMarkup("The '@tag' tag was found with the expected value '@value'.", ['@tag' => $tag_name, '@value' => $all_values[$tag_name]]));
-        }
+      }
+      else {
+        $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
+        $this->assertTrue((string) $xpath[0]);
+        $this->assertEqual((string) $xpath[0], $all_values[$tag_name], new FormattableMarkup("The '@tag' tag was found with the expected value '@value'.", ['@tag' => $tag_name, '@value' => $all_values[$tag_name]]));
       }
     }
 
     $this->drupalLogout();
+  }
+
+  /**
+   * Data provider for testTagsInputOutput.
+   *
+   * @return array
+   *   The set of tags to test.
+   */
+  public function tagsInputOutputProvider() {
+    $set = [];
+    foreach ($this->tags as $tag) {
+      $set[$tag] = [$tag];
+    }
+    return $set;
   }
 
   /**
