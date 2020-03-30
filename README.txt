@@ -312,30 +312,6 @@ There is also a command for generating meta tag groups:
 Again, this provides a guided process to create a new group.
 
 
-Known issue with testing infrastructure
---------------------------------------------------------------------------------
-Thanks to contributions from the community, the Metatag module has an extensive
-collection of tests to ensure proposed changes avoid breaking the module.
-
-Part of this includes a test that confirms the separate Schema.org Metatag
-module suite continues to work. This test is specifically designed with the
-drupal.org testing platform in mind. Projects which have their own testing
-infrastructure might run into errors like the following:
-
-`Fatal error: Class 'Drupal\Tests\schema_web_page\Functional\SchemaWebPageTest'
-not found in SchemaMetatagTest.php on line 17`
-
-To resolve this, add "schema_metatag" as a "require-dev" item in the project's
-custom composer.json. This can be done by running the following in the
-project's root:
-
-  composer require --dev drupal/schema_metatag
-
-This will update composer.json and composer.lock as well as download the
-dependency. When `composer install` is run on a production deployment and the
-`--no-dev` flag is provided it will skip installing the dev requirements.
-
-
 Related modules
 --------------------------------------------------------------------------------
 Some modules are available that extend Metatag with additional or complimentary

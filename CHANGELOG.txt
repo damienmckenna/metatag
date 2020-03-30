@@ -1,5 +1,7 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#3123520 by DamienMcKenna, phenaproxima: Remove Schema.org Metatag dependency
+  for D9.
 
 
 Metatag 8.x-1.12, 2020-03-30
