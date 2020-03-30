@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.12, 2020-03-30
 -------------------------------
 #3102937 by yasmeensalah, Berdir: Plugin AlternateHandheld is misnamed.
