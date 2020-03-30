@@ -10,4 +10,3 @@ dependencies:
   - token:token
 test_dependencies:
   - redirect:redirect
-  - restui:restui

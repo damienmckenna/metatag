@@ -3,6 +3,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3123520 by DamienMcKenna, phenaproxima: Remove Schema.org Metatag dependency
   for D9.
 #3123582 by DamienMcKenna: Remove Devel dependency for D9.
+#3123577 by DamienMcKenna: Remove RestUI dependency for D9.
 
 
 Metatag 8.x-1.12, 2020-03-30
