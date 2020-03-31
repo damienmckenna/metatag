@@ -25,6 +25,11 @@ class MetatagPageManagerTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The assert session object.
    *
    * @var \Drupal\Tests\WebAssert

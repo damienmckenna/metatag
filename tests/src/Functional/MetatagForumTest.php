@@ -23,6 +23,11 @@ class MetatagForumTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Administrator user for tests.
    *
    * @var \Drupal\user\UserInterface

@@ -26,6 +26,7 @@ use Drupal\taxonomy\Plugin\migrate\source\d7\Term as Term7;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Plugin\migrate\source\d6\User as User6;
 use Drupal\user\Plugin\migrate\source\d7\User as User7;
+use Drupal\Core\Render\HtmlResponseAttachmentsProcessor;
 
 /**
  * Implements hook_help().
@@ -153,7 +154,7 @@ function metatag_page_attachments(array &$attachments) {
 
         $href = '<' . Html::escape($attributes['href']) . '>';
         unset($attributes['href']);
-        if ($param = drupal_http_header_attributes($attributes)) {
+        if ($param = HtmlResponseAttachmentsProcessor::formatHttpHeaderAttributes($attributes)) {
           $href .= ';' . $param;
         }
         $head_links[] = $href;

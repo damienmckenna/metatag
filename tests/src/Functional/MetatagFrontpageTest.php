@@ -25,6 +25,11 @@ class MetatagFrontpageTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The path to a node that is created for testing.
    *
    * @var string

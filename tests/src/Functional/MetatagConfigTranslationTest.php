@@ -37,6 +37,11 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Permissions to grant admin user.
    *
    * @var array

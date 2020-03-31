@@ -25,6 +25,11 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * The default language code to use in this test.
    *
    * @var array

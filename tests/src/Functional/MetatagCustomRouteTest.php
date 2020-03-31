@@ -31,6 +31,12 @@ class MetatagCustomRouteTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+
+  /**
    * Run tests on the custom route.
    */
   public function testCustomRoute() {

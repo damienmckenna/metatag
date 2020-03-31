@@ -26,8 +26,8 @@ class NodewordsFieldInstance extends DrupalSqlBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager, $entity_type_bundle_info) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_manager);
+  public function __construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_type_manager, $entity_type_bundle_info) {
+    parent::__construct($configuration, $plugin_id, $plugin_definition, $migration, $state, $entity_type_manager);
     $this->entityTypeBundleInfo = $entity_type_bundle_info;
   }
 
@@ -41,7 +41,7 @@ class NodewordsFieldInstance extends DrupalSqlBase {
       $plugin_definition,
       $migration,
       $container->get('state'),
-      $container->get('entity.manager'),
+      $container->get('entity_type.manager'),
       $container->get('entity_type.bundle.info')
     );
   }

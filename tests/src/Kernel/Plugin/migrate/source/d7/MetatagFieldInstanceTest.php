@@ -21,6 +21,7 @@ class MetatagFieldInstanceTest extends MigrateSqlSourceTestBase {
    */
   public static $modules = [
     // Core modules.
+    'field',
     'migrate_drupal',
     'node',
     'system',
@@ -40,7 +41,7 @@ class MetatagFieldInstanceTest extends MigrateSqlSourceTestBase {
     $this->installEntitySchema('node');
     $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('user');
-    $this->installConfig($this->modules);
+    $this->installConfig(static::$modules);
 
     $node_types = [
       'first_content_type' => 'first_content_type',

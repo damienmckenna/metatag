@@ -4,6 +4,9 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   for D9.
 #3123582 by DamienMcKenna: Remove Devel dependency for D9.
 #3123577 by DamienMcKenna: Remove RestUI dependency for D9.
+#3042590 by phenaproxima, SerShevchyk, chr.fritsch, Berdir, pixlkat, abramm,
+  Cary_Dean, pguillard, gmangones, DamienMcKenna, josephdpurcell, waverate,
+  joshi.rohit100, baikho, valthebald: Drupal 9 compatibility fixes.
 
 
 Metatag 8.x-1.12, 2020-03-30

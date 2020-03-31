@@ -32,6 +32,11 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * All of the meta tags defined by this module which will be tested.
    *
    * @var array
@@ -251,7 +256,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
       // Run various tests on the output variables.
       // Most meta tags have an attribute, but some don't.
       if (!empty($xpath_value_attribute)) {
-        $this->assertTrue($xpath_value_attribute);
+        $this->assertNotEmpty($xpath_value_attribute);
         $this->assertTrue($xpath[0]->hasAttribute($xpath_value_attribute));
         // Help with debugging.
         if (!$xpath[0]->hasAttribute($xpath_value_attribute)) {
@@ -261,7 +266,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
           if ((string) $xpath[0]->getAttribute($xpath_value_attribute) != $all_values[$tag_name]) {
             $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
           }
-          $this->assertTrue($xpath[0]->getAttribute($xpath_value_attribute));
+          $this->assertNotEmpty($xpath[0]->getAttribute($xpath_value_attribute));
           $this->assertEqual($xpath[0]->getAttribute($xpath_value_attribute), $all_values[$tag_name], "The '{$tag_name}' tag was found with the expected value.");
         }
       }

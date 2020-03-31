@@ -43,6 +43,11 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Admin user.
    *
    * @var \Drupal\Core\Session\AccountInterface
@@ -190,7 +195,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     $this->drupalPostForm(NULL, [], t('Save field settings'));
 
     // Clear all settings.
-    $this->container->get('entity.manager')->clearCachedFieldDefinitions();
+    $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();
   }
 
   /**

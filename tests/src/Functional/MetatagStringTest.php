@@ -31,6 +31,11 @@ class MetatagStringTest extends BrowserTestBase {
   ];
 
   /**
+   * {@inheritdoc}
+   */
+  protected $defaultTheme = 'stark';
+
+  /**
    * Permissions to grant admin user.
    *
    * @var array
@@ -69,7 +74,7 @@ class MetatagStringTest extends BrowserTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, t('Save and continue'));
     $this->drupalPostForm(NULL, [], t('Save field settings'));
-    $this->container->get('entity.manager')->clearCachedFieldDefinitions();
+    $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();
   }
 
   /**
