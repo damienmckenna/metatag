@@ -851,10 +851,11 @@ function _metatag_is_migration_plugin_supported(array $definition) {
   // Only run add the migration plugins when doing a "Drupal 7" migration. This
   // will catch standard core migrations but allow skipping this log for custom
   // migrations that do not have this tag.
-  if (!empty($definition['migration_tags'])) {
-    if (!array_intersect(['Drupal 6', 'Drupal 7'], $definition['migration_tags'])) {
-      return FALSE;
-    }
+  if (empty($definition['migration_tags'])) {
+    return FALSE;
+  }
+  if (!array_intersect(['Drupal 6', 'Drupal 7'], $definition['migration_tags'])) {
+    return FALSE;
   }
 
   // This migration has destination plugins defined.
