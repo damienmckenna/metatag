@@ -13,6 +13,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   \Drupal\Core\StringTranslation\StringTranslationTrait and $this->t() instead.
 #3042590 by Berdir: Reworked NodewordsFieldInstance to make it compatible with
   core 8.7.
+#3039627 by larowlan, acbramley: metatag_entity_view_alter runs for every
+  paragraph, resulting in a performance hit.
 
 
 Metatag 8.x-1.12, 2020-03-30

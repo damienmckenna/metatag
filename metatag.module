@@ -214,6 +214,10 @@ function metatag_page_attachments_alter(array &$attachments) {
  * Implements hook_entity_view_alter().
  */
 function metatag_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  if (!$entity->getEntityType()->hasLinkTemplate('canonical')) {
+    return;
+  }
+
   // If this is a 403 or 404 page then don't output these meta tags.
   // @todo Make the default meta tags load properly so this is unnecessary.
   if ($display->getOriginalId() == 'node.403.default' || $display->getOriginalId() == 'node.404.default') {
