@@ -5,6 +5,7 @@ namespace Drupal\Tests\metatag\Functional;
 use Drupal\Component\Render\FormattableMarkup;
 use Drupal\Tests\BrowserTestBase;
 use Symfony\Component\DependencyInjection\Container;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Base class to test all of the meta tags that are in a specific module.
@@ -12,6 +13,7 @@ use Symfony\Component\DependencyInjection\Container;
 abstract class MetatagTagsTestBase extends BrowserTestBase {
 
   use MetatagHelperTrait;
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -125,7 +127,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
     // Create a content type to test with.
     $this->createContentType(['type' => 'page']);
     $this->drupalCreateNode([
-      'title' => t('Hello, world!'),
+      'title' => $this->t('Hello, world!'),
       'type' => 'page',
     ]);
 

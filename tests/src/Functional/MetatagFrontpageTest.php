@@ -3,6 +3,7 @@
 namespace Drupal\Tests\metatag\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Ensures that meta tags are rendering correctly on home page.
@@ -12,6 +13,7 @@ use Drupal\Tests\BrowserTestBase;
 class MetatagFrontpageTest extends BrowserTestBase {
 
   use MetatagHelperTrait;
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -68,7 +70,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
       'description' => 'Test description',
       'keywords' => 'testing,keywords',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save'));
     $this->assertResponse(200);
     $this->assertText(t('Saved the Front page Metatag defaults.'));
 
@@ -113,7 +115,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
     ];
     $this->drupalGet('admin/config/system/site-information');
     $this->assertResponse(200);
-    $this->drupalPostForm(NULL, $site_edit, t('Save configuration'));
+    $this->drupalPostForm(NULL, $site_edit, $this->t('Save configuration'));
     $this->assertText(t('The configuration options have been saved.'), 'The front page path has been saved.');
     return;
 
@@ -135,7 +137,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
     // Disable front page metatag, enable node metatag & check.
     $this->drupalGet('admin/config/search/metatag/front/delete');
     $this->assertResponse(200);
-    $this->drupalPostForm(NULL, [], t('Delete'));
+    $this->drupalPostForm(NULL, [], $this->t('Delete'));
     $this->assertResponse(200);
     $this->assertText(t('Deleted Front page defaults.'));
 
@@ -170,7 +172,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
     $edit = [
       'site_frontpage' => '/test-page',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save configuration'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save configuration'));
     $this->assertText(t('The configuration options have been saved.'), 'The front page path has been saved.');
 
     // Front page is custom route.

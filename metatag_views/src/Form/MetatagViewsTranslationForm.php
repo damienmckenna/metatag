@@ -11,6 +11,7 @@ use Drupal\metatag\MetatagToken;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 use Drupal\metatag_views\MetatagViewsValuesCleanerTrait;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Class MetatagViewsEditForm.
@@ -20,6 +21,7 @@ use Drupal\metatag_views\MetatagViewsValuesCleanerTrait;
 class MetatagViewsTranslationForm extends FormBase {
 
   use MetatagViewsValuesCleanerTrait;
+  use StringTranslationTrait;
 
   /**
    * Drupal\metatag\MetatagManager definition.
@@ -177,12 +179,12 @@ class MetatagViewsTranslationForm extends FormBase {
     ]);
 
     $form['metatags'] = $this->form($form, $this->prepareValues());
-    $form['metatags']['#title'] = t('Metatags');
+    $form['metatags']['#title'] = $this->t('Metatags');
     $form['metatags']['#type'] = 'fieldset';
 
     $form['submit'] = [
       '#type' => 'submit',
-      '#value' => t('Submit'),
+      '#value' => $this->t('Submit'),
     ];
 
     return $form;

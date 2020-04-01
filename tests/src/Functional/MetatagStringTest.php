@@ -3,6 +3,7 @@
 namespace Drupal\Tests\metatag\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Ensures that the Metatag field works correctly.
@@ -10,6 +11,8 @@ use Drupal\Tests\BrowserTestBase;
  * @group metatag
  */
 class MetatagStringTest extends BrowserTestBase {
+
+  use StringTranslationTrait;
 
   /**
    * Admin user.
@@ -72,8 +75,8 @@ class MetatagStringTest extends BrowserTestBase {
       'field_name' => 'metatag_field',
       'new_storage_type' => 'metatag',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
-    $this->drupalPostForm(NULL, [], t('Save field settings'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save and continue'));
+    $this->drupalPostForm(NULL, [], $this->t('Save field settings'));
     $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();
   }
 
@@ -157,7 +160,7 @@ class MetatagStringTest extends BrowserTestBase {
       'title[0][value]' => $title_original,
       'body[0][value]' => $desc_original,
     ];
-    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
+    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
     $this->drupalPostForm(NULL, $edit, $save_label);
 
     $this->config('system.site')->set('page.front', '/node/1')->save();
@@ -190,7 +193,7 @@ class MetatagStringTest extends BrowserTestBase {
    * Tests that a specific node string is not double escaped.
    */
   public function checkNode($string) {
-    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
+    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
 
     // The original strings.
     $title_original = 'Title: ' . $string;
@@ -211,7 +214,7 @@ class MetatagStringTest extends BrowserTestBase {
       'title' => $title_original,
       'description' => $desc_original,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save'));
     $this->assertResponse(200);
 
     // Set up a node without explicit metatag description. This causes the
@@ -261,7 +264,7 @@ class MetatagStringTest extends BrowserTestBase {
    * Tests that fields with encoded HTML entities will not be double-encoded.
    */
   public function checkEncodedField($string) {
-    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
+    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
 
     // The original strings.
     $title_original = 'Title: ' . $string;
@@ -280,7 +283,7 @@ class MetatagStringTest extends BrowserTestBase {
       'title' => $title_original,
       'description' => $desc_original,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save'));
     $this->assertResponse(200);
 
     // Set up a node without explicit metatag description. This causes the

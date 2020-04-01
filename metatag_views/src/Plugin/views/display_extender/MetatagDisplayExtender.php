@@ -5,6 +5,7 @@ namespace Drupal\metatag_views\Plugin\views\display_extender;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\views\Plugin\views\display_extender\DisplayExtenderPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Metatag display extender plugin.
@@ -19,6 +20,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class MetatagDisplayExtender extends DisplayExtenderPluginBase {
+
+  use StringTranslationTrait;
 
   /**
    * The metatag manager.
@@ -52,7 +55,7 @@ class MetatagDisplayExtender extends DisplayExtenderPluginBase {
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
 
     if ($form_state->get('section') == 'metatags') {
-      $form['#title'] .= t('The meta tags for this display');
+      $form['#title'] .= $this->t('The meta tags for this display');
       $metatags = $this->getMetatags();
 
       // Build/inject the Metatag form.
@@ -106,13 +109,13 @@ class MetatagDisplayExtender extends DisplayExtenderPluginBase {
    */
   public function optionsSummary(&$categories, &$options) {
     $categories['metatags'] = [
-      'title' => t('Meta tags'),
+      'title' => $this->t('Meta tags'),
       'column' => 'second',
     ];
     $options['metatags'] = [
       'category' => 'metatags',
-      'title' => t('Meta tags'),
-      'value' => $this->hasMetatags() ? t('Overridden') : t('Using defaults'),
+      'title' => $this->t('Meta tags'),
+      'value' => $this->hasMetatags() ? $this->t('Overridden') : $this->t('Using defaults'),
     ];
   }
 

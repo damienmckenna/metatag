@@ -3,6 +3,7 @@
 namespace Drupal\Tests\metatag\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Ensures that the Metatag config translations work correctly.
@@ -10,6 +11,8 @@ use Drupal\Tests\BrowserTestBase;
  * @group metatag
  */
 class MetatagConfigTranslationTest extends BrowserTestBase {
+
+  use StringTranslationTrait;
 
   /**
    * Profile to use.
@@ -74,10 +77,10 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
     $edit = [
       'predefined_langcode' => 'fr',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Add language'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Add language'));
     $this->assertRaw(t(
       'The language %language has been created and can now be used.',
-      ['%language' => t('French')]
+      ['%language' => $this->t('French')]
     ));
   }
 
@@ -132,7 +135,7 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
       'title' => 'Test title',
       'description' => 'Test description',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save'));
     $this->assertResponse(200);
     $this->assertText(t('Saved the Global Metatag defaults.'));
 
@@ -157,7 +160,7 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
       'translation[config_names][metatag.metatag_defaults.global][tags][title]' => 'Le title',
       'translation[config_names][metatag.metatag_defaults.global][tags][description]' => 'Le description',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save translation'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save translation'));
     $this->assertResponse(200);
     $this->assertText(t('Successfully saved French translation'));
   }

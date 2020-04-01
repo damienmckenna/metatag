@@ -11,6 +11,7 @@ use Drupal\metatag\MetatagManagerInterface;
 use Drupal\metatag\MetatagTagPluginManager;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Advanced widget for metatag field.
@@ -24,6 +25,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterface {
+
+  use StringTranslationTrait;
 
   /**
    * Instance of MetatagManager service.
@@ -77,9 +80,9 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $element['sidebar'] = [
       '#type' => 'checkbox',
-      '#title' => t('Place field in sidebar'),
+      '#title' => $this->t('Place field in sidebar'),
       '#default_value' => $this->getSetting('sidebar'),
-      '#description' => t('If checked, the field will be placed in the sidebar on entity forms.'),
+      '#description' => $this->t('If checked, the field will be placed in the sidebar on entity forms.'),
     ];
 
     return $element;
@@ -90,10 +93,10 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
    */
   public function settingsSummary() {
     if ($this->getSetting('sidebar')) {
-      $summary[] = t('Use sidebar: Yes');
+      $summary[] = $this->t('Use sidebar: Yes');
     }
     else {
-      $summary[] = t('Use sidebar: No');
+      $summary[] = $this->t('Use sidebar: No');
     }
 
     return $summary;

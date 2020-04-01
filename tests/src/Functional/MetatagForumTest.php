@@ -3,6 +3,7 @@
 namespace Drupal\Tests\metatag\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Ensures that meta tags are rendering correctly on forum pages.
@@ -10,6 +11,8 @@ use Drupal\Tests\BrowserTestBase;
  * @group metatag
  */
 class MetatagForumTest extends BrowserTestBase {
+
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -74,10 +77,10 @@ class MetatagForumTest extends BrowserTestBase {
       'taxonomy_forums' => 1,
       'body[0][value]' => 'Just testing.',
     ];
-    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
+    $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
     $this->drupalPostForm(NULL, $edit, $save_label);
     $this->assertResponse(200);
-    $this->assertText(t('@type @title has been created.', ['@type' => t('Forum topic'), '@title' => 'Testing forums']));
+    $this->assertText(t('@type @title has been created.', ['@type' => $this->t('Forum topic'), '@title' => 'Testing forums']));
   }
 
 }

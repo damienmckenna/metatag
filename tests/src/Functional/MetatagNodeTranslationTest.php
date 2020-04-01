@@ -4,6 +4,7 @@ namespace Drupal\Tests\metatag\Functional;
 
 use Drupal\language\Entity\ConfigurableLanguage;
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Ensures that meta tag values are translated correctly on nodes.
@@ -11,6 +12,8 @@ use Drupal\Tests\BrowserTestBase;
  * @group metatag
  */
 class MetatagNodeTranslationTest extends BrowserTestBase {
+
+  use StringTranslationTrait;
 
   /**
    * Modules to enable.
@@ -83,12 +86,12 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
    */
   public function testMetatagValueTranslation() {
     if (floatval(\Drupal::VERSION) <= 8.3) {
-      $save_label = t('Save and publish');
-      $save_label_i18n = t('Save and keep published (this translation)');
+      $save_label = $this->t('Save and publish');
+      $save_label_i18n = $this->t('Save and keep published (this translation)');
     }
     else {
-      $save_label = t('Save');
-      $save_label_i18n = t('Save (this translation)');
+      $save_label = $this->t('Save');
+      $save_label_i18n = $this->t('Save (this translation)');
     }
 
     // Set up a content type.
@@ -105,7 +108,7 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
       'language_configuration[language_alterable]' => TRUE,
       'language_configuration[content_translation]' => TRUE,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save content type'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save content type'));
     $this->assertResponse(200);
 
     $this->drupalGet('admin/structure/types/manage/metatag_node/fields/add-field');
@@ -115,14 +118,14 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
       'field_name' => 'meta_tags',
       'new_storage_type' => 'metatag',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save and continue'));
     $this->assertResponse(200);
-    $this->drupalPostForm(NULL, [], t('Save field settings'));
+    $this->drupalPostForm(NULL, [], $this->t('Save field settings'));
     $this->assertResponse(200);
     $edit = [
       'translatable' => TRUE,
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save settings'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save settings'));
     $this->assertResponse(200);
     $this->drupalGet('admin/structure/types/manage/metatag_node/fields/node.metatag_node.field_meta_tags');
     $this->assertResponse(200);

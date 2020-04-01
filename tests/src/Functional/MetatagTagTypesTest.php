@@ -3,6 +3,7 @@
 namespace Drupal\Tests\metatag\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Verify that different meta tag API options are supported.
@@ -10,6 +11,8 @@ use Drupal\Tests\BrowserTestBase;
  * @group metatag
  */
 class MetatagTagTypesTest extends BrowserTestBase {
+
+  use StringTranslationTrait;
 
   /**
    * Profile to use.
@@ -87,8 +90,8 @@ class MetatagTagTypesTest extends BrowserTestBase {
       'field_name' => 'metatag',
       'new_storage_type' => 'metatag',
     ];
-    $this->drupalPostForm(NULL, $edit, t('Save and continue'));
-    $this->drupalPostForm(NULL, [], t('Save field settings'));
+    $this->drupalPostForm(NULL, $edit, $this->t('Save and continue'));
+    $this->drupalPostForm(NULL, [], $this->t('Save field settings'));
     $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();
   }
 
@@ -114,9 +117,9 @@ class MetatagTagTypesTest extends BrowserTestBase {
     $this->drupalGet('hit-a-404');
     $this->assertResponse(404);
 
-    $this->assertRaw('<meta name="abstract" content="No HTML here" />', t('Test with no HTML content'));
-    $this->assertRaw('<meta name="description" content="Surrounded by raw HTML" />', t('Test with raw HTML content'));
-    $this->assertRaw('<meta name="keywords" content="Surrounded by escaped HTML" />', t('Test with escaped HTML content'));
+    $this->assertRaw('<meta name="abstract" content="No HTML here" />', $this->t('Test with no HTML content'));
+    $this->assertRaw('<meta name="description" content="Surrounded by raw HTML" />', $this->t('Test with raw HTML content'));
+    $this->assertRaw('<meta name="keywords" content="Surrounded by escaped HTML" />', $this->t('Test with escaped HTML content'));
   }
 
   /**
@@ -140,8 +143,8 @@ class MetatagTagTypesTest extends BrowserTestBase {
     $this->drupalGet('');
     $this->assertResponse(200);
 
-    $this->assertRaw('<meta property="og:image" content="https://blahblahblah.com/insecure.jpg" />', t('Test og:image with regular https:// link'));
-    $this->assertRaw('<meta property="og:image:secure_url" content="https://blahblahblah.com/secure.jpg" />', t('Test og:image:secure_url updated regular https:// link to https://'));
+    $this->assertRaw('<meta property="og:image" content="https://blahblahblah.com/insecure.jpg" />', $this->t('Test og:image with regular https:// link'));
+    $this->assertRaw('<meta property="og:image:secure_url" content="https://blahblahblah.com/secure.jpg" />', $this->t('Test og:image:secure_url updated regular https:// link to https://'));
   }
 
   /**
@@ -169,7 +172,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
    */
   public function todoTestUrl() {
     // {@code}
-    // $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? t('Save and publish') : t('Save');
+    // $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
     // // Tests meta tags with URLs work.
     // $this->drupalGet($this->entity_add_path);
     // $this->assertResponse(200);

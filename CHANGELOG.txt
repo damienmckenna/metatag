@@ -9,6 +9,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   joshi.rohit100, baikho, valthebald: Drupal 9 compatibility fixes.
 #3124039 by Grayle: Migration plugins alter does not check for presence of
   migration_tags.
+#3124042 by Neslee Canil Pinto: t() calls should be avoided in classes, use
+  \Drupal\Core\StringTranslation\StringTranslationTrait and $this->t() instead.
 
 
 Metatag 8.x-1.12, 2020-03-30

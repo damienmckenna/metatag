@@ -4,11 +4,14 @@ namespace Drupal\metatag;
 
 use Drupal\Core\Config\Entity\ConfigEntityListBuilder;
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
  * Provides a listing of Metatag defaults entities.
  */
 class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
+
+  use StringTranslationTrait;
 
   /**
    * {@inheritdoc}
@@ -79,7 +82,7 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
     if (in_array($entity->id(), MetatagManager::protectedDefaults())) {
       unset($operations['delete']);
       $operations['revert'] = [
-        'title' => t('Revert'),
+        'title' => $this->t('Revert'),
         'weight' => $operations['edit']['weight'] + 1,
         'url' => $entity->toUrl('revert-form'),
       ];
@@ -112,7 +115,7 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
     }
 
     if (!empty($inherits)) {
-      $output .= '<div><p>' . t('Inherits meta tags from: @inherits', [
+      $output .= '<div><p>' . $this->t('Inherits meta tags from: @inherits', [
         '@inherits' => $inherits,
       ]) . '</p></div>';
     }
