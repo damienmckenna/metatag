@@ -17,6 +17,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   paragraph, resulting in a performance hit.
 #3124175 by Neslee Canil Pinto: Remove Unused .module file inside
   tests/modules/metatag_test_tag.
+#3124205 by DamienMcKenna, Berdir: Remove test_dependencies from
+  metatag.info.yml.
 
 
 Metatag 8.x-1.12, 2020-03-30
