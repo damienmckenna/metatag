@@ -11,6 +11,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   migration_tags.
 #3124042 by Neslee Canil Pinto: t() calls should be avoided in classes, use
   \Drupal\Core\StringTranslation\StringTranslationTrait and $this->t() instead.
+#3042590 by Berdir: Reworked NodewordsFieldInstance to make it compatible with
+  core 8.7.
 
 
 Metatag 8.x-1.12, 2020-03-30
