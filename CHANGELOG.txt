@@ -20,6 +20,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3124205 by DamienMcKenna, Berdir: Remove test_dependencies from
   metatag.info.yml.
 #3123578 by DamienMcKenna, Berdir: Add NodeJsonOutput test back again.
+#3124042 by Neslee Canil Pinto: Follow-up with more changes.
 
 
 Metatag 8.x-1.12, 2020-03-30

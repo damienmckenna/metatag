@@ -133,7 +133,7 @@ class MetatagXssTest extends BrowserTestBase {
     // Load the Views-based front page.
     $this->drupalGet('node');
     $this->assertResponse(200);
-    $this->assertText(t('No front page content has been created yet.'));
+    $this->assertText($this->t('No front page content has been created yet.'));
 
     // Check for the title tag, which will have the HTML tags removed and then
     // be lightly HTML encoded.

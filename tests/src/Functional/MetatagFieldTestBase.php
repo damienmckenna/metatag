@@ -242,7 +242,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
       'metatag_test_tag' => 'Global description',
     ];
     $this->drupalPostForm(NULL, $global_values, 'Save');
-    $this->assertText(strip_tags(t('Saved the %label Metatag defaults.', ['%label' => $this->t('Global')])));
+    $this->assertText(strip_tags($this->t('Saved the %label Metatag defaults.', ['%label' => $this->t('Global')])));
 
     // Set an entity default.
     $this->drupalGet('admin/config/search/metatag/' . $this->entityType);
@@ -251,7 +251,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
       'metatag_test_tag' => 'Entity description',
     ];
     $this->drupalPostForm(NULL, $entity_values, 'Save');
-    $this->assertText(strip_tags(t('Saved the %label Metatag defaults.', ['%label' => $this->t($this->entityLabel)])));
+    $this->assertText(strip_tags($this->t('Saved the %label Metatag defaults.', ['%label' => $this->t($this->entityLabel)])));
 
     // Add the field to this entity type.
     $this->addField();
@@ -322,7 +322,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
       'metatag_test_tag' => 'Global description',
     ];
     $this->drupalPostForm(NULL, $global_values, 'Save');
-    $this->assertText(strip_tags(t('Saved the %label Metatag defaults.', ['%label' => $this->t('Global')])));
+    $this->assertText(strip_tags($this->t('Saved the %label Metatag defaults.', ['%label' => $this->t('Global')])));
 
     // Set an entity default if it's supported by the entity type.
     if ($this->entitySupportsDefaults) {
@@ -332,7 +332,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
         'metatag_test_tag' => 'Entity description',
       ];
       $this->drupalPostForm(NULL, $entity_values, 'Save');
-      $this->assertText(strip_tags(t('Saved the %label Metatag defaults.', ['%label' => $this->t($this->entityLabel)])));
+      $this->assertText(strip_tags($this->t('Saved the %label Metatag defaults.', ['%label' => $this->t($this->entityLabel)])));
     }
 
     // Load the entity form for this entity type.

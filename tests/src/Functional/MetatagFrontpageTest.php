@@ -72,7 +72,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, $this->t('Save'));
     $this->assertResponse(200);
-    $this->assertText(t('Saved the Front page Metatag defaults.'));
+    $this->assertText($this->t('Saved the Front page Metatag defaults.'));
 
     // Testing front page metatags.
     $this->drupalGet('<front>');
@@ -116,7 +116,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
     $this->drupalGet('admin/config/system/site-information');
     $this->assertResponse(200);
     $this->drupalPostForm(NULL, $site_edit, $this->t('Save configuration'));
-    $this->assertText(t('The configuration options have been saved.'), 'The front page path has been saved.');
+    $this->assertText($this->t('The configuration options have been saved.'), 'The front page path has been saved.');
     return;
 
     // @todo Finish this?
@@ -139,7 +139,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
     $this->assertResponse(200);
     $this->drupalPostForm(NULL, [], $this->t('Delete'));
     $this->assertResponse(200);
-    $this->assertText(t('Deleted Front page defaults.'));
+    $this->assertText($this->t('Deleted Front page defaults.'));
 
     // Update the Metatag Node defaults.
     $this->drupalGet('admin/config/search/metatag/node');
@@ -173,7 +173,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
       'site_frontpage' => '/test-page',
     ];
     $this->drupalPostForm(NULL, $edit, $this->t('Save configuration'));
-    $this->assertText(t('The configuration options have been saved.'), 'The front page path has been saved.');
+    $this->assertText($this->t('The configuration options have been saved.'), 'The front page path has been saved.');
 
     // Front page is custom route.
     // Update the Metatag Node global.

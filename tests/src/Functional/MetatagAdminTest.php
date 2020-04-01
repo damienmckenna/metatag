@@ -333,7 +333,7 @@ class MetatagAdminTest extends BrowserTestBase {
       'description' => 'Article description override',
     ];
     $this->drupalPostForm(NULL, $values, 'Save');
-    $this->assertText(strip_tags(t('Created the %label Metatag defaults.', ['%label' => 'Content: Article'])));
+    $this->assertText(strip_tags($this->t('Created the %label Metatag defaults.', ['%label' => 'Content: Article'])));
 
     // Confirm the fields load properly on the node/add/article page.
     $node = $this->drupalCreateNode([
@@ -351,7 +351,7 @@ class MetatagAdminTest extends BrowserTestBase {
     $this->drupalGet('admin/config/search/metatag/node__article/delete');
     $this->assertResponse(200);
     $this->drupalPostForm(NULL, [], 'Delete');
-    $this->assertText(t('Deleted @label defaults.', ['@label' => 'Content: Article']));
+    $this->assertText($this->t('Deleted @label defaults.', ['@label' => 'Content: Article']));
   }
 
   /**
@@ -385,9 +385,9 @@ class MetatagAdminTest extends BrowserTestBase {
     ];
     $this->drupalPostForm(NULL, $edit, $this->t('Save and continue'));
     $this->drupalPostForm(NULL, [], $this->t('Save field settings'));
-    $this->assertText(strip_tags(t('Updated field %label field settings.', ['%label' => 'Meta tags'])));
+    $this->assertText(strip_tags($this->t('Updated field %label field settings.', ['%label' => 'Meta tags'])));
     $this->drupalPostForm(NULL, [], $this->t('Save settings'));
-    $this->assertText(strip_tags(t('Saved %label configuration.', ['%label' => 'Meta tags'])));
+    $this->assertText(strip_tags($this->t('Saved %label configuration.', ['%label' => 'Meta tags'])));
 
     // Try creating an article, confirm the fields are present. This should be
     // the node default values that are shown.
@@ -405,7 +405,7 @@ class MetatagAdminTest extends BrowserTestBase {
       'description' => 'Article description override',
     ];
     $this->drupalPostForm(NULL, $values, 'Save');
-    $this->assertText(strip_tags(t('Created the %label Metatag defaults.', ['%label' => 'Content: Article'])));
+    $this->assertText(strip_tags($this->t('Created the %label Metatag defaults.', ['%label' => 'Content: Article'])));
 
     // Try creating an article, this time with the overridden defaults.
     $this->drupalGet('node/add/article');

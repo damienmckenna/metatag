@@ -80,7 +80,7 @@ class MetatagForumTest extends BrowserTestBase {
     $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
     $this->drupalPostForm(NULL, $edit, $save_label);
     $this->assertResponse(200);
-    $this->assertText(t('@type @title has been created.', ['@type' => $this->t('Forum topic'), '@title' => 'Testing forums']));
+    $this->assertText($this->t('@type @title has been created.', ['@type' => $this->t('Forum topic'), '@title' => 'Testing forums']));
   }
 
 }
