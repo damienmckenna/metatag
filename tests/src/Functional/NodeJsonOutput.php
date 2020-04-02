@@ -36,9 +36,6 @@ class NodeJsonOutput extends BrowserTestBase {
     'serialization',
     'hal',
     'rest',
-
-    // Need this to make the configuration sane.
-    'restui',
   ];
 
   /**
