@@ -7,7 +7,7 @@ use Drupal\Tests\BrowserTestBase;
 /**
  * Confirm the defaults functionality works.
  *
- * @group panelizer
+ * @group metatag
  */
 class MetatagViewsBasicsTest extends BrowserTestBase {
 
@@ -65,9 +65,9 @@ class MetatagViewsBasicsTest extends BrowserTestBase {
   }
 
   /**
-   * Confirm the site isn't broken.
+   * Confirm the Views functionality works, including UI.
    */
-  public function testSiteStillWorks() {
+  public function testViewsUi() {
     // Load the front page.
     $this->drupalGet('<front>');
     $this->assertSession()->statusCodeEquals(200);

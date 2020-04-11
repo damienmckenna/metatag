@@ -26,26 +26,26 @@ class MetatagEntities extends ProcessPluginBase {
       return NULL;
     }
 
-    $tags_map = $this->tagsMap();
-
-    $metatags = [];
-
     // Re-shape D7 entries into for D8 entries.
     $old_tags = unserialize($value);
 
-    // This is expected to be an array, if it isn't something went wrong.
+    // This is expected to be an array, if it isn't then something went wrong.
     if (!is_array($old_tags)) {
       throw new MigrateException('Data from Metatag-D7 was not a serialized array.');
     }
 
-    foreach ($old_tags as $d7_metatag_name => $data) {
+    $tags_map = $this->tagsMap();
+
+    $metatags = [];
+
+    foreach ($old_tags as $d7_metatag_name => $metatag_value) {
       // If there's no data for this tag, ignore everything.
-      if (empty($data)) {
+      if (empty($metatag_value)) {
         continue;
       }
 
       // @todo Skip these values for now, maybe some version supported these?
-      if (!is_array($data) || empty($data['value'])) {
+      if (!is_array($metatag_value) || empty($metatag_value['value'])) {
         continue;
       }
 
@@ -57,18 +57,18 @@ class MetatagEntities extends ProcessPluginBase {
       $d8_metatag_name = $tags_map[$d7_metatag_name];
 
       // Convert the nested arrays to a flat structure.
-      if (is_array($data['value'])) {
+      if (is_array($metatag_value['value'])) {
         // Remove empty values.
-        $data['value'] = array_filter($data['value']);
+        $metatag_value['value'] = array_filter($metatag_value['value']);
         // Convert the array into a comma-separated list.
-        $data = implode(', ', $data['value']);
+        $metatag_value = implode(', ', $metatag_value['value']);
       }
       else {
-        $data = $data['value'];
+        $metatag_value = $metatag_value['value'];
       }
 
       // Keep the entire data structure.
-      $metatags[$d8_metatag_name] = $data;
+      $metatags[$d8_metatag_name] = $metatag_value;
     }
 
     return serialize($metatags);

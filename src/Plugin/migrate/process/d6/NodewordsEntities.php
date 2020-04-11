@@ -26,15 +26,15 @@ class NodewordsEntities extends ProcessPluginBase {
       return NULL;
     }
 
+    // This is expected to be an array, if it isn't then something went wrong.
+    if (!is_array($value)) {
+      throw new MigrateException('Data from Nodewords-D6 was not a serialized array.');
+    }
+
     $metatags = [];
 
     // Restructure Nodewords-D6 data.
     $tags_map = $this->tagsMap();
-
-    // This is expected to be an array, if it isn't something went wrong.
-    if (!is_array($value)) {
-      throw new MigrateException('Data from Nodewords-D6 was not a serialized array.');
-    }
 
     // Re-shape D6 entries into for D8 entries.
     $old_tags = array_map(static function ($value) {
