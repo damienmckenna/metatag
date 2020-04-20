@@ -67,9 +67,9 @@ class MetatagStringTest extends BrowserTestBase {
 
     // Add a Metatag field to the content type.
     $this->drupalGet('admin/structure/types');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->drupalGet('admin/structure/types/manage/page/fields/add-field');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'label' => 'Metatag',
       'field_name' => 'metatag_field',
@@ -128,13 +128,13 @@ class MetatagStringTest extends BrowserTestBase {
 
     // Update the Global defaults and test them.
     $this->drupalGet('admin/config/search/metatag/front');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title' => $title_original,
       'description' => $desc_original,
     ];
     $this->drupalPostForm(NULL, $edit, 'Save');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     $metatag_defaults = \Drupal::config('metatag.metatag_defaults.front');
     $default_title = $metatag_defaults->get('tags')['title'];
@@ -155,7 +155,7 @@ class MetatagStringTest extends BrowserTestBase {
     // token value should be correctly translated.
     // Create a node.
     $this->drupalGet('node/add/page');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title[0][value]' => $title_original,
       'body[0][value]' => $desc_original,
@@ -167,7 +167,7 @@ class MetatagStringTest extends BrowserTestBase {
 
     // Load the front page.
     $this->drupalGet('<front>');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Again, with xpath the HTML entities will be parsed automagically.
     $xpath_title = current($this->xpath("//title"))->getText();
@@ -209,30 +209,30 @@ class MetatagStringTest extends BrowserTestBase {
 
     // Update the Global defaults and test them.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title' => $title_original,
       'description' => $desc_original,
     ];
     $this->drupalPostForm(NULL, $edit, $this->t('Save'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Set up a node without explicit metatag description. This causes the
     // global default to be used, which contains a token (node:summary). The
     // token value should be correctly translated.
     // Create a node.
     $this->drupalGet('node/add/page');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title[0][value]' => $title_original,
       'body[0][value]' => $desc_original,
     ];
     $this->drupalPostForm(NULL, $edit, $save_label);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Load the node page.
     $this->drupalGet('node/1');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Again, with xpath the HTML entities will be parsed automagically.
     $xpath_title = current($this->xpath("//title"))->getText();
@@ -278,30 +278,30 @@ class MetatagStringTest extends BrowserTestBase {
 
     // Update the Global defaults and test them.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title' => $title_original,
       'description' => $desc_original,
     ];
     $this->drupalPostForm(NULL, $edit, $this->t('Save'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Set up a node without explicit metatag description. This causes the
     // global default to be used, which contains a token (node:summary). The
     // token value should be correctly translated.
     // Create a node.
     $this->drupalGet('node/add/page');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title[0][value]' => $title_original,
       'body[0][value]' => $desc_original,
     ];
     $this->drupalPostForm(NULL, $edit, $save_label);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Load the node page.
     $this->drupalGet('node/1');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // With xpath the HTML entities will be parsed automagically.
     $xpath = $this->xpath("//meta[@name='description']");

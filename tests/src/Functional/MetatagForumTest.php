@@ -71,7 +71,7 @@ class MetatagForumTest extends BrowserTestBase {
    */
   public function testForumPost() {
     $this->drupalGet('node/add/forum');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title[0][value]' => 'Testing forums',
       'taxonomy_forums' => 1,
@@ -79,7 +79,7 @@ class MetatagForumTest extends BrowserTestBase {
     ];
     $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
     $this->drupalPostForm(NULL, $edit, $save_label);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertText($this->t('@type @title has been created.', ['@type' => $this->t('Forum topic'), '@title' => 'Testing forums']));
   }
 

@@ -91,7 +91,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
   public function testTagsArePresent() {
     // Load the global config.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Confirm the various meta tags are available.
     foreach ($this->tags as $tag) {
@@ -151,7 +151,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
 
       // Load the global config.
       $this->drupalGet($path1);
-      $this->assertResponse(200);
+      $this->assertSession()->statusCodeEquals(200);
 
       // Update the Global defaults and test them.
       $all_values = $values = [];
@@ -186,7 +186,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
 
       // Load the test page.
       $this->drupalGet($path2);
-      $this->assertResponse(200);
+      $this->assertSession()->statusCodeEquals(200);
 
       // Look for the values.
       // Look for a custom method named "{$tag_name}TestOutputXpath", if

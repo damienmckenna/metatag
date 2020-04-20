@@ -84,7 +84,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
 
     // Add a metatag field to the entity type test_entity.
     $this->drupalGet('entity_test/structure/entity_test/fields/add-field');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'label' => 'Metatag',
       'field_name' => 'metatag',
@@ -104,7 +104,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
    */
   public function testHtmlIsRemoved() {
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $values = [
       'abstract' => 'No HTML here',
       'description' => '<html><body><p class="test">Surrounded by raw HTML</p></body></html>',
@@ -115,7 +115,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
     $this->assertText('Saved the Global Metatag defaults.');
     drupal_flush_all_caches();
     $this->drupalGet('hit-a-404');
-    $this->assertResponse(404);
+    $this->assertSession()->statusCodeEquals(404);
 
     $this->assertRaw('<meta name="abstract" content="No HTML here" />', $this->t('Test with no HTML content'));
     $this->assertRaw('<meta name="description" content="Surrounded by raw HTML" />', $this->t('Test with raw HTML content'));
@@ -132,7 +132,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
    */
   public function testSecureTagOption() {
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $values = [
       'og_image' => 'https://blahblahblah.com/insecure.jpg',
       'og_image_secure_url' => 'https://blahblahblah.com/secure.jpg',
@@ -141,7 +141,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
     $this->assertText('Saved the Global Metatag defaults.');
     drupal_flush_all_caches();
     $this->drupalGet('');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     $this->assertRaw('<meta property="og:image" content="https://blahblahblah.com/insecure.jpg" />', $this->t('Test og:image with regular https:// link'));
     $this->assertRaw('<meta property="og:image:secure_url" content="https://blahblahblah.com/secure.jpg" />', $this->t('Test og:image:secure_url updated regular https:// link to https://'));
@@ -162,7 +162,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
     $account = $this->drupalCreateUser(['access site-wide contact form']);
     $this->drupalLogin($account);
     $this->drupalGet('contact/test_contact_form');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
   }
 
   /**
@@ -175,7 +175,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
     // $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
     // // Tests meta tags with URLs work.
     // $this->drupalGet($this->entity_add_path);
-    // $this->assertResponse(200);
+    // $this->assertSession()->statusCodeEquals(200);
     // $edit = [
     //   'name[0][value]' => 'UrlTags',
     //   'user_id[0][target_id]' => 'foo (' . $this->adminUser->id() . ')',
@@ -188,7 +188,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
     // $this->assertEqual(1, count($entities), 'Entity was saved');
     // $entity = reset($entities);
     // $this->drupalGet($this->entity_base_path . '/' . $entity->id());
-    // $this->assertResponse(200);
+    // $this->assertSession()->statusCodeEquals(200);
     // $elements = $this->cssSelect("meta[name='original-source']");
     // $this->assertTrue(count($elements) === 1, 'Found original source metatag from defaults');
     // $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][advanced][original_source]']);

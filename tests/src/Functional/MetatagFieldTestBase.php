@@ -144,7 +144,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     $all_perms = array_merge($this->basePerms, $this->entityPerms);
     $this->adminUser = $this->drupalCreateUser($all_perms);
     $this->drupalGet('/user/login');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->drupalLogin($this->adminUser);
   }
 
@@ -188,7 +188,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   protected function addField() {
     // Add a metatag field to the entity type test_entity.
     $this->drupalGet($this->entityFieldAdminPath . '/add-field');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'label' => 'Metatag',
       'field_name' => 'metatag',
@@ -209,7 +209,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   public function testGlobalDefaultsInheritance() {
     // First we set global defaults.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $global_values = [
       'metatag_test_tag' => 'Global description',
     ];
@@ -222,7 +222,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     // Now when we create an entity, global defaults are used to fill the form
     // fields.
     $this->drupalGet($this->entityAddPath);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertFieldByName('field_metatag[0][basic][metatag_test_tag]', $global_values['metatag_test_tag'], $this->t('The metatag_test_tag field has the global default as the field default does not define it.'));
   }
 
@@ -237,7 +237,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
 
     // Set a global default.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $global_values = [
       'metatag_test_tag' => 'Global description',
     ];
@@ -246,7 +246,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
 
     // Set an entity default.
     $this->drupalGet('admin/config/search/metatag/' . $this->entityType);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $entity_values = [
       'metatag_test_tag' => 'Entity description',
     ];
@@ -258,7 +258,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
 
     // Load the entity form for this entity type.
     $this->drupalGet($this->entityAddPath);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertNoText('Fatal error');
 
     // Allow the fields to be customized if needed.
@@ -291,7 +291,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
    */
   public function testFieldCanBeAdded() {
     $this->drupalGet($this->entityFieldAdminPath . '/add-field');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertRaw('<option value="metatag">' . $this->t('Meta tags') . '</option>');
   }
 
@@ -304,7 +304,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
 
     // Load the entity's form.
     $this->drupalGet($this->entityAddPath);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertNoText('Fatal error');
     $this->assertFieldByName('field_metatag[0][basic][metatag_test_tag]');
   }
@@ -317,7 +317,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   public function testEntityFieldValuesOldEntity() {
     // Set a global default.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $global_values = [
       'metatag_test_tag' => 'Global description',
     ];
@@ -327,7 +327,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     // Set an entity default if it's supported by the entity type.
     if ($this->entitySupportsDefaults) {
       $this->drupalGet('admin/config/search/metatag/' . $this->entityType);
-      $this->assertResponse(200);
+      $this->assertSession()->statusCodeEquals(200);
       $entity_values = [
         'metatag_test_tag' => 'Entity description',
       ];
@@ -338,7 +338,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     // Load the entity form for this entity type.
     $title = 'Barfoo';
     $this->drupalGet($this->entityAddPath);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertNoText('Fatal error');
 
     // Allow the fields to be customized if needed.
@@ -363,7 +363,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
 
     // Open the 'edit' form for the entity.
     $this->drupalGet($entity->toUrl('edit-form'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // If this entity type supports defaults then verify the global default is
     // not present but that the entity default *is* present.
@@ -386,7 +386,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   public function testEntityFieldValuesNewEntity() {
     // Set a global default.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $global_values = [
       'metatag_test_tag' => 'Global description',
     ];
@@ -396,7 +396,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     // Set an entity default if it's supported by the entity type.
     if ($this->entitySupportsDefaults) {
       $this->drupalGet('admin/config/search/metatag/' . $this->entityType);
-      $this->assertResponse(200);
+      $this->assertSession()->statusCodeEquals(200);
       $entity_values = [
         'metatag_test_tag' => 'Entity description',
       ];
@@ -410,7 +410,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     // Load the entity form for this entity type.
     $title = 'Barfoo';
     $this->drupalGet($this->entityAddPath);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertNoText('Fatal error');
 
     // If this entity type supports defaults then verify the global default is
@@ -442,7 +442,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     // @todo Confirm the values output correctly.
     // Open the 'edit' form for the entity.
     $this->drupalGet($entity->toUrl('edit-form'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // If this entity type supports defaults then verify the global default is
     // not present but that the entity default *is* present.
@@ -468,7 +468,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
 
     // Create a test entity.
     $this->drupalGet($this->entityAddPath);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertNoText('Fatal error');
     $edit = $this->entityDefaultValues($title) + [
       'field_metatag[0][basic][metatag_test_tag]' => 'Kilimanjaro',
@@ -483,7 +483,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     // Make sure tags that have a field value but no default value still show
     // up.
     $this->drupalGet($entity->toUrl());
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $elements = $this->cssSelect('meta[name=metatag_test_tag]');
     $this->assertTrue(count($elements) === 1, 'Found keywords metatag_test_tag from defaults');
     $this->assertEqual((string) $elements[0]['content'], 'Kilimanjaro', 'Field value for metatag_test_tag found when no default set.');
@@ -494,14 +494,14 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
 
     // Update the Global defaults and test them.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $values = [
       'metatag_test_tag' => 'Purple monkey dishwasher',
     ];
     $this->drupalPostForm(NULL, $values, 'Save');
     $this->assertText('Saved the Global Metatag defaults.');
     $this->drupalGet($entity->toUrl());
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $elements = $this->cssSelect('meta[name=metatag_test_tag]');
     $this->assertTrue(count($elements) === 1, 'Found test metatag from defaults');
     $this->verbose('<pre>' . print_r($elements, TRUE) . '</pre>');

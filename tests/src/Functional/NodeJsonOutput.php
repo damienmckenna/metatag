@@ -55,12 +55,12 @@ class NodeJsonOutput extends BrowserTestBase {
 
     // Load the node's page.
     $this->drupalGet($url);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Load the JSON output.
     $url->setOption('query', ['_format' => 'json']);
     $response = $this->drupalGet($url);
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Decode the JSON output.
     $response = $this->getRawContent();

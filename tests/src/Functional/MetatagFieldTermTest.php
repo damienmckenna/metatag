@@ -91,7 +91,7 @@ class MetatagFieldTermTest extends MetatagFieldTestBase {
     $this->adminUser = $this->drupalCreateUser($all_perms);
     $this->drupalLogin($this->adminUser);
     $this->drupalGet('admin/structure/taxonomy/add');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'name' => 'Tags',
       'vid' => 'tags',

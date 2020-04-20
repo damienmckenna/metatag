@@ -73,7 +73,7 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
 
     // Enable the French language.
     $this->drupalGet('admin/config/regional/language/add');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'predefined_langcode' => 'fr',
     ];
@@ -90,12 +90,12 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
   public function testConfigTranslationsExist() {
     // Ensure the config shows on the admin form.
     $this->drupalGet('admin/config/regional/config-translation');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertText($this->t('Metatag defaults'));
 
     // Load the main metatag_defaults config translation page.
     $this->drupalGet('admin/config/regional/config-translation/metatag_defaults');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     // @todo Update this to confirm the H1 is loaded.
     $this->assertRaw($this->t('Metatag defaults'));
 
@@ -116,7 +116,7 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
     foreach ($defaults as $config_name) {
       if ($config_entity = $config_manager->loadConfigEntityByName($config_name)) {
         $this->drupalGet('admin/config/search/metatag/' . $config_entity->id() . '/translate');
-        $this->assertResponse(200);
+        $this->assertSession()->statusCodeEquals(200);
       }
       else {
         $this->error('Unable to load a Metatag default config: ' . $config_name);
@@ -130,22 +130,22 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
   public function testConfigTranslations() {
     // Add something to the Global config.
     $this->drupalGet('admin/config/search/metatag/global');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $edit = [
       'title' => 'Test title',
       'description' => 'Test description',
     ];
     $this->drupalPostForm(NULL, $edit, $this->t('Save'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertText($this->t('Saved the Global Metatag defaults.'));
 
     // Confirm the config has languages available to translate into.
     $this->drupalGet('admin/config/search/metatag/global/translate');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Load the translation form.
     $this->drupalGet('admin/config/search/metatag/global/translate/fr/add');
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
 
     // Confirm the meta tag fields are shown on the form. Confirm the fields and
     // values separately to make it easier to pinpoint where the problem is if
@@ -161,7 +161,7 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
       'translation[config_names][metatag.metatag_defaults.global][tags][description]' => 'Le description',
     ];
     $this->drupalPostForm(NULL, $edit, $this->t('Save translation'));
-    $this->assertResponse(200);
+    $this->assertSession()->statusCodeEquals(200);
     $this->assertText($this->t('Successfully saved French translation'));
   }
 
