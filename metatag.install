@@ -65,3 +65,10 @@ function metatag_update_8107() {
   \Drupal::service('module_installer')->install(['metatag_open_graph']);
   return (string) t("The new Metatag: Open Graph module has been enabled.");
 }
+
+/**
+ * Need to clear caches after updating from 8.x-1.12.
+ */
+function metatag_update_8108() {
+  return (string) t("The sites's caches will need to be rebuild to ensure Metatag works as intended.");
+}
