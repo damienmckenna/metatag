@@ -23,6 +23,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3124042 by Neslee Canil Pinto: Follow-up with more changes.
 #3123578 by DamienMcKenna: Removed restui dependency from test's modules list.
 #3123578 by DamienMcKenna: Some follow-up on D9 test compatibility.
+#3128281 by DamienMcKenna: Fix Page Manager tests in the 8.x-1.x branch.
 
 
 Metatag 8.x-1.12, 2020-03-30
