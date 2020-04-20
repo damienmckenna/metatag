@@ -142,7 +142,13 @@ class MetatagViewsBasicsTest extends BrowserTestBase {
     // Load the Metatag admin page to confirm it still works.
     $this->drupalGet('admin/config/search/metatag');
     $this->assertSession()->statusCodeEquals(200);
-    $this->assertSession()->pageTextContains('Add default meta tags');
+    $this->assertLinkByHref('/admin/config/search/metatag/global');
+    $this->assertLinkByHref('/admin/config/search/metatag/front');
+    $this->assertLinkByHref('/admin/config/search/metatag/403');
+    $this->assertLinkByHref('/admin/config/search/metatag/404');
+    $this->assertLinkByHref('/admin/config/search/metatag/node');
+    $this->assertLinkByHref('/admin/config/search/metatag/taxonomy_term');
+    $this->assertLinkByHref('/admin/config/search/metatag/user');
   }
 
 }
