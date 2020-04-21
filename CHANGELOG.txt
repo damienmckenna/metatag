@@ -1,5 +1,6 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#3129664 by phenaproxima: Fix failure in MetatagPageManagerTest.
 
 
 Metatag 8.x-1.13, 2020-04-21
