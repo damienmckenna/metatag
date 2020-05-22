@@ -1,5 +1,7 @@
 Metatag 7.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#3137241 by tmin: metatag_metatags_form() breaks entire page/panel in some
+  extreme cases.
 
 
 Metatag 7.x-1.27, 2020-02-10

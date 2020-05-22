@@ -58,7 +58,7 @@ function metatag_panels_form($form, $form_state) {
   // locally within panels.
   $instance = '';
   $options = array('token types' => $token_types);
-  $metatags = empty($handler->conf['metatag_panels']) ? array() : $handler->conf['metatag_panels']['metatags'];
+  $metatags = empty($handler->conf['metatag_panels']['metatags']) ? array() : $handler->conf['metatag_panels']['metatags'];
 
   // This leaves some possibility for future versions to support translation.
   if (!isset($metatags[LANGUAGE_NONE])) {
