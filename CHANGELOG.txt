@@ -3,6 +3,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3129664 by phenaproxima: Fix failure in MetatagPageManagerTest.
 #3154149 by alexpott, DamienMcKenna, mrinalini9, rokzabukovec: Refactored
   entity migration test to use new API added in 8.9.x; skip this test on 8.8.
+#3154891 by DamienMcKenna: Rename test fixtures to be one file per source
+  module.
 
 
 Metatag 8.x-1.13, 2020-04-21

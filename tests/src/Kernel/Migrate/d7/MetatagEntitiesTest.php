@@ -82,7 +82,7 @@ class MetatagEntitiesTest extends MigrateDrupal7TestBase {
       $this->markTestSkipped('This test requires at least Drupal 8.9');
     }
     parent::setUp();
-    $this->loadFixture(__DIR__ . '/../../../../fixtures/d7_metatag_entities.php');
+    $this->loadFixture(__DIR__ . '/../../../../fixtures/d7_metatag.php');
 
     $this->installEntitySchema('node');
     $this->installEntitySchema('comment');
