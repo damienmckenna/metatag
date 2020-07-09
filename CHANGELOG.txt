@@ -11,6 +11,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   license identifier.
 #3130250 by Andrew Gorokhovets: Typo in the comment class name
   (MetatagViewsTranslationForm).
+#3134665 by Neslee Canil Pinto, rokzabukovec: Correct description of
+  OgImageWidth.php file.
 
 
 Metatag 8.x-1.13, 2020-04-21
