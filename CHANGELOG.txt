@@ -7,6 +7,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   module.
 #3129863 by DamienMcKenna, kyuubi, azedan, lcontreras, havran, markie: Revert
   compatibility with GraphQL 4 to avoid breaking existing sites.
+#3131380 by lolandese, volkswagenchick: License "GPL-2.0+" is a deprecated SPDX
+  license identifier.
 
 
 Metatag 8.x-1.13, 2020-04-21

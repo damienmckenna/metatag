@@ -2,7 +2,7 @@
   "name": "drupal/metatag",
   "description": "Manage meta tags for all entities.",
   "type": "drupal-module",
-  "license": "GPL-2.0+",
+  "license": "GPL-2.0-or-later",
   "keywords": [
     "Drupal",
     "seo"
