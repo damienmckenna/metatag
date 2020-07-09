@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   entity migration test to use new API added in 8.9.x; skip this test on 8.8.
 #3154891 by DamienMcKenna: Rename test fixtures to be one file per source
   module.
+#3129863 by DamienMcKenna, kyuubi, azedan, lcontreras, havran, markie: Revert
+  compatibility with GraphQL 4 to avoid breaking existing sites.
 
 
 Metatag 8.x-1.13, 2020-04-21
