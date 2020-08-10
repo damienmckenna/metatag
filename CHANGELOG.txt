@@ -13,6 +13,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   (MetatagViewsTranslationForm).
 #3134665 by Neslee Canil Pinto, rokzabukovec: Correct description of
   OgImageWidth.php file.
+#3158613 by huzooka, DamienMcKenna, Wim Leers: Metatag field instance migration
+  source plugins report incorrect number of items.
 
 
 Metatag 8.x-1.13, 2020-04-21
