@@ -17,6 +17,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   source plugins report incorrect number of items.
 #3136075 by s_leu, fjgarlin, mirom, DamienMcKenna: D9 Compatibility -
   pre_render should be method implementing TrustedCallbackInterface.
+#3153911 by alexpott, mrinalini9: Improve logic in metatag_page_attachments()
+  and make code comments more clear.
 
 
 Metatag 8.x-1.13, 2020-04-21

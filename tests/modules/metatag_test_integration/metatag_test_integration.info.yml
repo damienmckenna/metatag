@@ -1,0 +1,6 @@
+name: "Metatag: Test Integration"
+type: module
+description: Support module for integration with metatag module.
+package: Testing
+dependencies:
+  - metatag:metatag
