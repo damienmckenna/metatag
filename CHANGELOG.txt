@@ -1,5 +1,5 @@
-Metatag 8.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 8.x-1.14, 2020-08-11
+----------------------------
 #3129664 by phenaproxima: Fix failure in MetatagPageManagerTest.
 #3154149 by alexpott, DamienMcKenna, mrinalini9, rokzabukovec: Refactored
   entity migration test to use new API added in 8.9.x; skip this test on 8.8.
