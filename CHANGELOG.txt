@@ -19,6 +19,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   pre_render should be method implementing TrustedCallbackInterface.
 #3153911 by alexpott, mrinalini9: Improve logic in metatag_page_attachments()
   and make code comments more clear.
+#3077782 by DamienMcKenna, rokzabukovec, rahulrasgon: Add missing OG tags.
 
 
 Metatag 8.x-1.13, 2020-04-21
