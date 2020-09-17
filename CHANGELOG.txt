@@ -1,5 +1,7 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
+#3165112 by Wim Leers, tim.plunkett: Metatag migrations should be tagged
+  "Configuration".
 
 
 Metatag 8.x-1.14, 2020-08-11
