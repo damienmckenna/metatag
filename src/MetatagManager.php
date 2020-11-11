@@ -126,7 +126,7 @@ class MetatagManager implements MetatagManagerInterface {
     /** @var \Drupal\metatag\Entity\MetatagDefaults $metatags */
     $metatags = $this->metatagDefaults->load('global');
     if (!$metatags || !$metatags->status()) {
-      return NULL;
+      return [];
     }
     // Add/overwrite with tags set on the entity type.
     /** @var \Drupal\metatag\Entity\MetatagDefaults $entity_type_tags */

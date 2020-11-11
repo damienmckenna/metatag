@@ -9,6 +9,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   (and bundle).
 #3171660 by richgerdes, DamienMcKenna: Migration Plugin Alter breaks with
   commerce_migrate_commerce.
+#3176513 by mglaman: \Drupal\metatag\MetatagManager::defaultTagsFromEntity
+  should not return null.
 
 
 Metatag 8.x-1.14, 2020-08-11
