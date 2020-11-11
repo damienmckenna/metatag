@@ -76,8 +76,8 @@ class MetatagViewsEditForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     // Get the parameters from request.
-    $view_id = \Drupal::request()->get('view_id');
-    $display_id = \Drupal::request()->get('display_id');
+    $view_id = $this->getRequest()->get('view_id');
+    $display_id = $this->getRequest()->get('display_id');
 
     // Get meta tags from the view entity.
     $metatags = [];

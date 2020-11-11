@@ -16,6 +16,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2994433 by DamienMcKenna, ChandeepKhosa, vishnukumar, Berdir, joakland,
   pdenooijer, benstjohn, muranod: Automatically parse URLs from image field
   tokens.
+#3171302 by ankithashetty, DamienMcKenna: \Drupal calls should be avoided in
+  classes, use dependency injection instead.
 
 
 Metatag 8.x-1.14, 2020-08-11
