@@ -4,6 +4,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   "Configuration".
 #2782797 by DamienMcKenna, Rolf van de Krol, michaelpetri, mvwensen, mxr576,
   Alex G: Allow each tag to have its own permission (merge Metatag Access).
+#3180470 by SivaprasadC: Typos in couple of files.
 
 
 Metatag 8.x-1.14, 2020-08-11
