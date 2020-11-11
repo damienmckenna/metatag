@@ -20,6 +20,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   classes, use dependency injection instead.
 #2996883 by rokzabukovec, mrinalini9, thejimbirch, DamienMcKenna, Nchase,
   Schwarz Developing: Sorting the output of meta tags.
+#3135365 by novchuk.v, mero.S: Replace assertions involving calls to empty()
+  with assertEmpty()/assertNotEmpty()/assertArrayNotHasKey().
 
 
 Metatag 8.x-1.14, 2020-08-11
