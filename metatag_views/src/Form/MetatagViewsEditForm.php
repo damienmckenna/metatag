@@ -110,13 +110,13 @@ class MetatagViewsEditForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function form(array $values, array $element, array $token_types = [], array $included_groups = NULL, array $included_tags = NULL) {
+  public function form(array $values, array $element, array $token_types = [], array $included_groups = NULL, array $included_tags = NULL, $verbose_help = FALSE) {
     // Add the outer fieldset.
     $element += [
       '#type' => 'details',
     ];
 
-    $element += $this->tokenService->tokenBrowser($token_types);
+    $element += $this->tokenService->tokenBrowser($token_types, $verbose_help);
 
     $groups_and_tags = $this->sortedGroupsWithTags();
 

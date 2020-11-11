@@ -2,11 +2,11 @@
 
 namespace Drupal\metatag;
 
-use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\views\ViewEntityInterface;
 
 /**
@@ -15,6 +15,8 @@ use Drupal\views\ViewEntityInterface;
  * @package Drupal\metatag
  */
 class MetatagManager implements MetatagManagerInterface {
+
+  use StringTranslationTrait;
 
   /**
    * The group plugin manager.
@@ -245,13 +247,19 @@ class MetatagManager implements MetatagManagerInterface {
   /**
    * {@inheritdoc}
    */
-  public function form(array $values, array $element, array $token_types = [], array $included_groups = NULL, array $included_tags = NULL) {
+  public function form(array $values, array $element, array $token_types = [], array $included_groups = NULL, array $included_tags = NULL, $verbose_help = FALSE) {
     // Add the outer fieldset.
     $element += [
       '#type' => 'details',
     ];
 
-    $element += $this->tokenService->tokenBrowser($token_types);
+    // Add a title to the form.
+    $element['preamble'] = [
+      '#markup' => '<p><strong>' . $this->t('Configure the meta tags below.') . '</strong></p>',
+      '#weight' => -11,
+    ];
+
+    $element += $this->tokenService->tokenBrowser($token_types, $verbose_help);
 
     $groups_and_tags = $this->sortedGroupsWithTags();
 
@@ -550,7 +558,7 @@ class MetatagManager implements MetatagManagerInterface {
         $tag->setValue($value);
 
         // Obtain the processed value.
-        $processed_value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode])));
+        $processed_value = htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode]));
 
         // Now store the value with processed tokens back into the plugin.
         $tag->setValue($processed_value);

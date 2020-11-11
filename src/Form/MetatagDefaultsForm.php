@@ -42,9 +42,6 @@ class MetatagDefaultsForm extends EntityForm {
 
     $token_types = empty($default_type) ? [] : [explode('__', $default_type)[0]];
 
-    // Add the token browser at the top.
-    $form += \Drupal::service('metatag.token')->tokenBrowser($token_types);
-
     // If this is a new Metatag defaults, then list available bundles.
     if ($metatag_defaults->isNew()) {
       $options = $this->getAvailableBundles();
@@ -90,11 +87,11 @@ class MetatagDefaultsForm extends EntityForm {
     $groups = !empty($entity_type_groups[$entity_type]) && !empty($entity_type_groups[$entity_type][$entity_bundle]) ? $entity_type_groups[$entity_type][$entity_bundle] : [];
     // Limit the form to requested groups, if any.
     if (!empty($groups)) {
-      $form = $metatag_manager->form($values, $form, [$entity_type], $groups);
+      $form = $metatag_manager->form($values, $form, [$entity_type], $groups, NULL, TRUE);
     }
     // Otherwise, display all groups.
     else {
-      $form = $metatag_manager->form($values, $form);
+      $form = $metatag_manager->form($values, $form, [], NULL, NULL, TRUE);
     }
 
     $form['status'] = [

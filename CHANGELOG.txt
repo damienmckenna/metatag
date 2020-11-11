@@ -13,6 +13,9 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   should not return null.
 #3166569 by munish.kumar, yogeshmpawar, Dom.: Add Facebook verification meta
   header.
+#2994433 by DamienMcKenna, ChandeepKhosa, vishnukumar, Berdir, joakland,
+  pdenooijer, benstjohn, muranod: Automatically parse URLs from image field
+  tokens.
 
 
 Metatag 8.x-1.14, 2020-08-11
