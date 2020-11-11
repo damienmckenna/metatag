@@ -829,8 +829,35 @@ function metatag_migration_plugins_alter(array &$definitions) {
           'plugin' => 'd7_metatag_entities',
           'source' => 'pseudo_metatag_entities',
         ];
-        $definition['migration_dependencies']['optional'][] = 'd7_metatag_field';
-        $definition['migration_dependencies']['optional'][] = 'd7_metatag_field_instance';
+        $destination_plugin_parts = explode(':', $definition['destination']['plugin']);
+        $entity_destination_plugins = ['entity', 'entity_complete'];
+        $entity_type_id = in_array($destination_plugin_parts[0], $entity_destination_plugins, TRUE) ?
+          $destination_plugin_parts[1] : NULL;
+        $bundle_id = $definition['destination']['default_bundle'] ?? NULL;
+
+        // When there are no bundle derivatives, make e.g. the d7_node_complete
+        // migration depend on:
+        // - d7_metatag_field:node
+        // - d7_metatag_field_instance:node
+        // - d7_field_instance_widget:node
+        // but if there is a bundle derivative such as d7_node_complete:article,
+        // then instead make it depend on:
+        // - d7_metatag_field:node
+        // - d7_metatag_field_instance:node:article
+        // - d7_field_instance_widget:node:article
+        // Either way, this matches the dependencies used by for example
+        // d7_node_complete, which has dependencies on d7_field_instance and
+        // d7_comment_field_instance to ensure correct migration order.
+        if ($bundle_id && isset($definitions["d7_metatag_field_instance:$entity_type_id:$bundle_id"])) {
+          $definition['migration_dependencies']['required'][] = "d7_metatag_field:$entity_type_id";
+          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance:$entity_type_id:$bundle_id";
+          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance_widget_settings:$entity_type_id:$bundle_id";
+        }
+        elseif (isset($definitions["d7_metatag_field_instance:$entity_type_id"])) {
+          $definition['migration_dependencies']['required'][] = "d7_metatag_field:$entity_type_id";
+          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance:$entity_type_id";
+          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance_widget_settings:$entity_type_id";
+        }
       }
     }
   }

@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2782797 by DamienMcKenna, Rolf van de Krol, michaelpetri, mvwensen, mxr576,
   Alex G: Allow each tag to have its own permission (merge Metatag Access).
 #3180470 by SivaprasadC: Typos in couple of files.
+#3169952 by Wim Leers, tim.plunkett: Derive metatag migrations by entity type
+  (and bundle).
 
 
 Metatag 8.x-1.14, 2020-08-11
