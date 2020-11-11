@@ -18,6 +18,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   tokens.
 #3171302 by ankithashetty, DamienMcKenna: \Drupal calls should be avoided in
   classes, use dependency injection instead.
+#2996883 by rokzabukovec, mrinalini9, thejimbirch, DamienMcKenna, Nchase,
+  Schwarz Developing: Sorting the output of meta tags.
 
 
 Metatag 8.x-1.14, 2020-08-11

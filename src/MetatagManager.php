@@ -535,17 +535,21 @@ class MetatagManager implements MetatagManagerInterface {
 
     $metatag_tags = $this->tagPluginManager->getDefinitions();
 
-    // Order the elements by weight first, as some systems like Facebook care.
-    uksort($tags, function ($tag_name_a, $tag_name_b) use ($metatag_tags) {
-      $weight_a = isset($metatag_tags[$tag_name_a]['weight']) ? $metatag_tags[$tag_name_a]['weight'] : 0;
-      $weight_b = isset($metatag_tags[$tag_name_b]['weight']) ? $metatag_tags[$tag_name_b]['weight'] : 0;
+    // Order metatags based on the group and weight.
+    $group = array_column($metatag_tags, 'group');
+    $weight = array_column($metatag_tags, 'weight');
+    array_multisort($group, SORT_ASC, $weight, SORT_ASC, $metatag_tags);
 
-      return ($weight_a < $weight_b) ? -1 : 1;
-    });
+    $ordered_tags = [];
+    foreach ($metatag_tags as $metatag) {
+      if (isset($tags[$metatag['id']])) {
+        $ordered_tags[$metatag['id']] = $tags[$metatag['id']];
+      }
+    }
 
     // Each element of the $values array is a tag with the tag plugin name as
     // the key.
-    foreach ($tags as $tag_name => $value) {
+    foreach ($ordered_tags as $tag_name => $value) {
       // Check to ensure there is a matching plugin.
       if (isset($metatag_tags[$tag_name])) {
         // Get an instance of the plugin.
