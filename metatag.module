@@ -927,11 +927,18 @@ function _metatag_is_migration_plugin_supported(array $definition) {
     }
   }
 
-  // Only support content entity destinations.
-  $plugin_definition = \Drupal::service('plugin.manager.migrate.destination')
-    ->getDefinition($definition['destination']['plugin']);
-  $destination_plugin = DefaultFactory::getPluginClass($definition['destination']['plugin'], $plugin_definition);
-  if (!is_subclass_of($destination_plugin, EntityContentBase::class) && $destination_plugin !== EntityContentBase::class) {
+  // Only support content entity destinations. Protect against situations where
+  // the plugins haven't loaded yet, e.g. when using Commerce Migrate.
+  try {
+    $plugin_definition = \Drupal::service('plugin.manager.migrate.destination')
+      ->getDefinition($definition['destination']['plugin']);
+    $destination_plugin = DefaultFactory::getPluginClass($definition['destination']['plugin'], $plugin_definition);
+    if (!is_subclass_of($destination_plugin, EntityContentBase::class) && $destination_plugin !== EntityContentBase::class) {
+      return FALSE;
+    }
+  }
+  catch (\Drupal\Component\Plugin\Exception\PluginNotFoundException $e) {
+    // If the entity type doesn't exist, neither with the migration plugin.
     return FALSE;
   }
 

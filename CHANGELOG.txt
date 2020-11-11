@@ -7,6 +7,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3180470 by SivaprasadC: Typos in couple of files.
 #3169952 by Wim Leers, tim.plunkett: Derive metatag migrations by entity type
   (and bundle).
+#3171660 by richgerdes, DamienMcKenna: Migration Plugin Alter breaks with
+  commerce_migrate_commerce.
 
 
 Metatag 8.x-1.14, 2020-08-11
