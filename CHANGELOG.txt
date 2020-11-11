@@ -11,6 +11,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   commerce_migrate_commerce.
 #3176513 by mglaman: \Drupal\metatag\MetatagManager::defaultTagsFromEntity
   should not return null.
+#3166569 by munish.kumar, yogeshmpawar, Dom.: Add Facebook verification meta
+  header.
 
 
 Metatag 8.x-1.14, 2020-08-11
