@@ -24,6 +24,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   with assertEmpty()/assertNotEmpty()/assertArrayNotHasKey().
 #2782797 by DamienMcKenna: Added missing $defaultTheme test variable.
 #3159192 by heddn: Hide from translation system from unsupported entities.
+#3175269 by mbovan, DamienMcKenna: Pass optional bubbleable metadata parameter
+  to generateRawElements to avoid issues with early rendering and JSON:API.
 
 
 Metatag 8.x-1.14, 2020-08-11

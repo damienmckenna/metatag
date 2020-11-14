@@ -6,6 +6,7 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\views\ViewEntityInterface;
 
@@ -501,11 +502,13 @@ class MetatagManager implements MetatagManagerInterface {
    *   The array of tags as plugin_id => value.
    * @param object $entity
    *   Optional entity object to use for token replacements.
+   * @param \Drupal\Core\Render\BubbleableMetadata|null $cache
+   *   (optional) Cacheability metadata.
    *
    * @return array
    *   Render array with tag elements.
    */
-  public function generateRawElements(array $tags, $entity = NULL) {
+  public function generateRawElements(array $tags, $entity = NULL, BubbleableMetadata $cache = NULL) {
     // Ignore the update.php path.
     $request = \Drupal::request();
     if ($request->getBaseUrl() == '/update.php') {
@@ -562,7 +565,7 @@ class MetatagManager implements MetatagManagerInterface {
         $tag->setValue($value);
 
         // Obtain the processed value.
-        $processed_value = htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode]));
+        $processed_value = htmlspecialchars_decode($this->tokenService->replace($tag->value(), $token_replacements, ['langcode' => $langcode], $cache));
 
         // Now store the value with processed tokens back into the plugin.
         $tag->setValue($processed_value);
