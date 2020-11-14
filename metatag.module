@@ -571,7 +571,7 @@ function metatag_entity_base_field_info(EntityTypeInterface $entity_type) {
   // there's no point in supporting it.
   if (!empty($base_table) && $canonical_template_exists && !in_array($original_class, $classes_to_skip)) {
     $fields['metatag'] = BaseFieldDefinition::create('map')
-      ->setLabel(t('Metatags'))
+      ->setLabel(t('Metatags (Hidden field for JSON support)'))
       ->setDescription(t('The meta tags for the entity.'))
       ->setClass('\Drupal\metatag\Plugin\Field\MetatagEntityFieldItemList')
       ->setComputed(TRUE)

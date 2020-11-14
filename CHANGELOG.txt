@@ -23,6 +23,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3135365 by novchuk.v, mero.S: Replace assertions involving calls to empty()
   with assertEmpty()/assertNotEmpty()/assertArrayNotHasKey().
 #2782797 by DamienMcKenna: Added missing $defaultTheme test variable.
+#3159192 by heddn: Hide from translation system from unsupported entities.
 
 
 Metatag 8.x-1.14, 2020-08-11
