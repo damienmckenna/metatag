@@ -28,6 +28,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   to generateRawElements to avoid issues with early rendering and JSON:API.
 #3154416 by novchuk.v: Replace assert* involving an instanceof operator with
   assertInstanceOf()/assertNotInstanceOf().
+#3170298 by thejimbirch: Provide link to Facebook Open Graph debugger.
 
 
 Metatag 8.x-1.14, 2020-08-11
