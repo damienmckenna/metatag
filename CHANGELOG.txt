@@ -29,6 +29,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3154416 by novchuk.v: Replace assert* involving an instanceof operator with
   assertInstanceOf()/assertNotInstanceOf().
 #3170298 by thejimbirch: Provide link to Facebook Open Graph debugger.
+#3136470 by novchuk.v: Replace assertEqual()/assertSame() with count() with
+  assertCount().
 
 
 Metatag 8.x-1.14, 2020-08-11
