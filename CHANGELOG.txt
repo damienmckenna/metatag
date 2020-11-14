@@ -26,6 +26,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3159192 by heddn: Hide from translation system from unsupported entities.
 #3175269 by mbovan, DamienMcKenna: Pass optional bubbleable metadata parameter
   to generateRawElements to avoid issues with early rendering and JSON:API.
+#3154416 by novchuk.v: Replace assert* involving an instanceof operator with
+  assertInstanceOf()/assertNotInstanceOf().
 
 
 Metatag 8.x-1.14, 2020-08-11
