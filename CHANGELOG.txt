@@ -35,6 +35,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   override language.
 #2862747 by JeroenT, DanielVeza, rwohleb, joshua.boltz, henrikakselsen,
   Vitalyos, Phil Wolstenholme: Tokens to access individual meta tag values.
+#3154513 by rokzabukovec: Exclusive robots metatags (index, noindex, follow,
+  nofollow).
 
 
 Metatag 8.x-1.14, 2020-08-11
