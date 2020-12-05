@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, xxxx-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.15, 2020-12-05
 ----------------------------
 #3165112 by Wim Leers, tim.plunkett: Metatag migrations should be tagged
