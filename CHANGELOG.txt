@@ -33,6 +33,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   assertCount().
 #3108052 by Berdir, SpadXIII: metatag_get_default_tags() does not revert config
   override language.
+#2862747 by JeroenT, DanielVeza, rwohleb, joshua.boltz, henrikakselsen,
+  Vitalyos, Phil Wolstenholme: Tokens to access individual meta tag values.
 
 
 Metatag 8.x-1.14, 2020-08-11

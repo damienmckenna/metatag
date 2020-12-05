@@ -2,6 +2,7 @@
 
 namespace Drupal\metatag;
 
+use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Language\LanguageInterface;
@@ -55,6 +56,13 @@ class MetatagManager implements MetatagManagerInterface {
   protected $logger;
 
   /**
+   * Caches processed strings, keyed by tag name.
+   *
+   * @var array
+   */
+  protected $processedTokenCache = [];
+
+  /**
    * Constructor for MetatagManager.
    *
    * @param \Drupal\metatag\MetatagGroupPluginManager $groupPluginManager
@@ -69,10 +77,11 @@ class MetatagManager implements MetatagManagerInterface {
    *   The EntityTypeManagerInterface object.
    */
   public function __construct(MetatagGroupPluginManager $groupPluginManager,
-      MetatagTagPluginManager $tagPluginManager,
-      MetatagToken $token,
-      LoggerChannelFactoryInterface $channelFactory,
-      EntityTypeManagerInterface $entityTypeManager) {
+    MetatagTagPluginManager $tagPluginManager,
+    MetatagToken $token,
+    LoggerChannelFactoryInterface $channelFactory,
+    EntityTypeManagerInterface $entityTypeManager
+  ) {
     $this->groupPluginManager = $groupPluginManager;
     $this->tagPluginManager = $tagPluginManager;
     $this->tokenService = $token;
@@ -591,6 +600,69 @@ class MetatagManager implements MetatagManagerInterface {
     }
 
     return $rawTags;
+  }
+
+  /**
+   * Generate the actual meta tag values for use as tokens.
+   *
+   * @param array $tags
+   *   The array of tags as plugin_id => value.
+   * @param object $entity
+   *   Optional entity object to use for token replacements.
+   *
+   * @return array
+   *   Array of MetatagTag plugin instances.
+   */
+  public function generateTokenValues(array $tags, $entity = NULL) {
+    // Ignore the update.php path.
+    $request = \Drupal::request();
+    if ($request->getBaseUrl() == '/update.php') {
+      return [];
+    }
+
+    $entity_identifier = '_none';
+    if ($entity) {
+      $entity_identifier = $entity->getEntityTypeId() . ':' . ($entity->uuid() ?: $entity->id());
+    }
+
+    if (!isset($this->processedTokenCache[$entity_identifier])) {
+      $metatag_tags = $this->tagPluginManager->getDefinitions();
+
+      // Each element of the $values array is a tag with the tag plugin name as
+      // the key.
+      foreach ($tags as $tag_name => $value) {
+        // Check to ensure there is a matching plugin.
+        if (isset($metatag_tags[$tag_name])) {
+          // Get an instance of the plugin.
+          $tag = $this->tagPluginManager->createInstance($tag_name);
+
+          // Render any tokens in the value.
+          $token_replacements = [];
+          if ($entity) {
+            // @todo This needs a better way of discovering the context.
+            if ($entity instanceof ViewEntityInterface) {
+              // Views tokens require the ViewExecutable, not the config entity.
+              // @todo Can we move this into metatag_views somehow?
+              $token_replacements = ['view' => $entity->getExecutable()];
+            }
+            elseif ($entity instanceof ContentEntityInterface) {
+              $token_replacements = [$entity->getEntityTypeId() => $entity];
+            }
+          }
+
+          // Set the value as sometimes the data needs massaging, such as when
+          // field defaults are used for the Robots field, which come as an
+          // array that needs to be filtered and converted to a string.
+          // @see Robots::setValue()
+          $tag->setValue($value);
+          $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+          $value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($value, $token_replacements, ['langcode' => $langcode])));
+          $this->processedTokenCache[$entity_identifier][$tag_name] = $tag->multiple() ? explode(',', $value) : $value;
+        }
+      }
+    }
+
+    return $this->processedTokenCache[$entity_identifier];
   }
 
   /**
