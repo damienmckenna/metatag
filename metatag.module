@@ -895,6 +895,12 @@ function _metatag_is_migration_plugin_supported(array $definition) {
     return FALSE;
   }
 
+  // Support for migrate_upgrade module, to avoid adding dependencies on already
+  // processed migration procedures.
+  if (!empty($definition['migration_group'])) {
+    return FALSE;
+  }
+
   // This migration has destination plugins defined.
   if (!empty($definition['destination']['plugin'])) {
     // Follow logic on hook_entity_base_field_info() and exclude the metatag
