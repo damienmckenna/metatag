@@ -9,6 +9,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   DamienMcKenna: Replace usages of assertions that are deprecated.
 #3186770 by mortim07: System status report page indicates Metatag's token types
   do not have any tokens defined.
+#3188806 by mortim07, acbramley, DamienMcKenna: Check if the entity being viewed
+  is the route entity.
 
 
 Metatag 8.x-1.15, 2020-12-05

@@ -209,6 +209,12 @@ function metatag_page_attachments_alter(array &$attachments) {
  * Implements hook_entity_view_alter().
  */
 function metatag_entity_view_alter(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display) {
+  // Don't proceed any further if the entity being viewed isn't the route
+  // entity.
+  if (!_metatag_is_entity_route_entity($entity)) {
+    return;
+  }
+
   if (!$entity->getEntityType()->hasLinkTemplate('canonical')) {
     return;
   }
@@ -232,6 +238,29 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
   }
 
   _metatag_remove_duplicate_entity_tags($build);
+}
+
+/**
+ * A function to determine whether the entity in question is the route entity.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity.
+ *
+ * @return bool
+ *   The result.
+ */
+function _metatag_is_entity_route_entity(EntityInterface $entity): bool {
+  static $cached_entity_uuid;
+  if (!$cached_entity_uuid) {
+    foreach (\Drupal::routeMatch()->getParameters() as $route_parameter) {
+      if ($route_parameter instanceof EntityInterface) {
+        if ($route_parameter->uuid() === $entity->uuid()) {
+          $cached_entity_uuid = $entity->uuid();
+        }
+      }
+    }
+  }
+  return ($cached_entity_uuid === $entity->uuid());
 }
 
 /**
