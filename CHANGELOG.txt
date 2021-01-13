@@ -11,6 +11,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   do not have any tokens defined.
 #3188806 by mortim07, acbramley, DamienMcKenna: Check if the entity being viewed
   is the route entity.
+#3188839 by mortim07, DamienMcKenna, mrshowerman, FiNeX, bwaindwain: Node tokens
+  missing.
 
 
 Metatag 8.x-1.15, 2020-12-05
