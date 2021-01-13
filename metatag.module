@@ -698,9 +698,16 @@ function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, M
     return;
   }
 
-  // Work out what sort of migration to do.
-  // Metatag-D7.
-  if ($source->getDatabase()->schema()->tableExists('metatag')) {
+  // Work out what sort of migration to do. Cache the results of this logic so
+  // that it isn't checked on every single row being processed.
+  static $metatag_table_exists, $nodewords_table_exists;
+  if (!isset($metatag_table_exists)) {
+    $metatag_table_exists = $source->getDatabase()->schema()->tableExists('metatag');
+    $nodewords_table_exists = $source->getDatabase()->schema()->tableExists('nodewords');
+  }
+
+  // The source is Metatag-D7.
+  if ($metatag_table_exists) {
     // @todo Write a more general version rather than hard-coded.
     // Support a know subset of D7 sources.
     if (is_a($source, Node7::class)) {
@@ -764,8 +771,8 @@ function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, M
     }
   }
 
-  // Nodewords-D6.
-  elseif ($source->getDatabase()->schema()->tableExists('nodewords')) {
+  // The source is Nodewords-D6.
+  elseif ($nodewords_table_exists) {
     // @todo Write a more general version rather than hard-coded.
     // Support a know subset of D6 sources.
     if (is_a($source, Node6::class)) {
