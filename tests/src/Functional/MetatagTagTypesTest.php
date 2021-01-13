@@ -187,13 +187,13 @@ class MetatagTagTypesTest extends BrowserTestBase {
     // $entities = entity_load_multiple_by_properties('entity_test', [
     //   'name' => 'UrlTags',
     // ]);
-    // $this->assertEqual(1, count($entities), 'Entity was saved');
+    // $this->assertEquals(count($entities), 1, 'Entity was saved');
     // $entity = reset($entities);
     // $this->drupalGet($this->entity_base_path . '/' . $entity->id());
     // $this->assertSession()->statusCodeEquals(200);
     // $elements = $this->cssSelect("meta[name='original-source']");
     // $this->assertTrue(count($elements) === 1, 'Found original source metatag from defaults');
-    // $this->assertEqual((string) $elements[0]['content'], $edit['field_metatag[0][advanced][original_source]']);
+    // $this->assertEquals($edit['field_metatag[0][advanced][original_source]'], (string) $elements[0]['content']);
     // {@endcode}
   }
 
