@@ -7,6 +7,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3182548 by DamienMcKenna: Fix tests on 8.x-1.x branch for D9.1.
 #3158186 by siddhant.bhosale, rahulrasgon, rokzabukovec, sabina.h,
   DamienMcKenna: Replace usages of assertions that are deprecated.
+#3186770 by mortim07: System status report page indicates Metatag's token types
+  do not have any tokens defined.
 
 
 Metatag 8.x-1.15, 2020-12-05

@@ -54,6 +54,12 @@ function metatag_token_info() {
       'nested' => TRUE,
     ];
 
+    $info['tokens'][$metatag_token_name]['value'] = [
+      'name' => Html::escape($label),
+      'module' => 'metatag',
+      'description' => $description,
+    ];
+
     // Tag list token type.
     if ($multiple) {
       $info['types']["list<$metatag_token_name>"] = [
