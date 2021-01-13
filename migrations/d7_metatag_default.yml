@@ -1,0 +1,33 @@
+# A default migration mapping for Metatag-D7 default configuration.
+#
+# @see Drupal\metatag\Plugin\migrate\source\d7\MetatagDefault
+
+id: d7_metatag_default
+label: Metatag default configuration
+migration_tags:
+  - Drupal 7
+
+source:
+  plugin: d7_metatag_default
+  source_module: metatag
+  ignore_map: true
+  constants:
+    langcode: und
+    status: true
+
+# @todo What is the correct destination type.
+destination:
+  plugin: config
+  # @todo This needs to be generated dynamically.
+  config_name: metatag.metatag_defaults.INSTANCE
+
+# @todo What is needed for the migration processing.
+process:
+  # These are simple constants that will be kept as-is.
+  langcode: 'constants/langcode'
+  status: 'constants/status'
+
+  # These come from the actual records.
+  id: instance
+  label: instance
+  tags: config

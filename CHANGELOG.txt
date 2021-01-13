@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3187583 by jrb: Syntax error when running PHP 7.0.
 #3187898 by rutiolma: Comply with migrations using migrate_upgrade.
 #3182548 by DamienMcKenna: Fix tests on 8.x-1.x branch for D9.1.
+#3158186 by siddhant.bhosale, rahulrasgon, rokzabukovec, sabina.h,
+  DamienMcKenna: Replace usages of assertions that are deprecated.
 
 
 Metatag 8.x-1.15, 2020-12-05

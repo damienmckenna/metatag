@@ -63,7 +63,7 @@ class NodeJsonOutput extends BrowserTestBase {
     $this->assertSession()->statusCodeEquals(200);
 
     // Decode the JSON output.
-    $response = $this->getRawContent();
+    $response = $this->getSession()->getPage()->getContent();
     $this->assertNotEmpty($response);
     $json = json_decode($response);
     $this->verbose($json, 'JSON output');
