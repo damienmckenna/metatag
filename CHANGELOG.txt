@@ -13,6 +13,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   is the route entity.
 #3188839 by mortim07, DamienMcKenna, mrshowerman, FiNeX, bwaindwain: Node tokens
   missing.
+#3189138 by bwaindwain, DamienMcKenna: Form element still visible even though
+  permissions turned off.
 
 
 Metatag 8.x-1.15, 2020-12-05
