@@ -22,6 +22,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3193523 by DamienMcKenna: Removed files accidentally committed.
 #3189850 by cmod, DamienMcKenna, J-Lee: Undefined index: href in
   metatag_page_attachments().
+#3077781 by thejimbirch, DamienMcKenna, mmbk, cindytwilliams: Remove references
+  to the amphtml meta tag.
 
 
 Metatag 8.x-1.15, 2020-12-05

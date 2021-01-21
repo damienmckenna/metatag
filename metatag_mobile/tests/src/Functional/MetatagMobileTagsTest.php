@@ -93,20 +93,6 @@ class MetatagMobileTagsTest extends MetatagTagsTestBase {
   }
 
   /**
-   * Implements {tag_name}TestOutputXpath() for 'amphtml'.
-   */
-  protected function amphtmlTestOutputXpath() {
-    return "//link[@rel='amphtml']";
-  }
-
-  /**
-   * Implements {tag_name}TestValueAttribute() for 'amphtml'.
-   */
-  protected function amphtmlTestValueAttribute() {
-    return 'href';
-  }
-
-  /**
    * Implements {tag_name}TestValue() for 'android_app_link_alternative'.
    */
   protected function androidAppLinkAlternativeTestValue() {
