@@ -156,15 +156,18 @@ function metatag_page_attachments(array &$attachments) {
       // Also add a HTTP header "Link:" for canonical URLs and shortlinks.
       // See HtmlResponseAttachmentsProcessor::processHtmlHeadLink() for the
       // implementation of the functionality in core.
-      if (in_array($item[1], ['canonical_url', 'shortlink'])) {
-        $attributes = $item[0]['#attributes'];
+      if (isset($item[0]['#attributes']['href'])) {
+        if (in_array($item[1], ['canonical_url', 'shortlink'])) {
+          $attributes = $item[0]['#attributes'];
 
-        $href = '<' . Html::escape($attributes['href']) . '>';
-        unset($attributes['href']);
-        if ($param = HtmlResponseAttachmentsProcessor::formatHttpHeaderAttributes($attributes)) {
-          $href .= ';' . $param;
+          $href = '<' . Html::escape($attributes['href']) . '>';
+          unset($attributes['href']);
+          $param = HtmlResponseAttachmentsProcessor::formatHttpHeaderAttributes($attributes);
+          if (!empty($param)) {
+            $href .= ';' . $param;
+          }
+          $head_links[] = $href;
         }
-        $head_links[] = $href;
       }
     }
 

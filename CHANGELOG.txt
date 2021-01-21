@@ -20,6 +20,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3190808 by Wim Leers, DamienMcKenna: Do not run a "table exists" query for
   every migrated row of data (regardless of whether it's a metatag row or not!).
 #3193523 by DamienMcKenna: Removed files accidentally committed.
+#3189850 by cmod, DamienMcKenna, J-Lee: Undefined index: href in
+  metatag_page_attachments().
 
 
 Metatag 8.x-1.15, 2020-12-05
