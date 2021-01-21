@@ -24,6 +24,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   metatag_page_attachments().
 #3077781 by thejimbirch, DamienMcKenna, mmbk, cindytwilliams: Remove references
   to the amphtml meta tag.
+#3193502 by DaliaMoh, aritrika.d, DamienMcKenna: Extra if() statement in
+  _metatag_is_migration_plugin_supported().
 
 
 Metatag 8.x-1.15, 2020-12-05

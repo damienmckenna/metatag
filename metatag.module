@@ -930,6 +930,9 @@ function _metatag_is_migration_plugin_supported(array $definition) {
   if (empty($definition['migration_tags'])) {
     return FALSE;
   }
+  if (!is_array($definition['migration_tags'])) {
+    return FALSE;
+  }
   if (!array_intersect(['Drupal 6', 'Drupal 7'], $definition['migration_tags'])) {
     return FALSE;
   }
