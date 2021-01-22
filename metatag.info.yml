@@ -7,3 +7,5 @@ configure: entity.metatag_defaults.collection
 dependencies:
   - drupal:field
   - token:token
+test_dependencies:
+  - devel:devel

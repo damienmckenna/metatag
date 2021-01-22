@@ -26,6 +26,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   to the amphtml meta tag.
 #3193502 by DaliaMoh, aritrika.d, DamienMcKenna: Extra if() statement in
   _metatag_is_migration_plugin_supported().
+#3123583 by DamienMcKenna, Berdir, jonathan1055: Add Devel dependency, tests
+  back again.
 
 
 Metatag 8.x-1.15, 2020-12-05
