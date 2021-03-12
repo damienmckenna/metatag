@@ -28,6 +28,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   _metatag_is_migration_plugin_supported().
 #3123583 by DamienMcKenna, Berdir, jonathan1055: Add Devel dependency, tests
   back again.
+#3199122 by DamienMcKenna, thejimbirch: Fix compatibility with Drupal 9.
 
 
 Metatag 8.x-1.15, 2020-12-05
