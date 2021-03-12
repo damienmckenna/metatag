@@ -31,6 +31,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3199122 by DamienMcKenna, thejimbirch: Fix compatibility with Drupal 9.
 #3199060 by Santhosh-Kumar-Rengasamy, DamienMcKenna: Custom Migration dependency
   issue for d7 migrate process plugin.
+#2930291 by dobe, trobey, DamienMcKenna, sylus: Expand all text fields to allow
+  1,024 characters.
 
 
 Metatag 8.x-1.15, 2020-12-05
