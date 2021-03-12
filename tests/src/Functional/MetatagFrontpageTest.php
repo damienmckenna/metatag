@@ -18,7 +18,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'token',
     'metatag',
     'node',

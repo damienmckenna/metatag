@@ -21,11 +21,9 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   protected $profile = 'testing';
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // Needed for token handling.
     'token',
 

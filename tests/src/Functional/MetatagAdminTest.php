@@ -20,7 +20,7 @@ class MetatagAdminTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // Core modules.
     // @see testAvailableConfigEntities
     'block',

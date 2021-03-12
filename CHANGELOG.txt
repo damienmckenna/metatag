@@ -39,6 +39,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   og:latitude/longitude have been replaced by place:location:latitude/longitude.
 #3196133 by leopathu, DamienMcKenna: Exclusive robots metatags (index, noindex,
   follow, nofollow) in Entity Form.
+#3145078 by DamienMcKenna, mrinalini9, amjad1233, vijaycs85, dww: Possibly wrong
+  use of $modules array in setUp() for functional tests.
 
 
 Metatag 8.x-1.15, 2020-12-05

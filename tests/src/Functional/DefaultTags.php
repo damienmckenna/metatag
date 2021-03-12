@@ -17,7 +17,7 @@ class DefaultTags extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // Modules for core functionality.
     'node',
     'taxonomy',

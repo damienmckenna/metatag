@@ -18,7 +18,7 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // This is needed for the 'access content' permission.
     'node',
 

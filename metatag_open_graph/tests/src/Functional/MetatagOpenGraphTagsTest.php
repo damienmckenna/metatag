@@ -14,6 +14,11 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
+  protected static $modules = ['metatag_open_graph'];
+
+  /**
+   * {@inheritdoc}
+   */
   protected $tags = [
     'article_author',
     'article_expiration_time',
@@ -85,14 +90,6 @@ class MetatagOpenGraphTagsTest extends MetatagTagsTestBase {
    * {@inheritdoc}
    */
   protected $testNameAttribute = 'property';
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::$modules[] = 'metatag_open_graph';
-    parent::setUp();
-  }
 
   /**
    * Each of these meta tags has a different tag name vs its internal name.

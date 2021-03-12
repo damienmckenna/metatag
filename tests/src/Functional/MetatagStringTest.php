@@ -26,7 +26,7 @@ class MetatagStringTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'token',
     'node',
     'field_ui',

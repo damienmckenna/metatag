@@ -31,11 +31,9 @@ class MetatagConfigTranslationTest extends BrowserTestBase {
   protected $adminUser;
 
   /**
-   * Modules to enable.
-   *
-   * @var array
+   * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'metatag',
     'language',
     'config_translation',

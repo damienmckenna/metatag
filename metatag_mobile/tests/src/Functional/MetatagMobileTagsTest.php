@@ -14,6 +14,11 @@ class MetatagMobileTagsTest extends MetatagTagsTestBase {
   /**
    * {@inheritdoc}
    */
+  protected static $modules = ['metatag_mobile'];
+
+  /**
+   * {@inheritdoc}
+   */
   protected $tags = [
     'alternate_handheld',
     'android_app_link_alternative',
@@ -54,14 +59,6 @@ class MetatagMobileTagsTest extends MetatagTagsTestBase {
     'web_manifest',
     'x_ua_compatible',
   ];
-
-  /**
-   * {@inheritdoc}
-   */
-  protected function setUp() {
-    parent::$modules[] = 'metatag_mobile';
-    parent::setUp();
-  }
 
   /**
    * {@inheritdoc}

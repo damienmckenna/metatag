@@ -20,7 +20,7 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
    *
    * @var array
    */
-  public static $modules = [
+  protected static $modules = [
     'content_translation',
     'field_ui',
     'metatag',

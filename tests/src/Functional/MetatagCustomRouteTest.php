@@ -18,7 +18,7 @@ class MetatagCustomRouteTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     'node',
     // Dependencies.
     'token',
