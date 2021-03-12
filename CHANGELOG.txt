@@ -33,6 +33,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   issue for d7 migrate process plugin.
 #2930291 by dobe, trobey, DamienMcKenna, sylus: Expand all text fields to allow
   1,024 characters.
+#3202865 by stmh, DamienMcKenna: logic in generateRawElements does not work with
+  hreflangs.
 
 
 Metatag 8.x-1.15, 2020-12-05
