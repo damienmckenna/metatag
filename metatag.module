@@ -897,14 +897,14 @@ function metatag_migration_plugins_alter(array &$definitions) {
         // d7_node_complete, which has dependencies on d7_field_instance and
         // d7_comment_field_instance to ensure correct migration order.
         if ($bundle_id && isset($definitions["d7_metatag_field_instance:$entity_type_id:$bundle_id"])) {
-          $definition['migration_dependencies']['required'][] = "d7_metatag_field:$entity_type_id";
-          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance:$entity_type_id:$bundle_id";
-          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance_widget_settings:$entity_type_id:$bundle_id";
+          $definition['migration_dependencies']['optional'][] = "d7_metatag_field:$entity_type_id";
+          $definition['migration_dependencies']['optional'][] = "d7_metatag_field_instance:$entity_type_id:$bundle_id";
+          $definition['migration_dependencies']['optional'][] = "d7_metatag_field_instance_widget_settings:$entity_type_id:$bundle_id";
         }
         elseif (isset($definitions["d7_metatag_field_instance:$entity_type_id"])) {
-          $definition['migration_dependencies']['required'][] = "d7_metatag_field:$entity_type_id";
-          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance:$entity_type_id";
-          $definition['migration_dependencies']['required'][] = "d7_metatag_field_instance_widget_settings:$entity_type_id";
+          $definition['migration_dependencies']['optional'][] = "d7_metatag_field:$entity_type_id";
+          $definition['migration_dependencies']['optional'][] = "d7_metatag_field_instance:$entity_type_id";
+          $definition['migration_dependencies']['optional'][] = "d7_metatag_field_instance_widget_settings:$entity_type_id";
         }
       }
     }
