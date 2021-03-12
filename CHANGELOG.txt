@@ -35,6 +35,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   1,024 characters.
 #3202865 by stmh, DamienMcKenna: logic in generateRawElements does not work with
   hreflangs.
+#2941632 by bgilhome, rokzabukovec, DamienMcKenna, yannickoo, thejimbirch:
+  og:latitude/longitude have been replaced by place:location:latitude/longitude.
 
 
 Metatag 8.x-1.15, 2020-12-05
