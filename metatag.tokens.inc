@@ -221,10 +221,15 @@ function metatag_tokens($type, $tokens, array $data, array $options, BubbleableM
 
         // Render only one delta.
         if (isset($delta)) {
-          $replacements[$original] = $processed_tags[$tag_name][$delta];
+          $replacements[$original] = $processed_tags[$tag_name][$delta] ?? NULL;
         }
         else {
-          $replacements[$original] = is_array($processed_tags[$tag_name]) ? implode(',', $processed_tags[$tag_name]) : $processed_tags[$tag_name];
+          if (is_array($processed_tags[$tag_name])) {
+            $replacements[$original] = implode(',', $processed_tags[$tag_name]);
+          }
+          else {
+            $replacements[$original] = $processed_tags[$tag_name];
+          }
         }
       }
       break;

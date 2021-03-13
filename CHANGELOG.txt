@@ -41,6 +41,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   follow, nofollow) in Entity Form.
 #3145078 by DamienMcKenna, mrinalini9, amjad1233, vijaycs85, dww: Possibly wrong
   use of $modules array in setUp() for functional tests.
+#3196067 by Ruslan Piskarov, DamienMcKenna, mohit.bansal623: Notice: Undefined
+  offset: 2 in metatag_tokens() (line 218 of metatag.tokens.inc).
 
 
 Metatag 8.x-1.15, 2020-12-05
