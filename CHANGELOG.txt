@@ -1,5 +1,5 @@
-Metatag 8.x-1.x-dev, xxxx-xx-xx
--------------------------------
+Metatag 8.x-1.16, 2021-03-15
+----------------------------
 #3186893 by DamienMcKenna: Document how to update from Metatag Access to Metatag
   Extended Perms.
 #3187583 by jrb: Syntax error when running PHP 7.0.
