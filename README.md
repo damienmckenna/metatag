@@ -344,19 +344,30 @@ functionality:
 
 ## Known issues
 
-* In order to uninstall the module any "Metatag" fields must first be removed
-  from all entities. In order to see whether there are fields blocking the
-  module from being uninstalled, load the module uninstall page
-  (admin/modules/uninstall) and see if any are listed, it will look something
-  like the following:
+### Uninstalling Metatag
 
-    `The Meta tags field type is used in the following field:
-    node.field_meta_tags`
+In order to uninstall the module any "Metatag" fields must first be removed
+from all entities. In order to see whether there are fields blocking the
+module from being uninstalled, load the module uninstall page
+(admin/modules/uninstall) and see if any are listed, it will look something
+like the following:
 
-  In order to uninstall the module, go to the appropriate field settings pages
-  and remove the Metatag field listed in the message. Once this is done it will
-  be possible to uninstall the module.
+`The Meta tags field type is used in the following field:
+node.field_meta_tags`
 
+In order to uninstall the module, go to the appropriate field settings pages
+and remove the Metatag field listed in the message. Once this is done it will
+be possible to uninstall the module.
+
+### Meta tags are not displayed
+
+In order for the meta tags to be displayed on the page the html.html.twig file
+must output the main `{{ page }}` element. If the meta tags are not visible on
+the page check, to see if the html.html.twig instead contains this:
+
+`{{ page.content }}`
+
+To fix this, simply change that line back to `{{ page }}` and it should work.
 
 ## Credits / contact
 

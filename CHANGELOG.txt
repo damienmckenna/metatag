@@ -1,6 +1,8 @@
 Metatag 8.x-1.x-dev, xxxx-xx-xx
 -------------------------------
 #3210890 by DamienMcKenna: Convert the README.txt to a markdown file.
+#3210433 by DamienMcKenna, byybora: Documented a solution for when the meta tags
+  are not output.
 
 
 Metatag 8.x-1.16, 2021-03-15
