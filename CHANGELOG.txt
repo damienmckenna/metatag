@@ -3,6 +3,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3210890 by DamienMcKenna: Convert the README.txt to a markdown file.
 #3210433 by DamienMcKenna, byybora: Documented a solution for when the meta tags
   are not output.
+#2952229 by Charlie ChX Negyesi, DamienMcKenna, joseph.olstad, solide-echt:
+  Allow Views meta tags to "Use replacement tokens from the first row".
 
 
 Metatag 8.x-1.16, 2021-03-15
