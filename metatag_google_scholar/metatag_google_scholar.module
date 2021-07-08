@@ -1,0 +1,59 @@
+<?php
+
+/**
+ * @file
+ * Primary hook implementations for Metatag: Google Scholar.
+ */
+
+/**
+ * Implements hook_ctools_plugin_api().
+ */
+function metatag_google_scholar_ctools_plugin_api($owner, $api) {
+  if ($owner == 'metatag' && $api == 'metatag') {
+    return array('version' => 1);
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function metatag_google_scholar_theme() {
+  $info['metatag_google_scholar'] = array(
+    'render element' => 'element',
+  );
+
+  return $info;
+}
+
+/**
+ * Theme callback for an Google+ meta tag.
+ *
+ * The format is:
+ * <meta itemprop="[itemprop]" content="[value]" />
+ */
+function theme_metatag_google_scholar($variables) {
+  $element = &$variables['element'];
+
+  // The format is e.g. 'itemprop:name'. Remove 'itemprop:' and store the rest
+  // in '#itemprop'.
+  $element['#itemprop'] = substr($element['#name'], 9);
+  $args = array(
+    '#itemprop' => 'name',
+    '#value' => 'content',
+  );
+  element_set_attributes($element, $args);
+  unset($element['#value']);
+
+  return theme('html_tag', $variables);
+}
+
+/**
+ * Implements hook_preprocess_html().
+ *
+ */
+function metatag_google_scholar_preprocess_html(&$variables) {
+  if (!isset($variables['schemaorg'])) {
+    $variables['schemaorg'] = '';
+  }
+
+}
