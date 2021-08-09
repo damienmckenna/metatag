@@ -5,6 +5,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   are not output.
 #2952229 by Charlie ChX Negyesi, DamienMcKenna, joseph.olstad, solide-echt:
   Allow Views meta tags to "Use replacement tokens from the first row".
+#3223680 by DamienMcKenna, Eugene Bocharov: Test errors 8.x-1.x branch with
+  Drupal 9.2.
 
 
 Metatag 8.x-1.16, 2021-03-15

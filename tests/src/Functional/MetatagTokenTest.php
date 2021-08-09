@@ -46,6 +46,11 @@ class MetatagTokenTest extends BrowserTestBase {
 
     $this->drupalLogin($this->rootUser);
     $this->fieldUIAddNewField('/admin/config/people/accounts', 'metatags', 'Metatags', 'metatag');
+
+    // This extra step is necessary due to changes in core that removed a cache
+    // invalidation step.
+    // @see https://www.drupal.org/project/drupal/issues/2189411
+    $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();
   }
 
   /**
