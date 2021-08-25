@@ -147,9 +147,11 @@ class MetatagEntitiesTest extends MigrateDrupal7TestBase {
     $user = User::load(2);
     $this->assertInstanceOf(UserInterface::class, $user);
     $this->assertTrue($user->hasField('field_metatag'));
+    // This should have the Utf8 converted description value.
     $expected = [
       'keywords' => 'a user',
       'canonical_url' => 'the-user',
+      'description' => 'Drupal™ user',
     ];
     $this->assertSame(serialize($expected), $user->field_metatag->value);
 

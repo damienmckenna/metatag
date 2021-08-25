@@ -10,6 +10,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3219963 by AndyThornton, DamienMcKenna: _metatag_is_entity_route_entity static
   cache problematic.
 #3227367 by DamienMcKenna: Replace uses of static with drupal_static().
+#3228362 by narendraR, DamienMcKenna: SQL error when migrating non-UTF8 meta
+  tags.
 
 
 Metatag 8.x-1.16, 2021-03-15

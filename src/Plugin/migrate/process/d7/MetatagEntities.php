@@ -2,6 +2,7 @@
 
 namespace Drupal\metatag\Plugin\migrate\process\d7;
 
+use Drupal\Component\Utility\Unicode;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
@@ -65,6 +66,9 @@ class MetatagEntities extends ProcessPluginBase {
       }
       else {
         $metatag_value = $metatag_value['value'];
+      }
+      if (!Unicode::validateUtf8($metatag_value)) {
+        $metatag_value = Unicode::convertToUtf8($metatag_value, 'Windows-1252');
       }
 
       // Keep the entire data structure.
