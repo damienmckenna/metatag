@@ -9,6 +9,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   Drupal 9.2.
 #3219963 by AndyThornton, DamienMcKenna: _metatag_is_entity_route_entity static
   cache problematic.
+#3227367 by DamienMcKenna: Replace uses of static with drupal_static().
 
 
 Metatag 8.x-1.16, 2021-03-15
