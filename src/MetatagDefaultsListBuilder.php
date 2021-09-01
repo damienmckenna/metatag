@@ -129,7 +129,7 @@ class MetatagDefaultsListBuilder extends ConfigEntityListBuilder {
       $output .= '</tbody></table>';
     }
 
-    $output .= '</div></div>';
+    $output .= '</div>';
 
     return [
       'data' => [

@@ -12,6 +12,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3227367 by DamienMcKenna: Replace uses of static with drupal_static().
 #3228362 by narendraR, DamienMcKenna: SQL error when migrating non-UTF8 meta
   tags.
+#3230747 by segovia94, DamienMcKenna: Defaults UI page has malformed HTML
+  markup.
 
 
 Metatag 8.x-1.16, 2021-03-15
