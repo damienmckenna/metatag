@@ -14,6 +14,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   tags.
 #3230747 by segovia94, DamienMcKenna: Defaults UI page has malformed HTML
   markup.
+#3231725 by DamienMcKenna: Replace t() calls with (string) new
+  TranslatableMarkup().
 
 
 Metatag 8.x-1.16, 2021-03-15

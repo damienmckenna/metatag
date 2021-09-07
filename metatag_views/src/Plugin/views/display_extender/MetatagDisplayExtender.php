@@ -8,6 +8,7 @@ use Drupal\views\Plugin\views\style\StylePluginBase;
 use Drupal\views\ViewExecutable;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 /**
  * Metatag display extender plugin.
@@ -124,8 +125,8 @@ class MetatagDisplayExtender extends DisplayExtenderPluginBase {
 
     // Get a list of the available fields and arguments for token replacement.
     $options = [];
-    $optgroup_arguments = (string) t('Arguments');
-    $optgroup_fields = (string) t('Fields');
+    $optgroup_arguments = (string) new TranslatableMarkup('Arguments');
+    $optgroup_fields = (string) new TranslatableMarkup('Fields');
     foreach ($this->view->display_handler->getHandlers('field') as $field => $handler) {
       $options[$optgroup_fields]["{{ $field }}"] = $handler->adminLabel();
     }

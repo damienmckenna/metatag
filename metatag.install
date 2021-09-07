@@ -5,6 +5,8 @@
  * Requirements and update functions for the Metatag module.
  */
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+
 /**
  * Implements hook_requirements().
  */
@@ -18,8 +20,8 @@ function metatag_requirements($phase) {
       $requirements['metatag_maintenance_mode'] = [
         'severity' => REQUIREMENT_WARNING,
         'title' => 'Metatag',
-        'value' => t('Not enabled while in maintenance mode'),
-        'description' => t('Please note that while the site is in maintenance mode none of the usual meta tags will be output.'),
+        'value' => new TranslatableMarkup('Not enabled while in maintenance mode'),
+        'description' => new TranslatableMarkup('Please note that while the site is in maintenance mode none of the usual meta tags will be output.'),
       ];
     }
 
@@ -28,8 +30,8 @@ function metatag_requirements($phase) {
       $requirements['metatag_schema'] = [
         'severity' => REQUIREMENT_INFO,
         'title' => 'Metatag',
-        'value' => t('Schema.org Metatag is recommended'),
-        'description' => t('The <a href="@module">Schema.org Metatag</a> module is highly recommended to add <a href="@jsonld">JSON-LD</a> -formatted <a href="@schema">schema.org</a> compatible data structures to the site.', [
+        'value' => new TranslatableMarkup('Schema.org Metatag is recommended'),
+        'description' => new TranslatableMarkup('The <a href="@module">Schema.org Metatag</a> module is highly recommended to add <a href="@jsonld">JSON-LD</a> -formatted <a href="@schema">schema.org</a> compatible data structures to the site.', [
           '@module' => 'https://www.drupal.org/project/schema_metatag',
           '@jsonld' => 'https://json-ld.org',
           '@schema' => 'https://schema.org',
@@ -40,8 +42,8 @@ function metatag_requirements($phase) {
       $requirements['metatag_schema'] = [
         'severity' => REQUIREMENT_OK,
         'title' => 'Metatag',
-        'value' => t('Schema.org Metatag is installed'),
-        'description' => t('The <a href="@module">Schema.org Metatag</a> module is installed.', [
+        'value' => new TranslatableMarkup('Schema.org Metatag is installed'),
+        'description' => new TranslatableMarkup('The <a href="@module">Schema.org Metatag</a> module is installed.', [
           '@module' => 'https://www.drupal.org/project/schema_metatag',
         ]),
       ];
@@ -63,12 +65,12 @@ function metatag_update_last_removed() {
  */
 function metatag_update_8107() {
   \Drupal::service('module_installer')->install(['metatag_open_graph']);
-  return (string) t("The new Metatag: Open Graph module has been enabled.");
+  return (string) new TranslatableMarkup("The new Metatag: Open Graph module has been enabled.");
 }
 
 /**
  * Need to clear caches after updating from 8.x-1.12.
  */
 function metatag_update_8108() {
-  return (string) t("The sites's caches will need to be rebuild to ensure Metatag works as intended.");
+  return (string) new TranslatableMarkup("The sites's caches will need to be rebuild to ensure Metatag works as intended.");
 }
