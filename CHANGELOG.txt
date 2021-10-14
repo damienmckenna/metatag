@@ -20,6 +20,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   links with different purposes.
 #3204262 by jplanginier, DamienMcKenna: PHP version declared in composer.json
   isn't valid regarding current code.
+#3170178 by geekygnr, dionsj, DamienMcKenna: Allow widget to use regular
+  container instead of details.
 
 
 Metatag 8.x-1.16, 2021-03-15
