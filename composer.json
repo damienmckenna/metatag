@@ -22,6 +22,7 @@
     "docs": "https://www.drupal.org/docs/8/modules/metatag"
   },
   "require": {
+    "php": ">=7.0",
     "drupal/core": "^8 || ^9",
     "drupal/token": "^1.0"
   },

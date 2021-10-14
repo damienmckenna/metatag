@@ -18,6 +18,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   TranslatableMarkup().
 #3158395 by Kasey_MK, geekygnr, DamienMcKenna, mherchel: Avoid similar-sounding
   links with different purposes.
+#3204262 by jplanginier, DamienMcKenna: PHP version declared in composer.json
+  isn't valid regarding current code.
 
 
 Metatag 8.x-1.16, 2021-03-15
