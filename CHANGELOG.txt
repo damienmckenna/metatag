@@ -16,6 +16,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   markup.
 #3231725 by DamienMcKenna: Replace t() calls with (string) new
   TranslatableMarkup().
+#3158395 by Kasey_MK, geekygnr, DamienMcKenna, mherchel: Avoid similar-sounding
+  links with different purposes.
 
 
 Metatag 8.x-1.16, 2021-03-15
