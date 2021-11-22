@@ -41,7 +41,7 @@ class MetatagPanelizerTest extends BrowserTestBase {
    * Create an entity, view its JSON output, confirm Metatag data exists.
    */
   public function testPanelizerMetatagPreRender() {
-    /* @var\Drupal\node\NodeInterface $node */
+    /** @var \Drupal\node\NodeInterface $node */
     $title = 'Panelizer Metatag Test Title';
     $body = 'Testing JSON output for a content type';
     $node = $this->createContentTypeNode($title, $body);

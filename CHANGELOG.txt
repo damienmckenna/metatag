@@ -28,6 +28,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   bundle defaults.
 #3189429 by Eugene Bocharov, bwaindwain, nJim, DamienMcKenna: "title" token
   doesn't work as expected.
+#3244106 by Nikhilesh Gupta, nJim, DamienMcKenna: New coding standards: Inline
+  @var declarations should use the /** */ delimiters.
 
 
 Metatag 8.x-1.16, 2021-03-15

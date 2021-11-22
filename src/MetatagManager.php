@@ -115,7 +115,7 @@ class MetatagManager implements MetatagManagerInterface {
 
     $fields = $this->getFields($entity);
 
-    /* @var \Drupal\field\Entity\FieldConfig $field_info */
+    /** @var \Drupal\field\Entity\FieldConfig $field_info */
     foreach ($fields as $field_name => $field_info) {
       // Get the tags from this field.
       $tags = $this->getFieldTags($entity, $field_name);

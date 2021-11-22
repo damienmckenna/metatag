@@ -142,7 +142,7 @@ function metatag_tokens($type, $tokens, array $data, array $options, BubbleableM
 
     case 'entity':
       if (!empty($data['entity_type']) && !empty($data['entity']) && !empty($data['token_type'])) {
-        /* @var \Drupal\Core\Entity\ContentEntityInterface $entity */
+        /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
         $entity = $data['entity'];
         if (!($entity instanceof ContentEntityInterface)) {
           return $replacements;
