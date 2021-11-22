@@ -24,6 +24,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   container instead of details.
 #3243815 by DamienMcKenna, jastraat: 401 error on Web Manifest.
 #3248439 by lamp5, DamienMcKenna: Schema for icon mask is missing.
+#3248361 by COBadger, DamienMcKenna: Correct README.md instruction on adding
+  bundle defaults.
 
 
 Metatag 8.x-1.16, 2021-03-15

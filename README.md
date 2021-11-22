@@ -99,8 +99,8 @@ The primary features include:
 3. Adjust global and entity defaults. Fill in reasonable default values for any
    of the meta tags that need to be customized. Tokens may be used to
    automatically assign values.
-4. Additional bundle defaults may be added by clicking on "Add metatag
-   defaults" and filling out the form.
+4. Additional bundle defaults may be added by clicking on "Add default meta
+   tags" and filling out the form.
 5. To adjust meta tags for a specific entity, the Metatag field must be added
    first. Follow these steps:
 
