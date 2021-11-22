@@ -115,4 +115,23 @@ class MetatagTokenTest extends BrowserTestBase {
     $this->assertPageTokens($user->toUrl(), $tokens, ['user' => $user]);
   }
 
+  /**
+   * Test precedence overridden tags over defaults in tokens.
+   */
+  public function testTokenOverriddenMetatagPrecedence() {
+    $user = $this->createUser();
+    $this->drupalGet($user->toUrl('edit-form'));
+    $this->submitForm([
+      'field_metatags[0][basic][title]' => 'My Title',
+      'field_metatags[0][basic][description]' => 'My Description',
+    ], 'Save');
+
+    $tokens = [
+      '[current-page:metatag:title]' => 'My Title',
+      '[current-page:metatag:description]' => 'My Description',
+    ];
+
+    $this->assertPageTokens($user->toUrl(), $tokens, ['user' => $user]);
+  }
+
 }

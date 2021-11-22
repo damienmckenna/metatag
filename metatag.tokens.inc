@@ -173,7 +173,7 @@ function metatag_tokens($type, $tokens, array $data, array $options, BubbleableM
       $metatag_manager = \Drupal::service('metatag.manager');
 
       $entity = $options['entity'] ?? metatag_get_route_entity();
-      $tags = metatag_get_default_tags($entity);
+      $tags = [];
       if ($entity instanceof ContentEntityInterface) {
         // If content entity does not have an ID the page is likely an "Add"
         // page, so skip processing for entity which has not been created yet.
@@ -181,8 +181,9 @@ function metatag_tokens($type, $tokens, array $data, array $options, BubbleableM
           return NULL;
         }
 
-        $tags += $metatag_manager->tagsFromEntity($entity);
+        $tags = $metatag_manager->tagsFromEntity($entity);
       }
+      $tags += metatag_get_default_tags($entity);
 
       // Trigger hook_metatags_alter().
       // Allow modules to override tags or the entity used for token

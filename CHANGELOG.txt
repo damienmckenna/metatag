@@ -26,6 +26,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3248439 by lamp5, DamienMcKenna: Schema for icon mask is missing.
 #3248361 by COBadger, DamienMcKenna: Correct README.md instruction on adding
   bundle defaults.
+#3189429 by Eugene Bocharov, bwaindwain, nJim, DamienMcKenna: "title" token
+  doesn't work as expected.
 
 
 Metatag 8.x-1.16, 2021-03-15
