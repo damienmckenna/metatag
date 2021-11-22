@@ -5,7 +5,7 @@
 metatag.metatag_tag.shortcut_icon:
   type: label
   label: 'Default shortcut icon'
-metatag.metatag_tag.mask_ico:
+metatag.metatag_tag.mask-icon:
   type: label
   label: 'Icon: SVG'
 metatag.metatag_tag.icon_16x16:
