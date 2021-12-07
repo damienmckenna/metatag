@@ -78,9 +78,6 @@ class MetatagEntitiesTest extends MigrateDrupal7TestBase {
    * {@inheritdoc}
    */
   protected function setUp() {
-    if (version_compare(\Drupal::VERSION, '8.9', '<')) {
-      $this->markTestSkipped('This test requires at least Drupal 8.9');
-    }
     parent::setUp();
     $this->loadFixture(__DIR__ . '/../../../../fixtures/d7_metatag.php');
 

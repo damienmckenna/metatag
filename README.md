@@ -11,12 +11,12 @@ networks.
 
 For additional information, see the [online documentation](https://www.drupal.org/docs/8/modules/metatag).
 
-This version should work with Drupal 8.8, 8.9, 9.0 and 9.1 releases, though it
+This version should work with all Drupal 9 releases, though it
 is always recommended to keep Drupal core installations up to date.
 
 ## Requirements
 
-Metatag for Drupal 8 and 9 requires the following:
+Metatag for Drupal 9 requires the following:
 
 * [Token](https://www.drupal.org/project/token): Provides a popup browser to
   see the available tokens for use in meta tag fields.
@@ -228,7 +228,7 @@ This will return an array with the following structure:
       '#tag' => 'meta',
       '#attributes' => [
         'name' => 'generator',
-        'content' => 'Drupal 8!',
+        'content' => 'Drupal 9!',
       ],
     ],
   ]

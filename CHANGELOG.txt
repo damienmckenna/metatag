@@ -30,6 +30,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   doesn't work as expected.
 #3244106 by Nikhilesh Gupta, nJim, DamienMcKenna: New coding standards: Inline
   @var declarations should use the /** */ delimiters.
+#3252359 by murilohp, DamienMcKenna: Remove workarounds for Drupal 8, update
+  references to say "Drupal 9".
 
 
 Metatag 8.x-1.16, 2021-03-15

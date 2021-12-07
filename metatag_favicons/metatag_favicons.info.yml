@@ -1,7 +1,7 @@
 name: 'Metatag: Favicons'
 type: module
 description: Provides support for many different favicons.
-core_version_requirement: '^8.7.7 || ^9'
+core_version_requirement: '^9'
 package: SEO
 dependencies:
   - metatag:metatag

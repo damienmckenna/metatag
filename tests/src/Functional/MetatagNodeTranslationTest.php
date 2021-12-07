@@ -85,14 +85,7 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
    * Tests the metatag value translations.
    */
   public function testMetatagValueTranslation() {
-    if (floatval(\Drupal::VERSION) <= 8.3) {
-      $save_label = $this->t('Save and publish');
-      $save_label_i18n = $this->t('Save and keep published (this translation)');
-    }
-    else {
-      $save_label = $this->t('Save');
-      $save_label_i18n = $this->t('Save (this translation)');
-    }
+    $save_label_i18n = 'Save (this translation)';
 
     // Set up a content type.
     $name = $this->randomMachineName() . ' ' . $this->randomMachineName();
@@ -147,7 +140,7 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
       'title[0][value]' => 'Node Français',
       'body[0][value]' => 'French summary.',
     ];
-    $this->drupalPostForm(NULL, $edit, $save_label);
+    $this->drupalPostForm(NULL, $edit, 'Save');
     $session->statusCodeEquals(200);
 
     $xpath = $this->xpath("//meta[@name='description']");
