@@ -43,6 +43,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #2914998 by JeroenT, DamienMcKenna, gngn, ytsurk: Add the mask icon "color"
   attribute.
 #3205932 by dalin, DamienMcKenna: Add noindex to "403 access denied" defaults.
+#3229004 by larisse, Rar9, DamienMcKenna: Undefined index: hreflang in
+  metatag_hreflang_page_attachments_alter().
 
 
 Metatag 8.x-1.16, 2021-03-15
