@@ -36,6 +36,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   metatag_extended_perms.info.yml.
 #3240989 by anagomes, DamienMcKenna, Berdir: Not marking service definitions as
   public is deprecated.
+#2958193 by Grevil, Anybody, DamienMcKenna, nikhileshpaul: Automatically trim
+  meta tag lengths.
 
 
 Metatag 8.x-1.16, 2021-03-15

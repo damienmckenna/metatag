@@ -82,6 +82,13 @@ abstract class MetaNameBase extends PluginBase {
   protected $long;
 
   /**
+   * True if the tag should be trimmable.
+   *
+   * @var bool
+   */
+  protected $trimmable;
+
+  /**
    * True if the URL value(s) must be absolute.
    *
    * @var bool
@@ -126,6 +133,7 @@ abstract class MetaNameBase extends PluginBase {
     $this->type = $plugin_definition['type'];
     $this->secure = $plugin_definition['secure'];
     $this->multiple = $plugin_definition['multiple'];
+    $this->trimmable = !empty($plugin_definition['trimmable']);
     $this->long = !empty($plugin_definition['long']);
     $this->absoluteUrl = !empty($plugin_definition['absolute_url']);
     $this->request = \Drupal::request();
@@ -366,6 +374,8 @@ abstract class MetaNameBase extends PluginBase {
         $value = str_replace('http://', 'https://', $value);
       }
 
+      $value = $this->trimValue($value);
+
       $elements[] = [
         '#tag' => 'meta',
         '#attributes' => [
@@ -435,6 +445,37 @@ abstract class MetaNameBase extends PluginBase {
     // Convert the array back into a comma-delimited string before sending it
     // back.
     return implode(',', $values);
+  }
+
+  /**
+   * Trims a value if it is trimmable.
+   *
+   * This method uses metatag settings and the MetatagTrimmer service.
+   *
+   * @param string $value
+   *   The string value to trim.
+   *
+   * @return string
+   *   The trimmed string value.
+   */
+  protected function trimValue($value) {
+    if (TRUE === $this->trimmable) {
+      $settings = \Drupal::config('metatag.settings');
+      $trimMethod = $settings->get('tag_trim_method');
+      $trimMaxlengthArray = $settings->get('tag_trim_maxlength');
+      if (empty($trimMethod) || empty($trimMaxlengthArray)) {
+        return $value;
+      }
+      $currentMaxValue = 0;
+      foreach ($trimMaxlengthArray as $metaTagName => $maxValue) {
+        if ($metaTagName == 'metatag_maxlength_' . $this->name) {
+          $currentMaxValue = $maxValue;
+        }
+      }
+      $trimmerService = \Drupal::service('metatag.trimmer');
+      $value = $trimmerService->trimByMethod($value, $currentMaxValue, $trimMethod);
+    }
+    return $value;
   }
 
 }

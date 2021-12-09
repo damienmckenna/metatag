@@ -507,4 +507,39 @@ class MetatagAdminTest extends BrowserTestBase {
     $session->linkByHrefExists('/admin/config/search/metatag/user');
   }
 
+  /**
+   * Tests for the trim config.
+   */
+  public function testTrimSettings() {
+    $this->loginUser1();
+    $this->drupalGet('/admin/config/search/metatag/settings');
+    $session = $this->assertSession();
+    $page = $this->getSession()->getPage();
+    $session->statusCodeEquals(200);
+    // Test if option for a metatag that shouldn't be trimmable exists:
+    $session->pageTextNotContains('Meta Tags: robots length');
+    // Test if option for a trimmable metatag exists:
+    $session->pageTextContains('Meta Tags: description length');
+    // Test if the the title,abstract and description header gets trimmed:
+    // Change description abstract and title on the front page:
+    $this->drupalGet('/admin/config/search/metatag/front');
+    $page->fillField('edit-title', 'my wonderful drupal test site');
+    $page->fillField('edit-description', '[site:name] [site:slogan] [random:number]');
+    $page->fillField('edit-abstract', 'my wonderful drupal test site abstract');
+    $page->pressButton('edit-submit');
+    // Set the new trim settings:
+    $this->drupalGet('/admin/config/search/metatag/settings');
+    $page->fillField('edit-tag-trim-maxlength-metatag-maxlength-description', '5');
+    $page->fillField('edit-tag-trim-maxlength-metatag-maxlength-title', '5');
+    $page->fillField('edit-tag-trim-maxlength-metatag-maxlength-abstract', '5');
+    $page->fillField('edit-tag-trim-tag-trim-method', 'afterValue');
+    $page->pressButton('edit-submit');
+    // See if on the front page the metatags are correctly trimmed:
+    $this->drupalGet('');
+    $session->statusCodeEquals(200);
+    $session->titleEquals('my wonderful');
+    $session->elementAttributeContains('css', 'meta[name=description]', 'content', 'Drupal');
+    $session->elementAttributeContains('css', 'meta[name=abstract]', 'content', 'my wonderful');
+  }
+
 }
