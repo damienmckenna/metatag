@@ -42,6 +42,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   sources.
 #2914998 by JeroenT, DamienMcKenna, gngn, ytsurk: Add the mask icon "color"
   attribute.
+#3205932 by dalin, DamienMcKenna: Add noindex to "403 access denied" defaults.
 
 
 Metatag 8.x-1.16, 2021-03-15
