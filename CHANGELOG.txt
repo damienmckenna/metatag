@@ -45,6 +45,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3205932 by dalin, DamienMcKenna: Add noindex to "403 access denied" defaults.
 #3229004 by larisse, Rar9, DamienMcKenna: Undefined index: hreflang in
   metatag_hreflang_page_attachments_alter().
+#3190804 by DamienMcKenna, Wim Leers: Allow source counts to be cached:
+  implement ::doCount() instead of ::count().
 
 
 Metatag 8.x-1.16, 2021-03-15
