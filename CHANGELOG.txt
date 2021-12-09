@@ -32,6 +32,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   @var declarations should use the /** */ delimiters.
 #3252359 by murilohp, DamienMcKenna: Remove workarounds for Drupal 8, update
   references to say "Drupal 9".
+#3252354 by tijsdeboeck, DamienMcKenna: Fix small typo in
+  metatag_extended_perms.info.yml.
 
 
 Metatag 8.x-1.16, 2021-03-15
