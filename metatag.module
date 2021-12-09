@@ -703,16 +703,21 @@ function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, M
   }
 
   // Work out what sort of migration to do. Cache the results of this logic so
-  // that it isn't checked on every single row being processed.
-  $metatag_table_exists = &drupal_static('metatag_migrate_prepare_row_metatag_table_exists');
-  $nodewords_table_exists = &drupal_static('metatag_migrate_prepare_row_nodewords_table_exists');
-  if (!isset($metatag_table_exists)) {
-    $metatag_table_exists = $source->getDatabase()->schema()->tableExists('metatag');
-    $nodewords_table_exists = $source->getDatabase()->schema()->tableExists('nodewords');
+  // that it isn't checked on every single row being processed. Store this as
+  // separate keys to work with situations where the source changes during the
+  // migration.
+  $metatag_table_exists = &drupal_static('metatag_migrate_prepare_row_metatag_table_exists', []);
+  $nodewords_table_exists = &drupal_static('metatag_migrate_prepare_row_nodewords_table_exists', []);
+  $source_db_key = $source->getDatabase()->getKey();
+  if (!isset($metatag_table_exists[$source_db_key])) {
+    $metatag_table_exists[$source_db_key] = $source->getDatabase()->schema()->tableExists('metatag');
+  }
+  if (!isset($nodewords_table_exists[$source_db_key])) {
+    $nodewords_table_exists[$source_db_key] = $source->getDatabase()->schema()->tableExists('nodewords');
   }
 
   // The source is Metatag-D7.
-  if ($metatag_table_exists) {
+  if ($metatag_table_exists[$source_db_key]) {
     // @todo Write a more general version rather than hard-coded.
     // Support a know subset of D7 sources.
     if (is_a($source, Node7::class)) {
@@ -777,7 +782,7 @@ function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, M
   }
 
   // The source is Nodewords-D6.
-  elseif ($nodewords_table_exists) {
+  elseif ($nodewords_table_exists[$source_db_key]) {
     // @todo Write a more general version rather than hard-coded.
     // Support a know subset of D6 sources.
     if (is_a($source, Node6::class)) {

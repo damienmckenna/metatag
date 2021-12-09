@@ -38,6 +38,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   public is deprecated.
 #2958193 by Grevil, Anybody, DamienMcKenna, nikhileshpaul: Automatically trim
   meta tag lengths.
+#3247678 by esolitos, DamienMcKenna: Support migration with multiple "d7_*"
+  sources.
 
 
 Metatag 8.x-1.16, 2021-03-15
