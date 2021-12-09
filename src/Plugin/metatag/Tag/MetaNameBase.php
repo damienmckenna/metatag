@@ -330,7 +330,7 @@ abstract class MetaNameBase extends PluginBase {
    * @return string
    *   The meta tag value after processing.
    */
-  private function tidy($value) {
+  protected function tidy($value) {
     return trim($value);
   }
 
