@@ -34,6 +34,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   references to say "Drupal 9".
 #3252354 by tijsdeboeck, DamienMcKenna: Fix small typo in
   metatag_extended_perms.info.yml.
+#3240989 by anagomes, DamienMcKenna, Berdir: Not marking service definitions as
+  public is deprecated.
 
 
 Metatag 8.x-1.16, 2021-03-15
