@@ -49,6 +49,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   implement ::doCount() instead of ::count().
 #3252159 by DamienMcKenna, Eugene Bocharov: Fix tests compatibility with Drupal
   9.3.x.
+#3253736 by Dave Reid, zebda, DamienMcKenna: favicon meta tag was renamed in
+  Drupal 9.3.0.
 
 
 Metatag 8.x-1.16, 2021-03-15

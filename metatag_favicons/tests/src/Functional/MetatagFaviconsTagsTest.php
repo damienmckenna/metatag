@@ -223,7 +223,7 @@ class MetatagFaviconsTagsTest extends MetatagTagsTestBase {
    * Implements {tag_name}TestTagName for 'shortcut icon'.
    */
   protected function shortcutIconTestTagName() {
-    return 'shortcut icon';
+    return 'icon';
   }
 
   /**
