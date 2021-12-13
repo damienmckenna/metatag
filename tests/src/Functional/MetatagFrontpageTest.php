@@ -41,7 +41,7 @@ class MetatagFrontpageTest extends BrowserTestBase {
   /**
    * Setup basic environment.
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Login user 1.

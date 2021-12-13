@@ -46,7 +46,7 @@ class MetatagViewsBasicsTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Enable the Bartik theme and make it the default.

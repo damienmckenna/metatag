@@ -56,7 +56,7 @@ class MetatagNodeTranslationTest extends BrowserTestBase {
   /**
    * Setup basic environment.
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     $admin_permissions = [

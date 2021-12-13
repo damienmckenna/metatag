@@ -47,6 +47,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   metatag_hreflang_page_attachments_alter().
 #3190804 by DamienMcKenna, Wim Leers: Allow source counts to be cached:
   implement ::doCount() instead of ::count().
+#3252159 by DamienMcKenna, Eugene Bocharov: Fix tests compatibility with Drupal
+  9.3.x.
 
 
 Metatag 8.x-1.16, 2021-03-15

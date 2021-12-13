@@ -131,7 +131,7 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
 
     // Any additional configuration that's neede for this entity type.

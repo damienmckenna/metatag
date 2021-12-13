@@ -30,6 +30,7 @@
     "drupal/devel": "^4.0",
     "drupal/redirect": "1.x-dev",
     "drupal/page_manager": "4.x-dev",
-    "drupal/panelizer": "4.x-dev"
+    "drupal/panelizer": "4.x-dev",
+    "mpyw/phpunit-patch-serializable-comparison": "*"
   }
 }

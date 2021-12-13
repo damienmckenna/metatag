@@ -22,12 +22,13 @@ class MetatagEntitiesTest extends MigrateDrupal7TestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // Core modules.
     // @see testAvailableConfigEntities
     'comment',
     'content_translation',
     'datetime',
+    'datetime_range',
     'filter',
     'image',
     'language',
@@ -77,7 +78,7 @@ class MetatagEntitiesTest extends MigrateDrupal7TestBase {
   /**
    * {@inheritdoc}
    */
-  protected function setUp() {
+  protected function setUp(): void {
     parent::setUp();
     $this->loadFixture(__DIR__ . '/../../../../fixtures/d7_metatag.php');
 
