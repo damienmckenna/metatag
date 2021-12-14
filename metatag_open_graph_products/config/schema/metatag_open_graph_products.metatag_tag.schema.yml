@@ -4,3 +4,6 @@ metatag.metatag_tag.product_price_amount:
 metatag.metatag_tag.product_price_currency:
   type: label
   label: 'Open Graph Product: Price currency'
+metatag.metatag_tag.product_retailer_item_id:
+  type: label
+  label: 'Open Graph Product: Retailer Item ID'

@@ -22,6 +22,7 @@ class MetatagOpenGraphProductsTagsTest extends MetatagTagsTestBase {
   protected $tags = [
     'product_price_amount',
     'product_price_currency',
+    'product_retailer_item_id',
   ];
 
   /**
@@ -38,8 +39,11 @@ class MetatagOpenGraphProductsTagsTest extends MetatagTagsTestBase {
    * Each of these meta tags has a different tag name vs its internal name.
    */
   protected function getTestTagName($tag_name) {
-    // Replace the underlines with a colon.
-    $tag_name = str_replace('_', ':', $tag_name);
+    // Replace the first underline with a colon.
+    $tag_name = str_replace('product_', 'product:', $tag_name);
+
+    // Additional meta tags.
+    $tag_name = str_replace('price_', 'price:', $tag_name);
 
     return $tag_name;
   }

@@ -51,6 +51,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   9.3.x.
 #3253736 by Dave Reid, zebda, DamienMcKenna: favicon meta tag was renamed in
   Drupal 9.3.0.
+#3223289 by DamienMcKenna, introfini: Added product:retailer_item_id.
 
 
 Metatag 8.x-1.16, 2021-03-15
