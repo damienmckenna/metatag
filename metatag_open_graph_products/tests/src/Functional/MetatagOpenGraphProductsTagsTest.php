@@ -20,6 +20,8 @@ class MetatagOpenGraphProductsTagsTest extends MetatagTagsTestBase {
    * {@inheritdoc}
    */
   protected $tags = [
+    'product_availability',
+    'product_condition',
     'product_price_amount',
     'product_price_currency',
     'product_retailer_item_id',
