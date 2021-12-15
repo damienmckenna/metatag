@@ -54,6 +54,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
 #3223289 by DamienMcKenna, introfini: Added product:retailer_item_id.
 #3230393 by introfini, DamienMcKenna: Added product:availability and
   product:condition.
+#3209938 by Sutharsan, murilohp, DamienMcKenna: Edit form title does not contain
+  path.
 
 
 Metatag 8.x-1.16, 2021-03-15
