@@ -60,6 +60,9 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   output.
 #3254423 by andregp, DamienMcKenna: Replace deprecated APIs in tests.
 #3254597 by DamienMcKenna: Remove Console integration.
+#2761909 by roshkovanv, andrewsuth, greenSkin, plach, Boobaa, DamienMcKenna,
+  lmeurs, seancasey: og:image does not parse url from image field properly when
+  there is a comma in the alt field.
 
 
 Metatag 8.x-1.16, 2021-03-15

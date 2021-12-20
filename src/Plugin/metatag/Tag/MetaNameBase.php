@@ -419,13 +419,21 @@ abstract class MetaNameBase extends PluginBase {
 
     // If image tag src is relative (starts with /), convert to an absolute
     // link; ignore protocol-relative URLs.
+    $image_tag = FALSE;
     if (strpos($value, '<img src="/') !== FALSE && strpos($value, '<img src="//') === FALSE) {
       $value = str_replace('<img src="/', '<img src="' . $base_root . '/', $value);
+      $image_tag = TRUE;
     }
 
     if ($this->multiple()) {
       // Split the string into an array, remove empty items.
-      $values = array_filter(explode(',', $value));
+      if ($image_tag) {
+        preg_match_all('%\s*(|,\s*)(<\s*img\s+[^>]+>)%m', $value, $matches);
+        $values = array_filter($matches[2] ?? []);
+      }
+      else {
+        $values = array_filter(explode(',', $value));
+      }
     }
     else {
       $values = [$value];
