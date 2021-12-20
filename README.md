@@ -84,9 +84,6 @@ The primary features include:
 * A plugin interface allowing for additional meta tags to be easily added via
   custom modules.
 
-* Integration with [DrupalConsole](https://www.drupal.org/project/console) to
-  provide a quick method of generating new meta tags.
-
 * A report page at /admin/reports/metatag-plugins which shows all of the meta
   tag plugins provided on the site, and indication as to which module provides
   them.
@@ -297,26 +294,6 @@ Two migration processes are supported:
   See also:
   * \Drupal\metatag\Plugin\migrate\process\d6\NodewordsEntities
   * \Drupal\metatag\Plugin\migrate\process\d7\MetatagEntities
-
-
-## DrupalConsole integration
-
-Using the DrupalConsole, it is possible to generate new meta tags, either for
-use in new custom modules that require custom meta tags, or to create patches
-for extending Metatag's options.
-
-To generate a new tag, install DrupalConsole and then use the following command:
-
-`drupal generate:plugin:metatag:tag`
-
-This will guide the site builder through the necessary steps to create a new
-meta tag plugin and add it to a module.
-
-There is also a command for generating meta tag groups:
-
-`drupal generate:plugin:metatag:group`
-
-Again, this provides a guided process to create a new group.
 
 
 ## Related modules
