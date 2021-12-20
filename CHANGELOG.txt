@@ -56,6 +56,8 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   product:condition.
 #3209938 by Sutharsan, murilohp, DamienMcKenna: Edit form title does not contain
   path.
+#3218647 by luisrhaas, DamienMcKenna, Anybody: Remove line breaks from meta tag
+  output.
 
 
 Metatag 8.x-1.16, 2021-03-15

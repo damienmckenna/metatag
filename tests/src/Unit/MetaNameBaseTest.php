@@ -11,6 +11,7 @@ use Drupal\Tests\UnitTestCase;
  * @group metatag
  */
 class MetaNameBaseTest extends UnitTestCase {
+
   /**
    * The MetaNameBase Mocked Object.
    *
@@ -46,18 +47,18 @@ class MetaNameBaseTest extends UnitTestCase {
     $filterResult2 = $method->invoke($this->metaNameBase, '  Test   123    Test');
     $this->assertEquals('Test 123 Test', $filterResult2);
     $filterResult3 = $method->invoke(
-          $this->metaNameBase,
-          "Test \n\n123\n  Test  \n  "
+        $this->metaNameBase,
+        "Test \n\n123\n  Test  \n  "
       );
     $this->assertEquals('Test 123 Test', $filterResult3);
     $filterResult4 = $method->invoke(
-          $this->metaNameBase,
-          "Test \r\n\r\n 123  \r\n "
+        $this->metaNameBase,
+        "Test \r\n\r\n 123  \r\n "
       );
     $this->assertEquals('Test 123', $filterResult4);
     $filterResult5 = $method->invoke(
-          $this->metaNameBase,
-          "Test \t\t123  \tTest"
+        $this->metaNameBase,
+        "Test \t\t123  \tTest"
       );
     $this->assertEquals('Test 123 Test', $filterResult5);
   }

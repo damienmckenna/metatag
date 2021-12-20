@@ -324,6 +324,10 @@ abstract class MetaNameBase extends PluginBase {
   /**
    * Make the string presentable.
    *
+   * This removes whitespace from either side of the string, and removes extra
+   * whitespace inside the string so that it only contains one single space,
+   * all line breaks and tabs are replaced by spaces.
+   *
    * @param string $value
    *   The raw string to process.
    *
