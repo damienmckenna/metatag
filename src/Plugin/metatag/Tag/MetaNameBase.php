@@ -331,6 +331,8 @@ abstract class MetaNameBase extends PluginBase {
    *   The meta tag value after processing.
    */
   protected function tidy($value) {
+    $value = str_replace(["\r\n", "\n", "\r", "\t"], ' ', $value);
+    $value = preg_replace('/\s+/', ' ', $value);
     return trim($value);
   }
 
