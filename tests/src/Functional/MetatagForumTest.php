@@ -78,7 +78,7 @@ class MetatagForumTest extends BrowserTestBase {
       'taxonomy_forums' => 1,
       'body[0][value]' => 'Just testing.',
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->submitForm($edit, 'Save');
     $session->statusCodeEquals(200);
     $session->pageTextContains('Forum topic Testing forums has been created.');
   }

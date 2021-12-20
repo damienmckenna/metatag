@@ -58,6 +58,7 @@ Metatag 8.x-1.x-dev, xxxx-xx-xx
   path.
 #3218647 by luisrhaas, DamienMcKenna, Anybody: Remove line breaks from meta tag
   output.
+#3254423 by andregp, DamienMcKenna: Replace deprecated APIs in tests.
 
 
 Metatag 8.x-1.16, 2021-03-15

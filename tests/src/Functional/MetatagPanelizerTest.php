@@ -53,8 +53,8 @@ class MetatagPanelizerTest extends BrowserTestBase {
     $this->drupalLogin($account);
 
     // Load the node's page.
-    $this->drupalPostForm(
-      'admin/structure/types/manage/metatag_test/display',
+    $this->drupalGet('admin/structure/types/manage/metatag_test/display');
+    $this->submitForm(
       ['panelizer[enable]' => TRUE],
       'Save'
     );

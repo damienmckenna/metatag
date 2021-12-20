@@ -111,8 +111,8 @@ class MetatagXssTest extends BrowserTestBase {
       'field_name' => 'metatag_field',
       'new_storage_type' => 'metatag',
     ];
-    $this->drupalPostForm(NULL, $edit, $this->t('Save and continue'));
-    $this->drupalPostForm(NULL, [], $this->t('Save field settings'));
+    $this->submitForm($edit, $this->t('Save and continue'));
+    $this->submitForm([], $this->t('Save field settings'));
   }
 
   /**
@@ -127,7 +127,7 @@ class MetatagXssTest extends BrowserTestBase {
       'abstract' => $this->xssString,
       'image_src' => $this->xssImageString,
     ];
-    $this->drupalPostForm(NULL, $values, 'Save');
+    $this->submitForm($values, 'Save');
     $session->pageTextContains('Saved the Global Metatag defaults.');
     $this->rebuildAll();
 
@@ -164,7 +164,7 @@ class MetatagXssTest extends BrowserTestBase {
       'field_metatag_field[0][basic][abstract]' => $this->xssString,
       'field_metatag_field[0][advanced][image_src]' => $this->xssImageString,
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->submitForm($edit, 'Save');
 
     // Check for the title tag, which will have the HTML tags removed and then
     // be lightly HTML encoded.
@@ -192,7 +192,7 @@ class MetatagXssTest extends BrowserTestBase {
       'title[0][value]' => $this->xssTitleString,
       'body[0][value]' => $this->randomString() . ' ' . $this->randomString(),
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->submitForm($edit, 'Save');
 
     // Check for the title tag, which will have the HTML tags removed and then
     // be lightly HTML encoded.
@@ -212,7 +212,7 @@ class MetatagXssTest extends BrowserTestBase {
       'title[0][value]' => $this->randomString(),
       'body[0][value]' => $this->xssTitleString,
     ];
-    $this->drupalPostForm(NULL, $edit, 'Save');
+    $this->submitForm($edit, 'Save');
 
     // Check the body text.
     // {@code}
