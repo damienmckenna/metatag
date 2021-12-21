@@ -108,8 +108,11 @@ function metatag_update_8109(&$sandbox) {
         $bundle = $field->getTargetBundle();
 
         // Determine the table and "value" field names.
-        $field_table = "node__" . $field_name;
-        $field_value_field = $field_name . "_value";
+        $table_mapping = Drupal::entityTypeManager()
+          ->getStorage($field->getTargetEntityTypeId())
+          ->getTableMapping();
+        $field_table = $table_mapping->getFieldTableName($field_name);
+        $field_value_field = $table_mapping->getFieldColumnName($field_storage, 'value');
 
         // Get all records where the field data does not match the default.
         $query = \Drupal::database()->select($field_table);

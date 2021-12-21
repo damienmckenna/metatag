@@ -1,5 +1,7 @@
 Metatag 8.x-1.x-dev, 2021-xx-xx
 -------------------------------
+#3255342 by Eugene Bocharov, trickfun, DamienMcKenna, paulocs: Table
+  'db.node__field_meta_tags' doesn't exist.
 
 
 Metatag 8.x-1.17, 2021-12-20
