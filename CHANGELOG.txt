@@ -2,6 +2,9 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 -------------------------------
 #3104170 by DamienMcKenna, tobiasb, marcoliver, hosterholz, Berdir: Do not send
   empty Metatag descriptions through translation.
+#3255547 by Eugene Bocharov, Thomas Kaisuka, Stephen Ollman, glynster, oxy86,
+  Matthijs, Mahmoud Barhouma, DamienMcKenna, wells: View preview broken after
+  Metatag upgrade.
 
 
 Metatag 8.x-1.18, 2021-12-21
