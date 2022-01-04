@@ -1,3 +1,7 @@
+Metatag 8.x-1.x-dev, 2022-xx-xx
+-------------------------------
+
+
 Metatag 8.x-1.18, 2021-12-21
 ----------------------------
 #3255342 by Eugene Bocharov, trickfun, DamienMcKenna, paulocs: Table
