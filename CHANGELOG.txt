@@ -7,6 +7,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   Metatag upgrade.
 #3255731 by acbramley, DamienMcKenna, tim.anderson: Undefined array key errors
   from metatag_update_8109.
+#3256373 by DamienMcKenna, Kulturmensch: WebManifest::output() doesn't verify
+  output is array before adding new element.
 
 
 Metatag 8.x-1.18, 2021-12-21
