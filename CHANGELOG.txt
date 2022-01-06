@@ -1,5 +1,5 @@
-Metatag 8.x-1.x-dev, 2022-xx-xx
--------------------------------
+Metatag 8.x-1.19, 2022-01-06
+----------------------------
 #3104170 by DamienMcKenna, tobiasb, marcoliver, hosterholz, Berdir: Do not send
   empty Metatag descriptions through translation.
 #3255547 by Eugene Bocharov, Thomas Kaisuka, Stephen Ollman, glynster, oxy86,
