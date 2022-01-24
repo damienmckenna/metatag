@@ -387,20 +387,6 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
   /**
    * {@inheritdoc}
    */
-  public function __sleep() {
-    return $this->plugin->__sleep();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __wakeup() {
-    $this->plugin->__wakeup();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setMessenger(MessengerInterface $messenger) {
     $this->plugin->setMessenger($messenger);
   }
