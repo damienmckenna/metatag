@@ -10,7 +10,7 @@ use Drupal\views\Views;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class MetatagViewsController.
+ * Controller for managing the Views integration.
  *
  * @package Drupal\metatag_views\Controller
  */

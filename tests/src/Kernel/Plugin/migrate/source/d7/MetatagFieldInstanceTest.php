@@ -36,6 +36,9 @@ class MetatagFieldInstanceTest extends MigrateSqlSourceTestBase {
     'metatag',
   ];
 
+  /**
+   * {@inheritdoc}
+   */
   public function setUp() {
     parent::setUp();
     $this->installEntitySchema('node');
@@ -54,8 +57,10 @@ class MetatagFieldInstanceTest extends MigrateSqlSourceTestBase {
       ]);
       $node_type->save();
     }
+    // @code
     //    ['taxonomy_term', ['test_vocabulary' => 'test_vocabulary']],
     //    Vocabulary::create(['name' => 'test_vocabulary']);
+    // @endcode
     // Setup vocabulary.
     Vocabulary::create([
       'vid' => 'test_vocabulary',

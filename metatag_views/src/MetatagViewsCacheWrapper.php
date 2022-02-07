@@ -295,8 +295,7 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
   /**
    * {@inheritdoc}
    */
-  public function getAvailableGlobalTokens($prepared = FALSE, array $types = [
-  ]) {
+  public function getAvailableGlobalTokens($prepared = FALSE, array $types = []) {
     return $this->plugin->getAvailableGlobalTokens($prepared, $types);
   }
 
@@ -398,13 +397,18 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
     $this->plugin->messenger();
   }
 
+  /**
+   *
+   */
   public function __get($name) {
     return $this->plugin->$name;
   }
 
+  /**
+   *
+   */
   public function __set($name, $value) {
     $this->plugin->$name = $value;
   }
-
 
 }

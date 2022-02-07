@@ -12,7 +12,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\views\ViewEntityInterface;
 
 /**
- * Class MetatagManager.
+ * Primary logic for the Metatag module..
  *
  * @package Drupal\metatag
  */
@@ -243,7 +243,10 @@ class MetatagManager implements MetatagManagerInterface {
       if (!isset($groups[$tag_group])) {
         // If the tag is claiming a group that has no matching plugin, log an
         // error and force it to the basic group.
-        $this->logger->error("Undefined group '%group' on tag '%tag'", ['%group' => $tag_group, '%tag' => $tag_name]);
+        $this->logger->error("Undefined group '%group' on tag '%tag'", [
+          '%group' => $tag_group,
+          '%tag' => $tag_name,
+        ]);
         $tag['group'] = 'basic';
         $tag_group = 'basic';
       }
@@ -380,7 +383,7 @@ class MetatagManager implements MetatagManagerInterface {
     $metatags = $this->getGlobalMetatags();
     // If that is empty something went wrong.
     if (!$metatags) {
-      return;
+      return [];
     }
 
     // Check if this is a special page.

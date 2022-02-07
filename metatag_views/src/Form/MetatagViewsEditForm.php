@@ -10,7 +10,7 @@ use Drupal\metatag_views\MetatagViewsValuesCleanerTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class MetatagViewsEditForm.
+ * The edit form for the Metatag field.
  *
  * @package Drupal\metatag_views\Form
  */

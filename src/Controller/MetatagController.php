@@ -61,7 +61,10 @@ class MetatagController extends ControllerBase {
   public function reportPlugins() {
     // Get tags.
     $tag_definitions = $this->tagManager->getDefinitions();
-    uasort($tag_definitions, ['Drupal\Component\Utility\SortArray', 'sortByWeightElement']);
+    uasort($tag_definitions, [
+      'Drupal\Component\Utility\SortArray',
+      'sortByWeightElement',
+    ]);
     $tags = [];
     foreach ($tag_definitions as $tag_name => $tag_definition) {
       $tags[$tag_definition['group']][$tag_name] = $tag_definition;
@@ -69,7 +72,10 @@ class MetatagController extends ControllerBase {
 
     // Get groups.
     $group_definitions = $this->groupManager->getDefinitions();
-    uasort($group_definitions, ['Drupal\Component\Utility\SortArray', 'sortByWeightElement']);
+    uasort($group_definitions, [
+      'Drupal\Component\Utility\SortArray',
+      'sortByWeightElement',
+    ]);
 
     // Build plugin by group.
     $build = [];

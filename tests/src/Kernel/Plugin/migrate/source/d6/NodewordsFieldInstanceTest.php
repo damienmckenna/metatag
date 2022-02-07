@@ -39,6 +39,9 @@ class NodewordsFieldInstanceTest extends MigrateSqlSourceTestBase {
     'metatag',
   ];
 
+  /**
+   * {@inheritdoc}
+   */
   public function setUp() {
     parent::setUp();
     $this->installEntitySchema('node');

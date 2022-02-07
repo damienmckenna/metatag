@@ -8,6 +8,9 @@ use Drupal\Core\Cache\CacheableDependencyInterface;
 use Drupal\views\Plugin\views\cache\CachePluginBase;
 use Drupal\views\Plugin\ViewsPluginManager;
 
+/**
+ *
+ */
 class MetatagViewsCachePluginManager implements PluginManagerInterface, CachedDiscoveryInterface, CacheableDependencyInterface {
 
   /**

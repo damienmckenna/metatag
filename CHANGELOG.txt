@@ -7,6 +7,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   metatag_display_extender.
 #3258346 by Eugene Bocharov, jedgar1mx, 4kant, Renrhaf, DamienMcKenna, kriboogh:
   Error: Call to a member function __wakeup() on null.
+#3113761 by DamienMcKenna, thalles, rokzabukovec, Diego_Mow, urvashi_vora:
+  Coding standards cleanup.
 
 
 Metatag 8.x-1.19, 2022-01-06

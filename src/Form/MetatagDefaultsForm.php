@@ -17,7 +17,7 @@ use Drupal\page_manager\Entity\PageVariant;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class MetatagDefaultsForm.
+ * Form handler for the Metatag Defaults entity type.
  *
  * @package Drupal\metatag\Form
  */

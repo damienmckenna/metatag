@@ -173,7 +173,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
    * @todo Finish.
    */
   public function todoTestUrl() {
-    // {@code}
+    // @code
     // $save_label = (floatval(\Drupal::VERSION) <= 8.3) ? $this->t('Save and publish') : $this->t('Save');
     // // Tests meta tags with URLs work.
     // $this->drupalGet($this->entity_add_path);
@@ -194,7 +194,7 @@ class MetatagTagTypesTest extends BrowserTestBase {
     // $elements = $this->cssSelect("meta[name='original-source']");
     // $this->assertTrue(count($elements) === 1, 'Found original source metatag from defaults');
     // $this->assertEquals($edit['field_metatag[0][advanced][original_source]'], (string) $elements[0]['content']);
-    // {@endcode}
+    // @endcode
   }
 
 }
