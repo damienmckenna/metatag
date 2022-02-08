@@ -157,16 +157,15 @@ class MetatagDefaultsForm extends EntityForm {
     $entity_type_groups = $settings->get('entity_type_groups');
 
     // Find the current entity type and bundle.
-    $metatag_defaults_id = $metatag_defaults->id();
-    $type_parts = explode('__', $metatag_defaults_id);
-    $entity_type = $type_parts[0];
-    $entity_bundle = isset($type_parts[1]) ? $type_parts[1] : NULL;
+    if ($metatag_defaults_id = $metatag_defaults->id()) {
+      $type_parts = explode('__', $metatag_defaults_id);
+      $entity_type = $type_parts[0];
+      $entity_bundle = $type_parts[1] ?? NULL;
+    }
 
     // See if there are requested groups for this entity type and bundle.
-    $groups = !empty($entity_type_groups[$entity_type]) && !empty($entity_type_groups[$entity_type][$entity_bundle]) ? $entity_type_groups[$entity_type][$entity_bundle] : [];
-    // Limit the form to requested groups, if any.
-    if (!empty($groups)) {
-      $form = $this->metatagManager->form($values, $form, [$entity_type], $groups, NULL, TRUE);
+    if (isset($entity_type) && !empty($entity_type_groups[$entity_type]) && !empty($entity_type_groups[$entity_type][$entity_bundle])) {
+      $form = $this->metatagManager->form($values, $form, [$entity_type], $entity_type_groups[$entity_type][$entity_bundle], NULL, TRUE);
     }
     // Otherwise, display all groups.
     else {

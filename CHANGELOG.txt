@@ -9,6 +9,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   Error: Call to a member function __wakeup() on null.
 #3113761 by DamienMcKenna, thalles, rokzabukovec, Diego_Mow, urvashi_vora:
   Coding standards cleanup.
+#3261505 by DamienMcKenna, Eugene Bocharov, Sergiu Stici: In php 8.1 the explode
+  function throws a notice when default value is null.
 
 
 Metatag 8.x-1.19, 2022-01-06
