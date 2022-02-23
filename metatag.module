@@ -323,12 +323,17 @@ function metatag_is_current_route_supported() {
 /**
  * Returns the entity of the current route.
  *
- * @return Drupal\Core\Entity\EntityInterface
+ * @return Drupal\Core\Entity\EntityInterface|null
  *   The entity or NULL if this is not an entity route.
  */
 function metatag_get_route_entity() {
   $route_match = \Drupal::routeMatch();
   $route_name = $route_match->getRouteName();
+
+  // In certain circumstances the route can be empty.
+  if (is_null($route_name)) {
+    return NULL;
+  }
 
   // Look for a canonical entity view page, e.g. node/{nid}, user/{uid}, etc.
   $matches = [];

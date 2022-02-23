@@ -16,6 +16,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   for canonical and short_link tags.
 #3262308 by YahyaAlHamad, DamienMcKenna: metatag_update_8109 fails because of
   unknown column.
+#3261467 by DamienMcKenna, HnLn: in php 8.1 preg_match in
+  metatag_get_route_entity throws notice when route is null.
 
 
 Metatag 8.x-1.19, 2022-01-06
