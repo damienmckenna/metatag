@@ -91,6 +91,7 @@ function metatag_update_8109(&$sandbox) {
     $field_counter = 0;
 
     // Get all of the field storage entities of type metatag.
+    /** @var \Drupal\field\FieldStorageConfigInterface[] $field_storage_configs */
     $field_storage_configs = \Drupal::entityTypeManager()
       ->getStorage('field_storage_config')
       ->loadByProperties(['type' => 'metatag']);
@@ -101,7 +102,10 @@ function metatag_update_8109(&$sandbox) {
       // Get the individual fields (field instances) associated with bundles.
       $fields = \Drupal::entityTypeManager()
         ->getStorage('field_config')
-        ->loadByProperties(['field_name' => $field_name]);
+        ->loadByProperties([
+          'field_name' => $field_name,
+          'entity_type' => $field_storage->getTargetEntityTypeId(),
+        ]);
 
       foreach ($fields as $field) {
         // Get the bundle this field is attached to.

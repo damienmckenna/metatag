@@ -14,6 +14,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #3265679 by DamienMcKenna: Additional coding standards bugs.
 #3241256 by ndf, sabina.h, idebr, DamienMcKenna: Remove redundant HTTP headers
   for canonical and short_link tags.
+#3262308 by YahyaAlHamad, DamienMcKenna: metatag_update_8109 fails because of
+  unknown column.
 
 
 Metatag 8.x-1.19, 2022-01-06
