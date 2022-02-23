@@ -144,7 +144,6 @@ function metatag_page_attachments(array &$attachments) {
       $attachments['#attached']['html_head'] = [];
     }
 
-    $head_links = [];
     foreach ($metatag_attachments['#attached']['html_head'] as $item) {
       // Do not attach a title meta tag as this unnecessarily duplicates the
       // title tag.
@@ -154,32 +153,6 @@ function metatag_page_attachments(array &$attachments) {
       }
 
       $attachments['#attached']['html_head'][] = $item;
-
-      // Also add a HTTP header "Link:" for canonical URLs and shortlinks.
-      // See HtmlResponseAttachmentsProcessor::processHtmlHeadLink() for the
-      // implementation of the functionality in core.
-      if (isset($item[0]['#attributes']['href'])) {
-        if (in_array($item[1], ['canonical_url', 'shortlink'])) {
-          $attributes = $item[0]['#attributes'];
-
-          $href = '<' . Html::escape($attributes['href']) . '>';
-          unset($attributes['href']);
-          $param = HtmlResponseAttachmentsProcessor::formatHttpHeaderAttributes($attributes);
-          if (!empty($param)) {
-            $href .= ';' . $param;
-          }
-          $head_links[] = $href;
-        }
-      }
-    }
-
-    // If any HTTP Header items were found, add them too.
-    if (!empty($head_links)) {
-      $attachments['#attached']['http_header'][] = [
-        'Link',
-        implode(', ', $head_links),
-        FALSE,
-      ];
     }
   }
 }

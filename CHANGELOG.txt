@@ -12,6 +12,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #3261505 by DamienMcKenna, Eugene Bocharov, Sergiu Stici: In php 8.1 the explode
   function throws a notice when default value is null.
 #3265679 by DamienMcKenna: Additional coding standards bugs.
+#3241256 by ndf, sabina.h, idebr, DamienMcKenna: Remove redundant HTTP headers
+  for canonical and short_link tags.
 
 
 Metatag 8.x-1.19, 2022-01-06
