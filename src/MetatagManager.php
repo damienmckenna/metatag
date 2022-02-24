@@ -10,6 +10,10 @@ use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Render\BubbleableMetadata;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\views\ViewEntityInterface;
+use Drupal\Core\Path\PathMatcherInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
  * Primary logic for the Metatag module..
@@ -56,6 +60,34 @@ class MetatagManager implements MetatagManagerInterface {
   protected $logger;
 
   /**
+   * The path matcher.
+   *
+   * @var \Drupal\Core\Path\PathMatcherInterface
+   */
+  protected $pathMatcher;
+
+  /**
+   * The route match.
+   *
+   * @var \Drupal\Core\Routing\RouteMatchInterface
+   */
+  protected $routeMatch;
+
+  /**
+   * The request stack.
+   *
+   * @var \Symfony\Component\HttpFoundation\RequestStack
+   */
+  protected $requestStack;
+
+  /**
+   * The language manager.
+   *
+   * @var \Drupal\Core\Language\LanguageManagerInterface
+   */
+  protected $languageManager;
+
+  /**
    * Caches processed strings, keyed by tag name.
    *
    * @var array
@@ -75,18 +107,34 @@ class MetatagManager implements MetatagManagerInterface {
    *   The LoggerChannelFactoryInterface object.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The EntityTypeManagerInterface object.
+   * @param \Drupal\Core\Path\PathMatcherInterface $pathMatcher
+   *   The path matcher.
+   * @param \Drupal\Core\Routing\RouteMatchInterface $routeMatch
+   *   The route match.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack.
+   * @param \Drupal\Core\Language\LanguageManagerInterface $languageManager
+   *   The language manager.
    */
   public function __construct(MetatagGroupPluginManager $groupPluginManager,
     MetatagTagPluginManager $tagPluginManager,
     MetatagToken $token,
     LoggerChannelFactoryInterface $channelFactory,
-    EntityTypeManagerInterface $entityTypeManager
+    EntityTypeManagerInterface $entityTypeManager,
+    PathMatcherInterface $pathMatcher,
+    RouteMatchInterface $routeMatch,
+    RequestStack $requestStack,
+    LanguageManagerInterface $languageManager
   ) {
     $this->groupPluginManager = $groupPluginManager;
     $this->tagPluginManager = $tagPluginManager;
     $this->tokenService = $token;
     $this->logger = $channelFactory->get('metatag');
     $this->metatagDefaults = $entityTypeManager->getStorage('metatag_defaults');
+    $this->pathMatcher = $pathMatcher;
+    $this->routeMatch = $routeMatch;
+    $this->requestStack = $requestStack;
+    $this->languageManager = $languageManager;
   }
 
   /**
@@ -433,13 +481,13 @@ class MetatagManager implements MetatagManagerInterface {
   public function getSpecialMetatags() {
     $metatags = NULL;
 
-    if (\Drupal::service('path.matcher')->isFrontPage()) {
+    if ($this->pathMatcher->isFrontPage()) {
       $metatags = $this->metatagDefaults->load('front');
     }
-    elseif (\Drupal::service('current_route_match')->getRouteName() == 'system.403') {
+    elseif ($this->routeMatch->getRouteName() == 'system.403') {
       $metatags = $this->metatagDefaults->load('403');
     }
-    elseif (\Drupal::service('current_route_match')->getRouteName() == 'system.404') {
+    elseif ($this->routeMatch->getRouteName() == 'system.404') {
       $metatags = $this->metatagDefaults->load('404');
     }
 
@@ -522,7 +570,7 @@ class MetatagManager implements MetatagManagerInterface {
    */
   public function generateRawElements(array $tags, $entity = NULL, BubbleableMetadata $cache = NULL) {
     // Ignore the update.php path.
-    $request = \Drupal::request();
+    $request = $this->requestStack->getCurrentRequest();
     if ($request->getBaseUrl() == '/update.php') {
       return [];
     }
@@ -542,7 +590,7 @@ class MetatagManager implements MetatagManagerInterface {
     }
 
     // Get the current language code.
-    $langcode = \Drupal::languageManager()
+    $langcode = $this->languageManager
       ->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)
       ->getId();
 
@@ -628,7 +676,7 @@ class MetatagManager implements MetatagManagerInterface {
    */
   public function generateTokenValues(array $tags, $entity = NULL) {
     // Ignore the update.php path.
-    $request = \Drupal::request();
+    $request = $this->requestStack->getCurrentRequest();
     if ($request->getBaseUrl() == '/update.php') {
       return [];
     }
@@ -668,7 +716,7 @@ class MetatagManager implements MetatagManagerInterface {
           // array that needs to be filtered and converted to a string.
           // @see Robots::setValue()
           $tag->setValue($value);
-          $langcode = \Drupal::languageManager()->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
+          $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
           $value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($value, $token_replacements, ['langcode' => $langcode])));
           $this->processedTokenCache[$entity_identifier][$tag_name] = $tag->multiple() ? explode(',', $value) : $value;
         }

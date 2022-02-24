@@ -18,6 +18,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   unknown column.
 #3261467 by DamienMcKenna, HnLn: in php 8.1 preg_match in
   metatag_get_route_entity throws notice when route is null.
+#3266326 by victoria-marina, Guilherme Rabelo, DamienMcKenna: Use Dependency
+  Injection in MetatagManager.
 
 
 Metatag 8.x-1.19, 2022-01-06
