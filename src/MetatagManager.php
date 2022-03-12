@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Drupal\Core\Language\LanguageManagerInterface;
 
 /**
- * Primary logic for the Metatag module..
+ * Primary logic for the Metatag module.
  *
  * @package Drupal\metatag
  */
@@ -100,7 +100,7 @@ class MetatagManager implements MetatagManagerInterface {
    * @param \Drupal\metatag\MetatagGroupPluginManager $groupPluginManager
    *   The MetatagGroupPluginManager object.
    * @param \Drupal\metatag\MetatagTagPluginManager $tagPluginManager
-   *   The MetatagTagPluginMπanager object.
+   *   The MetatagTagPluginManager object.
    * @param \Drupal\metatag\MetatagToken $token
    *   The MetatagToken object.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $channelFactory
@@ -141,7 +141,7 @@ class MetatagManager implements MetatagManagerInterface {
    * Returns the list of protected defaults.
    *
    * @return array
-   *   Th protected defaults.
+   *   The protected defaults.
    */
   public static function protectedDefaults() {
     return [
@@ -588,14 +588,7 @@ class MetatagManager implements MetatagManagerInterface {
         $token_replacements = [$entity->getEntityTypeId() => $entity];
       }
     }
-
-    // Get the current language code.
-    $langcode = $this->languageManager
-      ->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)
-      ->getId();
-
     $rawTags = [];
-
     $metatag_tags = $this->tagPluginManager->getDefinitions();
 
     // Order metatags based on the group and weight.
@@ -618,24 +611,8 @@ class MetatagManager implements MetatagManagerInterface {
         // Get an instance of the plugin.
         $tag = $this->tagPluginManager->createInstance($tag_name);
 
-        // Set the value as sometimes the data needs massaging, such as when
-        // field defaults are used for the Robots field, which come as an array
-        // that needs to be filtered and converted to a string.
-        // @see Robots::setValue()
-        $tag->setValue($value);
-
-        // Obtain the processed value. Some meta tags will store this as a
-        // string, so support that option.
-        $value = $tag->value();
-        if (is_array($value)) {
-          $processed_value = [];
-          foreach ($value as $key => $value_item) {
-            $processed_value[$key] = htmlspecialchars_decode($this->tokenService->replace($value_item, $token_replacements, ['langcode' => $langcode]));
-          }
-        }
-        else {
-          $processed_value = htmlspecialchars_decode($this->tokenService->replace($value, $token_replacements, ['langcode' => $langcode]));
-        }
+        // Prepare value.
+        $processed_value = $this->processTagValue($tag, $value, $token_replacements);
 
         // Now store the value with processed tokens back into the plugin.
         $tag->setValue($processed_value);
@@ -710,15 +687,8 @@ class MetatagManager implements MetatagManagerInterface {
               $token_replacements = [$entity->getEntityTypeId() => $entity];
             }
           }
-
-          // Set the value as sometimes the data needs massaging, such as when
-          // field defaults are used for the Robots field, which come as an
-          // array that needs to be filtered and converted to a string.
-          // @see Robots::setValue()
-          $tag->setValue($value);
-          $langcode = $this->languageManager->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)->getId();
-          $value = PlainTextOutput::renderFromHtml(htmlspecialchars_decode($this->tokenService->replace($value, $token_replacements, ['langcode' => $langcode])));
-          $this->processedTokenCache[$entity_identifier][$tag_name] = $tag->multiple() ? explode(',', $value) : $value;
+          $processed_value = $this->processTagValue($tag, $value, $token_replacements, TRUE);
+          $this->processedTokenCache[$entity_identifier][$tag_name] = $tag->multiple() ? explode(',', $processed_value) : $processed_value;
         }
       }
     }
@@ -736,6 +706,50 @@ class MetatagManager implements MetatagManagerInterface {
     // @todo Either get this dynamically from field plugins or forget it and
     // just hardcode metatag where this is called.
     return ['metatag'];
+  }
+
+  /**
+   * Sets tag value and returns sanitized value with token replaced.
+   *
+   * @param \Drupal\metatag\Plugin\metatag\Tag\MetaNameBase|object $tag
+   *   Metatag object.
+   * @param array|string $value
+   *   Value to process.
+   * @param array $token_replacements
+   *   Arguments for token->replace().
+   * @param bool $plain_text
+   *   (optional) If TRUE, value will be formatted as a plain text. Defaults to
+   *   FALSE.
+   *
+   * @return array|string
+   *   Processed value.
+   */
+  protected function processTagValue($tag, $value, array $token_replacements, bool $plain_text = FALSE) {
+    // Set the value as sometimes the data needs massaging, such as when
+    // field defaults are used for the Robots field, which come as an array
+    // that needs to be filtered and converted to a string.
+    // @see Robots::setValue()
+    $tag->setValue($value);
+
+    // Obtain the processed value. Some meta tags will store this as a
+    // string, so support that option.
+    $value = $tag->value();
+
+    // Get the current language code.
+    $langcode = $this->languageManager
+      ->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)
+      ->getId();
+
+    if (!($is_array = is_array($value))) {
+      $value = [$value];
+    }
+    foreach ($value as $key => $value_item) {
+      $value[$key] = htmlspecialchars_decode($this->tokenService->replace($value_item, $token_replacements, ['langcode' => $langcode]));
+      if ($plain_text) {
+        $value[$key] = PlainTextOutput::renderFromHtml($value[$key]);
+      }
+    }
+    return $is_array ? $value : reset($value);
   }
 
 }

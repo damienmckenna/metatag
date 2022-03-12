@@ -227,7 +227,7 @@ function metatag_tokens($type, $tokens, array $data, array $options, BubbleableM
         }
         else {
           if (is_array($processed_tags[$tag_name])) {
-            $replacements[$original] = implode(',', $processed_tags[$tag_name]);
+            $replacements[$original] = implode(',', array_filter($processed_tags[$tag_name]));
           }
           else {
             $replacements[$original] = $processed_tags[$tag_name];
