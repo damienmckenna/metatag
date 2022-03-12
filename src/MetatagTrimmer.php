@@ -21,6 +21,12 @@ class MetatagTrimmer {
    *   The trimmed string.
    */
   public function trimAfterValue($string, $maxlength) {
+    // If the string is shorter than the max length then skip the rest of the
+    // logic.
+    if ($maxlength > strlen($string)) {
+      return $string;
+    }
+
     $spacePos = strpos($string, ' ', $maxlength - 1);
     if (FALSE === $spacePos) {
       return $string;

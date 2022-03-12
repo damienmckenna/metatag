@@ -24,6 +24,7 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   "description".
 #3266406 by szato, DamienMcKenna: Don't assume the 'first_row_tokens' cache key
   is defined.
+#3264449 by DamienMcKenna, gilles_webstanz: Trim og:description doesn't work.
 
 
 Metatag 8.x-1.19, 2022-01-06

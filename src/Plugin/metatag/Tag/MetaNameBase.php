@@ -482,7 +482,7 @@ abstract class MetaNameBase extends PluginBase {
       }
       $currentMaxValue = 0;
       foreach ($trimMaxlengthArray as $metaTagName => $maxValue) {
-        if ($metaTagName == 'metatag_maxlength_' . $this->name) {
+        if ($metaTagName == 'metatag_maxlength_' . $this->id) {
           $currentMaxValue = $maxValue;
         }
       }

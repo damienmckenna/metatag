@@ -126,14 +126,16 @@ class MetatagSettingsForm extends ConfigFormBase {
       '#tree' => TRUE,
     ];
 
-    foreach ($metatags as $metatag_name => $metatag_info) {
+    // Name the variable "metatag_id" to avoid confusing this with the "name"
+    // value from the meta tag plugin as it's actually the plugin ID.
+    foreach ($metatags as $metatag_id => $metatag_info) {
       if (!empty($metatag_info['trimmable'])) {
 
-        $form['tag_trim']['maxlength']['metatag_maxlength_' . $metatag_name] = [
-          '#title' => $this->t('Meta Tags:') . ' ' . $metatag_name . ' ' . $this->t('length'),
+        $form['tag_trim']['maxlength']['metatag_maxlength_' . $metatag_id] = [
+          '#title' => $this->t('Meta Tags:') . ' ' . $metatag_id . ' ' . $this->t('length'),
           '#type' => 'number',
           '#required' => FALSE,
-          '#default_value' => $trimSettingsMaxlength['metatag_maxlength_' . $metatag_name] ?? NULL,
+          '#default_value' => $trimSettingsMaxlength['metatag_maxlength_' . $metatag_id] ?? NULL,
           '#min' => 0,
           '#step' => 1,
         ];
