@@ -22,6 +22,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   Injection in MetatagManager.
 #3265567 by DamienMcKenna, Anatolij Zajika, PCate: PHP8 undefined array key
   "description".
+#3266406 by szato, DamienMcKenna: Don't assume the 'first_row_tokens' cache key
+  is defined.
 
 
 Metatag 8.x-1.19, 2022-01-06

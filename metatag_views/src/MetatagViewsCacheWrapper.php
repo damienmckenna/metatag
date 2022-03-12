@@ -100,7 +100,7 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
           $view->execute_time = 0;
           $extenders = $view->getDisplay()->getExtenders();
           if (isset($extenders['metatag_display_extender'])) {
-            $extenders['metatag_display_extender']->setFirstRowTokens($cache->data['first_row_tokens']);
+            $extenders['metatag_display_extender']->setFirstRowTokens($cache->data['first_row_tokens'] ?? []);
           }
           return TRUE;
         }
