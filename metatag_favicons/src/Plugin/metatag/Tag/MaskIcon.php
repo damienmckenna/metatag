@@ -81,4 +81,12 @@ class MaskIcon extends LinkRelBase {
     return $element;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function setValue($value) {
+    // Do not store array with empty values.
+    $this->value = is_array($value) && empty(array_filter($value)) ? NULL : $value;
+  }
+
 }

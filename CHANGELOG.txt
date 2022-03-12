@@ -28,6 +28,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #3258427 by Eugene Bocharov, mrshowerman, saranchuk_hys, phthlaap, apaderno,
   Kulturmensch, DamienMcKenna, quicksketch: TypeError: preg_match_all():
   Arg #2 ($subject) must be of type string, array given in preg_match_all().
+#3258358 by Eugene Bocharov, sashken2, DamienMcKenna, modernrockstar: Empty
+  values saved in 'mask_icon' meta tag.
 
 
 Metatag 8.x-1.19, 2022-01-06
