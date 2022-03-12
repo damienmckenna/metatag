@@ -89,7 +89,7 @@ class MetatagController extends ControllerBase {
       ];
       // Group description.
       $build[$group_name]['description'] = [
-        '#markup' => $group_definition['description'],
+        '#markup' => $group_definition['description'] ?? '',
         '#prefix' => '<p>',
         '#suffix' => '</p>',
       ];
@@ -121,7 +121,7 @@ class MetatagController extends ControllerBase {
         $row = [];
         $row['description'] = [
           'data' => [
-            '#markup' => $definition['description'],
+            '#markup' => $definition['description'] ?? '',
           ],
           'colspan' => 8,
         ];

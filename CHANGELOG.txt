@@ -20,6 +20,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   metatag_get_route_entity throws notice when route is null.
 #3266326 by victoria-marina, Guilherme Rabelo, DamienMcKenna: Use Dependency
   Injection in MetatagManager.
+#3265567 by DamienMcKenna, Anatolij Zajika, PCate: PHP8 undefined array key
+  "description".
 
 
 Metatag 8.x-1.19, 2022-01-06

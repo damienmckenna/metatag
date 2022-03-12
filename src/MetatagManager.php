@@ -234,7 +234,7 @@ class MetatagManager implements MetatagManagerInterface {
     foreach ($metatag_groups as $group_name => $group_info) {
       $groups[$group_name]['id'] = $group_info['id'];
       $groups[$group_name]['label'] = $group_info['label']->render();
-      $groups[$group_name]['description'] = $group_info['description'];
+      $groups[$group_name]['description'] = $group_info['description'] ?? '';
       $groups[$group_name]['weight'] = $group_info['weight'];
     }
 
@@ -331,7 +331,7 @@ class MetatagManager implements MetatagManagerInterface {
         // Create the fieldset.
         $element[$group_name]['#type'] = 'details';
         $element[$group_name]['#title'] = $group['label'];
-        $element[$group_name]['#description'] = $group['description'];
+        $element[$group_name]['#description'] = $group['description'] ?? '';
         $element[$group_name]['#open'] = FALSE;
 
         foreach ($group['tags'] as $tag_name => $tag) {
@@ -683,7 +683,7 @@ class MetatagManager implements MetatagManagerInterface {
 
     $entity_identifier = '_none';
     if ($entity) {
-      $entity_identifier = $entity->getEntityTypeId() . ':' . ($entity->uuid() ?: $entity->id());
+      $entity_identifier = $entity->getEntityTypeId() . ':' . ($entity->uuid() ?? $entity->id());
     }
 
     if (!isset($this->processedTokenCache[$entity_identifier])) {
