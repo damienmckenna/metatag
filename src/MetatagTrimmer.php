@@ -48,6 +48,12 @@ class MetatagTrimmer {
    *   The trimmed string.
    */
   public function trimBeforeValue($string, $maxlength) {
+    // If the string is shorter than the max length then skip the rest of the
+    // logic.
+    if ($maxlength > strlen($string)) {
+      return $string;
+    }
+
     $subString = substr($string, 0, $maxlength + 1);
     if (' ' === substr($subString, -1)) {
       return trim($subString);
