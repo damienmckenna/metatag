@@ -32,6 +32,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   values saved in 'mask_icon' meta tag.
 #3269670 by DamienMcKenna, sd123: Trimming even trims metatags shorter than the
   limit.
+#3269742 by DamienMcKenna, z3cka: Migrate D7 Product Display node metatag data
+  to D9 Drupal Commerce Product entities.
 
 
 Metatag 8.x-1.19, 2022-01-06

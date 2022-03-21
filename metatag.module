@@ -29,6 +29,7 @@ use Drupal\user\Plugin\migrate\source\d6\User as User6;
 use Drupal\user\Plugin\migrate\source\d7\User as User7;
 use Drupal\Core\Render\HtmlResponseAttachmentsProcessor;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\commerce_migrate_commerce\Plugin\migrate\source\commerce1\ProductDisplay;
 
 /**
  * Implements hook_help().
@@ -711,6 +712,11 @@ function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, M
     elseif (is_a($source, User7::class)) {
       // E.g. d7_user.
       $source_type = 'user';
+    }
+    // Custom handling for Drupal Commerce.
+    elseif (\Drupal::moduleHandler()->moduleExists('commerce_migrate_commerce') && is_a($source, ProductDisplay::class)) {
+      // Products were nodes in Drupal 7 so map the $source_type to node.
+      $source_type = 'node';
     }
     else {
       // Not supported now, nothing to do.
