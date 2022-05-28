@@ -34,6 +34,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   limit.
 #3269742 by DamienMcKenna, z3cka: Migrate D7 Product Display node metatag data
   to D9 Drupal Commerce Product entities.
+#3280904 by DamienMcKenna, 3li: Automatic conversion of false to array is
+  deprecated.
 
 
 Metatag 8.x-1.19, 2022-01-06

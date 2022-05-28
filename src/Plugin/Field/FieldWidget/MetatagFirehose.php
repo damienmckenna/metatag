@@ -144,6 +144,13 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
       $values = unserialize($item->value);
     }
 
+    // Make sure that this variable is always an array to avoid problems when
+    // unserializing didn't work correctly and it as returned as FALSE.
+    // @see https://www.php.net/unserialize
+    if (!is_array($values)) {
+      $values = [];
+    }
+
     // Populate fields which have not been overridden in the entity.
     if (!empty($default_tags)) {
       foreach ($default_tags as $tag_id => $tag_value) {
