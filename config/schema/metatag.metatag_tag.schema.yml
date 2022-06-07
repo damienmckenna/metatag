@@ -69,7 +69,7 @@ metatag.metatag_tag.standout:
   type: label
   label: 'Standout'
 metatag.metatag_tag.title:
-  type: label
+  type: text
   label: 'Page title'
 metatag.metatag_tag.icbm:
   type: label

@@ -36,6 +36,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   to D9 Drupal Commerce Product entities.
 #3280904 by DamienMcKenna, 3li: Automatic conversion of false to array is
   deprecated.
+#3278924 by lamp5, DamienMcKenna: Translation of title metatag is limited to
+  128 characters.
 
 
 Metatag 8.x-1.19, 2022-01-06
