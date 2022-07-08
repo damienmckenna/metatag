@@ -39,6 +39,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #3278924 by lamp5, DamienMcKenna: Translation of title metatag is limited to
   128 characters.
 #3271284 by Shashwat Purav: Double occurrences of word "the".
+#3257520 by er.garg.karan, DamienMcKenna: Default Drupal favicon icon on core
+  before 9.3.
 
 
 Metatag 8.x-1.19, 2022-01-06
