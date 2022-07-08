@@ -92,7 +92,8 @@ class MetatagTagTypesTest extends BrowserTestBase {
     ];
     $this->submitForm($edit, $this->t('Save and continue'));
     $this->submitForm([], $this->t('Save field settings'));
-    $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();
+    $this->container->get('entity_field.manager')
+      ->clearCachedFieldDefinitions();
   }
 
   /**

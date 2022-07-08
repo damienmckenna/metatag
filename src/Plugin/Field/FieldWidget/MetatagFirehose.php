@@ -141,7 +141,7 @@ class MetatagFirehose extends WidgetBase implements ContainerFactoryPluginInterf
     // Retrieve the values for each metatag from the serialized array.
     $values = [];
     if (!empty($item->value)) {
-      $values = unserialize($item->value);
+      $values = unserialize($item->value, ['allowed_classes' => FALSE]);
     }
 
     // Make sure that this variable is always an array to avoid problems when

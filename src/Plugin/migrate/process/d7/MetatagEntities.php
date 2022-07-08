@@ -28,7 +28,7 @@ class MetatagEntities extends ProcessPluginBase {
     }
 
     // Re-shape D7 entries into for D8 entries.
-    $old_tags = unserialize($value);
+    $old_tags = unserialize($value, ['allowed_classes' => FALSE]);
 
     // This is expected to be an array, if it isn't then something went wrong.
     if (!is_array($old_tags)) {

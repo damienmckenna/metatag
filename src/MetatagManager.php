@@ -341,7 +341,7 @@ class MetatagManager implements MetatagManagerInterface {
             $tag = $this->tagPluginManager->createInstance($tag_name);
 
             // Set the value to the stored value, if any.
-            $tag_value = isset($values[$tag_name]) ? $values[$tag_name] : NULL;
+            $tag_value = $values[$tag_name] ?? NULL;
             $tag->setValue($tag_value);
 
             // Open any groups that have non-empty values.
@@ -410,7 +410,7 @@ class MetatagManager implements MetatagManagerInterface {
       // Get serialized value and break it into an array of tags with values.
       $serialized_value = $item->get('value')->getValue();
       if (!empty($serialized_value)) {
-        $tags += unserialize($serialized_value);
+        $tags += unserialize($serialized_value, ['allowed_classes' => FALSE]);
       }
     }
 

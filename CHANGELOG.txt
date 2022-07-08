@@ -44,6 +44,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #3281987 by DamienMcKenna: Sort configuration items prior to saving.
 #3284465 by DamienMcKenna, murilohp: Deprecated obsolete meta
   http-equiv="content-language".
+#3270951 by marciaibanez, tmaiochi, Guilherme Rabelo, chakkche, DamienMcKenna:
+  Coding standards improvements.
 
 
 Metatag 8.x-1.19, 2022-01-06

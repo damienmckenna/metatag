@@ -274,7 +274,7 @@ abstract class MetaNameBase extends PluginBase {
       '#title' => $this->label(),
       '#default_value' => $this->value(),
       '#maxlength' => 1024,
-      '#required' => isset($element['#required']) ? $element['#required'] : FALSE,
+      '#required' => $element['#required'] ?? FALSE,
       '#description' => $this->description(),
       '#element_validate' => [[get_class($this), 'validateTag']],
     ];

@@ -4,4 +4,4 @@ description: "Adds individual permissions for each meta tag, allowing for fine-g
 core_version_requirement: '^9'
 package: SEO
 dependencies:
-  - metatag
+  - metatag:metatag

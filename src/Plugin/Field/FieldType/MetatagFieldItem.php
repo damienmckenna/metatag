@@ -70,7 +70,7 @@ class MetatagFieldItem extends FieldItemBase {
     $current_value = $this->value;
     // Only unserialize if still serialized string.
     if (is_string($current_value)) {
-      $current_tags = unserialize($current_value);
+      $current_tags = unserialize($current_value, ['allowed_classes' => FALSE]);
     }
     else {
       $current_tags = $current_value;

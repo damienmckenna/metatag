@@ -105,7 +105,7 @@ function metatag_open_graph_update_8102(&$sandbox) {
               $tags_serialized = $trans->get($field_name)->value;
               if ($tags_serialized) {
                 // Change key from article_tags to article_tag.
-                $tags = unserialize($tags_serialized);
+                $tags = unserialize($tags_serialized, ['allowed_classes' => FALSE]);
                 if (array_key_exists("article_tags", $tags)) {
                   $tags['article_tag'] = $tags['article_tags'];
                   unset($tags['article_tags']);

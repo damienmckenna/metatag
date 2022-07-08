@@ -7,7 +7,6 @@
 
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Plugin\Factory\DefaultFactory;
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -27,7 +26,6 @@ use Drupal\taxonomy\Plugin\migrate\source\d7\Term as Term7;
 use Drupal\taxonomy\TermInterface;
 use Drupal\user\Plugin\migrate\source\d6\User as User6;
 use Drupal\user\Plugin\migrate\source\d7\User as User7;
-use Drupal\Core\Render\HtmlResponseAttachmentsProcessor;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\commerce_migrate_commerce\Plugin\migrate\source\commerce1\ProductDisplay;
 
@@ -831,7 +829,6 @@ function metatag_migrate_prepare_row(Row $row, MigrateSourceInterface $source, M
       // define('NODEWORDS_TYPE_TRACKER',    7);
       // define('NODEWORDS_TYPE_VOCABULARY', 9);
       // @endcode
-
       /** @var \Drupal\migrate\Plugin\migrate\source\SqlBase $source */
       /** @var \Drupal\Core\Database\Query\SelectInterface $query */
       $query = $source->getDatabase()->select('nodewords', 'nw')

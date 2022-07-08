@@ -101,7 +101,7 @@ class MetatagViewsController extends ControllerBase {
     foreach ($tagged_views as $view_id => $displays) {
       $elements[$view_id] = [
         '#type' => 'details',
-        '#title' => $this->t($this->viewLabels[$view_id]['#label']),
+        '#title' => $this->t(':label', [':label' => $this->viewLabels[$view_id]['#label']]),
         'details' => $this->buildViewDetails($view_id, $displays),
       ];
     }

@@ -18,6 +18,8 @@ namespace Drupal\metatag\Plugin\metatag\Tag;
  * )
  *
  * @deprecated in metatag:8.x-1.20 and is removed from metatag:2.0.0. No replacement is provided.
+ *
+ * @see https://www.drupal.org/project/metatag/issues/3217263
  */
 class ContentLanguage extends MetaHttpEquivBase {
   // Nothing here yet. Just a placeholder class for a plugin.

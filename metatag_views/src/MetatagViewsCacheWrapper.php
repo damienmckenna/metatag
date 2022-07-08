@@ -25,6 +25,8 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
   const RESULTS = 'results';
 
   /**
+   * {@inheritdoc}
+   *
    * @var \Drupal\views\Plugin\views\cache\CachePluginBase
    */
   protected $plugin;
@@ -72,7 +74,7 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
     $view = $plugin->view;
     $data = [
       'result' => $plugin->prepareViewResult($view->result),
-      'total_rows' => isset($view->total_rows) ? $view->total_rows : 0,
+      'total_rows' => $view->total_rows ?? 0,
       'current_page' => $view->getCurrentPage(),
       'first_row_tokens' => MetatagDisplayExtender::getFirstRowTokensFromStylePlugin($view),
     ];
@@ -398,14 +400,14 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public function __get($name) {
     return $this->plugin->$name;
   }
 
   /**
-   *
+   * {@inheritdoc}
    */
   public function __set($name, $value) {
     $this->plugin->$name = $value;

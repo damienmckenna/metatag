@@ -166,7 +166,7 @@ function metatag_update_8109(&$sandbox) {
 
       // Strip any empty tags or ones matching the field's defaults and leave
       // only the overridden tags in $new_tags.
-      $tags = unserialize($record->$field_value_field);
+      $tags = unserialize($record->$field_value_field, ['allowed_classes' => FALSE]);
       if (isset($tags['mask-icon'])) {
         $tags['mask_icon'] = [
           'href' => $tags['mask-icon'],

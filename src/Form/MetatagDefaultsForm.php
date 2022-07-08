@@ -239,7 +239,7 @@ class MetatagDefaultsForm extends EntityForm {
 
       $type_parts = explode('__', $metatag_defaults_id);
       $entity_type = $type_parts[0];
-      $entity_bundle = isset($type_parts[1]) ? $type_parts[1] : NULL;
+      $entity_bundle = $type_parts[1] ?? NULL;
 
       // Get the entity label.
       $entity_info = $this->entityTypeManager->getDefinitions();

@@ -68,7 +68,7 @@ class MetatagFieldInstanceTest extends MigrateSqlSourceTestBase {
     ])->save();
 
     // Create a term and a comment.
-    $term = Term::create([
+    Term::create([
       'vid' => 'test_vocabulary',
       'name' => 'term',
     ])->save();
