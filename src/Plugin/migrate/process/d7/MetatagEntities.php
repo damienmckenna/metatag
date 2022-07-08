@@ -75,6 +75,9 @@ class MetatagEntities extends ProcessPluginBase {
       $metatags[$d8_metatag_name] = $metatag_value;
     }
 
+    // Sort the meta tags alphabetically to make testing easier.
+    ksort($metatags);
+
     return serialize($metatags);
   }
 

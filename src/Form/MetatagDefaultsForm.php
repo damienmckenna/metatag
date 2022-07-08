@@ -282,6 +282,10 @@ class MetatagDefaultsForm extends EntityForm {
         }
       }
     }
+
+    // Sort the values prior to saving. so that they are easier to manage.
+    ksort($tag_values);
+
     $metatag_defaults->set('tags', $tag_values);
     $status = $metatag_defaults->save();
 

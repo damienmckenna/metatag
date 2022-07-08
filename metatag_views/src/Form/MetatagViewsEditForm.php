@@ -178,6 +178,9 @@ class MetatagViewsEditForm extends FormBase {
       $configuration->clear($config_path);
     }
     else {
+      // Sort the values prior to saving. so that they are easier to manage.
+      ksort($metatags);
+
       $configuration->set($config_path, $metatags);
     }
     $configuration->save();

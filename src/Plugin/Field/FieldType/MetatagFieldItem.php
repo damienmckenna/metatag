@@ -85,6 +85,9 @@ class MetatagFieldItem extends FieldItemBase {
       }
     }
 
+    // Sort the values prior to saving. so that they are easier to manage.
+    ksort($tags_to_save);
+
     // Update the value to only save overridden tags.
     $this->value = serialize($tags_to_save);
   }
