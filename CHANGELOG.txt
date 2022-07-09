@@ -50,6 +50,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   "author" tag to HTML 5.2 spec, deprecate Google+ Author tag.
 #3280745 by DamienMcKenna, Anybody: Trimming should use multibyte functions.
 #3112509 by DamienMcKenna: Fix regression in Google+ tests.
+#2563655 by DamienMcKenna, waldomero: Absorb Metatag Routes module to allow
+  per-path/route configurations.
 
 
 Metatag 8.x-1.19, 2022-01-06

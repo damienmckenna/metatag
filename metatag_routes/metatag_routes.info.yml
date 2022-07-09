@@ -1,0 +1,6 @@
+name: 'Metatag Custom Routes (Paths)'
+type: module
+description: Allows assigning meta tags to be used on custom routes, equivalent to customn paths.
+core_version_requirement: ^9
+dependencies:
+  - metatag:metatag
