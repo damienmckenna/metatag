@@ -23,15 +23,15 @@ class MetatagTrimmer {
   public function trimAfterValue($string, $maxlength) {
     // If the string is shorter than the max length then skip the rest of the
     // logic.
-    if ($maxlength > strlen($string)) {
+    if ($maxlength > mb_strlen($string)) {
       return $string;
     }
 
-    $spacePos = strpos($string, ' ', $maxlength - 1);
+    $spacePos = mb_strpos($string, ' ', $maxlength - 1);
     if (FALSE === $spacePos) {
       return $string;
     }
-    $subString = substr($string, 0, $spacePos);
+    $subString = mb_substr($string, 0, $spacePos);
 
     return trim($subString);
   }
@@ -50,19 +50,19 @@ class MetatagTrimmer {
   public function trimBeforeValue($string, $maxlength) {
     // If the string is shorter than the max length then skip the rest of the
     // logic.
-    if ($maxlength > strlen($string)) {
+    if ($maxlength > mb_strlen($string)) {
       return $string;
     }
 
-    $subString = substr($string, 0, $maxlength + 1);
-    if (' ' === substr($subString, -1)) {
+    $subString = mb_substr($string, 0, $maxlength + 1);
+    if (' ' === mb_substr($subString, -1)) {
       return trim($subString);
     }
-    $spacePos = strrpos($subString, ' ', 0);
+    $spacePos = mb_strrpos($subString, ' ', 0);
     if (FALSE === $spacePos) {
       return $string;
     }
-    $returnedString = substr($string, 0, $spacePos);
+    $returnedString = mb_substr($string, 0, $spacePos);
 
     return trim($returnedString);
   }
@@ -88,7 +88,7 @@ class MetatagTrimmer {
         return $this->trimAfterValue($value, $maxlength);
 
       case 'onValue':
-        return trim(substr($value, 0, $maxlength));
+        return trim(mb_substr($value, 0, $maxlength));
 
       case 'beforeValue':
         return $this->trimBeforeValue($value, $maxlength);

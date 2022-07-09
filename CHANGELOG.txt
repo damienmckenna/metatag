@@ -48,6 +48,7 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   Coding standards improvements.
 #3112509 by DamienMcKenna, ciprian.stavovei, Renrhaf, sitiveni: Convert
   "author" tag to HTML 5.2 spec, deprecate Google+ Author tag.
+#3280745 by DamienMcKenna, Anybody: Trimming should use multibyte functions.
 
 
 Metatag 8.x-1.19, 2022-01-06
