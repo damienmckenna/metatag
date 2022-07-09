@@ -89,3 +89,6 @@ metatag.metatag_tag.set_cookie:
 metatag.metatag_tag.google:
   type: label
   label: 'Google'
+metatag.metatag_tag.author:
+  type: label
+  label: 'Author'
