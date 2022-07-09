@@ -52,6 +52,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #3112509 by DamienMcKenna: Fix regression in Google+ tests.
 #2563655 by DamienMcKenna, waldomero: Absorb Metatag Routes module to allow
   per-path/route configurations.
+#3268439 by chakkche, bygeoffthompson, DamienMcKenna, Ruturaj Chaubey: Optional
+  overflow control on expanded Metatag field widget.
 
 
 Metatag 8.x-1.19, 2022-01-06
