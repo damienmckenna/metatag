@@ -578,6 +578,7 @@ class MetatagManager implements MetatagManagerInterface {
     // Prepare any tokens that might exist.
     $token_replacements = [];
     if ($entity) {
+
       // @todo This needs a better way of discovering the context.
       if ($entity instanceof ViewEntityInterface) {
         // Views tokens require the ViewExecutable, not the config entity.
@@ -590,6 +591,12 @@ class MetatagManager implements MetatagManagerInterface {
     }
     $rawTags = [];
     $metatag_tags = $this->tagPluginManager->getDefinitions();
+
+    // Use the entity's language code, if one is defined.
+    $langcode = NULL;
+    if ($entity) {
+      $langcode = $entity->language()->getId();
+    }
 
     // Order metatags based on the group and weight.
     $group = array_column($metatag_tags, 'group');
@@ -612,7 +619,7 @@ class MetatagManager implements MetatagManagerInterface {
         $tag = $this->tagPluginManager->createInstance($tag_name);
 
         // Prepare value.
-        $processed_value = $this->processTagValue($tag, $value, $token_replacements);
+        $processed_value = $this->processTagValue($tag, $value, $token_replacements, FALSE, $langcode);
 
         // Now store the value with processed tokens back into the plugin.
         $tag->setValue($processed_value);
@@ -661,6 +668,12 @@ class MetatagManager implements MetatagManagerInterface {
     $entity_identifier = '_none';
     if ($entity) {
       $entity_identifier = $entity->getEntityTypeId() . ':' . ($entity->uuid() ?? $entity->id());
+    }
+
+    // Use the entity's language code, if one is defined.
+    $langcode = NULL;
+    if ($entity) {
+      $langcode = $entity->language()->getId();
     }
 
     if (!isset($this->processedTokenCache[$entity_identifier])) {
@@ -720,11 +733,14 @@ class MetatagManager implements MetatagManagerInterface {
    * @param bool $plain_text
    *   (optional) If TRUE, value will be formatted as a plain text. Defaults to
    *   FALSE.
+   * @param string $langcode
+   *   (optional) The language code to use for replacements; if not provided the
+   *   current interface language code will be used.
    *
    * @return array|string
    *   Processed value.
    */
-  protected function processTagValue($tag, $value, array $token_replacements, bool $plain_text = FALSE) {
+  protected function processTagValue($tag, $value, array $token_replacements, bool $plain_text = FALSE, $langcode = FALSE) {
     // Set the value as sometimes the data needs massaging, such as when
     // field defaults are used for the Robots field, which come as an array
     // that needs to be filtered and converted to a string.
@@ -733,22 +749,37 @@ class MetatagManager implements MetatagManagerInterface {
 
     // Obtain the processed value. Some meta tags will store this as a
     // string, so support that option.
+    // @todo Is there a better way of doing this? It seems unclean.
     $value = $tag->value();
 
-    // Get the current language code.
-    $langcode = $this->languageManager
-      ->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)
-      ->getId();
-
-    if (!($is_array = is_array($value))) {
+    // Make sure the value is always handled as an array, but track whether it
+    // was actually passed in as an array.
+    $is_array = is_array($value);
+    if (!$is_array) {
       $value = [$value];
     }
+
+    // If a langcode was not specified, use the current interface language.
+    if (empty($langcode)) {
+      $langcode = $this->languageManager
+        ->getCurrentLanguage(LanguageInterface::TYPE_CONTENT)
+        ->getId();
+    }
+
+    // Loop over each item in the array.
     foreach ($value as $key => $value_item) {
+      // Process the tokens in this value and decode any HTML characters that
+      // might be found.
       $value[$key] = htmlspecialchars_decode($this->tokenService->replace($value_item, $token_replacements, ['langcode' => $langcode]));
+
+      // If requested, run the value through the render system.
       if ($plain_text) {
         $value[$key] = PlainTextOutput::renderFromHtml($value[$key]);
       }
     }
+
+    // If the original value was passed as an array return the whole value,
+    // otherwise return the first item from the array.
     return $is_array ? $value : reset($value);
   }
 

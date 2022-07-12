@@ -58,6 +58,9 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   scanner.
 #3198100 by thejimbirch, DamienMcKenna, sriharsha.uppuluri: Two Google meta tags
   conflict with each other.
+#3077442 by daniel.bosen, DamienMcKenna, esdrasterrero, Vivek Panicker,
+  Supreetam09, rigoucr: Current language through the language manager doesn't
+  work (decoupled site).
 
 
 Metatag 8.x-1.19, 2022-01-06
