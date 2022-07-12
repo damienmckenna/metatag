@@ -2,7 +2,6 @@
 
 namespace Drupal\Tests\metatag\Functional;
 
-use Drupal\node\Entity\Node;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\user\Entity\User;
 use Drupal\Tests\Traits\Core\PathAliasTestTrait;
@@ -21,7 +20,7 @@ class LanguageHandlingTest extends BrowserTestBase {
    *
    * @var \Drupal\user\Entity\User
    */
-  protected User $adminAccount;
+  protected $adminAccount;
 
   /**
    * Modules to enable.
