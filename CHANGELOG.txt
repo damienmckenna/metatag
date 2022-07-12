@@ -56,6 +56,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   overflow control on expanded Metatag field widget.
 #3231981 by sanduhrs, DamienMcKenna: Add support for SIWECOS website security
   scanner.
+#3198100 by thejimbirch, DamienMcKenna, sriharsha.uppuluri: Two Google meta tags
+  conflict with each other.
 
 
 Metatag 8.x-1.19, 2022-01-06
