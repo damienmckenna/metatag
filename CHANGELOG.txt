@@ -54,6 +54,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   per-path/route configurations.
 #3268439 by chakkche, bygeoffthompson, DamienMcKenna, Ruturaj Chaubey: Optional
   overflow control on expanded Metatag field widget.
+#3231981 by sanduhrs, DamienMcKenna: Add support for SIWECOS website security
+  scanner.
 
 
 Metatag 8.x-1.19, 2022-01-06

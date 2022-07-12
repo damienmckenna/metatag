@@ -26,6 +26,9 @@ metatag.metatag_tag.pinterest:
 metatag.metatag_tag.pocket:
   type: label
   label: 'Site validation: Pocket'
+metatag.metatag_tag.siwecos:
+  type: label
+  label: 'Site validation: SIWECOS'
 metatag.metatag_tag.yahoo:
   type: label
   label: 'Site validation: Yahoo'

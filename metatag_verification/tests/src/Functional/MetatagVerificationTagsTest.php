@@ -29,6 +29,7 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
     'norton_safe_web',
     'pinterest',
     'pocket',
+    'siwecos',
     'yandex',
     'zoom_domain_verification',
   ];
@@ -57,6 +58,9 @@ class MetatagVerificationTagsTest extends MetatagTagsTestBase {
     }
     elseif ($tag_name == 'pocket') {
       $tag_name = 'pocket-site-verification';
+    }
+    elseif ($tag_name == 'siwecos') {
+      $tag_name = 'siwecostoken';
     }
     elseif ($tag_name == 'yandex') {
       $tag_name = 'yandex-verification';
