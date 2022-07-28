@@ -1,6 +1,6 @@
 name: 'Metatag: Google Plus'
 type: module
-description: Provides support for Google's Plus meta tags.
+description: Provides support for Google's Plus meta tags. Deprecated, will be removed in Metatag 2.0.0.
 core_version_requirement: '^9'
 package: SEO
 dependencies:

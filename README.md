@@ -31,9 +31,9 @@ The primary features include:
   revisioning of meta tag values added for individual entities.
 
 * A large volume of meta tags available, covering commonly used tags, Open
-  Graph tags, Twitter Cards tags, Dublin Core tags, Google+ tags, App Links
-  tags, site verification tags and more; all but the basic meta tags are kept
-  in separate submodules.
+  Graph tags, Twitter Cards tags, Dublin Core tags, App Links tags, site
+  verification tags and more; all but the basic meta tags are kept in separate
+  submodules.
 
 * Configuration can be added for individual paths using the Metatag Custom
   Routes submodule.
@@ -49,9 +49,6 @@ The primary features include:
 
 * The Twitter Cards meta tags may be added by enabling the "Metatag: Twitter
   Cards" submodule.
-
-* Certain meta tags used by Google+ may be added by enabling the "Metatag:
-  Google+" submodule.
 
 * Facebook's fb:app_id, fb:admins and fb:pages meta tags may be added by
   enabling the "Metatag: Facebook" submodule. These are useful for sites which
