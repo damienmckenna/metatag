@@ -15,7 +15,7 @@ class MetatagAvailableTokensTest extends WebDriverTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = ['metatag', 'node'];
+  protected static $modules = ['metatag', 'node'];
 
   /**
    * {@inheritdoc}

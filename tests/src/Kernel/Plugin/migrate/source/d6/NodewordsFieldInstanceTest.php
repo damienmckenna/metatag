@@ -22,7 +22,7 @@ class NodewordsFieldInstanceTest extends MigrateSqlSourceTestBase {
   /**
    * {@inheritdoc}
    */
-  public static $modules = [
+  protected static $modules = [
     // Core modules.
     'field',
     'migrate_drupal',
