@@ -300,6 +300,10 @@ Two migration processes are supported:
 Some modules are available that extend Metatag with additional or complimentary
 functionality:
 
+* [Token OR](https://www.drupal.org/project/token_or):
+  Provides a means to output a second token if the first one is empty, which can
+  be very useful for complex content architectures.
+
 * [Schema.org Metatag](https://www.drupal.org/project/schema_metatag):
   Extensive solution for adding schema.org / JSON-LD support to Metatag.
 

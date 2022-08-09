@@ -6,6 +6,9 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   tags.
 #3300806 by heddn, DamienMcKenna: hreflang_per_language not in config schema.
 #3302675 by DamienMcKenna: Fix $modules definitions in tests.
+#3034248 by DanielVeza, chadmandoo, DamienMcKenna, jwilson3, justin2pin, InaW,
+  ChandeepKhosa, thejimbirch, pianomansam, FiNeX: Promote use of Token Or
+  module to make more flexible tokens.
 
 
 Metatag 8.x-1.21, 2022-07-16
