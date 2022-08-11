@@ -210,6 +210,16 @@ abstract class MetaNameBase extends PluginBase {
   }
 
   /**
+   * Determine whether this meta tag is an image tag.
+   *
+   * @return bool
+   *   Whether this meta tag is an image.
+   */
+  public function isImage(): bool {
+    return $this->type() == 'image';
+  }
+
+  /**
    * Whether or not this meta tag must output secure (HTTPS) URLs.
    *
    * @return bool
@@ -217,6 +227,16 @@ abstract class MetaNameBase extends PluginBase {
    */
   public function secure() {
     return $this->secure;
+  }
+
+  /**
+   * Whether or not this meta tag must output secure (HTTPS) URLs.
+   *
+   * @return bool
+   *   Whether or not this meta tag must output secure (HTTPS) URLs.
+   */
+  public function isSecure(): bool {
+    return (bool) $this->secure;
   }
 
   /**
@@ -230,6 +250,16 @@ abstract class MetaNameBase extends PluginBase {
   }
 
   /**
+   * Whether or not this meta tag supports multiple values.
+   *
+   * @return bool
+   *   Whether or not this meta tag supports multiple values.
+   */
+  public function isMultiple(): bool {
+    return (bool) $this->multiple;
+  }
+
+  /**
    * Whether or not this meta tag should use a text area.
    *
    * @return bool
@@ -237,6 +267,28 @@ abstract class MetaNameBase extends PluginBase {
    */
   public function isLong() {
     return $this->long;
+  }
+
+  /**
+   * Whether or not this meta tag stores a URL or URI value.
+   *
+   * @return bool
+   *   Whether or not this meta tag should contain a URL or URI value.
+   */
+  public function isUrl(): bool {
+    // Secure URLs are URLs.
+    if ($this->isSecure()) {
+      return TRUE;
+    }
+    // Absolute URLs are URLs.
+    if ($this->requiresAbsoluteUrl()) {
+      return TRUE;
+    }
+    // URIs are URL-adjacent.
+    if ($this->type == 'uri') {
+      return TRUE;
+    }
+    return FALSE;
   }
 
   /**
