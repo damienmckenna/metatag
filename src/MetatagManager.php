@@ -667,7 +667,8 @@ class MetatagManager implements MetatagManagerInterface {
 
     $entity_identifier = '_none';
     if ($entity) {
-      $entity_identifier = $entity->getEntityTypeId() . ':' . ($entity->uuid() ?? $entity->id());
+      $entity_identifier = $entity->getEntityTypeId() . ':' . ($entity->uuid() ?? $entity->id()) . ':' . $entity->language()
+          ->getId();
     }
 
     // Use the entity's language code, if one is defined.

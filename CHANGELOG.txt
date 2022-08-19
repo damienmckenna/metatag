@@ -11,6 +11,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   module to make tokens more flexible.
 #3302685 by DamienMcKenna: Tiny changes from tests refactoring.
 #3303196 by DamienMcKenna: Add extra isSOMETHING() methods to MetaNameBase.
+#3304779 by luigisa, DamienMcKenna: MetatagManager::processedTokenCache() does
+  not respect the entity language.
 
 
 Metatag 8.x-1.21, 2022-07-16
