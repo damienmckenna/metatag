@@ -3,6 +3,7 @@
 namespace Drupal\Tests\metatag_extended_perms\Functional;
 
 use Drupal\Tests\BrowserTestBase;
+use Drupal\Tests\metatag\Functional\MetatagHelperTrait;
 
 /**
  * Verify the new permissions are added.
@@ -12,7 +13,7 @@ use Drupal\Tests\BrowserTestBase;
 class PermissionsTest extends BrowserTestBase {
 
   // Contains helper methods.
-  use \Drupal\Tests\metatag\Functional\MetatagHelperTrait;
+  use MetatagHelperTrait;
 
   /**
    * {@inheritdoc}
@@ -90,7 +91,6 @@ class PermissionsTest extends BrowserTestBase {
 
     // Create a content type with a Metatag field.
     $this->createContentType();
-    $this->drupalGet('admin/people/permissions');
   }
 
   /**

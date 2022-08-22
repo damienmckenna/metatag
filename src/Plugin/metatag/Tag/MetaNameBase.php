@@ -113,8 +113,33 @@ abstract class MetaNameBase extends PluginBase {
    * The attribute this tag uses for the name.
    *
    * @var string
+   *
+   * @deprecated in metatag:8.x-1.20 and is removed from metatag:2.0.0. Use $this->htmlTagNameAttribute instead.
+   *
+   * @see https://www.drupal.org/node/3303208
    */
   protected $nameAttribute = 'name';
+
+  /**
+   * The string this tag uses for the tag itself.
+   *
+   * @var string
+   */
+  protected $htmlTag = 'meta';
+
+  /**
+   * The attribute this tag uses for the name.
+   *
+   * @var string
+   */
+  protected $htmlNameAttribute = 'name';
+
+  /**
+   * The attribute this tag uses for the contents.
+   *
+   * @var string
+   */
+  protected $htmlValueAttribute = 'content';
 
   /**
    * {@inheritdoc}
@@ -435,10 +460,10 @@ abstract class MetaNameBase extends PluginBase {
       $value = $this->trimValue($value);
 
       $elements[] = [
-        '#tag' => 'meta',
+        '#tag' => $this->htmlTag,
         '#attributes' => [
-          $this->nameAttribute => $this->name,
-          'content' => $value,
+          $this->htmlNameAttribute => $this->name,
+          $this->htmlValueAttribute => $value,
         ],
       ];
     }
