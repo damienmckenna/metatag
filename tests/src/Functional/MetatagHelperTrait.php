@@ -34,7 +34,14 @@ trait MetatagHelperTrait {
   }
 
   /**
-   * {@inheritdoc}
+   * Provides output of a given string for debug purposes.
+   *
+   * @param mixed $message
+   *   The string, array or object to be rendered.
+   * @param string $title
+   *   An optional label to show above the output.
+   *
+   * @todo Update to not output anything when using drupalci.
    */
   protected function verbose($message, $title = NULL) {
     // Handle arrays, objects, etc.
@@ -47,7 +54,7 @@ trait MetatagHelperTrait {
       $title = '<h2>' . Html::escape($title) . "</h2>\n";
     }
 
-    parent::verbose($title . $message);
+    dump($title . $message);
   }
 
   /**

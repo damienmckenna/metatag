@@ -1,7 +1,7 @@
 name: Metatag
 type: module
 description: Manage meta tags for all entities.
-core_version_requirement: '^9'
+core_version_requirement: '^9.3 || ^10'
 package: SEO
 configure: entity.metatag_defaults.collection
 dependencies:

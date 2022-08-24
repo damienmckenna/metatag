@@ -1,7 +1,7 @@
 name: 'Metatag: Page Manager'
 type: module
 description: Provides metatag support for Page Manager variants.
-core_version_requirement: '^9'
+core_version_requirement: '^9.3 || ^10'
 package: SEO
 dependencies:
   - page_manager:page_manager

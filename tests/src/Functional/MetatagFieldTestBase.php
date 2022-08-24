@@ -147,7 +147,14 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Provides output of a given string for debug purposes.
+   *
+   * @param mixed $message
+   *   The string, array or object to be rendered.
+   * @param string $title
+   *   An optional label to show above the output.
+   *
+   * @todo Update to not output anything when using drupalci.
    */
   protected function verbose($message, $title = NULL) {
     // Handle arrays, objects, etc.
