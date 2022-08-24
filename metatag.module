@@ -343,7 +343,11 @@ function metatag_get_route_entity() {
   preg_match('/entity\.(.*)\.(latest[_-]version|canonical)/', $route_name, $matches);
   if (!empty($matches[1])) {
     $entity_type = $matches[1];
-    return $route_match->getParameter($entity_type);
+    $entity_object = $route_match->getParameter($entity_type);
+    if (!$entity_object instanceof EntityInterface) {
+      return NULL;
+    }
+    return $entity_object;
   }
 
   // Look for a rest entity view page, e.g. "node/{nid}?_format=json", etc.
@@ -352,7 +356,11 @@ function metatag_get_route_entity() {
   preg_match('/rest\.entity\.(.*)\.(.*)\.(.*)/', $route_name, $matches);
   if (!empty($matches[1])) {
     $entity_type = $matches[1];
-    return $route_match->getParameter($entity_type);
+    $entity_object = $route_match->getParameter($entity_type);
+    if (!$entity_object instanceof EntityInterface) {
+      return NULL;
+    }
+    return $entity_object;
   }
 
   // Look for entity object 'add' pages, e.g. "node/add/{bundle}".
