@@ -8,6 +8,10 @@ use Drupal\Tests\BrowserTestBase;
  * Verify that the JSON output from core works as intended.
  *
  * @group panelizer_metatag
+ *
+ * @deprecated in metatag:8.x-1.22 and is removed from metatag:2.0.0. No replacement is provided.
+ *
+ * @see https://www.drupal.org/project/metatag/issues/3305580
  */
 class MetatagPanelizerTest extends BrowserTestBase {
 
