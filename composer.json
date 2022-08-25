@@ -31,6 +31,7 @@
     "drupal/redirect": "^1.0",
     "drupal/page_manager": "^4.0",
     "drupal/panelizer": "^4.0",
+    "drupal/webprofiler": "^9 || ^10",
     "mpyw/phpunit-patch-serializable-comparison": "*"
   }
 }
