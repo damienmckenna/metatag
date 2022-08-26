@@ -147,30 +147,6 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
   }
 
   /**
-   * Provides output of a given string for debug purposes.
-   *
-   * @param mixed $message
-   *   The string, array or object to be rendered.
-   * @param string $title
-   *   An optional label to show above the output.
-   *
-   * @todo Update to not output anything when using drupalci.
-   */
-  protected function verbose($message, $title = NULL) {
-    // Handle arrays, objects, etc.
-    if (!is_string($message)) {
-      $message = "<pre>\n" . print_r($message, TRUE) . "\n</pre>\n";
-    }
-
-    // Optional title to go before the output.
-    if (!empty($title)) {
-      $title = '<h2>' . Html::escape($title) . "</h2>\n";
-    }
-
-    dump($title . $message);
-  }
-
-  /**
    * Any additional configuration that's needed for this entity type.
    */
   protected function setUpEntityType() {}
@@ -516,7 +492,6 @@ abstract class MetatagFieldTestBase extends BrowserTestBase {
     $session->statusCodeEquals(200);
     $elements = $this->cssSelect('meta[name=metatag_test_tag]');
     $this->assertCount(1, $elements, 'Found test metatag from defaults');
-    $this->verbose('<pre>' . print_r($elements, TRUE) . '</pre>');
     $this->assertEquals((string) $elements[0]['content'], $values['metatag_test_tag']);
   }
 

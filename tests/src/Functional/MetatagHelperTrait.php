@@ -34,30 +34,6 @@ trait MetatagHelperTrait {
   }
 
   /**
-   * Provides output of a given string for debug purposes.
-   *
-   * @param mixed $message
-   *   The string, array or object to be rendered.
-   * @param string $title
-   *   An optional label to show above the output.
-   *
-   * @todo Update to not output anything when using drupalci.
-   */
-  protected function verbose($message, $title = NULL) {
-    // Handle arrays, objects, etc.
-    if (!is_string($message)) {
-      $message = "<pre>\n" . print_r($message, TRUE) . "\n</pre>\n";
-    }
-
-    // Optional title to go before the output.
-    if (!empty($title)) {
-      $title = '<h2>' . Html::escape($title) . "</h2>\n";
-    }
-
-    dump($title . $message);
-  }
-
-  /**
    * Create a content type and a node.
    *
    * @param string $title

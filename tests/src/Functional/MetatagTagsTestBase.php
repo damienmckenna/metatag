@@ -270,11 +270,6 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
         '@xpath' => $xpath_string,
       ]);
       $this->assertCount(1, $xpath, $message);
-      if (count($xpath) !== 1) {
-        foreach ($xpath as $item) {
-          $this->verbose($item->getHtml(), $tag_name . ': ' . $xpath_string);
-        }
-      }
 
       // Run various tests on the output variables.
       // Most meta tags have an attribute, but some don't.
@@ -282,19 +277,12 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
         $this->assertNotEmpty($xpath_value_attribute);
         $this->assertTrue($xpath[0]->hasAttribute($xpath_value_attribute));
         // Help with debugging.
-        if (!$xpath[0]->hasAttribute($xpath_value_attribute)) {
-          $this->verbose($xpath[0]->getHtml(), $tag_name . ': ' . $xpath_string);
-        }
-        else {
-          if ((string) $xpath[0]->getAttribute($xpath_value_attribute) != $all_values[$tag_name]) {
-            $this->verbose($xpath[0]->getHtml(), $tag_name . ': ' . $xpath_string);
-          }
+        if ($xpath[0]->hasAttribute($xpath_value_attribute)) {
           $this->assertNotEmpty($xpath[0]->getAttribute($xpath_value_attribute));
           $this->assertEquals($xpath[0]->getAttribute($xpath_value_attribute), $all_values[$tag_name], "The '{$tag_name}' tag was found with the expected value.");
         }
       }
       else {
-        $this->verbose($xpath, $tag_name . ': ' . $xpath_string);
         $this->assertTrue((string) $xpath[0]);
         $message = new FormattableMarkup("The '@tag' tag was found with the expected value '@value'.", [
           '@tag' => $tag_name,

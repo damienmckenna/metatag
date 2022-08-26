@@ -166,8 +166,6 @@ class PermissionsTest extends BrowserTestBase {
       $perms_yes[] = "access metatag {$group_yes}__{$tag_name}";
     }
 
-    $this->verbose($perms_yes);
-
     // Create a user account with the above permissions.
     $user = $this->createUser($perms_yes);
     $this->drupalLogin($user);
