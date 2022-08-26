@@ -42,7 +42,7 @@ class MetatagViewsTokenTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'bartik';
+  protected $defaultTheme = 'claro';
 
   /**
    * Confirm the Views tokenization functionality works, including UI.

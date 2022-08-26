@@ -41,7 +41,7 @@ class NodeJsonOutput extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'bartik';
+  protected $defaultTheme = 'claro';
 
   /**
    * Create an entity, view its JSON output, confirm Metatag data exists.

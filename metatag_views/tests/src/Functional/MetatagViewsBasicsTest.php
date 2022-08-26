@@ -42,7 +42,7 @@ class MetatagViewsBasicsTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected $defaultTheme = 'bartik';
+  protected $defaultTheme = 'claro';
 
   /**
    * {@inheritdoc}
@@ -50,18 +50,11 @@ class MetatagViewsBasicsTest extends BrowserTestBase {
   protected function setUp(): void {
     parent::setUp();
 
-    // Enable the Bartik theme and make it the default.
-    // @todo remove this once 8.8 is required and $defaultTheme can be
-    // relied upon.
-    $theme = 'bartik';
-    \Drupal::service('theme_installer')->install([$theme]);
-    $this->config('system.theme')->set('default', $theme);
-
     // Place the local actions block in the theme so that we can assert the
     // presence of local actions and such.
     $this->drupalPlaceBlock('local_actions_block', [
       'region' => 'content',
-      'theme' => $theme,
+      'theme' => $this->defaultTheme,
     ]);
   }
 
