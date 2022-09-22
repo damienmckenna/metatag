@@ -131,16 +131,16 @@ Metatag field entirely, then use tokens for those fields in the defaults
 display, or just left hidden.
 
 
-Alternative option to simplify the content administration experience
---------------------------------------------------------------------------------
+## Alternative option to simplify the content administration experience
+
 On the settings page (/admin/config/search/metatag/settings) are options to
 control which meta tag groups are available for each entity bundle. This allows
 e.g. the Favicon meta tags to be available for global configurations but to hide
 them on entity forms.
 
 
-Programmatically assign meta tags to an entity
---------------------------------------------------------------------------------
+## Programmatically assign meta tags to an entity
+
 There are two ways to assign an entity's meta tags in custom module. Both
 scenarios require a "Metatag" field be added to the entity's field settings, the
 field name "field_meta_tags" is used but this is completely arbitrary.
