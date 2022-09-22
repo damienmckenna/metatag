@@ -24,6 +24,7 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   correctly.
 #3306085 by DamienMcKenna, Berdir: Replace "bartik" theme in tests.
 #3305322 by DamienMcKenna: Remove the verbose() test methods.
+#2767107 by DamienMcKenna, Antares89: Add support for the Diff module.
 
 
 Metatag 8.x-1.21, 2022-07-16
