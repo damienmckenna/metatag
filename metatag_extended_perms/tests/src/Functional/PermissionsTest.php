@@ -4,6 +4,7 @@ namespace Drupal\Tests\metatag_extended_perms\Functional;
 
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\metatag\Functional\MetatagHelperTrait;
+use Drupal\node\Entity\NodeType;
 
 /**
  * Verify the new permissions are added.
@@ -193,8 +194,8 @@ class PermissionsTest extends BrowserTestBase {
   /**
    * {@inheritdoc}
    */
-  protected function createContentType(array $values = []) {
-    parent::createContentType(['type' => 'page']);
+  protected function createContentType(array $values = []): NodeType {
+    $type = parent::createContentType(['type' => 'page']);
 
     // Load a node form.
     $this->drupalGet('node/add/page');
@@ -212,6 +213,8 @@ class PermissionsTest extends BrowserTestBase {
 
     // Clear all settings.
     $this->container->get('entity_field.manager')->clearCachedFieldDefinitions();
+
+    return $type;
   }
 
 }

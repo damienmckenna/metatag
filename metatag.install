@@ -124,6 +124,7 @@ function metatag_update_8109(&$sandbox) {
         $bundle = $field->getTargetBundle();
 
         // Determine the table and "value" field names.
+        // @todo The class path to getTableMapping() seems to be invalid?
         $table_mapping = Drupal::entityTypeManager()
           ->getStorage($field->getTargetEntityTypeId())
           ->getTableMapping();

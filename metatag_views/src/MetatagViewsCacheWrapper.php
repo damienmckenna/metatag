@@ -93,12 +93,13 @@ class MetatagViewsCacheWrapper extends CachePluginBase {
       // $view->current_page and pass row tokens to metatag display extender.
       if ($cache = \Drupal::cache($this->plugin->resultsBin)->get($this->plugin->generateResultsKey())) {
         if (!$cutoff || $cache->created > $cutoff) {
+          /** @var \Drupal\views\ViewExecutable $view */
           $view = $this->plugin->view;
           $view->result = $cache->data['result'];
           // Load entities for each result.
           $view->query->loadEntities($view->result);
           $view->total_rows = $cache->data['total_rows'];
-          $view->setCurrentPage($cache->data['current_page'], TRUE);
+          $view->setCurrentPage($cache->data['current_page']);
           $view->execute_time = 0;
           $extenders = $view->getDisplay()->getExtenders();
           if (isset($extenders['metatag_display_extender'])) {
