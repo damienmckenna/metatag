@@ -317,6 +317,16 @@ abstract class MetaNameBase extends PluginBase {
   }
 
   /**
+   * Get the HTML attribute used to store this meta tag's value.
+   *
+   * @return string
+   *   The HTML attribute used to store this meta tag's value.
+   */
+  public function getHtmlValueAttribute() {
+    return $this->htmlValueAttribute;
+  }
+
+  /**
    * Whether or not this meta tag must output required absolute URLs.
    *
    * @return bool

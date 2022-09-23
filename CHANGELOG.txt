@@ -27,6 +27,9 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #2767107 by DamienMcKenna, Antares89: Add support for the Diff module.
 #3311343 by Anybody, DamienMcKenna: Metatag routes misses package name SEO in
   info.yml.
+#2901039 by rcodina, tsplash, DamienMcKenna, Wannes DR, mErilainen,
+  weekbeforenext, natemow, mpp, borisson_, AMDandy, jenniferaube, klmd302: Add
+  a TypedData plugin to support Search API.
 
 
 Metatag 8.x-1.21, 2022-07-16

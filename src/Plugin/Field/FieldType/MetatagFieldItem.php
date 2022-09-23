@@ -46,6 +46,20 @@ class MetatagFieldItem extends FieldItemBase {
       ->setLabel(t('Metatag'))
       ->setRequired(TRUE);
 
+    $sorted_tags = \Drupal::service('metatag.manager')->sortedGroupsWithTags();
+
+    foreach ($sorted_tags as $group_id => $group) {
+      if (isset($group['tags'])) {
+        foreach ($group['tags'] as $tag_id => $tag) {
+          $properties[$tag_id] = DataDefinition::create('string')
+            ->setLabel(t('@label', ['@label' => $tag['label']]))
+            ->setComputed(TRUE)
+            ->setClass('\Drupal\metatag\TypedData\IndividualTag')
+            ->setSetting('tag_name', $tag_id);
+        }
+      }
+    }
+
     return $properties;
   }
 
