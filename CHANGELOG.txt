@@ -30,6 +30,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #2901039 by rcodina, tsplash, DamienMcKenna, Wannes DR, mErilainen,
   weekbeforenext, natemow, mpp, borisson_, AMDandy, jenniferaube, klmd302: Add
   a TypedData plugin to support Search API.
+#3311542 by DamienMcKenna, lostcarpark, lucassc: Add new Metatag logo files,
+  update tests to use them.
 
 
 Metatag 8.x-1.21, 2022-07-16
