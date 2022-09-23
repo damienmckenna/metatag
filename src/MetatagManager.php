@@ -782,10 +782,15 @@ class MetatagManager implements MetatagManagerInterface {
     foreach ($value as $key => $value_item) {
       // Process the tokens in this value and decode any HTML characters that
       // might be found.
-      $value[$key] = htmlspecialchars_decode($this->tokenService->replace($value_item, $token_replacements, ['langcode' => $langcode]));
+      if (!empty($value_item) && is_string($value_item)) {
+        if (strpos($value_item, '[') !== FALSE) {
+          $value[$key] = $this->tokenService->replace($value_item, $token_replacements, ['langcode' => $langcode]);
+        }
+        $value[$key] = htmlspecialchars_decode($value[$key]);
+      }
 
       // If requested, run the value through the render system.
-      if ($plain_text) {
+      if ($plain_text && !empty($value[$key])) {
         $value[$key] = PlainTextOutput::renderFromHtml($value[$key]);
       }
     }
