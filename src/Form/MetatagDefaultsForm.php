@@ -157,7 +157,9 @@ class MetatagDefaultsForm extends EntityForm {
     $entity_type_groups = $settings->get('entity_type_groups');
 
     // Find the current entity type and bundle.
-    if ($metatag_defaults_id = $metatag_defaults->id()) {
+    $entity_bundle = NULL;
+    $metatag_defaults_id = $metatag_defaults->id();
+    if (!empty($metatag_defaults_id)) {
       $type_parts = explode('__', $metatag_defaults_id);
       $entity_type = $type_parts[0];
       $entity_bundle = $type_parts[1] ?? NULL;
@@ -303,6 +305,7 @@ class MetatagDefaultsForm extends EntityForm {
     }
 
     $form_state->setRedirectUrl($metatag_defaults->toUrl('collection'));
+    // @todo This is expected to return an INT value.
   }
 
   /**
@@ -403,7 +406,7 @@ class MetatagDefaultsForm extends EntityForm {
   /**
    * Route title callback.
    *
-   * @param \Drupal\metatag\MetatagDefaultsInterface|null $metatag_defaults
+   * @param \Drupal\metatag\MetatagDefaultsInterface $metatag_defaults
    *   Metatags default entity.
    *
    * @return \Drupal\Core\StringTranslation\TranslatableMarkup

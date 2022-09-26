@@ -41,7 +41,7 @@ class MetatagManager implements MetatagManagerInterface {
   /**
    * The Metatag defaults.
    *
-   * @var array
+   * @var \Drupal\metatag\Entity\MetatagDefaults
    */
   protected $metatagDefaults;
 
@@ -384,7 +384,7 @@ class MetatagManager implements MetatagManagerInterface {
         $field_type = $definition->getType();
 
         // Check the field type against our list of fields.
-        if (isset($field_type) && in_array($field_type, $field_types)) {
+        if (!empty($field_type) && in_array($field_type, $field_types)) {
           $field_list[$field_name] = $definition;
         }
       }
@@ -540,15 +540,7 @@ class MetatagManager implements MetatagManagerInterface {
   }
 
   /**
-   * Generate the elements that go in the hook_page_attachments attached array.
-   *
-   * @param array $tags
-   *   The array of tags as plugin_id => value.
-   * @param object $entity
-   *   Optional entity object to use for token replacements.
-   *
-   * @return array
-   *   Render array with tag elements.
+   * {@inheritdoc}
    */
   public function generateElements(array $tags, $entity = NULL) {
     $elements = [];
@@ -567,17 +559,7 @@ class MetatagManager implements MetatagManagerInterface {
   }
 
   /**
-   * Generate the actual meta tag values.
-   *
-   * @param array $tags
-   *   The array of tags as plugin_id => value.
-   * @param object $entity
-   *   Optional entity object to use for token replacements.
-   * @param \Drupal\Core\Render\BubbleableMetadata|null $cache
-   *   (optional) Cacheability metadata.
-   *
-   * @return array
-   *   Render array with tag elements.
+   * {@inheritdoc}
    */
   public function generateRawElements(array $tags, $entity = NULL, BubbleableMetadata $cache = NULL) {
     // Ignore the update.php path.
@@ -752,7 +734,7 @@ class MetatagManager implements MetatagManagerInterface {
    * @return array|string
    *   Processed value.
    */
-  protected function processTagValue($tag, $value, array $token_replacements, bool $plain_text = FALSE, $langcode = FALSE) {
+  protected function processTagValue($tag, $value, array $token_replacements, bool $plain_text = FALSE, $langcode = '') {
     // Set the value as sometimes the data needs massaging, such as when
     // field defaults are used for the Robots field, which come as an array
     // that needs to be filtered and converted to a string.

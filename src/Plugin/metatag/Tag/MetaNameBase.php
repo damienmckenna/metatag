@@ -110,6 +110,13 @@ abstract class MetaNameBase extends PluginBase {
   protected $value;
 
   /**
+   * The sort order for this meta tag.
+   *
+   * @var int
+   */
+  protected $weight;
+
+  /**
    * The attribute this tag uses for the name.
    *
    * @var string
