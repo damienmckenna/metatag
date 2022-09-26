@@ -40,6 +40,7 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 #3305751 by DamienMcKenna: Fix coding standards issues.
 #3311891 by DamienMcKenna, GiorgosK: MaskIcon::setValue() should not set a NULL
   value.
+#3311911 by DamienMcKenna: TypedData logic has an error.
 
 
 Metatag 8.x-1.21, 2022-07-16

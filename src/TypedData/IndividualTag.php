@@ -63,17 +63,19 @@ class IndividualTag extends TypedData {
         ]);
       return FALSE;
     }
-    $tags = [$property_name => $defaultTags[$property_name]];
+    $tags = [
+      $property_name => $defaultTags[$property_name],
+    ];
     $values = $metatagManager->generateRawElements($tags, $entity);
 
     $all_tags = [];
-    foreach (\Drupal::service('plugin.manager.metatag.tag') as $tag_name => $tag_spec) {
+    foreach (\Drupal::service('plugin.manager.metatag.tag')->getDefinitions() as $tag_name => $tag_spec) {
       $all_tags[$tag_name] = new $tag_spec['class']([], $tag_name, $tag_spec);
     }
 
     // If this tag has a value set the property value.
     if (isset($values[$property_name])) {
-      $attribute_name = $tag->getHtmlValueAttribute();
+      $attribute_name = $all_tags[$property_name]->getHtmlValueAttribute();
 
       // It should be possible to extract the HTML attribute that stores the
       // value, but in some cases it might not be possible.
