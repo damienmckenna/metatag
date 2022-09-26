@@ -81,7 +81,9 @@ class MetatagFieldItem extends FieldItemBase {
     $default_tags = metatag_get_default_tags($this->getEntity());
 
     // Get the value about to be saved.
+    // @todo Does this need to be rewritten to use $this->getValue()?
     $current_value = $this->value;
+
     // Only unserialize if still serialized string.
     if (is_string($current_value)) {
       $current_tags = unserialize($current_value, ['allowed_classes' => FALSE]);

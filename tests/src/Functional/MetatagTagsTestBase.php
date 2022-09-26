@@ -283,12 +283,12 @@ abstract class MetatagTagsTestBase extends BrowserTestBase {
         }
       }
       else {
-        $this->assertTrue((string) $xpath[0]);
+        $this->assertNotNull($xpath[0]);
         $message = new FormattableMarkup("The '@tag' tag was found with the expected value '@value'.", [
           '@tag' => $tag_name,
           '@value' => $all_values[$tag_name],
         ]);
-        $this->assertEquals((string) $xpath[0], $all_values[$tag_name], $message);
+        $this->assertEquals($xpath[0]->getHtml(), $all_values[$tag_name], $message);
       }
     }
   }

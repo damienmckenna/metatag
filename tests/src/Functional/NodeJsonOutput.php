@@ -92,7 +92,8 @@ class NodeJsonOutput extends BrowserTestBase {
    *   ['basic_auth'].
    */
   protected function provisionResource($entity_type = 'node', array $formats = [], array $authentication = []) {
-    $this->resourceConfigStorage = $this->container
+    /** @var \Drupal\Core\Entity\EntityStorageInterface */
+    $esource_config_storage = $this->container
       ->get('entity_type.manager')
       ->getStorage('rest_resource_config');
 
@@ -104,7 +105,7 @@ class NodeJsonOutput extends BrowserTestBase {
       $authentication[] = 'basic_auth';
     }
 
-    $this->resourceConfigStorage->create([
+    $esource_config_storage->create([
       'id' => 'entity.' . $entity_type,
       'granularity' => RestResourceConfigInterface::RESOURCE_GRANULARITY,
       'configuration' => [

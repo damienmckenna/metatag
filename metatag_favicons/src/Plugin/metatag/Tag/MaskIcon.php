@@ -93,6 +93,8 @@ class MaskIcon extends LinkRelBase {
 
       return $element;
     }
+
+    return '';
   }
 
   /**

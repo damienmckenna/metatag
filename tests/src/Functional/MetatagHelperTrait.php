@@ -15,6 +15,9 @@ trait MetatagHelperTrait {
 
   /**
    * Log in as user 1.
+   *
+   * @return \Drupal\user\Entity\User
+   *   The full user object for user 1, after logging in.
    */
   protected function loginUser1() {
     // Load user 1.
@@ -31,6 +34,8 @@ trait MetatagHelperTrait {
 
     // Login.
     $this->drupalLogin($account);
+
+    return $account;
   }
 
   /**
@@ -94,12 +99,7 @@ trait MetatagHelperTrait {
     $vocab = Vocabulary::create($values);
     $status = $vocab->save();
 
-    if ($this instanceof \PHPUnit_Framework_TestCase) {
-      $this->assertSame($status, SAVED_NEW, (new FormattableMarkup('Created vocabulary %type.', ['%type' => $vocab->id()]))->__toString());
-    }
-    else {
-      self::assertEquals($status, SAVED_NEW, (new FormattableMarkup('Created vocabulary %type.', ['%type' => $vocab->id()]))->__toString());
-    }
+    $this->assertSame($status, SAVED_NEW, (new FormattableMarkup('Created vocabulary %type.', ['%type' => $vocab->id()]))->__toString());
 
     return $vocab;
   }
@@ -110,7 +110,7 @@ trait MetatagHelperTrait {
    * @param array $values
    *   Items passed to the term. Requires the 'vid' element.
    *
-   * @return Drupal\taxonomy\Entity\Term
+   * @return \Drupal\taxonomy\Entity\Term
    *   A fully formatted term object.
    */
   private function createTerm(array $values = []) {
@@ -127,12 +127,7 @@ trait MetatagHelperTrait {
     $term = Term::create($values);
     $status = $term->save();
 
-    if ($this instanceof \PHPUnit_Framework_TestCase) {
-      $this->assertSame($status, SAVED_NEW, (new FormattableMarkup('Created term %name.', ['%name' => $term->label()]))->__toString());
-    }
-    else {
-      self::assertEquals($status, SAVED_NEW, (new FormattableMarkup('Created term %name.', ['%name' => $term->label()]))->__toString());
-    }
+    $this->assertSame($status, SAVED_NEW, (new FormattableMarkup('Created term %name.', ['%name' => $term->label()]))->__toString());
 
     return $term;
   }

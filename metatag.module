@@ -421,15 +421,13 @@ function metatag_get_route_entity() {
   // one bundle and it's named the same as the entity type, so some shortcuts
   // can be used.
   if ($route_name == 'user.admin_create') {
-    $entity_type = $type = 'user';
+    $entity_type = 'user';
     $definition = Drupal::entityTypeManager()->getDefinition($entity_type);
-    if (!empty($type)) {
-      return \Drupal::entityTypeManager()
-        ->getStorage($entity_type)
-        ->create([
-          $definition->get('entity_keys')['bundle'] => $type,
-        ]);
-    }
+    return \Drupal::entityTypeManager()
+      ->getStorage($entity_type)
+      ->create([
+        $definition->get('entity_keys')['bundle'] => $entity_type,
+      ]);
   }
 
   // Trigger hook_metatag_route_entity().

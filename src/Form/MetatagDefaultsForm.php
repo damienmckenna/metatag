@@ -109,7 +109,7 @@ class MetatagDefaultsForm extends EntityForm {
     $form['#suffix'] = '</div>';
 
     $default_type = NULL;
-    if (!empty($metatag_defaults)) {
+    if ($metatag_defaults) {
       $default_type = $metatag_defaults->getOriginalId();
     }
     else {
@@ -289,6 +289,7 @@ class MetatagDefaultsForm extends EntityForm {
     ksort($tag_values);
 
     $metatag_defaults->set('tags', $tag_values);
+    /** @var int $status */
     $status = $metatag_defaults->save();
 
     switch ($status) {
@@ -305,7 +306,8 @@ class MetatagDefaultsForm extends EntityForm {
     }
 
     $form_state->setRedirectUrl($metatag_defaults->toUrl('collection'));
-    // @todo This is expected to return an INT value.
+
+    return $status;
   }
 
   /**
