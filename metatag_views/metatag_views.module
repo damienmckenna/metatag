@@ -103,9 +103,6 @@ function metatag_views_metatag_route_entity(RouteMatchInterface $route_match) {
  * Implements hook_views_post_render().
  */
 function metatag_views_views_post_render(ViewExecutable $view, &$output, CachePluginBase $cache) {
-  if ($cache instanceof MetatagViewsCacheWrapper) {
-    $cache->doDeferredCacheSet();
-  }
   $extenders = $view->getDisplay()->getExtenders();
   if (isset($extenders['metatag_display_extender'])) {
     $first_row_tokens = MetatagDisplayExtender::getFirstRowTokensFromStylePlugin($view);
@@ -113,5 +110,4 @@ function metatag_views_views_post_render(ViewExecutable $view, &$output, CachePl
     $extender = $extenders['metatag_display_extender'];
     $extender->setFirstRowTokens($first_row_tokens);
   }
-
 }
