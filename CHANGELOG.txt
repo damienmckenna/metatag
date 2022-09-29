@@ -1,5 +1,5 @@
-Metatag 8.x-1.x-dev, 2022-xx-xx
--------------------------------
+Metatag 8.x-1.22, 2022-09-29
+----------------------------
 #3299228 by DamienMcKenna: Refactor favicon meta tags.
 #3298081 by DamienMcKenna: Deprecate Google Plus meta tags.
 #3299229 by DamienMcKenna, thejimbirch: Deprecate news_keywords, standout meta
