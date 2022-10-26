@@ -2,6 +2,8 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
 -------------------------------
 #3312950 by DamienMcKenna, nkraft: Warning: Undefined array key "href" in
   Drupal\metatag_favicons\Plugin\metatag\Tag\MaskIcon->output().
+#3313273 by DamienMcKenna, jenger1965, wells, JesperN, othermachines,
+  flocondetoile: Incorrect unserialization error logged.
 
 
 Metatag 8.x-1.22, 2022-09-29
