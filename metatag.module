@@ -205,17 +205,6 @@ function metatag_entity_view_alter(array &$build, EntityInterface $entity, Entit
     return;
   }
 
-  // Panelized entities still use the original entity's controller, but with
-  // custom built entities. In those cases hook_entity_view_alter might be
-  // called too early, where meta links are not yet set.
-  // @see \Drupal\node\Controller\NodeController::view
-  if ($display->getThirdPartySetting('panelizer', 'enable', FALSE)) {
-    $build['#pre_render'][] = function (array $element) {
-      return _metatag_panelizer_pre_render($element);
-    };
-    return;
-  }
-
   _metatag_remove_duplicate_entity_tags($build);
 }
 
@@ -240,24 +229,6 @@ function _metatag_is_entity_route_entity(EntityInterface $entity): bool {
     }
   }
   return ($cached_entity_uuid === $entity->uuid());
-}
-
-/**
- * Pre render callback for entities processed by Panelizer.
- *
- * @param array $element
- *   The render array being processed.
- *
- * @return array
- *   The filtered render array.
- *
- * @deprecated in metatag:8.x-1.22 and is removed from metatag:2.0.0. No replacement is provided.
- *
- * @see https://www.drupal.org/project/metatag/issues/3305580
- */
-function _metatag_panelizer_pre_render(array $element) {
-  _metatag_remove_duplicate_entity_tags($element);
-  return $element;
 }
 
 /**

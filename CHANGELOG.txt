@@ -1,6 +1,7 @@
 Metatag 2.0.x-dev, 2022-xx-xx
 -----------------------------
 #3164404 by DamienMcKenna: Rewrite tags testing architecture.
+#3305586 by DamienMcKenna: Remove Panelizer support.
 
 
 Metatag 8.x-1.x-dev, 2022-xx-xx
