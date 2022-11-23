@@ -46,6 +46,7 @@ function metatag_mobile_theme() {
  * Implements hook_page_attachments_alter().
  */
 function metatag_mobile_page_attachments_alter(array &$attachments) {
+  // @todo This does not seem to still work, see HandheldFriendly.
   if (isset($attachments['#attached']['html_head'])) {
     // A list of core tags that will be replaced, in the format:
     // core tag => Metatag-supplied tag
@@ -79,41 +80,4 @@ function metatag_mobile_page_attachments_alter(array &$attachments) {
       }
     }
   }
-}
-
-/**
- * Theme callback for an Android app link meta tag.
- *
- * The format is (all on oneline):
- * <link rel="alternate" href="android-app://com.example.Example
- * /sitesection/sitepage/thispage" />
- *
- * @deprecated in metatag:8.x-1.22 and is removed from metatag:2.0.0. No replacement is provided.
- *
- * @see https://www.drupal.org/project/metatag/issues/3303424
- */
-function theme_metatag_mobile_android_app($variables) {
-  // Pass everything through to the normal 'link' tag theme.
-  $variables['element']['#name'] = 'alternative';
-  $variables['element']['#value'] = 'android-app://' . $variables['element']['#value'];
-
-  return theme('metatag_link_rel', $variables);
-}
-
-/**
- * Theme callback for an iOS app link meta tag.
- *
- * The format is:
- * <link rel="alternate" href="ios-app://123456/example/hello-screen" />
- *
- * @deprecated in metatag:8.x-1.22 and is removed from metatag:2.0.0. No replacement is provided.
- *
- * @see https://www.drupal.org/project/metatag/issues/3303424
- */
-function theme_metatag_mobile_ios_app($variables) {
-  // Pass everything through to the normal 'link' tag theme.
-  $variables['element']['#name'] = 'alternative';
-  $variables['element']['#value'] = 'ios-app://' . $variables['element']['#value'];
-
-  return theme('metatag_link_rel', $variables);
 }

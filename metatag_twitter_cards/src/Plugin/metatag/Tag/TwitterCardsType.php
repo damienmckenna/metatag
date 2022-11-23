@@ -61,4 +61,21 @@ class TwitterCardsType extends MetaNameBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormXpath(): array {
+    return ["//select[@name='twitter_cards_type']"];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormData(): array {
+    return [
+      // @todo Expand this?
+      'twitter_cards_type' => 'summary',
+    ];
+  }
+
 }

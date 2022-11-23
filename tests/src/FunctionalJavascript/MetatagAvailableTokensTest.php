@@ -10,7 +10,7 @@ use Drupal\FunctionalJavascriptTests\WebDriverTestBase;
  *
  * @group metatag
  */
-class MetatagAvailableTokensTest extends WebDriverTestBase {
+class AvailableTokensTest extends WebDriverTestBase {
 
   /**
    * {@inheritdoc}

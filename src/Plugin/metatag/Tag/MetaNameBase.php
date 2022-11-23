@@ -6,6 +6,7 @@ use Drupal\Component\Plugin\PluginBase;
 use Drupal\Component\Render\PlainTextOutput;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\Component\Utility\Random;
 
 /**
  * Each meta tag will extend this base.
@@ -123,7 +124,7 @@ abstract class MetaNameBase extends PluginBase {
    *
    * @deprecated in metatag:8.x-1.20 and is removed from metatag:2.0.0. Use $this->htmlTagNameAttribute instead.
    *
-   * @see https://www.drupal.org/node/3303208
+   * @see https://www.drupal.org/node/123
    */
   protected $nameAttribute = 'name';
 
@@ -584,6 +585,102 @@ abstract class MetaNameBase extends PluginBase {
       $value = $trimmerService->trimByMethod($value, $currentMaxValue, $trimMethod);
     }
     return $value;
+  }
+
+  /**
+   * The xpath string which identifies this meta tag on a form.
+   *
+   * To skip testing the form field exists, return an empty array.
+   *
+   * @return string
+   *   An xpath-formatted string for matching a field on the form.
+   */
+  public function getTestFormXpath(): array {
+    // "Long" values use a text area on the form, so handle them automatically.
+    if ($this->isLong()) {
+      return [
+        // @todo This should work but it results in the following error:
+        // DOMXPath::query(): Invalid predicate.
+        // "//textarea[@name='{$this->id}'",
+      ];
+    }
+    // Default to a single text input field.
+    else {
+      return ["//input[@name='{$this->id}' and @type='text']"];
+    }
+  }
+
+  /**
+   * Generate a random value for testing purposes.
+   *
+   * As a reasonable default, this will generating two words of 8 characters
+   * each with simple machine name -style strings; image meta tags will generate
+   * an absolute URL for an image.
+   *
+   * @return array
+   *   An array containing a normal string.
+   */
+  public function getTestFormData(): array {
+    $random = new Random();
+
+    // Provide a default value.
+    if ($this->isImage()) {
+      // @todo Add proper validation of image meta values.
+      return [
+        $this->id => 'https://www.example.com/images/' . $random->word(6) . '-' . $random->word(6) . '.png',
+      ];
+    }
+    // Absolute URLs that are specifically secure.
+    elseif ($this->isSecure()) {
+      return [
+        $this->id => 'https://www.example.com/' . $random->word(6) . '-' . $random->word(6) . '.html',
+      ];
+    }
+    // Absolute URLs that are not necessarily secure.
+    elseif ($this->requiresAbsoluteUrl()) {
+      return [
+        $this->id => 'http://www.example.com/' . $random->word(6) . '-' . $random->word(6) . '.html',
+      ];
+    }
+    // Relative URLs.
+    elseif ($this->isUrl()) {
+      return [
+        $this->id => '/' . $random->word(6) . '/' . $random->word(6) . '.html',
+      ];
+    }
+    else {
+      return [
+        // Use three alphanumeric strings joined with spaces.
+        $this->id => $random->word(6) . ' ' . $random->word(6) . ' ' . $random->word(6),
+      ];
+    }
+  }
+
+  /**
+   * The xpath string which identifies this meta tag presence on the page.
+   *
+   * @return array
+   *   A list of xpath-formatted string(s) for matching a field on the page.
+   */
+  public function getTestOutputExistsXpath(): array {
+    return ["//" . $this->htmlTag . "[@" . $this->htmlNameAttribute . "='{$this->name}']"];
+  }
+
+  /**
+   * The xpath string which identifies this meta tag's output on the page.
+   *
+   * @param array $values
+   *   The field names and values that were submitted.
+   *
+   * @return array
+   *   A list of xpath-formatted string(s) for matching a field on the page.
+   */
+  public function getTestOutputValuesXpath(array $values): array {
+    $xpath_strings = [];
+    foreach ($values as $value) {
+      $xpath_strings[] = "//" . $this->htmlTag . "[@" . $this->htmlNameAttribute . "='{$this->name}' and @" . $this->htmlValueAttribute . "='{$value}']";
+    }
+    return $xpath_strings;
   }
 
 }

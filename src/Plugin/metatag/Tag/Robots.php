@@ -120,4 +120,44 @@ class Robots extends MetaNameBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormXpath(): array {
+    $paths = [];
+    foreach ($this->formValues() as $key => $value) {
+      $paths[] = "//input[@name='robots[{$key}]' and @type='checkbox']";
+    }
+    return $paths;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormData(): array {
+    return [
+      // @todo Expand this?
+      'robots[index]' => TRUE,
+      'robots[noydir]' => TRUE,
+      // 'robots[follow]',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputValuesXpath(array $values): array {
+    // This tag outputs its multiple possible values as a comma-separated string
+    // so just use the standard test output once the values are joined together
+    // as a single string.
+    $new_values = [];
+    foreach ($values as $form_field_name => $value) {
+      // The strings are stored as e.g. "robots[index]", "robots[noydir]", etc.
+      // So in order to get the value names we need to remove the first part
+      // and the wrapping brackets.
+      $new_values[] = substr($form_field_name, 7, -1);
+    }
+    return parent::getTestOutputValuesXpath([implode(', ', $new_values)]);
+  }
+
 }

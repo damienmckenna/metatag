@@ -10,7 +10,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *
  * @group metatag
  */
-class MetatagForumTest extends BrowserTestBase {
+class ForumTest extends BrowserTestBase {
 
   use StringTranslationTrait;
 

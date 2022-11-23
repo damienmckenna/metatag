@@ -50,4 +50,22 @@ abstract class LinkSizesBase extends LinkRelBase {
     return $this->iconSize();
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputExistsXpath(): array {
+    return ["//link[@rel='{$this->name}' and @sizes='" . $this->iconSize() . "']"];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputValuesXpath(array $values): array {
+    $xpath_strings = [];
+    foreach ($values as $value) {
+      $xpath_strings[] = "//link[@rel='{$this->name}' and @sizes='" . $this->iconSize() . "' and @" . $this->htmlValueAttribute . "='{$value}']";
+    }
+    return $xpath_strings;
+  }
+
 }

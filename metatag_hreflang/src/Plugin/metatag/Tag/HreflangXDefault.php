@@ -26,4 +26,22 @@ class HreflangXDefault extends HreflangBase {
     return 'x-default';
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputExistsXpath(): array {
+    return ["//link[@rel='alternate' and @hreflang='x-default']"];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputValuesXpath(array $values): array {
+    $xpath_strings = [];
+    foreach ($values as $value) {
+      $xpath_strings[] = "//link[@rel='alternate' and @hreflang='x-default' and @href='{$value}']";
+    }
+    return $xpath_strings;
+  }
+
 }

@@ -11,7 +11,7 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
  *
  * @group metatag
  */
-class MetatagNodeTranslationTest extends BrowserTestBase {
+class NodeTranslationTest extends BrowserTestBase {
 
   use StringTranslationTrait;
 

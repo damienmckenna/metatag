@@ -38,4 +38,22 @@ class IosAppLinkAlternative extends LinkRelBase {
     return $element;
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputExistsXpath(): array {
+    return ["//link[@rel='alternate' and starts-with(@href, 'ios-app:')]"];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputValuesXpath(array $values): array {
+    $xpath_strings = [];
+    foreach ($values as $value) {
+      $xpath_strings[] = "//link[@rel='alternate' and @href='ios-app://{$value}']";
+    }
+    return $xpath_strings;
+  }
+
 }

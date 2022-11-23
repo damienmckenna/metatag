@@ -3,6 +3,7 @@
 namespace Drupal\metatag_favicons\Plugin\metatag\Tag;
 
 use Drupal\metatag\Plugin\metatag\Tag\LinkRelBase;
+use Drupal\Component\Utility\Random;
 
 /**
  * The Favicons "mask-icon" meta tag.
@@ -109,6 +110,39 @@ class MaskIcon extends LinkRelBase {
     else {
       $this->value = $value;
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormXpath(): array {
+    // This meta tag provides two separate form fields, so each needs to be
+    // tested.
+    return [
+      "//input[@name='mask_icon[href]' and @type='text']",
+      "//input[@name='mask_icon[color]' and @type='text']",
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormData(): array {
+    $random = new Random();
+    return [
+      // Use three alphanumeric strings joined with spaces.
+      'mask_icon[href]' => 'https://www.example.com/images/' . $random->word(6) . '.gif',
+      'mask_icon[color]' => '#b1ed9c',
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestOutputValuesXpath(array $values): array {
+    return [
+      "//link[@rel='mask-icon' and @href='{$values['mask_icon[href]']}' and @color='{$values['mask_icon[color]']}']",
+    ];
   }
 
 }

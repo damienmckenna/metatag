@@ -61,4 +61,22 @@ class Referrer extends MetaNameBase {
     ];
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormXpath(): array {
+    return [
+      // @todo This should work but it results in the following error:
+      // DOMXPath::query(): Invalid predicate.
+      // "//select[@name='{$this->id}'",
+    ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getTestFormData(): array {
+    return [$this->id => 'no-referrer'];
+  }
+
 }
