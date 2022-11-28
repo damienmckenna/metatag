@@ -10,6 +10,7 @@ Metatag 8.x-1.x-dev, 2022-xx-xx
   Drupal\metatag_favicons\Plugin\metatag\Tag\MaskIcon->output().
 #3313273 by DamienMcKenna, jenger1965, wells, JesperN, othermachines,
   flocondetoile: Incorrect unserialization error logged.
+#3323467 by DamienMcKenna: Wrong source module for Nodewords migrations.
 
 
 Metatag 8.x-1.22, 2022-09-29
