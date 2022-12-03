@@ -2,8 +2,8 @@
 
 namespace Drupal\metatag\Plugin\diff\Field;
 
-use Drupal\diff\FieldDiffBuilderBase;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\diff\FieldDiffBuilderBase;
 
 /**
  * Plugin to diff metatag fields.
@@ -30,7 +30,7 @@ class MetatagFieldBuilder extends FieldDiffBuilderBase {
         $values = $field_item->getValue();
         if (isset($values['value'])) {
           // Metatag data store as serialize string
-          $metatag_data = unserialize($values['value']);
+          $metatag_data = metatag_data_decode($values['value']);
 
           foreach ($metatag_data as $key => $value) {
             $result[$field_key][] = (string) $value;

@@ -196,7 +196,7 @@ $values = [
   'title' => 'Testing metatag creation',
   'uid' => 1,
   'status' => TRUE,
-  'field_meta_tags' => serialize([
+  'field_meta_tags' => Json::encode([
     'title' => 'Some title',
     'description' => 'Some description.',
     'keywords' => 'Some,Keywords',
@@ -217,7 +217,7 @@ Option 2:
   'uid' => 1,
 ]);
 $node->set('title', 'Testing metatag creation');
-$node->set('field_meta_tags', serialize([
+$node->set('field_meta_tags', Json::encode([
   'title' => 'Some title',
   'description' => 'Some description.',
   'keywords' => 'Some,Keywords',

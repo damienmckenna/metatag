@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\metatag\Kernel\Migrate\d6;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\StreamWrapper\PublicStream;
 use Drupal\Core\StreamWrapper\StreamWrapperInterface;
 use Drupal\node\Entity\Node;
@@ -133,7 +134,7 @@ class NodewordsEntitiesTest extends MigrateDrupal6TestBase {
       'robots' => 'nofollow, nosnippet',
       'title' => 'Test title',
     ];
-    $this->assertSame(serialize($expected), $node->field_metatag->value);
+    $this->assertSame(Json::encode($expected), $node->field_metatag->value);
 
     $node = node_revision_load(2004);
     $this->assertInstanceOf(NodeInterface::class, $node);
@@ -148,7 +149,7 @@ class NodewordsEntitiesTest extends MigrateDrupal6TestBase {
       'robots' => 'nofollow, nosnippet',
       'title' => 'Test title',
     ];
-    $this->assertSame(serialize($expected), $node->field_metatag->value);
+    $this->assertSame(Json::encode($expected), $node->field_metatag->value);
 
     /** @var \Drupal\user\Entity\User $user */
     $user = User::load(2);
@@ -158,7 +159,7 @@ class NodewordsEntitiesTest extends MigrateDrupal6TestBase {
       'revisit_after' => '1',
       'robots' => '',
     ];
-    $this->assertSame(serialize($expected), $user->field_metatag->value);
+    $this->assertSame(Json::encode($expected), $user->field_metatag->value);
 
     /** @var \Drupal\taxonomy\Entity\Term $term */
     $term = Term::load(16);
@@ -168,7 +169,7 @@ class NodewordsEntitiesTest extends MigrateDrupal6TestBase {
       'canonical_url' => 'the-term',
       'keywords' => 'a taxonomy, term',
     ];
-    $this->assertSame(serialize($expected), $term->field_metatag->value);
+    $this->assertSame(Json::encode($expected), $term->field_metatag->value);
   }
 
 }

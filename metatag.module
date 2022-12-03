@@ -7,6 +7,7 @@
 
 use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Component\Plugin\Factory\DefaultFactory;
+use Drupal\Component\Serialization\Json;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
@@ -935,4 +936,38 @@ function _metatag_is_migration_plugin_supported(array $definition) {
   // If this stage is reached then this is a supported core migration and the
   // Metatag migration will be automatically handled.
   return TRUE;
+}
+
+/**
+ * Decode the different versions of encoded values supported by Metatag.
+ *
+ * Metatag v1 stored data in serialized arrays. Metatag v2 stores data in
+ * JSON-encoded strings.
+ *
+ * @param string $string
+ *   The string to decode.
+ *
+ * @return array
+ *   A Metatag values array.
+ */
+function metatag_data_decode($string): array {
+  $data = [];
+
+  // Serialized arrays from Metatag v1.
+  if (substr($string, 0, 2) === 'a:') {
+    $data = @unserialize($string, ['allowed_classes' => FALSE]);
+  }
+
+  // Encoded JSON from Metatag v2.
+  elseif (substr($string, 0, 2) === '{"') {
+    // @todo Handle non-array responses.
+    $data = Json::decode($string);
+  }
+
+  // This is expected to be an array, so if it isn't then convert it to one.
+  if (!is_array($data)) {
+    $data = [];
+  }
+
+  return $data;
 }

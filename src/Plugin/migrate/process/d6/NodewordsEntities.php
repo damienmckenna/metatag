@@ -2,6 +2,7 @@
 
 namespace Drupal\metatag\Plugin\migrate\process\d6;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\migrate\MigrateException;
 use Drupal\migrate\MigrateExecutableInterface;
 use Drupal\migrate\ProcessPluginBase;
@@ -82,7 +83,7 @@ class NodewordsEntities extends ProcessPluginBase {
     // Sort the meta tags alphabetically to make testing easier.
     ksort($metatags);
 
-    return serialize($metatags);
+    return Json::encode($metatags);
   }
 
   /**

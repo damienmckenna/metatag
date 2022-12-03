@@ -2,6 +2,7 @@ Metatag 2.0.x-dev, 2022-xx-xx
 -----------------------------
 #3164404 by DamienMcKenna: Rewrite tags testing architecture.
 #3305586 by DamienMcKenna: Remove Panelizer support.
+#3272768 by DamienMcKenna, SandeepSingh199: Convert to JSON data storage.
 
 
 Metatag 8.x-1.x-dev, 2022-xx-xx

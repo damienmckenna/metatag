@@ -71,6 +71,8 @@ $connection->insert('metatag')
     'entity_id' => '998',
     'revision_id' => '998',
     'language' => 'und',
+    // This first record uses the Metatag v1 setup of storing data in a
+    // serialized array.
     'data' => serialize([
       // A very basic meta tag.
       'keywords' => ['value' => 'old revision'],
@@ -98,7 +100,9 @@ $connection->insert('metatag')
     'entity_id' => '998',
     'revision_id' => '999',
     'language' => 'und',
-    'data' => serialize([
+    // This second record uses the Metatag v2 setup of storing data in a JSON
+    // -encoded array.
+    'data' => json_encode([
       'keywords' => ['value' => 'current revision'],
       'canonical' => ['value' => 'the-node'],
       'robots' => [

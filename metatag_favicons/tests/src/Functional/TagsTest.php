@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\metatag_favicons\Functional;
 
+use Drupal\Component\Serialization\Json;
 use Drupal\Tests\metatag\Functional\TagsTestBase;
 
 /**
@@ -21,6 +22,7 @@ class TagsTest extends TagsTestBase {
    */
   public function testMaskIconLegacy() {
     $this->loginUser1();
+
     // Add a metatag field to the entity type test_entity.
     $this->createContentType(['type' => 'page']);
     $this->drupalGet('admin/structure/types/manage/page/fields/add-field');
@@ -49,7 +51,7 @@ class TagsTest extends TagsTestBase {
     // Update the database record.
     \Drupal::database()->update('node__field_metatag')
       ->fields([
-        'field_metatag_value' => serialize([
+        'field_metatag_value' => Json::encode([
           'mask_icon' => 'mask_icon_href',
         ]),
       ])
